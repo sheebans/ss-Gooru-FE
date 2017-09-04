@@ -252,28 +252,6 @@ test('associateRubricToQuestion', function(assert) {
   service.associateRubricToQuestion(123, 312).then(done);
 });
 
-test('disassociateRubricFromQuestion', function(assert) {
-  const service = this.subject();
-
-  assert.expect(2);
-
-  service.set(
-    'rubricAdapter',
-    Ember.Object.create({
-      disassociateRubricFromQuestion: function(rubricId, questionId) {
-        assert.equal(rubricId, 'rubric-id', 'Wrong rubric id');
-        assert.equal(questionId, 'question-id', 'Wrong question id');
-        return Ember.RSVP.resolve();
-      }
-    })
-  );
-
-  var done = assert.async();
-  service
-    .disassociateRubricFromQuestion('rubric-id', 'question-id')
-    .then(done());
-});
-
 test('getQuestionsToGrade', function(assert) {
   const service = this.subject();
   assert.expect(2);

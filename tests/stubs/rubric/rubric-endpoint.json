@@ -85,22 +85,6 @@
     }
   },
   {
-    "description": "Disassociate rubric from question",
-    "request": {
-      "url": "^/api/nucleus/v2/questions/(.+)/rubrics/(.+)$",
-      "method": "DELETE",
-      "headers": {
-        "authorization": "Token (.+)"
-      }
-    },
-    "response": {
-      "status": 204,
-      "headers": {
-        "Content-Type": "application/json"
-      }
-    }
-  },
-  {
     "description": "update any rubric",
     "request": {
       "url": "^/api/nucleus/v2/rubrics/(.+)$",

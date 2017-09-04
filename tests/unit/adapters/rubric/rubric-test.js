@@ -274,28 +274,6 @@ test('Associate rubric with question, success', function(assert) {
   adapter.associateRubricToQuestion(123, 321).then(() => assert.ok(true));
 });
 
-test('Disassociate rubric from question, success', function(assert) {
-  const adapter = this.subject();
-  adapter.set(
-    'session',
-    Ember.Object.create({
-      'token-api3': 'token-api-3'
-    })
-  );
-  this.pretender.map(function() {
-    this.delete(
-      '/api/nucleus/v2/questions/question-id/rubrics/rubric-id',
-      function() {
-        return [204, { 'Content-Type': 'application/json; charset=utf-8' }, ''];
-      },
-      false
-    );
-  });
-  adapter
-    .disassociateRubricFromQuestion('rubric-id', 'question-id')
-    .then(() => assert.ok(true));
-});
-
 test('getQuestionsToGrade', function(assert) {
   const adapter = this.subject();
   adapter.set(

@@ -34,6 +34,12 @@ test('addTo', function(assert) {
         return Ember.RSVP.resolve({});
       }
     },
+    questionService: {
+      readQuestion: questionId => {
+        assert.equal(questionId, 'question-id', 'Question id should match');
+        return Ember.RSVP.resolve({});
+      }
+    },
     model: {
       questionId: 'question-id',
       callback: {

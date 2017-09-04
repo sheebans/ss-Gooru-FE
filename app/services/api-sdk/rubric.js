@@ -149,22 +149,6 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Disassociates a rubric from a question
-   * @param {String} rubricId
-   * @param {String} questionId
-   * @returns {Promise|boolean} returns true if deleted
-   */
-  disassociateRubricFromQuestion: function(rubricId, questionId) {
-    const service = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      service
-        .get('adapter')
-        .disassociateRubricFromQuestion(rubricId, questionId)
-        .then(resolve, reject);
-    });
-  },
-
-  /**
    * Returns the list of Questions that the teacher needs to grade.
    * @param {string} classId
    * @param {string} courseId
