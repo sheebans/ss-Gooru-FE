@@ -55,10 +55,12 @@
       </div>
     {{/if}}
   </div>
-  {{grading.gru-rubric-panel
-    answer=questionResult.userAnswer
-    rubric=rubric
-    showFullRubric=hideResponse
-    showNavigation=false
-  }}
+  {{#if (or questionResult.userAnswer rubric.categories.length)}}
+    {{grading.gru-rubric-panel
+      answer=questionResult.userAnswer
+      rubric=rubric
+      showFullRubric=hideResponse
+      showNavigation=false
+    }}
+  {{/if}}
 </div>

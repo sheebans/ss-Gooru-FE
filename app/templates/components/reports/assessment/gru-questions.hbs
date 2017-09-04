@@ -86,9 +86,11 @@
       {{/if}}
       {{#if result.question.isOpenEnded}}
         <td class="question-report">
-          <a {{action 'viewOEReport' result.question.id}}>
-            <span class="report-icon">{{gru-icon name='library_books'}}</span>
-          </a>
+          {{#if result.isGraded}}
+            <a {{action 'viewOEReport' result.question.id}}>
+              <span class="report-icon">{{gru-icon name='library_books'}}</span>
+            </a>
+          {{/if}}
         </td>
       {{/if}}
       {{#unless isAnswerKeyHidden}}
