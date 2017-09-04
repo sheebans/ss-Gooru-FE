@@ -9,6 +9,11 @@ export default Ember.Component.extend({
    */
   rubricService: Ember.inject.service('api-sdk/rubric'),
 
+  /**
+   * @property {rubricService}
+   */
+  questionService: Ember.inject.service('api-sdk/question'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -39,7 +44,12 @@ export default Ember.Component.extend({
         .associateRubricToQuestion(rubricId, model.questionId)
         .then(function() {
           if (model.callback) {
-            model.callback.success(component.get('selectedRubric'));
+            component
+              .get('questionService')
+              .readQuestion(model.questionId)
+              .then(function(question) {
+                model.callback.success(question);
+              });
           }
           component.triggerAction({ action: 'closeModal' });
         });

@@ -275,10 +275,10 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     /**
      * Updates rubric to display the information of the associated rubric
      */
-    updateAssociatedRubric: function(rubricAssociated) {
-      let question = this.get('tempModel');
-      rubricAssociated.set('rubricOn', true);
-      question.set('rubric', rubricAssociated);
+    updateAssociatedRubric: function(question) {
+      this.set('model', question);
+      let tempModel = this.get('tempModel');
+      tempModel.set('rubric', question.rubric);
     },
 
     /**
@@ -286,14 +286,11 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
      */
     removeRubric: function(associatedRubricId) {
       let component = this;
-      //let question = component.get('model');
-
+      let tempModel = component.get('tempModel');
       let rubric = Rubric.create(Ember.getOwner(this).ownerInjection(), {
         increment: 0.5,
         maxScore: 1
       });
-
-      let tempModel = component.get('tempModel');
 
       component
         .get('rubricService')
