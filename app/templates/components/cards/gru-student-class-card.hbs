@@ -17,11 +17,17 @@
           <span>{{t 'student-landing.class.performance'}}</span>
         </div>
         <div class="col-md-6 completed">
-          {{charts.gru-radial-chart
-            value=totalCompleted
+          {{#if class.isNUCourse}}
+            {{charts.gru-radial-chart
+            value=class.courseCompetencyCompletion.completedCount
             minValue=0
-            maxValue=total
-          }}
+            maxValue=class.courseCompetencyCompletion.totalCount}}
+          {{else}}
+            {{charts.gru-radial-chart
+            value=class.performanceSummary.totalCompleted
+            minValue=0
+            maxValue=class.performanceSummary.total}}
+          {{/if}}
           <span>{{t "common.completed"}}</span>
         </div>
       </div>

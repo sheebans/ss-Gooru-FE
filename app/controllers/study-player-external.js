@@ -144,6 +144,13 @@ export default Ember.Controller.extend({
       type: null
     });
   },
+
+  /**
+   * Extracted the course version from course object
+   * @property {String}
+   */
+  courseVersion: Ember.computed.alias('course.version'),
+
   // -------------------------------------------------------------------------
   // Methods
 

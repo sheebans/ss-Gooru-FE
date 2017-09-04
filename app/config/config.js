@@ -139,6 +139,8 @@ export const INCORRECT_COLOR = GRADING_SCALE[0].COLOR; //red-400
 
 export const ANONYMOUS_COLOR = '#0072BC'; //blue-400
 
+export const OPEN_ENDED_COLOR = '#0072BC'; //blue-400
+
 export const NO_ANSWER_COLOR = '#FFFFFF'; //white
 
 export const STUDY_PLAYER_BAR_COLOR = '#CDD2D6'; //$light-300
@@ -265,3 +267,5 @@ export const PLAYER_EVENT_SOURCE = {
   DAILY_CLASS: 'dailyclassactivity',
   INDEPENDENT_ACTIVITY: 'ILActivity'
 };
+
+export const NU_COURSE_VERSION = '3.0-nu';

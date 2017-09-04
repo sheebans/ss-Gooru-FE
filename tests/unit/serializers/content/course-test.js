@@ -135,7 +135,8 @@ test('normalizeCourse', function(assert) {
         title: 'Unit 2',
         sequence_id: 2
       }
-    ]
+    ],
+    version: '3.0-nu'
   };
   const normalizedCourse = serializer.normalizeCourse(
     payload,
@@ -183,6 +184,11 @@ test('normalizeCourse', function(assert) {
     'Wrong thumbnailUrl'
   );
   assert.equal(normalizedCourse.get('audience'), 1, 'Wrong audience');
+  assert.equal(
+    normalizedCourse.get('version'),
+    '3.0-nu',
+    'Wrong course version'
+  );
 });
 
 test('normalizeGetCourses', function(assert) {

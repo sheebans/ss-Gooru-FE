@@ -43,6 +43,11 @@ export default ResourceResult.extend({
   submittedAnswer: null,
 
   /**
+   * @property {boolean} indicates when it has been graded
+   */
+  isGraded: null,
+
+  /**
    * Applies only to question type resources. Core API will provide correct answer.
    * FE needs to capture user chosen values and compare with core API responses and then send status.
    *

@@ -190,7 +190,8 @@ test('Questions Layout-open ended', function(assert) {
       }),
       reaction: 4,
       timeSpent: 2096,
-      userAnswer: 'Student Open Ended answer 1'
+      userAnswer: 'Student Open Ended answer 1',
+      isGraded: true
     }),
     QuestionResult.create({
       correct: true,
@@ -202,7 +203,8 @@ test('Questions Layout-open ended', function(assert) {
       }),
       reaction: 4,
       timeSpent: 2096,
-      userAnswer: 'Student Open Ended answer 2'
+      userAnswer: 'Student Open Ended answer 2',
+      isGraded: true
     })
   ]);
 

@@ -1,6 +1,5 @@
-/*jshint multistr: true */
 import Ember from 'ember';
-import { GRADING_SCALE } from 'gooru-web/config/config';
+import { GRADING_SCALE, OPEN_ENDED_COLOR } from 'gooru-web/config/config';
 
 /**
  * Generate the legend to show the grading scale used throughout the app
@@ -17,33 +16,39 @@ import { GRADING_SCALE } from 'gooru-web/config/config';
  */
 export function gradingScaleLegend(params, hash) {
   const notStarted = hash && hash.notStarted;
+  const notScored = hash && hash.notScored;
 
   const $el = $('<div><ul class="grading-scale-legend"></ul></div>');
   const $legend = $el.find('.grading-scale-legend');
 
-  var gradingScaleLen = GRADING_SCALE.length;
+  const gradingScaleLen = GRADING_SCALE.length;
 
   if (notStarted) {
-    $legend.append(
-      `<li class="not-started"> \
-                      <i></i> \
-                      <span>${notStarted}</span>\
-                   </li>`
-    );
+    $legend.append(`<li class="not-started">
+                      <i></i>
+                      <span>${notStarted}</span>
+                   </li>`);
   }
 
   for (let i = 0; i < gradingScaleLen; i++) {
-    let bracket = GRADING_SCALE[i];
+    const bracket = GRADING_SCALE[i];
 
     // The upper limit of the grading scale will be 100
-    let upperLimit = GRADING_SCALE[i + 1]
+    const upperLimit = GRADING_SCALE[i + 1]
       ? GRADING_SCALE[i + 1].LOWER_LIMIT - 1
       : 100;
 
+    $legend.append(`<li>
+                      <i style="background-color: ${bracket.COLOR};"></i>
+                      <span>${bracket.LOWER_LIMIT} - ${upperLimit}%</span>
+                   </li>`);
+  }
+
+  if (notScored) {
     $legend.append(
-      `<li> \
-                      <i style="background-color: ${bracket.COLOR};"></i> \
-                      <span>${bracket.LOWER_LIMIT} - ${upperLimit}%</span>\
+      `<li class="not-scored"> \
+                      <i style="background-color: ${OPEN_ENDED_COLOR};"></i> \
+                      <span>${notScored}</span>\
                    </li>`
     );
   }

@@ -71,7 +71,8 @@ export default Ember.Object.extend({
         sessionId: payload.sessionId,
         startedAt: startedAt,
         submittedAt: submittedAt,
-        eventTime: eventTime
+        eventTime: eventTime,
+        isGraded: payload.isGraded
       });
       questionResult.submittedAnswer = !!questionResult.userAnswer;
       return questionResult;
