@@ -286,14 +286,28 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
      */
     removeRubric: function(associatedRubricId) {
       let component = this;
-      const questionId = this.get('tempModel.id');
+      //let question = component.get('model');
+
+      let rubric = Rubric.create(Ember.getOwner(this).ownerInjection(), {
+        increment: 0.5,
+        maxScore: 1
+      });
+
+      let tempModel = component.get('tempModel');
 
       component
         .get('rubricService')
-        .disassociateRubricFromQuestion(associatedRubricId, questionId)
+        .deleteRubric(associatedRubricId)
         .then(function() {
-          //TODO: After disassociate rubric is done
-          alert('Success');
+          tempModel.set('rubric', rubric);
+
+          component.setProperties({
+            model: tempModel,
+            isPanelExpanded: true,
+            isEditingInline: true,
+            isEditingNarration: false,
+            editImagePicker: false
+          });
         });
     },
 
