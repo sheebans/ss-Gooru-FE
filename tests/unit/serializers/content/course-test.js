@@ -136,24 +136,59 @@ test('normalizeCourse', function(assert) {
         sequence_id: 2
       }
     ],
-    "version": "3.0-nu"
+    version: '3.0-nu'
   };
-  const normalizedCourse = serializer.normalizeCourse(payload, Ember.A([owner]));
-  assert.equal(normalizedCourse.get("id"), 'course-id', 'Wrong id');
-  assert.equal(normalizedCourse.get("title"), 'Course title', 'Wrong title');
-  assert.equal(normalizedCourse.get("owner.username"), 'owner', 'Wrong Owner');
-  assert.equal(normalizedCourse.get("description"), 'Course description', 'Wrong description');
-  assert.equal(normalizedCourse.get("useCase"), 'Course use case', 'Wrong use case');
-  assert.equal(normalizedCourse.get("isPublished"), false, 'Wrong isPublished');
-  assert.equal(normalizedCourse.get("isVisibleOnProfile"), true, 'Wrong isVisibleOnProfile');
-  assert.equal(normalizedCourse.get("subject"), 'subject_bucket_value', 'Wrong subject');
-  assert.equal(normalizedCourse.get("taxonomy.length"), 0, 'Wrong taxonomy');
-  assert.equal(normalizedCourse.get("unitCount"), 2, 'Wrong unitCount');
-  assert.equal(normalizedCourse.get("children.length"), 2, 'Wrong children length');
-  assert.equal(normalizedCourse.get("children")[0].get("id"), 'unit-id-1', 'Wrong first children id');
-  assert.equal(normalizedCourse.get("thumbnailUrl"), contentCdnUrl + 'thumbnail.png', 'Wrong thumbnailUrl');
-  assert.equal(normalizedCourse.get("audience"), 1, 'Wrong audience');
-  assert.equal(normalizedCourse.get("version"), '3.0-nu', 'Wrong course version');
+  const normalizedCourse = serializer.normalizeCourse(
+    payload,
+    Ember.A([owner])
+  );
+  assert.equal(normalizedCourse.get('id'), 'course-id', 'Wrong id');
+  assert.equal(normalizedCourse.get('title'), 'Course title', 'Wrong title');
+  assert.equal(normalizedCourse.get('owner.username'), 'owner', 'Wrong Owner');
+  assert.equal(
+    normalizedCourse.get('description'),
+    'Course description',
+    'Wrong description'
+  );
+  assert.equal(
+    normalizedCourse.get('useCase'),
+    'Course use case',
+    'Wrong use case'
+  );
+  assert.equal(normalizedCourse.get('isPublished'), false, 'Wrong isPublished');
+  assert.equal(
+    normalizedCourse.get('isVisibleOnProfile'),
+    true,
+    'Wrong isVisibleOnProfile'
+  );
+  assert.equal(
+    normalizedCourse.get('subject'),
+    'subject_bucket_value',
+    'Wrong subject'
+  );
+  assert.equal(normalizedCourse.get('taxonomy.length'), 0, 'Wrong taxonomy');
+  assert.equal(normalizedCourse.get('unitCount'), 2, 'Wrong unitCount');
+  assert.equal(
+    normalizedCourse.get('children.length'),
+    2,
+    'Wrong children length'
+  );
+  assert.equal(
+    normalizedCourse.get('children')[0].get('id'),
+    'unit-id-1',
+    'Wrong first children id'
+  );
+  assert.equal(
+    normalizedCourse.get('thumbnailUrl'),
+    `${contentCdnUrl}thumbnail.png`,
+    'Wrong thumbnailUrl'
+  );
+  assert.equal(normalizedCourse.get('audience'), 1, 'Wrong audience');
+  assert.equal(
+    normalizedCourse.get('version'),
+    '3.0-nu',
+    'Wrong course version'
+  );
 });
 
 test('normalizeGetCourses', function(assert) {

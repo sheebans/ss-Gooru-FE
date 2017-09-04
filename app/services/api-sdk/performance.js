@@ -70,14 +70,54 @@ export default Ember.Service.extend({
 
   init: function() {
     this._super(...arguments);
-    this.set('classPerformanceSummarySerializer', ClassPerformanceSummarySerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('classPerformanceSummaryAdapter', ClassPerformanceSummaryAdapter.create(Ember.getOwner(this).ownerInjection()));
-    this.set('collectionPerformanceSummarySerializer', CollectionPerformanceSummarySerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('collectionPerformanceSummaryAdapter', CollectionPerformanceSummaryAdapter.create(Ember.getOwner(this).ownerInjection()));
-    this.set('activityPerformanceSummarySerializer', ActivityPerformanceSummarySerializer.create(Ember.getOwner(this).ownerInjection()));
-    this.set('activityPerformanceSummaryAdapter', ActivityPerformanceSummaryAdapter.create(Ember.getOwner(this).ownerInjection()));
-    this.set('courseCompetencyCompletionAdapter', CourseCompetencyCompletionAdapter.create(Ember.getOwner(this).ownerInjection()));
-    this.set('courseCompetencyCompletionSerializer', CourseCompetencyCompletionSerializer.create(Ember.getOwner(this).ownerInjection()));
+    this.set(
+      'classPerformanceSummarySerializer',
+      ClassPerformanceSummarySerializer.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
+    this.set(
+      'classPerformanceSummaryAdapter',
+      ClassPerformanceSummaryAdapter.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
+    this.set(
+      'collectionPerformanceSummarySerializer',
+      CollectionPerformanceSummarySerializer.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
+    this.set(
+      'collectionPerformanceSummaryAdapter',
+      CollectionPerformanceSummaryAdapter.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
+    this.set(
+      'activityPerformanceSummarySerializer',
+      ActivityPerformanceSummarySerializer.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
+    this.set(
+      'activityPerformanceSummaryAdapter',
+      ActivityPerformanceSummaryAdapter.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
+    this.set(
+      'courseCompetencyCompletionAdapter',
+      CourseCompetencyCompletionAdapter.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
+    this.set(
+      'courseCompetencyCompletionSerializer',
+      CourseCompetencyCompletionSerializer.create(
+        Ember.getOwner(this).ownerInjection()
+      )
+    );
   },
 
   /**
@@ -102,25 +142,28 @@ export default Ember.Service.extend({
       params.lessonId = context.lessonId;
     }
     return new Ember.RSVP.Promise(function(resolve) {
-      return service.get('studentCollectionAdapter').queryRecord(params).then(
-        function(payload) {
-          const assessmentResult = service
-            .get('studentCollectionPerformanceSerializer')
-            .normalizeStudentCollection(payload);
-          if (loadStandards) {
-            service
-              .loadStandardsSummary(assessmentResult, context)
-              .then(function() {
-                resolve(assessmentResult);
-              });
-          } else {
-            resolve(assessmentResult);
+      return service
+        .get('studentCollectionAdapter')
+        .queryRecord(params)
+        .then(
+          function(payload) {
+            const assessmentResult = service
+              .get('studentCollectionPerformanceSerializer')
+              .normalizeStudentCollection(payload);
+            if (loadStandards) {
+              service
+                .loadStandardsSummary(assessmentResult, context)
+                .then(function() {
+                  resolve(assessmentResult);
+                });
+            } else {
+              resolve(assessmentResult);
+            }
+          },
+          function() {
+            resolve(undefined);
           }
-        },
-        function() {
-          resolve(undefined);
-        }
-      );
+        );
     });
   },
 
@@ -789,10 +832,21 @@ export default Ember.Service.extend({
     endDate = new Date()
   ) {
     const service = this;
-    return service.get('activityPerformanceSummaryAdapter').findClassActivityPerformanceSummaryByIds(userId, classId, activityIds, activityType, startDate, endDate)
-        .then(function (data) {
-          return service.get('activityPerformanceSummarySerializer').normalizeAllActivityPerformanceSummary(data);
-        });
+    return service
+      .get('activityPerformanceSummaryAdapter')
+      .findClassActivityPerformanceSummaryByIds(
+        userId,
+        classId,
+        activityIds,
+        activityType,
+        startDate,
+        endDate
+      )
+      .then(function(data) {
+        return service
+          .get('activityPerformanceSummarySerializer')
+          .normalizeAllActivityPerformanceSummary(data);
+      });
   },
 
   /**
@@ -804,9 +858,14 @@ export default Ember.Service.extend({
   findCourseCompetencyCompletionByCourseIds: function(studentId, courseIds) {
     const service = this;
     if (courseIds && courseIds.length) {
-      return service.get('courseCompetencyCompletionAdapter').findCourseCompetencyCompletionByCourseIds(studentId, courseIds).then(function (data) {
-                return service.get('courseCompetencyCompletionSerializer').normalizeAllCourseCompetencyCompletion(data);
-            });
+      return service
+        .get('courseCompetencyCompletionAdapter')
+        .findCourseCompetencyCompletionByCourseIds(studentId, courseIds)
+        .then(function(data) {
+          return service
+            .get('courseCompetencyCompletionSerializer')
+            .normalizeAllCourseCompetencyCompletion(data);
+        });
     } else {
       return Ember.RSVP.resolve([]);
     }
