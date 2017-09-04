@@ -101,12 +101,12 @@ export default Ember.Object.extend({
       startDate: payload.created_at,
       endDate: payload.end_date,
       creatorSystem: '',
-      contentVisibility: payload['content_visibility'] || ClassModel.VISIBLE_NONE,
-      isArchived: payload['is_archived'],
-      collaborators: collaborators.map(function(collaboratorId){
-        return ProfileModel.create({ id: collaboratorId }) ;
+      contentVisibility: payload.content_visibility || ClassModel.VISIBLE_NONE,
+      isArchived: payload.is_archived,
+      collaborators: collaborators.map(function(collaboratorId) {
+        return ProfileModel.create({ id: collaboratorId });
       }),
-      courseVersion: payload['course_version']
+      courseVersion: payload.course_version
     });
   },
 

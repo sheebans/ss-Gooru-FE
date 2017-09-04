@@ -126,53 +126,70 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const classId = params.classId;
     const classPromise = route.get('classService').readClassInfo(classId);
     const membersPromise = route.get('classService').readClassMembers(classId);
-    const performanceSummaryPromise = route.get('performanceService').findClassPerformanceSummaryByStudentAndClassIds(myId,[classId]);
-    return Ember.RSVP.hash({
-      class: classPromise,
-      members: membersPromise,
-      classPerformanceSummaryItems: performanceSummaryPromise
-    }).then(function(hash) {
-      const aClass = hash.class;
-      const members = hash.members;
-      const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
-      aClass.set('performanceSummary', classPerformanceSummaryItems.findBy('classId', classId));
-      const courseId = aClass.get('courseId');
-      let visibilityPromise = Ember.RSVP.resolve([]);
-      let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
+    const performanceSummaryPromise = route
+      .get('performanceService')
+      .findClassPerformanceSummaryByStudentAndClassIds(myId, [classId]);
+    return Ember.RSVP
+      .hash({
+        class: classPromise,
+        members: membersPromise,
+        classPerformanceSummaryItems: performanceSummaryPromise
+      })
+      .then(function(hash) {
+        const aClass = hash.class;
+        const members = hash.members;
+        const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
+        aClass.set(
+          'performanceSummary',
+          classPerformanceSummaryItems.findBy('classId', classId)
+        );
+        const courseId = aClass.get('courseId');
+        let visibilityPromise = Ember.RSVP.resolve([]);
+        let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
 
-      if (courseId) {
-        visibilityPromise = route.get('classService').readClassContentVisibility(classId);
-        coursePromise = route.get('courseService').fetchById(courseId);
-      }
-      return Ember.RSVP.hash({
-        contentVisibility: visibilityPromise,
-        course: coursePromise
-      }).then(function (hash) {
-        const contentVisibility = hash.contentVisibility;
-        const course = hash.course;
-        const isNUCourse = (course.version === NU_COURSE_VERSION);
-        if (isNUCourse) {
-            Ember.RSVP.hash({
-              courseCompetencyCompletion:route.get('performanceService')
-                .findCourseCompetencyCompletionByCourseIds(myId, [ courseId ])
-            }).then(({courseCompetencyCompletion}) =>{
-              aClass.set('courseCompetencyCompletion', courseCompetencyCompletion.findBy('courseId', courseId));
-            });
+        if (courseId) {
+          visibilityPromise = route
+            .get('classService')
+            .readClassContentVisibility(classId);
+          coursePromise = route.get('courseService').fetchById(courseId);
         }
-        aClass.set('owner', members.get('owner'));
-        aClass.set('collaborators', members.get('collaborators'));
-        aClass.set('members', members.get('members'));
-        return Ember.RSVP.hash({
-          class: aClass,
-          course: course,
-          members: members,
-          units: course.get('children') || [],
-          contentVisibility: contentVisibility,
-          isNUCourse: isNUCourse,
-          tourSteps: tourSteps
-        });
+        return Ember.RSVP
+          .hash({
+            contentVisibility: visibilityPromise,
+            course: coursePromise
+          })
+          .then(function(hash) {
+            const contentVisibility = hash.contentVisibility;
+            const course = hash.course;
+            const isNUCourse = course.version === NU_COURSE_VERSION;
+            if (isNUCourse) {
+              Ember.RSVP
+                .hash({
+                  courseCompetencyCompletion: route
+                    .get('performanceService')
+                    .findCourseCompetencyCompletionByCourseIds(myId, [courseId])
+                })
+                .then(({ courseCompetencyCompletion }) => {
+                  aClass.set(
+                    'courseCompetencyCompletion',
+                    courseCompetencyCompletion.findBy('courseId', courseId)
+                  );
+                });
+            }
+            aClass.set('owner', members.get('owner'));
+            aClass.set('collaborators', members.get('collaborators'));
+            aClass.set('members', members.get('members'));
+            return Ember.RSVP.hash({
+              class: aClass,
+              course: course,
+              members: members,
+              units: course.get('children') || [],
+              contentVisibility: contentVisibility,
+              isNUCourse: isNUCourse,
+              tourSteps: tourSteps
+            });
+          });
       });
-    });
   },
 
   /**
