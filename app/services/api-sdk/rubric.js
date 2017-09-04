@@ -97,6 +97,16 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Updates score of question
+   * @param {Rubric} rubric
+   * @returns {Promise|Rubric} returns the rubric model with the newly assigned ID
+   */
+  updateScore: function(rubricData, questionId) {
+    var data = this.get('serializer').serializeUpdateScore(rubricData);
+    return this.get('adapter').updateScore(data, questionId);
+  },
+
+  /**
    * Deletes a rubric
    * @param {String} rubricId
    * @returns {Promise|boolean} returns true if deleted

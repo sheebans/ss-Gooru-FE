@@ -113,6 +113,46 @@ test('Rubric update, success', function(assert) {
   });
 });
 
+test('Rubric - updateScore, success', function(assert) {
+  assert.expect(5);
+  // Mock backend response
+  this.pretender.map(function() {
+    this.put('/api/nucleus/v2/questions/123/score', function(request) {
+      let requestBodyJson = JSON.parse(request.requestBody);
+      assert.equal(requestBodyJson.scoring, true, 'Wrong flag for scoring');
+      assert.equal(requestBodyJson.max_score, 75, 'Wrong max score');
+      assert.equal(requestBodyJson.increment, 1, 'Wrong increment');
+      assert.equal(
+        request.requestHeaders.Authorization,
+        'Token token-api-3',
+        'Wrong token'
+      );
+      return [
+        204,
+        {
+          'Content-Type': 'text/plain'
+        },
+        ''
+      ];
+    });
+  });
+  this.pretender.unhandledRequest = function(verb, path) {
+    assert.ok(false, `Wrong request [${verb}] url: ${path}`);
+  };
+
+  const adapter = this.subject();
+  const params = {
+    scoring: true,
+    max_score: 75,
+    increment: 1
+  };
+  const questionId = 123;
+
+  adapter.updateScore(params, questionId).then(function(response) {
+    assert.ok(response, 'Should return true');
+  });
+});
+
 test('Rubric delete, success', function(assert) {
   assert.expect(2);
   // Mock backend response

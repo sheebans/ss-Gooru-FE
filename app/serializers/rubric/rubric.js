@@ -140,6 +140,21 @@ export default Ember.Object.extend(ConfigurationMixin, {
   },
 
   /**
+   * Serializes a Rubric object into a JSON representation required by the update score endpoint
+   *
+   * @param {Rubric} model - The rubric score model to be serialized
+   * @returns {Object} JSON Object representation of the rubric score model
+   *
+   */
+  serializeUpdateScore: function(model) {
+    return {
+      scoring: model.get('scoring'),
+      max_score: model.get('maxScore'),
+      increment: model.get('increment')
+    };
+  },
+
+  /**
    * Serializes a rubric category
    * @param {RubricCategory} model
    * @returns {*} serialized category

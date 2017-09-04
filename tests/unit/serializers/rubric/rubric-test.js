@@ -259,6 +259,21 @@ test('serializeUpdateRubric OFF scenario', function(assert) {
   );
 });
 
+test('serializeUpdateScore', function(assert) {
+  const serializer = this.subject();
+
+  const rubricScore = Rubric.create({
+    scoring: true,
+    maxScore: 75,
+    increment: 1
+  });
+
+  const rubricScoreObject = serializer.serializeUpdateScore(rubricScore);
+  assert.equal(rubricScoreObject.scoring, true, 'Wrong scoring');
+  assert.equal(rubricScoreObject.max_score, 75, 'Wrong max score');
+  assert.equal(rubricScoreObject.increment, 1, 'Wrong increment');
+});
+
 test('serializedUpdateRubricCategory', function(assert) {
   const serializer = this.subject();
 

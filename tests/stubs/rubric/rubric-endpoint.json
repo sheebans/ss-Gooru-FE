@@ -101,6 +101,22 @@
     }
   },
   {
+    "description": "Update rubric/score for a question",
+    "request": {
+      "url": "^/api/nucleus/v2/questions/(.+)/score$",
+      "method": "PUT",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 204,
+      "headers": {
+        "Content-Type": "text/plain"
+      }
+    }
+  },
+  {
     "description": "Create any rubric",
     "request": {
       "url": "^/api/nucleus/v2/rubrics$",

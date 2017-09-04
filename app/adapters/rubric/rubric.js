@@ -92,6 +92,32 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Updates rubric score
+   *
+   * @param params - data to send in the request
+   * @param questionId - question ID
+   * @returns {Ember.Promise|Boolean} true when updated
+   */
+  updateScore: function(params, questionId) {
+    const namespace = this.get('questionsNamespace');
+    const url = `${namespace}/${questionId}/score`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders(),
+      data: JSON.stringify(params)
+    };
+
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(function() {
+        resolve(true);
+      }, reject);
+    });
+  },
+
+  /**
    * Deletes a rubric
    *
    * @param params - data to send in the request

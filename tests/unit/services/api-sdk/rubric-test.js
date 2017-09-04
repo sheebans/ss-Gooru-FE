@@ -129,6 +129,44 @@ test('updateRubric', function(assert) {
   });
 });
 
+test('updateScore', function(assert) {
+  const service = this.subject();
+  let rubricScore = RubricModel.create({
+    scoring: true,
+    maxScore: 25,
+    increment: 1
+  });
+
+  assert.expect(4);
+
+  service.set(
+    'serializer',
+    Ember.Object.create({
+      serializeUpdateScore: function(rubricParam) {
+        assert.deepEqual(rubricParam, rubricScore, 'Wrong rubric parameter');
+        return { id: 'fake-id' };
+      }
+    })
+  );
+
+  service.set(
+    'adapter',
+    Ember.Object.create({
+      updateScore: function(data, questionId) {
+        assert.equal(questionId, 123, 'Wrong question id');
+        assert.deepEqual(data, { id: 'fake-id' }, 'Wrong data');
+        return Ember.RSVP.resolve(true);
+      }
+    })
+  );
+
+  var done = assert.async();
+  service.updateScore(rubricScore, 123).then(function(updated) {
+    assert.ok(updated, 'Wrong score updated');
+    done();
+  });
+});
+
 test('deleteRubric', function(assert) {
   const service = this.subject();
   assert.expect(2);
