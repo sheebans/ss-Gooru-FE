@@ -100,33 +100,34 @@ export default Ember.Service.extend({
     let serializedData = service
       .get('questionSerializer')
       .serializeUpdateQuestion(questionModel);
+    const rubric = questionModel.get('rubric');
+
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service
         .get('questionAdapter')
         .updateQuestion(questionId, serializedData)
         .then(function() {
-          if (questionModel.get('rubric')) {
-            if (questionModel.get('rubric.id')) {
+          if (rubric.get('rubricOn')) {
+            return Ember.RSVP.resolve();
+          } else if (rubric.get('scoring')) {
+            if (rubric.get('title')) {
               return service
                 .get('rubricService')
-                .updateRubric(questionModel.get('rubric'));
+                .deleteRubric(rubric.get('id'))
+                .then(function() {
+                  return service
+                    .get('rubricService')
+                    .updateScore(rubric, questionId);
+                });
             } else {
               return service
                 .get('rubricService')
-                .createRubricOff(questionModel.get('rubric'))
-                .then(function(newRubric) {
-                  let rubricId = newRubric.get('id');
-                  questionModel.get('rubric').set('id', rubricId);
-                  return service
-                    .get('rubricService')
-                    .associateRubricToQuestion(
-                      rubricId,
-                      questionModel.get('id')
-                    );
-                });
+                .updateScore(rubric, questionId);
             }
+          } else if (rubric.get('title')) {
+            return service.get('rubricService').deleteRubric(rubric.get('id'));
           } else {
-            return Ember.RSVP.resolve();
+            return service.get('rubricService').updateScore(rubric, questionId);
           }
         })
         .then(function() {
