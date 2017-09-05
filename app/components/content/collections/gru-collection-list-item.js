@@ -658,7 +658,10 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
                 'text'
               ]);
 
-              if (!editedQuestion.get('rubric.rubricOn')) {
+              if (
+                editedQuestion.get('isOpenEnded') &&
+                !editedQuestion.get('rubric.rubricOn')
+              ) {
                 editedQuestion.set('rubric.title', null);
               }
 
