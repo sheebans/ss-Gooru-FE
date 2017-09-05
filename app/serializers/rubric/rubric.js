@@ -147,11 +147,17 @@ export default Ember.Object.extend(ConfigurationMixin, {
    *
    */
   serializeUpdateScore: function(model) {
-    return {
-      scoring: model.get('scoring'),
-      max_score: model.get('scoring') ? model.get('maxScore') : null,
-      increment: model.get('scoring') ? model.get('increment') : null
-    };
+    if (model.get('scoring')) {
+      return {
+        scoring: true,
+        max_score: model.get('maxScore') ? model.get('maxScore') : 1,
+        increment: model.get('increment') ? model.get('increment') : 0.5
+      };
+    } else {
+      return {
+        scoring: false
+      };
+    }
   },
 
   /**
