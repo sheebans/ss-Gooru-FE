@@ -472,6 +472,12 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   showAdvancedEditor: false,
 
   /**
+   * If a rubric ON is not associated
+   * @property {Boolean}
+   */
+  rubricError: false,
+
+  /**
    * If the advanced edit button should be shown
    @property {Boolean}
    */
@@ -544,7 +550,14 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       );
       component.updateQuestion(editedQuestion, component);
     } else if (editedQuestion.get('isOpenEnded')) {
-      component.updateQuestion(editedQuestion, component);
+      if (
+        editedQuestion.get('rubric.rubricOn') &&
+        !editedQuestion.get('rubric.title')
+      ) {
+        component.set('rubricError', true);
+      } else {
+        component.updateQuestion(editedQuestion, component);
+      }
     } else {
       if (editedQuestion.get('answers')) {
         if (this.get('showAdvancedEditButton')) {
@@ -763,7 +776,8 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       isPanelExpanded: true,
       isEditingInline: true,
       editImagePicker: false,
-      showAdvancedEditor: false
+      showAdvancedEditor: false,
+      rubricError: false
     });
   },
 
