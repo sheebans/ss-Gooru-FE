@@ -25,6 +25,15 @@ test('Layout', function(assert) {
       '/reports/student-open-ended-summary?classId=class-id&collectionId=first-assessment-id&courseId=course-id&unitId=first-unit-id&lessonId=first-lesson-id&questionId=question-id&collectionType=assessment&studentId=profile-id-1&sessionId=90ee529d-c47a-42f0-915a-c7f0a144b7af'
     );
     const $openEndedSummaryContainer = find('.student-open-ended-summary');
+
+    const $navigationContainer = $openEndedSummaryContainer.find('.navigation');
+    T.exists(assert, $navigationContainer, 'Missing navigation container');
+    T.exists(
+      assert,
+      $navigationContainer.find('button.back'),
+      'Missing back button'
+    );
+
     const $overallScoreHeader = $openEndedSummaryContainer.find(
       '.header .overall-score'
     );

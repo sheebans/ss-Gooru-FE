@@ -66,5 +66,13 @@ export default Ember.Controller.extend({
       }
       return categories;
     }
-  )
+  ),
+
+  /**
+   * @property {boolean} Shows if the question has score
+   */
+  hasScore: Ember.computed('questionSummary.maxScore', function() {
+    let maxScore = this.get('questionSummary.maxScore');
+    return maxScore && maxScore !== 0;
+  })
 });
