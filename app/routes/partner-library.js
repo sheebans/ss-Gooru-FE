@@ -33,6 +33,14 @@ export default Ember.Route.extend(PublicRouteMixin, {
     });
   },
 
+  redirect: function() {
+    const currentUrl = this.get('router.url');
+    const isRoot = currentUrl.split('/').length - 1 === 2;
+    if (isRoot) {
+      this.transitionTo('partner-library.content.courses');
+    }
+  },
+
   setupController: function(controller, model) {
     controller.set('library', model.library);
   }

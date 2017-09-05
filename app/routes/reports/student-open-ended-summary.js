@@ -36,6 +36,37 @@ export default Ember.Route.extend({
   // Actions
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    /**
+     * Returns to Analytics Report
+     * @function actions:goBack
+     */
+    goBack: function() {
+      const route = this;
+      let controller = route.get('controller');
+      const context = controller.get('context');
+
+      const queryParams = {
+        collectionId: context.get('collectionId'),
+        type: context.get('collectionType'),
+        userId: context.get('userId'),
+        classId: context.get('classId'),
+        sessionId: context.get('sessionId'),
+        courseId: context.get('courseId'),
+        unitId: context.get('unitId'),
+        lessonId: context.get('lessonId'),
+        role: 'student'
+      };
+
+      route.transitionTo('reports.student-collection-analytics', {
+        queryParams: queryParams
+      });
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Methods
 
   /**

@@ -1,15 +1,24 @@
 <div class="student-open-ended-summary">
   <div class="response-panel {{if hideResponse 'hide-response'}}">
+    <div class="row">
+      <div class="col-sm-12 navigation">
+        <button {{action 'goBack'}} class="btn btn-info back">
+        <span>
+          {{gru-icon name='keyboard_arrow_left'}}{{t 'common.back'}}
+        </span>
+        </button>
+      </div>
+    </div>
     <div class="header clearfix">
       <div class="summary-container">
         <div class="overall-score">
           <span class="title">{{t 'student-open-ended-summary.overall-score'}}</span>
             <span class="scores">
-              {{#unless (eq questionSummary.maxScore 0)}}
+              {{#if hasScore}}
                 {{questionSummary.learnerScore}}/{{questionSummary.maxScore}}
               {{else}}
                 &dash;&dash;
-              {{/unless}}
+              {{/if}}
           </span>
         </div>
         {{#if categoriesScore.length}}
