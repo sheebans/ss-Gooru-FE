@@ -719,6 +719,62 @@ test('Display fields when rubric is clicked', function(assert) {
   );
 });
 
+test('Save when rubric ON is not associated', function(assert) {
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    id: 'question-id',
+    title: 'Question Title',
+    description: 'Question Description',
+    format: 'question',
+    questionType: 'OE',
+    type: 'OE',
+    rubric: Rubric.create(Ember.getOwner(this).ownerInjection(), {
+      rubricOn: false
+    })
+  });
+
+  this.set('question', question);
+
+  this.render(
+    hbs`{{content/collections/gru-collection-list-item model=question}}`
+  );
+
+  const $panel = this.$(
+    'li.content.collections.gru-collection-list-item > .panel'
+  );
+
+  const $panelBody = $panel.find('> .panel-body');
+
+  const $actions = $panel.find('.actions .item-actions');
+
+  $actions.find('.edit-item').click();
+
+  return wait().then(function() {
+    assert.ok($panel.find('.question').length, 'Missing question section');
+
+    const $feedbackGradingContainer = $panelBody.find('.feedback-grading');
+
+    const $switchRubric = $feedbackGradingContainer.find(
+      '.switch.rubric .gru-switch .toggle'
+    );
+
+    Ember.run(() => {
+      $switchRubric.click();
+    });
+
+    const $saveButton = $panel.find('.detail .actions .item-actions .save');
+    assert.ok($saveButton.length, 'Panel');
+    $saveButton.click();
+
+    return wait().then(function() {
+      T.exists(
+        assert,
+        $feedbackGradingContainer.find('.content .validation .error'),
+        'error message should be visible'
+      );
+    });
+  });
+});
+
 test('Layout when rubric ON is already associated - without thumbnail', function(
   assert
 ) {

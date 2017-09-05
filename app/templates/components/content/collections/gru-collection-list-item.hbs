@@ -133,6 +133,13 @@
                       {{t 'content.questions.edit.builder.feedback-grading.from-existing-rubric'}}
                     </button>
                   </div>
+                  <div class="validation">
+                    {{#if rubricError}}
+                      <span class="error">
+                        {{t 'content.questions.edit.builder.feedback-grading.rubric-error'}}
+                      </span>
+                    {{/if}}
+                  </div>
                 {{/if}}
               {{else}}
                 <div class="switch scoring">

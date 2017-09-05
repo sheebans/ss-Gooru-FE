@@ -879,7 +879,8 @@ export default Object.assign(quizzesTranslations, {
             'from-existing-rubric': 'From Existing Rubric',
             scoring: 'Scoring',
             'maximum-points': 'Maximum Points',
-            increment: 'Increment'
+            increment: 'Increment',
+            'rubric-error': 'Please add a Rubric'
           }
         }
       }
