@@ -57,36 +57,6 @@ export default Ember.Service.extend({
   },
 
   /**
-   * Creates a rubric OFF
-   *
-   * @param rubricOffData object with the rubric off data
-   * @returns {Promise}
-   */
-  createRubricOff: function(rubricOffData) {
-    const service = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      let serializedRubricOffData = service
-        .get('serializer')
-        .serializeCreateRubricOff(rubricOffData);
-      service
-        .get('adapter')
-        .createRubricOff({
-          body: serializedRubricOffData
-        })
-        .then(
-          function(responseData, textStatus, request) {
-            let rubricOffId = request.getResponseHeader('location');
-            rubricOffData.set('id', rubricOffId);
-            resolve(rubricOffData);
-          },
-          function(error) {
-            reject(error);
-          }
-        );
-    });
-  },
-
-  /**
    * Updates a rubric
    * @param {Rubric} rubric
    * @returns {Promise|Rubric} returns the rubric model with the newly assigned ID

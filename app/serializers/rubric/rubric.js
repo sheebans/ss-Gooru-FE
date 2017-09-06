@@ -64,35 +64,6 @@ export default Ember.Object.extend(ConfigurationMixin, {
   },
 
   /**
-   * Serialize a Rubric Off object into a JSON representation required by the Create Rubric Off endpoint
-   *
-   * @param rubricOffModel The Rubric Off model to be serialized
-   * @returns {Object} returns a JSON Object
-   */
-  serializeCreateRubricOff: function(rubricOffModel) {
-    return this.serializeRubricOff(rubricOffModel);
-  },
-
-  serializeRubricOff: function(rubricOffModel) {
-    let serializedRubricOff = {
-      is_rubric: false,
-      overall_feedback_required: rubricOffModel.get('requiresFeedback'),
-      feedback_guidance: rubricOffModel.get('feedback'),
-      scoring: rubricOffModel.get('scoring'),
-      max_score: rubricOffModel.get('scoring')
-        ? rubricOffModel.get('maxScore')
-        : null,
-      increment: rubricOffModel.get('scoring')
-        ? rubricOffModel.get('increment')
-        : null,
-      grader: rubricOffModel.get('grader')
-        ? rubricOffModel.get('grader')
-        : 'Teacher'
-    };
-    return serializedRubricOff;
-  },
-
-  /**
    * Serializes a Rubric/Rubric object into a JSON representation required by the update rubric endpoint
    *
    * @param {Rubric} model - The rubric model to be serialized
