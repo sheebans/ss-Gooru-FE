@@ -20,7 +20,7 @@ test('Partner Library Layout', function(assert) {
   visit('/library/1');
 
   andThen(function() {
-    assert.equal(currentURL(), '/library/1');
+    assert.equal(currentURL(), '/library/1/content/courses');
 
     const $partnerLibraryContainer = find('.partner-library');
     T.exists(
@@ -68,7 +68,7 @@ test('Partner Library Layout - with short name', function(assert) {
   visit('/library/defaultLib');
 
   andThen(function() {
-    assert.equal(currentURL(), '/library/defaultLib');
+    assert.equal(currentURL(), '/library/defaultLib/content/courses');
 
     const $partnerLibraryContainer = find('.partner-library');
     T.exists(
