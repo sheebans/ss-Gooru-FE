@@ -38,7 +38,7 @@
           </div>
         {{/if}}
       </div>
-      {{grading.gru-task-header promptTitle=(t 'student-open-ended-summary.prompt') promptText=questionResult.userAnswer}}
+      {{grading.gru-task-header promptTitle=(t 'student-open-ended-summary.prompt') promptText=questionText}}
     </div>
     {{#if (or categoriesScore.length questionSummary.comment)}}
       <div class="panel panel-default rubric-categories-desc">
@@ -46,10 +46,12 @@
           {{#each categoriesScore as |category|}}
             <div class="category">
               <div class="content">
-                <span class="title ellipsis">{{category.title}}</span>
-                {{#unless (eq category.levelMaxScore 0)}}
-                  <span class="score">({{#if category.levelScore}}{{category.levelScore}}{{else}}0{{/if}}/{{category.levelMaxScore}})</span>
-                {{/unless}}
+                <div>
+                  <span class="title ellipsis">{{category.title}}</span>
+                  {{#unless (eq category.levelMaxScore 0)}}
+                    <span class="score">({{#if category.levelScore}}{{category.levelScore}}{{else}}0{{/if}}/{{category.levelMaxScore}})</span>
+                  {{/unless}}
+                </div>
               </div>
               <div class="comment">{{category.levelComment}}</div>
             </div>
