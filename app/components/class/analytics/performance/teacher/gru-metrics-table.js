@@ -268,14 +268,14 @@ export default Ember.Component.extend({
         }
       },
        showassessments(index) {
-             var temp = this.get('columns').objectAt(index);
-              this.expandLesson(temp.get('valuePath'));
+             var temp = this.get('headers').objectAt(index);
+              this.expandLesson(temp.get('id'),index);
               Ember.set(temp, 'showSubSub', true);
               Ember.set(temp, 'showAssessments', true);
         },
         showlessons(index) {
-             var temp = this.get('columns').objectAt(index);
-              this.expandUnit(temp.get('valuePath'));
+             var temp = this.get('headers').objectAt(index);
+              this.expandUnit(temp.get('id'),index);
              Ember.set(temp, 'showSub', true);
               Ember.set(temp, 'showAssessments', false);
         },
@@ -284,15 +284,15 @@ export default Ember.Component.extend({
             {
               this.removeexpandedUnit(this.get('tempUnitId'));
             }
-             var temp = this.get('columns').objectAt(index);
-             this.set('tempUnitId',temp.get('valuePath'));
-             this.expandUnit(temp.get('valuePath'));
+             var temp = this.get('headers').objectAt(index);
+             this.set('tempUnitId',temp.get('id'));
+             this.expandUnit(temp.get('id'),index);
              Ember.Logger.info("LessonPerformance---",this.get('performanceData'));
              Ember.set(temp, 'showSub', true);
         },
         collapse(index) {
-             var temp = this.get('columns').objectAt(index);
-            this.removeexpandedUnit(temp.get('valuePath'));
+             var temp = this.get('headers').objectAt(index);
+            this.removeexpandedUnit(temp.get('id'),index);
              Ember.set(temp, 'showSub', false);
         },
         onAfterResponsiveChange(matches) {
@@ -301,7 +301,7 @@ export default Ember.Component.extend({
         }
         }
     },
-  removeexpandedUnit: function(unitId){
+  removeexpandedUnit: function(unitId,unitIndex){
    const component = this;
     const classId = component.get('classId');
         const courseIdVal = component.get('courseId');
@@ -310,8 +310,7 @@ export default Ember.Component.extend({
         .then(function(members) {
         component.get('unitService').fetchById(courseIdVal, unitId)
           .then(function(unit) {
-            var temp1 = component.get('columns').findBy('valuePath', unitId);
-            var temp = component.get('columns').objectAt(temp1.index);
+            var temp = component.get('headers').objectAt(unitIndex);
             Ember.set(temp, 'subColumns', unit.get('children'));
             var lessons = unit.get('children');
             component.get('performanceService').findClassPerformanceByUnit(classId, courseIdVal, unitId, members.get('members'), {collectionType: filterBy})
@@ -382,7 +381,7 @@ export default Ember.Component.extend({
           });
           });
 },
-expandUnit: function(unitId){
+expandUnit: function(unitId,unitIndex){
    const component = this;
     const classId = component.get('classId');
         const courseIdVal = component.get('courseId');
@@ -391,8 +390,7 @@ expandUnit: function(unitId){
         .then(function(members) {
         component.get('unitService').fetchById(courseIdVal, unitId)
           .then(function(unit) {
-            var temp1 = component.get('columns').findBy('valuePath', unitId);
-            var temp = component.get('columns').objectAt(temp1.index);
+            var temp = component.get('headers').objectAt(unitIndex);
             component.set('colspanval',unit.get('children').length+1);
             Ember.set(temp, 'subColumns', unit.get('children'));
             var lessons = unit.get('children');
@@ -442,16 +440,46 @@ expandUnit: function(unitId){
                             {
                               if(item9.id===unitId)
                                 {
-                                  if(lessonPerformanceData.length>lessons.length)
-                                    {
-                                      lessonPerformanceData.removeAt(lessons.length);
-                                    }
+                                  // if(lessonPerformanceData.length>lessons.length)
+                                  //   {
+                                  //     lessonPerformanceData.removeAt(lessons.length);
+                                  //   }
                                     if(lessonPerformanceData.length!==1)
                                       {
                                       lessonPerformanceData.removeAt(0);
                                       }
                                   item9.set('subsubColumns', []);
-                                  item9.set('subColumns', lessonPerformanceData);
+                                  item9.set('subColumns', []);
+                                  var lessonsStr = "";
+                                  lessons.forEach(function(lessonObj){
+                                  lessonsStr = lessonsStr + lessonObj.id+",";
+                                  var emberObject = Ember.Object.create({
+                                      id: lessonObj.id
+                                    });
+                                    item9.get('subColumns').pushObject(emberObject);
+                                  });
+                                  for(var j=0;j<lessonPerformanceData.length;j++){
+                                      if(lessonPerformanceData[j]!== undefined)
+                                      {
+                                      if(lessonsStr.indexOf(lessonPerformanceData[j].id) !== -1)
+                                        {
+                                          var group = item9.get('subColumns').findBy('id', lessonPerformanceData[j].id);
+                                          if(group !== undefined)
+                                          {
+                                          var indx = item9.get('subColumns').indexOf(group);
+                                          item9.get('subColumns').removeAt(indx);
+                                          item9.get('subColumns').insertAt(indx, lessonPerformanceData[j]);
+                                          }
+                                        }
+                                      }
+                                    }
+
+
+
+
+
+
+                                  //item9.set('subColumns', lessonPerformanceData);
                                   // lessonPerformanceData.forEach(function(item2){
                                   //   if(newindexLesson<=lessons.length)
                                   //   {
@@ -476,7 +504,7 @@ expandUnit: function(unitId){
           });
           });
 },
-expandLesson: function(unitId){
+expandLesson: function(unitId,unitIndex){
    const component = this;
     const classId = component.get('classId');
         const courseIdVal = component.get('courseId');
@@ -485,22 +513,32 @@ expandLesson: function(unitId){
         .then(function(members) {
         component.get('unitService').fetchById(courseIdVal, unitId)
           .then(function(unit) {
-            var temp1 = component.get('columns').findBy('valuePath', unitId);
-            var temp = component.get('columns').objectAt(temp1.index);
+            var temp = component.get('headers').objectAt(unitIndex);
             component.set('colspanval',unit.get('children').length+1);
             Ember.set(temp, 'subColumns', unit.get('children'));
             var lessons = unit.get('children');
             component.set('assessment1performanceData',[]);
             var index1 =0;
-            lessons.forEach(function(lessonObj){
+          lessons.forEach(function(lessonObj, lessonIndex) {
+          setTimeout(function(){
+          component.eachLesson(courseIdVal,unitId,lessonObj,index1,lessonIndex,filterBy,unit,classId,members);},3000*lessonIndex);
+          });
+          });
+          });
+},
+        eachLesson: function(courseIdVal,unitId,lessonObj,index1,lessonIndex,filterBy,unit,classId,members){
+        const component = this;
           component.get('lessonService').fetchById(courseIdVal, unitId, lessonObj.id)
           .then(function(lesson) {
             Ember.set(lessonObj, 'subsubColumns', lesson.get('children'));
+              const filteredCollections = lesson.get('children').filter(function(collection) {
+              return (filterBy === 'both') || (collection.get('format') === filterBy);
+            });
             component.set('colspanval',unit.get('children').length+1 +lesson.get('children').length);
             var assessments = lesson.get('children');
             component.get('performanceService').findClassPerformanceByUnitAndLesson(classId, courseIdVal, unitId,lessonObj.id, members.get('members'), {collectionType: filterBy})
             .then(function(classPerformanceData) {
-            const performanceData = createDataMatrix(assessments, classPerformanceData, 'lesson');
+            const performanceData = createDataMatrix(filteredCollections, classPerformanceData, 'lesson');
             component.set('assessmentperformanceDataMatrix',performanceData);
             const assessmentperformanceData= Ember.computed('assessmentperformanceDataMatrix.length','sortCriteria', function() {
               const performanceData = this.get('assessmentperformanceDataMatrix').slice(1);
@@ -530,41 +568,57 @@ expandLesson: function(unitId){
               }
             });
             component.set('assessmentperformanceData',assessmentperformanceData);
-            Ember.Logger.info("datafromFramedobj---",component.get('assessmentperformanceDataMatrix'));
             var indx = 0;
-            component.get('assessmentperformanceDataMatrix').forEach(function(item){
+            component.get('assessmentperformanceData').forEach(function(item){
               var lessonUser = item.userId;
               var assessmentperformanceData = item.performanceData;
-               Ember.Logger.info("assessmentperformanceData11---",assessmentperformanceData);
                   component.get('performanceData').forEach(function(item1){
                     var indexLesson = 0;
                     if(lessonUser === item1.userId)
                       {
-
                         item1.performanceData.forEach(function(item9){
                           if(item9!==undefined && item9.id!==undefined)
                             {
                               if(item9.id===unitId)
                                 {
                                   assessmentperformanceData.removeAt(0);
-                                  Ember.Logger.info("addng--",assessmentperformanceData);
-                                  // if(assessmentperformanceData.length>assessments.length)
-                                  //   {
-                                  //     assessmentperformanceData.removeAt((assessments.length-1));
-                                  //   }
                                   item9.set('subColumns', []);
+                                  if(index1 ===0)
+                                    {
                                    item9.set('subsubColumns', []);
-                                   assessments.forEach(function(assessmentItem){
-                                    assessmentperformanceData.forEach(function(assessmentpItem){
-                                    if(assessmentpItem!==undefined){
-                                     if(assessmentpItem.id === assessmentItem.id)
+                                    }
+                                  var assessmentsStr = "";
+                                  assessments.forEach(function(assessmentObj){
+                                    if(assessmentObj.format !== "collection")
                                       {
-                                        item9.get('subsubColumns').pushObject(assessmentpItem);
-                                        return false;
+                                        assessmentsStr = assessmentsStr + assessmentObj.id+",";
+                                        var emberObject = Ember.Object.create({
+                                            id: assessmentObj.id,
+                                            lessonId:lessonObj.id
+                                          });
+                                          item9.get('subsubColumns').pushObject(emberObject);
                                       }
+                                  });
+                                  for(var j=0;j<assessmentperformanceData.length;j++)
+                                    {
+                                      if(assessmentperformanceData[j]!== undefined)
+                                      {
+                                      if(assessmentsStr.indexOf(assessmentperformanceData[j].id) !== -1)
+                                        {
+                                          var group = item9.get('subsubColumns').findBy('id', assessmentperformanceData[j].id);
+                                          if(group !== undefined)
+                                          {
+                                          var indx = item9.get('subsubColumns').indexOf(group);
+                                          var objAtLesson = item9.get('subsubColumns').objectAt(indx);
+                                          if(objAtLesson.lessonId === lessonObj.id)
+                                            {
+                                          item9.get('subsubColumns').removeAt(indx);
+                                          item9.get('subsubColumns').insertAt(indx, assessmentperformanceData[j]);
+                                            }
+                                          }
+                                        }
                                       }
-                                      });
-                                    });
+                                    }
                                 }
                             }
                           indexLesson = indexLesson + 1;
@@ -583,10 +637,8 @@ expandLesson: function(unitId){
           });
            //}
             index1 = index1+1;
-          });
-          });
-          });
-},
+
+        },
     /**
    * Initialize the table's sort criteria
    * @return {Object}

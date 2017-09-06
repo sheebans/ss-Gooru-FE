@@ -35,11 +35,19 @@
     max-width:61px;
   }
     .subsubwidthmax{
-    min-width:125px !important;
-    width:125px;
+    min-width:111px !important;
+    width:115px;
+  }
+    .subsubwidthmaxCollapse{
+    min-width:70px !important;
+    width:70px;
+  }
+  .subsubwidthmaxCollapseUnit{
+    min-width:73px !important;
+    width:73px;
   }
   .subsubwidthmax1{
-    width:143px;
+    width:110px;
   }
     thead {
       tr {
@@ -131,7 +139,9 @@
       }
       th {
         width: 140px;
-        border: 0;
+         border-right: 1px solid $light-300;
+          border-left: 1px solid $light-300;
+          border-top: 1px solid $light-300;
         span {
           display: block;
           width: inherit;
@@ -187,6 +197,9 @@
     }
     .performance-information {
       max-width:61px !important;
+      border-right: 1px solid $light-300;
+      border-left: 1px solid $light-300;
+      border-top: 1px solid $light-300;
       .box {
         border-radius: 4px;
         width: 42px;
