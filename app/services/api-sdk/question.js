@@ -100,30 +100,44 @@ export default Ember.Service.extend({
     let serializedData = service
       .get('questionSerializer')
       .serializeUpdateQuestion(questionModel);
+
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service
         .get('questionAdapter')
         .updateQuestion(questionId, serializedData)
         .then(function() {
-          if (questionModel.get('rubric')) {
-            if (questionModel.get('rubric.id')) {
+          if (questionModel.get('isOpenEnded')) {
+            const rubric = questionModel.get('rubric');
+            if (rubric.get('rubricOn')) {
+              //Scenario: Rubric ON - Scoring OFF
+              return Ember.RSVP.resolve();
+            } else if (rubric.get('scoring')) {
+              if (rubric.get('title')) {
+                //Scenario: Rubric OFF - Scoring ON - From Rubric ON
+                return service
+                  .get('rubricService')
+                  .deleteRubric(rubric.get('id'))
+                  .then(function() {
+                    return service
+                      .get('rubricService')
+                      .updateScore(rubric, questionId);
+                  });
+              } else {
+                //Scenario: Rubric OFF - Scoring ON - From Rubric OFF
+                return service
+                  .get('rubricService')
+                  .updateScore(rubric, questionId);
+              }
+            } else if (rubric.get('title')) {
+              //Scenario: Rubric OFF - Scoring OFF - From Rubric ON
               return service
                 .get('rubricService')
-                .updateRubric(questionModel.get('rubric'));
+                .deleteRubric(rubric.get('id'));
             } else {
+              //Scenario: Rubric OFF - Scoring OFF - From Rubric OFF
               return service
                 .get('rubricService')
-                .createRubricOff(questionModel.get('rubric'))
-                .then(function(newRubric) {
-                  let rubricId = newRubric.get('id');
-                  questionModel.get('rubric').set('id', rubricId);
-                  return service
-                    .get('rubricService')
-                    .associateRubricToQuestion(
-                      rubricId,
-                      questionModel.get('id')
-                    );
-                });
+                .updateScore(rubric, questionId);
             }
           } else {
             return Ember.RSVP.resolve();

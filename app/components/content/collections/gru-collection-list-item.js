@@ -658,6 +658,13 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
                 'text'
               ]);
 
+              if (
+                editedQuestion.get('isOpenEnded') &&
+                !editedQuestion.get('rubric.rubricOn')
+              ) {
+                editedQuestion.set('rubric.title', null);
+              }
+
               if (!question.get('rubric')) {
                 question.set('rubric', editedQuestion.get('rubric'));
               } else {
@@ -667,7 +674,8 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
                     'maxScore',
                     'increment',
                     'scoring',
-                    'rubricOn'
+                    'rubricOn',
+                    'title'
                   ]);
               }
             })

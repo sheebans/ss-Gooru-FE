@@ -144,11 +144,6 @@ export default Ember.Object.extend(Validations, {
   increment: null,
 
   /**
-   * @property {String} Self or Teacher
-   */
-  grader: null,
-
-  /**
    * @property {Array} Categories total points
    */
   categoriesPoints: Ember.computed.mapBy('categories', 'totalPoints'),
