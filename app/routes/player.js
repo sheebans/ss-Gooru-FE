@@ -25,6 +25,10 @@ export default QuizzesPlayer.extend(
    * @property {Ember.Service} Service to retrieve an assessment
    */
     assessmentService: Ember.inject.service('api-sdk/assessment'),
+    /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+    profileService: Ember.inject.service('api-sdk/profile'),
 
     /**
    * @property {Ember.Service} Service to retrieve a collection
@@ -198,7 +202,7 @@ export default QuizzesPlayer.extend(
     setupController(controller, model) {
       this._super(...arguments);
       const isAnonymous = model.isAnonymous;
-      const isTeacher = model.role === ROLES.TEACHER;
+      const isTeacher = this.get('profile.role') === ROLES.TEACHER;
       controller.set('isTeacher', isTeacher);
       controller.set('isAnonymous', isAnonymous);
     },
@@ -210,6 +214,13 @@ export default QuizzesPlayer.extend(
      */
     playerModel: function(params) {
       const route = this;
+      const userId = route.get('session.userId');
+      route
+        .get('profileService')
+        .readUserProfile(userId)
+        .then(function(updatedProfile) {
+          route.set('profile', updatedProfile);
+        });
       const collectionId = params.collectionId;
       const type = params.type;
       const role = params.role || ROLES.TEACHER;
@@ -232,7 +243,8 @@ export default QuizzesPlayer.extend(
         })
         .then(function({ id }) {
           params.contextId = id;
-          params.role = role;
+          params.role = route.get('profile.role');
+          params.isTeacher = route.get('profile.role') === ROLES.TEACHER;
           params.profileId = route.get('session.userData.gooruUId');
           return route.quizzesModel(params);
         });
