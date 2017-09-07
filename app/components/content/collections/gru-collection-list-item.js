@@ -275,10 +275,11 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     /**
      * Updates rubric to display the information of the associated rubric
      */
-    updateAssociatedRubric: function(question) {
-      this.set('model', question);
+    updateAssociatedRubric: function(rubric) {
+      this.set('model.rubric', rubric);
+
       let tempModel = this.get('tempModel');
-      tempModel.set('rubric', question.rubric);
+      tempModel.set('rubric', rubric.copy());
     },
 
     /**
@@ -296,10 +297,10 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
         .get('rubricService')
         .deleteRubric(associatedRubricId)
         .then(function() {
+          component.set('model.rubric', null);
           tempModel.set('rubric', rubric);
 
           component.setProperties({
-            model: tempModel,
             isPanelExpanded: true,
             isEditingInline: true,
             isEditingNarration: false,

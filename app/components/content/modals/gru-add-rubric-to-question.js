@@ -48,7 +48,7 @@ export default Ember.Component.extend({
               .get('questionService')
               .readQuestion(model.questionId)
               .then(function(question) {
-                model.callback.success(question);
+                model.callback.success(question.rubric);
               });
           }
           component.triggerAction({ action: 'closeModal' });
