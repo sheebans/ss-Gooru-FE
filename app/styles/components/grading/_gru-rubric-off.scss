@@ -6,11 +6,17 @@
     padding: 0 14px;
     .total-score {
       @include flexbox();
-      @include align-items(baseline);
+      height: 30px;
+      margin: 0 0 15px;
+      span.score {
+        vertical-align: middle;
+        padding: 5px 0 0;
+      }
       .gru-input-number {
         width: 40%;
         margin: 0 10px;
         color: $white;
+        height: inherit;
         input {
           height: 30px;
           color: $dark-400;
