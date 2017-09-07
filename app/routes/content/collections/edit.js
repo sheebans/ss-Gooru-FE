@@ -21,6 +21,16 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   courseService: Ember.inject.service('api-sdk/course'),
 
   /**
+   * @requires service:api-sdk/question
+   */
+  questionService: Ember.inject.service('api-sdk/question'),
+
+  /**
+   * @requires service:api-sdk/question
+   */
+  resourceService: Ember.inject.service('api-sdk/resource'),
+
+  /**
    * @requires service:century-skill/century-skill
    */
   centurySkillService: Ember.inject.service('century-skill'),
@@ -52,7 +62,17 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           course = route.get('courseService').fetchById(courseId);
         }
 
+        let questionPromiseList = collection
+          .get('children')
+          .map(
+            question =>
+              question.get('format') === 'question'
+                ? route.get('questionService').readQuestion(question.get('id'))
+                : route.get('resourceService').readResource(question.get('id'))
+          );
+
         return Ember.RSVP.hash({
+          questions: Ember.RSVP.all(questionPromiseList),
           collection: collection,
           course: course,
           isEditing: !!isEditing,
@@ -63,7 +83,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   setupController(controller, model) {
     const route = this;
-
+    model.collection.set('children', model.questions);
     controller.set('collection', model.collection);
     controller.set('course', model.course);
     controller.set('isEditing', model.isEditing);
