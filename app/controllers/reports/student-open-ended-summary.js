@@ -15,7 +15,8 @@ export default Ember.Controller.extend({
     'sessionId',
     'collectionId',
     'collectionType',
-    'questionId'
+    'questionId',
+    'role'
   ],
 
   // -------------------------------------------------------------------------
@@ -53,6 +54,17 @@ export default Ember.Controller.extend({
    * @property {RubricGrade} questionSummary
    */
   questionSummary: null,
+
+  /**
+   * @property {string} indicates if it is a student or teacher view
+   */
+  role: null,
+
+  /**
+   * Indicates if the student is playing the collection
+   * @property {boolean}
+   */
+  isStudent: Ember.computed.equal('role', 'student'),
 
   /**
    * @property {RubricCategoryScore[]} List of categories score

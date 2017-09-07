@@ -75,17 +75,24 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       const route = this;
       const controller = route.get('controller');
       const context = controller.get('context');
+      var sessionId = context.get('sessionId');
+      const isCollection = controller.get('collection.isCollection');
+
+      if (isCollection) {
+        sessionId = controller.get('collectionSessionId');
+      }
 
       const queryParams = {
         collectionId: context.get('collectionId'),
         collectionType: context.get('collectionType'),
         studentId: context.get('userId'),
         classId: context.get('classId'),
-        sessionId: context.get('sessionId'),
+        sessionId: sessionId,
         courseId: context.get('courseId'),
         unitId: context.get('unitId'),
         lessonId: context.get('lessonId'),
-        questionId
+        questionId,
+        role: controller.get('role')
       };
 
       route.transitionTo('reports.student-open-ended-summary', {
@@ -173,7 +180,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('lesson', model.lesson);
     controller.set('completedSessions', model.completedSessions);
     controller.set('context', model.context);
+    const isCollection = controller.get('collection.isCollection');
+
     if (model.assessmentResult) {
+      if (isCollection) {
+        controller.set('collectionSessionId', model.assessmentResult.sessionId);
+      }
       controller.setAssessmentResult(model.assessmentResult);
     }
   },
