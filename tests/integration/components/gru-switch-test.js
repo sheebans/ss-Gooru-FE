@@ -91,7 +91,7 @@ test('Switch Disabled', function(assert) {
   this.set('disabled', true);
 
   this.render(
-    hbs`{{gru-switch switchOptions=switchOptions  disabled=disabled}}`
+    hbs`{{gru-switch switchOptions=switchOptions disabled=disabled}}`
   );
 
   const $component = this.$(); //component dom element
