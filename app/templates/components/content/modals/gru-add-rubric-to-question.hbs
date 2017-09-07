@@ -6,7 +6,11 @@
 <div class="modal-body">
   <div class="lead">
     <span>
-      {{t 'gru-add-rubric-to-question.lead'}}
+      {{#if filteredRubrics.length}}
+        {{t 'gru-add-rubric-to-question.lead'}}
+      {{else}}
+        {{t 'gru-add-rubric-to-question.no-rubrics'}}
+      {{/if}}
     </span>
   </div>
   <div class="list">
@@ -22,8 +26,14 @@
     <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
       <span aria-hidden="true">{{t 'common.cancel'}}</span>
     </button>
-    <button class="btn btn-primary add-to" disabled={{if selectedRubric false true}} {{action "addTo"}}>
-      {{t 'common.add'}}
-    </button>
+    {{#if filteredRubrics.length}}
+      <button class="btn btn-primary add-to" disabled={{if selectedRubric false true}} {{action "addTo"}}>
+        {{t 'common.add'}}
+      </button>
+    {{else}}
+      <button class="btn btn-primary go-to" {{action "goToContent"}}>
+        {{t 'gru-add-rubric-to-question.go-to-content'}}
+      </button>
+    {{/if}}
   </div>
 </div>

@@ -53,6 +53,18 @@ export default Ember.Component.extend({
           }
           component.triggerAction({ action: 'closeModal' });
         });
+    },
+
+    /**
+     * Go to content page
+     */
+    goToContent: function() {
+      let component = this;
+      const model = component.get('model');
+      component
+        .get('router')
+        .transitionTo('profile.content.rubrics', model.userId);
+      component.triggerAction({ action: 'closeModal' });
     }
   },
 

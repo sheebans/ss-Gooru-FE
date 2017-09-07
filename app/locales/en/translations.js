@@ -1178,7 +1178,10 @@ export default Object.assign(quizzesTranslations, {
   },
   'gru-add-rubric-to-question': {
     title: 'Add from my Rubrics',
-    lead: 'Select a rubric to add to this question.'
+    lead: 'Select a rubric to add to this question.',
+    'no-rubrics':
+      'You have not yet created any rubrics that can be attached to this Free Response Question. You can create rubrics under My Content which can be accessed from your profile.',
+    'go-to-content': 'Go to My Content'
   },
   'gru-assessment-confirmation': {
     title: 'You are about to start an assessment...',

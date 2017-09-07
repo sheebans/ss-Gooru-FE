@@ -26,7 +26,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   questionService: Ember.inject.service('api-sdk/question'),
 
   /**
-   * @requires service:api-sdk/question
+   * @requires service:api-sdk/resource
    */
   resourceService: Ember.inject.service('api-sdk/resource'),
 
