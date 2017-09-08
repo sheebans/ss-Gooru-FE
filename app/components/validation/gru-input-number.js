@@ -61,6 +61,11 @@ export default GruInput.extend({
     this.set('oldValue', this.get('rawInputValue'));
   },
 
+  didUpdateAttrs() {
+    this._super(...arguments);
+    this.initValues();
+  },
+
   didRender: function() {
     this._super(...arguments);
     const component = this;

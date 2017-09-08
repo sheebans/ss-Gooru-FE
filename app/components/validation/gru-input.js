@@ -81,11 +81,6 @@ export default Ember.Component.extend({
     }
   },
 
-  didUpdateAttrs() {
-    this._super(...arguments);
-    this.initValues();
-  },
-
   // -------------------------------------------------------------------------
   // Properties
 
