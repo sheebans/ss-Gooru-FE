@@ -32,6 +32,7 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Actions
+
   actions: {
     textareaValueChange: function() {
       this.set(
@@ -57,15 +58,9 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    var valuePath = this.get('valuePath');
-    defineProperty(
-      this,
-      'attributeValidation',
-      computed.oneWay(`model.validations.attrs.${valuePath}`)
-    );
-    this.set('rawTextareaValue', this.get(`model.${valuePath}`));
-    defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
+    this.initValues();
   },
+
   didInsertElement: function() {
     var $component = this;
     this.$('textarea').bind('paste', function(e) {
@@ -75,6 +70,12 @@ export default Ember.Component.extend({
       $component.set('value', $component.get('rawTextareaValue'));
     });
   },
+
+  didUpdateAttrs() {
+    this._super(...arguments);
+    this.initValues();
+  },
+
   // -------------------------------------------------------------------------
   // Properties
 
@@ -107,6 +108,7 @@ export default Ember.Component.extend({
    * @param {Number} rows of the textarea field.
    */
   rows: 1,
+
   /**
    * @param {Object} attributeValidation - value used to set the rawTextareaValue
    */
@@ -153,6 +155,7 @@ export default Ember.Component.extend({
       );
     }
   ),
+
   /**
    * @param {Computed } hasContent - computed property that defines whether the rawInputValue is null or not.
    */
@@ -184,10 +187,25 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Methods
+
   /*
    * Remove white spaces from input
    */
   removeWhiteSpaces: function(value) {
     return $.trim(value);
+  },
+
+  /*
+   * Init input values
+   */
+  initValues: function() {
+    var valuePath = this.get('valuePath');
+    defineProperty(
+      this,
+      'attributeValidation',
+      computed.oneWay(`model.validations.attrs.${valuePath}`)
+    );
+    this.set('rawTextareaValue', this.get(`model.${valuePath}`));
+    defineProperty(this, 'value', computed.alias(`model.${valuePath}`));
   }
 });

@@ -61,6 +61,11 @@ export default GruInput.extend({
     this.set('oldValue', this.get('rawInputValue'));
   },
 
+  didUpdateAttrs() {
+    this._super(...arguments);
+    this.initValues();
+  },
+
   didRender: function() {
     this._super(...arguments);
     const component = this;
@@ -135,7 +140,11 @@ export default GruInput.extend({
    * Check every time the score change in order to convert the value to number.
    */
   modelChange: Ember.observer('model.minScore', function() {
-    var component = this;
-    component.set('model.minScore', +this.get('model.minScore'));
+    const component = this;
+    const minScore = this.get('model.minScore');
+
+    if (minScore !== 'undefined' && typeof minScore !== 'number') {
+      component.set('model.minScore', +minScore);
+    }
   })
 });
