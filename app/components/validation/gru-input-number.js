@@ -138,7 +138,7 @@ export default GruInput.extend({
     const component = this;
     const minScore = this.get('model.minScore');
 
-    if (minScore && typeof minScore === 'string') {
+    if (minScore !== 'undefined' && typeof minScore !== 'number') {
       component.set('model.minScore', +minScore);
     }
   })
