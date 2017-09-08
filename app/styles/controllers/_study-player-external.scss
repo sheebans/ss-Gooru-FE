@@ -8,7 +8,9 @@
       @include flexbox;
       @include justify-content(center);
       padding: 100px;
-
+      @media (max-width: $screen-xs-max) {
+        padding-top: 228px;
+      }
       .external-resource {
         padding: 25px;
         height: auto;

@@ -1,8 +1,13 @@
 import Ember from 'ember';
-import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
+import {
+  ASSESSMENT_SUB_TYPES,
+  EMOTION_VALUES,
+  DISABLED_EMOTION_UNICODE
+} from 'gooru-web/config/config';
 import PlayerController from 'gooru-web/controllers/player';
 
 /**
+ *
  * Study Player Controller
  *
  * @module
@@ -39,13 +44,6 @@ export default PlayerController.extend({
   // Actions
   actions: {
     /**
-     * Action triggered when the performance information panel is expanded/collapsed
-     */
-    toggleHeader: function(toggleState) {
-      this.set('toggleState', toggleState);
-    },
-
-    /**
      * If the user want to continue playing the collection
      */
     playActualCollection: function() {
@@ -81,6 +79,37 @@ export default PlayerController.extend({
 
     loadPreTest: () => {
       return true;
+    },
+
+    onChooseReaction: function(value) {
+      this.get('contextResult.resourceResults')
+        .findBy('resourceId', this.get('resourceId'))
+        .set('reaction', value);
+    },
+
+    onSelectNavigatorItem: function(resource) {
+      let resourceResults = this.get('contextResult.resourceResults');
+      let resourceResult = resourceResults.findBy('resourceId', resource.id);
+      this.set('ratingScore', resourceResult.get('reaction'));
+      let emotion = EMOTION_VALUES.findBy('value', this.get('ratingScore'));
+      let selectedUnicode = emotion
+        ? emotion.unicode
+        : DISABLED_EMOTION_UNICODE;
+      this.set('selectedUnicode', selectedUnicode);
+    },
+
+    onStartPlayer: function() {
+      let resourceId = this.get('resourceId');
+      if (resourceId) {
+        let resourceResults = this.get('contextResult.resourceResults');
+        let resourceResult = resourceResults.findBy('resourceId', resourceId);
+        this.set('ratingScore', resourceResult.get('reaction'));
+        let emotion = EMOTION_VALUES.findBy('value', this.get('ratingScore'));
+        let selectedUnicode = emotion
+          ? emotion.unicode
+          : DISABLED_EMOTION_UNICODE;
+        this.set('selectedUnicode', selectedUnicode);
+      }
     }
   },
 
@@ -110,12 +139,6 @@ export default PlayerController.extend({
    * @property {string}
    */
   pathId: null,
-
-  /**
-   * Shows the performance information
-   * @property {Boolean} toggleState
-   */
-  toggleState: true,
 
   /**
    * Indicates if it should show the back button
@@ -162,10 +185,20 @@ export default PlayerController.extend({
     let isChild = lessonChildren.findBy('id', collection.id);
 
     if (unit) {
-      titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
+      titles.push(
+        Ember.Object.create({
+          shortTitle: `U${unit.get('sequence')}`,
+          actualTitle: unit.get('title')
+        })
+      );
     }
     if (lesson) {
-      titles.push(`L${lesson.get('sequence')}: ${lesson.get('title')}`);
+      titles.push(
+        Ember.Object.create({
+          shortTitle: `L${lesson.get('sequence')}`,
+          actualTitle: lesson.get('title')
+        })
+      );
     }
     if (collection && isChild) {
       if (collection.isCollection) {
@@ -175,7 +208,12 @@ export default PlayerController.extend({
         collections.forEach((child, index) => {
           if (child.id === collection.id) {
             let collectionSequence = index + 1;
-            titles.push(`C${collectionSequence}: ${collection.get('title')}`);
+            titles.push(
+              Ember.Object.create({
+                shortTitle: `C${collectionSequence}`,
+                actualTitle: collection.get('title')
+              })
+            );
           }
         });
       } else {
@@ -185,12 +223,21 @@ export default PlayerController.extend({
         assessments.forEach((child, index) => {
           if (child.id === collection.id) {
             let assessmentSequence = index + 1;
-            titles.push(`A${assessmentSequence}: ${collection.get('title')}`);
+            titles.push(
+              Ember.Object.create({
+                shortTitle: `A${assessmentSequence}`,
+                actualTitle: collection.get('title')
+              })
+            );
           }
         });
       }
     } else {
-      titles.push(collection.get('title'));
+      titles.push(
+        Ember.Object.create({
+          actualTitle: collection.get('title')
+        })
+      );
     }
     return titles;
   }),
@@ -201,6 +248,10 @@ export default PlayerController.extend({
    */
   courseVersion: Ember.computed.alias('course.version'),
 
+  ratingScore: 0,
+
+  selectedUnicode: null,
+
   /**
    * Resets to default values
    */
@@ -208,7 +259,6 @@ export default PlayerController.extend({
     //TODO: call the parent reset values method
     this.setProperties({
       showSuggestion: true,
-      toggleState: true,
       classId: null,
       unitId: null,
       lessonId: null,

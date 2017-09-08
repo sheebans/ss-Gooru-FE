@@ -40,11 +40,14 @@ export default Ember.Component.extend(ConfigurationMixin, {
         ) {
           component.selectEmotion(newEmotionValue);
           component.sendAction(
-            'onChangeEmotion',
+            'onChooseReaction',
             component.get('selectedEmotion')
           );
         }
       }
+    },
+    close: function() {
+      this.sendAction('onCloseReactPicker');
     }
   },
 
@@ -86,11 +89,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
   emotionValues: EMOTION_VALUES,
 
   /**
-   * @property {String|Function} onChangeEmotion - event handler for when the selected emotion is changed
-   */
-  onChangeEmotion: null,
-
-  /**
    * @property {?string} selectedEmotion - selected emotion
    */
   selectedEmotion: 0,
@@ -110,7 +108,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // Methods
 
   selectEmotion: function(emotionValue) {
-    this.$('.emotions-list li').find('.active').removeClass('active');
+    this.$('.emotions-list li')
+      .find('.active')
+      .removeClass('active');
     this.set('selectedEmotion', 0);
 
     if (emotionValue) {

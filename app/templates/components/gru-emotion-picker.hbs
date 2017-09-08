@@ -1,5 +1,8 @@
 <div class="emotion-picker">
-  <span class="legend hidden-xs">{{t "gru-emotion-picker.react-to-resource"}}</span>
+  <div class="emotion-info" onclick={{action 'close'}}>
+    {{gru-icon name="highlight_off" class="emotion-close"}}
+    <span class="legend">{{t "gru-emotion-picker.react-to-resource"}}</span>
+  </div>
   <ul class="emotions-list">
     {{#each emotionValues as |emotion|}}
       <li>

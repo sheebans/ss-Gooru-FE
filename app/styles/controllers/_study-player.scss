@@ -4,6 +4,10 @@
       top: 60px;
       z-index: 1100;
     }
+    padding-top: 100px;
+    @media (max-width: $screen-xs-max) {
+      padding-top: 228px;
+    }
   }
 
   .qz-player {
@@ -13,31 +17,6 @@
       overflow: auto;
     }
   }
-  .no-confirmation {
-    &.expanded {
-      .qz-player {
-        padding-top: 275px;
-        @media (min-width: $screen-sm) {
-          padding-top: 155px;
-        }
-        @media (min-width: $screen-md) {
-          padding-top: 130px;
-        }
-      }
-    }
-    &.collapsed {
-      .qz-player {
-        padding-top: 40px;
-        @media (min-width: $screen-sm) {
-          padding-top: 65px;
-        }
-        @media (min-width: $screen-md) {
-          padding-top: 40px;
-        }
-      }
-    }
-  }
-
   .qz-navigator {
     .navigator-header {
       display: none;

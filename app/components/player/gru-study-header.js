@@ -2,7 +2,9 @@ import Ember from 'ember';
 import {
   ANONYMOUS_COLOR,
   STUDY_PLAYER_BAR_COLOR,
-  NU_COURSE_VERSION
+  NU_COURSE_VERSION,
+  EMOTION_VALUES,
+  DISABLED_EMOTION_UNICODE
 } from 'gooru-web/config/config';
 
 /**
@@ -43,15 +45,31 @@ export default Ember.Component.extend({
   // Attributes
 
   classNames: ['gru-study-header'],
-  classNameBindings: [
-    'toggleState:expanded:collapsed',
-    'showConfirmation:hidden'
-  ],
+  classNameBindings: ['showConfirmation:hidden'],
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
+    openReactPicker() {
+      this.set('showReactPicker', true);
+    },
+    onCloseReactPicker() {
+      this.set('showReactPicker', false);
+    },
+    onChooseReaction(value) {
+      this.sendAction('onChooseReaction', value);
+      this.set('showReactPicker', false);
+      this.set('ratingScore', value);
+      let emotion = EMOTION_VALUES.findBy('value', this.get('ratingScore'));
+      let selectedUnicode = emotion
+        ? emotion.unicode
+        : DISABLED_EMOTION_UNICODE;
+      this.set('selectedUnicode', selectedUnicode);
+    },
+    openSuggestResource() {
+      this.toggleProperty('showSuggestBox');
+    },
     /**
      * Redirect to course map
      */
@@ -78,13 +96,6 @@ export default Ember.Component.extend({
       window.location.href = this.get('collectionUrl');
     },
 
-    /**
-     * Action triggered when the performance information panel is expanded/collapsed
-     */
-    toggleHeader() {
-      this.toggleProperty('toggleState');
-      this.sendAction('onToggleHeader', this.get('toggleState'));
-    },
     /**
      * Action triggered when a suggested resource is clicked
      */
@@ -181,12 +192,6 @@ export default Ember.Component.extend({
   defaultBarColor: STUDY_PLAYER_BAR_COLOR,
 
   /**
-   * Shows the performance information
-   * @property {Boolean} toggleState
-   */
-  toggleState: true,
-
-  /**
    * Shows if the component is called from collection report
    * @property {Boolean} fromReport
    */
@@ -248,6 +253,18 @@ export default Ember.Component.extend({
    */
   isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
 
+  ratingScore: 0,
+
+  hasSuggestedResources: false,
+
+  showReactPicker: false,
+
+  firstSuggestResource: null,
+
+  hasMoreSuggestResource: false,
+
+  showSuggestBox: false,
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -303,9 +320,29 @@ export default Ember.Component.extend({
           component.get('session.userId'),
           collectionId
         )
-        .then(suggestedResources =>
-          component.set('suggestedResources', suggestedResources)
-        );
+        .then(suggestedResources => {
+          component.set('suggestedResources', suggestedResources);
+          if (suggestedResources && suggestedResources.length > 0) {
+            component.set('hasSuggestedResources', true);
+            component.set('firstSuggestResource', suggestedResources[0]);
+            if (suggestedResources.length > 1) {
+              component.set('hasMoreSuggestResource', true);
+            }
+          }
+        });
     }
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  /**
+   * Overwrites didInsertElement hook.
+   */
+  didRender: function() {
+    this._super(...arguments);
+    const component = this;
+    // Adds tooltip to UI elements (elements with attribute 'data-toggle')
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
   }
 });

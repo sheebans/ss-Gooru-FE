@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { CONTENT_TYPES, ROLES } from 'gooru-web/config/config';
+import { ROLES } from 'gooru-web/config/config';
 
 /**
  * Study Player External Controller
@@ -38,12 +38,6 @@ export default Ember.Controller.extend({
      */
     next: function() {
       this.playNextContent();
-    },
-    /**
-     * Action triggered when the performance information panel is expanded/collapsed
-     */
-    toggleHeader: function(toggleState) {
-      this.set('toggleState', toggleState);
     }
   },
 
@@ -65,12 +59,6 @@ export default Ember.Controller.extend({
   collectionId: null,
 
   /**
-   * Shows the performance information
-   * @property {Boolean} toggleState
-   */
-  toggleState: true,
-
-  /**
    * Indicates if it should show the back button
    * @property {boolean}
    */
@@ -90,44 +78,65 @@ export default Ember.Controller.extend({
     let unit = this.get('unit');
     let lesson = this.get('lesson');
     let collection = this.get('collection');
-    let collectionId = collection
-      ? collection.get('id')
-      : this.get('collectionId');
     let lessonChildren = lesson.children;
     let titles = Ember.A([]);
 
-    let isChild = lessonChildren.findBy('id', collectionId);
+    let isChild = lessonChildren.findBy('id', collection.id);
 
     if (unit) {
-      titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
+      titles.push(
+        Ember.Object.create({
+          shortTitle: `U${unit.get('sequence')}`,
+          actualTitle: unit.get('title')
+        })
+      );
     }
     if (lesson) {
-      titles.push(`L${lesson.get('sequence')}: ${lesson.get('title')}`);
+      titles.push(
+        Ember.Object.create({
+          shortTitle: `L${lesson.get('sequence')}`,
+          actualTitle: lesson.get('title')
+        })
+      );
     }
     if (collection && isChild) {
       if (collection.isCollection) {
         let collections = lessonChildren.filter(
-          collection => collection.format === CONTENT_TYPES.collection
+          collection => collection.format === 'collection'
         );
         collections.forEach((child, index) => {
           if (child.id === collection.id) {
             let collectionSequence = index + 1;
-            titles.push(`C${collectionSequence}: ${collection.get('title')}`);
+            titles.push(
+              Ember.Object.create({
+                shortTitle: `C${collectionSequence}`,
+                actualTitle: collection.get('title')
+              })
+            );
           }
         });
       } else {
         let assessments = lessonChildren.filter(
-          assessment => assessment.format === CONTENT_TYPES.assessment
+          assessment => assessment.format === 'assessment'
         );
         assessments.forEach((child, index) => {
           if (child.id === collection.id) {
             let assessmentSequence = index + 1;
-            titles.push(`A${assessmentSequence}: ${collection.get('title')}`);
+            titles.push(
+              Ember.Object.create({
+                shortTitle: `A${assessmentSequence}`,
+                actualTitle: collection.get('title')
+              })
+            );
           }
         });
       }
     } else {
-      titles.push(collection ? collection.get('title') : isChild.get('title'));
+      titles.push(
+        Ember.Object.create({
+          actualTitle: collection.get('title')
+        })
+      );
     }
     return titles;
   }),
@@ -138,7 +147,6 @@ export default Ember.Controller.extend({
   resetValues: function() {
     //TODO: call the parent reset values method
     this.setProperties({
-      toggleState: true,
       collectionId: null,
       resourceId: null,
       type: null
