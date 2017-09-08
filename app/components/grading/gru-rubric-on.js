@@ -70,7 +70,7 @@ export default Ember.Component.extend({
   // Observers
 
   /**
-   * Mantain categories updated when changing students
+   * Maintain categories updated when changing students
    */
   observeGrade: Ember.observer('grade', function() {
     this.updateCategories();
