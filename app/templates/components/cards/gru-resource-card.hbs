@@ -26,16 +26,16 @@
         <div class="title-section">
           {{#if externalAssessment}}
             <a href={{resource.url}} target="_blank">
-              <h6 class="title truncate">{{{resource.title}}}</h6>
+              <h6 class="title truncate pointer">{{{resource.title}}}</h6>
             </a>
           {{else}}
             {{#if isLinkOut}}
               <h6 class="title truncate">{{{resource.title}}}</h6>
             {{else}}
               {{#if editEnabled}}
-                {{#link-to (if isQuestion 'content.questions.edit' 'content.resources.edit') resource.id tagName="h6" class="title truncate" alt=resource.title}}{{{resource.title}}}{{/link-to}}
+                {{#link-to (if isQuestion 'content.questions.edit' 'content.resources.edit') resource.id tagName="h6" class="title truncate pointer" alt=resource.title}}{{{resource.title}}}{{/link-to}}
               {{else}}
-                {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h6" class="title truncate" alt=resource.title}}{{{resource.title}}}{{/link-to}}
+                {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h6" class="title truncate pointer" alt=resource.title}}{{{resource.title}}}{{/link-to}}
               {{/if}}
             {{/if}}
             {{#unless publishVisible}}
@@ -92,31 +92,31 @@
   </div>
   <div class="panel-footer">
     {{#if (or isLinkOut externalAssessment)}}
-        <div class="buttons">
-            <a class="play-btn btn btn-success btn-sm" href="{{{resource.url}}}" target="_blank">{{t "common.play"}}</a>
-        </div>
+      <div class="buttons">
+        <a class="play-btn btn btn-success btn-sm" href="{{{resource.url}}}" target="_blank">{{t "common.play"}}</a>
+      </div>
     {{else}}
-          <div class="buttons">
-            {{#if editEnabled }}
-                <button class="edit-btn btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
-                <button class="play-btn btn btn-success btn-sm" {{action "playResource"}}>{{t "common.play"}}</button>
-            {{/if}}
-            {{#if isQuestion}}
-              {{#if remixEnabled}}
-                  <button class="copy-btn btn btn-success btn-sm" {{action "remixQuestion"}}>{{t "common.remix"}}</button>
-              {{/if}}
-            {{/if}}
-            {{#if addEnabled}}
-                <button class="add-to-btn btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
-            {{/if}}
-          </div>
-        {{#unless publishVisible}}
-            <div class="visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
-              {{#unless resource.isVisibleOnProfile }}
-                {{gru-icon name="visibility_off" class='pull-right'}}
-              {{/unless}}
-            </div>
-        {{/unless}}
-  {{/if}}
+      <div class="buttons">
+        {{#if editEnabled }}
+          <button class="edit-btn btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
+          <button class="play-btn btn btn-success btn-sm" {{action "playResource"}}>{{t "common.play"}}</button>
+        {{/if}}
+        {{#if isQuestion}}
+          {{#if remixEnabled}}
+            <button class="copy-btn btn btn-success btn-sm" {{action "remixQuestion"}}>{{t "common.remix"}}</button>
+          {{/if}}
+        {{/if}}
+        {{#if addEnabled}}
+          <button class="add-to-btn btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
+        {{/if}}
+      </div>
+      {{#unless publishVisible}}
+        <div class="visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
+          {{#unless resource.isVisibleOnProfile }}
+            {{gru-icon name="visibility_off" class='pull-right'}}
+          {{/unless}}
+        </div>
+      {{/unless}}
+    {{/if}}
   </div>
 </div>
