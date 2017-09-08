@@ -63,7 +63,6 @@ test('Layout with rubrics', function(assert) {
     $container.find('.modal-footer .add-to').length,
     'Missing add to button'
   );
-
   assert.notOk(
     $container.find('.modal-footer .go-to').length,
     'Go to My Content button should not be displayed'
@@ -103,7 +102,6 @@ test('Layout without rubrics', function(assert) {
     $container.find('.modal-footer .add-to').length,
     'Add to button should not be displayed'
   );
-
   assert.ok(
     $container.find('.modal-footer .go-to').length,
     'Missing go to button'

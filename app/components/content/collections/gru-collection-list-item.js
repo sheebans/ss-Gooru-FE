@@ -322,7 +322,7 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
         .then(function(rubrics) {
           return {
             questionId: component.get('tempModel.id'),
-            userId: userId,
+            userId,
             rubrics,
             callback: {
               success: function(rubricAssociated) {
