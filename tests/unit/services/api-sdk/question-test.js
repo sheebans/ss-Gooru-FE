@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
 import QuestionModel from 'gooru-web/models/content/question';
+import Rubric from 'gooru-web/models/rubric/rubric';
 
 moduleForService(
   'service:api-sdk/question',
@@ -417,4 +418,317 @@ test('notifyQuizzesCollectionChange with assessment', function(assert) {
     assert.equal(notified, true, 'Wrong response');
     done();
   });
+});
+
+test('updateQuestion - OE - Rubric OFF - Scoring ON - From Rubric OFF', function(
+  assert
+) {
+  const service = this.subject();
+  const expectedQuestionId = 'question-id';
+  const expectedQuestionModel = QuestionModel.create({
+    title: 'Question title',
+    questionType: 'OE',
+    rubric: Rubric.create(Ember.getOwner(this).ownerInjection(), {
+      scoring: true,
+      rubricOn: false
+    })
+  });
+
+  const expectedRubricModel = expectedQuestionModel.rubric;
+
+  assert.expect(4);
+
+  service.set(
+    'questionAdapter',
+    Ember.Object.create({
+      updateQuestion: function(questionId) {
+        assert.equal(questionId, expectedQuestionId, 'Wrong question id');
+        return Ember.RSVP.resolve();
+      }
+    })
+  );
+
+  service.set(
+    'rubricService',
+    Ember.Object.create({
+      updateScore: function(rubricModel, questionId) {
+        assert.deepEqual(
+          rubricModel,
+          expectedRubricModel,
+          'Wrong rubric object'
+        );
+        assert.equal(questionId, expectedQuestionId, 'Wrong question id');
+        return Ember.RSVP.resolve();
+      }
+    })
+  );
+
+  service.set(
+    'questionSerializer',
+    Ember.Object.create({
+      serializeUpdateQuestion: function(questionObject) {
+        assert.deepEqual(
+          questionObject,
+          expectedQuestionModel,
+          'Wrong question object'
+        );
+        return {};
+      }
+    })
+  );
+
+  var done = assert.async();
+  service
+    .updateQuestion(expectedQuestionId, expectedQuestionModel)
+    .then(function() {
+      done();
+    });
+});
+
+test('updateQuestion - OE - Rubric OFF - Scoring ON - From Rubric ON', function(
+  assert
+) {
+  const service = this.subject();
+  const expectedQuestionId = 'question-id';
+  const expectedQuestionModel = QuestionModel.create({
+    title: 'Question title',
+    questionType: 'OE',
+    rubric: Rubric.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'rubric-id',
+      title: 'Rubric title',
+      scoring: true,
+      rubricOn: false
+    })
+  });
+
+  const expectedRubricModel = expectedQuestionModel.rubric;
+  const expectedRubricId = expectedRubricModel.id;
+
+  assert.expect(5);
+
+  service.set(
+    'questionAdapter',
+    Ember.Object.create({
+      updateQuestion: function(questionId) {
+        assert.equal(questionId, expectedQuestionId, 'Wrong question id');
+        return Ember.RSVP.resolve();
+      }
+    })
+  );
+
+  service.set(
+    'rubricService',
+    Ember.Object.create({
+      deleteRubric: function(rubricId) {
+        assert.equal(rubricId, expectedRubricId, 'Wrong rubric id');
+        return Ember.RSVP.resolve();
+      },
+      updateScore: function(rubricModel, questionId) {
+        assert.deepEqual(
+          rubricModel,
+          expectedRubricModel,
+          'Wrong rubric object'
+        );
+        assert.equal(questionId, expectedQuestionId, 'Wrong question id');
+        return Ember.RSVP.resolve();
+      }
+    })
+  );
+
+  service.set(
+    'questionSerializer',
+    Ember.Object.create({
+      serializeUpdateQuestion: function(questionObject) {
+        assert.deepEqual(
+          questionObject,
+          expectedQuestionModel,
+          'Wrong question object'
+        );
+        return {};
+      }
+    })
+  );
+
+  var done = assert.async();
+  service
+    .updateQuestion(expectedQuestionId, expectedQuestionModel)
+    .then(function() {
+      done();
+    });
+});
+
+test('updateQuestion - OE - Rubric OFF - Scoring OFF - From Rubric OFF', function(
+  assert
+) {
+  const service = this.subject();
+  const expectedQuestionId = 'question-id';
+  const expectedQuestionModel = QuestionModel.create({
+    title: 'Question title',
+    questionType: 'OE',
+    rubric: Rubric.create(Ember.getOwner(this).ownerInjection(), {
+      scoring: false,
+      rubricOn: false
+    })
+  });
+
+  const expectedRubricModel = expectedQuestionModel.rubric;
+
+  assert.expect(4);
+
+  service.set(
+    'questionAdapter',
+    Ember.Object.create({
+      updateQuestion: function(questionId) {
+        assert.equal(questionId, expectedQuestionId, 'Wrong question id');
+        return Ember.RSVP.resolve();
+      }
+    })
+  );
+
+  service.set(
+    'rubricService',
+    Ember.Object.create({
+      updateScore: function(rubricModel, questionId) {
+        assert.deepEqual(
+          rubricModel,
+          expectedRubricModel,
+          'Wrong rubric object'
+        );
+        assert.equal(questionId, expectedQuestionId, 'Wrong question id');
+        return Ember.RSVP.resolve();
+      }
+    })
+  );
+
+  service.set(
+    'questionSerializer',
+    Ember.Object.create({
+      serializeUpdateQuestion: function(questionObject) {
+        assert.deepEqual(
+          questionObject,
+          expectedQuestionModel,
+          'Wrong question object'
+        );
+        return {};
+      }
+    })
+  );
+
+  var done = assert.async();
+  service
+    .updateQuestion(expectedQuestionId, expectedQuestionModel)
+    .then(function() {
+      done();
+    });
+});
+
+test('updateQuestion - OE - Rubric OFF - Scoring OFF - From Rubric ON', function(
+  assert
+) {
+  const service = this.subject();
+  const expectedQuestionId = 'question-id';
+  const expectedQuestionModel = QuestionModel.create({
+    title: 'Question title',
+    questionType: 'OE',
+    rubric: Rubric.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'rubric-id',
+      title: 'Rubric title',
+      scoring: false,
+      rubricOn: false
+    })
+  });
+
+  const expectedRubricModel = expectedQuestionModel.rubric;
+  const expectedRubricId = expectedRubricModel.id;
+
+  assert.expect(3);
+
+  service.set(
+    'questionAdapter',
+    Ember.Object.create({
+      updateQuestion: function(questionId) {
+        assert.equal(questionId, expectedQuestionId, 'Wrong question id');
+        return Ember.RSVP.resolve();
+      }
+    })
+  );
+
+  service.set(
+    'rubricService',
+    Ember.Object.create({
+      deleteRubric: function(rubricId) {
+        assert.equal(rubricId, expectedRubricId, 'Wrong rubric id');
+        return Ember.RSVP.resolve();
+      }
+    })
+  );
+
+  service.set(
+    'questionSerializer',
+    Ember.Object.create({
+      serializeUpdateQuestion: function(questionObject) {
+        assert.deepEqual(
+          questionObject,
+          expectedQuestionModel,
+          'Wrong question object'
+        );
+        return {};
+      }
+    })
+  );
+
+  var done = assert.async();
+  service
+    .updateQuestion(expectedQuestionId, expectedQuestionModel)
+    .then(function() {
+      done();
+    });
+});
+
+test('updateQuestion - OE - Rubric ON - Scoring OFF', function(assert) {
+  const service = this.subject();
+  const expectedQuestionId = 'question-id';
+  const expectedQuestionModel = QuestionModel.create({
+    title: 'Question title',
+    questionType: 'OE',
+    rubric: Rubric.create(Ember.getOwner(this).ownerInjection(), {
+      id: 'rubric-id',
+      title: 'Rubric title',
+      scoring: false,
+      rubricOn: true
+    })
+  });
+
+  assert.expect(2);
+
+  service.set(
+    'questionAdapter',
+    Ember.Object.create({
+      updateQuestion: function(questionId) {
+        assert.equal(questionId, expectedQuestionId, 'Wrong question id');
+        return Ember.RSVP.resolve();
+      }
+    })
+  );
+
+  service.set(
+    'questionSerializer',
+    Ember.Object.create({
+      serializeUpdateQuestion: function(questionObject) {
+        assert.deepEqual(
+          questionObject,
+          expectedQuestionModel,
+          'Wrong question object'
+        );
+        return {};
+      }
+    })
+  );
+
+  var done = assert.async();
+  service
+    .updateQuestion(expectedQuestionId, expectedQuestionModel)
+    .then(function() {
+      done();
+    });
 });

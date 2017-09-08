@@ -42,31 +42,6 @@ test('serializeCreateRubric', function(assert) {
   assert.deepEqual(rubricObject.metadata.audience, [1], 'Wrong audience');
 });
 
-test('serializeCreateRubricOff', function(assert) {
-  const serializer = this.subject();
-  const rubricOffObject = Rubric.create({
-    rubricOn: false,
-    requiresFeedback: true,
-    feedback: 'any-feedback',
-    scoring: true,
-    maxScore: 10,
-    increment: 1.25,
-    grader: 'Teacher'
-  });
-  const response = serializer.serializeCreateRubricOff(rubricOffObject);
-  assert.equal(response.is_rubric, false, 'Should be false');
-  assert.equal(response.overall_feedback_required, true, 'Should be true');
-  assert.equal(
-    response.feedback_guidance,
-    'any-feedback',
-    'Wrong feedback guidance'
-  );
-  assert.equal(response.scoring, true, 'Should be true');
-  assert.equal(response.max_score, 10, 'Wrong max score');
-  assert.equal(response.increment, 1.25, 'Wrong increment');
-  assert.equal(response.grader, 'Teacher', 'Wrong grader');
-});
-
 test('serializeUpdateRubric uploaded and no feedback required', function(
   assert
 ) {
@@ -231,32 +206,19 @@ test('serializeUpdateRubric with empty strings', function(assert) {
   );
 });
 
-test('serializeUpdateRubric OFF scenario', function(assert) {
+test('serializeUpdateScore', function(assert) {
   const serializer = this.subject();
 
-  const rubric = Rubric.create({
-    rubricOn: false,
+  const rubricScore = Rubric.create({
     scoring: true,
-    maxScore: 100,
-    increment: 1,
-    feedback: 'Feedback guidance',
-    requiresFeedback: true
+    maxScore: 75,
+    increment: 1
   });
 
-  const rubricObject = serializer.serializeUpdateRubric(rubric);
-  assert.equal(rubricObject.scoring, true, 'Wrong scoring');
-  assert.equal(rubricObject.max_score, 100, 'Wrong max score');
-  assert.equal(rubricObject.increment, 1, 'Wrong increment');
-  assert.equal(
-    rubricObject.feedback_guidance,
-    'Feedback guidance',
-    'Wrong feedback guidance'
-  );
-  assert.equal(
-    rubricObject.overall_feedback_required,
-    true,
-    'Wrong overall feedback required'
-  );
+  const rubricScoreObject = serializer.serializeUpdateScore(rubricScore);
+  assert.equal(rubricScoreObject.scoring, true, 'Wrong scoring');
+  assert.equal(rubricScoreObject.max_score, 75, 'Wrong max score');
+  assert.equal(rubricScoreObject.increment, 1, 'Wrong increment');
 });
 
 test('serializedUpdateRubricCategory', function(assert) {

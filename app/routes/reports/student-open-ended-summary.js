@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Context from 'gooru-web/models/result/context';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 /**
  *
  * Summary data report of Rubric Grading for an OE Question
@@ -36,6 +37,42 @@ export default Ember.Route.extend({
   // Actions
 
   // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    /**
+     * Returns to Analytics Report
+     * @function actions:goBack
+     */
+    goBack: function() {
+      const route = this;
+      const controller = route.get('controller');
+      const context = controller.get('context');
+      var role = 'teacher';
+
+      if (controller.get('isStudent')) {
+        role = 'student';
+      }
+
+      const queryParams = {
+        collectionId: context.get('collectionId'),
+        type: context.get('collectionType'),
+        userId: context.get('userId'),
+        classId: context.get('classId'),
+        sessionId: context.get('sessionId'),
+        courseId: context.get('courseId'),
+        unitId: context.get('unitId'),
+        lessonId: context.get('lessonId'),
+        role: role
+      };
+
+      route.transitionTo('reports.student-collection-analytics', {
+        queryParams: queryParams
+      });
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Methods
 
   /**
@@ -67,8 +104,9 @@ export default Ember.Route.extend({
 
     return Ember.RSVP.hash({
       question: questionPromise,
-      context: context,
-      summary: summaryPromise
+      context,
+      summary: summaryPromise,
+      sessionId
     });
   },
 
@@ -76,7 +114,13 @@ export default Ember.Route.extend({
     const route = this;
     const context = model.context;
     const questionId = model.question.get('id');
-    const session = context.get('sessionId');
+    const isCollection =
+      model.context.collectionType === CONTENT_TYPES.COLLECTION;
+    const session = !isCollection ? model.sessionId : null;
+
+    if (session) {
+      context.set('sessionId', session);
+    }
 
     const performanceService = route.get('performanceService');
     return performanceService
@@ -94,6 +138,10 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
+    controller.set(
+      'questionText',
+      model.question.get('description') || model.question.get('title')
+    );
     controller.set('question', model.question);
     controller.set('rubric', model.question.get('rubric'));
     controller.set('questionSummary', model.summary);
@@ -107,11 +155,10 @@ export default Ember.Route.extend({
    * @returns {Context}
    */
   getContext: function(params) {
-    const collectionType = params.collectionType || 'collection';
+    const collectionType = params.collectionType;
     const classId = params.classId;
     const courseId = params.courseId;
     const collectionId = params.collectionId;
-    const sessionId = params.sessionId;
     const userId = params.studentId;
     const unitId = params.unitId;
     const lessonId = params.lessonId;
@@ -122,7 +169,6 @@ export default Ember.Route.extend({
       collectionId,
       courseId,
       classId,
-      sessionId,
       unitId,
       lessonId
     });

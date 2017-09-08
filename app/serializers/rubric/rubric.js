@@ -64,35 +64,6 @@ export default Ember.Object.extend(ConfigurationMixin, {
   },
 
   /**
-   * Serialize a Rubric Off object into a JSON representation required by the Create Rubric Off endpoint
-   *
-   * @param rubricOffModel The Rubric Off model to be serialized
-   * @returns {Object} returns a JSON Object
-   */
-  serializeCreateRubricOff: function(rubricOffModel) {
-    return this.serializeRubricOff(rubricOffModel);
-  },
-
-  serializeRubricOff: function(rubricOffModel) {
-    let serializedRubricOff = {
-      is_rubric: false,
-      overall_feedback_required: rubricOffModel.get('requiresFeedback'),
-      feedback_guidance: rubricOffModel.get('feedback'),
-      scoring: rubricOffModel.get('scoring'),
-      max_score: rubricOffModel.get('scoring')
-        ? rubricOffModel.get('maxScore')
-        : null,
-      increment: rubricOffModel.get('scoring')
-        ? rubricOffModel.get('increment')
-        : null,
-      grader: rubricOffModel.get('grader')
-        ? rubricOffModel.get('grader')
-        : 'Teacher'
-    };
-    return serializedRubricOff;
-  },
-
-  /**
    * Serializes a Rubric/Rubric object into a JSON representation required by the update rubric endpoint
    *
    * @param {Rubric} model - The rubric model to be serialized
@@ -135,6 +106,27 @@ export default Ember.Object.extend(ConfigurationMixin, {
         scoring: model.get('scoring'),
         max_score: model.get('maxScore'),
         increment: model.get('increment')
+      };
+    }
+  },
+
+  /**
+   * Serializes a Rubric object into a JSON representation required by the update score endpoint
+   *
+   * @param {Rubric} model - The rubric score model to be serialized
+   * @returns {Object} JSON Object representation of the rubric score model
+   *
+   */
+  serializeUpdateScore: function(model) {
+    if (model.get('scoring')) {
+      return {
+        scoring: true,
+        max_score: model.get('maxScore') ? model.get('maxScore') : 1,
+        increment: model.get('increment') ? model.get('increment') : 0.5
+      };
+    } else {
+      return {
+        scoring: false
       };
     }
   },

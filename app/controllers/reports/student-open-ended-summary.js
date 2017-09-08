@@ -15,7 +15,8 @@ export default Ember.Controller.extend({
     'sessionId',
     'collectionId',
     'collectionType',
-    'questionId'
+    'questionId',
+    'role'
   ],
 
   // -------------------------------------------------------------------------
@@ -55,6 +56,17 @@ export default Ember.Controller.extend({
   questionSummary: null,
 
   /**
+   * @property {string} indicates if it is a student or teacher view
+   */
+  role: null,
+
+  /**
+   * Indicates if the student is playing the collection
+   * @property {boolean}
+   */
+  isStudent: Ember.computed.equal('role', 'student'),
+
+  /**
    * @property {RubricCategoryScore[]} List of categories score
    */
   categoriesScore: Ember.computed(
@@ -66,5 +78,13 @@ export default Ember.Controller.extend({
       }
       return categories;
     }
-  )
+  ),
+
+  /**
+   * @property {boolean} Shows if the question has score
+   */
+  hasScore: Ember.computed('questionSummary.maxScore', function() {
+    let maxScore = this.get('questionSummary.maxScore');
+    return maxScore && maxScore !== 0;
+  })
 });

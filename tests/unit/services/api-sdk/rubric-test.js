@@ -45,53 +45,6 @@ test('createRubric', function(assert) {
   });
 });
 
-test('createRubricOff', function(assert) {
-  const service = this.subject();
-  let rubricOffModel = Ember.Object.create();
-
-  assert.expect(1);
-
-  // There is not a Adapter stub in this case
-  // Pretender was included because it is needed to simulate the response Headers including the Location value
-  this.pretender.map(function() {
-    this.post(
-      '/api/nucleus/v2/rubrics',
-      function() {
-        return [
-          201,
-          { 'Content-Type': 'text/plain', Location: 'rubric-off-id' },
-          ''
-        ];
-      },
-      false
-    );
-  });
-
-  service.set(
-    'rubricSerializer',
-    Ember.Object.create({
-      serializeCreateRubricOff: function(rubricOffObject) {
-        assert.deepEqual(
-          rubricOffObject,
-          rubricOffModel,
-          'Wrong rubric off object'
-        );
-        return {};
-      }
-    })
-  );
-
-  var done = assert.async();
-  service.createRubricOff(rubricOffModel).then(function() {
-    assert.equal(
-      rubricOffModel.get('id'),
-      'rubric-off-id',
-      'Wrong rubric off id'
-    );
-    done();
-  });
-});
-
 test('updateRubric', function(assert) {
   const service = this.subject();
   let rubric = RubricModel.create({
@@ -125,6 +78,44 @@ test('updateRubric', function(assert) {
   var done = assert.async();
   service.updateRubric(rubric).then(function(updated) {
     assert.ok(updated, 'Wrong updated');
+    done();
+  });
+});
+
+test('updateScore', function(assert) {
+  const service = this.subject();
+  let rubricScore = RubricModel.create({
+    scoring: true,
+    maxScore: 25,
+    increment: 1
+  });
+
+  assert.expect(4);
+
+  service.set(
+    'serializer',
+    Ember.Object.create({
+      serializeUpdateScore: function(rubricParam) {
+        assert.deepEqual(rubricParam, rubricScore, 'Wrong rubric parameter');
+        return { id: 'fake-id' };
+      }
+    })
+  );
+
+  service.set(
+    'adapter',
+    Ember.Object.create({
+      updateScore: function(data, questionId) {
+        assert.equal(questionId, 123, 'Wrong question id');
+        assert.deepEqual(data, { id: 'fake-id' }, 'Wrong data');
+        return Ember.RSVP.resolve(true);
+      }
+    })
+  );
+
+  var done = assert.async();
+  service.updateScore(rubricScore, 123).then(function(updated) {
+    assert.ok(updated, 'Wrong score updated');
     done();
   });
 });

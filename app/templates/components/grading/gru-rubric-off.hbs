@@ -1,9 +1,9 @@
 <div class="overall-comment">
   {{#if rubric.scoring}}
     <div class="total-score">
-      {{t 'grading-player.total-score'}}
+      <span class="score">{{t 'grading-player.total-score'}}</span>
       {{validation.gru-input-number model=grade valuePath='studentScore' min=0 max=rubric.maxScore step=rubric.increment }}
-      / {{rubric.maxScore}}
+      <span class="score">/ {{rubric.maxScore}}</span>
     </div>
   {{/if}}
   <span class="overall-title">{{t 'grading-player.overall-comment'}}</span>

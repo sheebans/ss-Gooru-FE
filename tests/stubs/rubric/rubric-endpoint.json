@@ -101,6 +101,22 @@
     }
   },
   {
+    "description": "Update rubric/score for a question",
+    "request": {
+      "url": "^/api/nucleus/v2/questions/(.+)/score$",
+      "method": "PUT",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 204,
+      "headers": {
+        "Content-Type": "text/plain"
+      }
+    }
+  },
+  {
     "description": "Create any rubric",
     "request": {
       "url": "^/api/nucleus/v2/rubrics$",
@@ -114,23 +130,6 @@
       "headers": {
         "Content-Type": "text/plain",
         "Location": "2d84ab6c-10ee-4578-b89a-6b41c87dc9fc"
-      }
-    }
-  },
-  {
-    "description": "Create a rubric Off",
-    "request": {
-      "url": "^/api/nucleus/v2/rubrics$",
-      "method": "POST",
-      "headers": {
-        "Authorization": "Token (.+)"
-      }
-    },
-    "response": {
-      "status": 201,
-      "headers": {
-        "Content-Type": "text/plain",
-        "Location": "10262da0-c1f6-4b4c-a589-b8b5f75c8852"
       }
     }
   },

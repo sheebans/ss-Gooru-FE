@@ -129,6 +129,11 @@ export default Ember.Controller.extend(ConfigurationMixin, {
   isCollection: Ember.computed.not('isAssessment'),
 
   /**
+   * indicates the session id of collection
+   * @property {string}
+   */
+  collectionSessionId: null,
+  /**
    * Indicates which is the url to go back when pressing the button
    * this is useful when coming from the player out of the context of a class
    * this needs to be improved so it works when refreshing the page

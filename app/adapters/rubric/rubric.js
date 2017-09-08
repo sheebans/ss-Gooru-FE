@@ -47,26 +47,6 @@ export default Ember.Object.extend({
   },
 
   /**
-   * Posts a new rubric off
-   *
-   * @param data - rubric off data to be sent in the request body
-   * @returns {Promise}
-   */
-  createRubricOff: function(data) {
-    const adapter = this;
-    const url = this.get('namespace');
-    const options = {
-      type: 'POST',
-      contentType: 'application/json; charset=utf-8',
-      dataType: 'text',
-      processData: false,
-      headers: adapter.defineHeaders(),
-      data: JSON.stringify(data.body)
-    };
-    return Ember.$.ajax(url, options);
-  },
-
-  /**
    * Updates a rubric
    *
    * @param params - data to send in the request
@@ -75,6 +55,32 @@ export default Ember.Object.extend({
   updateRubric: function(params, rubricId) {
     const namespace = this.get('namespace');
     const url = `${namespace}/${rubricId}`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders(),
+      data: JSON.stringify(params)
+    };
+
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(function() {
+        resolve(true);
+      }, reject);
+    });
+  },
+
+  /**
+   * Updates rubric score
+   *
+   * @param params - data to send in the request
+   * @param questionId - question ID
+   * @returns {Ember.Promise|Boolean} true when updated
+   */
+  updateScore: function(params, questionId) {
+    const namespace = this.get('questionsNamespace');
+    const url = `${namespace}/${questionId}/score`;
     const options = {
       type: 'PUT',
       contentType: 'application/json; charset=utf-8',
