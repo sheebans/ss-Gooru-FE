@@ -719,7 +719,7 @@ test('Display fields when rubric is clicked', function(assert) {
   );
 });
 
-test('Save when rubric ON is not associated', function(assert) {
+test('Save when rubric ON is not associated - Open Ended', function(assert) {
   const question = Question.create(Ember.getOwner(this).ownerInjection(), {
     id: 'question-id',
     title: 'Question Title',

@@ -1,29 +1,24 @@
 <header>
-    {{#if allowBack}}
-      {{#link-to 'content.courses.edit' course.id (query-params unitId=collection.unitId lessonId=collection.lessonId) class="back-to"}}
-          <div>
-            {{gru-icon name="keyboard_arrow_left"}}{{t 'common.course'}}: {{course.title}}
-          </div>
-      {{/link-to}}
-    {{/if}}
-    <h1>{{t "common.edit-collection"}}</h1>
-
+  {{#if allowBack}}
+    {{#link-to 'content.courses.edit' course.id (query-params unitId=collection.unitId lessonId=collection.lessonId) class="back-to"}}
+      <div>
+        {{gru-icon name="keyboard_arrow_left"}}{{t 'common.course'}}: {{course.title}}
+      </div>
+    {{/link-to}}
+  {{/if}}
+  <h1>{{t "common.edit-collection"}}</h1>
   {{partial 'content/partials/collections-header-actions'}}
-
   <nav>
     {{#gru-scroll to="#information" class="selected" offset='article > header'}}{{t "common.information"}}{{/gru-scroll}}
     {{#gru-scroll to="#builder" offset='article > header'}}{{t "common.builder"}}{{/gru-scroll}}
     {{#gru-scroll to="#settings" offset='article > header'}}{{t "common.settings"}}{{/gru-scroll}}
   </nav>
-
 </header>
 
 <section id="information">
   <div class="header">
     <h2>{{t "common.information"}}</h2>
-
     {{partial 'content/partials/information-actions'}}
-
   </div>
   <div class="content">
     {{content.gru-image isEditing=isEditing srcImage=collection.thumbnailUrl editImage=tempCollection.thumbnailUrl}}
@@ -49,7 +44,6 @@
             {{/if}}
           </label>
         </div>
-
         {{#if isEditing}}
           {{taxonomy.gru-taxonomy-selector
             isEditing=isEditing
@@ -64,9 +58,7 @@
           <label>
             <span>{{t standardLabelKey}}</span>
             {{#if isEditing}}
-              <button type="button" class="btn btn-primary"
-                      {{action 'openTaxonomyModal'}}
-                      disabled={{standardDisabled}}>
+              <button type="button" class="btn btn-primary" {{action 'openTaxonomyModal'}} disabled={{standardDisabled}}>
                 {{gru-icon name="open_in_new"}} {{t "common.select"}}
               </button>
               <div class="tags">

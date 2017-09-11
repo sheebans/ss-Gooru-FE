@@ -69,6 +69,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       this.set('tempQuestion', questionForEditing);
       this.set('isEditing', true);
       this.set('selectedSubject', null);
+      this.set('rubricError', false);
     },
     /**
      * Send request to publish a question
@@ -486,6 +487,12 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     }
   ),
 
+  /**
+   * If a rubric ON is not associated
+   * @property {Boolean}
+   */
+  rubricError: false,
+
   // ----------------------------
   // Methods
   openTaxonomyModal: function() {
@@ -541,7 +548,14 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       );
       component.updateQuestion(editedQuestion, component);
     } else if (editedQuestion.get('isOpenEnded')) {
-      component.updateQuestion(editedQuestion, component);
+      if (
+        editedQuestion.get('rubric.rubricOn') &&
+        !editedQuestion.get('rubric.title')
+      ) {
+        component.set('rubricError', true);
+      } else {
+        component.updateQuestion(editedQuestion, component);
+      }
     } else {
       if (editedQuestion.get('answers')) {
         if (this.get('showAdvancedEditButton')) {
@@ -633,6 +647,14 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
                 'depthOfknowledge',
                 'thumbnail'
               ]);
+
+              if (
+                editedQuestion.get('isOpenEnded') &&
+                !editedQuestion.get('rubric.rubricOn')
+              ) {
+                editedQuestion.set('rubric.title', null);
+              }
+
               if (!question.get('rubric')) {
                 question.set('rubric', editedQuestion.get('rubric'));
               } else {

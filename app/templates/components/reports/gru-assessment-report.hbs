@@ -8,27 +8,22 @@
   showReactionBar=showReactionBar}}
 
 {{#if areAnswersHidden}}
-
   <div class="hidden-report">
     <span>{{t "gru-assessment-report.hidden-report"}}</span>
   </div>
-
 {{else}}
-
   {{#if assessmentResult.hasMastery}}
     {{reports.assessment.gru-mastery
     learningTargets=assessmentResult.mastery
     assessmentResult=assessmentResult
     onBubbleSelect='bubbleSelect'}}
   {{/if}}
-
   {{#if orderedQuestions.length}}
     {{reports.assessment.gru-questions
       isAnswerKeyHidden=isAnswerKeyHidden
       results=orderedQuestions
       showReactionBar=showReactionBar}}
   {{/if}}
-
   {{#if orderedOpenEndedQuestions.length}}
     {{reports.assessment.gru-questions
       isAnswerKeyHidden=isAnswerKeyHidden
@@ -38,11 +33,9 @@
       onViewOEReport='viewOEReport'
     }}
   {{/if}}
-
   {{#if orderedResources.length}}
     {{reports.assessment.gru-resources
       results=orderedResources
       showReactionBar=showReactionBar}}
   {{/if}}
-
 {{/if}}
