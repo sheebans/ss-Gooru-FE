@@ -48,6 +48,7 @@ test('Category collapsed', function(assert) {
     'Missing copy category button'
   );
 });
+
 test('Category expanded', function(assert) {
   let category = Category.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Category Title'
@@ -83,6 +84,7 @@ test('Category expanded', function(assert) {
     'Missing requires feedback checkbox'
   );
 });
+
 test('Delete Category', function(assert) {
   assert.expect(1);
 
@@ -130,6 +132,7 @@ test('Edit Category', function(assert) {
 
   var category = Category.create(Ember.getOwner(this).ownerInjection(), {
     title: 'Category for test',
+    allowsLevels: true,
     levels: Ember.A([
       {
         name: '',
@@ -254,6 +257,7 @@ test('Validate if the category title field is left blank', function(assert) {
     });
   });
 });
+
 test('Validate if the rubric title field has only whitespaces', function(
   assert
 ) {

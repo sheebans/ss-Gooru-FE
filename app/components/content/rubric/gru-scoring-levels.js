@@ -26,18 +26,15 @@ export default Ember.Component.extend({
      *Triggered when scoring switch change
      */
     onScoringChange: function(isChecked) {
-      this.set('showScore', isChecked);
+      this.set('category.allowsScoring', isChecked);
     },
     /**
      *Triggered when level switch change
      */
     onLevelChange: function(isChecked) {
-      this.set('showLevel', isChecked);
-      if (!this.get('showLevel')) {
-        this.set('showScore', false);
-        this.set('disabledScoring', true);
-      } else {
-        this.set('disabledScoring', false);
+      this.set('category.allowsLevels', isChecked);
+      if (!isChecked) {
+        this.set('category.allowsScoring', false);
       }
     }
   },
@@ -46,11 +43,19 @@ export default Ember.Component.extend({
   // Properties
 
   /**
+   *Category object to be edited
+   *
+   * @property {Category}
+   */
+  category: null,
+
+  /**
    *Disabled Score Switch
    *
    * @property {Boolean}
    */
-  disabledScoring: false,
+  disabledScoring: Ember.computed.not('category.allowsLevels'),
+
   /**
    * @property {[]} scoringLevels
    * Should have 4 levels as default
@@ -77,22 +82,26 @@ export default Ember.Component.extend({
       score: null
     }
   ]),
+
   /**
    *Show the score scale
    *
    * @property {Boolean}
    */
-  showScore: true,
+  showScore: Ember.computed.alias('category.allowsScoring'),
+
   /**
    *Show the level scale
    *
    * @property {Boolean}
    */
-  showLevel: true,
+  showLevel: Ember.computed.alias('category.allowsLevels'),
+
   /**
    * @property {Boolean} preview
    */
   preview: false,
+
   /**
    * List of options to show in the switch
    *

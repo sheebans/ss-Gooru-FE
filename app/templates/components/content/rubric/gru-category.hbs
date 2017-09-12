@@ -71,9 +71,9 @@
       {{t 'gru-rubric-creation.required-feedback'}}
     </label>
     {{#if preview}}
-      {{content.rubric.gru-scoring-levels scoringLevels=category.levels preview=preview}}
+      {{content.rubric.gru-scoring-levels scoringLevels=category.levels preview=preview category=category}}
     {{else}}
-      {{content.rubric.gru-scoring-levels scoringLevels=tempCategory.levels preview=preview}}
+      {{content.rubric.gru-scoring-levels scoringLevels=tempCategory.levels preview=preview category=tempCategory}}
     {{/if}}
   </div>
 </div>

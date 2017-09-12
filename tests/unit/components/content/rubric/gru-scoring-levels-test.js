@@ -24,6 +24,7 @@ test('deleteLevel', function(assert) {
     'Scoring levels should not has levels'
   );
 });
+
 test('addLevel', function(assert) {
   let component = this.subject();
   let level = { name: 'level-test', score: 9 };
