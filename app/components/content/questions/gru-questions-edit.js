@@ -684,7 +684,6 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
                 editedQuestion.get('isOpenEnded') &&
                 !editedQuestion.get('rubric.rubricOn')
               ) {
-                editedQuestion.set('rubric.title', null);
                 editedQuestion.get('rubric').setProperties({
                   title: null,
                   maxScore: editedQuestion.get('rubric.maxScore')
