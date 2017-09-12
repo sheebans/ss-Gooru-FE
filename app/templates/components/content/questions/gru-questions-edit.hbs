@@ -83,7 +83,7 @@
               {{#if isBuilderEditing}}
                 {{gru-switch switchOptions=switchOptions isChecked=rubric.rubricOn}}
               {{else}}
-                {{#if rubric.rubricOn}}ON{{else}}OFF{{/if}}
+                {{#if rubric.rubricOn}}{{t 'common.on'}}{{else}}{{t 'common.off'}}{{/if}}
               {{/if}}
             </div>
             {{#if rubric.rubricOn}}
@@ -99,7 +99,7 @@
                   <div class="info">
                     <h3>{{rubric.title}}</h3>
                   </div>
-                  <div class="actions">
+                  <div class="actions {{if isBuilderEditing '' 'disabled'}}">
                     <button class="btn no-bgd remove-item" {{action 'removeRubric' rubric.id}}>
                       {{gru-icon name="remove_circle"}}
                     </button>
@@ -126,7 +126,7 @@
                 {{#if isBuilderEditing}}
                   {{gru-switch switchOptions=switchOptions isChecked=rubric.scoring}}
                 {{else}}
-                  {{#if rubric.scoring}}ON{{else}}OFF{{/if}}
+                  {{#if rubric.scoring}}{{t 'common.on'}}{{else}}{{t 'common.off'}}{{/if}}
                 {{/if}}
               </div>
               {{#if rubric.scoring}}
