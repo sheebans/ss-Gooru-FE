@@ -244,10 +244,37 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     /**
      * Updates rubric to display the information of the associated rubric
      */
-    updateAssociatedRubric: function(rubricAssociated) {
-      let question = this.get('tempQuestion');
-      rubricAssociated.set('rubricOn', true);
-      question.set('rubric', rubricAssociated);
+    updateAssociatedRubric: function(rubric) {
+      this.set('question.rubric', rubric);
+
+      let tempQuestion = this.get('tempQuestion');
+      tempQuestion.set('rubric', rubric.copy());
+    },
+
+    /**
+     * Disassociates the rubric from the question
+     */
+    removeRubric: function(associatedRubricId) {
+      let component = this;
+      let tempQuestion = component.get('tempQuestion');
+      let rubric = Rubric.create(Ember.getOwner(this).ownerInjection(), {
+        increment: 0.5,
+        maxScore: 1
+      });
+
+      component
+        .get('rubricService')
+        .deleteRubric(associatedRubricId)
+        .then(function() {
+          component.set('question.rubric', null);
+          tempQuestion.set('rubric', rubric);
+
+          component.setProperties({
+            isEditing: true,
+            isBuilderEditing: true,
+            editImagePicker: false
+          });
+        });
     },
 
     /**
@@ -255,13 +282,15 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
      */
     showAddRubricModal: function() {
       let component = this;
+      const userId = component.get('session.userId');
 
       return component
         .get('rubricService')
-        .getUserRubrics(component.get('session.userId'))
+        .getUserRubrics(userId)
         .then(function(rubrics) {
           return {
             questionId: component.get('tempQuestion.id'),
+            userId,
             rubrics,
             callback: {
               success: function(rubricAssociated) {
@@ -636,10 +665,13 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
             .get('questionService')
             .updateQuestion(editedQuestion.id, editedQuestion, collection)
             .then(function() {
-              component.set('question', editedQuestion);
-              component.set('isEditing', false);
-              component.set('isBuilderEditing', false);
-              component.set('editImagePicker', false);
+              component.setProperties({
+                question: editedQuestion,
+                isEditing: false,
+                isBuilderEditing: false,
+                editImagePicker: false
+              });
+
               question.merge(editedQuestion, [
                 'title',
                 'standards',
@@ -653,6 +685,15 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
                 !editedQuestion.get('rubric.rubricOn')
               ) {
                 editedQuestion.set('rubric.title', null);
+                editedQuestion.get('rubric').setProperties({
+                  title: null,
+                  maxScore: editedQuestion.get('rubric.maxScore')
+                    ? editedQuestion.get('rubric.maxScore')
+                    : 1,
+                  increment: editedQuestion.get('rubric.increment')
+                    ? editedQuestion.get('rubric.increment')
+                    : 0.5
+                });
               }
 
               if (!question.get('rubric')) {
@@ -664,7 +705,8 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
                     'maxScore',
                     'increment',
                     'scoring',
-                    'rubricOn'
+                    'rubricOn',
+                    'title'
                   ]);
               }
             })
