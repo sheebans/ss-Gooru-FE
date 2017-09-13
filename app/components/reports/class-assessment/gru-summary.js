@@ -50,30 +50,40 @@ export default Ember.Component.extend({
    * - correct: number of questions that the student has answered correctly
    * - incorrect: number of questions that the student has answered incorrectly
    */
-  answersData: Ember.computed('reportData.data', function() {
+  answersData: Ember.computed('reportData', 'reportData.data', function() {
     const studentsIds = this.get('studentsIds');
     const questionsIds = this.get('assessmentQuestionsIds');
     const reportData = this.get('reportData.data');
-
+    const resourceData = this.get('reportData.resources');
     var answers = [];
 
     studentsIds.forEach(function(student) {
       var answerCounter = {
         correct: 0,
-        incorrect: 0
+        incorrect: 0,
+        openEnded: 0
       };
       answers.push(answerCounter);
 
       questionsIds.forEach(function(question) {
-        answerCounter.correct += reportData[student][question].get('correct')
-          ? 1
-          : 0;
-        answerCounter.incorrect += reportData[student][question].get(
-          'incorrect'
-        )
-          ? 1
-          : 0;
-        //TODO: it would be useful to move this to question-result util
+        let resource = resourceData.findBy('id', question);
+        let questionType =
+          resource && resource.get('questionType')
+            ? resource.get('questionType')
+            : null;
+
+        if (questionType === 'OE') {
+          answerCounter.openEnded += 1;
+        } else {
+          answerCounter.correct += reportData[student][question].get('correct')
+            ? 1
+            : 0;
+          answerCounter.incorrect += reportData[student][question].get(
+            'incorrect'
+          )
+            ? 1
+            : 0;
+        }
       });
     });
 
@@ -178,36 +188,48 @@ export default Ember.Component.extend({
    * - incorrect: number of students that did not answer the question correctly
    * - total: total number of students
    */
-  questionsData: Ember.computed('reportData.data', function() {
+  questionsData: Ember.computed('reportData', 'reportData.data', function() {
     const studentsIds = this.get('studentsIds');
     const totalStudents = studentsIds.length;
     const questionsIds = this.get('assessmentQuestionsIds');
     const reportData = this.get('reportData.data');
+    const resourceData = this.get('reportData.resources');
 
     var questions = [];
 
     questionsIds.forEach(function(question) {
+      let resource = resourceData.findBy('id', question);
+      let questionType =
+        resource && resource.get('questionType')
+          ? resource.get('questionType')
+          : null;
       var questionCounter = {
         id: question,
         correct: 0,
         incorrect: 0,
-        total: totalStudents
+        total: totalStudents,
+        openEnded: 0
       };
+
       questions.push(questionCounter);
 
       studentsIds.forEach(function(student) {
-        questionCounter.correct += reportData[student][question].get('correct')
-          ? 1
-          : 0;
-        questionCounter.incorrect += reportData[student][question].get(
-          'incorrect'
-        )
-          ? 1
-          : 0;
-        //TODO: it would be useful to move this to question-result util
+        if (questionType === 'OE') {
+          questionCounter.openEnded += 1;
+        } else {
+          questionCounter.correct += reportData[student][question].get(
+            'correct'
+          )
+            ? 1
+            : 0;
+          questionCounter.incorrect += reportData[student][question].get(
+            'incorrect'
+          )
+            ? 1
+            : 0;
+        }
       });
     });
-
     return questions;
   }),
 

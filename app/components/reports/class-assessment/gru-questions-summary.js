@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { GRADING_SCALE } from 'gooru-web/config/config';
+import { GRADING_SCALE, OPEN_ENDED_COLOR } from 'gooru-web/config/config';
 import { roundFloat } from 'gooru-web/utils/math';
 
 /**
@@ -101,42 +101,57 @@ export default Ember.Component.extend({
    * @prop { Object[] } processedData - Transform the data objects in 'data' into objects that can be consumed
    * by the template
    */
-  processedData: Ember.computed('data', 'visibleColumns', function() {
-    const data = this.get('data');
-    const dataLen = data.length;
-    const visibleIndex =
-      this.get('visibleColumns') * this.get('itemsPerColumn');
-    const correctColor = GRADING_SCALE[GRADING_SCALE.length - 1].COLOR;
-    const failColor = GRADING_SCALE[0].COLOR;
 
-    var processedData = [];
+  processedData: Ember.computed(
+    'data.@each.correct',
+    'data.@each.incorrect',
+    'visibleColumns',
+    function() {
+      const data = this.get('data');
+      const dataLen = data.length;
+      const visibleIndex =
+        this.get('visibleColumns') * this.get('itemsPerColumn');
+      const correctColor = GRADING_SCALE[GRADING_SCALE.length - 1].COLOR;
+      const failColor = GRADING_SCALE[0].COLOR;
+      const processedData = [];
 
-    for (let i = 0; i < dataLen; i++) {
-      if (i < visibleIndex) {
-        // Process only the data that will be seen; otherwise, there's no need to process the data
-        let dataObj = data[i];
-        let questionObj = {
-          id: dataObj.id,
-          data: [
-            {
-              color: failColor,
-              percentage: roundFloat(dataObj.incorrect / dataObj.total * 100, 1)
-            },
-            {
-              color: correctColor,
-              percentage: roundFloat(dataObj.correct / dataObj.total * 100, 1)
-            }
-          ],
-          completed: dataObj.correct + dataObj.incorrect,
-          total: dataObj.total
-        };
+      for (let i = 0; i < dataLen; i++) {
+        if (i < visibleIndex) {
+          // Process only the data that will be seen; otherwise, there's no need to process the data
+          let dataObj = data[i];
+          let questionObj = {
+            id: dataObj.id,
+            data: [
+              {
+                color: failColor,
+                percentage: roundFloat(
+                  dataObj.incorrect / dataObj.total * 100,
+                  1
+                )
+              },
+              {
+                color: correctColor,
+                percentage: roundFloat(dataObj.correct / dataObj.total * 100, 1)
+              },
+              {
+                color: OPEN_ENDED_COLOR,
+                percentage: roundFloat(
+                  dataObj.openEnded / dataObj.total * 100,
+                  1
+                )
+              }
+            ],
+            completed: dataObj.correct + dataObj.incorrect + dataObj.openEnded,
+            total: dataObj.total
+          };
 
-        processedData.push(questionObj);
+          processedData.push(questionObj);
+        }
       }
-    }
 
-    return processedData;
-  }),
+      return processedData;
+    }
+  ),
 
   showMore: Ember.computed('width', function() {
     return (

@@ -268,7 +268,9 @@ test('it renders', function(assert) {
     'First question -first segment, correct percentage'
   );
 
-  var $correctBar = $firstQuestion.find('.gru-x-bar-chart .segment:last');
+  var $correctBar = $firstQuestion.find(
+    '.gru-x-bar-chart .segment:nth-child(2)'
+  );
   assert.ok(
     $correctBar
       .attr('style')
@@ -302,7 +304,7 @@ test('it renders', function(assert) {
     'Second question -first segment, correct percentage'
   );
 
-  $correctBar = $lastQuestion.find('.gru-x-bar-chart .segment:last');
+  $correctBar = $lastQuestion.find('.gru-x-bar-chart .segment:nth-child(2)');
   assert.ok(
     $correctBar.attr('style').split(';')[1].indexOf('75%') > 0,
     'Second question -second segment, correct percentage'

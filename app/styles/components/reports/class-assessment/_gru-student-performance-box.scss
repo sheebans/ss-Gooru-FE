@@ -69,6 +69,9 @@
         &.incorrect {
           background-color: $brand-incorrect;
         }
+        &.open-ended {
+          background-color: $blue-400;
+        }
       }
     }
   }

@@ -20,8 +20,15 @@ export function stats(questionResults) {
   let reactions = [];
 
   questionResults.forEach(function(item) {
-    correct += item.get('correct') ? 1 : 0;
-    incorrect += item.get('incorrect') ? 1 : 0;
+    let isOE = item.get('questionType') === 'OE';
+
+    if (!isOE) {
+      correct += item.get('correct') ? 1 : 0;
+      incorrect += item.get('incorrect') ? 1 : 0;
+    } else {
+      total -= 1;
+    }
+
     skipped += item.get('skipped') ? 1 : 0;
     started += item.get('started') ? 1 : 0;
     timeSpent += item.get('timeSpent');
