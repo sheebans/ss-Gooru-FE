@@ -4,10 +4,6 @@
       top: 90px;
       z-index: 1100;
     }
-    padding-top: 120px;
-    @media (max-width: $screen-xs-max) {
-      padding-top: 248px;
-    }
   }
 
   .qz-player {
@@ -16,10 +12,86 @@
     .player {
       overflow: auto;
     }
+    .qz-aside {
+      width: 65px;
+    }
   }
+
+  .no-confirmation {
+    .qz-player {
+      padding-top: 120px;
+      @media (max-width: $screen-xs-max) {
+        padding-top: 228px;
+      }
+    }
+  }
+
   .qz-navigator {
+    width: 65px;
+    min-height: 83vh;
+    max-height: 83vh;
+    transition: width 1s;
+    position: static;
     .navigator-header {
       display: none;
+    }
+    .course-map {
+      text-align: center;
+      color: #fff;
+      background: #48a5ed;
+      height: 50px;
+      width: inherit;
+      cursor: pointer;
+      span {
+        position: relative;
+        top: 15px;
+      }
+    }
+    .course-map-play-icon {
+      font-size: 40px;
+      position: relative;
+      left: -111px;
+      top: 6px;
+    }
+    .pervious-resource {
+      height: 50px;
+      background-color: #555e65;
+      cursor: pointer;
+      h6 {
+        color: #fff;
+        float: left;
+        position: relative;
+        top: 8px;
+        width: 190px;
+      }
+      i {
+        font-size: 40px;
+        color: #fff;
+        width: 65px;
+        height: 50px;
+        position: relative;
+        left: -111px;
+        top: 6px;
+        float: left;
+      }
+    }
+    .on-slide-open {
+      visibility: hidden;
+    }
+    .on-slide-close {
+      visibility: visible;
+    }
+    &:hover {
+      .on-slide-open {
+        visibility: visible;
+      }
+      .on-slide-close {
+        visibility: hidden;
+      }
+      .course-map-play-icon {
+        display: none;
+      }
+      width: 260px;
     }
   }
 }
