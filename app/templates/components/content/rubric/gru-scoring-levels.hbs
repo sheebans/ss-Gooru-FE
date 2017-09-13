@@ -21,7 +21,11 @@
   </div>
   <div class="score-section points">
     <span>{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.scoring'}}</span>
-    {{gru-switch switchOptions=switchOptions onOptionSwitch='onScoringChange' isChecked=showScore disabled=disabledScoring}}
+    {{#if disabledScoring}}
+      {{gru-switch switchOptions=switchOptions onOptionSwitch='onScoringChange' isChecked=showScore disabled=true}}
+    {{else}}
+      {{gru-switch switchOptions=switchOptions onOptionSwitch='onScoringChange' isChecked=showScore}}
+    {{/if}}
     <div class="point-list">
       {{#each scoringLevels as |level index|}}
         <div>
@@ -38,30 +42,34 @@
     </div>
   </div>
 {{else}}
-  <div class="score-section preview level">
-    <div class="levels">
-      <div class="legend">{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.levels'}}</div>
-      <div class="scale">
-        <span class="best legend">{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.best'}}</span>
-        <div class="line"></div>
-        <div class="arrow-down"></div>
-        <span class="worst legend">{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.worst'}}</span>
-      </div>
-      <div class="level-list">
-        {{#each scoringLevels as |level index|}}
-          <div class="value">{{level.name}}</div>
-        {{/each}}
-      </div>
-    </div>
-  </div>
-  <div class="score-section preview points">
-    <div class="scores">
-      <div class="legend">{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.scoring'}}</div>
-      <div class="point-list">
-        {{#each scoringLevels as |level index|}}
-          <div class="value">{{level.score}}</div>
-        {{/each}}
+  {{#if showLevel}}
+    <div class="score-section preview level">
+      <div class="levels">
+        <div class="legend">{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.levels'}}</div>
+        <div class="scale">
+          <span class="best legend">{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.best'}}</span>
+          <div class="line"></div>
+          <div class="arrow-down"></div>
+          <span class="worst legend">{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.worst'}}</span>
+        </div>
+        <div class="level-list">
+          {{#each scoringLevels as |level index|}}
+            <div class="value">{{level.name}}</div>
+          {{/each}}
+        </div>
       </div>
     </div>
-  </div>
+  {{/if}}
+  {{#if showScore}}
+    <div class="score-section preview points">
+      <div class="scores">
+        <div class="legend">{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.scoring'}}</div>
+        <div class="point-list">
+          {{#each scoringLevels as |level index|}}
+            <div class="value">{{level.score}}</div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
 {{/unless}}

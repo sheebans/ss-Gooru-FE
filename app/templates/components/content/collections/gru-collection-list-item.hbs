@@ -30,30 +30,30 @@
     {{/if}}
 
     <div class="detail {{if isPanelExpanded 'hidden' 'visible'}} collapsed">
-        {{#if model.standards.length}}
-          {{#each visibleStandardsList as |standard|}}
-            <span class="btn btn-primary btn-small">{{standard.code}}</span>
-          {{/each}}
-          {{#if remainingStandards}}
-            <span class="btn btn-default btn-small">+{{remainingStandards}}</span>
-          {{/if}}
-        {{else}}
-          <span class="out-of-scope">{{t "common.add-standard"}}</span>
+      {{#if model.standards.length}}
+        {{#each visibleStandardsList as |standard|}}
+          <span class="btn btn-primary btn-small">{{standard.code}}</span>
+        {{/each}}
+        {{#if remainingStandards}}
+          <span class="btn btn-default btn-small">+{{remainingStandards}}</span>
         {{/if}}
+      {{else}}
+        <span class="out-of-scope">{{t "common.add-standard"}}</span>
+      {{/if}}
 
-        <div class="actions">
-          <button class="btn add-item no-bgd out-of-scope" title="{{t 'common.add'}}" {{action 'add'}}>{{gru-icon name="add"}}</button>
-          {{#unless (eq model.format 'question')}}
-          <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}}" {{action 'editNarration' model}}>{{gru-icon name="mode_comment"}}</button>
-          {{/unless}}
-            <div class="item-actions">
-              <button title="{{t 'common.delete'}}" class="btn no-bgd delete-item" {{action 'deleteItem' model}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">{{gru-icon name="delete"}}</button>
-              <button title="{{t 'common.copy-to'}}" class="btn no-bgd copy-to" {{action 'copyTo' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="call_split"}}</button>
-              <button title="{{t 'common.move'}}" class="btn no-bgd move-item out-of-scope" {{action 'move' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="subdirectory_arrow_right"}}</button>
-              <button title="{{t 'common.copy'}}" class="btn no-bgd copy-item" {{action 'copy' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="content_copy"}}</button>
-              <button class="btn edit-item no-bgd" title="{{t 'common.edit'}}" {{action 'editInline'}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
-            </div>
-        </div>
+      <div class="actions">
+        <button class="btn add-item no-bgd out-of-scope" title="{{t 'common.add'}}" {{action 'add'}}>{{gru-icon name="add"}}</button>
+        {{#unless (eq model.format 'question')}}
+        <button class="btn narration no-bgd" title="{{t 'common.edit-narration'}}" {{action 'editNarration' model}}>{{gru-icon name="mode_comment"}}</button>
+        {{/unless}}
+          <div class="item-actions">
+            <button title="{{t 'common.delete'}}" class="btn no-bgd delete-item" {{action 'deleteItem' model}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">{{gru-icon name="delete"}}</button>
+            <button title="{{t 'common.copy-to'}}" class="btn no-bgd copy-to" {{action 'copyTo' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="call_split"}}</button>
+            <button title="{{t 'common.move'}}" class="btn no-bgd move-item out-of-scope" {{action 'move' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="subdirectory_arrow_right"}}</button>
+            <button title="{{t 'common.copy'}}" class="btn no-bgd copy-item" {{action 'copy' model}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="content_copy"}}</button>
+            <button class="btn edit-item no-bgd" title="{{t 'common.edit'}}" {{action 'editInline'}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="edit"}}</button>
+          </div>
+      </div>
     </div>
     <div class="detail {{if isPanelExpanded 'visible' 'hidden'}} expanded">
       <div class="actions">
@@ -177,9 +177,9 @@
               {{/unless}}
             </div>
             {{#if hasNoImages}}
-                <div class="missing-images">
-                    <p><small>{{t "common.errors.answer-has-no-image"}}</small></p>
-                </div>
+              <div class="missing-images">
+                <p><small>{{t "common.errors.answer-has-no-image"}}</small></p>
+              </div>
             {{/if}}
             {{#if correctAnswerNotSelected}}
               <div class="missing-correct-answer">

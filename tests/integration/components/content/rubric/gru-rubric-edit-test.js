@@ -242,6 +242,7 @@ test('Copy Category', function(assert) {
     });
   });
 });
+
 test('Delete Category', function(assert) {
   let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(), {
     id: 'id-for-test',
@@ -291,6 +292,7 @@ test('Add two categories, change the content of one category and it doesnt chang
   this.render(
     hbs`{{content/rubric/gru-rubric-edit rubric=tempRubric rubric=rubric isEditing=true}}`
   );
+
   const $component = this.$();
   var $rubricTab = $component.find('.header.content.gru-header nav a.rubric');
   $rubricTab.click();
@@ -313,51 +315,71 @@ test('Add two categories, change the content of one category and it doesnt chang
       );
       $titleField.find('input').val('Category 1');
       $titleField.find('input').blur();
-      const $levelField = $component.find(
-        '.gru-category:eq(0) .gru-scoring-levels .level-list .gru-input:first-child'
-      );
-      $levelField.find('input').val('Level 1');
-      $levelField.find('input').blur();
 
-      var $lastLevelDeleteBtn = $component.find(
-        '.gru-category:eq(0) .content.rubric.gru-scoring-levels .point-list div:last-child .btn.delete'
+      var $levelSwitch = $component.find(
+        '.gru-category:eq(0) .content.rubric.gru-scoring-levels .level .gru-switch a input'
       );
-
-      $lastLevelDeleteBtn.click();
+      $levelSwitch.prop('checked', true);
       return wait().then(function() {
-        assert.ok(
-          $component.find(
-            '.gru-category:eq(0) .content.rubric.gru-scoring-levels .point-list div .btn.delete'
-          ).length,
-          4,
-          'Incorrect number of levels'
-        );
-        const $save = $component.find('.detail .actions .save');
-        $save.click();
+        $levelSwitch.change();
         return wait().then(function() {
-          $addCategory.click();
+          const $levelField = $component.find(
+            '.gru-category:eq(0) .gru-scoring-levels .level-list .gru-input:first-child'
+          );
+          $levelField.find('input').val('Level 1');
+          $levelField.find('input').blur();
+
+          var $lastLevelDeleteBtn = $component.find(
+            '.gru-category:eq(0) .content.rubric.gru-scoring-levels .point-list div:last-child .btn.delete'
+          );
+
+          $lastLevelDeleteBtn.click();
           return wait().then(function() {
-            const $levelField = $component.find(
-              '.gru-category:eq(1) .gru-scoring-levels .level-list .gru-input:first-child'
-            );
-            assert.equal(
-              $levelField.find('input').val(),
-              '',
-              'New Category level should be empty'
-            );
             assert.ok(
               $component.find(
-                '.gru-category:eq(1) .content.rubric.gru-scoring-levels .point-list div .btn.delete'
+                '.gru-category:eq(0) .content.rubric.gru-scoring-levels .point-list div .btn.delete'
               ).length,
-              5,
+              4,
               'Incorrect number of levels'
             );
+            const $save = $component.find('.detail .actions .save');
+            $save.click();
+            return wait().then(function() {
+              $addCategory.click();
+              return wait().then(function() {
+                var $levelSwitch = $component.find(
+                  '.gru-category:eq(1) .content.rubric.gru-scoring-levels .level .gru-switch a input'
+                );
+                $levelSwitch.prop('checked', true);
+                return wait().then(function() {
+                  $levelSwitch.change();
+                  return wait().then(function() {
+                    const $levelField = $component.find(
+                      '.gru-category:eq(1) .gru-scoring-levels .level-list .gru-input:first-child'
+                    );
+                    assert.equal(
+                      $levelField.find('input').val(),
+                      '',
+                      'New Category level should be empty'
+                    );
+                    assert.ok(
+                      $component.find(
+                        '.gru-category:eq(1) .content.rubric.gru-scoring-levels .point-list div .btn.delete'
+                      ).length,
+                      5,
+                      'Incorrect number of levels'
+                    );
+                  });
+                });
+              });
+            });
           });
         });
       });
     });
   });
 });
+
 test('Add Category and cancel before save', function(assert) {
   let rubric = RubricModel.create(Ember.getOwner(this).ownerInjection(), {
     id: 'id-for-test',

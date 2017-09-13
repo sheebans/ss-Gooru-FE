@@ -15,6 +15,7 @@ moduleForAcceptance('Acceptance | Edit Course', {
     });
   }
 });
+
 test('Remove Assessment from Lesson', function(assert) {
   visit('/content/courses/edit/course-123');
 
@@ -397,6 +398,7 @@ test('Delete question from collection', function(assert) {
     });
   });
 });
+
 test('Delete question from assessment', function(assert) {
   visit(
     '/content/assessments/edit/all-question-types-assessment-id?courseId=course-123'

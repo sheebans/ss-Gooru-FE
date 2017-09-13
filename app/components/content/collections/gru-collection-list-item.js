@@ -314,13 +314,15 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
      */
     showAddRubricModal: function() {
       let component = this;
+      const userId = component.get('session.userId');
 
       return component
         .get('rubricService')
-        .getUserRubrics(component.get('session.userId'))
+        .getUserRubrics(userId)
         .then(function(rubrics) {
           return {
             questionId: component.get('tempModel.id'),
+            userId,
             rubrics,
             callback: {
               success: function(rubricAssociated) {

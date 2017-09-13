@@ -30,4 +30,9 @@
       }
     }
   }
+  .modal-footer {
+    button.cancel {
+      border: $gray-light solid 1px;
+    }
+  }
 }

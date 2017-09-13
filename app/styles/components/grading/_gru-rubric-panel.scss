@@ -71,12 +71,11 @@
     width: 100%;
   }
   .rubric-information {
-    height: 100%;
+    height: auto;
     @include flexbox();
     @include flex-direction(column);
     .content {
       color: $white;
-      height: 85%;
     }
   }
   .footer {

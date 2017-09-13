@@ -6,7 +6,9 @@ import Question from 'gooru-web/models/content/question';
 import Answer from 'gooru-web/models/content/answer';
 import Assessment from 'gooru-web/models/content/assessment';
 import Collection from 'gooru-web/models/content/collection';
+import Rubric from 'gooru-web/models/rubric/rubric';
 import Ember from 'ember';
+import T from 'gooru-web/tests/helpers/assert';
 
 const questionServiceStub = Ember.Service.extend({
   updateQuestion(questionID, editedQuestion) {
@@ -572,94 +574,6 @@ test('Builder Edit for FIB', function(assert) {
     );
   });
 });
-
-/*
- TODO: Disabled for GG-1133, fix it later
- test('Validate the character limit in text field', function (assert) {
- assert.expect(1);
- var question = Question.create(Ember.getOwner(this).ownerInjection(), {
- title: "",
- text:"",
- standards: []
- });
- this.set('question',question);
-
- this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question tempQuestion=question}}`);
-
- const $component = this.$('.gru-questions-edit');
- const $rteField = $component.find(".editor-box");
- var newText ="";
- var i = 0;
- for (i = 0; i <=5000 ; i++) {
- newText+="a";
- }
- $rteField.html(newText);
- $rteField.trigger('blur');
-
- return wait().then(function () {
- assert.ok($rteField.find(".warning").length, 'Question text error message should be visible');
- });
-
- });
- */
-
-/*
- TODO: Disabled for GG-1133, fix it later
- test('Update Question Builder', function (assert) {
- assert.expect(1);
- var newText ='Lorem ipsum dolor sit amet';
- var question = Question.create(Ember.getOwner(this).ownerInjection(), {
- title: 'Question for testing',
- text:"",
- type:'MC',
- standards: []
- });
- this.set('question',question);
-
- this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question tempQuestion=question}}`);
-
- const $component = this.$('.gru-questions-edit');
- const $textField = $component.find(".gru-textarea.text");
- $textField.find("textarea").val(newText);
- $textField.find("textarea").change();
-
- const $save =  $component.find("#builder .actions .save");
- $save.click();
- return wait().then(function () {
- const $textFieldRead = $component.find("#builder .panel-body textarea");
- $textFieldRead.blur();
- assert.equal($textFieldRead.val(),newText, "The question text should be updated");
- });
- });
- */
-
-/*
- TODO: Disabled for GG-1133, fix it later
- test('Validate update of default Title if the Question Text is updated', function (assert) {
- assert.expect(1);
- var newText ='Lorem ipsum dolor sit amet';
- var question = Question.create(Ember.getOwner(this).ownerInjection(), {
- title: 'New Question',
- text:"",
- type:'MC',
- standards: []
- });
- this.set('question',question);
-
- this.render(hbs`{{content/questions/gru-questions-edit isBuilderEditing=true question=question tempQuestion=question}}`);
-
- const $component = this.$('.gru-questions-edit');
- const $textField = $component.find(".gru-textarea.text");
- $textField.find("textarea").val(newText);
- $textField.find("textarea").change();
-
- const $save =  $component.find("#builder .actions .save");
- $save.click();
- return wait().then(function () {
- assert.equal($component.find(".title label b").text(),newText , "The question title should be updated");
- });
- });
- */
 
 test('Update Question Save Answers', function(assert) {
   assert.expect(2);
@@ -1397,6 +1311,52 @@ test('Builder Edit with advanced edit button for the Multiple Choice answers', f
       assert.ok(
         !$richEditorComponent.find('.btn-toolbar').hasClass('hidden'),
         'btn-toolbar should not be hidden for the answers editors'
+      );
+    });
+  });
+});
+
+test('Save when rubric ON is not associated - Open Ended', function(assert) {
+  const question = Question.create(Ember.getOwner(this).ownerInjection(), {
+    id: 'question-id',
+    title: 'Question Title',
+    description: 'Question Description',
+    format: 'question',
+    questionType: 'OE',
+    type: 'OE',
+    rubric: Rubric.create(Ember.getOwner(this).ownerInjection(), {
+      rubricOn: false
+    })
+  });
+
+  this.set('question', question);
+
+  this.render(hbs`{{content/questions/gru-questions-edit question=question}}`);
+  const $component = this.$('.gru-questions-edit');
+  const $edit = $component.find('#builder .actions .edit');
+  $edit.click();
+
+  return wait().then(function() {
+    const $feedbackGradingContainer = $component.find(
+      '#builder .feedback-grading'
+    );
+    const $switchRubric = $feedbackGradingContainer.find(
+      '.switch.rubric .gru-switch .toggle'
+    );
+
+    Ember.run(() => {
+      $switchRubric.click();
+    });
+
+    const $saveButton = $component.find('#builder .footer .actions .save');
+    assert.ok($saveButton.length, 'Panel');
+    $saveButton.click();
+
+    return wait().then(function() {
+      T.exists(
+        assert,
+        $feedbackGradingContainer.find('.content .validation .error'),
+        'error message should be visible'
       );
     });
   });

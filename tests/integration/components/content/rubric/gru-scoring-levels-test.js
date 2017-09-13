@@ -2,6 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
+import Category from 'gooru-web/models/rubric/rubric-category';
 
 moduleForComponent(
   'content/rubric/gru-scoring-levels',
@@ -12,6 +13,13 @@ moduleForComponent(
 );
 
 test('Layout', function(assert) {
+  var category = Category.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Category for test',
+    allowsLevels: true,
+    allowsScoring: true
+  });
+  this.set('category', category);
+
   let levels = Ember.A([
     {
       name: '',
@@ -25,7 +33,7 @@ test('Layout', function(assert) {
   this.set('scoringLevels', levels);
 
   this.render(
-    hbs`{{content/rubric/gru-scoring-levels scoringLevels=scoringLevels}}`
+    hbs`{{content/rubric/gru-scoring-levels scoringLevels=scoringLevels category=category}}`
   );
   var $component = this.$();
   assert.ok(
@@ -122,6 +130,13 @@ test('Layout', function(assert) {
 });
 
 test('Delete Scoring Level', function(assert) {
+  var category = Category.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Category for test',
+    allowsLevels: true,
+    allowsScoring: true
+  });
+  this.set('category', category);
+
   let levels = Ember.A([
     {
       name: '',
@@ -134,7 +149,7 @@ test('Delete Scoring Level', function(assert) {
   ]);
   this.set('scoringLevels', levels);
   this.render(
-    hbs`{{content/rubric/gru-scoring-levels scoringLevels=scoringLevels}}`
+    hbs`{{content/rubric/gru-scoring-levels scoringLevels=scoringLevels category=category}}`
   );
   var $component = this.$();
   assert.ok(
@@ -166,8 +181,14 @@ test('Delete Scoring Level', function(assert) {
 });
 
 test('Disabled scoring', function(assert) {
-  this.set('showScore', true);
-  this.render(hbs`{{content/rubric/gru-scoring-levels showScore=showScore}}`);
+  var category = Category.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Category for test',
+    allowsLevels: true,
+    allowsScoring: true
+  });
+  this.set('category', category);
+
+  this.render(hbs`{{content/rubric/gru-scoring-levels category=category}}`);
   var $component = this.$();
   assert.ok(
     $component.find('.content.rubric.gru-scoring-levels').length,
@@ -200,8 +221,14 @@ test('Disabled scoring', function(assert) {
 });
 
 test('Disabled level', function(assert) {
-  this.set('showLevel', true);
-  this.render(hbs`{{content/rubric/gru-scoring-levels showLevel=showLevel}}`);
+  var category = Category.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Category for test',
+    allowsLevels: true,
+    allowsScoring: true
+  });
+  this.set('category', category);
+
+  this.render(hbs`{{content/rubric/gru-scoring-levels category=category}}`);
   var $component = this.$();
   assert.ok(
     $component.find('.content.rubric.gru-scoring-levels').length,
@@ -248,6 +275,13 @@ test('Disabled level', function(assert) {
 });
 
 test('Layout-Preview Mode', function(assert) {
+  var category = Category.create(Ember.getOwner(this).ownerInjection(), {
+    title: 'Category for test',
+    allowsLevels: true,
+    allowsScoring: true
+  });
+  this.set('category', category);
+
   let levels = Ember.A([
     {
       name: 'Level 1',
@@ -261,7 +295,7 @@ test('Layout-Preview Mode', function(assert) {
   this.set('scoringLevels', levels);
 
   this.render(
-    hbs`{{content/rubric/gru-scoring-levels scoringLevels=scoringLevels preview=true}}`
+    hbs`{{content/rubric/gru-scoring-levels scoringLevels=scoringLevels preview=true category=category}}`
   );
   var $component = this.$();
   assert.ok(

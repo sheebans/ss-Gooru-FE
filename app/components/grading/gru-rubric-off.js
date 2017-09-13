@@ -18,5 +18,11 @@ export default Ember.Component.extend({
    * Rubric to grade
    * @property {Rubric} rubric
    */
-  rubric: null
+  rubric: null,
+
+  /**
+   * Student grade results
+   * @property {RubricGrade} grade
+   */
+  grade: null
 });
