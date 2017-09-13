@@ -80,13 +80,20 @@ export default PlayerController.extend({
     loadPreTest: () => {
       return true;
     },
-
+    /**
+     * It will set the choosen react value to context result.
+     * This reaction data will send back to the quizzes events.
+     * @param  {Number} It has the choosen react value.
+     */
     onChooseReaction: function(value) {
       this.get('contextResult.resourceResults')
         .findBy('resourceId', this.get('resourceId'))
         .set('reaction', value);
     },
-
+    /**
+     * This get triggered when resource get selected from left nav of player.
+     * @param  {Object} it has the resource object
+     */
     onSelectNavigatorItem: function(resource) {
       let resourceResults = this.get('contextResult.resourceResults');
       let resourceResult = resourceResults.findBy('resourceId', resource.id);
@@ -97,7 +104,9 @@ export default PlayerController.extend({
         : DISABLED_EMOTION_UNICODE;
       this.set('selectedUnicode', selectedUnicode);
     },
-
+    /**
+     * This action will triggered when start the player.
+     */
     onStartPlayer: function() {
       let resourceId = this.get('resourceId');
       if (resourceId) {
@@ -250,10 +259,22 @@ export default PlayerController.extend({
    */
   courseVersion: Ember.computed.alias('course.version'),
 
+  /**
+   * property will have the rating score.
+   * @property {Number}
+   */
   ratingScore: 0,
 
+  /**
+   * Emotion unicode to show the choosen reaction.
+   * @property {String}
+   */
   selectedUnicode: DISABLED_EMOTION_UNICODE,
 
+  /**
+   * Course id
+   * @property {String}
+   */
   courseId: null,
 
   /**

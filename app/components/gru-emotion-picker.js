@@ -46,6 +46,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
         }
       }
     },
+    /**
+     * Close action will trigger when emotion based react picker close button is clicked.
+     */
     close: function() {
       this.sendAction('onCloseReactPicker');
     }

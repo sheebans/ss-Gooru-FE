@@ -3,8 +3,7 @@ import { module, test } from 'qunit';
 
 module('Unit | Helper | minus one');
 
-// Replace this with your real tests.
-test('it works', function(assert) {
+test('Hepler:minusOne', function(assert) {
   let result = minusOne([42]);
-  assert.ok(result);
+  assert.equal(result, '+41', 'Wrong minus one value');
 });

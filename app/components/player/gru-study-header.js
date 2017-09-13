@@ -51,12 +51,22 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
+    /**
+     * Emotion react widget display will set to visible.
+     */
     openReactPicker() {
       this.set('showReactPicker', true);
     },
+    /**
+     * Emotion react widget display will set to hidden.
+     */
     onCloseReactPicker() {
       this.set('showReactPicker', false);
     },
+    /**
+     * This will get triggered when react got choosen from the widget.
+     * @param  {Number} It has the choosen reaction.
+     */
     onChooseReaction(value) {
       this.sendAction('onChooseReaction', value);
       this.set('showReactPicker', false);
@@ -67,6 +77,10 @@ export default Ember.Component.extend({
         : DISABLED_EMOTION_UNICODE;
       this.set('selectedUnicode', selectedUnicode);
     },
+    /**
+     * This will set the toggle property value of suggest widget.
+     * @return {[type]} [description]
+     */
     openSuggestResource() {
       this.toggleProperty('showSuggestBox');
     },
@@ -230,16 +244,38 @@ export default Ember.Component.extend({
    */
   isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
 
+  /**
+   * property will have the rating score.
+   * @property {Number}
+   */
   ratingScore: 0,
 
+  /**
+   * This property will decide to show the suggested resoure or not.
+   * @property {Boolean}
+   */
   hasSuggestedResources: false,
 
+  /**
+   * This property will decide to show the reaction picker  or not.
+   * @property {Boolean}
+   */
   showReactPicker: false,
 
+  /**
+   * It has the first object of suggest resource.
+   * @property {Object}
+   */
   firstSuggestResource: null,
-
+  /**
+   * It will set ture when suggest resources has more than one.
+   * @type {Boolean}
+   */
   hasMoreSuggestResource: false,
-
+  /**
+   * This property will decide to show the suggest widget or not
+   * @type {Boolean}
+   */
   showSuggestBox: false,
 
   // -------------------------------------------------------------------------

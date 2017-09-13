@@ -35,7 +35,7 @@ test('Click emotion', function(assert) {
     assert.equal('5', emotion);
   });
 
-  this.render(hbs`{{gru-emotion-picker onChangeEmotion='parentAction'}}`);
+  this.render(hbs`{{gru-emotion-picker onChooseReaction='parentAction'}}`);
   var $component = this.$(); //component dom element
   var $emotionPicker = $component.find('div.emotion-picker');
   $emotionPicker.find('.emotions-list li:first-child .emotion').click();
@@ -63,7 +63,7 @@ test('Click emotion in readOnly', function(assert) {
   });
 
   this.render(
-    hbs`{{gru-emotion-picker onChangeEmotion='parentAction' readOnly=true}}`
+    hbs`{{gru-emotion-picker onChooseReaction='parentAction' readOnly=true}}`
   );
   var $component = this.$(); //component dom element
   var $emotionPicker = $component.find('div.emotion-picker');

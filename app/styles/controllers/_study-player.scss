@@ -9,9 +9,11 @@
   .qz-player {
     overflow: auto;
     height: 100vh;
+
     .player {
       overflow: auto;
     }
+
     .qz-aside {
       width: 65px;
     }
@@ -32,9 +34,11 @@
     max-height: 83vh;
     transition: width 1s;
     position: static;
+
     .navigator-header {
       display: none;
     }
+
     .course-map {
       text-align: center;
       color: #fff;
@@ -42,21 +46,24 @@
       height: 50px;
       width: inherit;
       cursor: pointer;
+
       span {
-        position: relative;
-        top: 15px;
+        line-height: 50px;
       }
     }
+
     .course-map-play-icon {
       font-size: 40px;
       position: relative;
       left: -111px;
       top: 6px;
     }
+
     .pervious-resource {
       height: 50px;
       background-color: #555e65;
       cursor: pointer;
+
       h6 {
         color: #fff;
         float: left;
@@ -64,6 +71,7 @@
         top: 8px;
         width: 190px;
       }
+
       i {
         font-size: 40px;
         color: #fff;
@@ -75,12 +83,15 @@
         float: left;
       }
     }
+
     .on-slide-open {
       visibility: hidden;
     }
+
     .on-slide-close {
       visibility: visible;
     }
+
     &:hover {
       .on-slide-open {
         visibility: visible;
@@ -88,6 +99,7 @@
       .on-slide-close {
         visibility: hidden;
       }
+
       .course-map-play-icon {
         display: none;
       }
