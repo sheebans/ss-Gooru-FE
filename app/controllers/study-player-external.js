@@ -78,10 +78,13 @@ export default Ember.Controller.extend({
     let unit = this.get('unit');
     let lesson = this.get('lesson');
     let collection = this.get('collection');
+    let collectionId = collection
+      ? collection.get('id')
+      : this.get('collectionId');
     let lessonChildren = lesson.children;
     let titles = Ember.A([]);
 
-    let isChild = lessonChildren.findBy('id', collection.id);
+    let isChild = lessonChildren.findBy('id', collectionId);
 
     if (unit) {
       titles.push(
@@ -134,7 +137,10 @@ export default Ember.Controller.extend({
     } else {
       titles.push(
         Ember.Object.create({
-          actualTitle: collection.get('title')
+          shortTitle: 'A',
+          actualTitle: collection
+            ? collection.get('title')
+            : isChild.get('title')
         })
       );
     }
