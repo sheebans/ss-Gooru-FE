@@ -89,10 +89,13 @@
         padding: 0px;
         .resource-icon {
           margin-right: 10px;
+          float: left;
         }
         span.title {
           word-wrap: break-word;
           color: #0072bc;
+          float: left;
+          width: 75%;
         }
         li {
           border-bottom: 1px solid #ccc;

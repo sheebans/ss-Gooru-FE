@@ -70,37 +70,16 @@ export default Ember.Component.extend({
     openSuggestResource() {
       this.toggleProperty('showSuggestBox');
     },
-    /**
-     * Redirect to course map
-     */
-    redirectCourseMap() {
-      if (this.get('classId')) {
-        this.get('router').transitionTo(
-          'student.class.course-map',
-          this.get('classId'),
-          { queryParams: { refresh: true } }
-        );
-      } else {
-        this.get(
-          'router'
-        ).transitionTo('student.independent.course-map', this.get('courseId'), {
-          queryParams: { refresh: true }
-        });
-      }
-    },
-
-    /**
-     * Go back to collection
-     */
-    backToCollection() {
-      window.location.href = this.get('collectionUrl');
-    },
 
     /**
      * Action triggered when a suggested resource is clicked
      */
     playSuggested(resource) {
-      let queryParams = { collectionUrl: window.location.href };
+      let collectionUrl = window.location.href;
+      if (!this.get('collectionUrl')) {
+        this.set('collectionUrl', collectionUrl);
+      }
+      let queryParams = { collectionUrl: this.get('collectionUrl') };
       this.get('router').transitionTo(
         'resource-player',
         this.get('classId'),
@@ -116,9 +95,7 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    if (!this.get('collectionUrl')) {
-      this.loadContent();
-    }
+    this.loadContent();
   },
 
   // -------------------------------------------------------------------------

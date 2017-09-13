@@ -1,13 +1,13 @@
 .study-player-external {
   .player-container {
     .gru-take-tour {
-      top: 60px;
+      top: 90px;
       z-index: 1100;
     }
     &.external-assessment {
       @include flexbox;
       @include justify-content(center);
-      padding: 100px;
+      padding: 120px;
       @media (max-width: $screen-xs-max) {
         padding-top: 228px;
       }

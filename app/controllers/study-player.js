@@ -103,12 +103,14 @@ export default PlayerController.extend({
       if (resourceId) {
         let resourceResults = this.get('contextResult.resourceResults');
         let resourceResult = resourceResults.findBy('resourceId', resourceId);
-        this.set('ratingScore', resourceResult.get('reaction'));
-        let emotion = EMOTION_VALUES.findBy('value', this.get('ratingScore'));
-        let selectedUnicode = emotion
-          ? emotion.unicode
-          : DISABLED_EMOTION_UNICODE;
-        this.set('selectedUnicode', selectedUnicode);
+        if (resourceResult) {
+          this.set('ratingScore', resourceResult.get('reaction'));
+          let emotion = EMOTION_VALUES.findBy('value', this.get('ratingScore'));
+          let selectedUnicode = emotion
+            ? emotion.unicode
+            : DISABLED_EMOTION_UNICODE;
+          this.set('selectedUnicode', selectedUnicode);
+        }
       }
     }
   },
@@ -250,7 +252,9 @@ export default PlayerController.extend({
 
   ratingScore: 0,
 
-  selectedUnicode: null,
+  selectedUnicode: DISABLED_EMOTION_UNICODE,
+
+  courseId: null,
 
   /**
    * Resets to default values
@@ -264,7 +268,11 @@ export default PlayerController.extend({
       lessonId: null,
       collectionId: null,
       resourceId: null,
-      type: null
+      type: null,
+      selectedUnicode: DISABLED_EMOTION_UNICODE,
+      ratingScore: null,
+      courseVersion: null,
+      courseId: null
     });
   }
 });

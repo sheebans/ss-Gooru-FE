@@ -1,12 +1,12 @@
 .study-player {
   .player-container {
     .gru-take-tour {
-      top: 60px;
+      top: 90px;
       z-index: 1100;
     }
-    padding-top: 100px;
+    padding-top: 120px;
     @media (max-width: $screen-xs-max) {
-      padding-top: 228px;
+      padding-top: 248px;
     }
   }
 
