@@ -27,11 +27,15 @@ export default Ember.Component.extend({
     const courseId = aClass.get('courseId');
 
     if (courseId) {
-      component.get('courseService').fetchById(courseId).then(function(course) {
-        if (!component.isDestroyed) {
-          component.set('course', course);
-        }
-      });
+      // fetching course details without profile data
+      component
+        .get('courseService')
+        .fetchByIdWithOutProfile(courseId)
+        .then(function(course) {
+          if (!component.isDestroyed) {
+            component.set('course', course);
+          }
+        });
     }
   },
 
