@@ -44,7 +44,9 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
      */
     addNewCategory: function() {
       let newCategory = Category.create(Ember.getOwner(this).ownerInjection(), {
-        isNew: true
+        isNew: true,
+        allowsLevels: true,
+        allowsScoring: true
       }).initLevels();
       let categories = this.get('categories');
       categories.addObject(newCategory);
