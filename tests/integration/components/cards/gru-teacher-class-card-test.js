@@ -45,6 +45,9 @@ var mockClass = ClassModel.create({
     timeSpent: 344680,
     total: 61,
     totalCompleted: 2
+  }),
+  course: Ember.Object.create({
+    title: 'course-test'
   })
 });
 
@@ -57,7 +60,7 @@ test('Class Card Layout', function(assert) {
   this.set('classStudentCount', classStudentCount);
 
   this.render(
-    hbs`{{cards/gru-teacher-class-card class=class classStudentCount=classStudentCount}}`
+    hbs`{{cards/gru-teacher-class-card class=class course=class.course classStudentCount=classStudentCount}}`
   );
 
   var $component = this.$(); //component dom element
