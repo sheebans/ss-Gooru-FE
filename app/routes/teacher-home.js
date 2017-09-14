@@ -142,13 +142,11 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     var featuredCourses = Ember.A([]);
 
     if (firstCourseId) {
-      // fetching course data whithout profile
       firstCoursePromise = route
         .get('courseService')
         .fetchByIdWithOutProfile(firstCourseId);
     }
     if (secondCourseId) {
-      // fetching course data whithout profile
       secondCoursePromise = route
         .get('courseService')
         .fetchByIdWithOutProfile(secondCourseId);

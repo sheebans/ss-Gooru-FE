@@ -27,7 +27,6 @@ export default Ember.Component.extend({
     const courseId = aClass.get('courseId');
 
     if (courseId) {
-      // fetching course details without profile data
       component
         .get('courseService')
         .fetchByIdWithOutProfile(courseId)
