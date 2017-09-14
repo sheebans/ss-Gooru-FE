@@ -17,28 +17,6 @@ export default Ember.Component.extend({
   // Actions
 
   // -------------------------------------------------------------------------
-  // Events
-
-  init() {
-    var component = this;
-    component._super(...arguments);
-
-    const aClass = component.get('class');
-    const courseId = aClass.get('courseId');
-
-    if (courseId) {
-      component
-        .get('courseService')
-        .fetchByIdWithOutProfile(courseId)
-        .then(function(course) {
-          if (!component.isDestroyed) {
-            component.set('course', course);
-          }
-        });
-    }
-  },
-
-  // -------------------------------------------------------------------------
   // Properties
   /**
    * @property {Class} class information

@@ -189,6 +189,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
               .get('courseService')
               .fetchByIdWithOutProfile(courseId)
               .then(course => {
+                activeClass.set('course', course);
                 activeClass.set('unitsCount', course.get('unitCount'));
               });
           }
