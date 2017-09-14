@@ -141,8 +141,7 @@ export default Ember.Component.extend({
   }),
 
   // -------------------------------------------------------------------------
-  // Methods
-
+  // Events
   /**
    * Initialize tempCategory by coping it from source of category object.
    */
@@ -151,6 +150,9 @@ export default Ember.Component.extend({
     let tempCategory = this.get('category').copy();
     this.set('tempCategory', tempCategory);
   },
+
+  // -------------------------------------------------------------------------
+  // Methods
 
   /**
    * Show Inline Edit Panel
