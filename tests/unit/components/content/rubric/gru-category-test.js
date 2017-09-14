@@ -60,7 +60,11 @@ test('editInline', function(assert) {
 });
 
 test('showInfo', function(assert) {
-  let component = this.subject();
+  let component = this.subject({
+    category: Category.create(Ember.getOwner(this).ownerInjection(), {
+      title: 'test'
+    })
+  });
   assert.equal(
     component.get('isPanelExpanded'),
     false,
@@ -101,7 +105,11 @@ test('cancel', function(assert) {
   );
 });
 test('copyCategory', function(assert) {
-  let component = this.subject();
+  let component = this.subject({
+    category: Category.create(Ember.getOwner(this).ownerInjection(), {
+      title: 'test'
+    })
+  });
   let categoryCopy = { id: 'category-test' };
   component.set('sendAction', function(actionName, category, index) {
     assert.equal(actionName, 'onCopyCategory', 'Action sent should match');
@@ -137,7 +145,11 @@ test('saveCategory', function(assert) {
   });
 });
 test('deleteCategory', function(assert) {
-  let component = this.subject();
+  let component = this.subject({
+    category: Category.create(Ember.getOwner(this).ownerInjection(), {
+      title: 'test'
+    })
+  });
   let categoryDelete = { id: 'category-test' };
   component.set('sendAction', function(actionName, category) {
     assert.equal(actionName, 'onDeleteCategory', 'Action sent should match');
