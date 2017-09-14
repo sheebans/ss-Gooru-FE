@@ -78,9 +78,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
               lessonId
             ),
             question,
-            rubric: this.get('rubricService').getRubric(
-              question.get('rubric.id')
-            ),
+            rubric: question.get('rubric.id')
+              ? this.get('rubricService').getRubric(question.get('rubric.id'))
+              : null,
             userIds: users.get('students'),
             users: this.get('profileService')
               .readMultipleProfiles(users.get('students'))
@@ -142,8 +142,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
                 ? model.answer.get('sessionId')
                 : null,
             createdDate: new Date(),
-            rubricCreatedDate: model.rubric.get('createdDate'),
-            rubricUpdatedDate: model.rubric.get('updatedDate')
+            rubricCreatedDate: model.rubric
+              ? model.rubric.get('createdDate')
+              : null,
+            rubricUpdatedDate: model.rubric
+              ? model.rubric.get('updatedDate')
+              : null
           }
         )
       };

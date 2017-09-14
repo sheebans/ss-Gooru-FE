@@ -157,7 +157,9 @@ export default Ember.Component.extend({
     const questions = component.get('assessment.resources');
 
     return questions.map(function(question) {
-      return studentReportData[question.get('id')];
+      var reportData = studentReportData[question.get('id')];
+      reportData.set('questionType', question.get('questionType'));
+      return reportData;
     });
   }
 });

@@ -125,7 +125,9 @@ export default Ember.Component.extend({
    * Copy of the category used for editing.
    * @property {Category}
    */
-  tempCategory: null,
+  tempCategory: Ember.computed('category', function() {
+    return this.get('category').copy();
+  }),
 
   /**
    * Action to send when save is clicked

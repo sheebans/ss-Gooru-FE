@@ -57,12 +57,14 @@ test('it renders the question charts correctly', function(assert) {
       id: 1,
       correct: 5,
       incorrect: 5,
+      openEnded: 0,
       total: 10
     },
     {
       id: 2,
       correct: 6,
       incorrect: 3,
+      openEnded: 0,
       total: 10
     }
   ];
@@ -93,7 +95,7 @@ test('it renders the question charts correctly', function(assert) {
     'The incorrect segment in the chart shows the right percentage'
   );
 
-  const $correctBar = $lastItem.find('.gru-x-bar-chart .segment:last');
+  const $correctBar = $lastItem.find('.gru-x-bar-chart .segment:nth-child(2)');
   assert.ok(
     $correctBar
       .attr('style')
