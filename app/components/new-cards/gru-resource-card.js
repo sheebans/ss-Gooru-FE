@@ -150,6 +150,12 @@ export default Ember.Component.extend(ModalMixin, SessionMixin, {
   resource: null,
 
   /**
+   * Indicates if is the card is showing on profile
+   * @property {boolean}
+   */
+  isOnProfile: false,
+
+  /**
    * Show the publisher if the resource has publisher and is publish
    * @property {boolean}
    */
