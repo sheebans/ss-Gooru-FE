@@ -33,14 +33,7 @@ test('Verifying collections.player.reactions feature default value', function(
   andThen(function() {
     assert.equal(
       currentURL(),
-      '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection'
-    );
-
-    const $playerContainer = find('.qz-player');
-    T.exists(
-      assert,
-      $playerContainer.find('.qz-main .qz-navigation .reaction-bar'),
-      'Missing reaction bar'
+      '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=teacher&type=collection'
     );
   });
 });
@@ -53,7 +46,7 @@ test('Verifying collections.player.showReportLink feature default value', functi
   andThen(function() {
     assert.equal(
       currentURL(),
-      '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection'
+      '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=teacher&type=collection'
     );
 
     const $playerContainer = find('.qz-player');
@@ -73,7 +66,7 @@ test('Verifying collections.player.showCollectionName feature default value', fu
   andThen(function() {
     assert.equal(
       currentURL(),
-      '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection'
+      '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=teacher&type=collection'
     );
 
     const $playerContainer = find('.qz-player');
