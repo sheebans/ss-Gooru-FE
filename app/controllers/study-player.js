@@ -278,6 +278,12 @@ export default PlayerController.extend({
   courseId: null,
 
   /**
+   * This will decide to show react widget or not
+   * @type {Boolean}
+   */
+  showReactButton: false,
+
+  /**
    * Resets to default values
    */
   resetValues: function() {

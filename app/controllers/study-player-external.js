@@ -65,6 +65,12 @@ export default Ember.Controller.extend({
   showBackButton: false,
 
   /**
+   * Indicates if it should show the react widget or not
+   * @property {boolean}
+   */
+  showReactButton: false,
+
+  /**
    * Current map location
    * @property {MapLocation}
    */

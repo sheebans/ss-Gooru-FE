@@ -5,7 +5,9 @@
       z-index: 1100;
     }
   }
-
+  .qz-navigation {
+    display: none;
+  }
   .qz-player {
     overflow: auto;
     height: 100vh;
