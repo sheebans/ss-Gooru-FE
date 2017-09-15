@@ -88,6 +88,9 @@
     .navigator-subheader {
       visibility: hidden;
     }
+    .submit-all {
+      display: none;
+    }
     .list-group-item {
       .resources-info {
         span {
@@ -119,6 +122,9 @@
       }
       .course-map-play-icon {
         display: none;
+      }
+      .submit-all {
+        display: block;
       }
       .course-map {
         span {
