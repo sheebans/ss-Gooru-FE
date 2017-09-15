@@ -15,6 +15,8 @@
     }
 
     .qz-aside {
+      @include translateX(0);
+      position: static;
       width: 65px;
     }
   }
@@ -46,9 +48,9 @@
       height: 50px;
       width: inherit;
       cursor: pointer;
-
       span {
         line-height: 50px;
+        display: none;
       }
     }
 
@@ -83,25 +85,62 @@
         float: left;
       }
     }
-
-    .on-slide-open {
+    .navigator-subheader {
       visibility: hidden;
     }
-
-    .on-slide-close {
-      visibility: visible;
+    .list-group-item {
+      .resources-info {
+        span {
+          display: none;
+        }
+        h6 {
+          width: 0px;
+          height: 0px;
+        }
+        i {
+          margin-left: 10px;
+        }
+      }
     }
-
+    .list-group {
+      &.resources {
+        overflow-y: hidden;
+        li.started {
+          background: #2d2b2b;
+        }
+        li.selected {
+          background: #535e67;
+        }
+      }
+    }
     &:hover {
-      .on-slide-open {
-        visibility: visible;
+      .resources {
+        overflow-y: auto;
       }
-      .on-slide-close {
-        visibility: hidden;
-      }
-
       .course-map-play-icon {
         display: none;
+      }
+      .course-map {
+        span {
+          display: block;
+        }
+      }
+      .navigator-subheader {
+        visibility: visible;
+      }
+      .list-group-item {
+        .resources-info {
+          span {
+            display: block;
+          }
+          h6 {
+            width: 100%;
+            height: auto;
+          }
+          i {
+            margin-left: 0px;
+          }
+        }
       }
       width: 260px;
     }

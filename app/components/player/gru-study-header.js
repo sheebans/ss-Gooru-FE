@@ -142,15 +142,6 @@ export default Ember.Component.extend({
    * @property {collection} collection - The current Collection
    */
   collection: null,
-  /**
-   * @property {Resource} nextResource - Return the next resource
-   */
-  nextResource: Ember.computed('actualResource', 'collection', function() {
-    const collection = this.get('collection');
-    return collection && collection.nextResource
-      ? this.get('collection').nextResource(this.get('actualResource'))
-      : null;
-  }),
 
   /**
    * @property {Number} resourceSequence - The resource sequence in the collection / assessment
@@ -223,14 +214,6 @@ export default Ember.Component.extend({
       ];
     }
   ),
-
-  /**
-   * @property {String} lessonTitle
-   */
-  lessonTitle: Ember.computed('breadcrumbs', function() {
-    const breadcrumbs = this.get('breadcrumbs');
-    return breadcrumbs[1] || '';
-  }),
 
   /**
    * Course version name

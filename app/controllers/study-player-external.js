@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { ROLES } from 'gooru-web/config/config';
+import { CONTENT_TYPES, ROLES } from 'gooru-web/config/config';
 
 /**
  * Study Player External Controller
@@ -105,7 +105,7 @@ export default Ember.Controller.extend({
     if (collection && isChild) {
       if (collection.isCollection) {
         let collections = lessonChildren.filter(
-          collection => collection.format === 'collection'
+          collection => collection.format === CONTENT_TYPES.collection
         );
         collections.forEach((child, index) => {
           if (child.id === collection.id) {
@@ -120,7 +120,7 @@ export default Ember.Controller.extend({
         });
       } else {
         let assessments = lessonChildren.filter(
-          assessment => assessment.format === 'assessment'
+          assessment => assessment.format === CONTENT_TYPES.assessment
         );
         assessments.forEach((child, index) => {
           if (child.id === collection.id) {
