@@ -10,7 +10,7 @@
       </div>
     {{else}}
       {{#if preview}}
-        {{#if hasLevels}}
+        {{#if (and category.allowsLevels hasLevels)}}
           <a class="title" {{action 'showInfo'}}>
             <div>
               <h2 class="pointer">{{{category.title}}}</h2>

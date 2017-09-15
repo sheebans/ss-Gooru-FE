@@ -125,9 +125,7 @@ export default Ember.Component.extend({
    * Copy of the category used for editing.
    * @property {Category}
    */
-  tempCategory: Ember.computed('category', function() {
-    return this.get('category').copy();
-  }),
+  tempCategory: null,
 
   /**
    * Action to send when save is clicked
@@ -143,7 +141,19 @@ export default Ember.Component.extend({
   }),
 
   // -------------------------------------------------------------------------
+  // Events
+  /**
+   * Initialize tempCategory by coping it from source of category object.
+   */
+  init() {
+    this._super(...arguments);
+    let tempCategory = this.get('category').copy();
+    this.set('tempCategory', tempCategory);
+  },
+
+  // -------------------------------------------------------------------------
   // Methods
+
   /**
    * Show Inline Edit Panel
    */

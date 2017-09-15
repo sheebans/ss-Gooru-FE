@@ -215,12 +215,14 @@ export default QuizzesPlayer.extend(
     playerModel: function(params) {
       const route = this;
       const userId = route.get('session.userId');
-      route
-        .get('profileService')
-        .readUserProfile(userId)
-        .then(function(updatedProfile) {
-          route.set('profile', updatedProfile);
-        });
+      if (userId !== 'anonymous') {
+        route
+          .get('profileService')
+          .readUserProfile(userId)
+          .then(function(updatedProfile) {
+            route.set('profile', updatedProfile);
+          });
+      }
       const collectionId = params.collectionId;
       const type = params.type;
       const role = params.role || ROLES.TEACHER;
