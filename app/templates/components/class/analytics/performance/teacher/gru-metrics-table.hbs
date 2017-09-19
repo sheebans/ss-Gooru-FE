@@ -1,5 +1,8 @@
 {{#if headers}}
   <div class="metrics-table-wrapper">
+    {{#if isLoading}}
+    <button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+    {{else}}
     <table class="table">
       <thead>
         <tr class="headers">
@@ -17,14 +20,14 @@
                             {{else}}
                                 <div class="prefix">{{{course-sections-prefix index=index type=headerType longName=false}}}</div>
                             {{/if}}
-                              <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=header.title maxLength=15 suffix=true}}}</div>
+                              <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=header.title maxLength=14 suffix=true}}}</div>
                         </div>
                         <div class="small-icon">{{gru-icon "play_arrow"}}</div>
                     </div>
                 </th>
             {{else}} 
             {{#if header.showSub}}
-                <th colspan="{{colspanval}}">
+                <th colspan="{{header.colspanval}}">
                    <div class="header-title pull-left">
                         <div class="column">
                             <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{header.title}}}</div>
@@ -44,10 +47,10 @@
             
                   {{#each header.subColumns as |subHeader index|}}
                     {{#if header.showSubSub}}
-                    <th id="{{{subHeader.id}}}" colspan="{{plus-one subHeader.subsubColumns.length}}" class="header pointer" scope="col">
+                    <th id="{{{subHeader.id}}}" class="header pointer" scope="col">
                     <div class="header-title">
                         <div class="column">
-                            <div class="title" title="{{subHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subHeader.title maxLength=15 suffix=true}}}</div>
+                            <div class="title" title="{{subHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subHeader.title maxLength=14 suffix=true}}}</div>
                         </div>
                     </div>
                     {{#each subHeader.subsubColumns as |subsubHeader index|}}
@@ -55,7 +58,7 @@
                    <th id="{{{subsubHeader.id}}}" class="header pointer subsubwidthmax" scope="col">
                     <div class="header-title">
                         <div class="column">
-                            <div class="title" title="{{subsubHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subsubHeader.title maxLength=10 suffix=true}}}</div>
+                            <div class="title" title="{{subsubHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subsubHeader.title maxLength=14 suffix=true}}}</div>
                         </div>
                     </div>
                 </th>
@@ -66,7 +69,7 @@
                     <th id="{{{subHeader.id}}}" class="header pointer" scope="col">
                     <div class="header-title">
                         <div class="column">
-                            <div class="title" title="{{subHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subHeader.title maxLength=15 suffix=true}}}</div>
+                            <div class="title" title="{{subHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subHeader.title maxLength=14 suffix=true}}}</div>
                         </div>
                     </div>
                     </th>
@@ -78,7 +81,7 @@
                 <th id="{{{header.id}}}"  class="header pointer" scope="col">
                     <div class="header-title">
                         <div class="column">
-                            <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=header.title maxLength=15 suffix=true}}}</div>
+                            <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=header.title maxLength=14 suffix=true}}}</div>
                         </div>
                           </div>
                         {{#if header.showSub}}
@@ -112,7 +115,7 @@
           {{/if}}  
           {{/each}}
         </tr> --}}
-          {{!-- <tr class="average">
+         <tr class="average">
           <th class="header fixed" scope="row">
              <span class="class-average">
                {{t "class.analytics.performance.teacher.metricsTable.class-average"}}
@@ -128,7 +131,7 @@
             {{/if}}
             </th>
           {{/each}}
-           {{#each averageHeadersLesson.performanceData as |average index|}}
+           {{!-- {{#each averageHeadersLesson.performanceData as |average index|}}
             <th class="performance-information">
             {{#if (eq index 0)}}
               {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=false}}
@@ -147,8 +150,8 @@
               isAverage=true}}
             {{/if}}
             </th>
-          {{/each}}
-        </tr>   --}}
+          {{/each}} --}}
+        </tr> 
       </thead>
       <tbody>
         {{#each performanceData as |userPerformance index|}}
@@ -217,6 +220,7 @@
         
       </tbody>
     </table>
+    {{/if}}
   </div>
 {{else}}
   <span class="no-content">{{t "common.no-content"}}</span>
