@@ -85,16 +85,21 @@
         </div>
       {{/if}}
     </div>
+
     <div class="content tab-content">
       <div role="tabpanel" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
         {{#if hasClasses}}
           {{#each activeClasses as |class|}}
             {{cards.gru-teacher-class-card
             class=class
+            course=class.course
             classStudentCount=myClasses.memberCount}}
           {{/each}}
         {{/if}}
       </div>
+
+
+
       <div role="tabpanel" class="tab-pane row {{if showArchivedClasses 'active'}}" id="archived-classes">
         {{#each sortedArchivedClassrooms as |class|}}
           {{cards.gru-class-card

@@ -142,12 +142,14 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     var featuredCourses = Ember.A([]);
 
     if (firstCourseId) {
-      firstCoursePromise = route.get('courseService').fetchById(firstCourseId);
+      firstCoursePromise = route
+        .get('courseService')
+        .fetchByIdWithOutProfile(firstCourseId);
     }
     if (secondCourseId) {
       secondCoursePromise = route
         .get('courseService')
-        .fetchById(secondCourseId);
+        .fetchByIdWithOutProfile(secondCourseId);
     }
 
     return Ember.RSVP
@@ -183,9 +185,13 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
           let classId = activeClass.get('id');
           let courseId = activeClass.get('courseId');
           if (courseId) {
-            route.get('courseService').fetchById(courseId).then(course => {
-              activeClass.set('unitsCount', course.get('unitCount'));
-            });
+            route
+              .get('courseService')
+              .fetchByIdWithOutProfile(courseId)
+              .then(course => {
+                activeClass.set('course', course);
+                activeClass.set('unitsCount', course.get('unitCount'));
+              });
           }
           activeClass.set(
             'performanceSummary',

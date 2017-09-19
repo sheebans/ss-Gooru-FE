@@ -88,6 +88,25 @@ export default Ember.Service.extend(StoreMixin, {
   },
 
   /**
+   * Fetch course  details wihtout profile Informations
+   *
+   */
+
+  fetchByIdWithOutProfile: function(courseId) {
+    const service = this;
+    return service
+      .get('adapter')
+      .getCourseById(courseId)
+      .then(function(courseData) {
+        let course = service.get('serializer').normalizeCourse(courseData);
+        return course;
+      })
+      .catch(function(error) {
+        return error;
+      });
+  },
+
+  /**
    * Update existing course
    *
    * @param courseModel The Course model to update
@@ -142,7 +161,10 @@ export default Ember.Service.extend(StoreMixin, {
   deleteCourse: function(courseId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('adapter').deleteCourse(courseId).then(resolve, reject);
+      service
+        .get('adapter')
+        .deleteCourse(courseId)
+        .then(resolve, reject);
     });
   },
 
