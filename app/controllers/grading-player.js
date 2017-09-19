@@ -262,7 +262,13 @@ export default Ember.Controller.extend({
    * Submit a graded answer
    */
   submitGrade: function() {
-    this.get('currentGrade').set('updatedDate', new Date());
+    let currentGrade = this.get('currentGrade');
+    currentGrade.set('updatedDate', new Date());
+    currentGrade.set(
+      'studentScore',
+      parseInt(currentGrade.get('studentScore'))
+    );
+
     this.get('rubricService')
       .setStudentRubricGrades(this.get('currentGrade'))
       .then(() => {
