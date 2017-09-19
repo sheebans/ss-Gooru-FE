@@ -131,43 +131,8 @@
         @media (min-width: $screen-sm) {
           height: 80px;
         }
-        span.switch.visible-xs {
-          .change-visibility {
-            color: $dark-300;
-          }
-          .dropdown-menu {
-            min-width: 80px;
-            position: absolute;
-            left: -11px;
-            .arrow-up {
-              width: 0;
-              height: 0;
-              border-left: 7px solid transparent;
-              border-right: 7px solid transparent;
-              border-bottom: 7px solid $white;
-              position: absolute;
-              top: -12%;
-              left: 19%;
-            }
-          }
-        }
-        span.switch {
-          position: absolute;
-          left: -38px;
-          top: 10px;
-
-          @media (min-width: $screen-sm) {
-            left: -96px;
-            top: 4px;
-          }
-          @media (min-width: $screen-md) {
-            left: -116px;
-            top: 4px;
-          }
-        }
         button.on-air {
           display: inline-block;
-          margin: 0 5px;
           width: $on-air-icon;
           height: $on-air-icon;
           vertical-align: middle;
@@ -341,16 +306,19 @@
         border-radius: 0;
 
         .controls {
-          width: 8%;
-          max-width: 8%;
+          width: 14%;
+          max-width: 14%;
           float: left;
           border-right: solid 2px $light-200;
           min-height: 55px;
+          .switch {
+            width: 48%;
+          }
           .go-live-cnt {
-            width: 50%;
+            width: 25%;
           }
           .adca-cnt {
-            width: 50%;
+            width: 27%;
           }
           .go-live {
             margin-top: 2px;
@@ -430,9 +398,6 @@
           float: left;
           @media (min-width: $screen-sm) {
             width: 45%;
-          }
-          @media (min-width: $screen-lg) {
-            width: 50%;
           }
           .collection-controls {
             height: 100%;

@@ -445,3 +445,69 @@ test('Show trophy', function(assert) {
     });
   });
 });
+test('Non visible - Assessment', function(assert) {
+  assert.expect(5);
+
+  const currentClass = Ember.Object.create({
+    id: '111-111-111',
+    courseId: '999-999-999',
+    minScore: 10
+  });
+
+  const lesson = Ember.Object.create({
+    id: 'lesson-with-out-collections-id',
+    title: 'Lesson Title',
+    completed: 5,
+    total: 10
+  });
+
+  this.on('selectLesson', function() {
+    assert.ok(true, 'This should be called');
+  });
+
+  this.set('currentClass', currentClass);
+  this.set('unitId', '777-999');
+  this.set('lesson', lesson);
+  this.set('index', 0);
+  this.set('currentResource', '123');
+  this.set(
+    'items',
+    Ember.A([
+      Ember.Object.create({
+        id: '123',
+        title: 'Equations',
+        visible: false,
+        isAssessment: true
+      })
+    ])
+  );
+  this.render(hbs`{{class/overview/gru-accordion-lesson
+                    currentClass=currentClass
+                    unitId=unitId
+                    model=lesson
+                    index=index
+                    showLocation=false
+                    items=items
+                    isStudent=true
+                    isLessonSelected=isLessonSelected
+                    onSelectLesson=(action 'selectLesson')}}`);
+
+  var $component = this.$();
+  const $lessonTitleAnchor = $component.find('.panel-heading a.title');
+  const $collapsePanel = $component.find('.panel-collapse');
+  Ember.run(() => {
+    $lessonTitleAnchor.click();
+  });
+  return wait().then(function() {
+    assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
+    assert.ok($collapsePanel.find('li'), 'Missing item');
+    return wait().then(function() {
+      assert.ok(
+        $component.find('li.assessment:first-child').hasClass('item-disabled'),
+        'Assessment should have the class item-disabled'
+      );
+      var $goLiveButton = $component.find('li.assessment:first-child .on-air');
+      assert.notOk($goLiveButton.length, 'Missing Go Live button');
+    });
+  });
+});
