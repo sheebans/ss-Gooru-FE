@@ -136,7 +136,7 @@ test('integration route to player with collection id and type', function(
     assert.expect(1);
     assert.equal(
       currentURL(),
-      '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=student&type=collection'
+      '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=teacher&type=collection'
     );
   });
 });
@@ -152,7 +152,7 @@ test('integration route to player with collection id and type and source id', fu
     assert.expect(1);
     assert.equal(
       currentURL(),
-      '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=student&sourceId=123&type=collection'
+      '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=teacher&sourceId=123&type=collection'
     );
   });
 });

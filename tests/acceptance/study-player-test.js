@@ -42,7 +42,7 @@ test('Layout - default to collection since parameter is not sent', function(
   andThen(function() {
     assert.equal(
       currentURL(),
-      '/study-player/course/course-123?classId=class-for-pochita-as-student&collectionId=first-assessment-id&lessonId=first-lesson-id&resourceId=image-resource-id&type=assessment&unitId=first-unit-id'
+      '/study-player/course/course-123?classId=class-for-pochita-as-student&collectionId=first-assessment-id&lessonId=first-lesson-id&resourceId=image-resource-id&role=teacher&type=assessment&unitId=first-unit-id'
     );
 
     const $playerHeader = find('.gru-study-header');
@@ -50,31 +50,6 @@ test('Layout - default to collection since parameter is not sent', function(
 
     const $playerContainer = find('.player-container .qz-player');
     T.exists(assert, $playerContainer, 'Missing quizzes player component');
-  });
-});
-
-test('Redirect to Course Map', function(assert) {
-  visit(
-    '/study-player/course/course-123?unitId=first-unit-id&lessonId=first-lesson-id&collectionId=first-assessment-id&classId=class-for-pochita-as-student'
-  );
-
-  andThen(function() {
-    assert.equal(
-      currentURL(),
-      '/study-player/course/course-123?classId=class-for-pochita-as-student&collectionId=first-assessment-id&lessonId=first-lesson-id&resourceId=image-resource-id&type=assessment&unitId=first-unit-id'
-    );
-
-    const $playerHeader = find('.gru-study-header');
-    T.exists(assert, $playerHeader, 'Missing study player header');
-
-    const $courseMapButton = $playerHeader.find('.actions .course-map');
-    click($courseMapButton);
-    andThen(function() {
-      assert.equal(
-        currentURL(),
-        '/student/class/class-for-pochita-as-student/course-map?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-assessment-id&refresh=true'
-      );
-    });
   });
 });
 
@@ -86,7 +61,7 @@ test('Take A Tour button hidden', function(assert) {
   andThen(function() {
     assert.equal(
       currentURL(),
-      '/study-player/course/course-123?classId=class-for-pochita-as-student&collectionId=first-assessment-id&lessonId=first-lesson-id&resourceId=image-resource-id&type=assessment&unitId=first-unit-id'
+      '/study-player/course/course-123?classId=class-for-pochita-as-student&collectionId=first-assessment-id&lessonId=first-lesson-id&resourceId=image-resource-id&role=teacher&type=assessment&unitId=first-unit-id'
     );
 
     const $showConfirmationContainer = find(

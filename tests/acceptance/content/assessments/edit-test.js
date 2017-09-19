@@ -111,7 +111,7 @@ test('Click preview button', function(assert) {
     andThen(function() {
       assert.equal(
         currentURL(),
-        '/player/all-question-types-assessment-id?resourceId=image-resource-id&type=assessment',
+        '/player/all-question-types-assessment-id?resourceId=image-resource-id&role=teacher&type=assessment',
         'Wrong url'
       );
     });

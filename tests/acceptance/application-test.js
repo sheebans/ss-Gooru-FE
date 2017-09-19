@@ -84,7 +84,7 @@ test('Legacy uri collection-play with no content id', function(assert) {
   andThen(function() {
     assert.equal(
       currentURL(),
-      '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection'
+      '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=student&type=collection'
     );
   });
 });
@@ -96,7 +96,7 @@ test('Legacy uri collection-play with content id', function(assert) {
   andThen(function() {
     assert.equal(
       currentURL(),
-      '/player/all-resource-types-collection-id?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae&type=collection'
+      '/player/all-resource-types-collection-id?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae&role=student&type=collection'
     );
   });
 });
@@ -106,7 +106,7 @@ test('Legacy uri assessment-play with no content id', function(assert) {
   andThen(function() {
     assert.equal(
       currentURL(),
-      '/player/all-question-types-assessment-id?resourceId=image-resource-id&type=assessment'
+      '/player/all-question-types-assessment-id?resourceId=image-resource-id&role=student&type=assessment'
     );
   });
 });
@@ -118,7 +118,7 @@ test('Legacy uri assessment-play with content id', function(assert) {
   andThen(function() {
     assert.equal(
       currentURL(),
-      '/player/all-question-types-assessment-id?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae&type=assessment'
+      '/player/all-question-types-assessment-id?resourceId=f86f874c-efc9-4100-9cf7-55eb86ec95ae&role=student&type=assessment'
     );
   });
 });

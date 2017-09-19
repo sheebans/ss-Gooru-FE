@@ -49,7 +49,7 @@ test('Clicking card title should open the player', function(assert) {
     andThen(function() {
       assert.equal(
         currentURL(),
-        '/player/all-question-types-assessment-id?resourceId=image-resource-id&type=assessment'
+        '/player/all-question-types-assessment-id?resourceId=image-resource-id&role=student&type=assessment'
       );
     });
   });
@@ -68,7 +68,7 @@ test('Clicking card image should open the player', function(assert) {
     andThen(function() {
       assert.equal(
         currentURL(),
-        '/player/all-question-types-assessment-id?resourceId=image-resource-id&type=assessment'
+        '/player/all-question-types-assessment-id?resourceId=image-resource-id&role=student&type=assessment'
       );
     });
   });
@@ -129,7 +129,10 @@ test('Apply taxonomy filter - Removing taxonomy tag', function(assert) {
 
     assert.equal($taxonomyTags.length, 2, 'Number of tags rendered');
 
-    $taxonomyTags.eq(0).find('button.remove').click();
+    $taxonomyTags
+      .eq(0)
+      .find('button.remove')
+      .click();
 
     andThen(function() {
       const $taxonomyTags = find('.gru-taxonomy-tag-list .gru-taxonomy-tag');

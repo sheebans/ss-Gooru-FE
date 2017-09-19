@@ -110,7 +110,7 @@ test('Click preview button', function(assert) {
     andThen(function() {
       assert.equal(
         currentURL(),
-        '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection'
+        '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=teacher&type=collection'
       );
     });
   });

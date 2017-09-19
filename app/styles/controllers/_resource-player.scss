@@ -1,7 +1,8 @@
 .resource-player {
   height: 100%;
-  .gru-header,
-  .gru-footer {
+
+  .gru-footer,
+  .gru-header {
     display: none;
   }
 
@@ -15,25 +16,7 @@
     padding-bottom: 15px;
   }
 
-  &.expanded {
-    .gru-player-done {
-      padding: 20px 50px;
-    }
-    .qz-resource-viewer,
-    .gru-player-done {
-      padding-top: 300px;
-      @media (min-width: $screen-sm) {
-        padding-top: 170px;
-      }
-      @media (min-width: $screen-md) {
-        padding-top: 145px;
-      }
-    }
-  }
-  &.collapsed {
-    .qz-resource-viewer,
-    .gru-player-done {
-      padding-top: 55px;
-    }
+  .gru-player-done {
+    padding: 20px 50px;
   }
 }

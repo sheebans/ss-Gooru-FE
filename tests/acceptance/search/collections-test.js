@@ -59,7 +59,7 @@ test('Clicking card title should open the player', function(assert) {
     andThen(function() {
       assert.equal(
         currentURL(),
-        '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection'
+        '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=student&type=collection'
       );
     });
   });
@@ -78,7 +78,7 @@ test('Clicking card image should open the player', function(assert) {
     andThen(function() {
       assert.equal(
         currentURL(),
-        '/player/all-resource-types-collection-id?resourceId=image-resource-id&type=collection'
+        '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=student&type=collection'
       );
     });
   });
@@ -152,7 +152,10 @@ test('Apply category filter to standards', function(assert) {
           '.content-navigation .taxonomy.gru-subject-picker'
         );
         assert.equal(
-          $categoryPicker.find('.selected-category').text().trim(),
+          $categoryPicker
+            .find('.selected-category')
+            .text()
+            .trim(),
           'K-12',
           'The Category button should display the selected category'
         );
@@ -200,7 +203,10 @@ test('Apply taxonomy filter - Removing taxonomy tag', function(assert) {
 
     assert.equal($taxonomyTags.length, 2, 'Number of tags rendered');
 
-    $taxonomyTags.eq(0).find('button.remove').click();
+    $taxonomyTags
+      .eq(0)
+      .find('button.remove')
+      .click();
 
     andThen(function() {
       const $taxonomyTags = find('.gru-taxonomy-tag-list .gru-taxonomy-tag');
