@@ -632,7 +632,10 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
           editedQuestionText !== ''
         ) {
           editedQuestionText = $.trim(editedQuestionText);
-          var newTitle = editedQuestionText.substr(0, 50);
+          //Replace answer placeholder in the question title from [answer] into ____
+          var newTitle = editedQuestionText
+            .replace(/\[[^\]]+\]/g, '____')
+            .substr(0, 50);
 
           editedQuestion.set('title', newTitle);
         }
