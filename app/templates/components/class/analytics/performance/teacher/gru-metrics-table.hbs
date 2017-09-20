@@ -30,17 +30,17 @@
                 <th colspan="{{header.colspanval}}">
                    <div class="header-title pull-left">
                         <div class="column">
-                            <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{header.title}}}</div>
-                        </div>
-                          </div>
-                           {{#if header.showAssessments}}
-                           <div class="pull-right text-primary" {{action 'showlessons' index}}>Show Lessons</div>
+                            <div class="titlenew" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{header.title}}}</div>
+                          {{#if header.showAssessments}}
+                           <div class="text-newprimary" {{action 'showlessons' index}}>Show Lessons</div>
                            {{else}}
-                            <div class="pull-right text-primary" {{action 'showassessments' index}}>Show Assessments</div>
+                            <div class="text-newprimary" {{action 'showassessments' index}}>Show Assessments</div>
                           {{/if}}
+                        </div>
+                          </div>  
                 <th id="{{{header.id}}}"  class="header pointer subsubwidthmaxCollapse" scope="col">
    
-                        <div class="text-primary" {{action 'collapse' index}}>Collapse</div>
+                        <div class="text-newprimary" {{action 'collapse' index}}>Collapse</div>
 
                     </th>
            
@@ -85,9 +85,9 @@
                         </div>
                           </div>
                         {{#if header.showSub}}
-                        <div class="text-primary" {{action 'collapse' index}}>Collapse</div>
+                        <div class="text-newprimary" {{action 'collapse' index}}>Collapse</div>
                          {{else}}
-                        <div class="text-primary" {{action 'expand' index}}>Expand</div>
+                        <div class="text-newprimary" {{action 'expand' index}}>Expand</div>
                         {{/if}}
                     </th>
             {{/if}}
@@ -116,13 +116,13 @@
           {{/each}}
         </tr> --}}
          <tr class="average">
-          <th class="header fixed" scope="row">
+          <th class="header fixed backgroundclraverage" scope="row">
              <span class="class-average">
                {{t "class.analytics.performance.teacher.metricsTable.class-average"}}
              </span>
           </th>
           {{#each averageHeaders.performanceData as |average index|}}
-            <th class="performance-information">
+            <th class="performance-information backgroundclraverage">
             {{#if (eq index 0)}}
               {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=false}}
             {{else}}
