@@ -42,7 +42,10 @@
   .item-disabled {
     .icon-container,
     .panel-title,
-    .gru-user-icons {
+    .gru-user-icons,
+    .content-count,
+    .score,
+    .state {
       opacity: 0.5;
     }
     .panel-title {
