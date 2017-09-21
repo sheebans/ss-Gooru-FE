@@ -17,7 +17,7 @@ export function createPerformanceObject(performance, model, level = false) {
     collectionType: performance.get('collectionType'),
     headerTitle: model.get('title'),
     model: model,
-    score: score,
+    score: roundFloat(score),
     timeSpent: formatTime(timeSpent),
     hasStarted: score > 0 || timeSpent > 0,
     hasScore: score >= 0,
