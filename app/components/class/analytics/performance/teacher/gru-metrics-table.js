@@ -270,6 +270,11 @@ export default Ember.Component.extend({
    * @property {Boolean}
    */
   isLoading: false,
+  /**
+   * Query param, filterBy selected
+   * @property {String}
+   */
+  filterBy: 'assessment',
 
   /**
    * Indicate if the table is on collection level
@@ -301,6 +306,7 @@ export default Ember.Component.extend({
     init() {
         this._super(...arguments);
         const component = this;
+        component.set('filterBy', component.get('filterBy'));
         if(component.get('tempUnitId')!==null)
         {
         var unitDetails = component.get('headers').findBy('id', component.get('tempUnitId'));
@@ -368,6 +374,7 @@ export default Ember.Component.extend({
             this.removeexpandedUnit(this.get('tempUnitId'),indx);
             }
             }
+            this.set('filterBy', this.get('filterBy'));
              var temp = this.get('headers').objectAt(index);
              this.set('tempUnitId',temp.get('id'));
              this.expandUnit(temp.get('id'),index);
@@ -375,10 +382,12 @@ export default Ember.Component.extend({
         },
         collapse(index) {
           const component = this;
+          const filterBy = component.get('filterBy');
+          component.set('filterBy', component.get('filterBy'));
             var temp = component.get('headers').objectAt(index);
             var inxArr = [];
             component.get('averageHeaders').performanceData.forEach(function(item,indx){
-              if(item.level !== undefined && (item.level === 'lesson' || item.level === 'assessment'))
+              if(item.level !== undefined && (item.level === 'lesson' || item.level === filterBy))
                 {
                   inxArr.pushObject(indx);
                 }
@@ -406,7 +415,8 @@ export default Ember.Component.extend({
    const component = this;
     const classId = component.get('classId');
         const courseIdVal = component.get('courseId');
-        const filterBy="assessment";
+        const filterBy = component.get('filterBy');
+        component.set('filterBy', component.get('filterBy'));
         component.get('classService').readClassMembers(classId)
         .then(function(members) {
         component.get('unitService').fetchById(courseIdVal, unitId)
@@ -481,7 +491,8 @@ expandUnit: function(unitId,unitIndex){
    const component = this;
     const classId = component.get('classId');
         const courseIdVal = component.get('courseId');
-        const filterBy="assessment";
+        const filterBy = component.get('filterBy');
+        component.set('filterBy', component.get('filterBy'));
         component.get('classService').readClassMembers(classId)
         .then(function(members) {
         component.get('unitService').fetchById(courseIdVal, unitId)
@@ -493,7 +504,7 @@ expandUnit: function(unitId,unitIndex){
             var lessons = unit.get('children');
             var inxArr = [];
             component.get('averageHeaders').performanceData.forEach(function(item,indx){
-              if(item.level !== undefined && (item.level === 'lesson' || item.level === 'assessment'))
+              if(item.level !== undefined && (item.level === 'lesson' || item.level === filterBy))
                 {
                   inxArr.pushObject(indx);
                 }
@@ -614,10 +625,12 @@ expandUnit: function(unitId,unitIndex){
 },
 expandLesson: function(unitId,unitIndex){
    const component = this;
+   const filterBy = component.get('filterBy');
+   component.set('filterBy', component.get('filterBy'));
     var inxArr = [];
     component.set('totalAssessments',0);
       component.get('averageHeaders').performanceData.forEach(function(item,indx){
-        if(item.level !== undefined && (item.level === 'lesson' || item.level === 'assessment'))
+        if(item.level !== undefined && (item.level === 'lesson' || item.level === filterBy))
           {
             inxArr.pushObject(indx);
           }
@@ -634,7 +647,6 @@ expandLesson: function(unitId,unitIndex){
    //component.set('isLoading',true);
     const classId = component.get('classId');
         const courseIdVal = component.get('courseId');
-        const filterBy="assessment";
         component.get('classService').readClassMembers(classId)
         .then(function(members) {
         component.get('unitService').fetchById(courseIdVal, unitId)
@@ -672,18 +684,19 @@ expandLesson: function(unitId,unitIndex){
             var array2 = [];
             var arrayComplete = [];
             lesson.get('children').forEach(function(assessmentObj){
-            if(assessmentObj.format === "assessment")
+            if(assessmentObj.format === filterBy)
               {
                 countCols = countCols + 1;
                 var emberObject = Ember.Object.create({
                   id: assessmentObj.id,
                   lessonId:lessonObj.id,
-                  level:'assessment'
+                  level:filterBy
                 });
                 component.get('averageHeadersAssessment').pushObject(emberObject);
               }
           });
             Ember.run.later((function() {
+              Ember.Logger.info("col---",(component.get('totalAssessments')));
             if(component.get('averageHeadersAssessment').length===0 && (component.get('totalAssessments'))===0)
             {
             component.get('performanceData').forEach(function(item1){
@@ -694,7 +707,7 @@ expandLesson: function(unitId,unitIndex){
               });
             var inxArr = [];
             component.get('averageHeaders').performanceData.forEach(function(item,indx){
-              if(item.level !== undefined && (item.level === 'lesson' || item.level === 'assessment'))
+              if(item.level !== undefined && (item.level === 'lesson' || item.level === filterBy))
                 {
                   inxArr.pushObject(indx);
                 }
@@ -728,7 +741,7 @@ expandLesson: function(unitId,unitIndex){
               {
               var inxArr11 = [];
               component.get('averageHeaders').performanceData.forEach(function(item,indx){
-                if(item.level !== undefined && (item.level === 'lesson' || item.level === 'assessment'))
+                if(item.level !== undefined && (item.level === 'lesson' || item.level === filterBy))
                   {
                     inxArr11.pushObject(indx);
                   }
@@ -744,7 +757,7 @@ expandLesson: function(unitId,unitIndex){
                 });
               Ember.run.later((function() {
               array2.forEach(function(item,indx){
-                if(item.level !== undefined && (item.level === 'assessment'))
+                if(item.level !== undefined && (item.level === filterBy) || item.collectionType === 'collection')
                   {
                     array2.removeAt(indx);
                   }
@@ -752,13 +765,16 @@ expandLesson: function(unitId,unitIndex){
               arrayComplete.pushObjects(array1);
               arrayComplete.pushObjects(component.get('averageHeadersAssessment'));
               arrayComplete.pushObjects(array2);
+              Ember.Logger.info("array1---",array1);
+              Ember.Logger.info("array2---",array2);
+              Ember.Logger.info("array3---",component.get('averageHeadersAssessment'));
               component.get('averageHeaders').set('performanceData',arrayComplete);
               }), 2000);
               }
               else
               {
               array2.forEach(function(item,indx){
-                if(item.level !== undefined && (item.level === 'assessment'))
+                if(item.level !== undefined && (item.level === filterBy) || item.collectionType === 'collection')
                   {
                     array2.removeAt(indx);
                   }
@@ -766,6 +782,9 @@ expandLesson: function(unitId,unitIndex){
               arrayComplete.pushObjects(array1);
               arrayComplete.pushObjects(component.get('averageHeadersAssessment'));
               arrayComplete.pushObjects(array2);
+               Ember.Logger.info("array11---",array1);
+              Ember.Logger.info("array22---",array2);
+              Ember.Logger.info("array32---",component.get('averageHeadersAssessment'));
               component.get('averageHeaders').set('performanceData',arrayComplete);
               }
             }
@@ -838,7 +857,7 @@ expandLesson: function(unitId,unitIndex){
                                   var assessmentsStr = "";
                                   var colcount = 0;
                                   lesson.get('children').forEach(function(assessmentObj){
-                                    if(assessmentObj.format === "assessment")
+                                    if(assessmentObj.format === filterBy)
                                       {
                                         assessmentsStr = assessmentsStr + assessmentObj.id+",";
                                         var emberObject = Ember.Object.create({

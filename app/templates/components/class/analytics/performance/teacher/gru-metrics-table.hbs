@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     {{#each subHeader.subsubColumns as |subsubHeader index|}}
-                    {{#if (eq subsubHeader.collectionType 'assessment')}}
+                    {{#if (eq subsubHeader.collectionType filterBy)}}
                    <th id="{{{subsubHeader.id}}}" class="header pointer subsubwidthmax" scope="col">
                     <div class="header-title">
                         <div class="column">
