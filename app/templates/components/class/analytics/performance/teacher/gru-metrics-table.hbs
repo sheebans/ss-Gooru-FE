@@ -95,26 +95,34 @@
              {{/if}} 
           {{/each}}
         </tr>
-        {{!-- <tr class="sub-header hidden-xs">
+       <tr class="sub-header hidden-xs">
           <th class="fixed">
             {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' metrics=averageMetrics}}
           </th>
           <th class="widthmaxi">
             {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions}}
           </th>
-          {{#each columns as |header|}}
+          {{#each headers as |header|}}
             <th class="widthmaxi">
               {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions showReport=isCollection}}
             </th>
           {{#if header.showSub}}
               {{#each header.subColumns as |subHeader|}}
+               {{#if header.showSubSub}}
+              {{#each subHeader.subsubColumns as |subsubHeader index|}}
               <th class="widthmaxi">
                 {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions showReport=isCollection}}
               </th>
+              {{/each}}
+               {{else}}
+              <th class="widthmaxi">
+                {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions showReport=isCollection}}
+              </th>
+               {{/if}}
             {{/each}}
-          {{/if}}  
+          {{/if}}
           {{/each}}
-        </tr> --}}
+        </tr> 
          <tr class="average">
           <th class="header fixed backgroundclraverage" scope="row">
              <span class="class-average">
@@ -131,26 +139,6 @@
             {{/if}}
             </th>
           {{/each}}
-           {{!-- {{#each averageHeadersLesson.performanceData as |average index|}}
-            <th class="performance-information">
-            {{#if (eq index 0)}}
-              {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=false}}
-            {{else}}
-              {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=isCollection
-              isAverage=true}}
-            {{/if}}
-            </th>
-          {{/each}}
-          {{#each averageHeadersAssessment.performanceData as |average index|}}
-            <th class="performance-information">
-            {{#if (eq index 0)}}
-              {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=false}}
-            {{else}}
-              {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=isCollection
-              isAverage=true}}
-            {{/if}}
-            </th>
-          {{/each}} --}}
         </tr> 
       </thead>
       <tbody>

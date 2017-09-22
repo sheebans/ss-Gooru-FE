@@ -8,10 +8,6 @@
     width: auto;
     overflow-x: auto;
     padding-bottom: 1px;
-    margin-left: 64px;
-    @media (max-width: $screen-xs-max) {
-      margin-left: 105px;
-    }
   }
 
   .table {
@@ -21,7 +17,8 @@
     background: $white;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.07);
     border-top: 3px solid $dark-400;
-    border-radius: 0 5px 5px 0;
+    border-radius: 5px !important;
+    border-radius: 25px;
     border-collapse: inherit;
     display: table-cell;
     .lt-cell{

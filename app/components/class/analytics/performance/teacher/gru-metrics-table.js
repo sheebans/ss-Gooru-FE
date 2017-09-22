@@ -362,6 +362,7 @@ export default Ember.Component.extend({
              var temp = this.get('headers').objectAt(index);
               this.expandUnit(temp.get('id'),index);
              Ember.set(temp, 'showSub', true);
+             Ember.set(temp, 'showSubSub', false);
               Ember.set(temp, 'showAssessments', false);
         },
         expand(index) {
