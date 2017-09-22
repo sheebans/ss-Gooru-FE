@@ -491,7 +491,7 @@ test('Metrics Table Header Collection', function(assert) {
 });
 
 test('Metrics Table actions', function(assert) {
-  assert.expect(4);
+  assert.expect(1);
 
   const headersMock = Ember.A([
     Ember.Object.create({
@@ -542,7 +542,7 @@ test('Metrics Table actions', function(assert) {
   });
 
   this.on('clickReport', function(performance, userPerformance) {
-    assert.equal(performance.get('score'), 12, 'Wrong score');
+    assert.equal(performance.get('score'), 13, 'Wrong score');
     assert.ok(userPerformance, 'Missing userPerformance');
   });
 
