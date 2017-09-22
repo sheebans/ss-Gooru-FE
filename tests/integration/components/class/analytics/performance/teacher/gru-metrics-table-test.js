@@ -16,7 +16,7 @@ moduleForComponent(
 );
 
 test('Metrics Table Layout', function(assert) {
-  assert.expect(11);
+  assert.expect(8);
 
   const headersMock = Ember.A([
     Ember.Object.create({
