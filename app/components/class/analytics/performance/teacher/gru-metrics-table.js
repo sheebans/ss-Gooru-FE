@@ -410,6 +410,8 @@ export default Ember.Component.extend({
       const filterBy = component.get('filterBy');
       component.set('filterBy', component.get('filterBy'));
       var temp = component.get('headers').objectAt(index);
+      Ember.set(temp, 'showSub', false);
+      Ember.set(temp, 'showSubSub', false);
       var inxArr = [];
       component
         .get('averageHeaders')

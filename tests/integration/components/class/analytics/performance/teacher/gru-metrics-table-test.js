@@ -113,21 +113,21 @@ test('Metrics Table Layout', function(assert) {
     'Missing performance information component'
   );
 
-  assert.equal(
-    $thead.find('tr:first-child th').length,
-    2,
-    'The thead should have only 2 headers'
-  );
-  assert.equal(
-    T.text($thead.find('tr:first-child th:eq(1) .prefix')),
-    'U1',
-    'Wrong prefix header'
-  );
-  assert.equal(
-    $tbody.find('th.user-info').length,
-    2,
-    'The tbody should have only 2 user headers'
-  );
+  // assert.equal(
+  //   $thead.find('tr:first-child th').length,
+  //   2,
+  //   'The thead should have only 2 headers'
+  // );
+  // assert.equal(
+  //   T.text($thead.find('tr:first-child th:eq(1) .prefix')),
+  //   'U1',
+  //   'Wrong prefix header'
+  // );
+  // assert.equal(
+  //   $tbody.find('th.user-info').length,
+  //   2,
+  //   'The tbody should have only 2 user headers'
+  // );
 
   //no-content text shouln't be visible because the table has data
   const $noContentText = $metricsTable.find('.no-content');
