@@ -270,6 +270,12 @@ export default Ember.Component.extend(AccordionMixin, {
   isResourceSelected: false,
 
   /**
+   * Check it's nu course version or not
+   * @type {Boolean}
+   */
+  isNUCourse: false,
+
+  /**
    * @prop {Boolean} Indicate if the lesson is selected as active element to study
    */
   isLessonSelected: Ember.computed(

@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import { NU_COURSE_VERSION } from 'gooru-web/config/config';
+
 /**
  * Class Overview controller
  *
@@ -62,11 +64,22 @@ export default Ember.Controller.extend({
   class: Ember.computed.alias('classController.class'),
 
   /**
+   * @property {Course} the selected course
+   */
+  course: null,
+
+  /**
    * A link to the content visibility from class controller
    * @see controllers/class.js
    * @property {Class}
    */
-  contentVisibility: Ember.computed.alias('classController.contentVisibility')
+  contentVisibility: Ember.computed.alias('classController.contentVisibility'),
+
+  /**
+   * Check it's nu course version or not
+   * @type {Boolean}
+   */
+  isNUCourse: Ember.computed.equal('course.version', NU_COURSE_VERSION)
 
   // -------------------------------------------------------------------------
   // Observers

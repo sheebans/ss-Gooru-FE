@@ -116,18 +116,22 @@
                 {{#if isTeacher}}
                   <div class="controls">
                     {{#if item.isAssessment}}
-                      <span class='switch hidden-xs pull-left' data-toggle="tooltip" data-html="true" data-placement="top"
-                            title="{{t "common.assign"}}">
-                        {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}
-                      </span>
+                      {{#unless (or item.isExternalAssessment isNUCourse)}}
+                        <span class='switch hidden-xs pull-left' data-toggle="tooltip" data-html="true" data-placement="top"
+                              title="{{t "common.assign"}}">
+                          {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}
+                        </span>
+                      {{/unless}}
                       {{#if item.visible}}
-                        <div class="go-live-cnt pull-left">
-                          <button {{action 'goLive' item.id}}
-                           data-toggle="tooltip" data-html="true" data-placement="bottom"
-                           title="{{t "common.launch-on-air"}}"
-                           class="on-air go-live hidden-xs enabled">{{t "common.launch-on-air"}}
-                          </button>
-                        </div>
+                        {{#unless item.isExternalAssessment}}
+                          <div class="go-live-cnt pull-left">
+                            <button {{action 'goLive' item.id}}
+                             data-toggle="tooltip" data-html="true" data-placement="bottom"
+                             title="{{t "common.launch-on-air"}}"
+                             class="on-air go-live hidden-xs enabled">{{t "common.launch-on-air"}}
+                            </button>
+                          </div>
+                        {{/unless}}
                       {{/if}}
                     {{/if}}
                     <div class="adca-cnt pull-right">
