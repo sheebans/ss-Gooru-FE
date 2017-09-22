@@ -116,7 +116,7 @@
                 {{#if isTeacher}}
                   <div class="controls">
                     {{#if item.isAssessment}}
-                      {{#unless (or item.isExternalAssessment isNUCourse)}}
+                      {{#unless isNUCourse}}
                         <span class='switch hidden-xs pull-left' data-toggle="tooltip" data-html="true" data-placement="top"
                               title="{{t "common.assign"}}">
                           {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}

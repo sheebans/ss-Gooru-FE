@@ -511,7 +511,7 @@ test('Non visible - Assessment', function(assert) {
     });
   });
 });
-test('Non visible switch - External Assessment', function(assert) {
+test('Non visible switch - NU Course', function(assert) {
   assert.expect(6);
 
   const currentClass = Ember.Object.create({
@@ -567,6 +567,7 @@ test('Non visible switch - External Assessment', function(assert) {
                     showLocation=false
                     items=items
                     isTeacher=true
+                    isNUCourse=true
                     currentResource=currentResource
                     isLessonSelected=isLessonSelected
                     onSelectLesson=(action 'selectLesson')
