@@ -29,7 +29,7 @@
               {{if model.performance.hasStarted model.performance.score '--'}}%
       </span>
       {{#if isLessonSelected}}
-        <button {{action "studyNow" 'lesson' model}} class="btn btn-info study-now">
+        <button class="btn btn-info study-now" disabled={{if studyNowDisabled 'true' ''}} {{action "studyNow" 'lesson' model}}>
           {{gru-icon name='play_arrow'}}<span>{{t 'common.study'}}</span>
         </button>
       {{else}}
@@ -71,7 +71,7 @@
                 <div class="info">
                   <div class="left-info">
                     {{#if (eq activeElement item.id)}}
-                      <button disabled={{if item.visible '' 'true'}} {{action "studyNow" 'resource' item}} class="btn btn-info study-now">
+                      <button class="btn btn-info study-now" disabled={{if item.visible '' 'true'}} {{action "studyNow" 'resource' item}}>
                         {{gru-icon name='play_arrow'}}<span>{{t 'common.study'}}</span>
                       </button>
                     {{else}}
@@ -232,7 +232,7 @@
                       </span>
                     {{/if}}
 
-                    <button disabled={{if item.visible '' 'true'}} {{action "studyNow" 'collection' item}} class="btn btn-info study-now">
+                    <button class="btn btn-info study-now" disabled={{if item.visible '' 'true'}} {{action "studyNow" 'collection' item}}>
                       {{gru-icon name='play_arrow'}}<span>{{t 'common.study'}}</span>
                     </button>
                     {{#unless (eq activeElement item.id)}}

@@ -276,6 +276,16 @@ export default Ember.Component.extend(AccordionMixin, {
   isNUCourse: false,
 
   /**
+   * Check if study now button should be disabled
+   * @type {Boolean}
+   */
+  studyNowDisabled: Ember.computed('items', function() {
+    return (
+      this.get('items.length') === 1 && !this.get('items')[0].get('visible')
+    );
+  }),
+
+  /**
    * @prop {Boolean} Indicate if the lesson is selected as active element to study
    */
   isLessonSelected: Ember.computed(
