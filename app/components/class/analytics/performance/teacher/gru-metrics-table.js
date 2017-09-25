@@ -33,6 +33,12 @@ export default Ember.Component.extend({
   headers: null,
   /**
    * The header titles
+   * @property {Headers[]}
+   */
+
+  tempheaders: null,
+  /**
+   * The header titles
    * @property {courseId}
    */
 
@@ -327,15 +333,21 @@ export default Ember.Component.extend({
     this._super(...arguments);
     const component = this;
     component.set('filterBy', component.get('filterBy'));
-    if (component.get('tempUnitId') !== null) {
-      var unitDetails = component
-        .get('headers')
-        .findBy('id', component.get('tempUnitId'));
-      if (unitDetails !== undefined) {
-        var indx = component.get('headers').indexOf(unitDetails);
-        component.removeexpandedUnit(component.get('tempUnitId'), indx);
-      }
-    }
+    component.get('performanceData').forEach(function(item1) {
+      item1.performanceData.forEach(function(item9) {
+        if (item9 !== undefined && item9.id !== undefined) {
+          item9.set('subColumns', []);
+          item9.set('subsubColumns', []);
+        }
+      });
+    });
+    component.get('headers').forEach(function(item) {
+      Ember.set(item, 'showSub', false);
+      Ember.set(item, 'showSubSub', false);
+      Ember.set(item, 'subColumns', []);
+      Ember.set(item, 'colspanval', 1);
+      //Ember.set(item, 'subsubColumns', []);
+    });
   },
   didInsertElement() {
     'use strict';
@@ -378,6 +390,7 @@ export default Ember.Component.extend({
     showassessments(index) {
       var temp = this.get('headers').objectAt(index);
       this.expandLesson(temp.get('id'), index);
+      Ember.set(temp, 'showSub', true);
       Ember.set(temp, 'showSubSub', true);
       Ember.set(temp, 'showAssessments', true);
     },
@@ -390,18 +403,19 @@ export default Ember.Component.extend({
     },
     expand(index) {
       if (this.get('tempUnitId') !== null) {
-        var unitDetails = this.get('headers').findBy(
+        var unitDetails = this.get('tempheaders').findBy(
           'id',
           this.get('tempUnitId')
         );
         if (unitDetails !== undefined) {
-          var indx = this.get('headers').indexOf(unitDetails);
+          var indx = this.get('tempheaders').indexOf(unitDetails);
           this.removeexpandedUnit(this.get('tempUnitId'), indx);
         }
       }
       this.set('filterBy', this.get('filterBy'));
       var temp = this.get('headers').objectAt(index);
       this.set('tempUnitId', temp.get('id'));
+      this.set('tempheaders', this.get('headers'));
       this.expandUnit(temp.get('id'), index);
       Ember.set(temp, 'showSub', true);
     },
@@ -436,6 +450,7 @@ export default Ember.Component.extend({
       });
       component.removeexpandedUnit(temp.get('id'), index);
       component.set('tempUnitId', null);
+      component.set('tempheaders', null);
       Ember.set(temp, 'showSub', false);
     },
     onAfterResponsiveChange(matches) {
@@ -841,12 +856,12 @@ export default Ember.Component.extend({
       .get('lessonService')
       .fetchById(courseIdVal, unitId, lessonObj.id)
       .then(function(lesson) {
-        Ember.set(lessonObj, 'subsubColumns', lesson.get('children'));
         const filteredCollections = lesson
           .get('children')
           .filter(function(collection) {
             return filterBy === 'both' || collection.get('format') === filterBy;
           });
+        Ember.set(lessonObj, 'subsubColumns', []);
         if (lessonIndex === 0) {
           component.set('averageHeadersAssessment', []);
         }
@@ -863,11 +878,11 @@ export default Ember.Component.extend({
               lessonId: lessonObj.id,
               level: filterBy
             });
+            lessonObj.get('subsubColumns').pushObject(assessmentObj);
             component.get('averageHeadersAssessment').pushObject(emberObject);
           }
         });
         Ember.run.later(function() {
-          Ember.Logger.info('col---', component.get('totalAssessments'));
           if (
             component.get('averageHeadersAssessment').length === 0 &&
             component.get('totalAssessments') === 0
@@ -946,7 +961,8 @@ export default Ember.Component.extend({
                 array2.forEach(function(item, indx) {
                   if (
                     (item.level !== undefined && item.level === filterBy) ||
-                    item.collectionType === 'collection'
+                    (item.collectionType !== undefined &&
+                      item.collectionType === filterBy)
                   ) {
                     array2.removeAt(indx);
                   }
@@ -955,13 +971,17 @@ export default Ember.Component.extend({
                 arrayComplete.pushObjects(
                   component.get('averageHeadersAssessment')
                 );
-                arrayComplete.pushObjects(array2);
-                Ember.Logger.info('array1---', array1);
-                Ember.Logger.info('array2---', array2);
-                Ember.Logger.info(
-                  'array3---',
-                  component.get('averageHeadersAssessment')
-                );
+                array2.forEach(function(item) {
+                  if (
+                    !(
+                      (item.collectionType !== undefined &&
+                        item.collectionType === filterBy) ||
+                      (item.level !== undefined && item.level === filterBy)
+                    )
+                  ) {
+                    arrayComplete.pushObject(item);
+                  }
+                });
                 component
                   .get('averageHeaders')
                   .set('performanceData', arrayComplete);
@@ -970,7 +990,8 @@ export default Ember.Component.extend({
               array2.forEach(function(item, indx) {
                 if (
                   (item.level !== undefined && item.level === filterBy) ||
-                  item.collectionType === 'collection'
+                  (item.collectionType !== undefined &&
+                    item.collectionType === filterBy)
                 ) {
                   array2.removeAt(indx);
                 }
@@ -979,13 +1000,17 @@ export default Ember.Component.extend({
               arrayComplete.pushObjects(
                 component.get('averageHeadersAssessment')
               );
-              arrayComplete.pushObjects(array2);
-              Ember.Logger.info('array11---', array1);
-              Ember.Logger.info('array22---', array2);
-              Ember.Logger.info(
-                'array32---',
-                component.get('averageHeadersAssessment')
-              );
+              array2.forEach(function(item) {
+                if (
+                  !(
+                    (item.collectionType !== undefined &&
+                      item.collectionType === filterBy) ||
+                    (item.level !== undefined && item.level === filterBy)
+                  )
+                ) {
+                  arrayComplete.pushObject(item);
+                }
+              });
               component
                 .get('averageHeaders')
                 .set('performanceData', arrayComplete);

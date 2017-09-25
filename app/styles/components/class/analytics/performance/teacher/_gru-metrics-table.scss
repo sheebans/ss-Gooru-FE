@@ -32,27 +32,27 @@
       max-width: 61px;
     }
     .subwidthHeaderMax {
-      min-width: 111px !important;
-      width: 111px;
+      min-width: 119px !important;
+      width: 119px;
     }
     .subsubwidthmaxCollapseUnit {
-      max-width: 111px;
-      min-width: 111px;
+      max-width: 119px;
+      min-width: 119px;
     }
     .mainTableSpacing {
       border: 0 !important;
       padding: 0 !important;
     }
     .subsubwidthmaxCollapse {
-      min-width: 111px !important;
-      width: 111px;
+      min-width: 119px !important;
+      width: 119px;
     }
     .text-newprimary {
       color: #00bfff;
     }
     .subsubwidthmax {
-      width: 111px;
-      max-width: 111px;
+      width: 119px;
+      max-width: 119px;
     }
     .subsubwidthmax1 {
       width: 110px;
@@ -93,14 +93,14 @@
           }
           .title {
             width: inherit;
-            width: 111px;
-            min-width: 111px;
+            width: 119px;
+            min-width: 119px;
             @include text-overflow();
           }
           .titlenew {
             width: inherit;
-            width: 111px;
-            min-width: 111px;
+            width: 119px;
+            min-width: 119px;
           }
           .column {
             @include flexbox;

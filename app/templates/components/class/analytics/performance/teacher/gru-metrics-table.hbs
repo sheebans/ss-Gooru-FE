@@ -34,7 +34,11 @@
                           {{#if header.showAssessments}}
                            <div class="text-newprimary" {{action 'showlessons' index}}>Show Lessons</div>
                            {{else}}
-                            <div class="text-newprimary" {{action 'showassessments' index}}>Show Assessments</div>
+                           {{#if (eq filterBy 'collection')}}
+                            <div class="text-newprimary pointer" {{action 'showassessments' index}}>Show Collections</div>
+                            {{else}}
+                            <div class="text-newprimary pointer" {{action 'showassessments' index}}>Show Assessments</div>
+                            {{/if}}
                           {{/if}}
                         </div>
                           </div>  
