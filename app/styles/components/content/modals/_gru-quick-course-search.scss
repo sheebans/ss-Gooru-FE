@@ -104,6 +104,20 @@
         border-radius: 6px;
       }
     }
+
+    .thumbnail-sm {
+      .gru-course-card {
+        > .panel {
+          .panel-body {
+            .card-header {
+              .image-container {
+                width: 140px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   .modal-footer {
