@@ -2,9 +2,6 @@
   @include flexbox;
   @include flex-direction(column);
   width: 300px;
-  @media (min-width: $screen-sm-min) {
-    width: 320px;
-  }
   @media (min-width: $screen-md-min) {
     width: 344px;
   }
