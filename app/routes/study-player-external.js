@@ -180,7 +180,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       lessonId: mapLocation.get('context.lessonId'),
       collectionId: model.collectionId,
       type: model.type,
-      content: mapLocation.content
+      content: mapLocation.content,
+      courseId: mapLocation.get('context.courseId')
     });
   },
 

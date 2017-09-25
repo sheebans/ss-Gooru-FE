@@ -40,11 +40,17 @@ export default Ember.Component.extend(ConfigurationMixin, {
         ) {
           component.selectEmotion(newEmotionValue);
           component.sendAction(
-            'onChangeEmotion',
+            'onChooseReaction',
             component.get('selectedEmotion')
           );
         }
       }
+    },
+    /**
+     * Close action will trigger when emotion based react picker close button is clicked.
+     */
+    close: function() {
+      this.sendAction('onCloseReactPicker');
     }
   },
 
@@ -84,11 +90,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @constant {Array}
    */
   emotionValues: EMOTION_VALUES,
-
-  /**
-   * @property {String|Function} onChangeEmotion - event handler for when the selected emotion is changed
-   */
-  onChangeEmotion: null,
 
   /**
    * @property {?string} selectedEmotion - selected emotion

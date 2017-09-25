@@ -1,46 +1,156 @@
 .study-player {
   .player-container {
     .gru-take-tour {
-      top: 60px;
+      top: 90px;
       z-index: 1100;
     }
   }
-
+  .qz-navigation {
+    display: none;
+  }
   .qz-player {
     overflow: auto;
     height: 100vh;
+
     .player {
       overflow: auto;
     }
-  }
-  .no-confirmation {
-    &.expanded {
-      .qz-player {
-        padding-top: 275px;
-        @media (min-width: $screen-sm) {
-          padding-top: 155px;
-        }
-        @media (min-width: $screen-md) {
-          padding-top: 130px;
-        }
-      }
+
+    .qz-aside {
+      @include translateX(0);
+      position: static;
+      width: 65px;
     }
-    &.collapsed {
-      .qz-player {
-        padding-top: 40px;
-        @media (min-width: $screen-sm) {
-          padding-top: 65px;
-        }
-        @media (min-width: $screen-md) {
-          padding-top: 40px;
-        }
+  }
+
+  .no-confirmation {
+    .qz-player {
+      padding-top: 120px;
+      @media (max-width: $screen-xs-max) {
+        padding-top: 228px;
       }
     }
   }
 
   .qz-navigator {
+    width: 65px;
+    min-height: 83vh;
+    max-height: 83vh;
+    transition: width 1s;
+    position: static;
+
     .navigator-header {
       display: none;
+    }
+
+    .course-map {
+      text-align: center;
+      color: #fff;
+      background: #48a5ed;
+      height: 50px;
+      width: inherit;
+      cursor: pointer;
+      span {
+        line-height: 50px;
+        display: none;
+      }
+    }
+
+    .course-map-play-icon {
+      font-size: 40px;
+      position: relative;
+      left: -111px;
+      top: 6px;
+    }
+
+    .pervious-resource {
+      height: 50px;
+      background-color: #555e65;
+      cursor: pointer;
+
+      h6 {
+        color: #fff;
+        float: left;
+        position: relative;
+        top: 8px;
+        width: 190px;
+      }
+
+      i {
+        font-size: 40px;
+        color: #fff;
+        width: 65px;
+        height: 50px;
+        position: relative;
+        left: -111px;
+        top: 6px;
+        float: left;
+      }
+    }
+    .navigator-subheader {
+      visibility: hidden;
+    }
+    .submit-all {
+      display: none;
+    }
+    .list-group-item {
+      .resources-info {
+        span {
+          display: none;
+        }
+        h6 {
+          width: 0px;
+          height: 0px;
+        }
+        i {
+          margin-left: 10px;
+        }
+      }
+    }
+    .list-group {
+      &.resources {
+        overflow-y: hidden;
+        li.started {
+          background: #2d2b2b;
+        }
+        li.selected {
+          background: #535e67;
+        }
+      }
+    }
+    &:hover {
+      .resources {
+        overflow-y: auto;
+      }
+      .course-map-play-icon {
+        display: none;
+      }
+      .submit-all {
+        display: block;
+      }
+      .course-map {
+        span {
+          display: block;
+        }
+      }
+      .navigator-subheader {
+        visibility: visible;
+      }
+      .list-group-item {
+        .resources-info {
+          span {
+            display: block;
+          }
+          h6 {
+            width: 100%;
+            height: auto;
+          }
+          i {
+            margin-left: 0px;
+          }
+        }
+      }
+      width: 260px;
     }
   }
 }

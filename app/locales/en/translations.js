@@ -2116,8 +2116,8 @@ export default Object.assign(quizzesTranslations, {
           'These are resources that you might want to explore based on what you are currently studying.'
       },
       stepSeven: {
-        title: 'Check out these resources',
-        description: ''
+        title: 'Location based suggestion',
+        description: 'Check out these resources'
       },
       stepEight: {
         title: 'Finished!',
