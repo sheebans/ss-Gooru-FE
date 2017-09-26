@@ -86,11 +86,10 @@ export default Ember.Route.extend({
           type: performance.get('collectionType'),
           role: 'teacher',
           classId: route.get('controller.class.id'),
-          unitId: route.get('controller.unit.id'),
-          lessonId: route.get('controller.lesson.id'),
+          unitId: performance.get('unitId'),
+          lessonId: performance.get('lessonId'),
           courseId: route.get('controller.course.id')
         };
-
         const reportController = route.controllerFor(
           'reports.student-collection-analytics'
         );

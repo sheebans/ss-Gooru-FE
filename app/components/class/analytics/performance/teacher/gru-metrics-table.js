@@ -56,6 +56,11 @@ export default Ember.Component.extend({
 
   tempUnitId: null,
   /**
+   * Action name when the user clicks at any score box
+   * @property {string}
+   */
+  onClickReport: null,
+  /**
    * @type {PerformanceService}
    */
   performanceService: Ember.inject.service('api-sdk/performance'),
@@ -419,6 +424,14 @@ export default Ember.Component.extend({
       this.expandUnit(temp.get('id'), index);
       Ember.set(temp, 'showSub', true);
     },
+    /**
+       * When the user clicks at the report
+       */
+    clickReport: function(performance, userPerformance) {
+      if (this.get('onClickReport')) {
+        this.sendAction('onClickReport', performance, userPerformance);
+      }
+    },
     collapse(index) {
       const component = this;
       const filterBy = component.get('filterBy');
@@ -650,6 +663,8 @@ export default Ember.Component.extend({
                       .performanceData.forEach(function(item, indx) {
                         if (indx > 0) {
                           item.set('level', 'lesson');
+                          item.set('unitId', unitId);
+                          //item.set('lessonId', lessonObj.id);
                           component
                             .get('averageHeaders')
                             .performanceData.insertAt(tempInx + indx, item);
@@ -1099,6 +1114,8 @@ export default Ember.Component.extend({
                   }
                 }
               );
+              // assessmentperformanceData.set('unitId', unitId);
+              // assessmentperformanceData.set('lessonId', lessonObj.id);
               component.set(
                 'assessmentperformanceData',
                 assessmentperformanceData
@@ -1130,6 +1147,7 @@ export default Ember.Component.extend({
                                     assessmentObj.id},`;
                                   var emberObject = Ember.Object.create({
                                     id: assessmentObj.id,
+                                    unitId: unitId,
                                     lessonId: lessonObj.id
                                   });
                                   item9
@@ -1159,6 +1177,14 @@ export default Ember.Component.extend({
                                     var indx = item9
                                       .get('subsubColumns')
                                       .indexOf(group);
+                                    assessmentperformanceData[j].set(
+                                      'unitId',
+                                      unitId
+                                    );
+                                    assessmentperformanceData[j].set(
+                                      'lessonId',
+                                      lessonObj.id
+                                    );
                                     var objAtLesson = item9
                                       .get('subsubColumns')
                                       .objectAt(indx);
