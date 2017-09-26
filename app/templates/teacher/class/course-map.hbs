@@ -1,6 +1,6 @@
 {{#if class.courseId}}
   <div class="controller teacher class course-map">
-    <button {{action "editContent" course.id}} class="btn btn-default edit-content">
+    <button {{action "editContent" course.id class.id}} class="btn btn-default edit-content">
       {{t "class.overview.edit-content"}}
     </button>
 

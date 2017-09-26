@@ -49,6 +49,22 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
 
   actions: {
     /**
+     * Course Edit page back button logic for send to previous page state
+     */
+    courseEditBackButton: function() {
+      let component = this;
+      if (component.get('classId')) {
+        component
+          .get('router')
+          .transitionTo('teacher.class.course-map', component.get('classId'));
+      } else if (component.get('userId')) {
+        component
+          .get('router')
+          .transitionTo('profile.content.courses', component.get('userId'));
+      }
+    },
+
+    /**
      * Edit Content
      */
     editContent: function() {
