@@ -297,10 +297,10 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    * Back fucntion  for rubric edition
    */
   back: function() {
-    let rubricBack = this.get('rubric');
+    let rubric = this.get('rubric');
     this.get('router').transitionTo(
       'profile.content.rubrics',
-      rubricBack.get('owner')
+      rubric.get('owner')
     );
   },
 
