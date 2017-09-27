@@ -426,10 +426,14 @@ export function replaceMathExpression(text) {
   var questionText = $.parseHTML(text);
   var newQuestionText = '';
   $.each(questionText, function(i, el) {
-    let latex = $(el).find('.source').text();
+    let latex = $(el)
+      .find('.source')
+      .text();
     if (latex.length > 0) {
       let mathToSave = `<span class='gru-math-expression'><span class='source' hidden>${latex}</span>$$${latex}$$</span>`;
-      $(el).empty().append(mathToSave);
+      $(el)
+        .empty()
+        .append(mathToSave);
     }
     if (el.outerHTML) {
       newQuestionText = newQuestionText.concat(el.outerHTML);
@@ -848,4 +852,13 @@ export function inferUploadType(filename, uploadTypes) {
     }
   }
   return selectedType;
+}
+
+/**
+ * Check both without [] and empty []
+ * @param {String} text - Text to validate for square brackets
+ * @return {Boolean}
+ */
+export function validateSquareBracket(text) {
+  return !/\[\]/g.test(text) && /(\[[^\]]+\])/g.test(text);
 }

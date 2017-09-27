@@ -24,6 +24,9 @@ const Validations = buildValidations({
     validators: [
       validator('presence-html', {
         messageKey: 'common.errors.add-question-description'
+      }),
+      validator('square-bracket', {
+        messageKey: 'common.errors.add-question-answer-text'
       })
     ]
   }

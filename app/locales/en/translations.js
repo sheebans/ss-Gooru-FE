@@ -396,6 +396,7 @@ export default Object.assign(quizzesTranslations, {
     'new-collection': 'New Collection',
     'new-question': 'New Question',
     'new-question-text': 'Enter question text here',
+    'new-fib-question-text': 'Enter question with [answer]',
     'new-resource': 'New Resource',
     next: 'Next',
     no: 'No',
