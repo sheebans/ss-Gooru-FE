@@ -5,11 +5,12 @@
   courseTitle=course.title
   breadcrumbs=breadcrumbs
   showConfirmation=false
+  onToggleHeader='toggleHeader'
   fromReport=true
   courseVersion=courseVersion
 }}
 
-<div class="report-container">
+<div class="report-container {{if toggleState 'expanded' 'collapsed'}}">
   {{#if hasAnySuggestion}}
     {{#if hasBackFillSuggestions}}
       <div class="suggestion-panel">

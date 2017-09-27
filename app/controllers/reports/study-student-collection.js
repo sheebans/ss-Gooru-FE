@@ -34,6 +34,13 @@ export default StudentCollection.extend({
     },
 
     /**
+     * Action triggered when the performance information panel is expanded/collapsed
+     */
+    toggleHeader: function(toggleState) {
+      this.set('toggleState', toggleState);
+    },
+
+    /**
      * If the user want to continue playing the post-test suggestion
      */
     playPostTestSuggestion: function() {
@@ -84,6 +91,12 @@ export default StudentCollection.extend({
    * @property {Collection} collection
    */
   collection: null,
+
+  /**
+   * Shows the performance information
+   * @property {Boolean} toggleState
+   */
+  toggleState: true,
 
   /**
    *Back fill backfill suggestion
@@ -199,20 +212,10 @@ export default StudentCollection.extend({
     let isChild = lessonChildren.findBy('id', collection.id);
 
     if (unit) {
-      titles.push(
-        Ember.Object.create({
-          shortTitle: `U${unit.get('sequence')}`,
-          actualTitle: unit.get('title')
-        })
-      );
+      titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
     }
     if (lesson) {
-      titles.push(
-        Ember.Object.create({
-          shortTitle: `L${lesson.get('sequence')}`,
-          actualTitle: lesson.get('title')
-        })
-      );
+      titles.push(`L${lesson.get('sequence')}: ${lesson.get('title')}`);
     }
     if (collection && isChild) {
       if (collection.isCollection) {
@@ -222,12 +225,7 @@ export default StudentCollection.extend({
         collections.forEach((child, index) => {
           if (child.id === collection.id) {
             let collectionSequence = index + 1;
-            titles.push(
-              Ember.Object.create({
-                shortTitle: `C${collectionSequence}`,
-                actualTitle: collection.get('title')
-              })
-            );
+            titles.push(`C${collectionSequence}: ${collection.get('title')}`);
           }
         });
       } else {
@@ -237,21 +235,12 @@ export default StudentCollection.extend({
         assessments.forEach((child, index) => {
           if (child.id === collection.id) {
             let assessmentSequence = index + 1;
-            titles.push(
-              Ember.Object.create({
-                shortTitle: `A${assessmentSequence}`,
-                actualTitle: collection.get('title')
-              })
-            );
+            titles.push(`A${assessmentSequence}: ${collection.get('title')}`);
           }
         });
       }
     } else {
-      titles.push(
-        Ember.Object.create({
-          actualTitle: collection.get('title')
-        })
-      );
+      titles.push(collection.get('title'));
     }
     return titles;
   }),

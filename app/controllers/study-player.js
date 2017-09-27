@@ -1,13 +1,8 @@
 import Ember from 'ember';
-import {
-  ASSESSMENT_SUB_TYPES,
-  EMOTION_VALUES,
-  DISABLED_EMOTION_UNICODE
-} from 'gooru-web/config/config';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 import PlayerController from 'gooru-web/controllers/player';
 
 /**
- *
  * Study Player Controller
  *
  * @module
@@ -44,6 +39,13 @@ export default PlayerController.extend({
   // Actions
   actions: {
     /**
+     * Action triggered when the performance information panel is expanded/collapsed
+     */
+    toggleHeader: function(toggleState) {
+      this.set('toggleState', toggleState);
+    },
+
+    /**
      * If the user want to continue playing the collection
      */
     playActualCollection: function() {
@@ -79,48 +81,6 @@ export default PlayerController.extend({
 
     loadPreTest: () => {
       return true;
-    },
-    /**
-     * It will set the choosen react value to context result.
-     * This reaction data will send back to the quizzes events.
-     * @param  {Number} It has the choosen react value.
-     */
-    onChooseReaction: function(value) {
-      this.get('contextResult.resourceResults')
-        .findBy('resourceId', this.get('resourceId'))
-        .set('reaction', value);
-    },
-    /**
-     * This get triggered when resource get selected from left nav of player.
-     * @param  {Object} it has the resource object
-     */
-    onSelectNavigatorItem: function(resource) {
-      let resourceResults = this.get('contextResult.resourceResults');
-      let resourceResult = resourceResults.findBy('resourceId', resource.id);
-      this.set('ratingScore', resourceResult.get('reaction'));
-      let emotion = EMOTION_VALUES.findBy('value', this.get('ratingScore'));
-      let selectedUnicode = emotion
-        ? emotion.unicode
-        : DISABLED_EMOTION_UNICODE;
-      this.set('selectedUnicode', selectedUnicode);
-    },
-    /**
-     * This action will triggered when start the player.
-     */
-    onStartPlayer: function() {
-      let resourceId = this.get('resourceId');
-      if (resourceId) {
-        let resourceResults = this.get('contextResult.resourceResults');
-        let resourceResult = resourceResults.findBy('resourceId', resourceId);
-        if (resourceResult) {
-          this.set('ratingScore', resourceResult.get('reaction'));
-          let emotion = EMOTION_VALUES.findBy('value', this.get('ratingScore'));
-          let selectedUnicode = emotion
-            ? emotion.unicode
-            : DISABLED_EMOTION_UNICODE;
-          this.set('selectedUnicode', selectedUnicode);
-        }
-      }
     }
   },
 
@@ -150,6 +110,12 @@ export default PlayerController.extend({
    * @property {string}
    */
   pathId: null,
+
+  /**
+   * Shows the performance information
+   * @property {Boolean} toggleState
+   */
+  toggleState: true,
 
   /**
    * Indicates if it should show the back button
@@ -196,20 +162,10 @@ export default PlayerController.extend({
     let isChild = lessonChildren.findBy('id', collection.id);
 
     if (unit) {
-      titles.push(
-        Ember.Object.create({
-          shortTitle: `U${unit.get('sequence')}`,
-          actualTitle: unit.get('title')
-        })
-      );
+      titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
     }
     if (lesson) {
-      titles.push(
-        Ember.Object.create({
-          shortTitle: `L${lesson.get('sequence')}`,
-          actualTitle: lesson.get('title')
-        })
-      );
+      titles.push(`L${lesson.get('sequence')}: ${lesson.get('title')}`);
     }
     if (collection && isChild) {
       if (collection.isCollection) {
@@ -219,12 +175,7 @@ export default PlayerController.extend({
         collections.forEach((child, index) => {
           if (child.id === collection.id) {
             let collectionSequence = index + 1;
-            titles.push(
-              Ember.Object.create({
-                shortTitle: `C${collectionSequence}`,
-                actualTitle: collection.get('title')
-              })
-            );
+            titles.push(`C${collectionSequence}: ${collection.get('title')}`);
           }
         });
       } else {
@@ -234,21 +185,12 @@ export default PlayerController.extend({
         assessments.forEach((child, index) => {
           if (child.id === collection.id) {
             let assessmentSequence = index + 1;
-            titles.push(
-              Ember.Object.create({
-                shortTitle: `A${assessmentSequence}`,
-                actualTitle: collection.get('title')
-              })
-            );
+            titles.push(`A${assessmentSequence}: ${collection.get('title')}`);
           }
         });
       }
     } else {
-      titles.push(
-        Ember.Object.create({
-          actualTitle: collection.get('title')
-        })
-      );
+      titles.push(collection.get('title'));
     }
     return titles;
   }),
@@ -260,46 +202,19 @@ export default PlayerController.extend({
   courseVersion: Ember.computed.alias('course.version'),
 
   /**
-   * property will have the rating score.
-   * @property {Number}
-   */
-  ratingScore: 0,
-
-  /**
-   * Emotion unicode to show the choosen reaction.
-   * @property {String}
-   */
-  selectedUnicode: DISABLED_EMOTION_UNICODE,
-
-  /**
-   * Course id
-   * @property {String}
-   */
-  courseId: null,
-
-  /**
-   * This will decide to show react widget or not
-   * @type {Boolean}
-   */
-  showReactButton: false,
-
-  /**
    * Resets to default values
    */
   resetValues: function() {
     //TODO: call the parent reset values method
     this.setProperties({
       showSuggestion: true,
+      toggleState: true,
       classId: null,
       unitId: null,
       lessonId: null,
       collectionId: null,
       resourceId: null,
-      type: null,
-      selectedUnicode: DISABLED_EMOTION_UNICODE,
-      ratingScore: null,
-      courseVersion: null,
-      courseId: null
+      type: null
     });
   }
 });

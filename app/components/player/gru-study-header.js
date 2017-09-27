@@ -2,9 +2,7 @@ import Ember from 'ember';
 import {
   ANONYMOUS_COLOR,
   STUDY_PLAYER_BAR_COLOR,
-  NU_COURSE_VERSION,
-  EMOTION_VALUES,
-  DISABLED_EMOTION_UNICODE
+  NU_COURSE_VERSION
 } from 'gooru-web/config/config';
 
 /**
@@ -45,55 +43,53 @@ export default Ember.Component.extend({
   // Attributes
 
   classNames: ['gru-study-header'],
-  classNameBindings: ['showConfirmation:hidden'],
+  classNameBindings: [
+    'toggleState:expanded:collapsed',
+    'showConfirmation:hidden'
+  ],
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
     /**
-     * Emotion react widget display will set to visible.
+     * Redirect to course map
      */
-    openReactPicker() {
-      this.set('showReactPicker', true);
-    },
-    /**
-     * Emotion react widget display will set to hidden.
-     */
-    onCloseReactPicker() {
-      this.set('showReactPicker', false);
-    },
-    /**
-     * This will get triggered when react got choosen from the widget.
-     * @param  {Number} It has the choosen reaction.
-     */
-    onChooseReaction(value) {
-      this.sendAction('onChooseReaction', value);
-      this.set('showReactPicker', false);
-      this.set('ratingScore', value);
-      let emotion = EMOTION_VALUES.findBy('value', this.get('ratingScore'));
-      let selectedUnicode = emotion
-        ? emotion.unicode
-        : DISABLED_EMOTION_UNICODE;
-      this.set('selectedUnicode', selectedUnicode);
-    },
-    /**
-     * This will set the toggle property value of suggest widget.
-     * @return {[type]} [description]
-     */
-    openSuggestResource() {
-      this.toggleProperty('showSuggestBox');
+    redirectCourseMap() {
+      if (this.get('classId')) {
+        this.get('router').transitionTo(
+          'student.class.course-map',
+          this.get('classId'),
+          { queryParams: { refresh: true } }
+        );
+      } else {
+        this.get(
+          'router'
+        ).transitionTo('student.independent.course-map', this.get('courseId'), {
+          queryParams: { refresh: true }
+        });
+      }
     },
 
+    /**
+     * Go back to collection
+     */
+    backToCollection() {
+      window.location.href = this.get('collectionUrl');
+    },
+
+    /**
+     * Action triggered when the performance information panel is expanded/collapsed
+     */
+    toggleHeader() {
+      this.toggleProperty('toggleState');
+      this.sendAction('onToggleHeader', this.get('toggleState'));
+    },
     /**
      * Action triggered when a suggested resource is clicked
      */
     playSuggested(resource) {
-      let collectionUrl = window.location.href;
-      if (!this.get('collectionUrl')) {
-        this.set('collectionUrl', collectionUrl);
-      }
-      let queryParams = { collectionUrl: this.get('collectionUrl') };
+      let queryParams = { collectionUrl: window.location.href };
       this.get('router').transitionTo(
         'resource-player',
         this.get('classId'),
@@ -109,7 +105,9 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    this.loadContent();
+    if (!this.get('collectionUrl')) {
+      this.loadContent();
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -142,6 +140,15 @@ export default Ember.Component.extend({
    * @property {collection} collection - The current Collection
    */
   collection: null,
+  /**
+   * @property {Resource} nextResource - Return the next resource
+   */
+  nextResource: Ember.computed('actualResource', 'collection', function() {
+    const collection = this.get('collection');
+    return collection && collection.nextResource
+      ? this.get('collection').nextResource(this.get('actualResource'))
+      : null;
+  }),
 
   /**
    * @property {Number} resourceSequence - The resource sequence in the collection / assessment
@@ -172,6 +179,12 @@ export default Ember.Component.extend({
    * @property {String} color - Hex color value for the default bgd color of the bar chart
    */
   defaultBarColor: STUDY_PLAYER_BAR_COLOR,
+
+  /**
+   * Shows the performance information
+   * @property {Boolean} toggleState
+   */
+  toggleState: true,
 
   /**
    * Shows if the component is called from collection report
@@ -216,6 +229,14 @@ export default Ember.Component.extend({
   ),
 
   /**
+   * @property {String} lessonTitle
+   */
+  lessonTitle: Ember.computed('breadcrumbs', function() {
+    const breadcrumbs = this.get('breadcrumbs');
+    return breadcrumbs[1] || '';
+  }),
+
+  /**
    * Course version name
    * @type {String}
    */
@@ -226,40 +247,6 @@ export default Ember.Component.extend({
    * @type {Boolean}
    */
   isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
-
-  /**
-   * property will have the rating score.
-   * @property {Number}
-   */
-  ratingScore: 0,
-
-  /**
-   * This property will decide to show the suggested resoure or not.
-   * @property {Boolean}
-   */
-  hasSuggestedResources: false,
-
-  /**
-   * This property will decide to show the reaction picker  or not.
-   * @property {Boolean}
-   */
-  showReactPicker: false,
-
-  /**
-   * It has the first object of suggest resource.
-   * @property {Object}
-   */
-  firstSuggestResource: null,
-  /**
-   * It will set ture when suggest resources has more than one.
-   * @type {Boolean}
-   */
-  hasMoreSuggestResource: false,
-  /**
-   * This property will decide to show the suggest widget or not
-   * @type {Boolean}
-   */
-  showSuggestBox: false,
 
   // -------------------------------------------------------------------------
   // Methods
@@ -316,29 +303,9 @@ export default Ember.Component.extend({
           component.get('session.userId'),
           collectionId
         )
-        .then(suggestedResources => {
-          component.set('suggestedResources', suggestedResources);
-          if (suggestedResources && suggestedResources.length > 0) {
-            component.set('hasSuggestedResources', true);
-            component.set('firstSuggestResource', suggestedResources[0]);
-            if (suggestedResources.length > 1) {
-              component.set('hasMoreSuggestResource', true);
-            }
-          }
-        });
+        .then(suggestedResources =>
+          component.set('suggestedResources', suggestedResources)
+        );
     }
-  },
-
-  // -------------------------------------------------------------------------
-  // Events
-
-  /**
-   * Overwrites didInsertElement hook.
-   */
-  didRender: function() {
-    this._super(...arguments);
-    const component = this;
-    // Adds tooltip to UI elements (elements with attribute 'data-toggle')
-    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
   }
 });

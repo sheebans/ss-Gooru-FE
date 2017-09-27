@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
+import Collection from 'gooru-web/models/collection/collection';
 
 moduleForComponent(
   'player/gru-study-header',
@@ -83,11 +84,9 @@ test('barChartData', function(assert) {
   );
 });
 
-test('playSuggested', function(assert) {
+test('redirectCourseMap', function(assert) {
   let component;
-  let classId = 'class-id';
-  let courseId = 'course-id';
-  let resource = { id: 'resource-id' };
+  let classID = 'class-id';
   let aClass = Ember.Object.create({
     id: 'class-1',
     title: 'MPM-Data Analytics Class'
@@ -117,10 +116,12 @@ test('playSuggested', function(assert) {
   Ember.run(
     () =>
       (component = this.subject({
-        classId,
-        courseId,
+        classId: classID,
         session: {
           userId: 'user-id'
+        },
+        collection: {
+          id: 'collection-id'
         },
         classService: {
           readClassInfo: classId => {
@@ -137,6 +138,16 @@ test('playSuggested', function(assert) {
             return Ember.RSVP.resolve(classPerformanceSummary);
           }
         },
+        router: {
+          transitionTo(route, classId) {
+            assert.equal(classId, classID, 'Incorrect Class ID');
+            assert.equal(
+              route,
+              'student.class.course-map',
+              'Incorrect Class ID'
+            );
+          }
+        },
         suggestService: {
           suggestResourcesForCollection: (userId, collectionId) => {
             assert.equal(userId, 'user-id', 'User id should match');
@@ -147,7 +158,61 @@ test('playSuggested', function(assert) {
             );
             return Ember.RSVP.resolve(suggestedResources);
           }
+        }
+      }))
+  );
+  component.send('redirectCourseMap');
+});
+
+test('redirectCourseMap no class', function(assert) {
+  let component;
+  let suggestedResources = [];
+  Ember.run(
+    () =>
+      (component = this.subject({
+        courseId: 'course-id',
+        session: {
+          userId: 'user-id'
         },
+        collection: {
+          id: 'collection-id'
+        },
+        router: {
+          transitionTo(route, courseId) {
+            assert.equal(courseId, 'course-id', 'Incorrect Class ID');
+            assert.equal(
+              route,
+              'student.independent.course-map',
+              'Incorrect route'
+            );
+          }
+        },
+        suggestService: {
+          suggestResourcesForCollection: (userId, collectionId) => {
+            assert.equal(userId, 'user-id', 'User id should match');
+            assert.equal(
+              collectionId,
+              'collection-id',
+              'Collection id should match'
+            );
+            return Ember.RSVP.resolve(suggestedResources);
+          }
+        }
+      }))
+  );
+  component.send('redirectCourseMap');
+});
+
+test('playSuggested', function(assert) {
+  let component;
+  let classId = 'class-id';
+  let courseId = 'course-id';
+  let resource = { id: 'resource-id' };
+  Ember.run(
+    () =>
+      (component = this.subject({
+        classId,
+        courseId,
         collectionUrl: 'collection-url',
         router: {
           transitionTo(route, classParam, courseParam) {
@@ -159,4 +224,157 @@ test('playSuggested', function(assert) {
       }))
   );
   component.send('playSuggested', resource);
+});
+
+test('lessonTitle', function(assert) {
+  let component;
+  let aClass = Ember.Object.create({
+    id: 'class-1',
+    title: 'MPM-Data Analytics Class'
+  });
+  let classPerformanceSummary = [
+    Ember.Object.create({
+      id: 'class-1',
+      classId: 'class-1',
+      score: 80,
+      timeSpent: 3242209,
+      total: 10,
+      totalCompleted: 5
+    })
+  ];
+  let suggestedResources = [
+    Ember.Object.create({
+      id: 'resource-1',
+      title: 'resource1',
+      format: 'video'
+    }),
+    Ember.Object.create({
+      id: 'resource-2',
+      title: 'resource2',
+      format: 'image'
+    })
+  ];
+  Ember.run(
+    () =>
+      (component = this.subject({
+        classId: 'class-1',
+        breadcrumbs: ['unit 1', 'lesson 1', 'collection 1'],
+        session: {
+          userId: 'user-id'
+        },
+        collection: {
+          id: 'collection-id'
+        },
+        classService: {
+          readClassInfo: classId => {
+            assert.equal(classId, 'class-1', 'Class id should match');
+            return Ember.RSVP.resolve(aClass);
+          }
+        },
+        performanceService: {
+          findClassPerformanceSummaryByStudentAndClassIds: (
+            userId,
+            classId
+          ) => {
+            assert.equal(classId[0], 'class-1', 'Class id should match');
+            return Ember.RSVP.resolve(classPerformanceSummary);
+          }
+        },
+        suggestService: {
+          suggestResourcesForCollection: (userId, collectionId) => {
+            assert.equal(userId, 'user-id', 'User id should match');
+            assert.equal(
+              collectionId,
+              'collection-id',
+              'Collection id should match'
+            );
+            return Ember.RSVP.resolve(suggestedResources);
+          }
+        }
+      }))
+  );
+
+  assert.equal(
+    component.get('lessonTitle'),
+    'lesson 1',
+    'Incorrect lesson Title'
+  );
+});
+test('nextResource', function(assert) {
+  let component;
+  let aClass = Ember.Object.create({
+    id: 'class-1',
+    title: 'MPM-Data Analytics Class'
+  });
+  let classPerformanceSummary = [
+    Ember.Object.create({
+      id: 'class-1',
+      classId: 'class-1',
+      score: 80,
+      timeSpent: 3242209,
+      total: 10,
+      totalCompleted: 5
+    })
+  ];
+  let suggestedResources = [
+    Ember.Object.create({
+      id: 'resource-1',
+      title: 'resource1',
+      format: 'video'
+    }),
+    Ember.Object.create({
+      id: 'resource-2',
+      title: 'resource2',
+      format: 'image'
+    })
+  ];
+  let resourceA = Ember.Object.create({ id: 1 });
+  let resourceB = Ember.Object.create({ id: 2 });
+  Ember.run(
+    () =>
+      (component = this.subject({
+        classId: 'class-1',
+        breadcrumbs: ['unit 1', 'lesson 1', 'collection 1'],
+        session: {
+          userId: 'user-id'
+        },
+        actualResource: resourceA,
+        collection: Collection.create({
+          id: 'collection-id',
+          resources: Ember.A([resourceA, resourceB])
+        }),
+        classService: {
+          readClassInfo: classId => {
+            assert.equal(classId, 'class-1', 'Class id should match');
+            return Ember.RSVP.resolve(aClass);
+          }
+        },
+        performanceService: {
+          findClassPerformanceSummaryByStudentAndClassIds: (
+            userId,
+            classId
+          ) => {
+            assert.equal(classId[0], 'class-1', 'Class id should match');
+            return Ember.RSVP.resolve(classPerformanceSummary);
+          }
+        },
+        suggestService: {
+          suggestResourcesForCollection: (userId, collectionId) => {
+            assert.equal(userId, 'user-id', 'User id should match');
+            assert.equal(
+              collectionId,
+              'collection-id',
+              'Collection id should match'
+            );
+            return Ember.RSVP.resolve(suggestedResources);
+          }
+        }
+      }))
+  );
+
+  assert.equal(
+    component.get('nextResource'),
+    resourceB,
+    'Incorrect next resource'
+  );
 });
