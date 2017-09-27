@@ -1,4 +1,5 @@
 {{player.gru-study-header
+  onToggleHeader='toggleHeader'
   classId=classId
   collection=collection
   courseId=course.id
@@ -9,7 +10,7 @@
   collectionUrl=collectionUrl
   courseVersion=courseVersion
 }}
-<div class="resource-player">
+<div class="resource-player {{if toggleState 'expanded' 'collapsed'}}">
   {{#if isDone}}
     {{player.gru-player-done classId=classId}}
   {{else}}

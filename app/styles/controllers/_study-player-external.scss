@@ -1,17 +1,13 @@
 .study-player-external {
   .player-container {
     .gru-take-tour {
-      top: 90px;
+      top: 60px;
       z-index: 1100;
     }
-
     &.external-assessment {
       @include flexbox;
       @include justify-content(center);
-      padding: 120px;
-      @media (max-width: $screen-xs-max) {
-        padding-top: 228px;
-      }
+      padding: 100px;
 
       .external-resource {
         padding: 25px;
@@ -21,26 +17,21 @@
         @media (min-width: $screen-sm) {
           height: 500px;
         }
-
         .panel-header {
           text-align: center;
         }
-
         p.description {
           line-height: $font-size-base;
         }
-
         p.title {
           font-size: $font-size-large;
           font-weight: 300;
-          margin: 0 0 7px;
+          margin: 0 0 7px 0;
         }
-
         .panel-footer {
           text-align: center;
           background-color: $white;
         }
-
         .panel-body {
           display: flex;
           justify-content: center;
@@ -51,14 +42,12 @@
 
           .cards.gru-resource-card {
             margin: 0 auto;
-
             .panel-heading {
               @include flexbox;
               @include align-items(center);
             }
-
             .panel-body {
-              padding: 12px 15px 0;
+              padding: 12px 15px 0 15px;
               display: block;
 
               .publisher {
@@ -67,7 +56,6 @@
                 }
               }
             }
-
             .panel-footer {
               margin: 0;
               text-align: left;
@@ -75,7 +63,6 @@
           }
         }
       }
-
       .btn-next {
         @include align-self(baseline);
       }

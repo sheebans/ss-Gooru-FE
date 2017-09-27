@@ -1,8 +1,7 @@
 .resource-player {
   height: 100%;
-
-  .gru-footer,
-  .gru-header {
+  .gru-header,
+  .gru-footer {
     display: none;
   }
 
@@ -16,18 +15,25 @@
     padding-bottom: 15px;
   }
 
-  .gru-player-done {
-    padding: 20px 50px;
-  }
-  .qz-resource-player {
-    padding-top: 130px;
-    @media (max-width: $screen-xs-max) {
-      padding-top: 228px;
+  &.expanded {
+    .gru-player-done {
+      padding: 20px 50px;
+    }
+    .qz-resource-viewer,
+    .gru-player-done {
+      padding-top: 300px;
+      @media (min-width: $screen-sm) {
+        padding-top: 170px;
+      }
+      @media (min-width: $screen-md) {
+        padding-top: 145px;
+      }
     }
   }
-
-  .qz-resource-viewer-panel {
-    margin: 0 15px 0 15px;
-    max-width: none;
+  &.collapsed {
+    .qz-resource-viewer,
+    .gru-player-done {
+      padding-top: 55px;
+    }
   }
 }
