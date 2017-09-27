@@ -39,6 +39,15 @@
       max-width: 119px;
       min-width: 119px;
     }
+    .new {
+      background-color: #37424b !important;
+      text-align: center;
+    }
+    .scoreMargin {
+      float: right;
+      margin-top: -25px;
+      margin-right: -5px;
+    }
     .mainTableSpacing {
       border: 0 !important;
       padding: 0 !important;
@@ -56,6 +65,9 @@
     }
     .subsubwidthmax1 {
       width: 110px;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
     }
     thead {
       tr {
@@ -189,10 +201,9 @@
       }
     }
     .table-cell {
-      width: 57px;
       min-width: 57px;
-      display: table-cell;
-      vertical-align: middle;
+      text-align: center !important;
+      vertical-align: middle !important;
     }
     .gru-metrics-sub-header {
       font-size: $font-size-base;

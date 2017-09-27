@@ -134,7 +134,7 @@
              </span>
           </th>
           {{#each averageHeaders.performanceData as |average index|}}
-            <th class="performance-information backgroundclraverage">
+            <th class="performance-information {{if (eq average.unitIdVal tempUnitId) 'new' 'backgroundclraverage'}}">
             {{#if (eq index 0)}}
               {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=false}}
             {{else}}
@@ -154,14 +154,14 @@
               {{#each userPerformance.performanceData as |data index|}}
            
                 {{#if (eq index 0)}}
-                    <td class="performance-information subsubwidthmaxCollapseUnit">
+                    <td class="performance-information subsubwidthmaxCollapseUnit {{if (eq data.unitIdVal tempUnitId) 'new' 'old'}}">
                       {{class.analytics.performance.teacher.gru-metrics-performance-information
                       userPerformance=userPerformance
                       onClickReport='clickReport'
                       performanceData=data dataPickerOptions=dataPickerOptions}}
                     </td>
                   {{else}}
-                    <td class="performance-information subsubwidthmaxCollapseUnit">
+                    <td class="performance-information subsubwidthmaxCollapseUnit {{if (eq data.unitIdVal tempUnitId) 'new' 'old'}}">
                       {{class.analytics.performance.teacher.gru-metrics-performance-information
                       userPerformance=userPerformance
                       onClickReport='clickReport'

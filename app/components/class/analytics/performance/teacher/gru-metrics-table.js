@@ -351,7 +351,6 @@ export default Ember.Component.extend({
       Ember.set(item, 'showSubSub', false);
       Ember.set(item, 'subColumns', []);
       Ember.set(item, 'colspanval', 1);
-      //Ember.set(item, 'subsubColumns', []);
     });
   },
   didInsertElement() {
@@ -600,7 +599,6 @@ export default Ember.Component.extend({
           .then(function(unit) {
             var temp = component.get('headers').objectAt(unitIndex);
             Ember.set(temp, 'subColumns', unit.get('children'));
-            //component.set('colspanval',unit.get('children').length+1);
             Ember.set(temp, 'colspanval', unit.get('children').length + 1);
             var lessons = unit.get('children');
             var inxArr = [];
@@ -649,6 +647,7 @@ export default Ember.Component.extend({
                       'lessonperformanceDataMatrix'
                     ).slice(1);
                     const sortCriteria = this.get('sortCriteria');
+                    var tempInx = unitIndex + 1;
                     var lessnDataArr = component
                       .get('lessonperformanceDataMatrix')
                       .objectAt(0).performanceData;
@@ -656,7 +655,6 @@ export default Ember.Component.extend({
                       .get('lessonperformanceDataMatrix')
                       .objectAt(0)
                       .set('performanceData', lessnDataArr);
-                    var tempInx = unitIndex + 1;
                     component
                       .get('lessonperformanceDataMatrix')
                       .objectAt(0)
@@ -664,7 +662,6 @@ export default Ember.Component.extend({
                         if (indx > 0) {
                           item.set('level', 'lesson');
                           item.set('unitId', unitId);
-                          //item.set('lessonId', lessonObj.id);
                           component
                             .get('averageHeaders')
                             .performanceData.insertAt(tempInx + indx, item);
@@ -713,21 +710,33 @@ export default Ember.Component.extend({
                     }
                   }
                 );
-
                 component.set('lessonperformanceData', lessonperformanceData);
                 component.get('lessonperformanceData').forEach(function(item) {
                   var lessonUser = item.user;
                   var lessonPerformanceData = item.performanceData;
                   component.get('performanceData').forEach(function(item1) {
                     var indexLesson = 0;
+                    var tempInx = unitIndex + 1;
                     if (lessonUser === item1.user) {
-                      item1.performanceData.forEach(function(item9) {
+                      item1.performanceData.forEach(function(
+                        item9,
+                        lessonpIndex
+                      ) {
                         if (item9 !== undefined && item9.id !== undefined) {
                           if (item9.id === unitId) {
-                            // if(lessonPerformanceData.length>lessons.length)
-                            //   {
-                            //     lessonPerformanceData.removeAt(lessons.length);
-                            //   }
+                            item9.set('unitIdVal', unitId);
+                            if (lessonpIndex === tempInx) {
+                              var hdrObj = component
+                                .get('averageHeaders')
+                                .performanceData.objectAt(lessonpIndex);
+                              hdrObj.set('unitIdVal', unitId);
+                              component
+                                .get('averageHeaders')
+                                .performanceData.removeAt(lessonpIndex);
+                              component
+                                .get('averageHeaders')
+                                .performanceData.insertAt(lessonpIndex, hdrObj);
+                            }
                             if (lessonPerformanceData.length !== 1) {
                               lessonPerformanceData.removeAt(0);
                             }
@@ -816,7 +825,6 @@ export default Ember.Component.extend({
           .performanceData.removeAt(inxArr.objectAt(indx));
       }
     });
-    //component.set('isLoading',true);
     const classId = component.get('classId');
     const courseIdVal = component.get('courseId');
     component
@@ -829,7 +837,6 @@ export default Ember.Component.extend({
           .then(function(unit) {
             var temp = component.get('headers').objectAt(unitIndex);
             Ember.set(temp, 'subColumns', unit.get('children'));
-            //component.set('colspanval',unit.get('children').length+1);
             Ember.set(temp, 'colspanval', 1);
             var lessons = unit.get('children');
             component.set('assessment1performanceData', []);
@@ -1040,7 +1047,6 @@ export default Ember.Component.extend({
           }
         }
         if (countCols > 0) {
-          //component.set('colspanval',temp.get('subColumns').length+1 +(countCols));
           component.set(
             'totalAssessments',
             component.get('totalAssessments') + countCols
@@ -1114,8 +1120,6 @@ export default Ember.Component.extend({
                   }
                 }
               );
-              // assessmentperformanceData.set('unitId', unitId);
-              // assessmentperformanceData.set('lessonId', lessonObj.id);
               component.set(
                 'assessmentperformanceData',
                 assessmentperformanceData
@@ -1218,16 +1222,9 @@ export default Ember.Component.extend({
                   });
                   indx = indx + 1;
                 });
-              component.set('isLoading', false);
-              //  Ember.computed('assessmentperformanceDataMatrix.length', function() {
-              //   const averageHeaders = component.get('assessmentperformanceDataMatrix').objectAt(0);
-              //   component.set('averageHeadersAssessment',averageHeaders);
-              //   return averageHeaders;
-              // });
             });
         }
       });
-    //}
     index1 = index1 + 1;
   },
   /**
