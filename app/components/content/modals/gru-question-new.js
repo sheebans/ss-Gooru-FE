@@ -49,10 +49,12 @@ export default Ember.Component.extend({
         'title',
         component.get('i18n').t('common.new-question').string
       ); //Default title
-      question.set(
-        'description',
-        component.get('i18n').t('common.new-question-text').string
-      ); //TODO temporal fix
+      let questionDescription =
+        question.get('type') === 'FIB'
+          ? component.get('i18n').t('common.new-fib-question-text')
+          : component.get('i18n').t('common.new-question-text');
+      question.set('description', questionDescription.string); //Default description
+      //TODO temporal fix
       question.validate().then(function({ validations }) {
         if (validations.get('isValid')) {
           component.set('isLoading', true);
@@ -115,15 +117,21 @@ export default Ember.Component.extend({
     if (component && component.$() && component.$().length) {
       setTimeout(function() {
         if (component && component.$() && component.$().length) {
-          component.$().attr('tabindex', 0).focus();
+          component
+            .$()
+            .attr('tabindex', 0)
+            .focus();
         }
       }, 400);
-      component.$().off('keyup').on('keyup', function() {
-        var keyCode = event.keyCode ? event.keyCode : event.which;
-        if (keyCode === 13) {
-          component.$('button[type=submit]').trigger('click');
-        }
-      });
+      component
+        .$()
+        .off('keyup')
+        .on('keyup', function() {
+          var keyCode = event.keyCode ? event.keyCode : event.which;
+          if (keyCode === 13) {
+            component.$('button[type=submit]').trigger('click');
+          }
+        });
     }
   },
 
