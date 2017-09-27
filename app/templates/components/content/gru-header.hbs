@@ -1,4 +1,13 @@
 <header xmlns="http://www.w3.org/1999/html">
+
+    {{#if backButton.visible}}
+      <div {{ action 'clickAction' backButton.action}} class="{{backButton.class}}">
+        <div>
+          {{gru-icon name="keyboard_arrow_left"}} {{backButton.text}}
+        </div>
+      </div>
+    {{/if}}
+
     <h1>{{title}}</h1>
 
     <nav class="{{if useScroll 'scrolling-tabs'}}">
@@ -23,4 +32,3 @@
       {{/each}}
     </div>
 </header>
-

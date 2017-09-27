@@ -8,12 +8,10 @@ const Validations = buildValidations({
         presence: true,
         message: '{{description}}',
         descriptionKey: 'common.errors.user-email-presence'
-      }),
-      validator('google-email', {})
+      })
     ]
   }
 });
-
 /**
  * Profile model for the forgot password
  *

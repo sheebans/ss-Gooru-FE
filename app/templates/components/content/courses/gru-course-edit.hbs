@@ -1,4 +1,10 @@
 <header>
+  <a {{action "courseEditBackButton"}} class="back-to">
+    <div>
+      {{gru-icon name="keyboard_arrow_left"}}{{t 'common.course'}}: {{course.title}}
+    </div>
+  </a>
+
   <h1>{{t "common.edit-course"}}</h1>
   <div class="actions">
     <button class="btn btn-default btn-icon" title="{{t 'common.delete'}}" {{action "deleteCourse"}}>{{gru-icon name="delete"}}</button>

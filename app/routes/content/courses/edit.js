@@ -4,7 +4,9 @@ import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
-    editing: {}
+    editing: {},
+    classId: {},
+    userId: {}
   },
 
   // -------------------------------------------------------------------------
@@ -32,7 +34,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
     return Ember.RSVP.hash({
       course: course,
-      isEditing: !!isEditing
+      isEditing: !!isEditing,
+      userId: params.userId,
+      classId: params.classId
     });
   },
 
@@ -49,6 +53,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     });
 
     controller.set('course', course);
+    controller.set('userId', model.userId);
+    controller.set('classId', model.classId);
     controller.set('isEditing', model.isEditing);
     if (model.isEditing) {
       controller.set('tempCourse', course.copy());
