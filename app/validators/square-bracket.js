@@ -4,8 +4,8 @@ import { validateSquareBracket } from 'gooru-web/utils/utils';
 
 const SquareBracket = BaseValidator.extend({
   /**
- * @property {Service} I18N service
- */
+   * @property {Service} I18N service
+   */
   i18n: Ember.inject.service(),
 
   /**
