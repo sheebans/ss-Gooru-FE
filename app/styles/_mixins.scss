@@ -107,6 +107,13 @@
   transform: translateX($value);
 }
 
+@mixin translateY($value) {
+  -webkit-transform: translateY($value);
+  -ms-transform: translateY($value);
+  -o-transform: translateY($value);
+  transform: translateY($value);
+}
+
 @mixin translate-show {
   @include translateX(0);
   transition: transform 0.6s ease-out 0.5s;
@@ -374,4 +381,11 @@
     $endColor 100%
   ); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(-90deg, $startColor 0%, $endColor 100%);
+}
+
+@mixin borderRadius($value) {
+  -webkit-border-radius: $value;
+  -ms-border-radius: $value;
+  -o-border-radius: $value;
+  border-radius: $value;
 }

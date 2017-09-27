@@ -38,12 +38,6 @@ export default Ember.Controller.extend({
      */
     next: function() {
       this.playNextContent();
-    },
-    /**
-     * Action triggered when the performance information panel is expanded/collapsed
-     */
-    toggleHeader: function(toggleState) {
-      this.set('toggleState', toggleState);
     }
   },
 
@@ -65,16 +59,16 @@ export default Ember.Controller.extend({
   collectionId: null,
 
   /**
-   * Shows the performance information
-   * @property {Boolean} toggleState
-   */
-  toggleState: true,
-
-  /**
    * Indicates if it should show the back button
    * @property {boolean}
    */
   showBackButton: false,
+
+  /**
+   * Indicates if it should show the react widget or not
+   * @property {boolean}
+   */
+  showReactButton: false,
 
   /**
    * Current map location
@@ -99,10 +93,20 @@ export default Ember.Controller.extend({
     let isChild = lessonChildren.findBy('id', collectionId);
 
     if (unit) {
-      titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
+      titles.push(
+        Ember.Object.create({
+          shortTitle: `U${unit.get('sequence')}`,
+          actualTitle: unit.get('title')
+        })
+      );
     }
     if (lesson) {
-      titles.push(`L${lesson.get('sequence')}: ${lesson.get('title')}`);
+      titles.push(
+        Ember.Object.create({
+          shortTitle: `L${lesson.get('sequence')}`,
+          actualTitle: lesson.get('title')
+        })
+      );
     }
     if (collection && isChild) {
       if (collection.isCollection) {
@@ -112,7 +116,12 @@ export default Ember.Controller.extend({
         collections.forEach((child, index) => {
           if (child.id === collection.id) {
             let collectionSequence = index + 1;
-            titles.push(`C${collectionSequence}: ${collection.get('title')}`);
+            titles.push(
+              Ember.Object.create({
+                shortTitle: `C${collectionSequence}`,
+                actualTitle: collection.get('title')
+              })
+            );
           }
         });
       } else {
@@ -122,12 +131,24 @@ export default Ember.Controller.extend({
         assessments.forEach((child, index) => {
           if (child.id === collection.id) {
             let assessmentSequence = index + 1;
-            titles.push(`A${assessmentSequence}: ${collection.get('title')}`);
+            titles.push(
+              Ember.Object.create({
+                shortTitle: `A${assessmentSequence}`,
+                actualTitle: collection.get('title')
+              })
+            );
           }
         });
       }
     } else {
-      titles.push(collection ? collection.get('title') : isChild.get('title'));
+      titles.push(
+        Ember.Object.create({
+          shortTitle: 'A',
+          actualTitle: collection
+            ? collection.get('title')
+            : isChild.get('title')
+        })
+      );
     }
     return titles;
   }),
@@ -138,7 +159,6 @@ export default Ember.Controller.extend({
   resetValues: function() {
     //TODO: call the parent reset values method
     this.setProperties({
-      toggleState: true,
       collectionId: null,
       resourceId: null,
       type: null
