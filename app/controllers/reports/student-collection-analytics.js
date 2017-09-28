@@ -195,6 +195,5 @@ export default Ember.Controller.extend(ConfigurationMixin, {
     this.set('collectionId', undefined);
     this.set('userId', undefined);
     this.set('role', undefined);
-    this.set('backUrl', undefined);
   }
 });

@@ -2,6 +2,7 @@
   <div class="row">
     {{#if showBackLink}}
       <div class="col-sm-12 navigation">
+
         <button {{action 'goBack'}} class="btn btn-info back">
           <span>
             {{gru-icon name='keyboard_arrow_left'}}
@@ -26,6 +27,7 @@
           assessmentResult=assessmentResult
           onSelectAttempt='selectAttempt'
           onViewOEReport='viewOEReport'
+          backUrl=backUrl
         }}
       {{else}}
         {{t 'common.no-available-results'}}
@@ -33,4 +35,3 @@
     </div>
   </div>
 </div>
-
