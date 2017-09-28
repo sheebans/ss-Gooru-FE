@@ -2322,7 +2322,8 @@ export default Object.assign(quizzesTranslations, {
         levels: 'Level',
         'new-level': 'Add New Level',
         scoring: 'Scoring',
-        worst: 'Worst'
+        worst: 'Worst',
+        error: 'Please enter the values for the levels'
       }
     }
   },
