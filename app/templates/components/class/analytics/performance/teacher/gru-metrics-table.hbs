@@ -51,7 +51,7 @@
             
                   {{#each header.subColumns as |subHeader index|}}
                     {{#if header.showSubSub}}
-                    <th id="{{{subHeader.id}}}" class="header pointer" scope="col">
+                    <th id="{{{subHeader.id}}}" class="header headerbgcolor pointer" scope="col">
                     <div class="header-title">
                         <div class="column">
                             <div class="title" title="{{subHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subHeader.title maxLength=14 suffix=true}}}</div>
@@ -59,7 +59,7 @@
                     </div>
                     {{#each subHeader.subsubColumns as |subsubHeader index|}}
                     {{#if (eq subsubHeader.collectionType filterBy)}}
-                   <th id="{{{subsubHeader.id}}}" class="header pointer subsubwidthmax" scope="col">
+                   <th id="{{{subsubHeader.id}}}" class="header headerbgcolor pointer subsubwidthmax" scope="col">
                     <div class="header-title">
                         <div class="column">
                             <div class="title" title="{{subsubHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subsubHeader.title maxLength=14 suffix=true}}}</div>
@@ -70,7 +70,7 @@
                 {{/each}}
                     </th>
                     {{else}}
-                    <th id="{{{subHeader.id}}}" class="header pointer" scope="col">
+                    <th id="{{{subHeader.id}}}" class="header pointer headerbgcolor" scope="col">
                     <div class="header-title">
                         <div class="column">
                             <div class="title" title="{{subHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subHeader.title maxLength=14 suffix=true}}}</div>

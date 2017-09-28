@@ -43,6 +43,10 @@
       background-color: #37424b !important;
       text-align: center;
     }
+    .headerbgcolor {
+      background-color: white !important;
+      color: black;
+    }
     .scoreMargin {
       float: right;
       margin-top: -25px;
@@ -131,7 +135,7 @@
         th,
         td {
           height: 26px;
-          padding: 9px 0 9px 2px;
+          // padding: 9px 0 9px 2px;
           border-top: 1px dashed;
         }
       }
