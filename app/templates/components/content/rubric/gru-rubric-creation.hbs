@@ -17,7 +17,7 @@
         {{validation.gru-input model=rubric valuePath='url' placeholder=(t 'gru-rubric-creation.url') didValidate=didValidate}}
       </label>
       <button class="btn btn-default btn-primary add-btn" title={{t 'common.add'}} {{action 'addURL' rubric.url}}>{{t 'common.add'}}</button>
-      {{content.rubric.gru-preview-url resource=resource isRubric=true}}
+      {{content.rubric.gru-preview-url resource=resource isUploaded=rubric.uploaded isRubric=true}}
     </div>
   </div>
   <div role="tabpanel" class="tab-pane {{if rubric.uploaded 'active'}}" id="from-computer">
