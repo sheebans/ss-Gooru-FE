@@ -58,7 +58,6 @@ export default Ember.Component.extend({
             let resource = this.get('resource');
             resource.set('url', rubric.get('url'));
             this.set('emptyFileError', false);
-            resource.set('type', 'file');
           } else {
             this.set('savedUrl', rubric.get('url'));
           }
@@ -77,7 +76,6 @@ export default Ember.Component.extend({
             // For preview to work
             let resource = this.get('resource');
             resource.set('url', url);
-            resource.set('type', 'url');
           }
         });
     }
