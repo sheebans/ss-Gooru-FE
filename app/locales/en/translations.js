@@ -2302,7 +2302,6 @@ export default Object.assign(quizzesTranslations, {
     'gru-preview-url': {
       preview: 'Add rubric above and preview here'
     },
-    'gru-preview-http-resource': 'You are viewing insecure path',
     'overall-narrative': 'Overall Narrative Feedback',
     'feedback-guidance': 'Feedback Guidance',
     'required-feedback': 'Require Feedback',
