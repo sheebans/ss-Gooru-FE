@@ -16,7 +16,8 @@ export default Ember.Controller.extend({
     'collectionId',
     'collectionType',
     'questionId',
-    'role'
+    'role',
+    'backUrl'
   ],
 
   // -------------------------------------------------------------------------
