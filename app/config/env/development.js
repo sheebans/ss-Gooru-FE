@@ -4,8 +4,8 @@
 export default {
   appRootPath: '/', //default is root
   endpoint: {
-    url: 'http://nile-dev.gooru.org',
-    secureUrl: 'https://nile-dev.gooru.org',
+    url: 'http://nile-qa.gooru.org',
+    secureUrl: 'https://nile-qa.gooru.org',
     tenantUrl: 'http://s3-us-west-1.amazonaws.com/nile-tenants/dev'
   },
 
@@ -41,9 +41,9 @@ export default {
 
   'quizzes-addon': {
     endpoint: {
-      url: 'http://nile-dev.gooru.org',
-      secureUrl: 'https://nile-dev.gooru.org',
-      providerUrl: 'http://nile-dev.gooru.org'
+      url: 'http://nile-qa.gooru.org',
+      secureUrl: 'https://nile-qa.gooru.org',
+      providerUrl: 'http://nile-qa.gooru.org'
     },
 
     realTime: {
@@ -56,6 +56,8 @@ export default {
 
   exploreFeaturedCourses: {
     firstCourseId: '1d91657f-694b-43dc-9306-bca17b107c7d',
-    secondCourseId: '7b58ac43-075b-46c4-a7f4-a1ce2b346e85'
+    secondCourseId: '7b58ac43-075b-46c4-a7f4-a1ce2b346e85',
+    thirdCourseId: 'd9b7c359-adff-486d-a2cf-bbbbc66c2ba5',
+    fourthCourseId: '781c3e76-a382-4652-86ae-079b92f57a9d'
   }
 };

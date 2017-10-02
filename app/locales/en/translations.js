@@ -1016,6 +1016,8 @@ export default Object.assign(quizzesTranslations, {
   'student-landing': {
     announcement: 'Announcement',
     'browse-featured-courses': 'Browse our featured courses',
+    'browse-our': 'Browse our',
+    'featured-courses': 'featured courses',
     class: {
       'assigned-course': 'Assigned Course',
       'back-to': 'Back to Classrooms',

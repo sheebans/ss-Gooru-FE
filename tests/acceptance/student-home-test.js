@@ -46,55 +46,14 @@ test('Layout', function(assert) {
     );
     T.exists(
       assert,
-      $leftUserContainer.find('.greetings p'),
-      'Missing count classrooms'
-    );
-    assert.equal(
-      $leftUserContainer.find('.greetings p').text(),
-      'You\'re currently enrolled in 7 classrooms',
-      'Incorrect count classrooms text'
+      $leftUserContainer.find('.greetings .featured-courses'),
+      'Missing student name'
     );
 
-    const $panelsContainer = $leftUserContainer.find('.panels');
-    T.exists(assert, $panelsContainer, 'Missing panels container');
-
-    const $featuredCourses = $panelsContainer.find('.featured-courses');
+    const $featuredCourses = $leftUserContainer.find(
+      '.student-featured-courses'
+    );
     T.exists(assert, $featuredCourses, 'Missing featured courses component');
-
-    const $joinClass = $panelsContainer.find('.join-class');
-    T.exists(assert, $joinClass, 'Missing join class panel');
-
-    T.exists(
-      assert,
-      $joinClass.find('.panel-heading'),
-      'Missing join class panel-heading'
-    );
-    T.exists(
-      assert,
-      $joinClass.find('.panel-body'),
-      'Missing join class panel-body'
-    );
-
-    T.exists(
-      assert,
-      $joinClass.find('.panel-body .legend'),
-      'Missing panel body legend'
-    );
-    T.exists(
-      assert,
-      $joinClass.find('.panel-body .actions .join'),
-      'Missing join class button'
-    );
-    T.exists(
-      assert,
-      $joinClass.find('.panel-body .will-disappear'),
-      'Missing will-disappear legend'
-    );
-    assert.equal(
-      $joinClass.find('.panel-body .will-disappear').text().trim(),
-      'This will disappear after 3 logins',
-      'Incorrect login count for will disappear text'
-    );
 
     const $navigatorContainer = $leftUserContainer.find('.student-navigator');
     T.exists(assert, $navigatorContainer, 'Missing student navigator');
@@ -125,41 +84,34 @@ test('Will disappear next login', function(assert) {
   andThen(function() {
     const $userContainer = find('.controller.student-landing');
     const $leftUserContainer = $userContainer.find('.student-left-panel');
-    const $panelsContainer = $leftUserContainer.find('.panels');
-    T.exists(assert, $panelsContainer, 'Missing panels container');
-
-    const $featuredCourses = $panelsContainer.find('.featured-courses');
+    T.exists(
+      assert,
+      $leftUserContainer.find('.greetings .featured-courses'),
+      'Missing student name'
+    );
+    const $featuredCourses = $leftUserContainer.find(
+      '.student-featured-courses'
+    );
     T.exists(assert, $featuredCourses, 'Missing featured courses component');
-
-    const $joinClass = $panelsContainer.find('.join-class');
-    T.exists(assert, $joinClass, 'Missing join class panel');
-    T.exists(
-      assert,
-      $joinClass.find('.panel-body .actions .join'),
-      'Missing join class button'
-    );
-    T.exists(
-      assert,
-      $joinClass.find('.panel-body .will-disappear'),
-      'Missing will-disappear legend'
-    );
-    assert.equal(
-      $joinClass.find('.panel-body .will-disappear').text().trim(),
-      'This will not appear on the next login',
-      'Incorrect message for will disappear text'
-    );
   });
 });
 
-test('Layout without panels', function(assert) {
+test('Layout without feature courses', function(assert) {
   window.localStorage.setItem('param-123_logins', 6);
   visit('/student-home');
 
   andThen(function() {
     const $userContainer = find('.controller.student-landing');
     const $leftUserContainer = $userContainer.find('.student-left-panel');
-    const $panelsContainer = $leftUserContainer.find('.panels');
-    T.notExists(assert, $panelsContainer, 'Panels container should not appear');
+    T.notExists(
+      assert,
+      $leftUserContainer.find('.greetings .featured-courses'),
+      'Missing student name'
+    );
+    const $featuredCourses = $leftUserContainer.find(
+      '.student-featured-courses'
+    );
+    T.notExists(assert, $featuredCourses, 'Missing featured courses component');
   });
 });
 
@@ -168,31 +120,13 @@ test('Go to library from featured-courses panel', function(assert) {
 
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
-    const $featuredCourses = find('.panel.featured-courses');
-    const $featuredCoursesButton = $featuredCourses.find(
-      '.actions button.library'
-    );
+    const $featuredCourses = find('.featured-courses');
 
-    click($featuredCoursesButton);
+    const $featuredCoursesLink = $featuredCourses.find('a');
+
+    click($featuredCoursesLink);
     andThen(function() {
       assert.equal(currentURL(), '/library', 'Wrong route');
-    });
-  });
-});
-
-test('Go to join from join class panel', function(assert) {
-  visit('/student-home');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/student-home');
-
-    const $joinClass = find('.panel.join-class');
-
-    const $joinClassButton = $joinClass.find('.actions button.join');
-
-    click($joinClassButton);
-    andThen(function() {
-      assert.equal(currentURL(), '/content/classes/join', 'Wrong route');
     });
   });
 });

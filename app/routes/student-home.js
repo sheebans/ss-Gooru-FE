@@ -133,12 +133,20 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       route.controllerFor('application').get('myClasses'); //after login the variable is refreshed at the controller
     let firstCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
     let secondCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
+    let thirdCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
+    let fourthCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
     const myId = route.get('session.userId');
     const firstCourseId = configuration.get(
       'exploreFeaturedCourses.firstCourseId'
     );
     const secondCourseId = configuration.get(
       'exploreFeaturedCourses.secondCourseId'
+    );
+    const thirdCourseId = configuration.get(
+      'exploreFeaturedCourses.thirdCourseId'
+    );
+    const fourthCourseId = configuration.get(
+      'exploreFeaturedCourses.fourthCourseId'
     );
     const activeClasses = myClasses.getStudentActiveClasses(myId);
     var featuredCourses = Ember.A([]);
@@ -151,17 +159,31 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         .get('courseService')
         .fetchById(secondCourseId);
     }
+    if (thirdCourseId) {
+      thirdCoursePromise = route.get('courseService').fetchById(thirdCourseId);
+    }
+    if (fourthCourseId) {
+      fourthCoursePromise = route
+        .get('courseService')
+        .fetchById(fourthCourseId);
+    }
     return Ember.RSVP
       .hash({
         firstCourse: firstCoursePromise,
-        secondCourse: secondCoursePromise
+        secondCourse: secondCoursePromise,
+        thirdCourse: thirdCoursePromise,
+        fourthCourse: fourthCoursePromise
       })
       .then(function(hash) {
         const firstFeaturedCourse = hash.firstCourse;
         const secondFeaturedCourse = hash.secondCourse;
+        const thirdFeaturedCourse = hash.thirdCourse;
+        const fourthFeaturedCourse = hash.fourthCourse;
 
         featuredCourses.push(firstFeaturedCourse);
         featuredCourses.push(secondFeaturedCourse);
+        featuredCourses.push(thirdFeaturedCourse);
+        featuredCourses.push(fourthFeaturedCourse);
 
         return {
           activeClasses,
