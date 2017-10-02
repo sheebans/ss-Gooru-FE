@@ -65,15 +65,21 @@ export default Ember.Component.extend({
     saveCategory: function() {
       const component = this;
       let tempCategory = component.get('tempCategory');
+
       tempCategory.validate().then(function({ validations }) {
         if (validations.get('isValid')) {
-          let category = component.get('category');
-          category.setProperties(tempCategory);
-          component.sendAction('onUpdateCategory', category);
-          component.setProperties({
-            isPanelExpanded: false,
-            isEditingInline: false
-          });
+          if (component.validateLevels(tempCategory)) {
+            let category = component.get('category');
+            category.setProperties(tempCategory);
+            component.sendAction('onUpdateCategory', category);
+            component.setProperties({
+              isPanelExpanded: false,
+              isEditingInline: false,
+              showLevelsError: false
+            });
+          } else {
+            component.set('showLevelsError', true);
+          }
         }
       });
     }
@@ -122,6 +128,11 @@ export default Ember.Component.extend({
   preview: false,
 
   /**
+   * @property {Boolean} showLevelsError
+   */
+  showLevelsError: false,
+
+  /**
    * Copy of the category used for editing.
    * @property {Category}
    */
@@ -162,7 +173,26 @@ export default Ember.Component.extend({
     this.setProperties({
       tempCategory: modelForEditing,
       isPanelExpanded: true,
-      isEditingInline: true
+      isEditingInline: true,
+      showLevelsError: false
     });
+  },
+
+  validateLevels: function(category) {
+    let areOk = true;
+    if (category.get('allowsLevels')) {
+      let levels = category.get('levels').filter(level => level.name);
+      if (levels.length) {
+        const scoring = category.get('allowsScoring');
+        if (scoring) {
+          levels.map(function(level) {
+            if (!level.score) {areOk = false;}
+          });
+        }
+      } else {
+        areOk = false;
+      }
+    }
+    return areOk;
   }
 });
