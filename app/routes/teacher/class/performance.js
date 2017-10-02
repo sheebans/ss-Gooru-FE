@@ -80,6 +80,11 @@ export default Ember.Route.extend({
       if (!performance.get('isAverage')) {
         const route = this;
 
+        Ember.Logger.info('data----', performance);
+        Ember.Logger.info('dataq11----', userPerformance);
+        Ember.Logger.info('dat0009a----', performance.get('unitId'));
+        Ember.Logger.info('dataq888811----', performance.get('lessonId'));
+
         const queryParams = {
           collectionId: performance.get('id'),
           userId: userPerformance.get('userId'),
