@@ -50,12 +50,8 @@ const TaxonomyRoot = Ember.Object.extend({
    * @property {string}
    */
   category: Ember.computed('id', function() {
-    let code = this.get('id').split('.')[0];
-    let category = Ember.A(TAXONOMY_CATEGORIES).findBy('apiCode', code);
-    if (!category) {
-      code = this.get('id').split('.')[1];
-      category = Ember.A(TAXONOMY_CATEGORIES).findBy('apiCode', code);
-    }
+    const code = this.get('id').split('.')[1];
+    const category = Ember.A(TAXONOMY_CATEGORIES).findBy('apiCode', code);
     return category ? category.value : null;
   }),
 

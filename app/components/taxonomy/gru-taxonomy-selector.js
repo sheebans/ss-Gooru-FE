@@ -125,18 +125,6 @@ export default Ember.Component.extend({
     }
 
     if (subject) {
-      if (this.get('showCourses')) {
-        // Read the framework code from standard tags.
-        // Need to revisit on how to get framework details from course object.
-        if (this.get('tags')) {
-          const tag = this.get('tags').objectAt(0);
-          if (tag) {
-            let frameworkId = tag.data.frameworkCode;
-            subject.frameworkId = frameworkId;
-            subject.set('id', `${frameworkId}.${subject.id}`);
-          }
-        }
-      }
       if (!subject.get('hasCourses')) {
         component.get('taxonomyService').getCourses(subject);
       }
