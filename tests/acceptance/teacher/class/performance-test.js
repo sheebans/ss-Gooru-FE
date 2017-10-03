@@ -347,7 +347,7 @@ test('Navigate to student report and go back to data', function(assert) {
     andThen(function() {
       assert.equal(
         currentURL(),
-        '/reports/student-collection-analytics?classId=462bcc67-1717-4140-bdc0-672e7bf4cdb1&collectionId=first-assessment-id&courseId=course-123&lessonId=first-lesson-id&role=teacher&type=assessment&unitId=first-unit-id&userId=c4176d77-2507-4bd0-b1a1-308ad98526e5'
+        '/reports/student-collection-analytics?backUrl=%2Fteacher%2Fclass%2Fclass-for-pochita-as-teacher%2Fperformance%3FlessonId%3Dfirst-lesson-id%26unitId%3Dfirst-unit-id&classId=462bcc67-1717-4140-bdc0-672e7bf4cdb1&collectionId=first-assessment-id&courseId=course-123&lessonId=first-lesson-id&role=teacher&type=assessment&unitId=first-unit-id&userId=c4176d77-2507-4bd0-b1a1-308ad98526e5'
       );
       //menu is still selected
       const $container = find('.controller.analytics.collection.student');
