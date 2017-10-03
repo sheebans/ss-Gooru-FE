@@ -104,12 +104,23 @@ export default Ember.Object.extend({
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/codes`;
+    var codeIdVal = '';
+    codesIds.forEach(function(item) {
+      if (item !== 'NA') {
+        if (codeIdVal !== '') {
+          codeIdVal = `${codeIdVal  },${  item}`;
+        } else {
+          codeIdVal = item;
+        }
+      }
+    });
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: adapter.defineHeaders(),
+
       data: {
-        idList: codesIds.join(',')
+        idList: codeIdVal
       }
     };
     return Ember.$.ajax(url, options);
