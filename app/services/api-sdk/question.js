@@ -108,36 +108,38 @@ export default Ember.Service.extend({
         .then(function() {
           if (questionModel.get('isOpenEnded')) {
             const rubric = questionModel.get('rubric');
-            if (rubric.get('rubricOn')) {
-              //Scenario: Rubric ON - Scoring OFF
-              return Ember.RSVP.resolve();
-            } else if (rubric.get('scoring')) {
-              if (rubric.get('title')) {
-                //Scenario: Rubric OFF - Scoring ON - From Rubric ON
+            if (rubric) {
+              if (rubric.get('rubricOn')) {
+                //Scenario: Rubric ON - Scoring OFF
+                return Ember.RSVP.resolve();
+              } else if (rubric.get('scoring')) {
+                if (rubric.get('title')) {
+                  //Scenario: Rubric OFF - Scoring ON - From Rubric ON
+                  return service
+                    .get('rubricService')
+                    .deleteRubric(rubric.get('id'))
+                    .then(function() {
+                      return service
+                        .get('rubricService')
+                        .updateScore(rubric, questionId);
+                    });
+                } else {
+                  //Scenario: Rubric OFF - Scoring ON - From Rubric OFF
+                  return service
+                    .get('rubricService')
+                    .updateScore(rubric, questionId);
+                }
+              } else if (rubric.get('title')) {
+                //Scenario: Rubric OFF - Scoring OFF - From Rubric ON
                 return service
                   .get('rubricService')
-                  .deleteRubric(rubric.get('id'))
-                  .then(function() {
-                    return service
-                      .get('rubricService')
-                      .updateScore(rubric, questionId);
-                  });
+                  .deleteRubric(rubric.get('id'));
               } else {
-                //Scenario: Rubric OFF - Scoring ON - From Rubric OFF
+                //Scenario: Rubric OFF - Scoring OFF - From Rubric OFF
                 return service
                   .get('rubricService')
                   .updateScore(rubric, questionId);
               }
-            } else if (rubric.get('title')) {
-              //Scenario: Rubric OFF - Scoring OFF - From Rubric ON
-              return service
-                .get('rubricService')
-                .deleteRubric(rubric.get('id'));
-            } else {
-              //Scenario: Rubric OFF - Scoring OFF - From Rubric OFF
-              return service
-                .get('rubricService')
-                .updateScore(rubric, questionId);
             }
           } else {
             return Ember.RSVP.resolve();
