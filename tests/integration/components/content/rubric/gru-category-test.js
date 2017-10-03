@@ -174,11 +174,11 @@ test('Edit Category', function(assert) {
     const $titleField = $component.find('.edit-title .input .gru-input');
     $titleField.find('input').val('Category 1');
     $titleField.find('input').blur();
-    const $levelField = $component.find(
-      '.gru-scoring-levels .level-list .gru-input:first-child'
+    const $levelFields = $component.find(
+      '.gru-scoring-levels .level-list .gru-input'
     );
-    $levelField.find('input').val('Level 1');
-    $levelField.find('input').blur();
+    $levelFields.find('input').val('Level name');
+    $levelFields.find('input').blur();
 
     const $save = $component.find('.detail .actions .save');
     $save.click();
@@ -191,8 +191,8 @@ test('Edit Category', function(assert) {
       $edit.click();
       return wait().then(function() {
         assert.equal(
-          $levelField.find('input').val(),
-          'Level 1',
+          $levelFields.find('input').val(),
+          'Level name',
           'Incorrect Level'
         );
       });

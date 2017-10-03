@@ -19,7 +19,8 @@ export default Ember.Controller.extend(ConfigurationMixin, {
     'collectionId',
     'userId',
     'type',
-    'role'
+    'role',
+    'backUrl'
   ],
   // -------------------------------------------------------------------------
   // Dependencies
@@ -105,6 +106,11 @@ export default Ember.Controller.extend(ConfigurationMixin, {
   role: null,
 
   /**
+   * @property {string} backUrl is  to store the previous route
+   */
+  backUrl: null,
+
+  /**
    * Indicates if the student is playing the collection
    * @property {boolean}
    */
@@ -139,7 +145,6 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    * this needs to be improved so it works when refreshing the page
    * @property {string}
    */
-  backUrl: null,
 
   /**
    * Indicates if the back navigation is visible

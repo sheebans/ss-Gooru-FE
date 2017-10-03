@@ -1,6 +1,10 @@
 import Ember from 'ember';
 import { LATEX_EXPRESSIONS } from 'gooru-web/config/question';
-import { removeHtmlTags, generateUUID } from 'gooru-web/utils/utils';
+import {
+  removeHtmlTags,
+  generateUUID,
+  validateSquareBracket
+} from 'gooru-web/utils/utils';
 
 /**
  * Rich text editor component
@@ -63,7 +67,10 @@ export default Ember.Component.extend({
         if (source && source.length && latex !== source.text()) {
           let html = katex.renderToString(latex);
           source.text(latex);
-          component.get('editingExpression').find('.katex').replaceWith(html);
+          component
+            .get('editingExpression')
+            .find('.katex')
+            .replaceWith(html);
         }
         var editorElement = component.$(editorClass);
         component.set('content', editorElement.html());
@@ -134,7 +141,10 @@ export default Ember.Component.extend({
       e.preventDefault();
       var expression = $(this).data('expression');
       if (component.get('mathField') && LATEX_EXPRESSIONS[expression]) {
-        component.get('mathField').write(LATEX_EXPRESSIONS[expression]).focus();
+        component
+          .get('mathField')
+          .write(LATEX_EXPRESSIONS[expression])
+          .focus();
       }
     });
     // Save cursor position
@@ -153,12 +163,18 @@ export default Ember.Component.extend({
     // Go to edit mode of existing expression
     component.$().on('click', '.gru-math-expression', function(e) {
       e.preventDefault();
-      var sourceLatex = $(this).find('.source').text();
+      var sourceLatex = $(this)
+        .find('.source')
+        .text();
       if (sourceLatex && sourceLatex !== '') {
         component.set('editingExpression', $(this).closest(mathExp));
         component.set('showExpressionsPanel', true);
         Ember.run.later(function() {
-          component.get('mathField').latex(sourceLatex).reflow().focus();
+          component
+            .get('mathField')
+            .latex(sourceLatex)
+            .reflow()
+            .focus();
         }, 100);
       }
     });
@@ -245,8 +261,14 @@ export default Ember.Component.extend({
    */
   showMessage: Ember.computed('content', function() {
     var contentEditor = removeHtmlTags(this.get('content'));
+    let questionType = this.get('model.type');
     if ($.trim(contentEditor) === '') {
       this.set('content', contentEditor);
+      return true;
+    } else if (
+      !validateSquareBracket(contentEditor) &&
+      questionType === 'FIB'
+    ) {
       return true;
     }
     return false;

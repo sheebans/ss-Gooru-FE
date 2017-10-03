@@ -401,6 +401,7 @@ export default Object.assign(quizzesTranslations, {
     'new-collection': 'New Collection',
     'new-question': 'New Question',
     'new-question-text': 'Enter question text here',
+    'new-fib-question-text': 'Enter question with [answer]',
     'new-resource': 'New Resource',
     next: 'Next',
     no: 'No',
@@ -2326,7 +2327,8 @@ export default Object.assign(quizzesTranslations, {
         levels: 'Level',
         'new-level': 'Add New Level',
         scoring: 'Scoring',
-        worst: 'Worst'
+        worst: 'Worst',
+        error: 'Please enter the values for the levels'
       }
     }
   },

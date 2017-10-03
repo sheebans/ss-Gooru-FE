@@ -25,7 +25,8 @@ import {
   createFileNameToDownload,
   isVideoURL,
   nullIfEmpty,
-  prepareStudentFileDataToDownload
+  prepareStudentFileDataToDownload,
+  validateSquareBracket
 } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
@@ -1310,5 +1311,20 @@ test('Detects if url is from Vimeo or Youtube', function(assert) {
     isVideoURL(randomURL),
     false,
     'Any input, if not from Vimeo or Youtube, should return false.'
+  );
+});
+
+test('Test, square bracket pattern matching or not', function(assert) {
+  var validTextFormat = 'I am [smart]';
+  var inValidTextFormat = 'I [] am Smart';
+  assert.equal(
+    validateSquareBracket(validTextFormat),
+    true,
+    'The text ${validTextFormat} shoud return true'
+  );
+  assert.equal(
+    validateSquareBracket(inValidTextFormat),
+    false,
+    'The text ${inValidTextFormat} shoud return false'
   );
 });
