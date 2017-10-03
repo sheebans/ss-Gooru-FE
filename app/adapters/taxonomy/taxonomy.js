@@ -108,7 +108,7 @@ export default Ember.Object.extend({
     codesIds.forEach(function(item) {
       if (item !== 'NA') {
         if (codeIdVal !== '') {
-          codeIdVal = `${codeIdVal  },${  item}`;
+          codeIdVal = `${codeIdVal},${item}`;
         } else {
           codeIdVal = item;
         }
