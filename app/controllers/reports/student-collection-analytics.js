@@ -106,7 +106,7 @@ export default Ember.Controller.extend(ConfigurationMixin, {
   role: null,
 
   /**
-   * @property {string} backUrl is  replects
+   * @property {string} backUrl is  to store the previous route
    */
   backUrl: null,
 
@@ -200,5 +200,6 @@ export default Ember.Controller.extend(ConfigurationMixin, {
     this.set('collectionId', undefined);
     this.set('userId', undefined);
     this.set('role', undefined);
+    this.set('backUrl', undefined);
   }
 });
