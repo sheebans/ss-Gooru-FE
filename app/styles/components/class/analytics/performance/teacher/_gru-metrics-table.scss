@@ -8,10 +8,6 @@
     width: auto;
     overflow-x: auto;
     padding-bottom: 1px;
-    margin-left: 64px;
-    @media (max-width: $screen-xs-max) {
-      margin-left: 105px;
-    }
   }
 
   .table {
@@ -21,21 +17,75 @@
     background: $white;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.07);
     border-top: 3px solid $dark-400;
-    border-radius: 0 5px 5px 0;
+    border-radius: 5px !important;
     border-collapse: inherit;
     display: table-cell;
-
+    .lt-cell {
+      border: 1px solid $light-300;
+    }
+    .lt-head {
+      min-width: 132px;
+      max-width: 150px;
+    }
+    .widthmaxi {
+      max-width: 61px;
+    }
+    .subwidthHeaderMax {
+      min-width: 119px;
+      width: 119px;
+    }
+    .subsubwidthmaxCollapseUnit {
+      max-width: 119px;
+      min-width: 119px;
+    }
+    .selectedUnitcolor {
+      background-color: #37424b !important;
+      text-align: center;
+    }
+    .headerbgcolor {
+      background-color: white !important;
+      color: black;
+    }
+    .scoreMargin {
+      float: right;
+      margin-top: -25px;
+      margin-right: -5px;
+    }
+    .mainTableSpacing {
+      border: 0 !important;
+      padding: 0 !important;
+    }
+    .subsubwidthmaxCollapse {
+      min-width: 119px !important;
+      width: 119px;
+    }
+    .text-newprimary {
+      color: #00bfff;
+    }
+    .subsubwidthmax {
+      width: 119px;
+      max-width: 119px;
+    }
+    .subsubwidthmax1 {
+      width: 110px;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
     thead {
       tr {
         th,
         td {
           background-color: $dark-300;
           color: $white;
-          border-right: 1px solid $light-300;
+          border-right: 1px dashed $light-300;
           &:first-child {
             border-right: 0;
           }
         }
+      }
+      .backgroundclraverage {
+        background-color: $light-300 !important;
       }
       .headers {
         td,
@@ -43,7 +93,7 @@
           background-color: $dark-400;
         }
         > td {
-          border-top: 15px solid $dark-400 !important;
+          border-top: 15px dashed $dark-400 !important;
           border-radius: 5px 0 0 0;
           top: 10px;
           height: 54px !important;
@@ -52,13 +102,20 @@
           @include flexbox;
           @include flex-direction(row);
           @include align-items(center);
-          text-align: left;
+          text-align: center;
           div {
             line-height: $font-size-lead;
           }
           .title {
             width: inherit;
+            width: 119px;
+            min-width: 119px;
             @include text-overflow();
+          }
+          .titlenew {
+            width: inherit;
+            width: 119px;
+            min-width: 119px;
           }
           .column {
             @include flexbox;
@@ -77,13 +134,13 @@
         th,
         td {
           height: 26px;
-          padding: 0 0 0 2px;
+          border-top: 1px dashed;
         }
       }
       .average {
         th {
           background-color: $white;
-          border-bottom: 2px solid $light-300;
+          border-bottom: 2px dashed $light-300;
           color: $gray;
           height: 50px;
           .class-average {
@@ -93,7 +150,7 @@
         .header {
           @include flexbox;
           @include align-items(center);
-          border-left: 1px solid $light-300;
+          border-left: 1px dashed $light-300;
         }
       }
     }
@@ -119,14 +176,13 @@
       }
       th {
         width: 140px;
-        border: 0;
         span {
           display: block;
           width: inherit;
           @include text-overflow();
         }
         &.header.fixed {
-          border-left: 1px solid $light-300;
+          border-left: 1px dashed $light-300;
         }
       }
     }
@@ -135,7 +191,6 @@
       width: 57px;
       min-width: 57px;
       height: 32px;
-      vertical-align: middle;
       font-weight: normal;
       white-space: nowrap;
       overflow: hidden;
@@ -143,15 +198,15 @@
       border: 0;
       border-right: 1px solid $light-300;
       padding: 2px;
+      text-align: center;
       div:last-child {
         border: 0;
       }
     }
     .table-cell {
-      width: 57px;
       min-width: 57px;
-      display: table-cell;
-      vertical-align: middle;
+      text-align: center !important;
+      vertical-align: middle !important;
     }
     .gru-metrics-sub-header {
       font-size: $font-size-base;
@@ -169,6 +224,10 @@
           margin: 0 0 0 -5px;
         }
       }
+    }
+    .width-information {
+      min-width: 150px;
+      max-width: 150px;
     }
     .performance-information {
       .box {
@@ -202,10 +261,12 @@
       }
     }
     .fixed {
-      position: absolute;
       left: 10px;
       min-height: 25px;
-      width: 111px;
+      width: 145px;
+    }
+    .htFixed {
+      height: 85px !important;
     }
   }
 }
