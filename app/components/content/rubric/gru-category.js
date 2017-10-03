@@ -180,13 +180,17 @@ export default Ember.Component.extend({
 
   validateLevels: function(category) {
     let areOk = true;
+    const levelsLength = category.get('levels').length;
+
     if (category.get('allowsLevels')) {
-      let levels = category.get('levels').filter(level => level.name);
-      if (levels.length) {
+      let filteredLevels = category.get('levels').filter(level => level.name);
+      if (filteredLevels.length === levelsLength) {
         const scoring = category.get('allowsScoring');
         if (scoring) {
-          levels.map(function(level) {
-            if (!level.score) {areOk = false;}
+          filteredLevels.map(function(level) {
+            if (!level.score) {
+              areOk = false;
+            }
           });
         }
       } else {
