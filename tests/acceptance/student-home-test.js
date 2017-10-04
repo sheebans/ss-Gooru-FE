@@ -68,7 +68,7 @@ test('Layout', function(assert) {
       'Active classes should be visible'
     );
 
-    const $tabContent = $leftUserContainer.find('.tab-content');
+    const $tabContent = $leftUserContainer.find('.content');
     assert.equal(
       $tabContent.find('.gru-student-class-card').length,
       7,
@@ -159,7 +159,9 @@ test('Go to course map from class card', function(assert) {
 
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
-    const $card = find('.gru-student-class-card:eq(0)  a');
+    const $card = find(
+      '.gru-student-class-card:eq(0) .panel-heading >.title a'
+    );
     click($card);
     andThen(function() {
       assert.equal(
@@ -171,63 +173,22 @@ test('Go to course map from class card', function(assert) {
   });
 });
 
-test('Valid bubble chart when the class does not has performance', function(
-  assert
-) {
+test('Go to performance from class card', function(assert) {
   visit('/student-home');
 
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
-    let $chart = find(
-      '.gru-student-class-card:eq(1) .gru-bubble-chart .bubble-circle'
+    const $card = find(
+      '.gru-student-class-card:eq(0) .performance .percentage'
     );
-    assert.equal(
-      $chart.attr('style'),
-      'background-color:#949A9F',
-      'Incorrect chart color'
-    );
-    assert.equal($chart.find('span').text(), '--', 'Incorrect score');
-  });
-});
-
-test('Valid bubble chart when the class has performance', function(assert) {
-  visit('/student-home');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/student-home');
-    let $chart = find(
-      '.gru-student-class-card:eq(0) .gru-bubble-chart .bubble-circle'
-    );
-    assert.equal(
-      $chart.attr('style'),
-      'background-color:#F46360',
-      'Incorrect chart color'
-    );
-    assert.equal($chart.find('span').text(), '0%', 'Incorrect score');
-  });
-});
-
-test('Valid completed chart when the class has started', function(assert) {
-  visit('/student-home');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/student-home');
-    let $chart = find(
-      '.gru-student-class-card:eq(0) .gru-radial-chart .radial-svg .labels'
-    );
-    assert.equal($chart.text(), '33%', 'Incorrect label');
-  });
-});
-
-test('Valid completed chart when the class has not started', function(assert) {
-  visit('/student-home');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/student-home');
-    let $chart = find(
-      '.gru-student-class-card:eq(1) .gru-radial-chart .radial-svg .labels'
-    );
-    assert.equal($chart.text(), '--', 'Incorrect label');
+    click($card);
+    andThen(function() {
+      assert.equal(
+        currentURL(),
+        '/student/class/class-for-pochita-as-student/performance?lessonId=637e7599-96de-4459-83cb-c72bd47ae4b0&unitId=first-unit-id',
+        'Wrong route'
+      );
+    });
   });
 });
 
@@ -236,7 +197,7 @@ test('Class order', function(assert) {
 
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
-    let $title = find('.gru-student-class-card:eq(0) h5');
+    let $title = find('.gru-student-class-card:eq(0) .panel-heading >.title');
     assert.equal(
       $title.text().trim(),
       'First Class Pochita as Student',

@@ -42,23 +42,19 @@
         {{/link-to}}
       </div>
     </div>
-    <div class="content tab-content">
-      <div role="tabpanel" class="tab-pane row active">
-        {{#if hasClasses}}
-        <!-- TODO: delete unnecesary dependencies -->
-          <!-- {{cards.gru-class-card
+    <div class="content">
+      {{#if hasClasses}}
+      <!-- TODO: delete unnecesary dependencies -->
+        <!-- {{cards.gru-class-card
+          class=class
+          profile=profile
+          classStudentCount=myClasses.memberCount}} -->
+        {{#each activeClasses as |class|}}
+          {{cards.gru-student-class-card
             class=class
-            profile=profile
-            classStudentCount=myClasses.memberCount}} -->
-          {{#each activeClassesChunks as |activeClasses|}}
-            <div class="row">
-              {{#each activeClasses as |class|}}
-                {{cards.gru-student-class-card class=class}}
-              {{/each}}
-            </div>
-          {{/each}}
-        {{/if}}
-      </div>
+            onPlayCollection='studyPlayer'}}
+        {{/each}}
+      {{/if}}
     </div>
   </div>
 </div>

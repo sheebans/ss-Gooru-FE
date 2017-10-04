@@ -25,9 +25,8 @@
       float: left;
       .greetings {
         span {
-          color: $gray-base;
-          font-size: $font-size-h4;
-          line-height: $font-size-h4;
+          color: $gray;
+          font-size: $font-size-lead;
         }
         p {
           font-weight: lighter;
@@ -36,7 +35,7 @@
           }
         }
       }
-      .tab-content {
+      .content {
         padding: 10px 0 0;
         clear: both;
         @include transition(width 0.3s ease-out);
@@ -61,13 +60,13 @@
       li {
         margin-right: 15px;
         a {
-          padding: 10px 0 5px;
+          padding: 10px 0 3px;
         }
       }
     }
     li {
       display: none;
-      height: 46px;
+      height: 43px;
       margin-bottom: 0;
       @media (min-width: $screen-sm) {
         display: block;
@@ -75,14 +74,17 @@
       &.active {
         display: block;
         a {
-          box-shadow: inset 0 -4px 0 $gray;
-          padding-left: 0;
-          padding-right: 0;
+          box-shadow: inset 0 -3px 0 $gray-base;
+          padding-left: 10px;
+          padding-right: 10px;
+          color: $gray-base;
           &:focus {
-            box-shadow: inset 0 -4px 0 $gray;
+            box-shadow: inset 0 -3px 0 $gray-base;
+            color: $gray-base;
           }
           &:active {
-            box-shadow: inset 0 -4px 0 $gray;
+            box-shadow: inset 0 -3px 0 $gray-base;
+            color: $gray-base;
           }
         }
       }
@@ -92,11 +94,12 @@
         }
       }
       a {
+        color: $light-400;
         &:hover {
-          color: initial;
+          color: $gray-base;
         }
         span {
-          font-weight: bold;
+          font-size: $font-navigator;
         }
       }
     }
@@ -112,5 +115,9 @@
       height: 35px;
       margin: 8px 0 0;
     }
+  }
+  .gru-student-class-card {
+    float: left;
+    margin: 0 30px 30px 0;
   }
 }

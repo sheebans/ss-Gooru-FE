@@ -158,7 +158,7 @@ export function getAnswerResultIcon(isCorrect) {
  */
 export function getGradeColor(grade) {
   var bracket = GRADING_SCALE.length - 1;
-  var color = '#949A9F'; // Default color - $dark-100
+  var color = '#F5F6F7'; // Default color
 
   if (isNumeric(grade)) {
     for (; bracket >= 0; bracket--) {

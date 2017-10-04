@@ -117,12 +117,14 @@ $font-family-monospace: Menlo, Monaco, Consolas, "Courier New",
   monospace !default;
 $font-family-base: $font-family-sans-serif !default;
 //** Default for google sign in button
-$font-family-roboto: 'Roboto', sans-serif !default;
+$font-family-roboto: "Roboto", sans-serif !default;
 
 $font-size-base: 13px !default;
 $font-size-large: ceil(($font-size-base * 1.25)) !default; // ~18px
 $font-size-small: ceil(($font-size-base * 0.85)) !default; // ~12px
-$font-size-xsmall: ceil(($font-size-base * 0.77)) !default; // ~10px
+$font-size-xsmall: ceil(($font-size-base * 0.77)) !default; // ~11px
+$font-size-xxsmall: 10px !default;
+$font-size-xxxsmall: 8px !default;
 
 $font-size-tour-icon: 25px !default;
 $font-size-rubric-icon: 22px !default;
@@ -308,7 +310,7 @@ $cursor-disabled: not-allowed !default;
 //** Background for the dropdown menu.
 $dropdown-bg: #fff !default;
 //** Dropdown menu `border-color`.
-$dropdown-border: rgba(0, 0, 0, .15) !default;
+$dropdown-border: rgba(0, 0, 0, 0.15) !default;
 //** Dropdown menu `border-color` **for IE8**.
 $dropdown-fallback-border: #ccc !default;
 //** Divider color for between dropdown items.
@@ -666,7 +668,7 @@ $modal-content-fallback-border-color: #999 !default;
 //** Modal backdrop background color
 $modal-backdrop-bg: #000 !default;
 //** Modal backdrop opacity
-$modal-backdrop-opacity: .5 !default;
+$modal-backdrop-opacity: 0.5 !default;
 //** Modal header border color
 $modal-header-border-color: transparent !default;
 //** Modal footer border color
@@ -857,11 +859,11 @@ $breadcrumb-separator: "/" !default;
 //
 //##
 
-$carousel-text-shadow: 0 1px 2px rgba(0, 0, 0, .6) !default;
+$carousel-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !default;
 
 $carousel-control-color: #fff !default;
 $carousel-control-width: 15% !default;
-$carousel-control-opacity: .5 !default;
+$carousel-control-opacity: 0.5 !default;
 $carousel-control-font-size: 20px !default;
 
 $carousel-indicator-active-bg: #fff !default;
@@ -988,3 +990,7 @@ $font-title: 16px;
 
 $font-add-bookmark: 52px;
 $font-unBookmark: 28px;
+
+// student class card
+
+$font-percentage: 50px;
