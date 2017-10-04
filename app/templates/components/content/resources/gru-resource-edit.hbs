@@ -33,11 +33,8 @@
     <div class="panel panel-default">
       <div class="panel-body">
           <p>{{t "common.resource-url"}}*</p>
-        {{#if (eq resource.format "image")}}
-
-          <p>{{resource.thumbnail}}</p>
-        {{else if (eq resource.format "text")}}
-              <p>{{resource.thumbnail}}</p>
+        {{#if (or resource.format "image"  resource.format "text")}}
+          <p>{{resource.fileName}}</p>
          {{else }}
              <p>{{resource.url}}</p>
         {{/if}}

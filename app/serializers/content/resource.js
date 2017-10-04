@@ -156,7 +156,7 @@ export default Ember.Object.extend({
         let resourceUrl = resourceData.url;
         let containsCdnUrl = checkDomains(resourceUrl, cdnUrl);
         let url = resourceUrl.split('/');
-        resource.set('thumbnail', url[url.length - 1]);
+        resource.set('fileName', url[url.length - 1]);
         if (!containsCdnUrl) {
           resourceUrl = cdnUrl + resourceUrl;
         }
