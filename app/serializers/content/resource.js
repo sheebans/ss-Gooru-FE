@@ -155,12 +155,12 @@ export default Ember.Object.extend({
         //if no protocol add it
         let resourceUrl = resourceData.url;
         let containsCdnUrl = checkDomains(resourceUrl, cdnUrl);
-        let url = resourceUrl.split('/');
-        resource.set('fileName', url[url.length - 1]);
         if (!containsCdnUrl) {
           resourceUrl = cdnUrl + resourceUrl;
         }
         resource.set('url', addProtocolIfNecessary(resourceUrl, true));
+        let url = resourceUrl.split('/');
+        resource.set('fileName', url[url.length - 1]);
       }
     }
 
