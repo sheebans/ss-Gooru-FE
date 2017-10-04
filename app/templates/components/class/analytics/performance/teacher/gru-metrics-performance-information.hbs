@@ -1,6 +1,6 @@
 {{#if performanceData}}
   {{#if showScore}}
-    <div class="table-cell">
+    <div class="table-cell {{if showStudyTime 'pull-left' ''}}">
       {{#if performanceData.hideScore}}
         <div class="not-applicable" title="{{performanceData.headerTitle}}" data-toggle="tooltip" data-placement="auto">
           {{t 'common.not-applicable'}}
@@ -33,7 +33,7 @@
   </div>
   {{/if}}
   {{#if showStudyTime}}
-    <div class="table-cell study-time">{{{performanceData.timeSpent}}}</div>
+    <div class="table-cell study-time pull-right">{{{performanceData.timeSpent}}}</div>
   {{/if}}
 {{else}}
   {{#if showScore}}
