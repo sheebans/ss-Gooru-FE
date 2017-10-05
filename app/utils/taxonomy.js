@@ -82,12 +82,8 @@ export function generateBrowseTestTree(levels = 1, lastLevels = 0, inc = 1) {
  * @return {Object} - An object with the category information
  */
 export function getCategoryFromSubjectId(subjectId) {
-  let categoryCode = subjectId.split('.')[0];
-  let categories = Ember.A(TAXONOMY_CATEGORIES);
-  let category = categories.findBy('apiCode', categoryCode);
-  if (!category) {
-    categoryCode = subjectId.split('.')[1];
-    category = categories.findBy('apiCode', categoryCode);
-  }
+  const categoryCode = subjectId.split('.')[1];
+  const categories = Ember.A(TAXONOMY_CATEGORIES);
+  const category = categories.findBy('apiCode', categoryCode);
   return category ? category.value : null;
 }

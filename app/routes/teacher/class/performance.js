@@ -79,16 +79,18 @@ export default Ember.Route.extend({
     navigateToReport: function(performance, userPerformance) {
       if (!performance.get('isAverage')) {
         const route = this;
+
         const queryParams = {
           collectionId: performance.get('id'),
           userId: userPerformance.get('userId'),
           type: performance.get('collectionType'),
           role: 'teacher',
           classId: route.get('controller.class.id'),
-          unitId: performance.get('unitId'),
-          lessonId: performance.get('lessonId'),
+          unitId: route.get('controller.unit.id'),
+          lessonId: route.get('controller.lesson.id'),
           courseId: route.get('controller.course.id')
         };
+
         const reportController = route.controllerFor(
           'reports.student-collection-analytics'
         );

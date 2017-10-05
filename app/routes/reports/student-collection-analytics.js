@@ -92,8 +92,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         unitId: context.get('unitId'),
         lessonId: context.get('lessonId'),
         questionId,
-        role: controller.get('role'),
-        backUrl: controller.get('backUrl')
+        role: controller.get('role')
       };
 
       route.transitionTo('reports.student-open-ended-summary', {

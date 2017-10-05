@@ -63,8 +63,7 @@ export default Ember.Route.extend({
         courseId: context.get('courseId'),
         unitId: context.get('unitId'),
         lessonId: context.get('lessonId'),
-        role: role,
-        backUrl: controller.get('backUrl')
+        role: role
       };
 
       route.transitionTo('reports.student-collection-analytics', {

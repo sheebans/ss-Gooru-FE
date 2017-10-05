@@ -32,28 +32,16 @@
   <div class="content">
     <div class="panel panel-default">
       <div class="panel-body">
-          <p>{{t "common.resource-url"}}*</p>
-        {{#if (eq resource.format 'image')}}
-          <p>{{resource.fileName}}</p>
-         {{else if (eq resource.format 'text')}}
-             <p>{{resource.fileName}}</p>             
-        {{else}}
-            <p>{{resource.url}}</p>
-        {{/if}}
+        <p>{{t "common.resource-url"}}*</p>
+        <p>{{clean-file-name resource.url}}</p>
       </div>
     </div>
     {{#if (and (not isVideo) (not sameProtocol))}}
       <div class="panel panel-default placeholder {{if resourceComponent 'preview'}}">
         <div class="panel-body">
-            {{#if (eq resource.format 'image')}}
-                {{player.resources.gru-image-resource resource=resource}}
-            {{else if (eq resource.format 'text')}}
-                {{player.resources.gru-pdf-resource resource=resource}}
-            {{else if (eq resource.format 'webpage')}}
-                <div class="external-https">
-                {{cards.gru-resource-card resource=resource addEnabled=false isLinkOut=true}}
-                </div>
-            {{/if}}
+          <div class="external-https">
+            {{cards.gru-resource-card resource=resource addEnabled=false isLinkOut=true}}
+          </div>
         </div>
       </div>
     {{else}}

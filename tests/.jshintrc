@@ -1,6 +1,5 @@
 {
   "predef": [
-    "setBreakpoint",
     "document",
     "window",
     "location",

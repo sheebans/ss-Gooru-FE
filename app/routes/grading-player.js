@@ -115,7 +115,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       'questionText',
       model.question.get('description') || model.question.get('title')
     );
-    controller.set('questionThumbnail', model.question.get('thumbnail'));
     controller.set('classId', model.classId);
     controller.set('rubric', model.rubric);
     controller.set(

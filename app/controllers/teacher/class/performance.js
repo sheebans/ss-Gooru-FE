@@ -201,16 +201,6 @@ export default Ember.Controller.extend({
    * @property {String}
    */
   filterBy: 'assessment',
-  /**
-   * Query param, courseId selected
-   * @property {String}
-   */
-  courseId: Ember.computed.alias('course.id'),
-  /**
-   * Query param, classId selected
-   * @property {String}
-   */
-  classId: Ember.computed.alias('class.id'),
 
   /**
    * Query param, unitId selected

@@ -687,17 +687,15 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
                 editedQuestion.get('isOpenEnded') &&
                 !editedQuestion.get('rubric.rubricOn')
               ) {
-                if (editedQuestion.get('rubric')) {
-                  editedQuestion.get('rubric').setProperties({
-                    title: null,
-                    maxScore: editedQuestion.get('rubric.maxScore')
-                      ? editedQuestion.get('rubric.maxScore')
-                      : 1,
-                    increment: editedQuestion.get('rubric.increment')
-                      ? editedQuestion.get('rubric.increment')
-                      : 0.5
-                  });
-                }
+                editedQuestion.get('rubric').setProperties({
+                  title: null,
+                  maxScore: editedQuestion.get('rubric.maxScore')
+                    ? editedQuestion.get('rubric.maxScore')
+                    : 1,
+                  increment: editedQuestion.get('rubric.increment')
+                    ? editedQuestion.get('rubric.increment')
+                    : 0.5
+                });
               }
 
               if (!question.get('rubric')) {
