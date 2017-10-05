@@ -351,7 +351,11 @@ export default Ember.Component.extend({
         }
       });
     });
-    component.get('headers').forEach(function(item) {
+    component.get('headers').forEach(function(item, index) {
+      var orginalTitle = item.get('title');
+      if (!(orginalTitle.indexOf(':') !== -1)) {
+        item.set('title', `U${index + 1}:${orginalTitle}`);
+      }
       Ember.set(item, 'showSub', false);
       Ember.set(item, 'showSubSub', false);
       Ember.set(item, 'subColumns', []);
@@ -528,6 +532,10 @@ export default Ember.Component.extend({
           .fetchById(courseIdVal, unitId)
           .then(function(unit) {
             var temp = component.get('headers').objectAt(unitIndex);
+            unit.get('children').forEach(function(item, indx) {
+              var orginalTitle = item.get('title');
+              item.set('title', `L${indx + 1}:${orginalTitle}`);
+            });
             Ember.set(temp, 'subColumns', unit.get('children'));
             Ember.set(temp, 'colspanval', unit.get('children').length + 1);
             var lessons = unit.get('children');
@@ -775,6 +783,10 @@ export default Ember.Component.extend({
           .fetchById(courseIdVal, unitId)
           .then(function(unit) {
             var temp = component.get('headers').objectAt(unitIndex);
+            unit.get('children').forEach(function(item, indx) {
+              var orginalTitle = item.get('title');
+              item.set('title', `L${indx + 1}:${orginalTitle}`);
+            });
             Ember.set(temp, 'subColumns', unit.get('children'));
             Ember.set(temp, 'colspanval', 1);
             var lessons = unit.get('children');
@@ -833,14 +845,22 @@ export default Ember.Component.extend({
         var array1 = [];
         var array2 = [];
         var arrayComplete = [];
+        var tempVal = 0;
         lesson.get('children').forEach(function(assessmentObj) {
           if (assessmentObj.format === filterBy) {
+            tempVal = tempVal + 1;
             countCols = countCols + 1;
             var emberObject = Ember.Object.create({
               id: assessmentObj.id,
               lessonId: lessonObj.id,
               level: filterBy
             });
+            var orginalTitle = assessmentObj.get('title');
+            if (filterBy === 'assessment') {
+              assessmentObj.set('title', `A${tempVal}:${orginalTitle}`);
+            } else {
+              assessmentObj.set('title', `C${tempVal}:${orginalTitle}`);
+            }
             lessonObj.get('subsubColumns').pushObject(assessmentObj);
             component.get('averageHeadersAssessment').pushObject(emberObject);
           }
@@ -1165,30 +1185,6 @@ export default Ember.Component.extend({
                                       .get('subsubColumns')
                                       .objectAt(indx);
 
-                                    // if(component.get('assessmentperformanceDataMatrix').objectAt(0).performanceData.length === component.get('averageHeadersAssessment').length)
-                                    //   {
-                                    //     component
-                                    //   .get('assessmentperformanceDataMatrix')
-                                    //   .objectAt(0)
-                                    //   .performanceData.forEach(function(item, indx1) {
-                                    //     if(indx1>0)
-                                    //       {
-                                    //         item.set('level', filterBy);
-                                    //       item.set('unitId', unitId);
-                                    //       item.set('lessonId', lessonObj.id);
-                                    //       component
-                                    //   .get('averageHeadersAssessment')
-                                    //   .removeAt(indx1);
-                                    // component
-                                    //   .get('averageHeadersAssessment')
-                                    //   .insertAt(
-                                    //     indx1,
-                                    //     item
-                                    //   );
-                                    //       }
-                                    //      });
-                                    //}
-
                                     if (objAtLesson.lessonId === lessonObj.id) {
                                       item9.get('subsubColumns').removeAt(indx);
                                       item9
@@ -1204,12 +1200,17 @@ export default Ember.Component.extend({
                                           item.set('level', filterBy);
                                           item.set('unitId', unitId);
                                           item.set('lessonId', lessonObj.id);
-                                          component
+                                          var objHdr = component
                                             .get('averageHeadersAssessment')
-                                            .removeAt(indx1);
-                                          component
-                                            .get('averageHeadersAssessment')
-                                            .insertAt(indx1, item);
+                                            .objectAt(indx1);
+                                          if (objHdr !== undefined) {
+                                            component
+                                              .get('averageHeadersAssessment')
+                                              .removeAt(indx1);
+                                            component
+                                              .get('averageHeadersAssessment')
+                                              .insertAt(indx1, item);
+                                          }
                                         });
                                     }
                                   }
