@@ -113,6 +113,11 @@ export default Ember.Component.extend({
    * @property {averageHeaders[]}
    */
   averageHeadersAssessment: [],
+  /**
+   * The average headers of the Data Matrix
+   * @property {averageHeaderstempAssessment[]}
+   */
+  averageHeaderstempAssessment: [],
 
   /**
    * The average headers of the Data Matrix
@@ -360,6 +365,7 @@ export default Ember.Component.extend({
         component.removeexpandedUnit();
       }
     }
+    component.set('averageHeaderstempAssessment', []);
   },
   didInsertElement() {
     'use strict';
@@ -505,6 +511,7 @@ export default Ember.Component.extend({
         item9.set('subsubColumns', []);
       });
     });
+    component.set('averageHeaderstempAssessment', []);
   },
   expandUnit: function(unitId, unitIndex) {
     const component = this;
@@ -935,6 +942,7 @@ export default Ember.Component.extend({
               component
                 .get('averageHeaders')
                 .set('performanceData', arrayComplete);
+              component.set('isLoading', false);
               // }, 4000);
             } else {
               array2.forEach(function(item, indx) {
@@ -1005,6 +1013,15 @@ export default Ember.Component.extend({
                   const performanceData = this.get(
                     'assessmentperformanceDataMatrix'
                   ).slice(1);
+                  if (lessonIndex === 0) {
+                    component.set('averageHeaderstempAssessment', []);
+                  }
+                  component.get('averageHeaderstempAssessment').pushObjects(
+                    component
+                      .get('assessmentperformanceDataMatrix')
+                      .objectAt(0)
+                      .performanceData.slice(1)
+                  );
                   const sortCriteria = this.get('sortCriteria');
                   if (sortCriteria) {
                     let metricsIndex = sortCriteria.metricsIndex;
@@ -1147,6 +1164,31 @@ export default Ember.Component.extend({
                                     var objAtLesson = item9
                                       .get('subsubColumns')
                                       .objectAt(indx);
+
+                                    // if(component.get('assessmentperformanceDataMatrix').objectAt(0).performanceData.length === component.get('averageHeadersAssessment').length)
+                                    //   {
+                                    //     component
+                                    //   .get('assessmentperformanceDataMatrix')
+                                    //   .objectAt(0)
+                                    //   .performanceData.forEach(function(item, indx1) {
+                                    //     if(indx1>0)
+                                    //       {
+                                    //         item.set('level', filterBy);
+                                    //       item.set('unitId', unitId);
+                                    //       item.set('lessonId', lessonObj.id);
+                                    //       component
+                                    //   .get('averageHeadersAssessment')
+                                    //   .removeAt(indx1);
+                                    // component
+                                    //   .get('averageHeadersAssessment')
+                                    //   .insertAt(
+                                    //     indx1,
+                                    //     item
+                                    //   );
+                                    //       }
+                                    //      });
+                                    //}
+
                                     if (objAtLesson.lessonId === lessonObj.id) {
                                       item9.get('subsubColumns').removeAt(indx);
                                       item9
@@ -1155,15 +1197,20 @@ export default Ember.Component.extend({
                                           indx,
                                           assessmentperformanceData[j]
                                         );
+
                                       component
-                                        .get('averageHeadersAssessment')
-                                        .removeAt(indx);
-                                      component
-                                        .get('averageHeadersAssessment')
-                                        .insertAt(
-                                          indx,
-                                          assessmentperformanceData[j]
-                                        );
+                                        .get('averageHeaderstempAssessment')
+                                        .forEach(function(item, indx1) {
+                                          item.set('level', filterBy);
+                                          item.set('unitId', unitId);
+                                          item.set('lessonId', lessonObj.id);
+                                          component
+                                            .get('averageHeadersAssessment')
+                                            .removeAt(indx1);
+                                          component
+                                            .get('averageHeadersAssessment')
+                                            .insertAt(indx1, item);
+                                        });
                                     }
                                   }
                                 }
