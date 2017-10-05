@@ -52,7 +52,6 @@ test('Layout with thumbnail', function(assert) {
   T.exists(assert, $promptTitle, 'Missing prompt title');
   T.exists(assert, $promptText, 'Missing prompt text');
   T.exists(assert, $promptThumbnail, 'Missing prompt thumbnail');
-  T.notExists(assert, $promptThumbnail, 'Thumbnail should not be displayed');
   assert.ok(
     T.text($promptTitle).includes('prompt title'),
     'Wrong text in prompt title'
