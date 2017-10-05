@@ -60,6 +60,10 @@ export default Ember.Component.extend(Validations, {
       this.clearValidations();
     },
 
+    onCodeChange: function(hasContent) {
+      this.set('allowedButton', hasContent);
+    },
+
     onCodeTyping: function() {
       this.clearValidations();
     }
@@ -126,5 +130,11 @@ export default Ember.Component.extend(Validations, {
   /**
    * Indicate if it's waiting for join class callback
    */
-  isLoading: false
+  isLoading: false,
+
+  /**
+   * Indicates if the submit button is allowed, false if the user don't type anything
+   * @property {boolean}
+   */
+  allowedButton: false
 });

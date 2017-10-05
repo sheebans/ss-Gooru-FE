@@ -11,6 +11,7 @@
           onTyping="onCodeTyping"
           didValidate=didValidate
           onFocusOut="onCodeFocusOut"
+          onChange="onCodeChange"
           placeholder=(t 'content.classes.join.class-code-input')}}
       </div>
       <div class="terms-and-conditions">
@@ -20,7 +21,11 @@
   </div>
   <div class="panel-footer">
     {{#gru-spinner-button classes='join-class-btn' text=(t 'common.loading') isLoading=isLoading}}
-      <div class="join-class-btn pointer" {{action "joinClass"}}>{{t 'content.classes.join.join-class'}}</div>
+      {{#if allowedButton}}
+        <div class="join-class-btn pointer" {{action "joinClass"}}>{{t 'content.classes.join.join-class'}}</div>
+      {{else}}
+        <div class="join-class-btn">{{t 'content.classes.join.join-class'}}</div>
+      {{/if}}
     {{/gru-spinner-button}}
   </div>
 </div>

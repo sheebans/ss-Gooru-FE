@@ -31,20 +31,15 @@
           {{/link-to}}
         </li>
       </ul>
-      {{#unless hasClasses}}
-        <div class="pull-left no-classes-found">
-          {{t 'student-landing.no-classrooms'}}
-        </div>
-      {{/unless}}
     </div>
     <div class="content">
+      {{cards.gru-join-class-card
+        onJoinClass="joinClass"
+        validCode=validCode
+        notMember=notMember
+        allowedCode=allowedCode
+        isLoading=isLoading}}
       {{#if hasClasses}}
-        {{cards.gru-join-class-card
-          onJoinClass="joinClass"
-          validCode=validCode
-          notMember=notMember
-          allowedCode=allowedCode
-          isLoading=isLoading}}
         {{#each activeClasses as |class|}}
           {{cards.gru-student-class-card
             class=class

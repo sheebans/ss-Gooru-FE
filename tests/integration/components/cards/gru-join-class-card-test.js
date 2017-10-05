@@ -65,9 +65,8 @@ test('it shows an error message if the class code field is left blank and you bl
     !$codeField.find('.error-messages .error').length,
     'Username error message should not be visible'
   );
-  // Try submitting without filling in data
-  $component.find('.join-class-btn').click();
 
+  $codeField.find('input').blur();
   return wait().then(function() {
     assert.ok(
       $codeField.find('.error-messages .error').length,
@@ -107,7 +106,9 @@ test('onJoinClass event', function(assert) {
 test('it shows an error message if the class code is invalid', function(
   assert
 ) {
-  this.render(hbs`{{cards/gru-join-class-card validCode=null}}`);
+  this.render(
+    hbs`{{cards/gru-join-class-card validCode=null allowedButton=true}}`
+  );
 
   const $component = this.$(); //component dom element
 
@@ -136,7 +137,9 @@ test('show spinner button component while the server response, after clicking on
     assert.equal(code, 'any', 'The event should be thrown');
   });
 
-  this.render(hbs`{{cards/gru-join-class-card onJoinClass='joinClass'}}`);
+  this.render(
+    hbs`{{cards/gru-join-class-card onJoinClass='joinClass' allowedButton=true}}`
+  );
 
   const $component = this.$(); //component dom element
 
@@ -161,7 +164,9 @@ test('Disable spinner button after showing an error', function(assert) {
     assert.equal(code, 'any', 'The event should be thrown');
   });
 
-  this.render(hbs`{{cards/gru-join-class-card validCode=null}}`);
+  this.render(
+    hbs`{{cards/gru-join-class-card validCode=null allowedButton=true}}`
+  );
 
   const $component = this.$(); //component dom element
 

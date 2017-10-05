@@ -42,10 +42,11 @@
               text-align: center;
             }
             .error-messages {
-              height: 18px;
+              height: 14px;
               span.error {
                 margin: 0;
                 font-size: $font-size-xxsmall;
+                height: inherit;
               }
             }
           }
