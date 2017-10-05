@@ -30,7 +30,9 @@
             </a>
           {{else}}
             {{#if isLinkOut}}
-              <h6 class="title truncate">{{{resource.title}}}</h6>
+              <a href="{{{resource.url}}}" target="_blank">
+                <h6 class="title truncate">{{{resource.title}}}</h6>
+              </a>
             {{else}}
               {{#if editEnabled}}
                 {{#link-to (if isQuestion 'content.questions.edit' 'content.resources.edit') resource.id tagName="h6" class="title truncate pointer" alt=resource.title}}{{{resource.title}}}{{/link-to}}
