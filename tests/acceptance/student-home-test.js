@@ -200,21 +200,3 @@ test('Class order', function(assert) {
     );
   });
 });
-
-test('Join class', function(assert) {
-  visit('/student-home');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/student-home');
-
-    let $joinClassCard = find('.gru-join-class-card');
-
-    $joinClassCard.find('.form-group input').val('any-code');
-    $joinClassCard.find('.form-group input').blur();
-
-    click($joinClassCard.find('.join-class-btn'));
-    andThen(function() {
-      assert.equal(currentRouteName(), 'student.class.course-map');
-    });
-  });
-});
