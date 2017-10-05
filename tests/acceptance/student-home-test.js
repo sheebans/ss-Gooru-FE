@@ -57,11 +57,6 @@ test('Layout', function(assert) {
 
     const $navigatorContainer = $leftUserContainer.find('.student-navigator');
     T.exists(assert, $navigatorContainer, 'Missing student navigator');
-    T.exists(
-      assert,
-      $navigatorContainer.find('.actions .join-class-cta'),
-      'Missing join class button'
-    );
 
     assert.ok(
       $('.active-classes').hasClass('active'),

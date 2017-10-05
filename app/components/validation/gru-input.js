@@ -224,7 +224,7 @@ export default Ember.Component.extend({
 
   rawInputValueObserver: function() {
     this.set('value', this.removeWhiteSpaces(this.get('rawInputValue')));
-    this.sendAction('onChange');
+    this.sendAction('onChange', this.get('hasContent'));
   }.observes('rawInputValue'),
 
   // -------------------------------------------------------------------------
@@ -241,7 +241,9 @@ export default Ember.Component.extend({
    * Remove html tags from value
    */
   removeTags: function(value) {
-    return $('<p>').html(value).text();
+    return $('<p>')
+      .html(value)
+      .text();
   },
 
   /*
