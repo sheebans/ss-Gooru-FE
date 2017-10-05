@@ -76,7 +76,7 @@
       .tab-content {
         padding: 10px 0 0;
         clear: both;
-        @include transition(width .3s ease-out);
+        @include transition(width 0.3s ease-out);
         @media (min-width: $screen-sm) {
           width: 100%;
         }
@@ -91,6 +91,7 @@
   }
   .student-navigator,
   .gru-independent-learning-navigation {
+    clear: both;
     .nav-tabs {
       @media (min-width: $screen-sm) {
         box-shadow: inset 0 -1px 0 $gray-light;
@@ -98,13 +99,13 @@
       li {
         margin-right: 15px;
         a {
-          padding: 10px 0 5px;
+          padding: 10px 0 3px;
         }
       }
     }
     li {
       display: none;
-      height: 46px;
+      height: 43px;
       margin-bottom: 0;
       @media (min-width: $screen-sm) {
         display: block;
@@ -112,14 +113,17 @@
       &.active {
         display: block;
         a {
-          box-shadow: inset 0 -4px 0 $gray;
-          padding-left: 0;
-          padding-right: 0;
+          box-shadow: inset 0 -3px 0 $gray-base;
+          padding-left: 10px;
+          padding-right: 10px;
+          color: $gray-base;
           &:focus {
-            box-shadow: inset 0 -4px 0 $gray;
+            box-shadow: inset 0 -3px 0 $gray-base;
+            color: $gray-base;
           }
           &:active {
-            box-shadow: inset 0 -4px 0 $gray;
+            box-shadow: inset 0 -3px 0 $gray-base;
+            color: $gray-base;
           }
         }
       }
@@ -129,11 +133,12 @@
         }
       }
       a {
+        color: $light-400;
         &:hover {
-          color: initial;
+          color: $gray-base;
         }
         span {
-          font-weight: bold;
+          font-size: $font-navigator;
         }
       }
     }
@@ -207,7 +212,7 @@
           margin: 20px 21px 0 0;
           cursor: pointer;
           &:before {
-            content: '+ ';
+            content: "+ ";
             font-size: $font-add-bookmark;
             line-height: $font-add-bookmark;
           }

@@ -1,5 +1,6 @@
 .gru-student-class-card {
-  padding: 12px;
+  width: 300px;
+  height: 337px;
   .panel {
     @include border-top-radius(4px);
     @include border-bottom-radius(4px);
@@ -7,92 +8,129 @@
     margin: 0;
     .panel-heading {
       @include flexbox;
-      @include align-items(center);
-      @include justify-content(space-between);
-      @include border-top-radius(4px);
-      background-color: $sky-300;
+      width: 100%;
+      padding: 0 10px;
+      height: 40px;
       .title {
-        h5 {
-          color: $white;
-          line-height: $font-size-h4;
+        width: 75%;
+        padding: 3px 0;
+        a {
+          color: $dark-500;
           margin: 0;
+          font-size: $font-navigator;
+          font-weight: 300;
         }
       }
       .code {
-        span {
-          @include border-top-radius(4px);
-          @include border-bottom-radius(4px);
-          @include flex-shrink(0);
-          border: 1px solid $white;
-          font-size: $font-size-base;
+        width: 25%;
+        border-left: 1px solid $light-200;
+        text-align: center;
+        padding: 6px 0;
+        div {
+          font-size: $font-size-xxsmall;
+          font-weight: bold;
           line-height: 1;
-          padding: 4px 5px;
           text-transform: uppercase;
-          color: $white;
-          @media (min-width: $screen-xs) {
-            font-size: $font-size-h6;
+          color: $dark-400;
+          width: 100%;
+          &.title {
+            opacity: 0.5;
+            font-size: $font-size-xxxsmall;
+            font-weight: normal;
           }
         }
       }
     }
     .panel-body {
-      padding: 10px;
-      @media (min-width: $screen-md) {
-        &.border-between > [class*='col-']:before {
-          background: $light-400;
-          width: 1px;
-        }
-      }
-      @media (max-width: $screen-md) {
-        &.border-between > [class*='col-']:before {
-          width: 0px;
-        }
-      }
+      padding: 0;
       .information {
-        height: 125px;
-        span {
-          color: $gray-base;
-        }
+        height: 170px;
+        color: $white;
+        background-size: cover;
+        background-repeat: no-repeat;
+        padding: 100px 0 0;
+        font-weight: bold;
+        position: relative;
         .current-activity {
-          i {
-            margin: 0 2px 0 0;
-            width: 22px;
-            height: 17px;
-            vertical-align: middle;
-            background-repeat: no-repeat;
-            background-position: center center;
+          position: absolute;
+          z-index: 10;
+          font-size: $font-size-xxsmall;
+          padding: 0 10px;
+        }
+        .title-section {
+          $line-height: 0.5;
+          $lines-to-show: 2;
+          margin: 23px 0 0;
+          padding: 0 10px;
+          position: absolute;
+          z-index: 10;
+          width: 100%;
+          .title {
+            line-height: $font-size-base;
+            vertical-align: top;
             display: inline-block;
-            &.collection {
-              background-image: url("gooru/images/add_collection.svg");
-            }
-            &.assessment {
-              background-image: url("gooru/images/add_assessment.svg");
+            width: 86%;
+          }
+          .truncate {
+            @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
+          }
+          .icon {
+            display: inline-block;
+            vertical-align: top;
+            width: 12%;
+            i {
+              font-size: $font-size-h3;
             }
           }
+        }
+        &:after {
+          display: block;
+          position: absolute;
+          z-index: 9;
+          background-image: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0) 0,
+            $gray-base 100%
+          );
+          margin-top: -15px;
+          height: 50%;
+          width: 100%;
+          content: "";
         }
       }
-      .charts {
+      .performance {
+        color: $dark-400;
         text-align: center;
-        margin: 10px 0 0;
-        @media (max-width: $screen-md) {
-          > [class*='row']:after {
-            width: 100%;
-            background: $light-400;
-            height: 1px;
+        height: 100px;
+        padding: 25px 0 0;
+        .percentage {
+          font-size: $font-percentage;
+          line-height: $font-size-h2;
+          font-weight: 900;
+        }
+        label {
+          text-transform: uppercase;
+          font-size: $font-size-xxsmall;
+          font-weight: bold;
+        }
+      }
+      .completion-chart {
+        height: 27px;
+        .charts.gru-x-bar-chart {
+          border-radius: 0;
+          height: 6px;
+          .segment {
+            &:first-child {
+              border-radius: 0;
+            }
           }
         }
-        .row {
+        label {
+          display: block;
+          font-size: $font-size-xxsmall;
+          line-height: $font-navigator;
           margin: 0;
-          .performance,
-          .completed {
-            padding: 0;
-          }
-          .charts.gru-radial-chart,
-          .charts.gru-bubble-chart {
-            width: 75px;
-            height: 75px;
-            margin: 0 auto 5px;
-          }
+          padding: 0 10px;
         }
       }
     }

@@ -70,7 +70,10 @@ test('Layout', function(assert) {
       'Missing will-disappear legend'
     );
     assert.equal(
-      $createClass.find('.panel-body .will-disappear').text().trim(),
+      $createClass
+        .find('.panel-body .will-disappear')
+        .text()
+        .trim(),
       'This will disappear after 3 logins',
       'Incorrect login count for will disappear text'
     );
@@ -130,7 +133,10 @@ test('Will disappear next login', function(assert) {
       'Missing will-disappear legend'
     );
     assert.equal(
-      $createClass.find('.panel-body .will-disappear').text().trim(),
+      $createClass
+        .find('.panel-body .will-disappear')
+        .text()
+        .trim(),
       'This will not appear on the next login',
       'Incorrect message for will disappear text'
     );
@@ -215,11 +221,6 @@ test('Valid bubble chart when the class does not has performance', function(
     assert.equal(currentURL(), '/teacher-home');
     let $chart = find(
       '.gru-teacher-class-card:nth-child(2) .gru-bubble-chart .bubble-circle'
-    );
-    assert.equal(
-      $chart.attr('style'),
-      'background-color:#949A9F',
-      'Incorrect chart color'
     );
     assert.equal($chart.find('span').text(), '--', 'Incorrect score');
   });

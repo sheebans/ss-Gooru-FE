@@ -202,7 +202,7 @@ test('getAnswerResultIcon', function(assert) {
 test('getScoreString', function(assert) {
   assert.equal(
     getScoreString(64),
-    '<span class="score" style="background-color: #ED8E36">64 %</span>'
+    '<span class="score" style="background-color: #F7D2B1">64 %</span>'
   );
   assert.equal(
     getScoreString(null),
@@ -239,81 +239,81 @@ test('getReactionIcon', function(assert) {
 test('getGradeColor', function(assert) {
   assert.equal(
     getGradeColor(0),
-    '#F46360',
+    '#FAC1C0',
     'First bracket color -lowest value'
   );
   assert.equal(
     getGradeColor(30),
-    '#F46360',
+    '#FAC1C0',
     'First bracket color -value in the middle'
   );
   assert.equal(
     getGradeColor(59),
-    '#F46360',
+    '#FAC1C0',
     'First bracket color -highest value'
   );
 
   assert.equal(
     getGradeColor(60),
-    '#ED8E36',
+    '#F7D2B1',
     'Second bracket color -lowest value'
   );
   assert.equal(
     getGradeColor(65),
-    '#ED8E36',
+    '#F7D2B1',
     'Second bracket color -value in the middle'
   );
   assert.equal(
     getGradeColor(69),
-    '#ED8E36',
+    '#F7D2B1',
     'Second bracket color -highest value'
   );
 
   assert.equal(
     getGradeColor(70),
-    '#F8BA41',
+    '#FBE2B6',
     'Third bracket color -lowest value'
   );
   assert.equal(
     getGradeColor(75),
-    '#F8BA41',
+    '#FBE2B6',
     'Third bracket color -value in the middle'
   );
   assert.equal(
     getGradeColor(79),
-    '#F8BA41',
+    '#FBE2B6',
     'Third bracket color -highest value'
   );
 
   assert.equal(
     getGradeColor(80),
-    '#A3CA9F',
+    '#DAEADA',
     'Fourth bracket color -lowest value'
   );
   assert.equal(
     getGradeColor(85),
-    '#A3CA9F',
+    '#DAEADA',
     'Fourth bracket color -value in the middle'
   );
   assert.equal(
     getGradeColor(89),
-    '#A3CA9F',
+    '#DAEADA',
     'Fourth bracket color -highest value'
   );
 
   assert.equal(
     getGradeColor(90),
-    '#4B9741',
+    '#B8D4B4',
     'Fifth bracket color -lowest value'
   );
   assert.equal(
     getGradeColor(95),
-    '#4B9741',
+    '#B8D4B4',
     'Fifth bracket color -value in the middle'
   );
   assert.equal(
     getGradeColor(100),
-    '#4B9741',
+    '#B8D4B4',
     'Fifth bracket color -highest value'
   );
 });
