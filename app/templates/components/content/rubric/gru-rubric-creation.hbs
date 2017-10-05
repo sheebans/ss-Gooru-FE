@@ -31,7 +31,7 @@
         <span class="formats">{{t 'common.valid-extensions' extensions=validExtensions}}</span>
       </label>
       {{content.gru-file-picker validMimeType=rubric.mimeType onSelectFile=(action 'selectFile')}}
-      {{content.rubric.gru-preview-url resource=resource isRubric=true}}
+      {{content.rubric.gru-preview-url resource=resource isUploaded=rubric.uploaded isRubric=true}}
     </div>
   </div>
 </div>
