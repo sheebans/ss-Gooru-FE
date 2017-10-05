@@ -792,16 +792,13 @@ export default Object.assign(quizzesTranslations, {
         'get-started': 'Get Started'
       },
       join: {
-        title: 'Join a Classroom',
-        content: 'Where the journey begins.',
-        'class-code-input': 'Enter a Classroom Code',
+        title: 'Join a new Classroom',
+        'class-code-input': 'Enter a classroom code',
         'class-not-found':
           'Classroom not found. Make sure you\'ve entered the correct classroom code',
         'invalid-code': 'Invalid classroom code.',
         'already-member': 'You are already a member of this classroom.',
         'join-class': 'Join Classroom',
-        'join-not-allowed': 'You are not able to join this classroom',
-        'not-now': 'Not now',
         'terms-and-conditions':
           'By clicking Join Classroom, I agree to share my assessment and collection progress data generated from studying this Gooru classroom with the teacher(s) of this classroom.'
       }

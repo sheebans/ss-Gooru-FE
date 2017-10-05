@@ -336,5 +336,12 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   setupController: function(controller, model) {
     controller.set('steps', model.tourSteps);
     controller.set('featuredCourses', model.featuredCourses);
+  },
+
+  /**
+   * Before leaving the route
+   */
+  deactivate: function() {
+    this.controller.set('isLoading', false);
   }
 });

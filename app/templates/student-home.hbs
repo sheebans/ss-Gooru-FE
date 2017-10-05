@@ -36,19 +36,15 @@
           {{t 'student-landing.no-classrooms'}}
         </div>
       {{/unless}}
-      <div class="pull-right actions">
-        {{#link-to 'content.classes.join' class="btn btn-success join-class-cta" tagName='button'}}
-          {{t 'user.join-class'}}
-        {{/link-to}}
-      </div>
     </div>
     <div class="content">
       {{#if hasClasses}}
-      <!-- TODO: delete unnecesary dependencies -->
-        <!-- {{cards.gru-class-card
-          class=class
-          profile=profile
-          classStudentCount=myClasses.memberCount}} -->
+        {{cards.gru-join-class-card
+          onJoinClass="joinClass"
+          validCode=validCode
+          notMember=notMember
+          allowedCode=allowedCode
+          isLoading=isLoading}}
         {{#each activeClasses as |class|}}
           {{cards.gru-student-class-card
             class=class
