@@ -1,14 +1,12 @@
 .student.class {
-  padding: 10px;
-  @media (min-width: $screen-md) {
-    padding: 35px 130px;
-  }
+  padding: 15px 0;
+  width: 960px;
+  margin: 0 auto;
   .content .no-content {
     margin-top: 15px;
   }
   .header {
     .go-back-container {
-      margin: 0 0 25px 0;
       .back-to {
         font-size: $font-size-lead;
         i {
@@ -48,13 +46,13 @@
           $line-height: 1.4;
           $lines-to-show: 2;
           margin: 8px 0 0 10px;
-          width: 210px;
+          width: 22%;
           @include ellipsis($font-size: $font-size-h6, $line-height: $line-height, $lines-to-show: $lines-to-show);
         }
         .units-count {
           padding: 16px 0 0;
-          margin: 0 0 0 35px;
-          width: 35px;
+          margin: 0 0 0 5px;
+          width: 4%;
           i {
             font-size: $font-size-units-icon;
             line-height: 1.1;
@@ -65,9 +63,10 @@
           }
         }
         .taxonomy-standards {
-          min-width: 130px;
+          min-width: 100px;
           margin: 0 0 0 50px;
           padding: 12px 0 0;
+          width: 13%;
           .taxonomy.gru-taxonomy-tag {
             background-color: $light-300;
             border: none;
@@ -80,8 +79,8 @@
           }
         }
         .teacher-profile {
-          margin: 0 0 0 40px;
-          width: 220px;
+          margin: 0 0 0 22px;
+          width: 20%;
           img {
             border-radius: 50px;
             display: inline-block;
@@ -91,8 +90,8 @@
           }
         }
         .students-count {
-          padding: 16px 0 0;
-          margin: 0 0 0 40px;
+          padding: 18px 0 0;
+          margin: 0 0 0 12px;
           i {
             line-height: 0.9;
           }
@@ -102,7 +101,7 @@
           }
         }
         .performance-container {
-          width: 130px;
+          width: 12%;
           .performance {
             color: $dark-400;
             text-align: center;
