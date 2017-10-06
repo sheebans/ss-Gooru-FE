@@ -30,6 +30,7 @@ $light-200: #e3e5ea !default;
 $light-300: #cdd2d6 !default;
 $light-400: #b8bfc4 !default;
 $light-500: #959a9e !default;
+$light-600: #63727d !default;
 //** Teal
 $teal-100: #bbe1dd !default;
 $teal-200: #91cdc7 !default;
@@ -78,10 +79,7 @@ $gray-icon: #535e67 !default;
 $gray: #666 !default;
 $gray-light: #bbb !default;
 $gray-lighter: lighten($gray-base, 93.5%) !default; // #eee
-$gray-sharper: #f1f1f1 !default;
-$gray-ultra-light: #f2f2f2 !default;
 $white: #fff;
-$gray-submarine: #b8bfc4;
 
 $brand-primary: $blue-400 !default;
 $brand-success: $green-400 !default;
@@ -388,9 +386,6 @@ $screen-lg: 1200px !default;
 $screen-lg-min: $screen-lg !default;
 //** Deprecated `$screen-lg-desktop` as of v3.0.1
 $screen-lg-desktop: $screen-lg-min !default;
-
-// Varibale screen size
-$screen-in-1350: 1350px;
 
 // So media queries don't overlap when required, provide a maximum
 $screen-xs-max: ($screen-sm-min - 1) !default;
