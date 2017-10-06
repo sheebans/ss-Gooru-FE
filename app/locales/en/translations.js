@@ -338,6 +338,7 @@ export default Object.assign(quizzesTranslations, {
         'Please use Google signin. We can\'t reset your password.'
     },
     'essential-questions': 'Essential Questions',
+    example: 'example: ',
     exit: 'Exit',
     explanation: 'Explanation',
     explore: 'Explore',
@@ -2318,11 +2319,11 @@ export default Object.assign(quizzesTranslations, {
       'category-feedback':
         'ex. As you are reviewing this category, pay careful attention to the author’s purpose.',
       'gru-scoring-levels': {
-        '0': 'ex. Exceeding Proficiency',
-        '1': 'ex. Meeting Proficiency',
-        '2': 'ex. Approaching Proficiency',
-        '3': 'ex. Beginning Proficiency',
-        '4': 'ex. No Evidence of Proficiency',
+        '0': 'example: Exceeding Proficiency',
+        '1': 'example: Meeting Proficiency',
+        '2': 'example: Approaching Proficiency',
+        '3': 'example: Beginning Proficiency',
+        '4': 'example: No Evidence of Proficiency',
         best: 'Best',
         levels: 'Level',
         'new-level': 'Add New Level',
