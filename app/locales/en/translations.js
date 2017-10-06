@@ -552,6 +552,7 @@ export default Object.assign(quizzesTranslations, {
     settings: 'Settings',
     search: 'Search',
     'search-placeholder': 'Search',
+    'search-placeholder-text': 'Search...',
     'search-error-message': 'Search terms need to be at least 3 letters.',
     'search-400-error-message': 'Please enter a valid search term',
     'search-competency': 'Search Competency',
