@@ -69,6 +69,10 @@ $pink-300: #e577a3 !default;
 $pink-400: #da2a6f !default;
 $pink-500: #bf1d5d !default;
 
+
+// ## black colors for profile tabs
+$black : #000000 !default;
+
 //## Gray and brand colors for use across Bootstrap.
 
 $gray-base: #000 !default;
@@ -78,6 +82,7 @@ $gray-icon: #535e67 !default;
 $gray: #666 !default;
 $gray-light: #bbb !default;
 $gray-lighter: lighten($gray-base, 93.5%) !default; // #eee
+$gray-sharper: #f1f1f1 !default;
 $white: #fff;
 
 $brand-primary: $blue-400 !default;

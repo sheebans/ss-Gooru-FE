@@ -4,7 +4,7 @@
     text-align: center;
     white-space: nowrap;
     > strong {
-      color: $white;
+      color: $gray-base;
       display: block;
       font-size: 1.7rem;
       font-weight: normal;
@@ -57,8 +57,11 @@
       }
 
       &:last-child {
-        border-left: 1px solid $blue-300;
+        border-left: 1px solid $gray;
       }
+      .follow {
+       font-weight: 300;
+     }
     }
   }
 
