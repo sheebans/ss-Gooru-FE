@@ -87,7 +87,8 @@ export default Ember.Route.extend({
           classId: route.get('controller.class.id'),
           unitId: performance.get('unitId'),
           lessonId: performance.get('lessonId'),
-          courseId: route.get('controller.course.id')
+          courseId: route.get('controller.course.id'),
+          backUrl: route.router.get('url')
         };
         route.transitionTo('reports.student-collection-analytics', {
           queryParams: queryParams
