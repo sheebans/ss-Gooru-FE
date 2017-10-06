@@ -1018,7 +1018,6 @@ export default Object.assign(quizzesTranslations, {
     'featured-courses': 'featured courses',
     class: {
       'assigned-course': 'Assigned Course',
-      'back-to': 'Back to Classrooms',
       'back-to-independent': 'Back to Independent Learning',
       performance: 'Performance',
       classroom: 'Classroom Information',

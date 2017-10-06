@@ -4,68 +4,70 @@
     <div class="go-back-container">
       {{#link-to 'student-home' class="back-to"}}
         {{gru-icon name='arrow_back'}}
-        {{t 'student-landing.class.back-to'}}
       {{/link-to}}
+      <h1>{{class.title}}</h1>
     </div>
-    <h1>{{class.title}}</h1>
-    <div class="code">{{class.code}}</div>
     <div class="panel panel-default panel-primary classroom-information">
-      <div class="panel-heading">{{t 'student-landing.class.classroom'}}</div>
+
       <div class="panel-body">
-        <div class="course-info">
-          <span class="legend">{{t 'student-landing.class.assigned-course'}}</span>
+
+        <div class="course-image pull-left">
+          <img src="{{course.thumbnailUrl}}"/>
+        </div>
+
+        <div class="course-name pull-left">
           {{#if course}}
-            {{cards.gru-course-card course=course isSmall=true tagsVisible=3}}
+            {{{truncate text=course.title maxLength=60}}}
+          {{else}}
+            This classroom does not have a related course
           {{/if}}
         </div>
-        <div class="graphics">
-          <div class="graphic performance">
-            <span class="legend">{{t 'teacher-landing.class.performance'}}</span>
-            {{charts.gru-bubble-chart
-            content= (if class.performanceSummary (concat class.performanceSummary.score '%') '--')
-            color=(grade-color class.performanceSummary.score)
-            }}
-          </div>
-          <div class="graphic completed">
-            <span class="legend">{{t "common.completion"}}</span>
-            {{#if isNUCourse}}
-              {{charts.gru-radial-chart
-              value=class.courseCompetencyCompletion.completedCount
-              minValue=0
-              maxValue=class.courseCompetencyCompletion.totalCount}}
-            {{else}}
-              {{charts.gru-radial-chart
-              value=class.performanceSummary.totalCompleted
-              minValue=0
-              maxValue=class.performanceSummary.total}}
-            {{/if}}
-          </div>
+
+        <div class="units-count pull-left">
+          {{gru-icon name="format_align_center"}}
+          <span>{{course.unitCount}}</span>
         </div>
-        <div class="students">
-          <div class="row">
-            <div class="col-md-6 instructor">
-              <span class="legend">{{t "common.instructor"}}</span>
-              {{#if class.owner}}
-                <img class="img-responsive" src="{{class.owner.avatarUrl}}">
-                <div class="owner">
-                  {{#if class.owner.firstName}}
-                    {{truncate text=class.owner.firstName maxLength=10}}&nbsp;{{truncate text=class.owner.lastName maxLength=10}}
-                  {{else}}
-                    {{class.owner.username}}
-                  {{/if}}
-                </div>
+
+        <div class="taxonomy-standards pull-left">
+          {{#if course.tags.length}}
+            {{taxonomy.gru-taxonomy-tag-list tags=course.tags tagsVisible=1 isInCard=true hasTooltips=false}}
+          {{/if}}
+        </div>
+
+        <div class="teacher-profile pull-left">
+          {{#if class.owner}}
+            <img class="img-responsive" src="{{class.owner.avatarUrl}}">
+            <span class="owner-name">
+              {{#if class.owner.firstName}}
+                {{truncate text=class.owner.firstName maxLength=10}}&nbsp;{{truncate text=class.owner.lastName maxLength=10}}
+              {{else}}
+                {{class.owner.username}}
               {{/if}}
-            </div>
-            <div class="col-md-6 members">
-              <span class="legend">{{t "common.enrolled-students"}}</span>
-              {{gru-icon name="people"}}
-              <span>{{class.countMembers}}</span>
-            </div>
+            </span>
+          {{/if}}
+        </div>
+
+        <div class="students-count pull-left">
+          {{gru-icon name="people"}}
+          <span>{{class.countMembers}} Students</span>
+        </div>
+
+        <div class="performance-container pull-right">
+          <div class="performance" style="background-color:{{grade-color class.performanceSummary.score}}">
+            {{#link-to 'student.class.performance' class.id class="pointer percentage" tagName="div"}}
+              {{scorePercentage}}
+            {{/link-to}}
+            <label>{{t 'student-landing.class.performance'}}</label>
+          </div>
+          <div class="completion-chart">
+            {{charts/gru-x-bar-chart data=barChartData }}
           </div>
         </div>
+
       </div>
     </div>
   </div>
+
   {{#if class}}
     {{student.class.gru-class-navigation
       class=class

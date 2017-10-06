@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { COMPLETION_CLASS_BAR_COLOR } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
@@ -48,6 +49,11 @@ export default Ember.Controller.extend({
   course: null,
 
   /**
+   * @property {String} color - Hex color value for the default bgd color of the bar chart
+   */
+  defaultBarColor: COMPLETION_CLASS_BAR_COLOR,
+
+  /**
    * The units presented to the user
    * @property {Unit}
    */
@@ -69,6 +75,32 @@ export default Ember.Controller.extend({
    * @property {Boolean}
    */
   isNUCourse: null,
+
+  /**
+   * @property {Number} score percentage
+   * Computed property for performance score percentage
+   */
+  scorePercentage: Ember.computed('class.performanceSummary', function() {
+    const scorePercentage = this.get('class.performanceSummary.score');
+    return scorePercentage >= 0 && scorePercentage !== null
+      ? `${scorePercentage}%`
+      : '--';
+  }),
+
+  /**
+   * @property {[Number]} barChartData
+   */
+  barChartData: Ember.computed('class.performanceSummary', function() {
+    const completed = this.get('class.performanceSummary.totalCompleted');
+    const total = this.get('class.performanceSummary.total');
+    const percentage = completed ? completed / total * 100 : 0;
+    return [
+      {
+        color: this.get('defaultBarColor'),
+        percentage
+      }
+    ];
+  }),
 
   // -------------------------------------------------------------------------
   // Methods

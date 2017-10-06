@@ -52,12 +52,6 @@ test('Layout', function(assert) {
       'Pochita As Student - With Course',
       'Incorrect class title text'
     );
-    T.exists(assert, $classHeader.find('.code'), 'Missing class code');
-    assert.equal(
-      T.text($classHeader.find('.code')),
-      'I4BYYQZ',
-      'Incorrect class code text'
-    );
 
     T.exists(
       assert,

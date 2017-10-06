@@ -1,7 +1,7 @@
 .student.class {
   padding: 10px;
   @media (min-width: $screen-md) {
-    padding: 35px 47px;
+    padding: 35px 130px;
   }
   .content .no-content {
     margin-top: 15px;
@@ -12,151 +12,130 @@
       .back-to {
         font-size: 19px;
         i {
-          font-size: 20px;
-          height: 24px;
+          color: $dark-500;
+          font-size: 26px;
+          height: 30px;
           vertical-align: middle;
           width: 25px;
         }
       }
-    }
-    h1 {
-      font-size: $font-size-h5;
-      display: block;
-      color: $dark-500;
-      margin: 0 0 5px 0;
+      h1 {
+        color: $dark-500;
+        font-size: $font-size-h5;
+        font-weight: 300;
+        display: inline-block;
+        margin: 0 0 5px 0;
+      }
     }
     .panel.classroom-information {
       float: left;
-      width: 100%;
       margin: 15px 20px 0 0;
-      .panel-heading {
-        font-size: $font-size-large;
-        line-height: $font-size-large;
-        border-top-right-radius: 3px;
-        border-top-left-radius: 3px;
-        padding: 5px 10px 6px;
-      }
+      width: 100%;
       .panel-body {
-        padding: 5px;
-        min-height: 185px;
-        @include flexbox();
-        .legend {
-          display: block;
-          font-size: $font-navigator;
-        }
-        .course-info {
-          width: 33%;
-          padding: 0 40px;
-          .gru-course-card {
-            width: 100%;
-            .panel {
-              width: 100%;
-              height: 135px;
-              min-height: 135px;
-              border-radius: 0;
-              border: none;
-              box-shadow: none;
-              overflow: hidden;
-              .panel-body {
-                height: inherit;
-                padding: 0;
-                display: inline-block;
-                width: 100%;
-                .card-header {
-                  .header-content {
-                    padding: 0;
-                    margin-left: 10px;
-                    width: 85%;
-                    h3 {
-                      font-size: $font-navigator;
-                      color: $gray;
-                      height: 20px;
-                    }
-                  }
-                }
-                .card-content {
-                  position: inherit;
-                  margin-top: 8px;
-                  padding: 0;
-                  .taxonomy-standards {
-                    .gru-taxonomy-tag {
-                      padding: 0 3px 3px 2px;
-                      max-width: 75px;
-                      .tag-label {
-                        text-transform: uppercase;
-                        font-size: $font-size-h6;
-                      }
-                      .tag-caption {
-                        font-size: $font-size-xsmall;
-                        font-weight: 100;
-                      }
-                    }
-                    .non-visible-tags {
-                      display: none;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        .graphics {
-          width: 33%;
+        padding: 0;
+        height: 60px;
+        .course-image {
           border-right: 1px solid $light-300;
-          border-left: 1px solid $light-300;
-          padding: 0 35px;
-          .graphic {
-            margin: 0 10px;
-            float: left;
-            .charts.gru-radial-chart,
-            .charts.gru-bubble-chart {
-              width: 100px;
-              height: 100px;
-              margin: 18px auto 0;
-              .bubble-circle span {
-                font-size: $font-size-h4;
-              }
-            }
-            .legend {
-              text-align: center;
-            }
-            &.performance {
-              margin-right: 48px;
-            }
-            &.completed {
-              .charts.gru-radial-chart .radial-svg {
-                width: inherit !important;
-                height: inherit !important;
+          height: 60px;
+          width: 60px;
+          img {
+            height: 100%;
+            object-fit: contain;
+            width: 58px;
+          }
+        }
+        .course-name {
+          $line-height: 1.4;
+          $lines-to-show: 2;
+          margin: 8px 0 0 10px;
+          width: 210px;
+          @include ellipsis($font-size: 14px, $line-height: $line-height, $lines-to-show: $lines-to-show);
+        }
+        .units-count {
+          padding: 16px 0 0;
+          margin: 0 0 0 35px;
+          width: 35px;
+          i {
+            font-size: 20px;
+            line-height: 1.1;
+          }
+          span {
+            vertical-align: top;
+            margin-left: 4px;
+          }
+        }
+        .taxonomy-standards {
+          min-width: 130px;
+          margin: 0 0 0 50px;
+          padding: 12px 0 0;
+          .taxonomy.gru-taxonomy-tag {
+            background-color: $light-300;
+            border: none;
+            .content {
+              b,
+              span {
+                color: $white;
               }
             }
           }
         }
-        .students {
-          padding: 0 15px;
-          width: 34%;
-          .row {
-            margin: 0;
-            .instructor {
-              img {
-                width: 30px;
-                height: 30px;
-                border-radius: 50px;
-                cursor: pointer;
-                margin: 10px 0;
-              }
-              .owner {
-                font-size: $font-navigator;
-                line-height: $font-navigator;
+        .teacher-profile {
+          margin: 0 0 0 40px;
+          width: 220px;
+          img {
+            border-radius: 50px;
+            display: inline-block;
+            height: 40px;
+            margin: 10px 10px 10px 0;
+            width: 43px;
+          }
+        }
+        .students-count {
+          padding: 16px 0 0;
+          margin: 0 0 0 40px;
+          i {
+            line-height: 0.9;
+          }
+          span {
+            vertical-align: top;
+            margin-left: 4px;
+          }
+        }
+        .performance-container {
+          width: 130px;
+          .performance {
+            color: $dark-400;
+            text-align: center;
+            height: 54px;
+            padding: 5px 0 0;
+            .percentage {
+              font-size: 35px;
+              line-height: 28px;
+              font-weight: 900;
+            }
+            label {
+              text-transform: uppercase;
+              font-size: $font-size-xsmall;
+            }
+          }
+          .completion-chart {
+            height: 6px;
+            .charts.gru-x-bar-chart {
+              background-color: #63727d;
+              border-radius: 0;
+              height: 6px;
+              .segment {
+                &:first-child {
+                  border-radius: 0;
+                }
               }
             }
-            .members {
-              i {
-                font-size: $expand-arrow;
-              }
-              span {
-                vertical-align: top;
-                font-size: $font-navigator;
-              }
+            label {
+              display: block;
+              font-size: $font-size-xxsmall;
+              line-height: $font-navigator;
+              margin: 0;
+              padding: 0 10px;
             }
           }
         }
