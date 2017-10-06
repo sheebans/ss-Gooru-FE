@@ -8,6 +8,7 @@
     width: auto;
     overflow-x: auto;
     padding-bottom: 1px;
+    margin-left: 321px;
   }
 
   .table {
@@ -16,23 +17,21 @@
     font-size: $font-size-h6;
     background: $white;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.07);
-    border-top: 3px solid $dark-400;
-    border-radius: 5px !important;
     border-collapse: inherit;
     display: table-cell;
+    table-layout: fixed;
+    width: 100%;
+    margin-left: -100px;
     .lt-cell {
       border: 1px solid $light-300;
     }
     .lt-head {
-      min-width: 132px;
-      max-width: 150px;
-    }
-    .widthmaxi {
-      max-width: 61px;
+      min-width: 160px;
+      max-width: 160px;
     }
     .subwidthHeaderMax {
-      min-width: 119px;
-      width: 119px;
+      min-width: 160px;
+      width: 160px;
     }
     /* Absolute Center Spinner */
     .loading {
@@ -162,39 +161,48 @@
       }
     }
     .subsubwidthmaxCollapseUnit {
-      max-width: 119px;
-      min-width: 119px;
+      max-width: 160px;
+      min-width: 160px;
     }
     .selectedUnitcolor {
       background-color: #37424b !important;
       text-align: center;
+      color: white !important;
     }
     .headerbgcolor {
       background-color: white !important;
       color: black;
     }
     .scoreMargin {
+      float: left;
+      margin-left: 85px;
+      margin-top: -23px;
+    }
+    .newscoreMargin {
       float: right;
-      margin-top: -25px;
-      margin-right: -5px;
+      margin-left: -115px;
+      margin-right: 60px;
+    }
+    .timeMargin {
+      margin-top: -23px;
     }
     .mainTableSpacing {
       border: 0 !important;
       padding: 0 !important;
     }
     .subsubwidthmaxCollapse {
-      min-width: 119px !important;
-      width: 119px;
+      min-width: 160px !important;
+      width: 160px;
     }
     .text-newprimary {
       color: #00bfff;
     }
     .subsubwidthmax {
-      width: 119px;
-      max-width: 119px;
+      width: 160px;
+      max-width: 160px;
     }
     .subsubwidthmax1 {
-      width: 110px;
+      width: 160px;
     }
     tr:nth-child(even) {
       background-color: #f2f2f2;
@@ -235,14 +243,14 @@
           }
           .title {
             width: inherit;
-            width: 119px;
-            min-width: 119px;
+            width: 160px;
+            min-width: 160px;
             @include text-overflow();
           }
           .titlenew {
             width: inherit;
-            width: 119px;
-            min-width: 119px;
+            width: 160px;
+            min-width: 160px;
           }
           .column {
             @include flexbox;
@@ -315,8 +323,8 @@
     }
     td,
     th {
-      width: 57px;
-      min-width: 57px;
+      width: 160px;
+      min-width: 160px;
       height: 32px;
       font-weight: normal;
       white-space: nowrap;
@@ -354,8 +362,8 @@
       }
     }
     .width-information {
-      min-width: 150px;
-      max-width: 150px;
+      min-width: 160px;
+      max-width: 160px;
     }
     .performance-information {
       .box {
@@ -388,6 +396,29 @@
         }
       }
     }
+    .fix {
+      position: absolute;
+      *position: relative; /*ie7*/
+      margin-left: -320px;
+      width: 160px;
+    }
+    .fix2 {
+      position: absolute;
+      *position: relative; /*ie7*/
+      margin-left: -160px;
+      width: 160px;
+    }
+    .outer {
+      position: relative;
+      border-top: 3px solid $dark-400;
+      border-radius: 5px !important;
+    }
+    .inner {
+      overflow-x: scroll;
+      overflow-y: visible;
+      width: 400px;
+      margin-left: 100px;
+    }
     .fixed {
       left: 10px;
       min-height: 25px;
@@ -395,7 +426,33 @@
       padding-left: 26px;
     }
     .htFixed {
-      height: 85px !important;
+      height: 112px !important;
+    }
+    .padBottom {
+      padding-bottom: 27px;
+    }
+    .topMargin {
+      padding-top: 10px;
+    }
+    .backgroundfixed {
+      background: #cdd2d6 !important;
+    }
+    .backgroundfixedeven {
+      background-color: #f2f2f2 !important;
+    }
+    .backgroundfixedodd {
+      background-color: white !important;
+    }
+    .marginleftavgtitle {
+      margin-left: 13px;
+    }
+    fltlftreport {
+      margin-left: -50px;
+      float: left;
+    }
+    fltrgttime {
+      margin-top: -24px;
+      float: right !important;
     }
   }
 }
