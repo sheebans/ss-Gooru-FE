@@ -10,10 +10,10 @@
     .go-back-container {
       margin: 0 0 25px 0;
       .back-to {
-        font-size: 19px;
+        font-size: $font-size-lead;
         i {
           color: $dark-500;
-          font-size: 26px;
+          font-size: $font-size-arrow-icon;
           height: 30px;
           vertical-align: middle;
           width: 25px;
@@ -49,14 +49,14 @@
           $lines-to-show: 2;
           margin: 8px 0 0 10px;
           width: 210px;
-          @include ellipsis($font-size: 14px, $line-height: $line-height, $lines-to-show: $lines-to-show);
+          @include ellipsis($font-size: $font-size-h6, $line-height: $line-height, $lines-to-show: $lines-to-show);
         }
         .units-count {
           padding: 16px 0 0;
           margin: 0 0 0 35px;
           width: 35px;
           i {
-            font-size: 20px;
+            font-size: $font-size-units-icon;
             line-height: 1.1;
           }
           span {
@@ -109,7 +109,7 @@
             height: 54px;
             padding: 5px 0 0;
             .percentage {
-              font-size: 35px;
+              font-size: $font-size-h3;
               line-height: 28px;
               font-weight: 900;
             }
@@ -129,13 +129,6 @@
                   border-radius: 0;
                 }
               }
-            }
-            label {
-              display: block;
-              font-size: $font-size-xxsmall;
-              line-height: $font-navigator;
-              margin: 0;
-              padding: 0 10px;
             }
           }
         }

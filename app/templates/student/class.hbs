@@ -8,32 +8,26 @@
       <h1>{{class.title}}</h1>
     </div>
     <div class="panel panel-default panel-primary classroom-information">
-
       <div class="panel-body">
-
         <div class="course-image pull-left">
           <img src="{{course.thumbnailUrl}}"/>
         </div>
-
         <div class="course-name pull-left">
           {{#if course}}
             {{{truncate text=course.title maxLength=60}}}
           {{else}}
-            This classroom does not have a related course
+            {{t 'student-landing.class.no-course'}}
           {{/if}}
         </div>
-
         <div class="units-count pull-left">
           {{gru-icon name="format_align_center"}}
           <span>{{course.unitCount}}</span>
         </div>
-
         <div class="taxonomy-standards pull-left">
           {{#if course.tags.length}}
             {{taxonomy.gru-taxonomy-tag-list tags=course.tags tagsVisible=1 isInCard=true hasTooltips=false}}
           {{/if}}
         </div>
-
         <div class="teacher-profile pull-left">
           {{#if class.owner}}
             <img class="img-responsive" src="{{class.owner.avatarUrl}}">
@@ -46,12 +40,10 @@
             </span>
           {{/if}}
         </div>
-
         <div class="students-count pull-left">
           {{gru-icon name="people"}}
-          <span>{{class.countMembers}} Students</span>
+          <span>{{t 'cards.gru-collection-card.students' count=class.countMembers}}</span>
         </div>
-
         <div class="performance-container pull-right">
           <div class="performance" style="background-color:{{grade-color class.performanceSummary.score}}">
             {{#link-to 'student.class.performance' class.id class="pointer percentage" tagName="div"}}
@@ -63,11 +55,9 @@
             {{charts/gru-x-bar-chart data=barChartData }}
           </div>
         </div>
-
       </div>
     </div>
   </div>
-
   {{#if class}}
     {{student.class.gru-class-navigation
       class=class

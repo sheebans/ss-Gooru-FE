@@ -24,23 +24,19 @@ test('Layout', function(assert) {
 
     const $classContainer = find('.student.class');
     T.exists(assert, $classContainer, 'Missing class container');
-
-    const $classHeader = $classContainer.find('.header');
-    const $classroomInformation = $classHeader.find('.classroom-information');
-    const $courseInfo = $classroomInformation.find('.course-info');
-    const $graphics = $classroomInformation.find('.graphics');
-    const $students = $classroomInformation.find('.students');
-
-    T.exists(assert, $classHeader, 'Missing class header');
     T.exists(
       assert,
-      $classroomInformation,
-      'Missing classroom information panel'
+      $classContainer.find('> .gru-class-navigation'),
+      'Missing class navigation component'
     );
-    T.exists(assert, $courseInfo, 'Missing course info section');
-    T.exists(assert, $graphics, 'Missing graphics section');
-    T.exists(assert, $students, 'Missing students section');
+    T.exists(
+      assert,
+      $classContainer.find('> .content'),
+      'Missing class content'
+    );
 
+    const $classHeader = $classContainer.find('.header');
+    T.exists(assert, $classHeader, 'Missing class header');
     T.exists(
       assert,
       $classHeader.find('.go-back-container .back-to'),
@@ -53,92 +49,57 @@ test('Layout', function(assert) {
       'Incorrect class title text'
     );
 
+    const $classroomInformation = $classHeader.find('.classroom-information');
     T.exists(
       assert,
-      $classroomInformation.find('.panel-heading'),
-      'Missing announcements panel-heading'
+      $classroomInformation,
+      'Missing classroom information panel'
     );
     T.exists(
       assert,
       $classroomInformation.find('.panel-body'),
-      'Missing announcements panel-body'
+      'Missing class info panel-body'
     );
 
-    T.exists(assert, $courseInfo.find('.legend'), 'Missing course info legend');
+    const $courseImage = $classroomInformation.find('.course-image');
+    T.exists(assert, $courseImage, 'Missing course image container');
+
+    const $courseName = $classroomInformation.find('.course-name');
+    T.exists(assert, $courseName, 'Missing course name');
+
+    const $unitsCount = $classroomInformation.find('.units-count');
+    T.exists(assert, $unitsCount, 'Missing units count');
+
+    const $taxonomyStandards = $classroomInformation.find(
+      '.taxonomy-standards'
+    );
     T.exists(
       assert,
-      $courseInfo.find('.gru-course-card'),
-      'Missing gru-course-card component'
+      $taxonomyStandards,
+      'Missing taxonomy standards container'
     );
 
-    assert.equal($graphics.find('.graphic').length, 2, 'Number of graphics');
-    T.exists(
-      assert,
-      $graphics.find('.graphic.performance'),
-      'Missing performance graphic'
-    );
-    T.exists(
-      assert,
-      $graphics.find('.graphic.performance .gru-bubble-chart'),
-      'Missing performance gru-bubble-chart component'
-    );
-    T.exists(
-      assert,
-      $graphics.find('.graphic.performance .legend'),
-      'Missing performance legend'
-    );
-    T.exists(
-      assert,
-      $graphics.find('.graphic.completed'),
-      'Missing completed graphic'
-    );
-    T.exists(
-      assert,
-      $graphics.find('.graphic.completed .gru-radial-chart'),
-      'Missing completed gru-radial-chart component'
-    );
-    T.exists(
-      assert,
-      $graphics.find('.graphic.completed .legend'),
-      'Missing completed legend'
-    );
+    const $teacherProfile = $classroomInformation.find('.teacher-profile');
+    T.exists(assert, $teacherProfile, 'Missing teacher profile info');
+    T.exists(assert, $teacherProfile.find('img'), 'Missing owner avatar');
+    T.exists(assert, $teacherProfile.find('.owner-name'), 'Missing owner name');
 
-    T.exists(
-      assert,
-      $students.find('.instructor'),
-      'Missing course instructor'
-    );
-    T.exists(
-      assert,
-      $students.find('.instructor .legend'),
-      'Missing course instructor legend'
-    );
-    T.exists(
-      assert,
-      $students.find('.instructor img'),
-      'Missing course instructor image'
-    );
-    T.exists(
-      assert,
-      $students.find('.instructor .owner'),
-      'Missing course instructor name'
-    );
-    T.exists(assert, $students.find('.members'), 'Missing course members');
-    T.exists(
-      assert,
-      $students.find('.members .legend'),
-      'Missing course members legend'
-    );
+    const $studentsCount = $classroomInformation.find('.students-count');
+    T.exists(assert, $studentsCount, 'Missing students count');
 
+    const $performanceContainer = $classroomInformation.find(
+      '.performance-container'
+    );
+    T.exists(assert, $performanceContainer, 'Missing performance container');
     T.exists(
       assert,
-      $classContainer.find('> .gru-class-navigation'),
-      'Missing class navigation component'
+      $performanceContainer.find('.performance'),
+      'Missing performance'
     );
     T.exists(
       assert,
-      $classContainer.find('> .content'),
-      'Missing class content'
+      $performanceContainer.find('.completion-chart'),
+      'Missing completion chart'
     );
   });
 });
