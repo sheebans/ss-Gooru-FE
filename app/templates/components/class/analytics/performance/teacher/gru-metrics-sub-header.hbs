@@ -9,7 +9,7 @@
     {{/if}}
   {{/if}}
   {{#if metric.visible}}
-    <div class="metrics-sub-header table-cell {{if (eq metric.value 'time-spent') 'pull-right' ''}} {{if (eq metric.value 'score') 'pull-left' ''}}">
+    <div class="metrics-sub-header table-cell {{if (eq metric.value 'time-spent') 'pull-right' ''}} {{if (and (or showReport showStudyTime) (eq metric.value 'score')) 'pull-left' ''}}">
       <a class="metric-sub-header {{metric.value}}" {{action 'sort' metric}}>
         {{t (concat 'gru-metrics-sub-header.' metric.value) }}
       </a>
