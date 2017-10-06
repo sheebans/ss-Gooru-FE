@@ -11,7 +11,7 @@
     height: auto;
 
     * {
-      color:  $gray;
+      color: $gray;
     }
     .profile-info {
       padding: 15px 0 7px;
@@ -47,10 +47,10 @@
           color: $gray;
         }
         &.selected {
-          background-color:  $gray-sharper;
+          background-color: $gray-sharper;
         }
         .gru-icon {
-          color:  $gray-icon;
+          color: $gray-icon;
           height: 24px;
           &.content {
             width: 24px;
