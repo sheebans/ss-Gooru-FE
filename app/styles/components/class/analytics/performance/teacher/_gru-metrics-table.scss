@@ -174,9 +174,17 @@
       color: black;
     }
     .scoreMargin {
+      float: left;
+      margin-left: 85px;
+      margin-top: -23px;
+    }
+    .newscoreMargin {
       float: right;
       margin-left: -115px;
       margin-right: 60px;
+    }
+    .timeMargin {
+      margin-top: -23px;
     }
     .mainTableSpacing {
       border: 0 !important;

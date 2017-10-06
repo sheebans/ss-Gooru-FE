@@ -362,7 +362,7 @@ export default Ember.Component.extend({
     component.get('headers').forEach(function(item, index) {
       var orginalTitle = item.get('title');
       if (!(orginalTitle.indexOf(':') !== -1)) {
-        item.set('title', `U${index + 1}:${orginalTitle}`);
+        item.set('title', `U${index + 1}: ${orginalTitle}`);
       }
       Ember.set(item, 'showSub', false);
       Ember.set(item, 'showSubSub', false);
@@ -542,7 +542,7 @@ export default Ember.Component.extend({
             var temp = component.get('headers').objectAt(unitIndex);
             unit.get('children').forEach(function(item, indx) {
               var orginalTitle = item.get('title');
-              item.set('title', `L${indx + 1}:${orginalTitle}`);
+              item.set('title', `L${indx + 1}: ${orginalTitle}`);
             });
             Ember.set(temp, 'subColumns', unit.get('children'));
             Ember.set(temp, 'colspanval', unit.get('children').length + 1);
@@ -793,7 +793,7 @@ export default Ember.Component.extend({
             var temp = component.get('headers').objectAt(unitIndex);
             unit.get('children').forEach(function(item, indx) {
               var orginalTitle = item.get('title');
-              item.set('title', `L${indx + 1}:${orginalTitle}`);
+              item.set('title', `L${indx + 1}: ${orginalTitle}`);
             });
             Ember.set(temp, 'subColumns', unit.get('children'));
             Ember.set(temp, 'colspanval', 1);
@@ -865,9 +865,9 @@ export default Ember.Component.extend({
             });
             var orginalTitle = assessmentObj.get('title');
             if (filterBy === 'assessment') {
-              assessmentObj.set('title', `A${tempVal}:${orginalTitle}`);
+              assessmentObj.set('title', `A${tempVal}: ${orginalTitle}`);
             } else {
-              assessmentObj.set('title', `C${tempVal}:${orginalTitle}`);
+              assessmentObj.set('title', `C${tempVal}: ${orginalTitle}`);
             }
             lessonObj.get('subsubColumns').pushObject(assessmentObj);
             component.get('averageHeadersAssessment').pushObject(emberObject);
