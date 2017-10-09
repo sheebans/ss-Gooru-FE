@@ -4,9 +4,9 @@
   height: 270px;
   .panel {
     border-radius: 6px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.07);
     .panel-heading {
       background-color: $white;
-      border-bottom: 1px solid $gray-lighter;
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
       height: 80px;
@@ -98,8 +98,9 @@
           display: block;
         }
         h6 {
-          margin: 5px 0 5px 0;
+          margin: 2px 0 5px 0;
           @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
+          max-height: 40px;
         }
         .resource-type,
         .question-type {
@@ -112,6 +113,7 @@
             display: inline-block;
             width: 88%;
             color: $blue-400;
+            font-size: 16px;
           }
           .publish-icon {
             display: inline-block;
@@ -172,12 +174,35 @@
           @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
         }
       }
+      .gru-taxonomy-tag-list {
+        .gru-taxonomy-tag {
+          background-color: $light-300;
+        }
+      }
     }
     .panel-footer {
       background-color: $white;
-      padding: 10px 15px 10px 15px;
+      border: solid 1px $gray-ultra-light;
+      padding: 0px !important;
       .buttons {
-        display: inline-block;
+        display: -webkit-flex;
+        .resource-icon-btn {
+          padding: 10px 15px;
+          border-right: solid 1px $gray-ultra-light;
+          width: 45px;
+          text-align: center;
+          display: block;
+          > a {
+            color: #666666;
+            display: block;
+          }
+          .resource-mode-edit > i {
+            font-size: 21px;
+          }
+        }
+        .resource-add-btn {
+          width: 85px !important;
+        }
       }
       .visibility {
         display: inline-block;
