@@ -96,6 +96,13 @@
       vertical-align: bottom;
     }
   }
+  .no-levels-error {
+    color: $red-400;
+    display: inline-block;
+    font-size: $font-size-base;
+    margin: 0 0 0 12px;
+    vertical-align: bottom;
+  }
   input {
     font-size: $font-size-base;
   }

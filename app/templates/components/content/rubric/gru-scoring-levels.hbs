@@ -22,6 +22,7 @@
         </div>
       </div>
       <button class="btn btn-primary btn-new-level" {{action 'addLevel'}}>{{gru-icon name='add'}}{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.new-level'}}</button>
+      {{#if showNoLevelsError}}<span class="no-levels-error">{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.no-levels-error'}}</span>{{/if}}
     {{/if}}
   </div>
   <div class="score-section points">

@@ -145,6 +145,11 @@ export default Ember.Component.extend({
     return this.get('category.levels.length') > 0 || false;
   }),
 
+  /**
+  * @property {Boolean} showNoLevelsError
+  */
+  showNoLevelsError: false,
+
   // -------------------------------------------------------------------------
   // Events
   /**
@@ -172,27 +177,31 @@ export default Ember.Component.extend({
   },
 
   validateLevels: function(category) {
+    const component = this;
     let areOk = true;
     const levels = category.get('levels');
 
     if (category.get('allowsLevels')) {
-      let gotFirstName = false;
-      levels.map(function(level, index) {
-        if (!level.name && !gotFirstName) {
-          areOk = false;
-          $(`.name-input.${  index  } span.name-error`).addClass('visible');
-          gotFirstName = true;
-        }
-      });
+      if (levels.length > 0) {
+        let gotFirstName = false;
+        levels.map(function(level, index) {
+          if (!level.name && !gotFirstName) {
+            areOk = false;
+            $(`.name-input.${index} span.name-error`).addClass('visible');
+            gotFirstName = true;
+          }
+        });
+      } else {
+        areOk = false;
+        component.set('showNoLevelsError', true);
+      }
 
       if (category.get('allowsScoring')) {
         let gotFirstScore = false;
         levels.map(function(level, index) {
           if (!level.score && !gotFirstScore) {
             areOk = false;
-            $(`.score-input.${  index  } span.score-error`).addClass(
-              'visible'
-            );
+            $(`.score-input.${index} span.score-error`).addClass('visible');
             gotFirstScore = true;
           }
         });
@@ -204,5 +213,6 @@ export default Ember.Component.extend({
   clearErrorMessages: function() {
     $('.name-input span.name-error').removeClass('visible');
     $('.score-input span.score-error').removeClass('visible');
+    this.set('showNoLevelsError', false);
   }
 });

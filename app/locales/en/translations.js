@@ -2330,7 +2330,8 @@ export default Object.assign(quizzesTranslations, {
         scoring: 'Scoring',
         worst: 'Worst',
         'name-error': 'Please enter the level title.',
-        'score-error': 'Please enter the score value.'
+        'score-error': 'Please enter the score value.',
+        'no-levels-error': 'Please add at least one level.'
       }
     }
   },

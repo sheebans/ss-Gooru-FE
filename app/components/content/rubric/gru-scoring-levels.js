@@ -103,6 +103,11 @@ export default Ember.Component.extend({
   preview: false,
 
   /**
+   * @property {Boolean} showNoLevelsError
+   */
+  showNoLevelsError: false,
+
+  /**
    * List of options to show in the switch
    *
    * @property {Array}
