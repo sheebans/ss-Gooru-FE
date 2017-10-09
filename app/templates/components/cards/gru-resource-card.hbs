@@ -111,7 +111,7 @@
         {{/if}}
         {{#if addEnabled}}
           <div class="resource-icon-btn resource-add-btn" title="Add to" data-toggle="tooltip">
-            <a {{action "addToCollection"}} class="add-to-btn">{{gru-icon name="add_to_queue"}}</a>
+            <a {{action "addToCollection"}} class="add-to-btn">{{gru-icon name="add"}}</a>
           </div>
         {{/if}}
         {{#if editEnabled }}
@@ -119,17 +119,18 @@
             <a {{action "editResource"}} class="edit-btn resource-mode-edit">{{gru-icon name="mode_edit"}}</a>
           </div>
         {{/if}}
-        <div class="resource-icon-btn" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
-          <a class="add-to-btn">{{gru-icon name="visibility"}}</a>
-        </div>
+        {{#if publishVisible}}
+            {{#unless resource.isVisibleOnProfile }}
+              <div class="resource-icon-btn visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
+                {{gru-icon name="visibility_off" class='pull-right'}}
+              </div>
+            {{else}}
+              <div class="resource-icon-btn visibility"  title="{{t 'common.visibility-available'}}" data-toggle="tooltip">
+                {{gru-icon name="visibility"}}
+              </div>
+            {{/unless}}
+        {{/if}}
       </div>
-      {{#unless publishVisible}}
-        <div class="visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
-          {{#unless resource.isVisibleOnProfile }}
-            {{gru-icon name="visibility_off" class='pull-right'}}
-          {{/unless}}
-        </div>
-      {{/unless}}
     {{/if}}
   </div>
 </div>
