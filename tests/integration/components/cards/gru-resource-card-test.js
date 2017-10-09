@@ -95,7 +95,7 @@ test('Resource Card Layout', function(assert) {
   );
   T.exists(
     assert,
-    $resourceCard.find('.panel-footer .visibility .pull-right'),
+    $resourceCard.find('.panel-footer .visibility'),
     'Missing visibility icon'
   );
 });
@@ -178,7 +178,7 @@ test('Question Card Layout', function(assert) {
   );
   T.notExists(
     assert,
-    $resourceCard.find('.panel-footer .visibility .pull-right'),
+    $resourceCard.find('.panel-footer .visibility'),
     'Missing visibility icon'
   );
   T.notExists(
