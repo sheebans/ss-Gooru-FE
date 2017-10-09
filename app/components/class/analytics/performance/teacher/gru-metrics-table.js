@@ -472,6 +472,12 @@ export default Ember.Component.extend({
         this.sendAction('onClickReport', performance, userPerformance);
       }
     },
+    /**
+     * navigateToAssessments
+     */
+    navigateToCollection: function(unitId, lessonId, collectionId) {
+      this.sendAction('onAssessmentClick', unitId, lessonId, collectionId);
+    },
     collapse(index) {
       const component = this;
       const filterBy = component.get('filterBy');
