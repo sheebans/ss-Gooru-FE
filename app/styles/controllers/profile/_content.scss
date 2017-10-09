@@ -2,16 +2,18 @@
   @include flexbox;
   @include align-items(center);
   @include justify-content(space-between);
-  background-color: $dark-400;
   height: 50px;
   width: 100%;
 
   .category-menu {
+    border-bottom: 2px solid $gray-light;
+    margin-left: 15px;
     @media (min-width: $screen-sm-min) {
       ul {
         margin-left: 0;
 
         li {
+          top: 3px;
           &:first-of-type {
             margin-left: 10px;
           }
@@ -22,18 +24,52 @@
         }
       }
     }
+    .category-options {
+      li {
+        @media (min-width: $screen-md) and (max-width: $screen-in-1150) {
+          margin: 0px;
+        }
+        a {
+          span {
+            font-size: 16px;
+            color: $light-500;
+          }
+          i {
+            font-size: 20px;
+            color: $light-500;
+          }
+        }
+        &.active {
+          border-bottom: 4px solid $gray-darker;
+          > a > span,
+          i {
+            color: $gray-darker;
+          }
+          @media (max-width: $screen-xs-max) {
+            border-bottom: 3px solid $gray-darker;
+            margin-bottom: -4px;
+          }
+        }
+      }
+      li:hover {
+        > a > span,
+        i {
+          color: $gray-darker;
+        }
+        border-bottom: 4px solid $gray-darker;
+      }
+    }
   }
   .category-menu,
   .standards {
     padding: 0;
-    @media (min-width: $screen-md-min) {
-      padding: 0 15px;
-    }
   }
   .btn-group {
-    margin-right: 5px;
+    @media (min-width: $screen-lg) {
+      margin-right: 0px;
+    }
     @media (min-width: $screen-md-min) {
-      margin-right: 65px;
+      margin-right: 0px;
     }
     .btn {
       font-size: $font-size-base;
@@ -80,7 +116,7 @@
             background-image: url("gooru/images/add_assessment.svg");
           }
           &.resource i {
-            background-image: url("gooru/images/add_resource.svg");
+            background-image: url("gooru/images/add_resource_icon.svg");
           }
           &.rubric i {
             background-image: url("gooru/images/add_rubric.svg");
