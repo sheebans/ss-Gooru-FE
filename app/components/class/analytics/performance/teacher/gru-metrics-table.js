@@ -364,6 +364,9 @@ export default Ember.Component.extend({
       if (!(orginalTitle.indexOf(':') !== -1)) {
         item.set('title', `U${index + 1}: ${orginalTitle}`);
       }
+      if (!orginalTitle.startsWith('U')) {
+        item.set('title', `U${index + 1}: ${orginalTitle}`);
+      }
       Ember.set(item, 'showSub', false);
       Ember.set(item, 'showSubSub', false);
       Ember.set(item, 'subColumns', []);
