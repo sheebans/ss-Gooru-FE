@@ -178,7 +178,7 @@ test('Question Card Layout', function(assert) {
   );
   T.notExists(
     assert,
-    $resourceCard.find('.panel-footer .buttons div.visibility'),
+    $resourceCard.find('.panel-footer buttons.visibility'),
     'Missing visibility icon'
   );
   T.notExists(
