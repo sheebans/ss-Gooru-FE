@@ -119,17 +119,19 @@
             <a {{action "editResource"}} class="edit-btn resource-mode-edit">{{gru-icon name="mode_edit"}}</a>
           </div>
         {{/if}}
-        {{#if publishVisible}}
+        <div class="visibility">
+          {{#if publishVisible}}
             {{#unless resource.isVisibleOnProfile }}
               <div class="resource-icon-btn visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
-                {{gru-icon name="visibility_off" class='pull-right'}}
+                {{gru-icon name="visibility_off" class="visibility"}}
               </div>
             {{else}}
               <div class="resource-icon-btn visibility"  title="{{t 'common.visibility-available'}}" data-toggle="tooltip">
-                {{gru-icon name="visibility"}}
+                {{gru-icon name="visibility" class="visibility"}}
               </div>
             {{/unless}}
-        {{/if}}
+          {{/if}}
+        </div>
       </div>
     {{/if}}
   </div>
