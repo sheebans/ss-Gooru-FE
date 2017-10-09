@@ -1010,6 +1010,7 @@ export default Ember.Component.extend({
             var indx = temp.get('subColumns').indexOf(lessonValObj);
             temp.get('subColumns').removeAt(indx);
           }
+          component.set('isLoading', false);
         }
         if (countCols > 0) {
           component.set(
