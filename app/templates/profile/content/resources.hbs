@@ -1,7 +1,7 @@
 <div class="controller content-resources">
-  <div class="resources clearfix">
+  <div class="resources clearfix col-xs-12">
     {{#each resources as |resource|}}
-      <div class="card">
+      <div class="card col-lg-3 col-sm-4 col-xs-6">
         {{cards.gru-resource-card
           resource=resource
           publishVisible=true
@@ -26,7 +26,9 @@
       </div>
     {{/each}}
   </div>
-  {{#if showMoreResultsButton}}
-    <span class="show-more-results" {{action 'showMoreResults'}}>{{t "common.show-more-results"}}</span>
-  {{/if}}
+  <div class="col-xs-12">
+    {{#if showMoreResultsButton}}
+      <span class="show-more-results" {{action 'showMoreResults'}}>{{t "common.show-more-results"}}</span>
+    {{/if}}
+  </div>
 </div>

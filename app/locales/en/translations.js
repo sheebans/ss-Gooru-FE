@@ -616,6 +616,7 @@ export default Object.assign(quizzesTranslations, {
     'valid-extensions': 'Valid file extensions are: {{extensions}}',
     verified: 'Verified',
     'visibility-tooltip': 'Not visible to others',
+    'visibility-available': 'Visible to others',
     warnings: {
       'on-air-connection-lost':
         'The Go Live dashboard has lost connection and is retrying automatically. It\'s tempting, but please don\'t refresh your screen!',

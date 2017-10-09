@@ -73,10 +73,12 @@
         {{#if showPublisher}}
           <b class="publisher-name">{{resource.publisher}}</b>
         {{else}}
+        {{#link-to 'profile.edit' resource.owner.id class="pointer enable"}}
           <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
+        {{/link-to}}
           <span class="owner">
             {{#if allowProfileNavigation}}
-              {{#link-to 'profile.content.courses' resource.owner.id class="pointer enable"}}
+            {{#link-to 'profile.edit' resource.owner.id class="pointer enable"}}
                 {{resource.owner.displayName}}
               {{/link-to}}
             {{else}}
@@ -92,14 +94,15 @@
   </div>
   <div class="panel-footer">
     {{#if (or isLinkOut externalAssessment)}}
-      <div class="buttons">
-        <a class="play-btn btn btn-success btn-sm" href="{{{resource.url}}}" target="_blank">{{t "common.play"}}</a>
+      <div class="buttons resource-icon-btn" title="Play" data-toggle="tooltip">
+        <a href="{{{resource.url}}}" target="_blank" class="play-btn">{{gru-icon name="play_arrow"}}</a>
       </div>
     {{else}}
       <div class="buttons">
         {{#if editEnabled }}
-          <button class="edit-btn btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
-          <button class="play-btn btn btn-success btn-sm" {{action "playResource"}}>{{t "common.play"}}</button>
+          <div class="resource-icon-btn" title="Play" data-toggle="tooltip">
+            <a {{action "playResource"}} class="play-btn">{{gru-icon name="play_arrow"}}</a>
+          </div>
         {{/if}}
         {{#if isQuestion}}
           {{#if remixEnabled}}
@@ -107,16 +110,29 @@
           {{/if}}
         {{/if}}
         {{#if addEnabled}}
-          <button class="add-to-btn btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
+          <div class="resource-icon-btn resource-add-btn" title="Add to" data-toggle="tooltip">
+            <a {{action "addToCollection"}} class="add-to-btn">{{gru-icon name="add"}}</a>
+          </div>
         {{/if}}
-      </div>
-      {{#unless publishVisible}}
-        <div class="visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
-          {{#unless resource.isVisibleOnProfile }}
-            {{gru-icon name="visibility_off" class='pull-right'}}
-          {{/unless}}
+        {{#if editEnabled }}
+          <div class="resource-icon-btn" title="Edit" data-toggle="tooltip">
+            <a {{action "editResource"}} class="edit-btn resource-mode-edit">{{gru-icon name="mode_edit"}}</a>
+          </div>
+        {{/if}}
+        <div class="visibility">
+          {{#if publishVisible}}
+            {{#unless resource.isVisibleOnProfile }}
+              <div class="resource-icon-btn visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
+                {{gru-icon name="visibility_off" class="visibility"}}
+              </div>
+            {{else}}
+              <div class="resource-icon-btn visibility"  title="{{t 'common.visibility-available'}}" data-toggle="tooltip">
+                {{gru-icon name="visibility" class="visibility"}}
+              </div>
+            {{/unless}}
+          {{/if}}
         </div>
-      {{/unless}}
+      </div>
     {{/if}}
   </div>
 </div>

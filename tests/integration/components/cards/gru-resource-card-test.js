@@ -80,22 +80,22 @@ test('Resource Card Layout', function(assert) {
   );
   T.exists(
     assert,
-    $resourceCard.find('.panel-footer button.add-to-btn'),
+    $resourceCard.find('.panel-footer a.add-to-btn'),
     'Missing Add to Button'
   );
   T.notExists(
     assert,
-    $resourceCard.find('.panel-footer button.edit-btn'),
+    $resourceCard.find('.panel-footer a.edit-btn'),
     'Edit Button should not be visible'
   );
   T.notExists(
     assert,
-    $resourceCard.find('.panel-footer button.play-btn'),
+    $resourceCard.find('.panel-footer a.play-btn'),
     'Play Button should not be visible'
   );
   T.exists(
     assert,
-    $resourceCard.find('.panel-footer .visibility .pull-right'),
+    $resourceCard.find('.panel-footer .buttons div.visibility'),
     'Missing visibility icon'
   );
 });
@@ -173,22 +173,22 @@ test('Question Card Layout', function(assert) {
   );
   T.exists(
     assert,
-    $resourceCard.find('.panel-footer button.add-to-btn'),
+    $resourceCard.find('.panel-footer a.add-to-btn'),
     'Add To Button should be visible'
   );
   T.notExists(
     assert,
-    $resourceCard.find('.panel-footer .visibility .pull-right'),
+    $resourceCard.find('.panel-footer buttons.visibility'),
     'Missing visibility icon'
   );
   T.notExists(
     assert,
-    $resourceCard.find('.panel-footer button.edit-btn'),
+    $resourceCard.find('.panel-footer a.edit-btn'),
     'Edit Button should not be visible'
   );
   T.notExists(
     assert,
-    $resourceCard.find('.panel-footer button.play-btn'),
+    $resourceCard.find('.panel-footer a.play-btn'),
     'Play Button should not be visible'
   );
 });
@@ -244,22 +244,22 @@ test('Resource card trying buttons', function(assert) {
   const $resourceCard = $component.find('.gru-resource-card');
   T.exists(
     assert,
-    $resourceCard.find('.panel-footer button.add-to-btn'),
+    $resourceCard.find('.panel-footer a.add-to-btn'),
     'Add to Button should be visible'
   );
   T.exists(
     assert,
-    $resourceCard.find('.panel-footer button.edit-btn'),
+    $resourceCard.find('.panel-footer a.edit-btn'),
     'Edit Button should be visible'
   );
   T.exists(
     assert,
-    $resourceCard.find('.panel-footer button.play-btn'),
+    $resourceCard.find('.panel-footer a.play-btn'),
     'Play Button should be visible'
   );
-  $resourceCard.find('.panel-footer button.edit-btn').click();
-  $resourceCard.find('.panel-footer button.play-btn').click();
-  $resourceCard.find('.panel-footer button.add-to-btn').click();
+  $resourceCard.find('.panel-footer a.edit-btn').click();
+  $resourceCard.find('.panel-footer a.play-btn').click();
+  $resourceCard.find('.panel-footer a.add-to-btn').click();
 });
 test('Resource Card with publisher', function(assert) {
   var resource = ResourceModel.create({
