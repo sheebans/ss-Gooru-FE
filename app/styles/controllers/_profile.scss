@@ -126,12 +126,12 @@
             top: 0;
             right: -55%;
             @include gradient-horizontal($blue-400, $blue-500, 0%, 100%);
-            @include box-shadow(inset 0px 1px 3px 0px rgba(0,0,0,0.50));
+            @include box-shadow(inset 0px 1px 3px 0px rgba(0,0,0,0.5));
             @include flexbox();
             @include flex-direction(column);
             @include align-items(center);
             @include align-content(center);
-            @include transition(all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940));
+            @include transition(all 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94));
             > li {
               width: 100%;
               @include flexbox();
@@ -227,7 +227,9 @@
   }
   > .content {
     height: 100%;
-
+    max-width: 1017px;
+    margin: auto;
+    margin-top: 0px;
     .panel.add-content {
       border-radius: 5px;
       width: 90%;

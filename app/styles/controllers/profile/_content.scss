@@ -45,7 +45,10 @@
         }
         &.active {
           border-bottom: 4px solid $gray-darker;
-          > a > span,
+          > a {
+            box-shadow: none !important;
+          }
+          > span,
           i {
             color: $gray-darker;
           }
@@ -71,9 +74,13 @@
   .btn-group {
     @media (min-width: $screen-lg) {
       margin-right: 0px;
+      padding-left: 72px;
+      padding-top: 20px;
     }
-    @media (min-width: $screen-md-min) {
+    @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
       margin-right: 0px;
+      padding-left: 25px;
+      padding-top: 20px;
     }
     .btn {
       font-size: $font-size-base;
@@ -83,8 +90,17 @@
         margin: 0 -8px;
       }
     }
+    .create-dropdown {
+      width: 55px;
+      height: 28px;
+      span {
+        margin-left: -7px;
+      }
+    }
     .dropdown-toggle {
-      background-color: $green-300;
+      background-color: $blue-300;
+      height: 28px;
+      width: 21px;
     }
     .dropdown-menu {
       padding: 0;
@@ -143,17 +159,17 @@
 }
 .filters {
   .sort {
-    @media (min-width: $screen-in-1350) {
-      padding-right: 30px;
+    @media (min-width: $screen-in-1300+1) {
+      padding-right: 11px;
     }
-    @media (min-width: $screen-md) and (max-width: $screen-lg) {
+    @media (min-width: $screen-lg) and (max-width: $screen-in-1300) {
       padding-right: 0px;
     }
-    @media (min-width: $screen-sm) and (max-width: $screen-md-max) {
+    @media (min-width: $screen-md) and (max-width: $screen-md-max) {
       padding-right: 15px;
     }
-    @media (min-width: $screen-lg+1) and (max-width: $screen-in-1350) {
-      padding-right: 10px;
+    @media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+      padding-right: 25px;
     }
   }
   .search-navigation {

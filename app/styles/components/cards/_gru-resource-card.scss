@@ -19,7 +19,13 @@
         .image {
           display: inline-block;
           vertical-align: top;
-
+          .visibility {
+            display: inline-block;
+            float: right;
+            height: 24px;
+            margin: 4px 0 0 1px;
+            color: $gray-dove;
+          }
           .external-assessment {
             img {
               -webkit-background-size: 31px 30px;
@@ -60,7 +66,7 @@
             margin: 5px 0 0 0;
           }
           &.question-icon {
-            background: url("gooru/images/question-resource-green-icon.svg");
+            background: url("gooru/images/question-resource-green.svg");
             -webkit-background-size: 30px 30px;
             background-size: 30px 30px;
             height: 30px;
@@ -142,20 +148,27 @@
     }
     .panel-body {
       padding: 12px 15px 0 15px;
-      height: 128px;
+      height: 145px;
 
       .publisher {
         margin: 3px 0 3px 2px;
         width: 100%;
+        display: flex;
+        .creator-label {
+          font-size: 13px;
+          font-style: italic;
+          padding-right: 9px;
+        }
         img {
-          width: 20px;
-          height: 20px;
+          width: 21px;
+          height: 22px;
           border-radius: 50px;
         }
-        > * {
-          display: inline-block;
+        .owner {
+          padding-left: 7px;
         }
         .publisher-name {
+          padding-left: 7px;
           max-width: 165px;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -182,10 +195,30 @@
     }
     .panel-footer {
       background-color: $white;
+      height: 44px;
       border: solid 1px $gray-ultra-light;
       padding: 0px !important;
       .buttons {
         display: -webkit-flex;
+        .remix-btn {
+          background-color: $blue-400;
+          height: 44px;
+          width: 74px;
+          display: flex;
+          margin-right: 54px;
+          border-bottom-left-radius: 5px;
+          a {
+            color: $white;
+            text-decoration: inherit;
+            font-size: 13px;
+            line-height: 41px;
+            display: block;
+            margin: auto;
+            > i {
+              font-size: 16px;
+            }
+          }
+        }
         .resource-icon-btn {
           padding: 10px 15px;
           border-right: solid 1px $gray-ultra-light;
@@ -196,18 +229,35 @@
             color: $gray-dove;
             display: block;
           }
+          &.edit {
+            border-left: solid 1px $gray-ultra-light;
+            margin-left: 84px;
+            i {
+              margin-left: -4px;
+            }
+          }
+          &.edit-with-copy {
+            margin-left: 0px;
+            border-left: solid 1px $gray-ultra-light;
+            i {
+              margin-left: -4px;
+            }
+          }
+          &.add {
+            border: none;
+            i {
+              margin-left: -5px;
+            }
+          }
+          &.play {
+            i {
+              margin-left: -5px;
+            }
+          }
           .resource-mode-edit > i {
             font-size: 21px;
           }
         }
-        .resource-add-btn {
-          width: 85px !important;
-        }
-      }
-      .visibility {
-        display: inline-block;
-        float: right;
-        height: 24px;
       }
     }
   }

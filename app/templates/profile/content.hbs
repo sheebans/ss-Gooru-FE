@@ -41,9 +41,9 @@
 
   </div>
   {{#if isMyProfile}}
-    <div class="btn-group hidden-xs col-md-2 col-sm-2">
-      <a href="#" class="btn btn-success" data-toggle="dropdown"><span class="hidden-sm hidden-md">{{t "common.create"}}</span>{{gru-icon name="add" class="visible-sm-inline visible-md-inline symbol"}}</a>
-      <a href="#" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+    <div class="btn-group hidden-xs col-sm-2">
+      <a href="#" class="btn btn-primary create-dropdown" data-toggle="dropdown"><span class="hidden-sm hidden-md">{{t "common.create"}}</span>{{gru-icon name="add" class="visible-sm-inline visible-md-inline symbol"}}</a>
+      <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
       <ul class="dropdown-menu dropdown-menu-right">
         <li><a class="course" href="#" {{action "showModal" "content.modals.gru-course-new"}}><i></i>{{t "common.course"}}</a></li>
         <li><a class="collection" href="#" {{action "showModal" "content.modals.gru-collection-new"}}><i></i>{{t "common.collection"}}</a></li>
