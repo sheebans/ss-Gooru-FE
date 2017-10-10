@@ -364,6 +364,9 @@ export default Ember.Component.extend({
       if (!(orginalTitle.indexOf(':') !== -1)) {
         item.set('title', `U${index + 1}: ${orginalTitle}`);
       }
+      if (!orginalTitle.startsWith('U')) {
+        item.set('title', `U${index + 1}: ${orginalTitle}`);
+      }
       Ember.set(item, 'showSub', false);
       Ember.set(item, 'showSubSub', false);
       Ember.set(item, 'subColumns', []);
@@ -468,6 +471,12 @@ export default Ember.Component.extend({
       if (this.get('onClickReport')) {
         this.sendAction('onClickReport', performance, userPerformance);
       }
+    },
+    /**
+     * navigateToAssessments
+     */
+    navigateToCollection: function(unitId, lessonId, collectionId) {
+      this.sendAction('onAssessmentClick', unitId, lessonId, collectionId);
     },
     collapse(index) {
       const component = this;
@@ -1010,6 +1019,7 @@ export default Ember.Component.extend({
             var indx = temp.get('subColumns').indexOf(lessonValObj);
             temp.get('subColumns').removeAt(indx);
           }
+          component.set('isLoading', false);
         }
         if (countCols > 0) {
           component.set(
