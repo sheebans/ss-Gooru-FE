@@ -94,6 +94,14 @@ export default Ember.Route.extend({
           queryParams: queryParams
         });
       }
+    },
+    navigateToAssessmentReport: function(unitId, lessonId, collectionId) {
+      this.transitionTo(
+        'teacher.class.collection',
+        unitId,
+        lessonId,
+        collectionId
+      );
     }
   },
 
