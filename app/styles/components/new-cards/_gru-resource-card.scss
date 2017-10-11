@@ -1,17 +1,10 @@
-.new-cards.gru-resource-card {
+.cards.gru-resource-card {
   $line-height: 1.2;
   width: 220px;
   height: 270px;
-  .panel-body,
-  .information,
-  .panel-footer,
-  .actions,
-  .options,
-  .share-box {
-    @include flexbox;
-  }
   .panel {
     border-radius: 6px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.07);
     .panel-heading {
       background-color: $white;
       border-top-left-radius: 6px;
@@ -26,25 +19,33 @@
         .image {
           display: inline-block;
           vertical-align: top;
-
-          img {
-            border-radius: 4px;
-            height: 74px;
-            width: 74px;
+          a > img {
+            width: 35px;
+            height: 35px;
+          }
+          .visibility {
+            display: inline-block;
+            float: right;
+            height: 24px;
+            margin: 4px 0 0 1px;
+            color: $gray-dove;
+          }
+          .external-assessment {
+            img {
+              -webkit-background-size: 31px 30px;
+              background-size: 31px 30px;
+              height: 30px;
+              width: 31px;
+            }
           }
         }
         i {
           display: block;
           height: 36px;
           width: 28px;
+          margin: 0 auto;
           vertical-align: top;
-          &.rubric-icon {
-            background: url("gooru/images/rubric-green.svg");
-            -webkit-background-size: 31px 30px;
-            background-size: 31px 30px;
-            height: 30px;
-            width: 31px;
-          }
+          margin: 5px 0 0 0;
           &.video-icon {
             background: url("gooru/images/video-resource-green.svg");
             -webkit-background-size: 31px 30px;
@@ -75,6 +76,14 @@
             height: 30px;
             width: 30px;
           }
+          &.rubric-icon {
+            background: url("gooru/images/rubric-green.svg");
+            -webkit-background-size: 30px 30px;
+            background-size: 30px 30px;
+            height: 30px;
+            width: 30px;
+            margin-top: 0px;
+          }
           &.image-icon {
             background: url("gooru/images/image-resource-green.svg");
             -webkit-background-size: 30px 30px;
@@ -99,26 +108,30 @@
         }
       }
       .resource-info {
-        width: 80%;
-        padding-left: 5px;
+        margin-left: 5px;
+        width: 77%;
+        line-height: $line-height;
+        $lines-to-show: 2;
         > * {
           display: block;
         }
+        h6 {
+          margin: 2px 0 5px 0;
+          @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
+          max-height: 40px;
+        }
         .resource-type,
         .question-type {
-          margin: 0 5px;
           span {
             color: $text-color;
           }
         }
         .title-section {
-          h3.title {
-            display: block !important;
+          h6.title {
+            display: inline-block;
+            width: 88%;
             color: $blue-400;
-            cursor: pointer;
-            margin: 0 0 5px 2px;
-            $lines-to-show: 2;
-            @include ellipsis($font-size: $font-size-h6, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
+            font-size: 16px;
           }
           .publish-icon {
             display: inline-block;
@@ -133,40 +146,42 @@
           }
         }
       }
+      .publish-icon {
+        display: inline-block;
+        float: right;
+        vertical-align: top;
+        margin-top: 2px;
+        background: url("gooru/badge-01.png");
+        -webkit-background-size: 17px 17px;
+        background-size: 17px 17px;
+        height: 17px;
+        width: 17px;
+      }
     }
     .panel-body {
-      @include flex-direction(column);
-      @include justify-content(space-between);
-      padding: 0 15px;
-      height: 128px;
-
-      .gru-taxonomy-tag-list {
-        .gru-taxonomy-tag {
-          max-width: 88%;
-          .content {
-            margin: 0;
-          }
-        }
-      }
-      .popover-content {
-        .gru-taxonomy-tag {
-          max-width: 100%;
-        }
-      }
+      padding: 12px 15px 0 15px;
+      height: 145px;
 
       .publisher {
         margin: 3px 0 3px 2px;
         width: 100%;
+        display: flex;
+        .creator-label {
+          font-size: 13px;
+          font-style: italic;
+          padding-right: 6px;
+        }
         img {
-          width: 20px;
-          height: 20px;
+          width: 21px;
+          height: 22px;
           border-radius: 50px;
         }
-        > * {
-          display: inline-block;
+        .owner {
+          padding-left: 7px;
         }
         .publisher-name {
-          max-width: 165px;
+          padding-left: 7px;
+          max-width: 112px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -184,55 +199,109 @@
           @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
         }
       }
+      .gru-taxonomy-tag-list {
+        .gru-taxonomy-tag {
+          background-color: $light-300;
+        }
+      }
     }
     .panel-footer {
-      border-bottom-left-radius: 6px;
-      border-bottom-right-radius: 6px;
       background-color: $white;
-      border-top: 1px solid $gray-lighter;
-      padding: 0;
-      height: 62px;
-      .options {
-        width: 80%;
-        @include align-items(center);
-        padding: 0 0 0 10px;
-      }
-      .actions {
-        .btn {
-          border-left: 1px solid $gray-lighter;
-          margin: 0;
-          font-size: $font-size-small;
-          padding: 0 8px;
-
-          &.btn-default {
+      height: 44px;
+      border: solid 1px $gray-ultra-light;
+      padding: 0px !important;
+      .buttons {
+        display: -webkit-flex;
+        .remix-btn {
+          background-color: $blue-400;
+          height: 43px;
+          width: 74px;
+          display: flex;
+          margin-right: 54px;
+          border-bottom-left-radius: 5px;
+          a {
             color: $white;
-            background-color: $dark-300;
-          }
-          &:hover {
-            cursor: default;
-          }
-        }
-        .no-bgd {
-          background-color: transparent;
-          font-size: 24px;
-          line-height: 1;
-          padding: 7px 5px;
-          i {
-            color: $gray;
+            text-decoration: inherit;
+            font-size: 13px;
+            line-height: 41px;
+            display: block;
+            margin: auto;
+            > i {
+              font-size: 16px;
+            }
           }
         }
-        .share-btn.gru-share-pop-over {
-          cursor: pointer;
-          background-color: transparent;
-        }
-        .gru-share-pop-over-window {
-          .gru-share-pop-over-content {
-            .share-actions {
-              .btn-primary.btn.copy-btn {
-                border: none;
-                padding: 6px 16px;
+        .resource-icon-btn {
+          padding: 10px 15px;
+          border-right: solid 1px $gray-ultra-light;
+          width: 45px;
+          text-align: center;
+          display: block;
+          > a {
+            color: $gray-dove;
+            display: block;
+          }
+          &.edit {
+            border-left: solid 1px $gray-ultra-light;
+            margin-left: 84px;
+            i {
+              margin-left: -4px;
+            }
+          }
+          &.edit-with-copy {
+            margin-left: 0px;
+            border-left: solid 1px $gray-ultra-light;
+            i {
+              margin-left: -4px;
+            }
+          }
+          &.rubric-edit {
+            margin-left: 174px !important;
+          }
+          &.add {
+            border: none;
+            i {
+              margin-left: -5px;
+              color: $dark-400;
+            }
+          }
+          &.share {
+            margin-left: 129px;
+            border-left: solid 1px $gray-ultra-light;
+            a {
+              text-decoration: none;
+              background-color: transparent;
+              padding: 1px;
+              i {
+                font-size: 18px;
+                margin-left: -5px;
+                color: $dark-400;
               }
             }
+          }
+          &.share-with-copy {
+            border-left: solid 1px $gray-ultra-light;
+            a {
+              text-decoration: none;
+              background-color: transparent;
+              padding: 1px;
+              i {
+                font-size: 18px;
+                margin-left: -5px;
+                color: $dark-400;
+              }
+            }
+         }
+          :hover {
+            background-color: $white;
+          }
+          &.play {
+            i {
+              margin-left: -5px;
+            }
+          }
+          .resource-mode-edit > i {
+            font-size: 21px;
           }
         }
       }

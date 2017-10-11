@@ -1,17 +1,15 @@
 import Ember from 'ember';
 import ModalMixin from 'gooru-web/mixins/modal';
-import SessionMixin from 'gooru-web/mixins/session';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 /**
- * Resource, Questions and Rubric card
+ * Resource and Question card
  *
- * Component responsible of showing the question ,resource or rubric information in cards, so that most useful information is summarized there.
+ * Component responsible of showing the resource or question information in cards, so that most useful information is summarized there.
  * @module
  */
-export default Ember.Component.extend(ModalMixin, SessionMixin, {
-  // -------------------------------------------------------------------------
+export default Ember.Component.extend(ModalMixin, {
   // Dependencies
 
   /**
@@ -27,7 +25,7 @@ export default Ember.Component.extend(ModalMixin, SessionMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['new-cards', 'gru-resource-card'],
+  classNames: ['cards', 'gru-resource-card'],
 
   // -------------------------------------------------------------------------
   // Actions
@@ -39,12 +37,21 @@ export default Ember.Component.extend(ModalMixin, SessionMixin, {
     editResource: function() {
       this.sendAction('onEditResource', this.get('resource'));
     },
-
     /**
      * Action triggered to play the resource/question
      */
     playResource: function() {
       this.sendAction('onPlayResource', this.get('resource'));
+    },
+    /**
+     * Action triggered to remix the question
+     */
+    remixQuestion: function() {
+      if (this.get('session.isAnonymous')) {
+        this.send('showModal', 'content.modals.gru-login-prompt');
+      } else {
+        this.sendAction('onRemixQuestion', this.get('resource'));
+      }
     },
 
     /**
@@ -84,17 +91,6 @@ export default Ember.Component.extend(ModalMixin, SessionMixin, {
             )
           );
       }
-    },
-
-    /**
-     * Action triggered to remix the question
-     */
-    remixQuestion: function() {
-      if (this.get('session.isAnonymous')) {
-        this.send('showModal', 'content.modals.gru-login-prompt');
-      } else {
-        this.sendAction('onRemixQuestion', this.get('resource'));
-      }
     }
   },
 
@@ -110,22 +106,9 @@ export default Ember.Component.extend(ModalMixin, SessionMixin, {
   // Properties
 
   /**
-   * Profile information
-   * @property {Profile} profile
+   * @property {Resource|Question} resource
    */
-  profile: null,
-
-  /**
-   * Indicates if it allow profile navigation or not in the cards
-   * @property {boolean} allowProfileNavigation
-   */
-  allowProfileNavigation: true,
-
-  /**
-   * Indicates if the edit functionality is enabled
-   * @property {boolean}
-   */
-  editEnabled: false,
+  resource: null,
 
   /**
    * Indicates if this resource is a question
@@ -134,10 +117,22 @@ export default Ember.Component.extend(ModalMixin, SessionMixin, {
   isQuestion: Ember.computed.equal('resource.format', 'question'),
 
   /**
-   * Indicates if this resource is a rubric
+   * Indicates if the edit functionality is enabled
    * @property {boolean}
    */
-  isRubric: false,
+  editEnabled: false,
+
+  /**
+   * Indicates if the add functionality is enabled
+   * @property {boolean}
+   */
+  addEnabled: true,
+
+  /**
+   * Indicates if the remix functionality is enabled
+   * @property {boolean}
+   */
+  remixEnabled: Ember.computed.not('editEnabled'),
 
   /**
    * @property {string} edit action
@@ -145,42 +140,42 @@ export default Ember.Component.extend(ModalMixin, SessionMixin, {
   onEditResource: null,
 
   /**
-   * @property {Resource|Question} resource
+   * @property {string} remix action
    */
-  resource: null,
+  onRemixQuestion: null,
 
   /**
-   * Indicates if is the card is showing on profile
+   * Indicates if the publish icon is visible
    * @property {boolean}
    */
-  isOnProfile: false,
+  publishVisible: false,
 
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('resource.standards.[]', function() {
+    var standards = this.get('resource.standards');
+    if (standards) {
+      standards = standards.filter(function(standard) {
+        // Filter out learning targets (they're too long for the card)
+        return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
+      });
+    }
+    return TaxonomyTag.getTaxonomyTags(standards);
+  }),
   /**
    * Show the publisher if the resource has publisher and is publish
    * @property {boolean}
    */
   showPublisher: Ember.computed('resource', function() {
-    return this.get('resource').isPublished && this.get('resource').publisher;
+    return this.get('resource')
+      ? this.get('resource').isPublished && this.get('resource').publisher
+      : false;
   }),
 
   /**
-   * @property {TaxonomyTag[]} List of taxonomy tags
+   * Indicates if it allow profile navigation or not in the cards
+   * @property {boolean} allowProfileNavigation
    */
-  tags: Ember.computed(
-    'resource.standards.[]',
-    'isRubric',
-    'resource.taxonomy.[]',
-    function() {
-      var standards = !this.get('isRubric')
-        ? this.get('resource.standards')
-        : this.get('resource.taxonomy');
-      if (standards) {
-        standards = standards.filter(function(standard) {
-          // Filter out learning targets (they're too long for the card)
-          return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
-        });
-      }
-      return TaxonomyTag.getTaxonomyTags(standards);
-    }
-  )
+  allowProfileNavigation: true
 });
