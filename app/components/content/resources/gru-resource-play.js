@@ -144,11 +144,9 @@ export default Ember.Component.extend(ProtocolMixin, {
   */
 
   isLinkOut: Ember.computed('resource', function() {
-    let isWebPage = Ember.computed.equal('resource.format', 'webpage');
     let currentProtocol = this.get('currentProtocol');
     let resourceProtocol = this.get('resourceProtocol');
     if (
-      isWebPage &&
       currentProtocol === 'https:' &&
       resourceProtocol === 'http:'
     ) {
