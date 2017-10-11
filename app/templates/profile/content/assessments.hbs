@@ -2,8 +2,9 @@
   <div class="assessments">
     {{#each assessments as |assessment|}}
       <div class="card">
-        {{new-cards.gru-collection-card
+        {{new-cards.gru-standard-card
           profile=sessionProfile
+          cardSize="md"
           content=assessment
           isMyProfile=isMyProfile
           isOnProfile=true

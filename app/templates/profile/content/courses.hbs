@@ -5,9 +5,10 @@
   </div>
   <div class="course-content">
     {{#each courses as |course|}}
-      {{new-cards.gru-collection-card
+      {{new-cards.gru-standard-card
         profile=sessionProfile
         isCourse=true
+        cardSize="md"
         content=course
         classroomList=activeClasses
         classStudentCount=myClasses.memberCount

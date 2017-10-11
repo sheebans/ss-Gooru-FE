@@ -30,14 +30,14 @@ test('Layout', function(assert) {
     T.exists(
       assert,
       $contentCourseContainer.find(
-        '.course-content >div.gru-collection-card:first-child'
+        '.course-content >div.gru-standard-card:first-child'
       ),
       'Missing first course card'
     );
     assert.equal(
       T.text(
         $contentCourseContainer.find(
-          '.course-content >div.gru-collection-card:first-child .title-section h3'
+          '.course-content >div.gru-standard-card:first-child .title-section h3'
         )
       ),
       'Test Course',
@@ -53,7 +53,7 @@ test('Add to classroom', function(assert) {
     assert.equal(currentURL(), '/id-for-pochita/content/courses');
     const $contentCourseContainer = find('.controller.profile-courses');
     let $addToClassroom = $contentCourseContainer.find(
-      '.course-content >div.gru-collection-card:first-child .actions .add-btn'
+      '.course-content >div.gru-standard-card:first-child .actions .add-btn'
     );
     click($addToClassroom);
     andThen(function() {

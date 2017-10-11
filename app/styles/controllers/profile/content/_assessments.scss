@@ -1,8 +1,241 @@
+.content-assessments .assessments .card {
+  .new-cards.gru-standard-card {
+    width: 220px;
+    margin: 10px;
+    height: auto;
+
+    .panel {
+      margin-bottom: 23px;
+    }
+
+    .panel .panel-heading {
+      background-color: transparent;
+      height: 138px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      padding: 0;
+      position: relative;
+
+      .info {
+        padding: 7px;
+
+        .question-resources {
+          visibility: hidden;
+        }
+
+        .title-section {
+          margin: 20px 0 10px;
+
+          .title {
+            width: 153px;
+            height: 32px;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: left;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+
+      &:after {
+        margin-top: 56px !important;
+        height: 60%;
+      }
+    }
+
+    .panel {
+      .panel-body {
+        border-top: 1px solid $gray-lighter;
+        // height: auto;
+        height: 22px;
+
+        .standards {
+          margin: 4px 0;
+
+          .gru-taxonomy-tag-list {
+            .gru-taxonomy-tag {
+              width: 75px;
+              height: 36px;
+              object-fit: contain;
+              border-radius: 3px;
+              background-color: $light-300;
+
+              .content {
+                margin: 0;
+              }
+            }
+          }
+        }
+
+        .remixed-by {
+          span.title {
+            width: 68px;
+            line-height: 1.69;
+          }
+        }
+
+        .description {
+          width: 196px;
+          height: 30px;
+          color: $gray;
+
+          .ca-desc {
+            min-height: 28px;
+          }
+
+          .truncate {
+            font-family: Lato;
+            font-size: 10px;
+            line-height: 1.5;
+            text-align: left;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+
+        .cca-icon-btn {
+          margin-top: -2px;
+
+          .question-icon {
+            float: left;
+
+            i {
+              background: url("gooru/images/collection-question-gray.svg");
+              width: 13px;
+              height: 13px;
+              display: block;
+            }
+          }
+
+          .unit-text {
+            float: left;
+            text-align: center;
+            margin-top: -5px;
+            margin-left: 2px;
+            width: 15px;
+          }
+        }
+
+        .cca-second-icon-btn {
+          margin-top: -2px;
+          margin-left: 28px;
+
+          .resource-icon {
+            float: left;
+
+            i {
+              background: url("gooru/images/navigation_resource_icon.svg");
+              width: 13px;
+              height: 13px;
+              display: block;
+            }
+          }
+
+          .resource-text {
+            float: left;
+            text-align: center;
+            margin-top: -5px;
+            width: 15px;
+          }
+        }
+
+        .visibility {
+         .cca-eye-icon {
+            height: 13px;
+            width: 13px;
+            margin-top: -5px;
+            font-size: 21px;
+          }
+        }
+      }
+
+      .panel-footer {
+        .actions {
+          width: auto;
+
+          .course-icon-btn {
+            border-left: solid 1px #f2f2f2;
+            width: 45px;
+            text-align: center;
+            display: block;
+
+            > a {
+              color: #4c4c4c;
+              display: block;
+              margin-top: 12px;
+            }
+
+            .course-mode-edit > i {
+              font-size: 21px;
+            }
+          }
+        }
+
+        .options {
+          width: 100%;
+
+          .course-icon-btn {
+            border-right: solid 1px #f2f2f2;
+            width: auto;
+            text-align: center;
+            display: block;
+
+            > a {
+              color: #4c4c4c;
+              display: block;
+            }
+
+            .course-mode-edit > i {
+              font-size: 21px;
+            }
+          }
+
+          .course-add-btn {
+            font-size: 21px;
+          }
+        }
+      }
+
+      .cca-footer {
+        padding: 0px 0px 3px;
+      }
+
+      .cca-description {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        height: 126px;
+        padding-bottom: 2px;
+      }
+
+      .cca-standards {
+        height: 55px;
+      }
+    }
+  }
+}
+
 .controller.content-assessments {
   .assessments {
     @include flexbox;
     @include flex-wrap(wrap);
     @include justify-content(center);
+
     .new-cards.gru-collection-card {
       .panel-heading {
         .collection-info {
