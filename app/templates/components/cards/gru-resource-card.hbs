@@ -21,7 +21,17 @@
             {{/if}}
           {{/if}}
         {{/if}}
+        {{#unless resource.isVisibleOnProfile }}
+          <div class="resource-icon-btn visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
+            {{gru-icon name="visibility_off" class="visibility"}}
+          </div>
+        {{else}}
+          <div class="resource-icon-btn visibility"  title="{{t 'common.visibility-available'}}" data-toggle="tooltip">
+            {{gru-icon name="visibility" class="visibility"}}
+          </div>
+        {{/unless}}
       </div>
+
       <div class="resource-info">
         <div class="title-section">
           {{#if externalAssessment}}
@@ -62,14 +72,13 @@
           <div class="publish-icon" title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
         {{/if}}
       {{/if}}
+
     </div>
   </div>
   <div class="panel-body">
-    {{#if tags.length}}
-      {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true}}
-    {{/if}}
     {{#unless externalAssessment}}
       <div class="publisher">
+        <span class="creator-label">{{t 'common.created-by'}}</span>
         {{#if showPublisher}}
           <b class="publisher-name">{{resource.publisher}}</b>
         {{else}}
@@ -91,6 +100,11 @@
     <div class="description">
       <p class="truncate">{{gru-math-text text=(if resource.isFIB resource.fibText resource.description)}}</p>
     </div>
+    <div>
+      {{#if tags.length}}
+        {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true}}
+      {{/if}}
+    </div>
   </div>
   <div class="panel-footer">
     {{#if (or isLinkOut externalAssessment)}}
@@ -99,39 +113,35 @@
       </div>
     {{else}}
       <div class="buttons">
-        {{#if editEnabled }}
-          <div class="resource-icon-btn" title="Play" data-toggle="tooltip">
-            <a {{action "playResource"}} class="play-btn">{{gru-icon name="play_arrow"}}</a>
-          </div>
-        {{/if}}
         {{#if isQuestion}}
           {{#if remixEnabled}}
-            <button class="copy-btn btn btn-success btn-sm" {{action "remixQuestion"}}>{{t "common.remix"}}</button>
+            <div class="remix-btn">
+              <a class="copy-btn" {{action "remixQuestion"}}>{{gru-icon name="content_copy"}}{{t "common.remix"}}</a>
+            </div>
           {{/if}}
         {{/if}}
-        {{#if addEnabled}}
-          <div class="resource-icon-btn resource-add-btn" title="Add to" data-toggle="tooltip">
-            <a {{action "addToCollection"}} class="add-to-btn">{{gru-icon name="add"}}</a>
-          </div>
-        {{/if}}
         {{#if editEnabled }}
-          <div class="resource-icon-btn" title="Edit" data-toggle="tooltip">
+          <div class="resource-icon-btn play" title="Play" data-toggle="tooltip">
+            <a {{action "playResource"}} class="play-btn">{{gru-icon name="play_arrow"}}</a>
+          </div>
+          <div class="resource-icon-btn {{if remixEnabled 'edit-with-copy' 'edit'}}" title="Edit" data-toggle="tooltip">
             <a {{action "editResource"}} class="edit-btn resource-mode-edit">{{gru-icon name="mode_edit"}}</a>
           </div>
         {{/if}}
-        <div class="visibility">
-          {{#if publishVisible}}
-            {{#unless resource.isVisibleOnProfile }}
-              <div class="resource-icon-btn visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
-                {{gru-icon name="visibility_off" class="visibility"}}
-              </div>
-            {{else}}
-              <div class="resource-icon-btn visibility"  title="{{t 'common.visibility-available'}}" data-toggle="tooltip">
-                {{gru-icon name="visibility" class="visibility"}}
-              </div>
-            {{/unless}}
-          {{/if}}
-        </div>
+        {{#unless editEnabled}}
+          {{#unless isOnProfile}}
+            <div class="resource-icon-btn {{if (and isQuestion remixEnabled) 'share-with-copy' 'share'}}" title={{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">
+              {{#gru-share-pop-over tagName="a"  class="share-btn no-bgd" type=(if isQuestion 'question' 'resource') contentId=resource.id}}
+                {{gru-icon name="share"}}
+              {{/gru-share-pop-over}}
+            </div>
+          {{/unless}}
+        {{/unless}}
+        {{#if addEnabled}}
+          <div class="resource-icon-btn add" title="Add to" data-toggle="tooltip">
+            <a {{action "addToCollection"}} class="add-to-btn">{{gru-icon name="add"}}</a>
+          </div>
+        {{/if}}
       </div>
     {{/if}}
   </div>
