@@ -26,7 +26,7 @@
     }
     .category-options {
       li {
-        @media (min-width: $screen-md) and (max-width: $screen-in-1150) {
+        @media (min-width: $screen-md) and (max-width: $screen-md-max) {
           margin: 0px;
         }
         a {
