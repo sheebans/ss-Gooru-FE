@@ -567,7 +567,7 @@ test('Functions when Teacher is in their own profile', function(assert) {
   });
 
   this.render(
-    hbs`{{new-cards/gru-standard-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection onEditContent='parentAction'}}`
+    hbs`{{new-cards/gru-standard-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection onEditContent='parentAction' cardSize='md'}}`
   );
   var $component = this.$();
   const $standardCard = $component.find('.gru-standard-card');
@@ -592,7 +592,7 @@ test('Functions when Teacher is in their own profile', function(assert) {
     'Preview button should not appear'
   );
   assert.ok(
-    $standardCard.find('.panel-footer .visibility').length,
+    $standardCard.find('.panel-body .visibility').length,
     'Not visible icon should appear'
   );
   assert.ok(
@@ -645,7 +645,7 @@ test('Functions when Student is in their own profile', function(assert) {
   });
 
   this.render(
-    hbs`{{new-cards/gru-standard-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection onEditContent='parentAction'}}`
+    hbs`{{new-cards/gru-standard-card profile=profile isOnProfile=isOnProfile isMyProfile=isMyProfile content=collection onEditContent='parentAction' cardSize='md'}}`
   );
 
   var $component = this.$();
@@ -663,7 +663,7 @@ test('Functions when Student is in their own profile', function(assert) {
     'Preview button should not appear'
   );
   assert.ok(
-    $standardCard.find('.panel-footer .visibility').length,
+    $standardCard.find('.panel-body .visibility').length,
     'Not visible icon should appear'
   );
   assert.notOk(
