@@ -157,7 +157,7 @@
         .creator-label {
           font-size: 13px;
           font-style: italic;
-          padding-right: 9px;
+          padding-right: 6px;
         }
         img {
           width: 21px;
@@ -169,7 +169,7 @@
         }
         .publisher-name {
           padding-left: 7px;
-          max-width: 165px;
+          max-width: 112px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -202,7 +202,7 @@
         display: -webkit-flex;
         .remix-btn {
           background-color: $blue-400;
-          height: 44px;
+          height: 43px;
           width: 74px;
           display: flex;
           margin-right: 54px;
@@ -247,7 +247,38 @@
             border: none;
             i {
               margin-left: -5px;
+              color: $dark-400;
             }
+          }
+          &.share {
+            margin-left: 129px;
+            border-left: solid 1px $gray-ultra-light;
+            a {
+              text-decoration: none;
+              background-color: transparent;
+              padding: 1px;
+              i {
+                font-size: 18px;
+                margin-left: -5px;
+                color: $dark-400;
+              }
+            }
+          }
+          &.share-with-copy {
+            border-left: solid 1px $gray-ultra-light;
+            a {
+              text-decoration: none;
+              background-color: transparent;
+              padding: 1px;
+              i {
+                font-size: 18px;
+                margin-left: -5px;
+                color: $dark-400;
+              }
+            }
+         }
+          :hover {
+            background-color: $white;
           }
           &.play {
             i {

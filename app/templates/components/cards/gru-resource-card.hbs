@@ -124,13 +124,20 @@
           <div class="resource-icon-btn play" title="Play" data-toggle="tooltip">
             <a {{action "playResource"}} class="play-btn">{{gru-icon name="play_arrow"}}</a>
           </div>
-        {{/if}}
-        {{#if editEnabled }}
           <div class="resource-icon-btn {{if remixEnabled 'edit-with-copy' 'edit'}}" title="Edit" data-toggle="tooltip">
             <a {{action "editResource"}} class="edit-btn resource-mode-edit">{{gru-icon name="mode_edit"}}</a>
           </div>
         {{/if}}
-        {{#if (and addEnabled)}}
+        {{#unless editEnabled}}
+          {{#unless isOnProfile}}
+            <div class="resource-icon-btn {{if (and isQuestion remixEnabled) 'share-with-copy' 'share'}}" title={{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">
+              {{#gru-share-pop-over tagName="a"  class="share-btn no-bgd" type=(if isQuestion 'question' 'resource') contentId=resource.id}}
+                {{gru-icon name="share"}}
+              {{/gru-share-pop-over}}
+            </div>
+          {{/unless}}
+        {{/unless}}
+        {{#if addEnabled}}
           <div class="resource-icon-btn add" title="Add to" data-toggle="tooltip">
             <a {{action "addToCollection"}} class="add-to-btn">{{gru-icon name="add"}}</a>
           </div>
