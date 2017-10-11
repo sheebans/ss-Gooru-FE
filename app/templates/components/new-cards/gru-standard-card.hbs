@@ -53,12 +53,17 @@
         </div>
         <div class="resource-text"> <span>{{content.questionCount}}</span> </div>
       </div>
-
       {{/if}}
-
+     {{#if isCourse}}
       <div class="visibility course-add-btn" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
         {{gru-icon name="visibility_off" class='pull-right cca-eye-icon'}}
       </div>
+      {{else}}
+      <div class="visibility course-add-btn" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+        {{gru-icon name="visibility" class='pull-right cca-eye-icon'}}
+      </div>
+
+      {{/if}}
     </div>
   {{/if}}
 
@@ -91,12 +96,25 @@
         {{#if isCourse}}
           <p class="truncate content-description">{{ content.description }}</p>
         {{else}}
-          <p class="truncate learning-objective">{{ content.learningObjectives }}</p>
+        <div class="ca-desc">
+            <p class="truncate learning-objective">{{ content.learningObjectives }}</p>
+          </div>
+          <div class="cca-standards">
+            <div class="standards ">
+              {{#if tags.length}}
+                {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=2 isInCard=true showDescription=true}}
+              {{/if}}
+            </div>
+          </div>
         {{/if}}
+
       </div>
     {{/if}}
   </div>
+
+
   {{#if (eq cardSize "md")}}
+    {{#if isCourse}}
     <div class="panel-body cca-standards">
       <div class="standards ">
         {{#if tags.length}}
@@ -104,6 +122,7 @@
         {{/if}}
       </div>
     </div>
+    {{/if}}
   {{/if}}
 
 

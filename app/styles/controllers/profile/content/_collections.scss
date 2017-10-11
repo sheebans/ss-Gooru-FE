@@ -42,7 +42,7 @@
       }
 
       &:after {
-        margin-top: 55px !important;
+        margin-top: 56px !important;
         height: 60%;
       }
     }
@@ -82,6 +82,9 @@
           width: 196px;
           height: 30px;
           color: $gray;
+          .ca-desc {
+            min-height: 28px;;
+          }
           .truncate {
             font-family: Lato;
             font-size: 10px;
@@ -211,7 +214,7 @@
         justify-content: space-between;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
-        height: 77px;
+        height: 126px;
         padding-bottom: 2px;
       }
 
