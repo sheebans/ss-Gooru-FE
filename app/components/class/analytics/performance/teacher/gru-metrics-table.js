@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { createDataMatrix } from 'gooru-web/utils/performance-data';
 import { alphabeticalStringSort, numberSort } from 'gooru-web/utils/utils';
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 /**
    * used to increment hbs file
 */
@@ -316,6 +317,11 @@ export default Ember.Component.extend({
    * @property {String}
    */
   filterBy: 'assessment',
+  /**
+   * Query param, filterBy selected
+   * @property {String}
+   */
+  loaderIcon: '',
 
   /**
    * Indicate if the table is on collection level
@@ -350,6 +356,7 @@ export default Ember.Component.extend({
   init() {
     this._super(...arguments);
     const component = this;
+    component.set('loaderIcon', DEFAULT_IMAGES.LOADER_IMAGE);
     component.set('filterBy', component.get('filterBy'));
     component.get('performanceData').forEach(function(item1) {
       item1.performanceData.forEach(function(item9) {
