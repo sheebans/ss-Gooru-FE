@@ -86,10 +86,9 @@
         }
 
         .cca-icon-btn {
-          margin-top: 6px;
-
           .units-icon {
             float: left;
+            margin-top: 5px;
             i {
               background: url("gooru/images/units-gray.svg");
               width: 15px;
@@ -99,7 +98,6 @@
           }
           .unit-text {
             margin-left: 43px;
-            margin-top: -5px;
           }
         }
       }
