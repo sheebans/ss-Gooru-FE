@@ -6,16 +6,16 @@
   .container-box {
     height: 60px;
     .percentage {
-      font-size: 18px;
+      font-size: $font-size-lead;
       font-weight: 900;
-      line-height: 28px;
+      line-height: 24px;
       margin: 15px 0 0;
     }
     .not-started {
       color: $light-400;
-      font-size: 10px;
+      font-size: $font-size-xxsmall;
       font-weight: bold;
-      margin: 15px 0 0;
+      margin: 15px 0 5px;
     }
     .completion-bar {
       border-radius: 5px;

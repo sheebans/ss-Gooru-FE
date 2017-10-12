@@ -44,10 +44,13 @@ export default Ember.Component.extend({
         ? completed
         : this.get('performanceSummary.total');
     const percentage = completed ? parseInt(completed / total * 100) : 0;
-
     return this.get('performanceSummary') !== null && percentage;
   }),
 
+  /**
+   * @property {String} barColor
+   * Computed property to know the color of the small bar
+   */
   barColor: Ember.computed('performanceSummary', function() {
     let score = this.get('performanceSummary.score');
     return Ember.String.htmlSafe(getBarGradeColor(score));
@@ -67,19 +70,20 @@ export default Ember.Component.extend({
     ];
   }),
 
+  /**
+   * @property {String} widthStyle
+   * Computed property to know the width of the bar
+   */
+  widthStyle: Ember.computed('completionData', function() {
+    return this.get('completionData').map(function(questionData) {
+      return Ember.String.htmlSafe(`width: ${questionData.percentage}%;`);
+    });
+  }),
+
   isFull: Ember.computed('completionData.[]', function() {
     var sum = this.get('completionData').reduce(function(previousValue, value) {
       return previousValue + value.percentage;
     }, 0);
     return sum >= 100;
-  }),
-
-  widthStyle: Ember.computed('completionData', function() {
-    return this.get('completionData').map(function(questionData) {
-      return Ember.String.htmlSafe(`width: ${questionData.percentage}%;`);
-    });
   })
-
-  // -------------------------------------------------------------------------
-  // Events
 });
