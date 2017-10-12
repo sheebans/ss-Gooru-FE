@@ -675,8 +675,8 @@ test('Update Resource Information', function(assert) {
       );
       assert.equal(
         $component.find('.link-out label b').text(),
-        'ON',
-        'The link out should be true'
+        'OFF',
+        'The link out should be false'
       );
     });
   });
