@@ -40,7 +40,7 @@ test('Resource Card Layout', function(assert) {
 
   this.set('resource', resource);
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=resource allowProfileNavigation=true}}`
+    hbs`{{cards/gru-resource-card resource=resource allowProfileNavigation=true}}`
   );
   var $component = this.$();
   const $resourceCard = $component.find('.gru-resource-card');
@@ -99,7 +99,7 @@ test('Resource Card - Button for teachers', function(assert) {
   this.set('resource', resource);
   this.set('profile', profile);
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=resource allowProfileNavigation=true profile=profile}}`
+    hbs`{{cards/gru-resource-card resource=resource allowProfileNavigation=true profile=profile}}`
   );
   const $component = this.$();
   const $resourceCard = $component.find('.gru-resource-card');
@@ -128,7 +128,7 @@ test('Resource/Question Card - Button for anonymous', function(assert) {
   this.set('resource', resource);
   this.set('profile', profile);
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=resource allowProfileNavigation=true profile=profile session=session}}`
+    hbs`{{cards/gru-resource-card resource=resource allowProfileNavigation=true profile=profile session=session}}`
   );
   const $component = this.$();
   const $resourceCard = $component.find('.gru-resource-card');
@@ -165,7 +165,7 @@ test('Question Card Layout', function(assert) {
 
   this.set('question', question);
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=question allowProfileNavigation=true}}`
+    hbs`{{cards/gru-resource-card resource=question allowProfileNavigation=true}}`
   );
   var $component = this.$();
   const $resourceCard = $component.find('.gru-resource-card');
@@ -220,7 +220,7 @@ test('Question Card - Button for teachers', function(assert) {
   this.set('question', question);
   this.set('profile', profile);
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=question allowProfileNavigation=true profile=profile}}`
+    hbs`{{cards/gru-resource-card resource=question allowProfileNavigation=true profile=profile}}`
   );
   const $component = this.$();
   const $resourceCard = $component.find('.gru-resource-card');
@@ -261,7 +261,7 @@ test('Resource Card with publisher', function(assert) {
 
   this.set('resource', resource);
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=resource allowProfileNavigation=true}}`
+    hbs`{{cards/gru-resource-card resource=resource allowProfileNavigation=true}}`
   );
   var $component = this.$();
   const $resourceCard = $component.find('.gru-resource-card');
@@ -306,7 +306,7 @@ test('Not allow profile navigation', function(assert) {
 
   this.set('resource', resource);
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=resource allowProfileNavigation=false}}`
+    hbs`{{cards/gru-resource-card resource=resource allowProfileNavigation=false}}`
   );
   var $component = this.$();
   const $resourceCard = $component.find('.gru-resource-card');
@@ -352,7 +352,7 @@ test('Rubric Layout', function(assert) {
   this.set('rubric', rubric);
   this.set('editEnabled', false);
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=rubric allowProfileNavigation=true isRubric=true editEnabled=editEnabled}}`
+    hbs`{{cards/gru-resource-card resource=rubric allowProfileNavigation=true isRubric=true editEnabled=editEnabled}}`
   );
   var $component = this.$();
   const $resourceCard = $component.find('.gru-resource-card');
@@ -414,7 +414,7 @@ test('Rubric Layout and My profile', function(assert) {
   this.set('rubric', rubric);
   this.set('editEnabled', true);
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=rubric allowProfileNavigation=true isRubric=true editEnabled=editEnabled}}`
+    hbs`{{cards/gru-resource-card resource=rubric allowProfileNavigation=true isRubric=true editEnabled=editEnabled}}`
   );
   var $component = this.$();
   const $resourceCard = $component.find('.gru-resource-card');
@@ -438,7 +438,7 @@ test('Share resource', function(assert) {
 
   this.set('resource', resource);
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=resource allowProfileNavigation=true profile=profile}}`
+    hbs`{{cards/gru-resource-card resource=resource allowProfileNavigation=true profile=profile}}`
   );
   const $component = this.$();
   let $share = $component.find('.panel-footer .actions .share-btn');
@@ -482,7 +482,7 @@ test('Share question', function(assert) {
 
   this.set('question', question);
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=question allowProfileNavigation=true}}`
+    hbs`{{cards/gru-resource-card resource=question allowProfileNavigation=true}}`
   );
   var $component = this.$();
   let $share = $component.find('.panel-footer .actions .share-btn');
@@ -539,7 +539,7 @@ test('Remix question, only for teachers or anonymous', function(assert) {
   });
 
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=question onRemixQuestion='parentAction' profile=profile}}`
+    hbs`{{cards/gru-resource-card resource=question onRemixQuestion='parentAction' profile=profile}}`
   );
   var $component = this.$();
   let $remix = $component.find('.panel-footer .options .remix-btn');
@@ -572,7 +572,7 @@ test('Actions when Teacher is in their own profile', function(assert) {
 
   this.set('resource', resource);
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=resource allowProfileNavigation=true isOnProfile=true}}`
+    hbs`{{cards/gru-resource-card resource=resource allowProfileNavigation=true isOnProfile=true}}`
   );
   var $component = this.$();
   const $resourceCard = $component.find('.gru-resource-card');
