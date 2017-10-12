@@ -159,7 +159,7 @@ export function getAnswerResultIcon(isCorrect) {
  */
 export function getGradeColor(grade) {
   var bracket = GRADING_SCALE.length - 1;
-  var color = '#F5F6F7'; // Default color
+  var color = '#E3E5EA'; // Default color
 
   if (isNumeric(grade)) {
     for (; bracket >= 0; bracket--) {
@@ -180,7 +180,7 @@ export function getGradeColor(grade) {
  */
 export function getBarGradeColor(grade) {
   var bracket = BARS_GRADING_SCALE.length - 1;
-  var color = '#F5F6F7'; // Default color
+  var color = '#E3E5EA'; // Default color
 
   if (isNumeric(grade)) {
     for (; bracket >= 0; bracket--) {
