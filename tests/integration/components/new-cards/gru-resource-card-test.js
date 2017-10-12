@@ -39,7 +39,7 @@ test('Resource Card Layout', function(assert) {
 
   this.set('resource', resource);
   this.render(
-    hbs`{{cards/gru-resource-card resource=resource allowProfileNavigation=true}}`
+    hbs`{{new-cards/gru-resource-card resource=resource allowProfileNavigation=true}}`
   );
   var $component = this.$(); //component dom element
   const $resourceCard = $component.find('.gru-resource-card');
@@ -127,7 +127,7 @@ test('Question Card Layout', function(assert) {
 
   this.set('question', question);
   this.render(
-    hbs`{{cards/gru-resource-card resource=question allowProfileNavigation=true}}`
+    hbs`{{new-cards/gru-resource-card resource=question allowProfileNavigation=true}}`
   );
   var $component = this.$(); //component dom element
   const $resourceCard = $component.find('.gru-resource-card');
@@ -238,7 +238,7 @@ test('Resource card trying buttons', function(assert) {
   });
 
   this.render(
-    hbs`{{cards/gru-resource-card resource=resource editEnabled=true onPlayResource="playResource" onEditResource="editResource" session=session profileService=profileService}}`
+    hbs`{{new-cards/gru-resource-card resource=resource editEnabled=true onPlayResource="playResource" onEditResource="editResource" session=session profileService=profileService}}`
   );
   var $component = this.$(); //component dom element
   const $resourceCard = $component.find('.gru-resource-card');
@@ -288,7 +288,7 @@ test('Resource Card with publisher', function(assert) {
 
   this.set('resource', resource);
   this.render(
-    hbs`{{cards/gru-resource-card resource=resource allowProfileNavigation=true}}`
+    hbs`{{new-cards/gru-resource-card resource=resource allowProfileNavigation=true}}`
   );
   var $component = this.$(); //component dom element
   const $resourceCard = $component.find('.gru-resource-card');
@@ -336,7 +336,7 @@ test('Not allow profile navigation', function(assert) {
 
   this.set('resource', resource);
   this.render(
-    hbs`{{cards/gru-resource-card resource=resource allowProfileNavigation=false}}`
+    hbs`{{new-cards/gru-resource-card resource=resource allowProfileNavigation=false}}`
   );
   var $component = this.$(); //component dom element
   const $resourceCard = $component.find('.gru-resource-card');
@@ -389,7 +389,7 @@ test('Resource Card Published', function(assert) {
 
   this.set('resource', resource);
   this.render(
-    hbs`{{cards/gru-resource-card resource=resource allowProfileNavigation=true publishVisible=true}}`
+    hbs`{{new-cards/gru-resource-card resource=resource allowProfileNavigation=true publishVisible=true}}`
   );
   var $component = this.$(); //component dom element
   const $resourceCard = $component.find('.gru-resource-card');
