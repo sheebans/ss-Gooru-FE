@@ -2,60 +2,51 @@
   <div class="panel-heading">
     <div class="header">
       <div class="image">
-        {{#if externalAssessment}}
-          <a href={{resource.url}}  target="_blank" class="external-assessment">
-            <img class="img-responsive" src="{{resource.thumbnail}}">
-          </a>
-        {{else}}
-          {{#if isLinkOut}}
-            <i class="{{resource.format}}-icon"></i>
+        {{#if isRubric}}
+          {{#if editEnabled}}
+            {{#link-to 'content.rubric.edit' resource.id}}
+              {{#if resource.thumbnail}}
+                <img class="img-responsive" src="{{resource.thumbnail}}">
+              {{else}}
+                <i class="rubric-icon"></i>
+              {{/if}}
+            {{/link-to}}
           {{else}}
-            {{#if editEnabled}}
-              {{#link-to (if isQuestion 'content.questions.edit' 'content.resources.edit') resource.id}}
-                <i class="{{resource.format}}-icon"></i>
-              {{/link-to}}
+            {{#if resource.thumbnail}}
+              <img class="img-responsive" src="{{resource.thumbnail}}">
             {{else}}
-              {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id}}
-                <i class="{{resource.format}}-icon"></i>
-              {{/link-to}}
+              <i class="rubric-icon"></i>
             {{/if}}
+          {{/if}}
+        {{else}}
+          {{#if editEnabled}}
+            {{#link-to (if isQuestion 'content.questions.edit' 'content.resources.edit') resource.id}}
+              <i class="{{resource.format}}-icon"></i>
+            {{/link-to}}
+          {{else}}
+            {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id}}
+              <i class="{{resource.format}}-icon"></i>
+            {{/link-to}}
           {{/if}}
         {{/if}}
-        {{#unless resource.isVisibleOnProfile }}
-          <div class="resource-icon-btn visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
-            {{gru-icon name="visibility_off" class="visibility"}}
-          </div>
-        {{else}}
-          <div class="resource-icon-btn visibility"  title="{{t 'common.visibility-available'}}" data-toggle="tooltip">
-            {{gru-icon name="visibility" class="visibility"}}
-          </div>
-        {{/unless}}
       </div>
-
       <div class="resource-info">
         <div class="title-section">
-          {{#if externalAssessment}}
-            <a href={{resource.url}} target="_blank">
-              <h6 class="title truncate pointer">{{{resource.title}}}</h6>
-            </a>
-          {{else}}
-            {{#if isLinkOut}}
-              <h6 class="title truncate">{{{resource.title}}}</h6>
+          {{#if isRubric}}
+            {{#if editEnabled}}
+              {{#link-to 'content.rubric.edit' resource.id tagName="h3" class="title rubric" alt=resource.title}}{{{truncate text=resource.title maxLength=40}}}{{/link-to}}
             {{else}}
-              {{#if editEnabled}}
-                {{#link-to (if isQuestion 'content.questions.edit' 'content.resources.edit') resource.id tagName="h6" class="title truncate pointer" alt=resource.title}}{{{resource.title}}}{{/link-to}}
-              {{else}}
-                {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h6" class="title truncate pointer" alt=resource.title}}{{{resource.title}}}{{/link-to}}
-              {{/if}}
+              <h3 class="title rubric">{{{truncate text=resource.title maxLength=40}}}</h3>
             {{/if}}
-            {{#unless publishVisible}}
-              {{#if resource.isPublished}}
-                <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
-              {{/if}}
-            {{/unless}}
+          {{else}}
+            {{#if editEnabled}}
+              {{#link-to (if isQuestion 'content.questions.edit' 'content.resources.edit') resource.id tagName="h3" class="title" alt=resource.title}}{{{truncate text=resource.title maxLength=40}}}{{/link-to}}
+            {{else}}
+              {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h3" class="title" alt=resource.title}}{{{truncate text=resource.title maxLength=40}}}{{/link-to}}
+            {{/if}}
           {{/if}}
         </div>
-        {{#unless externalAssessment}}
+        {{#unless isRubric}}
           {{#if isQuestion}}
             <div class="question-type">
               <span>{{t (concat "common.question-type." resource.type)}}</span>
@@ -67,82 +58,59 @@
           {{/if}}
         {{/unless}}
       </div>
-      {{#if publishVisible}}
-        {{#if resource.isPublished}}
-          <div class="publish-icon" title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
-        {{/if}}
-      {{/if}}
-
     </div>
   </div>
   <div class="panel-body">
-    {{#unless externalAssessment}}
-      <div class="publisher">
-        <span class="creator-label">{{t 'common.created-by'}}</span>
-        {{#if showPublisher}}
-          <b class="publisher-name">{{resource.publisher}}</b>
-        {{else}}
-        {{#link-to 'profile.edit' resource.owner.id class="pointer enable"}}
-          <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
-        {{/link-to}}
+    {{#if tags.length}}
+      {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true showDescription=true}}
+    {{/if}}
+    <div class="publisher">
+      {{#if showPublisher}}
+        <b class="publisher-name">{{resource.publisher}}</b>
+      {{else}}
+        <img class="img-responsive" src="{{ resource.owner.avatarUrl }}">
           <span class="owner">
             {{#if allowProfileNavigation}}
-            {{#link-to 'profile.edit' resource.owner.id class="pointer enable"}}
+              {{#link-to 'profile.content.courses' resource.owner.id class="pointer enable"}}
                 {{resource.owner.displayName}}
               {{/link-to}}
             {{else}}
               <a class="disabled">{{resource.owner.displayName}}</a>
             {{/if}}
           </span>
-        {{/if}}
-      </div>
-    {{/unless}}
+      {{/if}}
+    </div>
     <div class="description">
       <p class="truncate">{{gru-math-text text=(if resource.isFIB resource.fibText resource.description)}}</p>
     </div>
-    <div>
-      {{#if tags.length}}
-        {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true}}
-      {{/if}}
-    </div>
   </div>
   <div class="panel-footer">
-    {{#if (or isLinkOut externalAssessment)}}
-      <div class="buttons resource-icon-btn" title="Play" data-toggle="tooltip">
-        <a href="{{{resource.url}}}" target="_blank" class="play-btn">{{gru-icon name="play_arrow"}}</a>
-      </div>
-    {{else}}
-      <div class="buttons">
-        {{#if isQuestion}}
-          {{#if remixEnabled}}
-            <div class="remix-btn">
-              <a class="copy-btn" {{action "remixQuestion"}}>{{gru-icon name="content_copy"}}{{t "common.remix"}}</a>
-            </div>
+    <div class="options">
+      <div>
+        {{#if editEnabled}}
+          <button class="edit-btn btn btn-success btn-sm" {{action "editResource"}}>{{t "common.edit"}}</button>
+        {{else}}
+          {{#if (or profile.isTeacher session.isAnonymous)}}
+            <button class="add-to-btn btn btn-success btn-sm" {{action "addToCollection"}}>{{t "common.add-to"}}</button>
+            {{#if isQuestion}}
+                <button class="remix-btn btn btn-success btn-sm" {{action "remixQuestion"}}>{{t "common.remix"}}</button>
+            {{/if}}
+          {{else}}
+            <button class="study-btn btn btn-success btn-sm" {{action "playResource"}}>{{t "common.study"}}</button>
           {{/if}}
         {{/if}}
-        {{#if editEnabled }}
-          <div class="resource-icon-btn play" title="Play" data-toggle="tooltip">
-            <a {{action "playResource"}} class="play-btn">{{gru-icon name="play_arrow"}}</a>
-          </div>
-          <div class="resource-icon-btn {{if remixEnabled 'edit-with-copy' 'edit'}}" title="Edit" data-toggle="tooltip">
-            <a {{action "editResource"}} class="edit-btn resource-mode-edit">{{gru-icon name="mode_edit"}}</a>
-          </div>
-        {{/if}}
-        {{#unless editEnabled}}
-          {{#unless isOnProfile}}
-            <div class="resource-icon-btn {{if (and isQuestion remixEnabled) 'share-with-copy' 'share'}}" title={{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">
-              {{#gru-share-pop-over tagName="a"  class="share-btn no-bgd" type=(if isQuestion 'question' 'resource') contentId=resource.id}}
-                {{gru-icon name="share"}}
-              {{/gru-share-pop-over}}
-            </div>
-          {{/unless}}
-        {{/unless}}
-        {{#if addEnabled}}
-          <div class="resource-icon-btn add" title="Add to" data-toggle="tooltip">
-            <a {{action "addToCollection"}} class="add-to-btn">{{gru-icon name="add"}}</a>
-          </div>
-        {{/if}}
       </div>
-    {{/if}}
+    </div>
+    {{#unless editEnabled}}
+      <div class="actions">
+        {{#unless isOnProfile}}
+          <div class="share-box" title={{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">
+            {{#gru-share-pop-over tagName="button"  class="btn share-btn no-bgd" type=(if isQuestion 'question' 'resource') contentId=resource.id}}
+              {{gru-icon name="share"}}
+            {{/gru-share-pop-over}}
+          </div>
+        {{/unless}}
+      </div>
+    {{/unless}}
   </div>
 </div>
