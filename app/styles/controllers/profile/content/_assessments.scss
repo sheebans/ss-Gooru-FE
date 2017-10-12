@@ -50,8 +50,7 @@
     .panel {
       .panel-body {
         border-top: 1px solid $gray-lighter;
-        // height: auto;
-        height: 22px;
+        height: 24px;
 
         .standards {
           margin: 4px 0;
@@ -101,8 +100,6 @@
         }
 
         .cca-icon-btn {
-          margin-top: -2px;
-
           .question-icon {
             float: left;
 
@@ -117,32 +114,9 @@
           .unit-text {
             float: left;
             text-align: center;
-            margin-top: -5px;
+            line-height: 13px;
             margin-left: 2px;
-            width: 15px;
-          }
-        }
-
-        .cca-second-icon-btn {
-          margin-top: -2px;
-          margin-left: 28px;
-
-          .resource-icon {
-            float: left;
-
-            i {
-              background: url("gooru/images/navigation_resource_icon.svg");
-              width: 13px;
-              height: 13px;
-              display: block;
-            }
-          }
-
-          .resource-text {
-            float: left;
-            text-align: center;
-            margin-top: -5px;
-            width: 15px;
+            width: 19px;
           }
         }
 

@@ -50,8 +50,7 @@
     .panel {
       .panel-body {
         border-top: 1px solid $gray-lighter;
-        // height: auto;
-        height: 22px;
+        height: 25px;
 
         .standards {
           margin: 4px 0;
@@ -99,7 +98,6 @@
         }
 
         .cca-icon-btn {
-          margin-top: -2px;
           .question-icon {
             float: left;
 
@@ -114,36 +112,35 @@
           .unit-text {
             float: left;
             text-align: center;
-            margin-top: -5px;
+            line-height: 13px;
             margin-left: 2px;
             width: 15px;
           }
         }
 
         .cca-second-icon-btn {
-            margin-top: -2px;
           margin-left: 28px;
 
           .resource-icon {
             float: left;
 
             i {
-              background: url("gooru/images/navigation_resource_icon.svg");
-              width: 13px;
-              height: 13px;
+              background: url("gooru/images/collections_resource_icon.svg");
+              width: 13.1px;
+              height: 15px;
               display: block;
+              background-size: cover;
             }
           }
 
           .resource-text {
             float: left;
             text-align: center;
-            margin-top: -5px;
-            width: 15px;
+            line-height: 14px;
+            width: 20px
           }
         }
          .visibility {
-          margin-top: -2px;
           .cca-eye-icon {
             height: 13px;
             width: 13px;

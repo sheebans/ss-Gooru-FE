@@ -3,8 +3,9 @@
     <div class="results">
       {{#if courses}}
         {{#each courses as |course|}}
-          {{new-cards.gru-collection-card
+          {{new-cards.gru-standard-card
             content=course
+            cardSize="md"
             profile=profile
             isCourse=true
             onOpenContentPlayer="playCourse"
