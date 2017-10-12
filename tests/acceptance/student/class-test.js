@@ -93,13 +93,8 @@ test('Layout', function(assert) {
     T.exists(assert, $performanceContainer, 'Missing performance container');
     T.exists(
       assert,
-      $performanceContainer.find('.performance'),
-      'Missing performance'
-    );
-    T.exists(
-      assert,
-      $performanceContainer.find('.completion-chart'),
-      'Missing completion chart'
+      $performanceContainer.find('.gru-performance-chart'),
+      'Missing performance chart component'
     );
   });
 });

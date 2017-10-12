@@ -123,11 +123,19 @@ export const SCORES = {
 };
 
 export const GRADING_SCALE = [
-  { LOWER_LIMIT: 0, COLOR: '#FAC1C0' },
-  { LOWER_LIMIT: 60, COLOR: '#F7D2B1' },
-  { LOWER_LIMIT: 70, COLOR: '#FBE2B6' },
-  { LOWER_LIMIT: 80, COLOR: '#DAEADA' },
-  { LOWER_LIMIT: 90, COLOR: '#B8D4B4' }
+  { LOWER_LIMIT: 0, COLOR: '#F46360' },
+  { LOWER_LIMIT: 60, COLOR: '#ED8E36' },
+  { LOWER_LIMIT: 70, COLOR: '#FABA36' },
+  { LOWER_LIMIT: 80, COLOR: '#A8C99C' },
+  { LOWER_LIMIT: 90, COLOR: '#4B9740' }
+];
+
+export const BARS_GRADING_SCALE = [
+  { LOWER_LIMIT: 0, COLOR: '#D82100' },
+  { LOWER_LIMIT: 60, COLOR: '#cf7400' },
+  { LOWER_LIMIT: 70, COLOR: '#CC9700' },
+  { LOWER_LIMIT: 80, COLOR: '#4B9740' },
+  { LOWER_LIMIT: 90, COLOR: '#A8C99C' }
 ];
 
 export const ROLES = {

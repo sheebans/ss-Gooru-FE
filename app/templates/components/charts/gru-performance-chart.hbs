@@ -1,0 +1,15 @@
+<div class="container-box" style="background-color:{{grade-color performanceSummary.score}}">
+  {{#if hasStarted}}
+    <label class="percentage">
+      {{scoreText}}
+    </label>
+    <div class="completion-bar">
+      <div class="segment {{if isFull 'full'}}" style="background-color: {{barColor}}; {{widthStyle}}"></div>
+    </div>
+  {{else}}
+    <label class="not-started">
+      {{t "common.notStarted"}}
+    </label>
+    <div class="completion-bar"></div>
+  {{/if}}
+</div>

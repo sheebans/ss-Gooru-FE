@@ -45,15 +45,7 @@
           <span>{{t 'cards.gru-collection-card.students' count=class.countMembers}}</span>
         </div>
         <div class="performance-container pull-right">
-          <div class="performance" style="background-color:{{grade-color class.performanceSummary.score}}">
-            {{#link-to 'student.class.performance' class.id class="pointer percentage" tagName="div"}}
-              {{scorePercentage}}
-            {{/link-to}}
-            <label>{{t 'student-landing.class.performance'}}</label>
-          </div>
-          <div class="completion-chart">
-            {{charts/gru-x-bar-chart data=barChartData }}
-          </div>
+          {{charts/gru-performance-chart performanceSummary=class.performanceSummary}}
         </div>
       </div>
     </div>

@@ -5,7 +5,8 @@ import { aggregateCollectionPerformanceSummaryItems } from 'gooru-web/utils/perf
 import {
   DEFAULT_IMAGES,
   EMOTION_VALUES,
-  GRADING_SCALE
+  GRADING_SCALE,
+  BARS_GRADING_SCALE
 } from 'gooru-web/config/config';
 /**
  * Function for sorting strings alphabetically in ascending order
@@ -164,6 +165,27 @@ export function getGradeColor(grade) {
     for (; bracket >= 0; bracket--) {
       if (grade >= GRADING_SCALE[bracket].LOWER_LIMIT) {
         color = GRADING_SCALE[bracket].COLOR;
+        break;
+      }
+    }
+  }
+  return color;
+}
+
+/**
+ * Find the color corresponding to the grade bracket that a specific grade belongs to
+ * @see gooru-web/config/config#BARS_GRADING_SCALE
+ * @param grade
+ * @returns {String} - Hex color value
+ */
+export function getBarGradeColor(grade) {
+  var bracket = BARS_GRADING_SCALE.length - 1;
+  var color = '#F5F6F7'; // Default color
+
+  if (isNumeric(grade)) {
+    for (; bracket >= 0; bracket--) {
+      if (grade >= BARS_GRADING_SCALE[bracket].LOWER_LIMIT) {
+        color = BARS_GRADING_SCALE[bracket].COLOR;
         break;
       }
     }
@@ -426,14 +448,10 @@ export function replaceMathExpression(text) {
   var questionText = $.parseHTML(text);
   var newQuestionText = '';
   $.each(questionText, function(i, el) {
-    let latex = $(el)
-      .find('.source')
-      .text();
+    let latex = $(el).find('.source').text();
     if (latex.length > 0) {
       let mathToSave = `<span class='gru-math-expression'><span class='source' hidden>${latex}</span>$$${latex}$$</span>`;
-      $(el)
-        .empty()
-        .append(mathToSave);
+      $(el).empty().append(mathToSave);
     }
     if (el.outerHTML) {
       newQuestionText = newQuestionText.concat(el.outerHTML);
