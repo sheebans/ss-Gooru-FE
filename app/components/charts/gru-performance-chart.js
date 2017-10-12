@@ -48,42 +48,39 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * @property {String} barColor
-   * Computed property to know the color of the small bar
+   * @property {Number} completionPercentage
    */
-  barColor: Ember.computed('performanceSummary', function() {
-    let score = this.get('performanceSummary.score');
-    return Ember.String.htmlSafe(getBarGradeColor(score));
-  }),
-
-  /**
-   * @property {[Number]} completionData
-   */
-  completionData: Ember.computed('performanceSummary', function() {
+  completionPercentage: Ember.computed('performanceSummary', function() {
     const completed = this.get('performanceSummary.totalCompleted');
     const total = this.get('performanceSummary.total');
-    const percentage = completed ? completed / total * 100 : 0;
-    return [
-      {
-        percentage
-      }
-    ];
+    return completed ? completed / total * 100 : 0;
   }),
 
   /**
    * @property {String} widthStyle
    * Computed property to know the width of the bar
    */
-  widthStyle: Ember.computed('completionData', function() {
-    return this.get('completionData').map(function(questionData) {
-      return Ember.String.htmlSafe(`width: ${questionData.percentage}%;`);
-    });
+  widthStyle: Ember.computed('completionPercentage', function() {
+    const completion = this.get('completionPercentage');
+    return Ember.String.htmlSafe(`width: ${completion}%;`);
   }),
 
-  isFull: Ember.computed('completionData.[]', function() {
-    var sum = this.get('completionData').reduce(function(previousValue, value) {
-      return previousValue + value.percentage;
-    }, 0);
-    return sum >= 100;
+  /**
+   * @property {String} barColor
+   * Computed property to know the color of the small bar
+   */
+  colorStyle: Ember.computed('performanceSummary', function() {
+    let score = this.get('performanceSummary.score');
+    return Ember.String.htmlSafe(
+      `background-color: ${getBarGradeColor(score)};`
+    );
+  }),
+
+  /**
+   * @property {Boolean} isFull
+   * Computed property to know if the completion is full
+   */
+  isFull: Ember.computed('completionPercentage', function() {
+    return this.get('completionPercentage') >= 100;
   })
 });
