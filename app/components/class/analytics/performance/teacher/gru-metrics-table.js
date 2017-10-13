@@ -892,24 +892,24 @@ export default Ember.Component.extend({
         });
         if (tempVal === 0) {
           countCols = countCols + 1;
-          var assessmentObj1 = Ember.Object.create({
+          var tempassessmentObj = Ember.Object.create({
             format: filterBy,
-            id: '123',
+            id: 'NoObject',
             openEndedQuestionCount: 0,
             questionCount: 0,
             resourceCount: 0,
             sequence: 2,
-            thumbnailUrl: '//cdn.gooru.org/123.png',
+            thumbnailUrl: '//cdn.gooru.org/NoObject.png',
             title: `No ${filterBy}`
           });
 
-          var orginalTitle = assessmentObj1.get('title');
+          var orginalTitle = tempassessmentObj.get('title');
           if (filterBy === 'assessment') {
-            assessmentObj1.set('title', `A${tempVal}: ${orginalTitle}`);
+            tempassessmentObj.set('title', `A${tempVal}: ${orginalTitle}`);
           } else {
-            assessmentObj1.set('title', `C${tempVal}: ${orginalTitle}`);
+            tempassessmentObj.set('title', `C${tempVal}: ${orginalTitle}`);
           }
-          lessonObj.get('subsubColumns').pushObject(assessmentObj1);
+          lessonObj.get('subsubColumns').pushObject(tempassessmentObj);
         }
         Ember.run.later(function() {
           component.set('averageHeadersAssessment', []);
@@ -917,7 +917,7 @@ export default Ember.Component.extend({
             .get('averageHeaderstempAssessment')
             .forEach(function(lessonItem) {
               var emberObject = Ember.Object.create({
-                id: '123',
+                id: 'NoObject',
                 lessonId: lessonItem.lessonId,
                 unitId: unitId,
                 level: filterBy
@@ -1227,9 +1227,9 @@ export default Ember.Component.extend({
                                 }
                               });
                             if (tempVal === 0) {
-                              assessmentsStr = `${`${assessmentsStr}123`},`;
+                              assessmentsStr = `${`${assessmentsStr}NoObject`},`;
                               var emberObject = Ember.Object.create({
-                                id: '123',
+                                id: 'NoObject',
                                 unitId: unitId,
                                 lessonId: lessonObj.id
                               });
