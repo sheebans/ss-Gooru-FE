@@ -898,8 +898,6 @@ export default Ember.Component.extend({
             openEndedQuestionCount: 0,
             questionCount: 0,
             resourceCount: 0,
-            sequence: 2,
-            thumbnailUrl: '//cdn.gooru.org/NoObject.png',
             title: `No ${filterBy}`
           });
 
