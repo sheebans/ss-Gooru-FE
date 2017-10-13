@@ -1,6 +1,15 @@
 {{#each visibleMetrics as |metric index|}}
+  {{#if showReport}}
+    {{#if (eq index 1)}}
+      <div class="metrics-sub-header table-cell report">
+          <span class="metric-sub-header report out-of-scope">
+            {{t 'gru-metrics-sub-header.report'}}
+          </span> 
+      </div>
+    {{/if}}
+  {{/if}}
   {{#if metric.visible}}
-    <div class="metrics-sub-header table-cell {{if (eq metric.value 'time-spent') 'pull-right' ''}} {{if (and (or showReport showStudyTime) (eq metric.value 'score')) 'pull-left' ''}}">
+    <div class="metrics-sub-header table-cell {{if (eq metric.value 'time-spent') 'pull-right' ''}} {{if (and showStudyTime (eq metric.value 'score')) 'pull-left' ''}}">
       <a class="metric-sub-header {{metric.value}}" {{action 'sort' metric}}>
         {{t (concat 'gru-metrics-sub-header.' metric.value) }}
       </a>
