@@ -319,6 +319,11 @@ export default Ember.Component.extend({
    * Query param, filterBy selected
    * @property {String}
    */
+  nodata: '--NO DATA--',
+  /**
+   * Query param, filterBy selected
+   * @property {String}
+   */
   loaderIcon: '',
 
   /**
@@ -895,18 +900,12 @@ export default Ember.Component.extend({
           var tempassessmentObj = Ember.Object.create({
             format: filterBy,
             id: 'NoObject',
+            collectionType: filterBy,
             openEndedQuestionCount: 0,
             questionCount: 0,
             resourceCount: 0,
-            title: `No ${filterBy}`
+            title: '--NO DATA--'
           });
-
-          var orginalTitle = tempassessmentObj.get('title');
-          if (filterBy === 'assessment') {
-            tempassessmentObj.set('title', `A${tempVal}: ${orginalTitle}`);
-          } else {
-            tempassessmentObj.set('title', `C${tempVal}: ${orginalTitle}`);
-          }
           lessonObj.get('subsubColumns').pushObject(tempassessmentObj);
         }
         Ember.run.later(function() {
@@ -917,6 +916,7 @@ export default Ember.Component.extend({
               var emberObject = Ember.Object.create({
                 id: 'NoObject',
                 lessonId: lessonItem.lessonId,
+                collectionType: filterBy,
                 unitId: unitId,
                 level: filterBy
               });
