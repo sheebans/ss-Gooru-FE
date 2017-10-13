@@ -34,8 +34,6 @@ test('Layout', function(assert) {
   });
 });
 
-
-
 test('Changing term should filter the current result without changing the root url', function(
   assert
 ) {
