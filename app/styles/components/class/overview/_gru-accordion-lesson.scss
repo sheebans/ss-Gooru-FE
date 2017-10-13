@@ -1,6 +1,21 @@
 .gru-accordion-lesson {
-  $on-air-icon: 35px;
+  $on-air-icon: 25px;
   $collection-icon-size: 48px;
+  height: 67px;
+
+  &:first-child {
+    .panel-heading {
+      border-top-right-radius: 4px;
+      border-top-left-radius: 4px;
+    }
+  }
+
+  &:last-child {
+    .panel-heading {
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+  }
 
   .img-rounded {
     display: inline-block;
@@ -9,114 +24,109 @@
     border-radius: 5px;
   }
 
-  > .panel-heading {
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
-    border-radius: 5px;
-    min-height: 40px;
-    color: $text-color;
+  .panel-heading {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
     display: inline-block;
     width: 100%;
-    height: auto;
-
-    .title,
-    .score,
-    .gru-user-icons,
-    .gru-completion-chart,
-    .content-count,
-    .time-spent {
-      display: inline-block;
-      vertical-align: middle;
-      padding: 0;
-      @media (min-width: $screen-sm) {
-        padding: 10px 0;
-      }
-    }
+    height: 67px;
+    border-radius: 0;
+    padding: 0;
 
     .panel-title {
-      width: 100%;
+      width: 67%;
       float: left;
-      height: inherit;
-      @media (min-width: $screen-sm) {
-        width: 34%;
-      }
-      @media (min-width: $screen-lg) {
-        width: 50%;
-      }
+      font-size: $font-size-large;
+      color: $gray;
+      padding: 12px 8px;
+
       .title {
-        font-size: $font-size-lead;
         vertical-align: middle;
         margin: 0;
-        @media (min-width: $screen-sm) {
-          margin: 0 0 0 10px;
-        }
+        padding: 0;
+        height: 43px;
         .lesson-prefix {
+          border-right: solid 1px $light-300;
+          margin: 0 20px 0 0;
+          padding: 5px 20px 0 0;
           color: $gray-base;
-          margin: 0 5px 0 0;
-          @media (min-width: $screen-md) {
-            margin: 0 30px 0 0;
-          }
+          font-weight: bold;
+          height: inherit;
+          display: inline-block;
         }
       }
     }
 
     .info {
-      width: 100%;
-      float: left;
+      float: right;
       height: inherit;
-      @media (min-width: $screen-sm) {
-        width: 66%;
-        float: right;
-        text-align: right;
-      }
-      @media (min-width: $screen-lg) {
-        width: 50%;
-      }
       .content-count {
-        font-size: $font-size-large;
-        margin: 0 5px 0 0;
+        font-size: $font-navigator;
+        margin: 0 10px 0 0;
+        color: $light-400;
+        display: inline-block;
         span {
           vertical-align: middle;
-        }
-        @media (min-width: $screen-md) {
-          margin: 0 10px 0 0;
-        }
-        &.mixed {
-          > span:first-child {
-            border-right: 1px solid $text-color;
-            margin: 0 5px 0 0;
-            padding: 0 5px 0 0;
+          i {
+            display: inline-block;
+            margin: 0 10px 0 0;
+            vertical-align: middle;
+            color: $light-200;
+            font-size: $font-unBookmark;
+          }
+          &.question-count {
+            i.icon {
+              background: url("gooru/question-icon.png");
+              -webkit-background-size: 25px 25px;
+              background-size: 25px 25px;
+              height: 25px;
+              width: 25px;
+            }
+          }
+          &.assessment-count {
+            i.icon {
+              background: url("gooru/images/navigation_assessment.svg");
+              -webkit-background-size: 25px 25px;
+              background-size: 25px 25px;
+              height: 25px;
+              width: 25px;
+            }
+          }
+          &.collection-count {
+            margin: 0 0 0 15px;
+            i.icon {
+              background: url("gooru/images/navigation_collection.svg");
+              -webkit-background-size: 25px 25px;
+              background-size: 25px 25px;
+              height: 25px;
+              width: 25px;
+            }
           }
         }
       }
-      .left-info {
-        border-left: 2px solid $light-200;
-        text-align: center;
-        width: 131px;
+      .play-btn {
+        border-left: 1px solid $light-100;
         display: inline-block;
-        @media (min-width: $screen-lg) {
-          width: 160px;
+        height: 67px;
+        width: 60px;
+        .btn.study-now {
+          background-color: $white;
+          font-size: $font-size-h6;
+          height: 45px;
+          margin: 10px 0;
+          vertical-align: middle;
+          i {
+            font-size: $font-size-h4;
+            color: $dark-300;
+          }
         }
-        .charts.gru-completion-chart {
-          height: 36px;
-          width: 48px;
-          padding: 0;
-          .charts.gru-x-bar-chart {
-            height: 36px;
-          }
-          > span {
-            line-height: 36px;
-          }
-        }
-        .score {
-          padding: 0 3px;
-          font-size: $font-size-lead;
-          font-weight: bold;
-          width: 32%;
-          text-align: center;
-          @media (min-width: $screen-lg) {
-            padding: 10px 20px 10px 10px;
-            width: 38%;
-          }
+      }
+      .performance-container {
+        width: 76px;
+        display: inline-block;
+        height: 67px;
+        vertical-align: middle;
+        .container-box {
+          height: 67px;
         }
       }
     }
@@ -126,91 +136,41 @@
       > .panel {
         margin: 0;
         padding: 0;
-        height: 145px;
         border-bottom: 1px solid $light-100;
-        @media (min-width: $screen-sm) {
-          height: 80px;
-        }
+        height: 67px;
+
         button.on-air {
           display: inline-block;
           width: $on-air-icon;
           height: $on-air-icon;
           vertical-align: middle;
-          background-image: url('gooru/images/on-air-icon.svg');
+          background-image: url("gooru/on-air-icon.png");
           background-size: $on-air-icon $on-air-icon;
           background-color: $white;
           cursor: pointer;
           @include text-hide();
         }
 
-        &.collection {
-          &.submitted {
-            > .panel-heading i {
-              color: $blue-400;
-            }
-          }
-        }
-
-        &.assessment {
-          .panel-heading .panel-title {
-            vertical-align: -8px;
-          }
-        }
-
-        &.on-air {
-          > button.on-air {
-            display: none;
-          }
-
-          // on-air icon
-          .panel-heading > .icon-container > .score + i {
-            display: none;
-
-            @media (min-width: $screen-sm) {
-              display: inline-block;
-            }
-          }
-        }
         &:last-child {
           border-bottom: 0 none;
-          margin: 0 0 10px 0;
           .panel-heading {
             border-bottom: 0 none;
             border-radius: 0 0 5px 5px;
           }
         }
 
-        &.selected,
-        &.study-active {
+        &:first-child {
           .panel-heading {
-            background-color: $blue-400;
-            color: $white;
-            .panel-title {
-              .title {
-                .type {
-                  color: $white;
-                }
-                .lesson-prefix {
-                  color: $white;
-                }
-              }
-            }
-            .info {
-              .content-count.mixed {
-                > span:first-child {
-                  border-right: 1px solid $white;
-                }
-              }
-              .gru-user-icons .item {
-                color: $white;
-              }
-            }
+            -webkit-box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+            -moz-box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.1);
           }
         }
 
         &.resource {
           .panel-heading {
             background-color: $sky-50;
+            height: 67px;
             .panel-title {
               width: 80%;
               .resource-icon-type {
@@ -288,73 +248,39 @@
                 padding-left: 5px;
               }
             }
-            .info {
-              width: 20%;
-              .left-info {
-                height: inherit;
-              }
+          }
+        }
+        &.assessment {
+          .panel-heading {
+            .controls {
+              width: 95px;
             }
           }
         }
       }
 
       .panel-heading {
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
         width: 100%;
-        height: 100%;
+        height: 67px;
         display: inline-block;
         border-radius: 0;
 
         .controls {
-          width: 14%;
-          max-width: 14%;
-          float: left;
-          border-right: solid 2px $light-200;
-          min-height: 55px;
+          padding: 15px 0;
+          margin: 0 15px 0 0;
+          display: inline-block;
           .switch {
-            width: 48%;
+            width: 65px;
+            display: inline-block;
           }
           .go-live-cnt {
-            width: 25%;
-          }
-          .adca-cnt {
-            width: 27%;
-          }
-          .go-live {
-            margin-top: 2px;
-          }
-          .add-to {
-            color: $gray;
+            width: 25px;
             display: inline-block;
-            text-align: center;
-            i,
-            span {
-              float: left;
-              clear: left;
-              width: 100%;
-            }
-            i {
-              color: $light-400;
-              font-size: $expand-arrow;
-            }
-            &.added {
-              i {
-                color: $green-400;
-              }
-              span {
-                font-size: $font-size-small;
-              }
-            }
-          }
-          @media (max-width: $screen-md) {
-            display: none;
           }
         }
-        .panel-title {
-          padding-left: 10px;
-          height: inherit;
-        }
+
         .icon-container {
+          height: inherit;
           i {
             font-size: $collection-icon-size;
             vertical-align: bottom;
@@ -367,7 +293,7 @@
               height: $on-air-icon;
               vertical-align: middle;
               margin-left: 15px;
-              background-image: url('gooru/images/on-air-icon.svg');
+              background-image: url("gooru/images/on-air-icon.svg");
               background-size: $on-air-icon $on-air-icon;
               @include text-hide();
             }
@@ -377,35 +303,21 @@
             padding: 0;
           }
         }
-
-        .title,
-        .score,
-        .gru-user-icons,
-        .state,
-        .content-count,
-        .icon-container,
-        .time-spent {
-          display: inline-block;
-          vertical-align: middle;
-          padding: 0;
-          @media (min-width: $screen-sm) {
-            padding: 10px 0;
-          }
-        }
-
         .panel-title {
-          width: 100%;
+          width: 70%;
           float: left;
-          @media (min-width: $screen-sm) {
-            width: 45%;
-          }
+          padding: 0;
+          height: inherit;
+          color: $dark-400;
+          font-weight: 300;
+          font-size: $font-size-lead;
           .collection-controls {
             height: 100%;
             text-align: center;
             .row {
               display: table-cell;
               height: 100%;
-              & > [class*='col-'] {
+              & > [class*="col-"] {
                 display: table-cell;
                 height: 100%;
                 padding: 0;
@@ -418,155 +330,177 @@
                 }
               }
             }
-            @media (max-width: $screen-lg) {
-              display: none;
-            }
             a.added {
               i {
                 color: $green-400;
               }
             }
           }
+          .icon-container {
+            padding: 0;
+            width: 95px;
+            height: inherit;
+            display: inline-block;
+            img {
+              width: inherit;
+              height: inherit;
+            }
+          }
           .title {
-            font-size: $font-size-lead;
             vertical-align: middle;
             margin: 0;
-            padding: 0;
-            line-height: $font-size-h5;
+            padding: 0 0 0 5px;
             max-width: 75%;
-            width: 75%;
-
-            @media (min-width: $screen-lg) {
-              padding-left: 10px;
-              max-width: 80%;
-              width: 80%;
-            }
             .type {
               color: $light-500;
               font-size: $font-navigator;
               padding: 5px 0 0 0;
             }
           }
+          .trophy {
+            vertical-align: bottom;
+            margin: 0 0 0 15px;
+            i {
+              background: url("gooru/trophy.png");
+              background-size: 22px 25px;
+              height: 25px;
+              width: 22px;
+              display: inline-block;
+              vertical-align: middle;
+            }
+          }
         }
 
         .info {
-          width: 100%;
-          float: left;
+          float: right;
           height: inherit;
-          @media (min-width: $screen-sm) {
-            width: 45%;
-            float: right;
-            text-align: right;
-          }
-          @media (min-width: $screen-lg) {
-            width: 41%;
-          }
           .content-count {
-            font-size: $font-size-large;
-            margin: 0 5px 0 0;
+            font-size: $font-navigator;
+            margin: 0;
+            color: $light-400;
+            display: inline-block;
+            span {
+              vertical-align: middle;
+              margin: 0 5px 0 0;
+              i {
+                display: inline-block;
+                margin: 0 10px 0 0;
+                vertical-align: middle;
+                color: $light-200;
+                font-size: $font-unBookmark;
+              }
+              &.question-count {
+                i.icon {
+                  background: url("gooru/images/navigation_question.svg");
+                  -webkit-background-size: 25px 25px;
+                  background-size: 25px 25px;
+                  height: 25px;
+                  width: 25px;
+                }
+              }
+              &.assessment-count {
+                i.icon {
+                  background: url("gooru/images/navigation_assessment.svg");
+                  -webkit-background-size: 25px 25px;
+                  background-size: 25px 25px;
+                  height: 25px;
+                  width: 25px;
+                }
+              }
+              &.collection-count {
+                margin: 0 0 0 15px;
+                i.icon {
+                  background: url("gooru/images/navigation_collection.svg");
+                  -webkit-background-size: 25px 25px;
+                  background-size: 25px 25px;
+                  height: 25px;
+                  width: 25px;
+                }
+              }
+            }
+          }
+          .play-btn {
+            border-left: 1px solid $light-100;
+            display: inline-block;
+            height: 67px;
+            width: 60px;
+            .btn.study-now {
+              background-color: $white;
+              font-size: $font-size-h6;
+              height: 45px;
+              margin: 10px 0;
+              vertical-align: middle;
+              i {
+                font-size: $font-size-h4;
+                color: $dark-300;
+              }
+            }
+          }
+          .performance {
+            border-left: 1px solid $light-100;
+            display: inline-block;
+            height: 67px;
+            width: 75px;
+            margin: 0;
+            vertical-align: middle;
+            padding: 20px 5px 0;
+            text-align: center;
+            font-weight: 900;
             span {
               vertical-align: middle;
             }
-            @media (min-width: $screen-md) {
-              margin: 0 10px 0 0;
-            }
-            &.mixed {
-              > span:first-child {
-                border-right: 1px solid $text-color;
-                margin: 0 5px 0 0;
-                padding: 0 5px 0 0;
-              }
-            }
-          }
-          .left-info {
-            border-left: 2px solid $light-200;
-            text-align: center;
-            width: 150px;
-            display: inline-block;
-            height: inherit;
-            @media (min-width: $screen-lg) {
-              width: 160px;
+            .score {
+              font-size: $font-size-large;
+              line-height: $font-size-large;
             }
             .state {
-              width: 70px;
-              color: $blue-400;
-              .not-started {
-                color: $light-300;
-              }
-            }
-            .btn.study-now {
-              display: none;
-            }
-            .score {
-              padding: 10px 3px;
-              font-size: $font-size-lead;
-              font-weight: bold;
-              width: 32%;
-              text-align: center;
-              @media (min-width: $screen-lg) {
-                padding: 10px 20px 10px 10px;
-                width: 38%;
-              }
+              color: $dark-300;
+              font-size: $font-size-xxxsmall;
+              display: block;
             }
             .time-spent {
-              font-size: $font-title;
-              font-weight: bold;
-              padding: 10px 4px;
+              font-size: $font-size-base;
+              color: $light-450;
             }
-            .trophy {
-              border-radius: 4px;
-              width: 40px;
-              height: 32px;
-              display: inline-block;
-              color: $white;
-              text-align: center;
-              vertical-align: middle;
-              margin-left: 20px;
-              i {
-                background: url("gooru/images/trophy.svg");
-                background-size: 20px 20px;
-                height: 20px;
-                width: 20px;
-                display: block;
-                margin: 7px auto;
-              }
+            .not-started {
+              color: $light-300;
+              font-size: $font-size-xxsmall;
             }
           }
         }
+      }
+      .no-content {
+        margin: 5px 10px 10px;
       }
     }
   }
 
   &.expanded {
-    .panel-heading {
-      border-radius: 5px 5px 0 0;
-      margin-bottom: 0;
-    }
+    height: auto;
     .panel-collapse.collapse.in {
-      margin: -6px 0;
-    }
-  }
-  .study-active,
-  .selected {
-    .panel-title .title .lesson-prefix {
-      color: $white;
-    }
-    .left-info {
-      text-align: center;
-      .btn.study-now {
-        height: 38px;
-        font-size: $font-size-h6;
-        margin: 10px 0;
-        padding: 5px 10px 5px 2px;
-        display: inline-block !important;
-        i {
-          font-size: $font-size-h4;
-          vertical-align: bottom;
+      margin: -7px 0;
+      .collections {
+        .study-active,
+        .selected {
+          .panel-heading {
+            -webkit-box-shadow: 0px 0px 11px 3px rgba(75, 151, 65, 1);
+            -moz-box-shadow: 0px 0px 11px 3px rgba(75, 151, 65, 1);
+            box-shadow: 0px 0px 11px 3px rgba(75, 151, 65, 1);
+            z-index: 9;
+            .info {
+              .btn.study-now {
+                i {
+                  font-size: $font-size-anonymous;
+                  color: $green-400;
+                }
+              }
+            }
+          }
         }
       }
-      .state {
-        display: none !important;
-      }
+    }
+    &:last-child .panel-heading {
+      border-radius: 0;
     }
   }
 }

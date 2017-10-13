@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { getBarGradeColor } from 'gooru-web/utils/utils';
+import { roundFloat } from 'gooru-web/utils/math';
 
 /**
  * Performance and Completion Chart
@@ -14,6 +15,13 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
   classNames: ['charts', 'gru-performance-chart'],
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  didRender: function() {
+    this.$('[data-toggle="tooltip"]').tooltip();
+  },
 
   // -------------------------------------------------------------------------
   // Properties
@@ -52,9 +60,13 @@ export default Ember.Component.extend({
    * Computed property to calculate the completion percentage
    */
   completionPercentage: Ember.computed('performanceSummary', function() {
-    const completed = this.get('performanceSummary.totalCompleted');
-    const total = this.get('performanceSummary.total');
-    return completed ? completed / total * 100 : 0;
+    const completed =
+      this.get('performanceSummary.totalCompleted') ||
+      this.get('performanceSummary.completionDone');
+    const total =
+      this.get('performanceSummary.total') ||
+      this.get('performanceSummary.completionTotal');
+    return completed ? roundFloat(completed / total * 100) : 0;
   }),
 
   /**

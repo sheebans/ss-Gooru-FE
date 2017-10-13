@@ -39,5 +39,17 @@
         }
       }
     }
+    .tooltip {
+      width: 120px;
+      .tooltip-arrow {
+        border-right-color: $white;
+      }
+      .tooltip-inner {
+        color: $dark-400;
+        font-weight: bold;
+        background-color: $white;
+        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+      }
+    }
   }
 }

@@ -76,7 +76,6 @@ test('it renders', function(assert) {
     'Lesson 1Lesson Title',
     'Wrong title text'
   );
-  //assert.equal($lessonTitleAnchor.html().replace(/&nbsp;/g, ' ').trim(), 'Lesson 1  Lesson Title', 'Wrong title text');
 
   const $lessonInfo = $lessonHeading.find('> .info');
   assert.ok($lessonInfo.length, 'Panel info element is missing');
@@ -84,25 +83,25 @@ test('it renders', function(assert) {
   const $lessonContentCount = $lessonInfo.find('> .content-count');
   assert.equal(
     T.text($lessonContentCount.find('.assessment-count')),
-    '1 Assessment',
+    '1',
     'Wrong text assessment count'
   );
   assert.equal(
     T.text($lessonContentCount.find('.collection-count')),
-    '2 Collections',
+    '2',
     'Wrong text collection count'
   );
 
-  assert.ok(
-    $lessonHeading.find('.gru-user-icons').length,
-    'gru-user-icons component is missing'
+  const $lessonPlayButton = $lessonInfo.find('.play-btn button');
+  assert.ok($lessonPlayButton.length, 'Play button is missing');
+
+  const $lessonPerformance = $lessonInfo.find(
+    '.performance-container .gru-performance-chart'
   );
   assert.ok(
-    $lessonHeading.find('.score').length,
-    'Score info element is missing'
+    $lessonPerformance.length,
+    'lesson performance chart component is missing'
   );
-  const $completionChart = $lessonHeading.find('.gru-completion-chart');
-  assert.ok($completionChart.length, 'Completion chart for lesson');
 
   const $collapsePanel = $component.find('> .panel-collapse');
   assert.ok($collapsePanel.length, 'Panel element is missing');
@@ -214,7 +213,7 @@ test('it renders correctly when there are no collections/assessments to load aft
   });
 });
 test('Study now', function(assert) {
-  assert.expect(8);
+  assert.expect(6);
 
   this.on('parentAction', function(type, item) {
     assert.ok(type, 'Should have type');
@@ -278,20 +277,15 @@ test('Study now', function(assert) {
     assert.ok($collapsePanel.hasClass('in'), 'Panel should be visible');
     assert.ok($collapsePanel.find('li'), 'Missing item');
     return wait().then(function() {
-      var $studyNowButton = $component.find('.btn.study-now');
-      var $score = $component.find('.left-info .score');
+      var $studyNowButton = $component.find('.info .btn.study-now:eq(0)');
       assert.ok($studyNowButton.length, 'Missing study now button');
-      assert.ok($score.length, 'Missing study now button');
-      assert.notOk(
-        $component.find('li.assessment:last-child .trophy').length,
-        'Trophy should not appear when the study button appear'
-      );
       $studyNowButton.click();
     });
   });
 });
+
 test('Go Live', function(assert) {
-  assert.expect(7);
+  assert.expect(6);
 
   this.on('parentAction', function(collectionId) {
     assert.ok(collectionId, 'collectionId is passed');

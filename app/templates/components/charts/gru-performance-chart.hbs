@@ -1,9 +1,10 @@
-<div class="container-box" style="background-color:{{grade-color performanceSummary.score}}">
+<div class="container-box" style="background-color:{{grade-color (if hasStarted performanceSummary.score 'NA')}}">
   {{#if hasStarted}}
     <label class="percentage">
       {{scoreText}}
     </label>
-    <div class="completion-bar">
+    <div class="completion-bar" data-toggle="tooltip" data-html="true" data-placement="right"
+         title="{{completionPercentage}}% {{t "common.completed"}}">
       <div class="segment {{if isFull 'full'}}" style="{{colorStyle}} {{widthStyle}}"></div>
     </div>
   {{else}}

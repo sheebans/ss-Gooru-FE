@@ -373,8 +373,14 @@ export default Ember.Component.extend(AccordionMixin, {
   /**
    * Removed the selected element if the user decide to show the current location
    */
-  showMyLocation: Ember.observer('showLocation', function() {
+  showMyLocation: Ember.observer('showLocation', 'toggleLocation', function() {
+    var divPosition =
+      $('.panel.selected').offset() || $('.panel.study-active').offset();
+
     if (this.get('showLocation')) {
+      if (divPosition) {
+        $('html, body').animate({ scrollTop: divPosition.top - 80 }, 'slow');
+      }
       this.set('activeElement', '');
     }
   }),

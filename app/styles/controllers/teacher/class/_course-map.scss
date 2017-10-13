@@ -1,15 +1,48 @@
 .teacher.course-map {
   .gru-accordion {
     .panel-heading {
-      padding: 8px 0;
+      padding: 0;
       margin: 0;
       background-color: $white;
-      @media (min-width: $screen-md-min) {
-        padding: 8px 10px;
+      height: 67px;
+      .panel-title {
+        width: 60% !important;
       }
-    }
-    .panel-group .panel + .panel {
-      margin-top: 10px;
+      .gru-switch {
+        .toggle.btn {
+          width: 40px !important;
+          height: 20px !important;
+          border-radius: 20px;
+          .toggle-group {
+            .toggle-on,
+            .toggle-off,
+            .toggle-handle {
+              border-radius: 20px;
+            }
+            .toggle-on {
+              left: -13px;
+              font-style: italic;
+              font-size: $font-size-xxsmall;
+            }
+            .toggle-off {
+              left: 33px;
+              font-style: italic;
+              font-size: $font-size-xxsmall;
+            }
+            .toggle-handle {
+              top: -5px;
+              left: -2px;
+            }
+          }
+          &.off {
+            .toggle-group {
+              .toggle-handle {
+                left: 2px;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
