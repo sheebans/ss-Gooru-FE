@@ -32,45 +32,7 @@ test('Layout', function(assert) {
   });
 });
 
-test('Clicking card title should open the player', function(assert) {
-  assert.expect(2); //making sure all asserts are called
-  visit('/search/courses?term=any');
-  andThen(function() {
-    assert.equal(currentURL(), '/search/courses?term=any');
-    const $searchResults = find('.courses-results .results');
-    const $firstResult = $searchResults.find('.gru-collection-card:eq(0)');
-    const $cardHeader = $firstResult.find('.panel .panel-heading');
-    const $cardTitle = $cardHeader.find(
-      '.collection-info .title-section .play-content'
-    );
-    click($cardTitle);
-    andThen(function() {
-      assert.equal(
-        currentURL(),
-        '/content/courses/play/b8336353-08c1-42ce-add9-3454227902c8'
-      );
-    });
-  });
-});
 
-test('Clicking card image should open the player', function(assert) {
-  assert.expect(2); //making sure all asserts are called
-  visit('/search/courses?term=any');
-  andThen(function() {
-    assert.equal(currentURL(), '/search/courses?term=any');
-    const $searchResults = find('.courses-results .results');
-    const $firstResult = $searchResults.find('.gru-collection-card:eq(0)');
-    const $cardHeader = $firstResult.find('.panel .panel-heading');
-    const $cardImage = $cardHeader.find('.image .play-content');
-    click($cardImage);
-    andThen(function() {
-      assert.equal(
-        currentURL(),
-        '/content/courses/play/b8336353-08c1-42ce-add9-3454227902c8'
-      );
-    });
-  });
-});
 
 test('Changing term should filter the current result without changing the root url', function(
   assert
