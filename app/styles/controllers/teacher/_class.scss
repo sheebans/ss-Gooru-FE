@@ -1,13 +1,9 @@
 .teacher.class {
-  padding: 10px;
-  @media (min-width: $screen-sm) {
-    padding: 35px 47px;
-  }
+  padding: 15px 0;
+  width: 960px;
+  margin: 0 auto;
   .content .no-content {
-    font-size: $font-size-lead;
-    list-style: none;
-    margin: 20px 0 0;
-    text-align: center;
+    margin-top: 15px;
   }
   .header {
     .go-back-container {

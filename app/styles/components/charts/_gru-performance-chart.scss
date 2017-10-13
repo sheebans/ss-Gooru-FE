@@ -40,7 +40,9 @@
       }
     }
     .tooltip {
-      width: 120px;
+      width: 130px;
+      line-height: $font-size-h6;
+      font-size: $font-size-base;
       .tooltip-arrow {
         border-right-color: $white;
       }
@@ -48,6 +50,7 @@
         color: $dark-400;
         font-weight: bold;
         background-color: $white;
+        text-align: left;
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
       }
     }

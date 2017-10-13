@@ -1121,7 +1121,9 @@ export default Object.assign(quizzesTranslations, {
     'no-classrooms':
       'You have not yet created any classrooms. Click on “Create Classroom” or search </br> for a featured course under the Library tab.',
     'no-course': 'You have not assigned a course to this </br> classroom yet.',
-    teach: 'Teach with a Gooru classroom'
+    teach: 'Teach with a Gooru classroom',
+    'welcome-course-map':
+      'This is your Course Map where you can view course content, turn assessments on or off and launch assessments in real-time. You can also view overall class performance and completion. For a detailed view of class performance, visit your classroom\'s Report tab.'
   },
   goals: {
     manage: {
@@ -2421,5 +2423,10 @@ export default Object.assign(quizzesTranslations, {
     'overall-comment': 'Overall Comment',
     'overall-score': 'Overall score',
     prompt: 'Question Prompt'
+  },
+
+  'gru-performance-chart': {
+    'teacher-tooltip':
+      'of your students have completed all the assessments in this lesson'
   }
 });

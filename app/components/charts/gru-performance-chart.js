@@ -17,6 +17,14 @@ export default Ember.Component.extend({
   classNames: ['charts', 'gru-performance-chart'],
 
   // -------------------------------------------------------------------------
+  // Dependencies
+
+  /**
+   * @requires service:i18n
+   */
+  i18n: Ember.inject.service(),
+
+  // -------------------------------------------------------------------------
   // Events
 
   didRender: function() {
@@ -25,6 +33,13 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * Indicates if it is a teacher
+   * @property {boolean}
+   */
+  isTeacher: false,
+
   /**
    * @property {Performance} Performance summary
    */
@@ -67,6 +82,32 @@ export default Ember.Component.extend({
       this.get('performanceSummary.total') ||
       this.get('performanceSummary.completionTotal');
     return completed ? roundFloat(completed / total * 100) : 0;
+  }),
+
+  /**
+   * @property {Number} completionPercentage
+   * Computed property to calculate the completion percentage
+   */
+  tooltipText: Ember.computed('performanceSummary', 'isTeacher', function() {
+    const completed =
+      this.get('performanceSummary.totalCompleted') ||
+      this.get('performanceSummary.completionDone') ||
+      0;
+    const total =
+      this.get('performanceSummary.total') ||
+      this.get('performanceSummary.completionTotal');
+
+    const percentage = completed ? roundFloat(completed / total * 100) : 0;
+    var tooltipText = `${percentage}% ${this.get('i18n').t('common.completed')
+      .string}`;
+
+    if (this.get('isTeacher')) {
+      tooltipText = `${completed}/${total} ${this.get('i18n').t(
+        'gru-performance-chart.teacher-tooltip'
+      ).string}`;
+    }
+
+    return tooltipText;
   }),
 
   /**
