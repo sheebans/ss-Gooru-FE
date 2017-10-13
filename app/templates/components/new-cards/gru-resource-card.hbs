@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="header">
-      <div class="image">
+      <div class="image resource-data">
         {{#if externalAssessment}}
           <a href={{resource.url}}  target="_blank" class="external-assessment">
             <img class="img-responsive" src="{{resource.thumbnail}}">
@@ -39,20 +39,7 @@
             {{/if}}
           {{/if}}
         {{/if}}
-        {{#unless isRubric}}
-          {{#unless resource.isVisibleOnProfile }}
-            <div class="resource-icon-btn visibility"  title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip">
-              {{gru-icon name="visibility_off" class="visibility"}}
-            </div>
-          {{else}}
-            <div class="resource-icon-btn visibility"  title="{{t 'common.visibility-available'}}" data-toggle="tooltip">
-              {{gru-icon name="visibility" class="visibility"}}
-            </div>
-          {{/unless}}
-        {{/unless}}
-      </div>
 
-      <div class="resource-info">
         <div class="title-section">
           {{#if externalAssessment}}
             <a href={{resource.url}} target="_blank">
@@ -83,6 +70,10 @@
             {{/if}}
           {{/if}}
         </div>
+
+      </div>
+
+      <div class="resource-info {{if isRubric 'rubric-info'}}">
         {{#unless (or externalAssessment isRubric)}}
           {{#if isQuestion}}
             <div class="question-type">
@@ -94,7 +85,14 @@
             </div>
           {{/if}}
         {{/unless}}
+
+        {{#unless isRubric}}
+          <div class="resource-icon-btn visibility {{if resource.isVisibleOnProfile 'visible-icon' 'invisible-icon'}}"  title="{{t (if resource.isVisibleOnProfile 'common.visibility-available' 'common.visibility-tooltip')}}" data-toggle="tooltip">
+            {{gru-icon name="visibility" class="visibility"}}
+          </div>
+        {{/unless}}
       </div>
+
       {{#if publishVisible}}
         {{#if resource.isPublished}}
           <div class="publish-icon" title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
@@ -106,7 +104,6 @@
   <div class="panel-body">
     {{#unless externalAssessment}}
       <div class="publisher">
-        <span class="creator-label">{{t 'common.created-by'}}</span>
         {{#if showPublisher}}
           <b class="publisher-name">{{resource.publisher}}</b>
         {{else}}

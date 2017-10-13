@@ -9,7 +9,6 @@
     color: $white;
   }
   .results {
-    margin: 20px 126px;
     @include flexbox;
     @include flex-wrap(wrap);
     @include justify-content(space-around);

@@ -194,7 +194,7 @@ test('Navigate to question edit by clicking question title', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/questions');
     var $questionTitle = find(
-      '.gru-resource-card:first-of-type .resource-info .title-section h6'
+      '.gru-resource-card:first-of-type .resource-data .title-section h6'
     );
     click($questionTitle);
     andThen(function() {
@@ -220,7 +220,7 @@ test('Navigate to resource edit by clicking resource title', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/resources');
     var $resourceTitle = find(
-      '.gru-resource-card .resource-info .title-section h6'
+      '.gru-resource-card .resource-data .title-section h6'
     ).eq(0);
     click($resourceTitle);
     andThen(function() {

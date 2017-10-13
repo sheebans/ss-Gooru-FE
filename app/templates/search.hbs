@@ -28,7 +28,7 @@
         {{/link-to}}
         {{#link-to "search.questions" (query-params term=term) tagName="li" class='questions'}}
           <a href='{{view.href}}' class="btn btn-category">
-            {{gru-icon name='help_outline'}}
+            <i class="icon"></i>
             <span>{{t "search-filter.questions"}}</span>
           </a>
         {{/link-to}}
@@ -45,7 +45,7 @@
       {{search.gru-search-filter
         categories=categories
         subjects=subjects
-        categoriesPlaceholderLabelKey='common.categories'
+        categoriesPlaceholderLabelKey='common.category'
         subjectsPlaceholderLabelKey='common.standards'
         onCategorySelected='setCategory'
         onSubjectSelected='setSubject'

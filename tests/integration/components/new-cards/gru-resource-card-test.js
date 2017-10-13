@@ -45,7 +45,7 @@ test('Resource Card Layout', function(assert) {
   const $resourceCard = $component.find('.gru-resource-card');
   T.exists(
     assert,
-    $resourceCard.find('.panel-heading .header .resource-info .title-section h6.title'),
+    $resourceCard.find('.panel-heading .header .resource-data .title-section h6.title'),
     'Missing Title'
   );
   T.exists(
@@ -133,7 +133,7 @@ test('Question Card Layout', function(assert) {
   const $resourceCard = $component.find('.gru-resource-card');
   T.exists(
     assert,
-    $resourceCard.find('.panel-heading .header .resource-info .title-section h6.title'),
+    $resourceCard.find('.panel-heading .header .resource-data .title-section h6.title'),
     'Missing Title'
   );
   T.exists(
