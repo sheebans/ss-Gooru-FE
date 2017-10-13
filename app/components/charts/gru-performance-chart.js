@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { getBarGradeColor } from 'gooru-web/utils/utils';
+
 /**
  * Performance and Completion Chart
  *
@@ -12,7 +13,6 @@ import { getBarGradeColor } from 'gooru-web/utils/utils';
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
-
   classNames: ['charts', 'gru-performance-chart'],
 
   // -------------------------------------------------------------------------
@@ -49,6 +49,7 @@ export default Ember.Component.extend({
 
   /**
    * @property {Number} completionPercentage
+   * Computed property to calculate the completion percentage
    */
   completionPercentage: Ember.computed('performanceSummary', function() {
     const completed = this.get('performanceSummary.totalCompleted');

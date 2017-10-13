@@ -25,6 +25,7 @@ test('Layout', function(assert) {
     hbs`{{charts/gru-performance-chart performanceSummary=performanceSummary}}`
   );
   const $component = this.$(); //component dom element
+
   const $performanceChart = $component.find('.gru-performance-chart');
   T.exists(assert, $performanceChart, 'Missing performance chart component');
   assert.equal(
@@ -53,8 +54,8 @@ test('Layout - Full bar segment', function(assert) {
     hbs`{{charts/gru-performance-chart performanceSummary=performanceSummary}}`
   );
   const $component = this.$(); //component dom element
-  const $segmentBar = $component.find('.gru-performance-chart .segment');
 
+  const $segmentBar = $component.find('.gru-performance-chart .segment');
   T.exists(assert, $segmentBar, 'Missing segment bar');
   assert.ok($segmentBar.hasClass('full'), 'Missing full class');
 });
