@@ -98,8 +98,6 @@
     .panel {
       .panel-body {
         border-top: 1px solid $gray-lighter;
-        height: 25px;
-
         .standards {
           margin: 4px 0;
 
@@ -122,6 +120,10 @@
           span.title {
             width: 68px;
             line-height: 1.69;
+            font-style: italic;
+          }
+          .owner{
+            margin-left: 4px;
           }
         }
 
@@ -195,6 +197,13 @@
             margin-top: -5px;
             font-size: 21px;
           }
+        }
+
+      }
+      .cca-first {
+         height: 25px;
+        .visible_false{
+          color: #eee;
         }
       }
 

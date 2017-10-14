@@ -32,38 +32,42 @@
     <div class="panel-body cca-first">
       {{#if isCourse}}
         <div class="cca-icon-btn pull-left">
-          <div class="units-icon">
-            <i class="icon"> </i>
+          <div class="visibility" title="{{t 'common.unitObj.zero'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
+            {{#if (gt content.unitCount 0)}}
+              <div class="units-icon"> <i class="icon"> </i> </div>
+              <div class="unit-text"> <span>{{content.unitCount}}</span> </div>
+            {{/if}}
           </div>
-          <div class="unit-text"> <span>{{content.unitCount}}</span> </div>
         </div>
       {{/if}}
       {{#if (or isCollection isAssessment)}}
         <div class="cca-icon-btn pull-left">
-          <div class="question-icon">
-            <i class="icon"> </i>
+          <div class="visibility" title="{{t 'common.questions'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
+            {{#if (gt content.questionCount 0)}}
+              <div class="question-icon"> <i class="icon"> </i> </div>
+              <div class="unit-text"> <span>{{content.questionCount}}</span> </div>
+            {{/if}}
           </div>
-          <div class="unit-text"> <span>{{content.questionCount}}</span> </div>
         </div>
         {{#if (not isAssessment)}}
           <div class="cca-second-icon-btn pull-left">
-            <div class="resource-icon">
-              <i class="icon"> </i>
+            <div class="visibility" title="{{t 'common.resources'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
+              {{#if (gt content.resourceCount 0)}}
+                <div class="resource-icon"> <i class="icon"> </i> </div>
+                <div class="resource-text"> <span>{{content.resourceCount}}</span> </div>
+              {{/if}}
             </div>
-            <div class="resource-text"> <span>{{content.resourceCount}}</span> </div>
           </div>
         {{/if}}
       {{/if}}
-      {{#if isCourse}}
-      {{#unless content.isVisibleOnProfile }}
-      <div class="visibility course-add-btn" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
-        {{gru-icon name="visibility_off" class='pull-right cca-eye-icon'}}
-      </div>
-      {{/unless}}
+      {{#if (not content.isVisibleOnProfile)}}
+        <div class="visibility  visible_false" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+          {{gru-icon name="visibility_off" class='pull-right cca-eye-icon'}}
+        </div>
       {{else}}
-        <div class="visibility course-add-btn" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+        <div class="visibility" title="{{t 'common.visibility-available'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
           {{gru-icon name="visibility" class='pull-right cca-eye-icon'}}
-      </div>
+        </div>
       {{/if}}
     </div>
   {{/if}}
@@ -103,7 +107,7 @@
           <div class="cca-standards">
             <div class="standards ">
               {{#if tags.length}}
-                {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=2 isInCard=true showDescription=true}}
+                {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true showDescription=true}}
               {{/if}}
             </div>
           </div>
@@ -119,7 +123,7 @@
       <div class="panel-body cca-standards">
         <div class="standards ">
           {{#if tags.length}}
-            {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=2 isInCard=true showDescription=true}}
+            {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true showDescription=true}}
           {{/if}}
         </div>
       </div>

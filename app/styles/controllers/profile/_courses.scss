@@ -71,6 +71,10 @@
           span.title {
             width: 76px;
             line-height: 1.69;
+            font-style: italic;
+          }
+          .owner {
+            margin-left: 4px;
           }
         }
 
@@ -83,6 +87,10 @@
           line-height: 1.15;
           text-align: left;
           color: $gray;
+          .truncate {
+            -webkit-line-clamp: 2;
+          }
+
         }
 
         .cca-icon-btn {
@@ -99,6 +107,16 @@
           .unit-text {
             margin-left: 43px;
           }
+        }
+        .visibility {
+          .cca-eye-icon {
+            margin-top: 2px;
+          }
+        }
+      }
+      .cca-first {
+        .visible_false{
+          color: #eee;
         }
       }
 
@@ -135,7 +153,7 @@
             display: block;
 
             > a {
-              color: #4c4c4c;
+              color: $blue-400;
               display: block;
               margin-top: 7px;
             }
@@ -157,6 +175,7 @@
         -webkit-box-direction: normal;
         -webkit-flex-direction: column;
         -ms-flex-direction: column;
+        -webkit-line-clamp: 2;
         flex-direction: column;
         -webkit-box-pack: justify;
         -ms-flex-pack: justify;
@@ -164,7 +183,7 @@
         justify-content: space-between;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
-        height: 97px;
+        height: 81px;
         padding-bottom: 2px;
       }
 
