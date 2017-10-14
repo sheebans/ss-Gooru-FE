@@ -85,8 +85,8 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * @property {Number} completionPercentage
-   * Computed property to calculate the completion percentage
+   * @property {Number} tooltipText
+   * Computed property to show the tooltipText
    */
   tooltipText: Ember.computed('performanceSummary', 'isTeacher', function() {
     const completed =
