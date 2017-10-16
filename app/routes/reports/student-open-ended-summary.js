@@ -142,6 +142,7 @@ export default Ember.Route.extend({
       'questionText',
       model.question.get('description') || model.question.get('title')
     );
+    controller.set('questionThumbnail', model.question.get('thumbnail'));
     controller.set('question', model.question);
     controller.set('rubric', model.question.get('rubric'));
     controller.set('questionSummary', model.summary);

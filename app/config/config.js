@@ -36,7 +36,8 @@ export const DEFAULT_IMAGES = {
   RUBRIC: 'assets/gooru/rubric-default.png',
   COLLECTION: 'assets/gooru/collection-default.png',
   ASSESSMENT: 'assets/gooru/assessment-default.png',
-  QUESTION_PLACEHOLDER_IMAGE: 'assets/gooru/question-placeholder-image.png'
+  QUESTION_PLACEHOLDER_IMAGE: 'assets/gooru/question-placeholder-image.png',
+  LOADER_IMAGE: '/assets/gooru/loader.jpg'
 };
 
 export const K12_CATEGORY = {
