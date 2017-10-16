@@ -1072,7 +1072,7 @@ export default Ember.Component.extend({
                 .set('performanceData', arrayComplete);
             }
           }
-        }, 2000);
+        }, 1000 * countCols);
         if (countCols === 0) {
           var lessonValObj = temp.get('subColumns').findBy('id', lessonObj.id);
           if (lessonValObj !== undefined) {
