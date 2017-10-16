@@ -11,8 +11,10 @@
       <thead>
         <tr class="headers">
           <th class=" header htFixed fix"></th>
-          <th class="header htFixed fix2" scope="col">
-            {{t "class.analytics.performance.teacher.metricsTable.average"}}
+          <th class="header htFixed fix2 row" scope="col">
+            <div class="{{if isExpanded 'textcenteringsub' 'textcentering'}}">
+            <span class="text-center textinsidecenterdiv">{{t "class.analytics.performance.teacher.metricsTable.average"}}</span>
+            </div>
           </th>
           {{#each headers as |header index|}}
              {{#if (eq header.collectionType 'collection')}}
@@ -31,10 +33,10 @@
                 </th>
             {{else}} 
             {{#if header.showSub}}
-                <th colspan="{{header.colspanval}}">
+                <th class="bordersolid" colspan="{{header.colspanval}}">
                    <div class="header-title pull-left">
                         <div class="column">
-                            <div class="titlenew" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{header.title}}}</div>
+                            <div class="titlenew textAlignment" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{header.title}}}</div>
                           {{#if header.showAssessments}}
                            <div class="text-newprimary pointer" {{action 'showlessons' index}}>{{t "common.showlessons"}}</div>
                            {{else}}
@@ -143,7 +145,7 @@
         </tr> 
          <tr class="average">
           <th class="header backgroundclraverage fix" scope="row">
-             <span class="class-average marginleftavgtitle">
+             <span class="class-average marginleftavgtitle ">
                {{t "class.analytics.performance.teacher.metricsTable.class-average"}}
              </span>
           </th>
@@ -176,11 +178,11 @@
             <tr>
                {{#if (is-even index)}}
                 <th class="header user-info fix backgroundfixed backgroundfixedodd" scope="row">
-                <span>{{{userPerformance.user}}}</span>
+                <span class="textAlignment">{{{userPerformance.user}}}</span>
               </th>
                {{else}}
                 <th class="header user-info fix backgroundfixed backgroundfixedeven" scope="row">
-                <span>{{{userPerformance.user}}}</span>
+                <span class="textAlignment">{{{userPerformance.user}}}</span>
               </th>
                {{/if}}
               {{#each userPerformance.performanceData as |data index|}}

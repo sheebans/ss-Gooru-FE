@@ -311,6 +311,11 @@ export default Ember.Component.extend({
    */
   isLoading: false,
   /**
+   * List of selected options from the data picker.
+   * @property {Boolean}
+   */
+  isExpanded: false,
+  /**
    * Query param, filterBy selected
    * @property {String}
    */
@@ -458,6 +463,7 @@ export default Ember.Component.extend({
           this.removeexpandedUnit();
           this.set('filterBy', this.get('filterBy'));
           this.set('tempUnitId', temp.get('id'));
+          this.set('isExpanded', true);
           this.set('tempheaders', this.get('headers'));
           this.expandLesson(temp.get('id'), index);
           Ember.set(temp, 'showSub', true);
@@ -467,6 +473,7 @@ export default Ember.Component.extend({
       } else {
         this.set('filterBy', this.get('filterBy'));
         this.set('tempUnitId', temp.get('id'));
+        this.set('isExpanded', true);
         this.set('tempheaders', this.get('headers'));
         this.expandLesson(temp.get('id'), index);
         Ember.set(temp, 'showSub', true);
@@ -498,6 +505,7 @@ export default Ember.Component.extend({
       var inxArr = [];
       component.removeexpandedUnit();
       component.set('tempUnitId', null);
+      this.set('isExpanded', false);
       component.set('tempheaders', null);
       Ember.set(temp, 'showSub', false);
       component

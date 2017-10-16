@@ -78,6 +78,10 @@
       margin-left: -210px;
       z-index: 9999;
     }
+    .textAlignment {
+      text-align: left;
+      margin-left: 15px;
+    }
 
     .loading:not(:required):after {
       content: "";
@@ -192,6 +196,12 @@
       float: right;
       margin-left: -115px;
       margin-right: 60px;
+    }
+    .bordersolid {
+      border: none !important;
+      border-bottom: 2px solid $light-300 !important;
+      border-left: 2px solid $light-300 !important;
+      border-right: 2px solid $light-300 !important;
     }
     .timeMargin {
       margin-top: -23px;
@@ -342,7 +352,7 @@
       text-overflow: ellipsis;
       border: 0;
       border-right: 1px solid $light-300;
-      padding: 2px;
+      padding: 0px;
       vertical-align: middle !important;
       text-align: center;
       div:last-child {
@@ -422,6 +432,32 @@
       position: relative;
       border-top: 3px solid $dark-400;
       border-radius: 5px !important;
+    }
+    .textcentering {
+      display: table !important;
+      overflow: hidden !important;
+      top: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      margin: auto !important;
+      width: 50% !important;
+      height: 35% !important;
+    }
+    .textcenteringsub {
+      display: table !important;
+      overflow: hidden !important;
+      top: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      margin: auto !important;
+      width: 50% !important;
+      height: 62% !important;
+    }
+    .textinsidecenterdiv {
+      display: table-cell !important;
+      vertical-align: middle !important;
     }
     .inner {
       overflow-x: scroll;
