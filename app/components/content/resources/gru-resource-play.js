@@ -136,5 +136,19 @@ export default Ember.Component.extend(ProtocolMixin, {
         $windowHeight - $mainHeaderHeight - $componentHeaderHeight - 7
       );
     }
-  }
+  },
+
+  /**
+  * Check it can be render inside player or not
+  * @property {boolean}
+  */
+
+  isLinkOut: Ember.computed('resource', function() {
+    let currentProtocol = this.get('currentProtocol');
+    let resourceProtocol = this.get('resourceProtocol');
+    if (currentProtocol === 'https:' && resourceProtocol === 'http:') {
+      return true;
+    }
+    return false;
+  })
 });
