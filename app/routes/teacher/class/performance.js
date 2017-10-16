@@ -79,28 +79,29 @@ export default Ember.Route.extend({
     navigateToReport: function(performance, userPerformance) {
       if (!performance.get('isAverage')) {
         const route = this;
-
         const queryParams = {
           collectionId: performance.get('id'),
           userId: userPerformance.get('userId'),
           type: performance.get('collectionType'),
           role: 'teacher',
           classId: route.get('controller.class.id'),
-          unitId: route.get('controller.unit.id'),
-          lessonId: route.get('controller.lesson.id'),
-          courseId: route.get('controller.course.id')
+          unitId: performance.get('unitId'),
+          lessonId: performance.get('lessonId'),
+          courseId: route.get('controller.course.id'),
+          backUrl: route.router.get('url')
         };
-
-        const reportController = route.controllerFor(
-          'reports.student-collection-analytics'
-        );
-
-        var currentUrl = route.router.get('url');
-        reportController.set('backUrl', currentUrl);
         route.transitionTo('reports.student-collection-analytics', {
           queryParams: queryParams
         });
       }
+    },
+    navigateToAssessmentReport: function(unitId, lessonId, collectionId) {
+      this.transitionTo(
+        'teacher.class.collection',
+        unitId,
+        lessonId,
+        collectionId
+      );
     }
   },
 

@@ -333,6 +333,7 @@ export default Object.assign(quizzesTranslations, {
         'Please use Google signin. We can\'t reset your password.'
     },
     'essential-questions': 'Essential Questions',
+    example: 'example: ',
     exit: 'Exit',
     explanation: 'Explanation',
     explore: 'Explore',
@@ -1823,7 +1824,7 @@ export default Object.assign(quizzesTranslations, {
   featured: {
     'featured-title': 'Featured Courses',
     'featured-description':
-      'Gooru’s featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! Click here to  <a href=\'http://about.gooru.org/courses\' target=\'_blank\'>learn more</a> about the development of these courses.'
+      'Featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! Click here to  <a href=\'http://about.gooru.org/courses\' target=\'_blank\'>learn more</a> about the development of these courses.'
   },
 
   'taxonomy.modals': {
@@ -2322,17 +2323,19 @@ export default Object.assign(quizzesTranslations, {
       'category-feedback':
         'ex. As you are reviewing this category, pay careful attention to the author’s purpose.',
       'gru-scoring-levels': {
-        '0': 'ex. Exceeding Proficiency',
-        '1': 'ex. Meeting Proficiency',
-        '2': 'ex. Approaching Proficiency',
-        '3': 'ex. Beginning Proficiency',
-        '4': 'ex. No Evidence of Proficiency',
+        '0': 'example: Exceeding Proficiency',
+        '1': 'example: Meeting Proficiency',
+        '2': 'example: Approaching Proficiency',
+        '3': 'example: Beginning Proficiency',
+        '4': 'example: No Evidence of Proficiency',
         best: 'Best',
         levels: 'Level',
         'new-level': 'Add New Level',
         scoring: 'Scoring',
         worst: 'Worst',
-        error: 'Please enter the values for the levels'
+        'name-error': 'Please enter the level title.',
+        'score-error': 'Please enter the score value.',
+        'no-levels-error': 'Please set a value for at least one level.'
       }
     }
   },

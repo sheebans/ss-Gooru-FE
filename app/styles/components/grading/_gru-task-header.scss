@@ -20,9 +20,14 @@
     }
     .question-text {
       padding: 10px;
-      margin-bottom: 0px;
+      margin-bottom: 0;
       .title {
         font-size: $font-size-large;
+      }
+      img.prompt-thumbnail {
+        max-width: 125px;
+        max-height: 150px;
+        margin: 10px 0 0;
       }
     }
   }
