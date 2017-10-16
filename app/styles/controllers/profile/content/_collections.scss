@@ -50,8 +50,6 @@
     .panel {
       .panel-body {
         border-top: 1px solid $gray-lighter;
-        height: 25px;
-
         .standards {
           margin: 4px 0;
 
@@ -74,6 +72,10 @@
           span.title {
             width: 68px;
             line-height: 1.69;
+            font-style: italic;
+          }
+          .owner {
+            margin-left: 4px;
           }
         }
 
@@ -90,7 +92,7 @@
             line-height: 1.5;
             text-align: left;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -144,11 +146,18 @@
           .cca-eye-icon {
             height: 13px;
             width: 13px;
-            margin-top: -5px;
+            margin-top: -3px;
             font-size: 21px;
           }
         }
       }
+      .cca-first {
+        height: 25px;
+        .visible_false{
+          color: #eee;
+        }
+      }
+
 
       .panel-footer {
         .actions {
@@ -180,10 +189,8 @@
             width: auto;
             text-align: center;
             display: block;
-
-            > a {
-              color: #4c4c4c;
-              display: block;
+            .play-btn {
+              color: $blue-400;
             }
 
             .course-mode-edit > i {
@@ -212,7 +219,7 @@
         justify-content: space-between;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
-        height: 126px;
+        height: 143px;;
         padding-bottom: 2px;
       }
 

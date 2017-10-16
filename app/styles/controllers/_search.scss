@@ -191,6 +191,10 @@
           span.title {
             width: 76px;
             line-height: 1.69;
+            font-style: italic;
+          }
+          .owner{
+            margin-left: 4px;
           }
         }
 
@@ -203,9 +207,13 @@
           line-height: 1.15;
           text-align: left;
           color: $gray;
+          .truncate {
+            -webkit-line-clamp: 2;
+          }
         }
 
         .cca-icon-btn {
+           cursor:auto;
           .units-icon {
             float: left;
             margin-top: 5px;
@@ -259,12 +267,6 @@
             text-align: center;
             display: block;
 
-            > a {
-              color: #4c4c4c;
-              display: block;
-              margin-top: 7px;
-            }
-
             .course-mode-edit > i {
               font-size: 21px;
             }
@@ -292,7 +294,7 @@
         justify-content: space-between;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
-        height: 97px;
+        height: 81px;
         padding-bottom: 2px;
       }
 

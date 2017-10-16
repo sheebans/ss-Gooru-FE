@@ -50,8 +50,6 @@
     .panel {
       .panel-body {
         border-top: 1px solid $gray-lighter;
-        height: 24px;
-
         .standards {
           margin: 4px 0;
 
@@ -69,11 +67,14 @@
             }
           }
         }
-
-        .remixed-by {
+        .author {
           span.title {
             width: 68px;
             line-height: 1.69;
+            font-style: italic;
+          }
+          .owner {
+              margin-left: 6px;
           }
         }
 
@@ -124,9 +125,15 @@
          .cca-eye-icon {
             height: 13px;
             width: 13px;
-            margin-top: -5px;
+            margin-top: -3px;
             font-size: 21px;
           }
+        }
+      }
+      .cca-first {
+        height: 25px;
+        .visible_false{
+          color: #eee;
         }
       }
 
@@ -160,12 +167,9 @@
             width: auto;
             text-align: center;
             display: block;
-
-            > a {
-              color: #4c4c4c;
-              display: block;
+            .play-btn {
+              color: $blue-400;
             }
-
             .course-mode-edit > i {
               font-size: 21px;
             }
