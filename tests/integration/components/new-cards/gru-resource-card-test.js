@@ -88,10 +88,10 @@ test('Resource Card Layout', function(assert) {
     $resourceCard.find('.panel-footer a.edit-btn'),
     'Edit Button should not be visible'
   );
-  T.notExists(
+  T.exists(
     assert,
     $resourceCard.find('.panel-footer a.play-btn'),
-    'Play Button should not be visible'
+    'Missing Play button'
   );
   T.exists(
     assert,
@@ -166,10 +166,10 @@ test('Question Card Layout', function(assert) {
     $resourceCard.find('.panel-body .description p'),
     'Missing Description'
   );
-  T.exists(
+  T.notExists(
     assert,
     $resourceCard.find('.panel-footer a.copy-btn'),
-    'Copy To Button Missing'
+    'Remix button should not be visible'
   );
   T.exists(
     assert,
@@ -186,10 +186,10 @@ test('Question Card Layout', function(assert) {
     $resourceCard.find('.panel-footer a.edit-btn'),
     'Edit Button should not be visible'
   );
-  T.notExists(
+  T.exists(
     assert,
     $resourceCard.find('.panel-footer a.play-btn'),
-    'Play Button should not be visible'
+    'Missing play button'
   );
 });
 

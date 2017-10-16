@@ -76,17 +76,17 @@
       <div class="resource-info {{if isRubric 'rubric-info'}}">
         {{#unless (or externalAssessment isRubric)}}
           {{#if isQuestion}}
-            <div class="question-type">
+            <div class="question-type {{if isSearch 'search-type-position'}}">
               <span>{{t (concat "common.question-type." resource.type)}}</span>
             </div>
           {{else}}
-            <div class="resource-type">
+            <div class="resource-type {{if isSearch 'search-type-position'}}">
               <span>{{t (concat "common.resource-format." resource.format)}}</span>
             </div>
           {{/if}}
         {{/unless}}
 
-        {{#unless isRubric}}
+        {{#unless (or isRubric isSearch)}}
           <div class="resource-icon-btn visibility {{if resource.isVisibleOnProfile 'visible-icon' 'invisible-icon'}}"  title="{{t (if resource.isVisibleOnProfile 'common.visibility-available' 'common.visibility-tooltip')}}" data-toggle="tooltip">
             {{gru-icon name="visibility" class="visibility"}}
           </div>
@@ -139,25 +139,25 @@
     {{else}}
       <div class="buttons">
         {{#if isQuestion}}
-          {{#if remixEnabled}}
+          {{#if (and remixEnabled profile.isTeacher)}}
             <div class="remix-btn">
               <a class="copy-btn" {{action "remixQuestion"}}>{{gru-icon name="content_copy"}}{{t "common.remix"}}</a>
             </div>
           {{/if}}
         {{/if}}
+        {{#unless (or isRubric isTeacherSearch)}}
+          <div class="resource-icon-btn play" title="Play" data-toggle="tooltip">
+            <a {{action "playResource"}} class="play-btn">{{gru-icon name="play_arrow"}}</a>
+          </div>
+        {{/unless}}
         {{#if editEnabled }}
-          {{#unless isRubric}}
-            <div class="resource-icon-btn play" title="Play" data-toggle="tooltip">
-              <a {{action "playResource"}} class="play-btn">{{gru-icon name="play_arrow"}}</a>
-            </div>
-          {{/unless}}
           <div class="resource-icon-btn {{if isRubric 'rubric-edit'}} {{if remixEnabled 'edit-with-copy' 'edit'}}" title="Edit" data-toggle="tooltip">
             <a {{action "editResource"}} class="edit-btn resource-mode-edit">{{gru-icon name="mode_edit"}}</a>
           </div>
         {{/if}}
         {{#unless editEnabled}}
           {{#unless isOnProfile}}
-            <div class="resource-icon-btn {{if (and isQuestion remixEnabled) 'share-with-copy' 'share'}}" title={{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">
+            <div class="resource-icon-btn {{if (and profile.isTeacher remixEnabled isQuestion) 'share-with-copy' 'share'}}" title={{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">
               {{#gru-share-pop-over tagName="a"  class="share-btn no-bgd" type=(if isQuestion 'question' 'resource') contentId=resource.id}}
                 {{gru-icon name="share"}}
               {{/gru-share-pop-over}}
