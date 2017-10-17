@@ -138,14 +138,16 @@
       </div>
     {{else}}
       <div class="buttons">
-        {{#if isQuestion}}
-          {{#if (and remixEnabled profile.isTeacher)}}
-            <div class="remix-btn">
-              <a class="copy-btn" {{action "remixQuestion"}}>{{gru-icon name="content_copy"}}{{t "common.remix"}}</a>
-            </div>
+        {{#unless isStudentSearch}}
+          {{#if isQuestion}}
+            {{#if remixEnabled}}
+              <div class="remix-btn {{if session.isAnonymous 'remix-anonymous'}}">
+                <a class="copy-btn" {{action "remixQuestion"}}>{{gru-icon name="content_copy"}}{{t "common.remix"}}</a>
+              </div>
+            {{/if}}
           {{/if}}
-        {{/if}}
-        {{#unless (or isRubric isTeacherSearch)}}
+        {{/unless}}
+        {{#unless (or isRubric session.isAnonymous isTeacherSearch)}}
           <div class="resource-icon-btn play" title="Play" data-toggle="tooltip">
             <a {{action "playResource"}} class="play-btn">{{gru-icon name="play_arrow"}}</a>
           </div>
@@ -157,14 +159,14 @@
         {{/if}}
         {{#unless editEnabled}}
           {{#unless isOnProfile}}
-            <div class="resource-icon-btn {{if (and profile.isTeacher remixEnabled isQuestion) 'share-with-copy' 'share'}}" title={{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">
+            <div class="resource-icon-btn {{if (and isQuestion session.isAnonymous) 'share-anonymous'}} {{if isRemixAndShareEnabled 'share-with-copy' 'share'}}" title={{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">
               {{#gru-share-pop-over tagName="a"  class="share-btn no-bgd" type=(if isQuestion 'question' 'resource') contentId=resource.id}}
                 {{gru-icon name="share"}}
               {{/gru-share-pop-over}}
             </div>
           {{/unless}}
         {{/unless}}
-        {{#unless isRubric}}
+        {{#unless (or isRubric isStudentSearch)}}
           {{#if addEnabled}}
             <div class="resource-icon-btn add" title="Add to" data-toggle="tooltip">
               <a {{action "addToCollection"}} class="add-to-btn">{{gru-icon name="add"}}</a>

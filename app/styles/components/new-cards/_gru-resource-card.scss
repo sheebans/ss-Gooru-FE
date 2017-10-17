@@ -146,7 +146,7 @@
           height: 24px;
           margin: 1px 0 0 0;
         }
-        .visible-icon > i{
+        .visible-icon > i {
           color: $gray-dove;
         }
         .invisible-icon > i {
@@ -251,6 +251,9 @@
             }
           }
         }
+        .remix-anonymous {
+          margin-right: 0px !important;
+        }
         .resource-icon-btn {
           padding: 10px 15px;
           border-right: solid 1px $gray-ultra-light;
@@ -311,7 +314,10 @@
                 color: $dark-400;
               }
             }
-         }
+          }
+          &.share-anonymous {
+            margin-left: 54px !important;
+          }
           :hover {
             background-color: $white;
           }
