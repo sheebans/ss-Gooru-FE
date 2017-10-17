@@ -197,12 +197,6 @@
       margin-left: -115px;
       margin-right: 60px;
     }
-    .bordersolid {
-      border: none !important;
-      border-bottom: 2px solid $light-300 !important;
-      border-left: 2px solid $light-300 !important;
-      border-right: 2px solid $light-300 !important;
-    }
     .timeMargin {
       margin-top: -23px;
     }
@@ -233,14 +227,14 @@
         td {
           background-color: $dark-300;
           color: $white;
-          border-right: 1px dashed $light-300;
+          border-right: 0.5px solid $light-300;
           &:first-child {
             border-right: 0;
           }
         }
       }
       .backgroundclraverage {
-        background-color: $light-300 !important;
+        background-color: #dddddd !important;
       }
       .headers {
         td,
@@ -248,7 +242,7 @@
           background-color: $dark-400;
         }
         > td {
-          border-top: 15px dashed $dark-400 !important;
+          border-top: 15px solid $dark-400 !important;
           border-radius: 5px 0 0 0;
           top: 10px;
           height: 54px !important;
@@ -289,13 +283,13 @@
         th,
         td {
           height: 26px;
-          border-top: 1px dashed;
+          border-top: 0.5px solid $light-300;
         }
       }
       .average {
         th {
           background-color: $white;
-          border-bottom: 2px dashed $light-300;
+          border-bottom: 2px solid $light-300;
           color: $gray;
           height: 50px;
           .class-average {
@@ -305,7 +299,7 @@
         .header {
           @include flexbox;
           @include align-items(center);
-          border-left: 1px dashed $light-300;
+          border-left: 1px solid $light-300;
         }
       }
     }
@@ -337,7 +331,7 @@
           @include text-overflow();
         }
         &.header.fixed {
-          border-left: 1px dashed $light-300;
+          border-left: 1px solid $light-300;
         }
       }
     }
@@ -459,7 +453,7 @@
       display: table-cell !important;
       vertical-align: middle !important;
     }
-    .inner {
+    ƒ .inner {
       overflow-x: scroll;
       overflow-y: visible;
       width: 400px;

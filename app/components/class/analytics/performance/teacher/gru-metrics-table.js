@@ -841,7 +841,8 @@ export default Ember.Component.extend({
                   classId,
                   members,
                   temp,
-                  unitIndex
+                  unitIndex,
+                  lessons.length
                 );
               }, 500 * lessonIndex);
             });
@@ -859,7 +860,8 @@ export default Ember.Component.extend({
     classId,
     members,
     temp,
-    unitIndex
+    unitIndex,
+    lessonLen
   ) {
     const component = this;
     component
@@ -1072,7 +1074,7 @@ export default Ember.Component.extend({
                 .set('performanceData', arrayComplete);
             }
           }
-        }, 1000 * countCols);
+        }, 500 * lessonLen);
         if (countCols === 0) {
           var lessonValObj = temp.get('subColumns').findBy('id', lessonObj.id);
           if (lessonValObj !== undefined) {
