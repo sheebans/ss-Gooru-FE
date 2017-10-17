@@ -9,6 +9,10 @@
     overflow-x: auto;
     padding-bottom: 1px;
     margin-left: 321px;
+    overflow-y: hidden;
+  }
+  .borderradius {
+    border-radius: 4px 0px;
   }
 
   .table {
@@ -413,13 +417,20 @@
     .fix {
       position: absolute;
       *position: relative; /*ie7*/
-      margin-left: -320px;
+      margin-left: -320px !important;
       width: 160px;
+    }
+    .lsntxtalignment {
+      text-align: left;
+      padding-left: 7px;
+    }
+    .unttxtalignment {
+      padding-left: 7px;
     }
     .fix2 {
       position: absolute;
       *position: relative; /*ie7*/
-      margin-left: -160px;
+      margin-left: -160px !important;
       width: 160px;
     }
     .outer {

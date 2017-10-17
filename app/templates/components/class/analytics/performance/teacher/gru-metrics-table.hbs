@@ -11,7 +11,7 @@
     {{/if}}   
       <thead>
         <tr class="headers">
-          <th class=" header htFixed fix"></th>
+          <th class=" header htFixed fix borderradius"></th>
           <th class="header htFixed fix2 row" scope="col">
             <div class="{{if isExpanded 'textcenteringsub' 'textcentering'}}">
             <span class="text-center textinsidecenterdiv">{{t "class.analytics.performance.teacher.metricsTable.average"}}</span>
@@ -27,7 +27,7 @@
                             {{else}}
                                 <div class="prefix">{{{course-sections-prefix index=index type=headerType longName=false}}}</div>
                             {{/if}}
-                              <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=header.title maxLength=14 suffix=true}}}</div>
+                              <div class="title unttxtalignment" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=header.title maxLength=23 suffix=true}}}</div>
                         </div>
                         <div class="small-icon">{{gru-icon "play_arrow"}}</div>
                     </div>
@@ -37,7 +37,7 @@
                 <th colspan="{{header.colspanval}}">
                    <div class="header-title pull-left">
                         <div class="column">
-                            <div class="titlenew textAlignment" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{header.title}}}</div>
+                            <div class="titlenew textAlignment lsntxtalignment" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{header.title}}}</div>
                           {{#if header.showAssessments}}
                            <div class="text-newprimary pointer" {{action 'showlessons' index}}>{{t "common.showlessons"}}</div>
                            {{else}}
@@ -61,7 +61,7 @@
                     <th id="{{{subHeader.id}}}" class="header headerbgcolor pointer" scope="col">
                     <div class="header-title">
                         <div class="column">
-                            <div class="title" title="{{subHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subHeader.title maxLength=14 suffix=true}}}</div>
+                            <div class="title lsntxtalignment" title="{{subHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subHeader.title maxLength=23 suffix=true}}}</div>
                         </div>
                     </div>
                     {{#each subHeader.subsubColumns as |subsubHeader index|}}
@@ -70,7 +70,7 @@
                     <th id="{{{subsubHeader.id}}}" class="header headerbgcolor subsubwidthmax" scope="col">
                     <div class="header-title">
                         <div class="column">
-                            <div class="title" title="{{subsubHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subsubHeader.title maxLength=14 suffix=true}}}</div>
+                            <div class="title lsntxtalignment" title="{{subsubHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subsubHeader.title maxLength=23 suffix=true}}}</div>
                         </div>
                     </div>
                 </th>
@@ -78,7 +78,7 @@
                     <th id="{{{subsubHeader.id}}}" class="header headerbgcolor pointer subsubwidthmax" {{action 'navigateToCollection' header.id subHeader.id subsubHeader.id}} scope="col">
                     <div class="header-title">
                         <div class="column">
-                            <div class="title" title="{{subsubHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subsubHeader.title maxLength=14 suffix=true}}}</div>
+                            <div class="title lsntxtalignment" title="{{subsubHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subsubHeader.title maxLength=23 suffix=true}}}</div>
                         </div>
                     </div>
                     </th>
@@ -90,7 +90,7 @@
                     <th id="{{{subHeader.id}}}" class="header pointer headerbgcolor" scope="col">
                     <div class="header-title">
                         <div class="column">
-                            <div class="title" title="{{subHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subHeader.title maxLength=14 suffix=true}}}</div>
+                            <div class="title lsntxtalignment" title="{{subHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subHeader.title maxLength=23 suffix=true}}}</div>
                         </div>
                     </div>
                     </th>
@@ -102,7 +102,7 @@
                 <th id="{{{header.id}}}"  class="header pointer" scope="col">
                     <div class="header-title">
                         <div class="column">
-                            <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=header.title maxLength=14 suffix=true}}}</div>
+                            <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=header.title maxLength=23 suffix=true}}}</div>
                         </div>
                           </div>
                         {{#if header.showSub}}
