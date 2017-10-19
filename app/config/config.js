@@ -108,8 +108,6 @@ export const EMOTION_VALUES = [
   { value: 1, unicode: '1f625' }
 ];
 
-export const DISABLED_EMOTION_UNICODE = '1f64d';
-
 // unicode values for the correct and incorrect svg files
 export const FEEDBACK_EMOTION_VALUES = {
   CORRECT: '1f44d',
@@ -154,7 +152,7 @@ export const OPEN_ENDED_COLOR = '#0072BC'; //blue-400
 
 export const NO_ANSWER_COLOR = '#FFFFFF'; //white
 
-export const STUDY_PLAYER_BAR_COLOR = '#CDD2D6'; //$light-300
+export const STUDY_PLAYER_BAR_COLOR = '#0072BC'; //blue-400
 
 export const COMPLETION_CLASS_BAR_COLOR = '#535e67'; //$dark-300
 

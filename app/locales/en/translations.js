@@ -2392,6 +2392,8 @@ export default Object.assign(quizzesTranslations, {
     'resources-assessment-report': 'Assessment summary report',
     'check-summary': 'Check your summary report',
     'check-usage': 'Check your usage report',
+    'no-suggestions':
+      'We\'re working on the best suggestions to support your learning',
     resource: {
       zero: 'Resource',
       one: 'Resource',
