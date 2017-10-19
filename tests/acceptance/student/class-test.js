@@ -67,8 +67,18 @@ test('Layout', function(assert) {
     const $courseName = $classroomInformation.find('.course-name');
     T.exists(assert, $courseName, 'Missing course name');
 
-    const $unitsCount = $classroomInformation.find('.units-count');
-    T.exists(assert, $unitsCount, 'Missing units count');
+    const $countsContainer = $classroomInformation.find('.counts-container');
+    T.exists(assert, $countsContainer, 'Missing counts container');
+    assert.equal(
+      $countsContainer.find('.count').length,
+      2,
+      'Wrong number of counts'
+    );
+
+    const $teacherProfile = $classroomInformation.find('.teacher-profile');
+    T.exists(assert, $teacherProfile, 'Missing teacher profile info');
+    T.exists(assert, $teacherProfile.find('img'), 'Missing owner avatar');
+    T.exists(assert, $teacherProfile.find('.owner-name'), 'Missing owner name');
 
     const $taxonomyStandards = $classroomInformation.find(
       '.taxonomy-standards'
@@ -79,13 +89,8 @@ test('Layout', function(assert) {
       'Missing taxonomy standards container'
     );
 
-    const $teacherProfile = $classroomInformation.find('.teacher-profile');
-    T.exists(assert, $teacherProfile, 'Missing teacher profile info');
-    T.exists(assert, $teacherProfile.find('img'), 'Missing owner avatar');
-    T.exists(assert, $teacherProfile.find('.owner-name'), 'Missing owner name');
-
-    const $studentsCount = $classroomInformation.find('.students-count');
-    T.exists(assert, $studentsCount, 'Missing students count');
+    const $classCode = $classroomInformation.find('.class-code');
+    T.exists(assert, $classCode, 'Missing class code container');
 
     const $performanceContainer = $classroomInformation.find(
       '.performance-container'
