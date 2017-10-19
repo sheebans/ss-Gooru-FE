@@ -52,7 +52,7 @@ test('Verifying collections.player.showReportLink feature default value', functi
     const $playerContainer = find('.qz-player');
     T.exists(
       assert,
-      $playerContainer.find('.qz-aside .qz-navigator .see-usage-report'),
+      $playerContainer.find('.qz-player-footer .usage-report'),
       'Missing see report link'
     );
   });
@@ -72,7 +72,7 @@ test('Verifying collections.player.showCollectionName feature default value', fu
     const $playerContainer = find('.qz-player');
     T.exists(
       assert,
-      $playerContainer.find('.qz-aside .qz-navigator .navigator-subheader'),
+      $playerContainer.find('.qz-aside .qz-navigator .collection'),
       'Missing see collection name'
     );
   });

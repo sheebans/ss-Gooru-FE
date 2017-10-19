@@ -173,12 +173,6 @@ span.validation.warning {
     height: 100%;
     pointer-events: none;
   }
-  &:hover {
-    @include scale(1.25);
-  }
-  &.active {
-    @include scale(1.4);
-  }
 }
 
 .ellipsis {
@@ -407,7 +401,7 @@ span.validation.warning {
         i {
           background: url("gooru/images/navigation_question_selected.svg")
             no-repeat;
-            background-size: contain;
+          background-size: contain;
         }
       }
     }

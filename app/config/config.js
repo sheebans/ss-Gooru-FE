@@ -154,7 +154,7 @@ export const OPEN_ENDED_COLOR = '#0072BC'; //blue-400
 
 export const NO_ANSWER_COLOR = '#FFFFFF'; //white
 
-export const STUDY_PLAYER_BAR_COLOR = '#CDD2D6'; //$light-300
+export const STUDY_PLAYER_BAR_COLOR = '#0072BC'; //blue-400
 
 export const COMPLETION_CLASS_BAR_COLOR = '#535e67'; //$dark-300
 

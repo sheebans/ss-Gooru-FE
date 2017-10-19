@@ -46,31 +46,7 @@ test('Layout', function(assert) {
     const $playerHeader = find('.gru-study-header');
     T.exists(assert, $playerHeader, 'Missing study player header');
 
-    const $resources = $playerHeader.find('.resources');
-    T.notExists(
-      assert,
-      $resources.find('.count-resources'),
-      'Should not show resource count'
-    );
-    T.exists(
-      assert,
-      $resources.find('.btn-back'),
-      'Missing back to collection button'
-    );
-
-    const $suggestions = $playerHeader.find('.suggestions');
-    T.notExists(
-      assert,
-      $suggestions.find('.suggested-resources'),
-      'Should not show suggested resources'
-    );
-    T.exists(
-      assert,
-      $suggestions.find('.resource-title'),
-      'Missing resource title'
-    );
-
-    const $playerContainer = find('.resource-player .qz-resource-viewer');
+    const $playerContainer = find('.player .qz-resource-viewer');
     T.exists(
       assert,
       $playerContainer,
