@@ -801,6 +801,8 @@ export default Object.assign(quizzesTranslations, {
       },
       join: {
         title: 'Join a new Classroom',
+        content: 'Where the journey begins.',
+        'not-now': 'Not now',
         'class-code-input': 'Enter a classroom code',
         'class-not-found':
           'Classroom not found. Make sure you\'ve entered the correct classroom code',
