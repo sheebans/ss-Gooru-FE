@@ -154,7 +154,10 @@
 
           &.assessment {
             i {
-              background: url("gooru/images/navigation_assessment_selected.svg");
+              -webkit-mask-image: url("gooru/images/navigation_assessment.svg");
+              mask-image: url("gooru/images/navigation_assessment.svg");
+              background-image: none;
+              background-color: $white;
             }
           }
         }

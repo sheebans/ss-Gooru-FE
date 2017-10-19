@@ -2,9 +2,7 @@ import Ember from 'ember';
 import {
   ANONYMOUS_COLOR,
   STUDY_PLAYER_BAR_COLOR,
-  NU_COURSE_VERSION,
-  EMOTION_VALUES,
-  DISABLED_EMOTION_UNICODE
+  NU_COURSE_VERSION
 } from 'gooru-web/config/config';
 
 /**
@@ -51,40 +49,6 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-    /**
-     * Emotion react widget display will set to visible.
-     */
-    openReactPicker() {
-      this.set('showReactPicker', true);
-    },
-    /**
-     * Emotion react widget display will set to hidden.
-     */
-    onCloseReactPicker() {
-      this.set('showReactPicker', false);
-    },
-    /**
-     * This will get triggered when react got choosen from the widget.
-     * @param  {Number} It has the choosen reaction.
-     */
-    onChooseReaction(value) {
-      this.sendAction('onChooseReaction', value);
-      this.set('showReactPicker', false);
-      this.set('ratingScore', value);
-      let emotion = EMOTION_VALUES.findBy('value', this.get('ratingScore'));
-      let selectedUnicode = emotion
-        ? emotion.unicode
-        : DISABLED_EMOTION_UNICODE;
-      this.set('selectedUnicode', selectedUnicode);
-    },
-    /**
-     * This will set the toggle property value of suggest widget.
-     * @return {[type]} [description]
-     */
-    openSuggestResource() {
-      this.toggleProperty('showSuggestBox');
-    },
-
     /**
      * Action triggered when a suggested resource is clicked
      */
@@ -256,28 +220,10 @@ export default Ember.Component.extend({
   isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
 
   /**
-   * property will have the rating score.
-   * @property {Number}
-   */
-  ratingScore: 0,
-
-  /**
    * This property will decide to show the suggested resoure or not.
    * @property {Boolean}
    */
   hasSuggestedResources: false,
-
-  /**
-   * This property will decide to show the reaction picker  or not.
-   * @property {Boolean}
-   */
-  showReactPicker: false,
-
-  /**
-   * This property will decide to show the suggest widget or not
-   * @type {Boolean}
-   */
-  showSuggestBox: false,
 
   // -------------------------------------------------------------------------
   // Methods
