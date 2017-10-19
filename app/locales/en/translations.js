@@ -1481,11 +1481,16 @@ export default Object.assign(quizzesTranslations, {
       MC: 'Multiple Choice',
       FIB: 'Fill in the Blank',
       'T/F': 'True / False',
+      TOF: 'True or False',
       MA: 'Multiple Answer',
       HS_TXT: 'Multiple Select - Text',
+      HSTXT: 'Multiple Select Text',
       HS_IMG: 'Multiple Select - Image',
+      HSIMG: 'Multiple Select Image',
       HT_RO: 'Drag and Drop Order',
+      'HT&RO': 'Drag & Drop Order',
       HT_HL: 'Hot Text- Highlight',
+      'H-THL': 'Hot-Text Highlight',
       OE: 'Free Response'
     },
     author: {

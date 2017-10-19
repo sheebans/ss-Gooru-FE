@@ -1,14 +1,82 @@
+//Resource type icon hover and selected
+$bg-icon-size: 20px 18px;
+.video-selected {
+  .icon {
+    background: url("gooru/images/video-resource-dark.svg") no-repeat;
+    width: 25px;
+    background-size: $bg-icon-size;
+  }
+}
+.text-selected {
+  .icon {
+    background: url("gooru/images/text-resource-dark.svg") no-repeat;
+    width: 25px;
+    background-size: $bg-icon-size;
+  }
+}
+.audio-selected {
+  .icon {
+    background: url("gooru/images/audio-resource-dark.svg") no-repeat;
+    width: 25px;
+    background-size: $bg-icon-size;
+  }
+}
+.website-selected {
+  .icon {
+    background: url("gooru/images/website-resource-dark.svg") no-repeat;
+    width: 25px;
+    background-size: $bg-icon-size;
+  }
+}
+.interactive-selected {
+  .icon {
+    background: url("gooru/images/interactive-resource-dark.svg") no-repeat;
+    width: 25px;
+    background-size: $bg-icon-size;
+  }
+}
+.image-selected {
+  .icon {
+    background: url("gooru/images/image-resource-dark.svg") no-repeat;
+    width: 25px;
+    background-size: $bg-icon-size;
+  }
+}
+
+.option-icons-dark {
+  &.video {
+    @extend .video-selected;
+  }
+  &.web-page {
+    @extend .website-selected;
+  }
+  &.interactive {
+    @extend .interactive-selected;
+  }
+  &.image {
+    @extend .image-selected;
+  }
+
+  &.text {
+    @extend .text-selected;
+  }
+  &.audio {
+    @extend .audio-selected;
+  }
+}
+
 .search {
   .gru-resource-options {
-    $optionsHeightXS: 70px;
-    $optionsHeightSM: 53px;
+    $optionsHeightXS: 56px;
+    $optionsHeightSM: 40px;
     padding: 0;
     width: 100vw;
     .options {
       display: block;
       height: $optionsHeightXS;
-      background-color: $light-100;
-      margin-left: -15px;
+      background-color: $white;
+      max-width: 960px;
+      margin-top: 10px;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.20);
       text-align: center;
       padding: 0 0 0 3%;
@@ -28,33 +96,31 @@
           height: $optionsHeightSM;
         }
         li {
-          margin: 0 20px;
+          margin: 0 29px 0 0;
           text-align: left;
           width: 118px;
           @media (max-width: $screen-xs-max) {
             margin: 0 5px;
           }
           .btn-option {
-            color: $green-300;
+            color: $gray-light;
             padding: 0 5px;
-            border-radius: 0;
-            border-bottom: $light-100 3px solid;
             height: $optionsHeightXS;
-            background-color: $light-100;
+            background-color: $white;
             display: table-cell;
             span {
               vertical-align: middle;
               display: inline-block;
-              font-size: $font-size-h6;
+              font-size: 13px;
               i {
-                font-size: $font-size-h5;
+                font-size: 13px;
                 line-height: 26px;
               }
               &.icon-container {
                 height: 30px;
                 margin: 3px 2px 0 0;
                 .icon {
-                  background-size: 25px 20px;
+                  background-size: 20px 18px;
                   height: 20px;
                 }
               }
@@ -71,45 +137,50 @@
               height: $optionsHeightSM;
             }
           }
+          .btn-option:hover {
+            color: $gray-shaft;
+            @extend .option-icons-dark;
+          }
           .btn-option.selected {
-            border-bottom-color: $green-300;
+            color: $gray-shaft;
+            @extend .option-icons-dark;
           }
           .video {
             .icon {
-              background: url(gooru/images/video-resource-green.svg) no-repeat;
+              background: url("gooru/images/video-resource.svg") no-repeat;
               width: 25px;
             }
           }
           .web-page {
             .icon {
-              background: url("gooru/images/website-resource-green.svg")
+              background: url("gooru/images/website-resource.svg")
                 no-repeat;
               width: 25px;
             }
           }
           .interactive {
             .icon {
-              background: url("gooru/images/interactive-resource-green.svg")
+              background: url("gooru/images/interactive-resource.svg")
                 no-repeat;
               width: 26px;
             }
           }
           .image {
             .icon {
-              background: url("gooru/images/image-resource-green.svg") no-repeat;
+              background: url("gooru/images/image-resource.svg") no-repeat;
               width: 25px;
             }
           }
 
           .text {
             .icon {
-              background: url("gooru/images/text-resource-green.svg") no-repeat;
+              background: url("gooru/images/text-resource.svg") no-repeat;
               width: 25px;
             }
           }
           .audio {
             .icon {
-              background: url("gooru/images/audio-resource-green.svg") no-repeat;
+              background: url("gooru/images/audio-resource.svg") no-repeat;
               width: 26px;
             }
           }

@@ -1,15 +1,15 @@
 .search {
   .gru-question-options {
-    $optionsHeightXS: 70px;
-    $optionsHeightSM: 53px;
+    $optionsHeightXS: 56px;
+    $optionsHeightSM: 40px;
 
     .options {
-      background-color: $light-100;
+      background-color: $white;
       box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, .2);
       display: block;
       height: $optionsHeightXS;
       text-align: center;
-
+      margin-top: 10px;
       @media (min-width: $screen-sm) {
         height: $optionsHeightSM;
       }
@@ -31,31 +31,41 @@
         li {
           display: table;
           margin: 0 0.7em;
-          @media (min-width: $screen-sm) {
-            margin: 0 0.5em;
+          @media (min-width: $screen-md) {
+            margin: 0 16px 0 0;
+          }
+          @media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+            margin: 0;
+          }
+          @media (max-width: $screen-xs-max) {
+            margin: 0;
+            padding: 0;
           }
           .btn-option {
-            color: $green-300;
+            color: $gray-light;
             margin: 0 3px;
             border-radius: 0;
-            border-bottom: $light-100 3px solid;
             height: $optionsHeightXS;
-            background-color: $light-100;
+            background-color: $white;
             display: table-cell;
             @media (min-width: $screen-sm) {
               padding: 0 0.5em;
               height: $optionsHeightSM;
               max-width: 116px;
             }
+            @media (max-width: $screen-xs-max) {
+              margin: 0;
+              padding: 0;
+            }
             &.true-false {
               .text {
-                width: 75px;
+                width: 73px;
               }
             }
             span {
               vertical-align: middle;
               display: inline-block;
-              font-size: $font-size-h6;
+              font-size: 13px;
               &.icon {
                 margin: 0 5px 0 0;
               }
@@ -75,8 +85,11 @@
               }
             }
           }
+          .btn-option:hover {
+            color: $gray-shaft;
+          }
           .btn-option.selected {
-            border-bottom-color: $green-300;
+            color: $gray-shaft;
           }
           .multiple-choice {
             .text {
@@ -134,7 +147,7 @@
           }
           .ht-reorder {
             .text {
-              width: 65px;
+              width: 74px;
             }
             .icon {
               background: url("gooru/images/navigation_ht_reorder.svg");
@@ -155,7 +168,7 @@
           .hs-text {
             max-width: 142px;
             .text {
-              width: 93px;
+              width: 85px;
             }
             .icon {
               background: url("gooru/images/navigation_hs_text.svg");
@@ -166,7 +179,7 @@
           .hs-images {
             max-width: 142px;
             .text {
-              width: 93px;
+              width: 85px;
             }
             .icon {
               background: url("gooru/images/navigation_hs_images.svg");

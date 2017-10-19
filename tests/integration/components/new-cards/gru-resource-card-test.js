@@ -45,7 +45,9 @@ test('Resource Card Layout', function(assert) {
   const $resourceCard = $component.find('.gru-resource-card');
   T.exists(
     assert,
-    $resourceCard.find('.panel-heading .header .resource-info .title-section h6.title'),
+    $resourceCard.find(
+      '.panel-heading .header .resource-data .title-section h6.title'
+    ),
     'Missing Title'
   );
   T.exists(
@@ -88,10 +90,10 @@ test('Resource Card Layout', function(assert) {
     $resourceCard.find('.panel-footer a.edit-btn'),
     'Edit Button should not be visible'
   );
-  T.notExists(
+  T.exists(
     assert,
     $resourceCard.find('.panel-footer a.play-btn'),
-    'Play Button should not be visible'
+    'Missing Play button'
   );
   T.exists(
     assert,
@@ -133,7 +135,9 @@ test('Question Card Layout', function(assert) {
   const $resourceCard = $component.find('.gru-resource-card');
   T.exists(
     assert,
-    $resourceCard.find('.panel-heading .header .resource-info .title-section h6.title'),
+    $resourceCard.find(
+      '.panel-heading .header .resource-data .title-section h6.title'
+    ),
     'Missing Title'
   );
   T.exists(
@@ -169,7 +173,7 @@ test('Question Card Layout', function(assert) {
   T.exists(
     assert,
     $resourceCard.find('.panel-footer a.copy-btn'),
-    'Copy To Button Missing'
+    'Missing remix button'
   );
   T.exists(
     assert,
@@ -186,10 +190,10 @@ test('Question Card Layout', function(assert) {
     $resourceCard.find('.panel-footer a.edit-btn'),
     'Edit Button should not be visible'
   );
-  T.notExists(
+  T.exists(
     assert,
     $resourceCard.find('.panel-footer a.play-btn'),
-    'Play Button should not be visible'
+    'Missing play button'
   );
 });
 

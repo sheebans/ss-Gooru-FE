@@ -1,11 +1,13 @@
 .controller.search {
   display: block;
   padding: 0;
+  max-width: 960px;
+  margin: auto;
   div.content-navigation {
-    background-color: $dark-400;
-    height: 51px;
-    padding: 0;
+    height: 55px;
+    padding: 1px 0 0 0;
     margin: 0;
+    border-bottom: 2px solid $gray-light;
     @include flexbox;
     div.category-menu {
       height: inherit;
@@ -13,18 +15,25 @@
         @include flexbox;
         @include justify-content(space-between);
         li {
-          a {
-            span {
-              font-size: 12px;
-              @media (min-width: $screen-md) {
-                font-size: 14px;
+          &.active {
+            border-bottom: 4px solid $gray-darker;
+            a {
+              box-shadow: none !important;
+              -webkit-box-shadow: none !important;
+              span , i{
+                color: $gray-darker;
               }
             }
-            @media (min-width: $screen-sm-max) {
-              padding: 0 7px;
+          }
+
+          a {
+            margin-top: 9px;
+            @media (max-width: $screen-xs-max) {
+              margin-top: 4px;
             }
-            @media (min-width: $screen-md-max) {
-              padding: 0 20px;
+            span {
+              font-size: 16px;
+              color: $light-500;
             }
           }
           &.rubrics .btn-category {
@@ -41,6 +50,12 @@
           @media (min-width: $screen-md-max) {
             margin: 0 10px;
           }
+        }
+        li:hover {
+          > a > span {
+            color: $gray-darker;
+          }
+          border-bottom: 4px solid $gray-darker;
         }
         @media (max-width: $screen-xs) {
           overflow: hidden;
@@ -68,16 +83,19 @@
       div {
         display: inherit;
         align-self: center;
+        margin-top: 7px;
+        margin-right: -2px;
       }
       .taxonomy {
         button.selected-category,
         button.selected-subject {
+          background-color: $blue-400;
           max-width: 80px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
           @media (min-width: $screen-md-min) {
-            max-width: 105px;
+            max-width: 89px;
           }
         }
         .btn-group {
@@ -91,11 +109,7 @@
 
     .gru-category-picker .btn,
     .gru-subject-picker .btn {
-      background-color: $green-300;
-
-      &.dropdown-toggle {
-        margin-left: 1px;
-      }
+      background-color: $blue-300;
     }
   }
 
