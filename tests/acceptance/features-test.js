@@ -58,7 +58,7 @@ test('Verifying collections.player.showReportLink feature default value', functi
   });
 });
 
-test('Verifying collections.player.showCollectionName feature default value', function(
+test('Verifying collections.player showCollectionName feature default value', function(
   assert
 ) {
   visit('/player/all-resource-types-collection-id?type=collection');
