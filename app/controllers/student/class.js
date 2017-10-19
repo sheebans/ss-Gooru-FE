@@ -70,6 +70,16 @@ export default Ember.Controller.extend({
    */
   isNUCourse: null,
 
+  /**
+   * @property {boolean} Indicates if course has 1 or more units
+   */
+  hasUnits: Ember.computed.gt('course.unitCount', 0),
+
+  /**
+   * @property {boolean} Indicates if class has 1 or more students
+   */
+  hasStudents: Ember.computed.gt('class.countMembers', 0),
+
   // -------------------------------------------------------------------------
   // Methods
 
