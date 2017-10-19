@@ -138,41 +138,45 @@
       </div>
     {{else}}
       <div class="buttons">
-        {{#unless isStudentSearch}}
-          {{#if isQuestion}}
-            {{#if remixEnabled}}
-              <div class="remix-btn {{if session.isAnonymous 'remix-anonymous'}}">
-                <a class="copy-btn" {{action "remixQuestion"}}>{{gru-icon name="content_copy"}}{{t "common.remix"}}</a>
-              </div>
+        <div class="left-btns">
+          {{#unless isStudentSearch}}
+            {{#if isQuestion}}
+              {{#if remixEnabled}}
+                <div class="remix-btn {{if session.isAnonymous 'remix-anonymous'}}">
+                  <a class="copy-btn" {{action "remixQuestion"}}>{{gru-icon name="content_copy"}}{{t "common.remix"}}</a>
+                </div>
+              {{/if}}
             {{/if}}
-          {{/if}}
-        {{/unless}}
-        {{#unless (or isRubric session.isAnonymous isTeacherSearch)}}
-          <div class="resource-icon-btn play" title="Play" data-toggle="tooltip">
-            <a {{action "playResource"}} class="play-btn">{{gru-icon name="play_arrow"}}</a>
-          </div>
-        {{/unless}}
-        {{#if editEnabled }}
-          <div class="resource-icon-btn {{if isRubric 'rubric-edit'}} {{if remixEnabled 'edit-with-copy' 'edit'}}" title="Edit" data-toggle="tooltip">
-            <a {{action "editResource"}} class="edit-btn resource-mode-edit">{{gru-icon name="mode_edit"}}</a>
-          </div>
-        {{/if}}
-        {{#unless editEnabled}}
-          {{#unless isOnProfile}}
-            <div class="resource-icon-btn {{if (and isQuestion session.isAnonymous) 'share-anonymous'}} {{if isRemixAndShareEnabled 'share-with-copy' 'share'}}" title={{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">
-              {{#gru-share-pop-over tagName="a"  class="share-btn no-bgd" type=(if isQuestion 'question' 'resource') contentId=resource.id}}
-                {{gru-icon name="share"}}
-              {{/gru-share-pop-over}}
+          {{/unless}}
+          {{#unless (or isRubric session.isAnonymous isTeacherSearch)}}
+            <div class="resource-icon-btn play" title="Play" data-toggle="tooltip">
+              <a {{action "playResource"}} class="play-btn">{{gru-icon name="play_arrow"}}</a>
             </div>
           {{/unless}}
-        {{/unless}}
-        {{#unless (or isRubric isStudentSearch)}}
-          {{#if addEnabled}}
-            <div class="resource-icon-btn add" title="Add to" data-toggle="tooltip">
-              <a {{action "addToCollection"}} class="add-to-btn">{{gru-icon name="add"}}</a>
+        </div>
+        <div class="right-btns">
+          {{#unless (or isRubric isStudentSearch)}}
+            {{#if addEnabled}}
+              <div class="resource-icon-btn add" title="Add to" data-toggle="tooltip">
+                <a {{action "addToCollection"}} class="add-to-btn">{{gru-icon name="add"}}</a>
+              </div>
+            {{/if}}
+          {{/unless}}
+          {{#if editEnabled }}
+            <div class="resource-icon-btn {{if remixEnabled 'edit-with-copy' 'edit'}}" title="Edit" data-toggle="tooltip">
+              <a {{action "editResource"}} class="edit-btn resource-mode-edit">{{gru-icon name="mode_edit"}}</a>
             </div>
           {{/if}}
-        {{/unless}}
+          {{#unless editEnabled}}
+            {{#unless isOnProfile}}
+              <div class="resource-icon-btn share" title={{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">
+                {{#gru-share-pop-over tagName="a"  class="share-btn no-bgd" type=(if isQuestion 'question' 'resource') contentId=resource.id}}
+                  {{gru-icon name="share"}}
+                {{/gru-share-pop-over}}
+              </div>
+            {{/unless}}
+          {{/unless}}
+        </div>
       </div>
     {{/if}}
   </div>

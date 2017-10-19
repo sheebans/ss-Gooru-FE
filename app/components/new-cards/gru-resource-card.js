@@ -203,23 +203,5 @@ export default Ember.Component.extend(ModalMixin, {
       return true;
     }
     return false;
-  }),
-
-  /**
-  * Indicates if the remxi and share buttons are enabled
-  * @property {boolean} isRemixAndShareEnabled
-  */
-  isRemixAndShareEnabled: Ember.computed(function() {
-    let isRemixEnabled = this.get('remixEnabled');
-    let isQuestion = this.get('isQuestion');
-    let isAnonymous = this.get('session.isAnonymous');
-    let isTeacherSearch = this.get('isTeacherSearch');
-    if (
-      (isRemixEnabled && isQuestion && isAnonymous) ||
-      (isQuestion && isTeacherSearch)
-    ) {
-      return true;
-    }
-    return false;
   })
 });

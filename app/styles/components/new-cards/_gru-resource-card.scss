@@ -232,12 +232,20 @@
       padding: 0px !important;
       .buttons {
         display: -webkit-flex;
+        .left-btns {
+          width: 50%;
+        }
+        .right-btns {
+          width: 50%;
+          .resource-icon-btn {
+            float: right;
+          }
+        }
         .remix-btn {
           background-color: $blue-400;
           height: 43px;
           width: 74px;
           display: flex;
-          margin-right: 54px;
           border-bottom-left-radius: 5px;
           a {
             color: $white;
@@ -258,6 +266,7 @@
           padding: 10px 15px;
           border-right: solid 1px $gray-ultra-light;
           width: 45px;
+          height: 43px;
           text-align: center;
           display: block;
           > a {
@@ -266,7 +275,6 @@
           }
           &.edit {
             border-left: solid 1px $gray-ultra-light;
-            margin-left: 84px;
             i {
               margin-left: -4px;
             }
@@ -278,9 +286,6 @@
               margin-left: -4px;
             }
           }
-          &.rubric-edit {
-            margin-left: 174px !important;
-          }
           &.add {
             border: none;
             i {
@@ -289,7 +294,6 @@
             }
           }
           &.share {
-            margin-left: 129px;
             border-left: solid 1px $gray-ultra-light;
             a {
               text-decoration: none;
@@ -314,9 +318,6 @@
                 color: $dark-400;
               }
             }
-          }
-          &.share-anonymous {
-            margin-left: 54px !important;
           }
           :hover {
             background-color: $white;

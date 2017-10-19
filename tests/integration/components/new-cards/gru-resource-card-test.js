@@ -45,7 +45,9 @@ test('Resource Card Layout', function(assert) {
   const $resourceCard = $component.find('.gru-resource-card');
   T.exists(
     assert,
-    $resourceCard.find('.panel-heading .header .resource-data .title-section h6.title'),
+    $resourceCard.find(
+      '.panel-heading .header .resource-data .title-section h6.title'
+    ),
     'Missing Title'
   );
   T.exists(
@@ -133,7 +135,9 @@ test('Question Card Layout', function(assert) {
   const $resourceCard = $component.find('.gru-resource-card');
   T.exists(
     assert,
-    $resourceCard.find('.panel-heading .header .resource-data .title-section h6.title'),
+    $resourceCard.find(
+      '.panel-heading .header .resource-data .title-section h6.title'
+    ),
     'Missing Title'
   );
   T.exists(
@@ -166,10 +170,10 @@ test('Question Card Layout', function(assert) {
     $resourceCard.find('.panel-body .description p'),
     'Missing Description'
   );
-  T.notExists(
+  T.exists(
     assert,
     $resourceCard.find('.panel-footer a.copy-btn'),
-    'Remix button should not be visible'
+    'Missing remix button'
   );
   T.exists(
     assert,
