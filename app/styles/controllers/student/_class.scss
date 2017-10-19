@@ -51,7 +51,7 @@
         .counts-container {
           padding: 6px 0 0;
           margin: 0 0 0 5px;
-          width: 4%;
+          width: 6%;
           .count {
             height: 20px;
             margin: 2px 0 0;
@@ -67,7 +67,7 @@
           }
         }
         .teacher-profile {
-          margin: 0 0 0 50px;
+          margin: 0 0 0 40px;
           width: 16%;
           img {
             border-radius: 50px;
@@ -110,8 +110,6 @@
           text-align: right;
           width: 7%;
           div {
-            font-size: $font-size-small;
-            font-weight: bold;
             line-height: 1;
             text-transform: uppercase;
             color: $dark-400;
@@ -122,6 +120,8 @@
               font-weight: normal;
             }
             &.code {
+              font-size: $font-size-small;
+              font-weight: bold;
               margin: 3px 0 0;
             }
           }
