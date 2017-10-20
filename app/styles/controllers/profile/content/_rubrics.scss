@@ -3,10 +3,9 @@
   .rubrics {
     @include flexbox;
     @include flex-wrap(wrap);
-    @include justify-content(center);
+    @include justify-content(left);
 
     .card {
-      margin: 12px 12px;
       float: left;
     }
   }
