@@ -3,7 +3,7 @@
   .questions {
     @include flexbox;
     @include flex-wrap(wrap);
-    @include justify-content(center);
+    @include justify-content(left);
     .card {
       margin-bottom: 2em;
       float: left;
