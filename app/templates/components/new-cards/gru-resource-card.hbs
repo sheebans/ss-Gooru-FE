@@ -62,7 +62,7 @@
                   {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h6" class="title truncate pointer" alt=resource.title}}{{{resource.title}}}{{/link-to}}
                 {{/if}}
               {{/if}}
-              {{#unless publishVisible}}
+              {{#unless (or publishVisible isSearch)}}
                 {{#if resource.isPublished}}
                   <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
                 {{/if}}
