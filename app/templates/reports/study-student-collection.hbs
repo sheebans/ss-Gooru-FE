@@ -40,13 +40,23 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="description">{{t 'gru-suggest-test.no-suggestions'}}</div>
-            <div class="actions right">
+            <!-- <div class="actions right">
               <button class="btn btn-primary btn-next" {{action 'next'}}>{{t 'common.next'}}</button>
-            </div>
+            </div> -->
           </div>
         </div>
       {{/if}}
     </div>
   {{/if}}
-  {{reports.qz-student-report attemptData=attemptData}}
+  <div class="summary-reset">
+    {{reports.qz-student-report attemptData=attemptData}}
+  </div>
+
+  <div class="actions right summary-report-next">
+  {{#if isDone}}
+    {{#link-to 'student.class.course-map' classId class="btn btn-primary btn-exit" tagName='button' }} {{t 'common.exit'}} {{/link-to}}
+  {{else}}
+    <button class="btn btn-primary btn-next" {{action 'next'}}>{{t 'common.next'}}</button>
+  {{/if}}
+</div>
 </div>

@@ -1,6 +1,6 @@
 .reports_study-student-collection {
-  overflow: auto;
-  height: 100vh;
+  // overflow: auto;
+  // height: 100vh;
   .app-container {
     padding: 0;
   }
@@ -29,12 +29,12 @@
       }
     }
     .suggestion-panel {
-      padding: 20px 20px;
+      padding: 20px 180px;
       @media (min-width: $screen-sm) {
-        padding: 20px 10px;
+        padding: 20px 180px;
       }
       @media (min-width: $screen-md) {
-        padding: 20px 50px;
+        padding: 20px 180px;
       }
       .player.gru-suggest-test {
         width: 100%;
@@ -58,7 +58,21 @@
       }
     }
     .qz-assessment-report {
-      padding-top: 0;
+      // padding-top: 0;
+      padding: 0px 180px 0px;
+
+      .qz-assessment-summary {
+        background: $white;
+      }
+    }
+    .summary-report-next {
+      padding: 0px 190px 0px;
+      margin: 20px 0 0 auto;
+      .btn-next {
+        width: 71px;
+        height: 36px;
+        border-radius: 3px;
+      }
     }
   }
 }
