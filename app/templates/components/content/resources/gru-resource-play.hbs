@@ -42,9 +42,15 @@
   {{#if (and (not isVideo) (not sameProtocol))}}
     <div class="panel panel-default placeholder {{if resourceComponent 'preview'}}">
       <div class="panel-body">
-        <div class="external-https">
-          {{new-cards.gru-resource-card resource=resource addEnabled=false}}
-        </div>
+        {{#if (eq resource.format 'image')}}
+          {{player.resources.gru-image-resource resource=resource}}
+          {{else if (eq resource.format 'text')}}
+          {{player.resources.gru-pdf-resource resource=resource}}
+          {{else if (eq resource.format 'webpage')}}
+          <div class="external-https">
+            {{cards.gru-resource-card resource=resource addEnabled=false isLinkOut=true}}
+          </div>
+        {{/if}}
       </div>
     </div>
   {{else}}
