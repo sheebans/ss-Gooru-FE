@@ -40,6 +40,12 @@
             height: 100%;
             width: 89px;
           }
+          .no-course-image {
+            background: url("gooru/course-default-medium.png");
+            background-size: 90px 60px;
+            width: 89px;
+            height: 60px;
+          }
         }
         .course-name {
           $line-height: 1.4;

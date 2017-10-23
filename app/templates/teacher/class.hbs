@@ -18,10 +18,14 @@
     <div class="panel panel-default panel-primary classroom-information">
       <div class="panel-body">
         <div class="course-image pull-left">
-          <img src="{{course.thumbnailUrl}}"/>
+          {{#if course.thumbnailUrl}}
+            <img src="{{course.thumbnailUrl}}"/>
+          {{else}}
+            <div class="no-course-image"></div>
+          {{/if}}
         </div>
         <div class="course-name pull-left">
-          {{#if course}}
+          {{#if course.title}}
             {{{truncate text=course.title maxLength=50}}}
           {{else}}
             {{t 'student-landing.class.no-course'}}
@@ -66,7 +70,7 @@
           {{gru-copy-value value=class.code tooltipCode="teacher-landing.class.click-to-copy"}}
         </div>
         <div class="performance-container pull-right">
-          {{charts/gru-performance-chart performanceSummary=class.performanceSummary}}
+          {{charts/gru-performance-chart performanceSummary=class.performanceSummary routeToGo="teacher.class.performance" classId=class.id}}
         </div>
       </div>
     </div>
