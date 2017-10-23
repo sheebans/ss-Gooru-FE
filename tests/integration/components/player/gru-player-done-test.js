@@ -15,6 +15,4 @@ test('Layot', function(assert) {
 
   const $component = this.$();
   T.exists(assert, $component.find('.description'), 'Missing description');
-  T.exists(assert, $component.find('.actions'), 'Missing actions');
-  T.exists(assert, $component.find('button.btn-exit'), 'Missing exit button');
 });
