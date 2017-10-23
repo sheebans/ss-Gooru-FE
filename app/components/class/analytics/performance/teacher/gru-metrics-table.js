@@ -882,6 +882,10 @@ export default Ember.Component.extend({
         var array1 = [];
         var array2 = [];
         var arrayComplete = [];
+        var timerConst = 2000;
+        if (lessonLen > 3) {
+          timerConst = 500 * lessonLen;
+        }
         var tempVal = 0;
         if (lessonIndex === 0) {
           component.set('averageHeaderstempAssessment', []);
@@ -1074,7 +1078,7 @@ export default Ember.Component.extend({
                 .set('performanceData', arrayComplete);
             }
           }
-        }, 500 * lessonLen);
+        }, timerConst);
         if (countCols === 0) {
           var lessonValObj = temp.get('subColumns').findBy('id', lessonObj.id);
           if (lessonValObj !== undefined) {
