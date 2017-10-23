@@ -27,5 +27,17 @@ export default Ember.Component.extend(ProtocolMixin, {
   /**
    * @property {string} Resource URL
    */
-  url: Ember.computed.alias('resource.url')
+  url: Ember.computed.alias('resource.url'),
+
+  /**
+  * @property {boolean} isLinkOut check whether it can be render inside iframe or not
+  */
+  isLinkOut: Ember.computed('resource', function() {
+    let currentProtocol = this.get('currentProtocol');
+    let resourceProtocol = this.get('resourceProtocol');
+    if (currentProtocol === 'https:' && resourceProtocol === 'http:') {
+      return true;
+    }
+    return false;
+  })
 });
