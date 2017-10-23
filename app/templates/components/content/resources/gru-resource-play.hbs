@@ -39,22 +39,7 @@
 </header>
 
 <section>
-  {{#if (and (not isVideo) (not sameProtocol))}}
-    <div class="panel panel-default placeholder {{if resourceComponent 'preview'}}">
-      <div class="panel-body">
-        {{#if (eq resource.format 'image')}}
-          {{player.resources.gru-image-resource resource=resource}}
-          {{else if (eq resource.format 'text')}}
-          {{player.resources.gru-pdf-resource resource=resource}}
-          {{else if (eq resource.format 'webpage')}}
-          <div class="external-https">
-            {{cards.gru-resource-card resource=resource addEnabled=false isLinkOut=true}}
-          </div>
-        {{/if}}
-      </div>
-    </div>
-  {{else}}
-    {{#if isNotIframeUrl}}
+    {{#if (or isNotIframeUrl isLinkOut)}}
       <div class="panel panel-default not-iframe">
         <div class="panel-header">
           <p class="title">
@@ -79,5 +64,4 @@
     {{else}}
       {{component resourceComponent resource=playerResource calculatedResourceContentHeight=calculatedResourceContentHeight}}
     {{/if}}
-  {{/if}}
 </section>
