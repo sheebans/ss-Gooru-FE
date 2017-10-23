@@ -1066,6 +1066,8 @@ export default Object.assign(quizzesTranslations, {
     'my-study': 'My Study',
     'no-classrooms':
       'You have not yet joined any classrooms. Click on “Join </br> Classroom” to add your teacher’s class. You can also search for </br> a featured course under the Library tab.',
+    'no-content-classrooms':
+      'This classroom currently has no content available',
     welcome: 'Welcome to Gooru.'
   },
   'teacher-landing': {

@@ -13,16 +13,23 @@
   <div class="info">
     {{#if (or model.assessmentCount model.collectionCount)}}
       <div class="content-count">
-        {{#if model.assessmentCount}}
-          <span class="assessment-count"><i class="icon"></i><span>{{model.assessmentCount}}</span></span>
-        {{/if}}
         {{#if model.collectionCount}}
-          <span class="collection-count"><i class="icon"></i><span>{{model.collectionCount}}</span></span>
+          <span class="collection-count">
+            <i class="icon" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.collections"}}"></i>
+            <span>{{model.collectionCount}}</span>
+          </span>
+        {{/if}}
+        {{#if model.assessmentCount}}
+          <span class="assessment-count">
+            <i class="icon" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessments"}}"></i>
+            <span>{{model.assessmentCount}}</span>
+          </span>
         {{/if}}
       </div>
     {{/if}}
     <div class="play-btn">
-      <button class="btn btn-info study-now" disabled={{if studyNowDisabled 'true' ''}} {{action "studyNow" 'lesson' model}}>
+      <button class="btn btn-info study-now" disabled={{if studyNowDisabled 'true' ''}} {{action "studyNow" 'lesson' model}}
+        data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.play"}}">
         {{gru-icon name='play_arrow'}}
       </button>
     </div>
@@ -63,7 +70,8 @@
                 <div class="info">
                     {{#if (eq activeElement item.id)}}
                       <div class="play-btn">
-                        <button class="btn btn-info study-now" disabled={{if item.visible '' 'true'}} {{action "studyNow" 'resource' item}}>
+                        <button class="btn btn-info study-now" disabled={{if item.visible '' 'true'}} {{action "studyNow" 'resource' item}}
+                          data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.play"}}">
                           {{gru-icon name='play_arrow'}}<span>{{t 'common.study'}}</span>
                         </button>
                       </div>
@@ -138,15 +146,18 @@
                   <div class="content-count">
                     {{#if item.isAssessment}}
                       {{#if item.questionCount}}
-                        <span>{{gru-icon name='help_outline'}}<span>{{item.questionCount}}</span></span>
+                        <span data-toggle="tooltip" data-html="true" data-placement="top"
+                              title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span><span>{{item.questionCount}}</span>
                       {{/if}}
                     {{else}}
                       {{#if (or item.questionCount item.resourceCount)}}
                         {{#if item.resourceCount}}
-                          <span>{{gru-icon name='local_library'}}<span>{{item.resourceCount}}</span></span>
+                          <span data-toggle="tooltip" data-html="true" data-placement="top"
+                                title="{{t "common.resources"}}">{{gru-icon name='local_library'}}</span><span>{{item.resourceCount}}</span>
                         {{/if}}
                         {{#if item.questionCount}}
-                          <span>{{gru-icon name='help_outline'}}<span>{{item.questionCount}}</span></span>
+                          <span data-toggle="tooltip" data-html="true" data-placement="top"
+                                title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span><span>{{item.questionCount}}</span>
                         {{/if}}
                       {{/if}}
                     {{/if}}
@@ -175,7 +186,8 @@
                     </div>
                   {{else}}
                     <div class="play-btn">
-                      <button class="btn btn-info study-now" disabled={{if item.visible '' 'true'}} {{action "studyNow" 'collection' item}}>
+                      <button class="btn btn-info study-now" disabled={{if item.visible '' 'true'}} {{action "studyNow" 'collection' item}}
+                        data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.play"}}">
                         {{gru-icon name='play_arrow'}}
                       </button>
                     </div>

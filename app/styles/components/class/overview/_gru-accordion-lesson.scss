@@ -72,6 +72,7 @@
             vertical-align: middle;
             color: $light-200;
             font-size: $font-unBookmark;
+            cursor: default;
           }
           &.question-count {
             i.icon {
@@ -83,6 +84,7 @@
             }
           }
           &.assessment-count {
+            margin: 0 0 0 15px;
             i.icon {
               background: url("gooru/images/navigation_assessment.svg");
               -webkit-background-size: 25px 25px;
@@ -92,7 +94,6 @@
             }
           }
           &.collection-count {
-            margin: 0 0 0 15px;
             i.icon {
               background: url("gooru/images/navigation_collection.svg");
               -webkit-background-size: 25px 25px;
@@ -306,11 +307,10 @@
         .panel-title {
           width: 70%;
           float: left;
-          padding: 0;
           height: inherit;
-          color: $dark-400;
-          font-weight: 300;
-          font-size: $font-size-lead;
+          color: $gray;
+          padding: 0;
+          font-size: $font-size-large;
           .collection-controls {
             height: 100%;
             text-align: center;
@@ -349,7 +349,7 @@
           .title {
             vertical-align: middle;
             margin: 0;
-            padding: 0 0 0 5px;
+            padding: 5px 0 0 5px;
             max-width: 75%;
             .type {
               color: $light-500;
@@ -388,6 +388,7 @@
                 vertical-align: middle;
                 color: $light-200;
                 font-size: $font-unBookmark;
+                cursor: default;
               }
               &.question-count {
                 i.icon {
