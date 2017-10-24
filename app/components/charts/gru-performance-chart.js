@@ -88,7 +88,7 @@ export default Ember.Component.extend({
    * @property {Number} tooltipText
    * Computed property to show the tooltipText
    */
-  tooltipText: Ember.computed('performanceSummary', 'isTeacher', function() {
+  tooltipText: Ember.computed('performanceSummary', function() {
     const completed =
       this.get('performanceSummary.totalCompleted') ||
       this.get('performanceSummary.completionDone') ||
@@ -100,12 +100,6 @@ export default Ember.Component.extend({
     const percentage = completed ? roundFloat(completed / total * 100) : 0;
     var tooltipText = `${percentage}% ${this.get('i18n').t('common.completed')
       .string}`;
-
-    if (this.get('isTeacher')) {
-      tooltipText = `${completed}/${total} ${this.get('i18n').t(
-        'gru-performance-chart.teacher-tooltip'
-      ).string}`;
-    }
 
     return tooltipText;
   }),

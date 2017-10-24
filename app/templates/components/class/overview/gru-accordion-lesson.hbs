@@ -27,11 +27,13 @@
         {{/if}}
       </div>
     {{/if}}
-    <div class="play-btn">
+    <div class={{if isTeacher 'controls' 'play-btn'}}>
+    {{#unless isTeacher}}
       <button class="btn btn-info study-now" disabled={{if studyNowDisabled 'true' ''}} {{action "studyNow" 'lesson' model}}
         data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.play"}}">
         {{gru-icon name='play_arrow'}}
       </button>
+    {{/unless}}
     </div>
     <div class="performance-container pull-right">
       {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=model.performance.hasStarted isTeacher=isTeacher}}
@@ -165,23 +167,23 @@
                   {{#if isTeacher}}
                     <div class="controls">
                       {{#if item.isAssessment}}
+                        <div class="go-live-cnt">
+                          {{#if item.visible}}
+                            {{#unless item.isExternalAssessment}}
+                              <button {{action 'goLive' item.id}}
+                                data-toggle="tooltip" data-html="true" data-placement="bottom"
+                                title="{{t "common.launch-on-air"}}"
+                                class="on-air go-live enabled">{{t "common.launch-on-air"}}
+                              </button>
+                            {{/unless}}
+                          {{/if}}
+                        </div>
                         {{#unless isNUCourse}}
                           <span class='switch' data-toggle="tooltip" data-html="true" data-placement="top"
                                 title="{{t "common.assign"}}">
                             {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}
                           </span>
                         {{/unless}}
-                        {{#if item.visible}}
-                          {{#unless item.isExternalAssessment}}
-                            <div class="go-live-cnt">
-                              <button {{action 'goLive' item.id}}
-                                data-toggle="tooltip" data-html="true" data-placement="bottom"
-                                title="{{t "common.launch-on-air"}}"
-                                class="on-air go-live enabled">{{t "common.launch-on-air"}}
-                              </button>
-                            </div>
-                          {{/unless}}
-                        {{/if}}
                       {{/if}}
                     </div>
                   {{else}}
