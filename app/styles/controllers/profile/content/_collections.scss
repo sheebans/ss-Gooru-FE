@@ -12,6 +12,7 @@
       background-color: transparent;
       height: 138px;
       background-size: cover;
+      background-position: center;
       background-repeat: no-repeat;
       padding: 0;
       position: relative;
@@ -28,15 +29,11 @@
 
           .title {
             width: 153px;
-            height: 32px;
-            font-size: 13px;
+            height: 38px;
             font-weight: bold;
-            text-align: left;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            $line-height: 1.5;
+            $lines-to-show: 2;
+            @include ellipsis($font-size: 13px, $line-height: $line-height, $lines-to-show: 2);
           }
         }
       }
@@ -87,19 +84,38 @@
             min-height: 28px;;
           }
           .truncate {
-            font-family: Lato;
-            font-size: 10px;
-            line-height: 1.5;
             text-align: left;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            $line-height: 1.5;
+            $lines-to-show: 3;
+            @include ellipsis($font-size: 10px, $line-height: $line-height, $lines-to-show: 3, $excerpt-bg: $white);
           }
         }
 
         .cca-icon-btn {
+          .resource-icon {
+            float: left;
+
+            i {
+              background: url("gooru/images/collections_resource_icon.svg");
+              width: 13.1px;
+              height: 15px;
+              display: block;
+              background-size: cover;
+            }
+          }
+
+          .resource-text {
+            float: left;
+            text-align: center;
+            line-height: 14px;
+            width: 20px;
+            margin-right: 10px;
+          }
+
+        }
+
+        .cca-second-icon-btn {
+          margin-left: auto;
           .question-icon {
             float: left;
 
@@ -118,29 +134,8 @@
             margin-left: 2px;
             width: 15px;
           }
-        }
 
-        .cca-second-icon-btn {
-          margin-left: 28px;
 
-          .resource-icon {
-            float: left;
-
-            i {
-              background: url("gooru/images/collections_resource_icon.svg");
-              width: 13.1px;
-              height: 15px;
-              display: block;
-              background-size: cover;
-            }
-          }
-
-          .resource-text {
-            float: left;
-            text-align: center;
-            line-height: 14px;
-            width: 20px
-          }
         }
          .visibility {
           .cca-eye-icon {
@@ -208,17 +203,6 @@
       }
 
       .cca-description {
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-        -webkit-justify-content: space-between;
-        justify-content: space-between;
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
         height: 143px;;
         padding-bottom: 2px;
       }
@@ -238,9 +222,10 @@
 
 .controller.content-collections {
   .collections {
+    padding-left: 25px;
     @include flexbox;
     @include flex-wrap(wrap);
-    @include justify-content(center);
+    @include justify-content(initial);
   }
 
   .no-content {
