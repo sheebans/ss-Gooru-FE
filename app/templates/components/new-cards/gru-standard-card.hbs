@@ -1,35 +1,137 @@
 <div class="panel panel-default">
-  <a {{action "editContent"}}>
-    <div class="panel-heading" style="background-image: url({{content.thumbnailUrl}})">
-      <div class="info">
-        <div class="question-resources">
-          {{#if isCourse}}
-            {{gru-icon name="format_align_center"}}
-            <span class="unit-count">
+  {{#if session.anonymouse}}
+    <a {{action "openContentPlayer" content}}>
+      <div class="panel-heading" style="background-image: url({{content.thumbnailUrl}})">
+        <div class="info">
+          <div class="question-resources">
+            {{#if isCourse}}
+              {{gru-icon name="format_align_center"}}
+              <span class="unit-count">
             {{content.unitCount}}
+        </span>
+            {{else}}
+              {{#if hasResources}}
+                {{gru-icon name="format_align_center"}}
+                <span class="resource-count">
+            {{content.resourceCount}}
           </span>
-          {{else}}
-            {{#if hasResources}}
-              {{gru-icon name="format_align_center"}}
-              <span class="resource-count">
-              {{content.resourceCount}}
-            </span>
+              {{/if}}
+              {{#if hasQuestions}}
+                {{gru-icon name="format_align_center"}}
+                <span class="question-count">
+            {{content.questionCount}}
+          </span>
+              {{/if}}
             {{/if}}
-            {{#if hasQuestions}}
-              {{gru-icon name="format_align_center"}}
-              <span class="question-count">
-              {{content.questionCount}}
-            </span>
-            {{/if}}
-          {{/if}}
-        </div>
-        <div class="title-section">
-          <h3 class="title" alt="{{content.title}}">{{truncate text=content.title maxLength=40}}</h3>
+          </div>
+          <div class="title-section">
+            <h3 class="title" alt="{{content.title}}">{{truncate text=content.title maxLength=40}}</h3>
+          </div>
         </div>
       </div>
-    </div>
-  </a>
+    </a>
 
+  {{else}}
+    {{#if (and isOnProfile isMyProfile)}}
+      <a {{action "editContent" content}}>
+        <div class="panel-heading" style="background-image: url({{content.thumbnailUrl}})">
+          <div class="info">
+            <div class="question-resources">
+              {{#if isCourse}}
+                {{gru-icon name="format_align_center"}}
+                <span class="unit-count">
+              {{content.unitCount}}
+          </span>
+              {{else}}
+                {{#if hasResources}}
+                  {{gru-icon name="format_align_center"}}
+                  <span class="resource-count">
+              {{content.resourceCount}}
+            </span>
+                {{/if}}
+                {{#if hasQuestions}}
+                  {{gru-icon name="format_align_center"}}
+                  <span class="question-count">
+              {{content.questionCount}}
+            </span>
+                {{/if}}
+              {{/if}}
+            </div>
+            <div class="title-section">
+              <h3 class="title" alt="{{content.title}}">{{truncate text=content.title maxLength=40}}</h3>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    {{else}}
+      {{#if isStudent}}
+        <a {{action "previewContent" content}}>
+          <div class="panel-heading" style="background-image: url({{content.thumbnailUrl}})">
+            <div class="info">
+              <div class="question-resources">
+                {{#if isCourse}}
+                  {{gru-icon name="format_align_center"}}
+                  <span class="unit-count">
+             {{content.unitCount}}
+           </span>
+                {{else}}
+                  {{#if hasResources}}
+                    {{gru-icon name="format_align_center"}}
+                    <span class="resource-count">
+               {{content.resourceCount}}
+             </span>
+                  {{/if}}
+                  {{#if hasQuestions}}
+                    {{gru-icon name="format_align_center"}}
+                    <span class="question-count">
+               {{content.questionCount}}
+             </span>
+                  {{/if}}
+                {{/if}}
+              </div>
+              <div class="title-section">
+                <h3 class="title" alt="{{content.title}}">{{truncate text=content.title maxLength=40}}</h3>
+              </div>
+            </div>
+          </div>
+        </a>
+      {{else}}
+        <a {{action "openContentPlayer" content}}>
+          <div class="panel-heading" style="background-image: url({{content.thumbnailUrl}})">
+            <div class="info">
+              <div class="question-resources">
+                {{#if isCourse}}
+                  {{gru-icon name="format_align_center"}}
+                  <span class="unit-count">
+             {{content.unitCount}}
+           </span>
+                {{else}}
+                  {{#if hasResources}}
+                    {{gru-icon name="format_align_center"}}
+                    <span class="resource-count">
+               {{content.resourceCount}}
+             </span>
+                  {{/if}}
+                  {{#if hasQuestions}}
+                    {{gru-icon name="format_align_center"}}
+                    <span class="question-count">
+               {{content.questionCount}}
+             </span>
+                  {{/if}}
+                {{/if}}
+              </div>
+              <div class="title-section">
+                <h3 class="title" alt="{{content.title}}">{{truncate text=content.title maxLength=40}}</h3>
+              </div>
+            </div>
+          </div>
+        </a>
+      {{/if}}
+
+    {{/if}}
+
+  {{/if}}
 
   {{#if (eq cardSize "md")}}
     <div class="panel-body cca-first">
