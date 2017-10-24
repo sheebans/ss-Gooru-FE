@@ -82,5 +82,11 @@
         }
       }
     }
+    .gru-accordion-lesson {
+      height: 67px;
+      &.expanded {
+        height: auto;
+      }
+    }
   }
 }
