@@ -189,3 +189,33 @@ test('normalizeResponse for google account containing user category', function(
   );
   assert.deepEqual(expected, response, 'Wrong normalized response');
 });
+
+test('normalizeDomainRedirectResponse in case of 303 status', function(assert) {
+  const serializer = this.subject();
+  serializer.set('configurationService', configurationService);
+  const payload = {
+    status_code: 303,
+    redirect_url: 'http://sliverblack.gooru.org'
+  };
+  const expected = {
+    statusCode: 303,
+    redirectUrl: 'http://sliverblack.gooru.org'
+  };
+  const response = serializer.normalizeDomainRedirectResponse(payload);
+  assert.deepEqual(expected, response, 'Wrong normalized response');
+});
+
+test('normalizeDomainRedirectResponse in case of 200 status', function(assert) {
+  const serializer = this.subject();
+  serializer.set('configurationService', configurationService);
+  const payload = {
+    status_code: 200,
+    redirect_url: null
+  };
+  const expected = {
+    statusCode: 200,
+    redirectUrl: null
+  };
+  const response = serializer.normalizeDomainRedirectResponse(payload);
+  assert.deepEqual(expected, response, 'Wrong normalized response');
+});
