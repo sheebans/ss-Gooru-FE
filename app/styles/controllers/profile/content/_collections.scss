@@ -12,6 +12,7 @@
       background-color: transparent;
       height: 138px;
       background-size: cover;
+      background-position: center;
       background-repeat: no-repeat;
       padding: 0;
       position: relative;
@@ -100,6 +101,30 @@
         }
 
         .cca-icon-btn {
+          .resource-icon {
+            float: left;
+
+            i {
+              background: url("gooru/images/collections_resource_icon.svg");
+              width: 13.1px;
+              height: 15px;
+              display: block;
+              background-size: cover;
+            }
+          }
+
+          .resource-text {
+            float: left;
+            text-align: center;
+            line-height: 14px;
+            width: 20px;
+            margin-right: 10px;
+          }
+
+        }
+
+        .cca-second-icon-btn {
+          margin-left: auto;
           .question-icon {
             float: left;
 
@@ -118,29 +143,8 @@
             margin-left: 2px;
             width: 15px;
           }
-        }
 
-        .cca-second-icon-btn {
-          margin-left: 28px;
 
-          .resource-icon {
-            float: left;
-
-            i {
-              background: url("gooru/images/collections_resource_icon.svg");
-              width: 13.1px;
-              height: 15px;
-              display: block;
-              background-size: cover;
-            }
-          }
-
-          .resource-text {
-            float: left;
-            text-align: center;
-            line-height: 14px;
-            width: 20px
-          }
         }
          .visibility {
           .cca-eye-icon {
@@ -238,9 +242,10 @@
 
 .controller.content-collections {
   .collections {
+    padding-left: 25px;
     @include flexbox;
     @include flex-wrap(wrap);
-    @include justify-content(center);
+    @include justify-content(initial);
   }
 
   .no-content {

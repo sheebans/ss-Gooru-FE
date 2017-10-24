@@ -12,6 +12,7 @@
       background-color: transparent;
       height: 138px;
       background-size: cover;
+      background-position: center;
       background-repeat: no-repeat;
       padding: 0;
       position: relative;
@@ -100,7 +101,7 @@
           }
         }
 
-        .cca-icon-btn {
+        .cca-second-icon-btn {
           .question-icon {
             float: left;
 
@@ -210,9 +211,10 @@
 
 .controller.content-assessments {
   .assessments {
+    padding-left: 25px;
     @include flexbox;
     @include flex-wrap(wrap);
-    @include justify-content(center);
+    @include justify-content(initial);
 
     .new-cards.gru-collection-card {
       .panel-heading {
