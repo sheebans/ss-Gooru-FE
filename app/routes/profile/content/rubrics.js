@@ -29,6 +29,7 @@ export default Ember.Route.extend(ModalMixin, {
 
   setupController: function(controller, model) {
     controller.set('rubrics', model);
+    controller.set('disableSearch', true);
   },
 
   deactivate: function() {
