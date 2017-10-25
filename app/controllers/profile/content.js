@@ -12,8 +12,6 @@ export default Ember.Controller.extend(ModalMixin, {
 
   coursesController: Ember.inject.controller('profile.content.courses'),
 
-  rubricsController: Ember.inject.controller('profile.content.rubrics'),
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -55,11 +53,6 @@ export default Ember.Controller.extend(ModalMixin, {
    * Indicate if the selected profile bar is Course
    */
   disableSearch: Ember.computed.alias('coursesController.disableSearch'),
-
-  /**
-  * Disabled search bar in profile content rubrics due to unavailability of search functionality
-  */
-  disableSearchRubric: Ember.computed.alias('rubricsController.disableSearch'),
 
   actions: {
     /**
