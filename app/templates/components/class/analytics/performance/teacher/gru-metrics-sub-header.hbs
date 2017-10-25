@@ -10,6 +10,7 @@
     </div>
     {{/if}}
     {{#if metric.visible}}
+    <div class="metrics-sub-header">
       <a class="metric-sub-header {{metric.value}}" {{action 'sort' metric}}>
         {{t (concat 'gru-metrics-sub-header.' metric.value) }}
       </a>
@@ -22,7 +23,7 @@
       {{else}}
         <span class="metrics-sub-header">{{gru-icon name='swap_vert'}}</span>
       {{/if}}
-
+    </div>
   {{/if}}
   </div>
   {{else}}
