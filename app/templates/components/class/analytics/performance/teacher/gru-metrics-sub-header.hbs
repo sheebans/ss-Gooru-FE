@@ -3,9 +3,11 @@
   {{#if showReport}}
  <div class="{{if (and showReport (eq index 1) showStudyTime) 'reportPadding' ''}} {{if (or (and showReport (eq index 1)) (not showStudyTime)) 'pull-left' ''}} {{if (and (not showStudyTime) (eq metric.value 'score')) 'morepaddingleft' ''}} {{if (eq metric.value 'time-spent') 'pull-right paddingright' ''}} {{if (and showStudyTime (eq metric.value 'score')) 'pull-left paddingleft' ''}}">
     {{#if (eq index 1)}}
+    <div class="metrics-sub-header table-cell report">
       <span class="metric-sub-header report">
             {{t 'gru-metrics-sub-header.report'}}
           </span>
+    </div>
     {{/if}}
     {{#if metric.visible}}
       <a class="{{metric.value}}" {{action 'sort' metric}}>
