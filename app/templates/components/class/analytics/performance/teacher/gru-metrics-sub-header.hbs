@@ -10,7 +10,7 @@
     </div>
     {{/if}}
     {{#if metric.visible}}
-      <a class="{{metric.value}}" {{action 'sort' metric}}>
+      <a class="metric-sub-header {{metric.value}}" {{action 'sort' metric}}>
         {{t (concat 'gru-metrics-sub-header.' metric.value) }}
       </a>
       {{#if metric.sorted}}
