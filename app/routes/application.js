@@ -131,6 +131,12 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
     if (model.profile) {
       controller.set('profile', model.profile);
     }
+    let pathname = window.location.pathname;
+    if (pathname === '/sign-in' || pathname === '/sign-up') {
+      this.handleRedirectionBasedOnDomain(controller);
+    } else {
+      controller.set('isRedirectionDomainDone', true);
+    }
   },
 
   /**
@@ -310,6 +316,22 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
   isGetCollectionWithRefreshRequest: function(settings) {
     let pattern = /\/quizzes\/api\/v1\/collections\/(.*)&refresh=true/;
     return settings.type === 'GET' && settings.url.match(pattern);
+  },
+
+  /**
+   * Verfiy the domain have any directions before model get execute.
+   */
+  handleRedirectionBasedOnDomain: function(controller) {
+    let domain = 'silverback-dev.gooru.org';
+    this.get('authenticationService')
+      .domainBasedRedirection(domain)
+      .then(function(data) {
+        if (data && data.statusCode === 303) {
+          window.location.href = data.redirectUrl;
+        } else {
+          controller.set('isRedirectionDomainDone', true);
+        }
+      });
   },
 
   // -------------------------------------------------------------------------

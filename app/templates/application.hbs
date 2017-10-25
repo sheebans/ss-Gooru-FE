@@ -1,9 +1,10 @@
-{{#if tenant}}
-  {{tenant.gru-tenant-theme tenant=tenant}}
-{{/if}}
-<div class="gooru {{if configuration.embedded 'embedded'}}">
+{{#if isRedirectionDomainDone}}
+  {{#if tenant}}
+    {{tenant.gru-tenant-theme tenant=tenant}}
+  {{/if}}
+  <div class="gooru {{if configuration.embedded 'embedded'}}">
     {{#if features.header.enabled}}
-    {{gru-header
+      {{gru-header
       term=term
       onLogout="logout"
       onSearch="searchTerm"
@@ -14,8 +15,8 @@
     <div class="container-fluid app-container">
       {{outlet}}
     </div>
-  {{gru-footer}}
-</div>
+    {{gru-footer}}
+  </div>
 
-{{gru-modal}}
-{{qz-modal}}
+  {{gru-modal}} {{qz-modal}}
+{{/if}}
