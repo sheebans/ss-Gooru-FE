@@ -40,58 +40,42 @@
         {{/if}}
       </div>
     </div>
-    {{#if (and (not isVideo) (not sameProtocol))}}
-      <div class="panel panel-default placeholder {{if resourceComponent 'preview'}}">
-        <div class="panel-body">
-          {{#if (eq resource.format 'image')}}
-              {{player.resources.gru-image-resource resource=resource}}
-          {{else if (eq resource.format 'text')}}
-              {{player.resources.gru-pdf-resource resource=resource}}
-          {{else if (eq resource.format 'webpage')}}
-              <div class="external-https">
-              {{cards.gru-resource-card resource=resource addEnabled=false isLinkOut=true}}
-              </div>
-          {{/if}}
-        </div>
-      </div>
-    {{else}}
-      <div class="panel panel-default placeholder {{if resourceComponent 'preview'}}">
-        <div class="panel-body">
-          {{#if isNotIframeUrl}}
-            <div class="panel panel-default not-iframe">
-              <div class="panel-header">
-                <p class="title">
-                  {{t 'player.gru-viewer.not-iframe-url.header_1'}}
-                  <br>
-                  {{t 'player.gru-viewer.not-iframe-url.header_2'}}
-                </p>
-              </div>
-              <div class="panel-body">
-                {{new-cards.gru-resource-card resource=resource editEnabled=false isLinkOut=true}}
-              </div>
-              <div class="panel-footer">
-                <p class="title">
-                  {{t 'player.gru-viewer.not-iframe-url.footer_1'}}
-                </p>
-                <p class="description">
-                  {{t 'player.gru-viewer.not-iframe-url.footer_2'}}<br>
-                  {{t 'player.gru-viewer.not-iframe-url.footer_3'}}<br>
-                  {{t 'player.gru-viewer.not-iframe-url.footer_4'}}
-                </p>
-              </div>
+    <div class="panel panel-default placeholder {{if resourceComponent 'preview'}}">
+      <div class="panel-body">
+        {{#if (or isNotIframeUrl isLinkOut)}}
+          <div class="panel panel-default not-iframe">
+            <div class="panel-header">
+              <p class="title">
+                {{t 'player.gru-viewer.not-iframe-url.header_1'}}
+                <br>
+                {{t 'player.gru-viewer.not-iframe-url.header_2'}}
+              </p>
             </div>
+            <div class="panel-body">
+              {{new-cards.gru-resource-card resource=resource editEnabled=false isLinkOut=true}}
+            </div>
+            <div class="panel-footer">
+              <p class="title">
+                {{t 'player.gru-viewer.not-iframe-url.footer_1'}}
+              </p>
+              <p class="description">
+                {{t 'player.gru-viewer.not-iframe-url.footer_2'}}<br>
+                {{t 'player.gru-viewer.not-iframe-url.footer_3'}}<br>
+                {{t 'player.gru-viewer.not-iframe-url.footer_4'}}
+              </p>
+            </div>
+          </div>
+        {{else}}
+          {{#if resourceComponent}}
+            {{component resourceComponent resource=resource}}
           {{else}}
-            {{#if resourceComponent}}
-              {{component resourceComponent resource=resource}}
-            {{else}}
-              <h2 class="resource-message">
-                {{t "content.resources.edit.not-implemented"}}
-              </h2>
-            {{/if}}
+            <h2 class="resource-message">
+              {{t "content.resources.edit.not-implemented"}}
+            </h2>
           {{/if}}
-        </div>
+        {{/if}}
       </div>
-    {{/if}}
+    </div>
   </div>
 </section>
 
