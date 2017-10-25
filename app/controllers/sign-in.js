@@ -47,30 +47,36 @@ export default Ember.Controller.extend({
       });
 
       // TODO needs to be revisited, this is a quick fix
-      controller.get('sessionService').authorize().then(function() {
-        if (controller.get('didValidate') === false) {
-          var username = Ember.$('.gru-input.username input').val();
-          var password = Ember.$('.gru-input.password input').val();
-          user.set('username', username);
-          user.set('password', password);
-        }
-        user.validate().then(function({ validations }) {
-          if (validations.get('isValid')) {
-            controller.get('sessionService').signInWithUser(user, true).then(
-              function() {
-                controller.set('didValidate', true);
-                // Trigger action in parent
-                controller.send('signIn');
-              },
-              function() {
-                controller.get('notifications').warning(errorMessage);
-                // Authenticate as anonymous if it fails to mantain session
-                controller.get('session').authenticateAsAnonymous();
-              }
-            );
+      controller
+        .get('sessionService')
+        .authorize()
+        .then(function() {
+          if (controller.get('didValidate') === false) {
+            var username = Ember.$('.gru-input.username input').val();
+            var password = Ember.$('.gru-input.password input').val();
+            user.set('username', username);
+            user.set('password', password);
           }
+          user.validate().then(function({ validations }) {
+            if (validations.get('isValid')) {
+              controller
+                .get('sessionService')
+                .signInWithUser(user, true)
+                .then(
+                  function() {
+                    controller.set('didValidate', true);
+                    // Trigger action in parent
+                    controller.send('signIn');
+                  },
+                  function() {
+                    controller.get('notifications').warning(errorMessage);
+                    // Authenticate as anonymous if it fails to mantain session
+                    controller.get('session').authenticateAsAnonymous();
+                  }
+                );
+            }
+          });
         });
-      });
     }
   },
 
@@ -115,5 +121,11 @@ export default Ember.Controller.extend({
    * Query param
    * @property {Boolean} sessionEnds
    */
-  sessionEnds: false
+  sessionEnds: false,
+
+  /**
+   * Maintain the state of redirection completed or not
+   * @property {Boolean}
+   */
+  isRedirectionDomainDone: false
 });

@@ -56,30 +56,36 @@ export default Ember.Controller.extend({
       profile.validate().then(function({ validations }) {
         if (validations.get('isValid') && birthDayDate !== '') {
           profile.set('dateOfBirth', birthDayDate);
-          controller.get('profileService').createProfile(profile).then(
-            function(profile) {
-              controller.get('sessionService').signUp(profile).then(function() {
-                controller.set('didValidate', true);
-                // Trigger action in parent
-                controller.send('signUp');
-                controller.get('applicationController').loadUserClasses();
-              });
-            },
-            function(error) {
-              if (error && (error.email || error.username)) {
-                controller.set('emailError', error.email);
-                controller.set('usernameError', error.username);
-                controller.keydownEvents();
-              } else {
-                // Unexpected error
-                var message = controller
-                  .get('i18n')
-                  .t('common.errors.sign-up-error').string;
-                controller.get('notifications').error(message);
-                Ember.Logger.error(error);
+          controller
+            .get('profileService')
+            .createProfile(profile)
+            .then(
+              function(profile) {
+                controller
+                  .get('sessionService')
+                  .signUp(profile)
+                  .then(function() {
+                    controller.set('didValidate', true);
+                    // Trigger action in parent
+                    controller.send('signUp');
+                    controller.get('applicationController').loadUserClasses();
+                  });
+              },
+              function(error) {
+                if (error && (error.email || error.username)) {
+                  controller.set('emailError', error.email);
+                  controller.set('usernameError', error.username);
+                  controller.keydownEvents();
+                } else {
+                  // Unexpected error
+                  var message = controller
+                    .get('i18n')
+                    .t('common.errors.sign-up-error').string;
+                  controller.get('notifications').error(message);
+                  Ember.Logger.error(error);
+                }
               }
-            }
-          );
+            );
         }
         controller.set('dateValidated', true);
       });
@@ -166,6 +172,12 @@ export default Ember.Controller.extend({
   termsConditionsUrl: Ember.computed(function() {
     return Env.termsConditionsUrl;
   }),
+
+  /**
+   * Maintain the state of redirection completed or not
+   * @property {Boolean}
+   */
+  isRedirectionDomainDone: false,
 
   // -------------------------------------------------------------------------
   // Methods
