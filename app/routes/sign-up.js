@@ -24,16 +24,6 @@ export default Ember.Route.extend({
     if (!this.get('session.isAnonymous')) {
       this.transitionTo('index');
     }
-    let domain = window.location.hostname;
-    this.get('authenticationService')
-      .domainBasedRedirection(domain)
-      .then(function(data) {
-        if (data) {
-          if (data.statusCode === 303) {
-            window.location.href = data.redirectUrl;
-          }
-        }
-      });
   },
 
   /**
