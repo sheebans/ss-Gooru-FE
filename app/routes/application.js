@@ -322,7 +322,7 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
    * Verfiy the domain have any directions before model get execute.
    */
   handleRedirectionBasedOnDomain: function(controller) {
-    let domain = 'silverback-dev.gooru.org';
+    let domain = window.location.hostname;
     this.get('authenticationService')
       .domainBasedRedirection(domain)
       .then(function(data) {
