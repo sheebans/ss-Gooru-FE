@@ -33,6 +33,23 @@ export default Ember.Route.extend({
    */
   setupController: function(controller) {
     controller.resetProperties();
+    this.handleRedirectionBasedOnDomain(controller);
+  },
+
+  /**
+   * Verfiy the domain have any directions before model get execute.
+   */
+  handleRedirectionBasedOnDomain: function(controller) {
+    let domain = window.location.hostname;
+    this.get('authenticationService')
+      .domainBasedRedirection(domain)
+      .then(function(data) {
+        if (data && data.statusCode === 303) {
+          window.location.href = data.redirectUrl;
+        } else {
+          controller.set('isRedirectionDomainDone', true);
+        }
+      });
   },
 
   // -------------------------------------------------------------------------
