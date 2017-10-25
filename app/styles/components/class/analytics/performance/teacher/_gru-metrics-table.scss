@@ -105,7 +105,7 @@
     .newscoreMargin {
       float: right;
       margin-left: -115px;
-      margin-right: 60px;
+      margin-right: 46px;
     }
     .timeMargin {
       margin-top: -23px;
@@ -323,8 +323,13 @@
     .fix {
       position: absolute;
       *position: relative; /*ie7*/
-      margin-left: -320px !important;
+      left: 2% !important;
       width: 160px;
+      display: block;
+      z-index: 99;
+    }
+    .fixedHeadcol {
+      width: 175px !important;
     }
     .lsntxtalignment {
       text-align: left;
@@ -336,7 +341,7 @@
     .fix2 {
       position: absolute;
       *position: relative; /*ie7*/
-      margin-left: -160px !important;
+      left: 18% !important;
       width: 160px;
     }
     .outer {
@@ -403,13 +408,11 @@
     .marginleftavgtitle {
       margin-left: 13px;
     }
-    fltlftreport {
-      margin-left: -50px;
-      float: left;
+    .paddingright {
+      padding-right: 20px;
     }
-    fltrgttime {
-      margin-top: -24px;
-      float: right !important;
+    .paddingleft {
+      padding-left: 20px;
     }
   }
 }
