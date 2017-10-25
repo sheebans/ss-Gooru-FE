@@ -9,13 +9,31 @@ export default Ember.Route.extend({
    */
   session: Ember.inject.service('session'),
 
+  /**
+   * @requires service:authentication
+   */
+  authenticationService: Ember.inject.service('api-sdk/authentication'),
+
   // -------------------------------------------------------------------------
   // Methods
 
+  /**
+   * Verfiy the domain have any directions before model get execute.
+   */
   beforeModel: function() {
     if (!this.get('session.isAnonymous')) {
       this.transitionTo('index');
     }
+    let domain = window.location.hostname;
+    this.get('authenticationService')
+      .domainBasedRedirection(domain)
+      .then(function(data) {
+        if (data) {
+          if (data.statusCode === 303) {
+            window.location.href = data.redirectUrl;
+          }
+        }
+      });
   },
 
   /**

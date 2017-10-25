@@ -90,6 +90,6 @@
     "firebase": "^3.6.2",
     "grunt-exec": "^1.0.0",
     "loader.js": "^4.0.11",
-    "quizzes-addon": "0.13.0"
+    "quizzes-addon": "3.16.2"
   }
 }

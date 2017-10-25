@@ -45,5 +45,16 @@ export default Ember.Object.extend(ConfigurationMixin, {
       },
       partnerId: payload.partner_id
     };
+  },
+
+  /**
+   * @param payload is the response coming from the endpoint
+   * @returns {statusCode: *, redirectUrl: *}
+   */
+  normalizeDomainRedirectResponse: function(payload) {
+    return {
+      statusCode: payload.status_code,
+      redirectUrl: payload.redirect_url
+    };
   }
 });

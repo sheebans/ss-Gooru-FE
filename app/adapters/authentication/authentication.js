@@ -101,5 +101,25 @@ export default Ember.Object.extend({
       }
     };
     return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Post a request to find the domain name have any directions for authentication.
+   * @param data values required to build the post body
+   * @returns {Promise}
+   */
+  domainBasedRedirection: function(data) {
+    const namespace = this.get('namespace');
+    const url = `${namespace}/redirect`;
+    const token = this.get('session.token-api3');
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      headers: {
+        Authorization: `Token ${token}`
+      },
+      data: JSON.stringify(data)
+    };
+    return Ember.$.ajax(url, options);
   }
 });

@@ -10,6 +10,11 @@ export default Ember.Route.extend(PublicRouteMixin, {
    */
   notifications: Ember.inject.service(),
 
+  /**
+   * @requires service:authentication
+   */
+  authenticationService: Ember.inject.service('api-sdk/authentication'),
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -22,5 +27,21 @@ export default Ember.Route.extend(PublicRouteMixin, {
     // remove old notifications
     this.get('notifications').remove();
     controller.resetProperties();
+  },
+
+  /**
+   * Verfiy the domain have any directions before model get execute.
+   */
+  beforeModel: function() {
+    let domain = window.location.hostname;
+    this.get('authenticationService')
+      .domainBasedRedirection(domain)
+      .then(function(data) {
+        if (data) {
+          if (data.statusCode === 303) {
+            window.location.href = data.redirectUrl;
+          }
+        }
+      });
   }
 });
