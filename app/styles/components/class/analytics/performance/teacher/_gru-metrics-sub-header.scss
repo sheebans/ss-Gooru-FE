@@ -20,8 +20,18 @@
     .report {
       opacity: 0.6;
       text-align: center;
-      margin-left: 17px;
-      position: absolute;
+    }
+    .paddingright {
+      padding-right: 23px;
+    }
+    .paddingleft {
+      padding-left: 23px;
+    }
+    .morepaddingleft {
+      padding-left: 75px;
+    }
+    .reportPadding {
+      padding-left: 10px;
     }
   }
 }
