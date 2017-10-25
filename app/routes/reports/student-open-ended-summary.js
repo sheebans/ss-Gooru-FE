@@ -63,7 +63,8 @@ export default Ember.Route.extend({
         courseId: context.get('courseId'),
         unitId: context.get('unitId'),
         lessonId: context.get('lessonId'),
-        role: role
+        role: role,
+        backUrl: controller.get('backUrl')
       };
 
       route.transitionTo('reports.student-collection-analytics', {
@@ -142,6 +143,7 @@ export default Ember.Route.extend({
       'questionText',
       model.question.get('description') || model.question.get('title')
     );
+    controller.set('questionThumbnail', model.question.get('thumbnail'));
     controller.set('question', model.question);
     controller.set('rubric', model.question.get('rubric'));
     controller.set('questionSummary', model.summary);

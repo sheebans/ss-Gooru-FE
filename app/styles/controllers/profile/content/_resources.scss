@@ -3,13 +3,13 @@
   .resources {
     @include flexbox;
     @include flex-wrap(wrap);
-    @include justify-content(center);
+    @include justify-content(left);
     .card {
       margin-bottom: 2em;
       .gru-resource-card {
         .panel-heading {
           .resource-info {
-            width: 70%;
+            width: 118%;
           }
         }
       }

@@ -1,6 +1,6 @@
 {{#if performanceData}}
   {{#if showScore}}
-    <div class="table-cell">
+    <div class="table-cell {{if showStudyTime 'pull-left' ''}}">
       {{#if performanceData.hideScore}}
         <div class="not-applicable" title="{{performanceData.headerTitle}}" data-toggle="tooltip" data-placement="auto">
           {{t 'common.not-applicable'}}
@@ -19,9 +19,15 @@
       </div>
     {{else}}
       {{#if performanceData.hasStarted}}
-        <div class="table-cell report pointer">
+      {{#if showStudyTime}}
+        <div class="table-cell report pointer newscoreMargin">
           <span {{action 'clickReport' performanceData}} title="{{performanceData.headerTitle}}" data-toggle="tooltip" data-placement="auto">{{gru-icon name='library_books'}}</span>
         </div>
+      {{else}}
+        <div class="table-cell report pointer scoreMargin">
+          <span {{action 'clickReport' performanceData}} title="{{performanceData.headerTitle}}" data-toggle="tooltip" data-placement="auto">{{gru-icon name='library_books'}}</span>
+        </div>
+      {{/if}}
       {{/if}}
     {{/if}}
   {{/if}}
@@ -33,7 +39,7 @@
   </div>
   {{/if}}
   {{#if showStudyTime}}
-    <div class="table-cell study-time">{{{performanceData.timeSpent}}}</div>
+    <div class="table-cell study-time pull-right">{{{performanceData.timeSpent}}}</div>
   {{/if}}
 {{else}}
   {{#if showScore}}

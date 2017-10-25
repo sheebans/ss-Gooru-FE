@@ -15,7 +15,7 @@
         li {
           top: 3px;
           &:first-of-type {
-            margin-left: 10px;
+            margin-left: 0;
           }
 
           &:last-of-type {
@@ -47,10 +47,10 @@
           border-bottom: 4px solid $gray-darker;
           > a {
             box-shadow: none !important;
-          }
-          > span,
-          i {
-            color: $gray-darker;
+            > span,
+            i {
+              color: $gray-darker;
+            }
           }
           @media (max-width: $screen-xs-max) {
             border-bottom: 3px solid $gray-darker;
@@ -221,6 +221,7 @@
         ::-webkit-input-placeholder {
           font-size: 16px;
           color: $gray-submarine;
+          font-style: italic;
         }
 
         .form-group {
@@ -280,7 +281,6 @@
     button.filter-asc {
       border-bottom-left-radius: 5px !important;
       border-top-left-radius: 5px !important;
-      margin-right: 9px !important;
       .arrow-up,
       .arrow-down {
         right: 8px;

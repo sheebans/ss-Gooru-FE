@@ -19,5 +19,11 @@ export default Ember.Component.extend({
    * Text to show on the header
    * @property {String} promptText
    */
-  promptText: null
+  promptText: null,
+
+  /**
+  * Thumbnail to show on the header
+  * @property {String} promptThumbnail
+  */
+  promptThumbnail: null
 });

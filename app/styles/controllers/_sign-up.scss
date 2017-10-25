@@ -1,26 +1,18 @@
 .controller.sign-up {
   display: block;
   .modal {
+    box-shadow: 0 11px 15px rgba(0, 0, 0, 0.5);
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
     display: block;
     position: relative;
     z-index: 0;
     margin: 15px auto;
-    max-width: 405px;
     width: 100%;
     padding: 0 0 5px 0;
-    @media (min-width: $screen-sm-min) {
-      width: 425px;
-      max-width: 425px;
-      margin: 60px auto;
-    }
     .modal-dialog {
       width: 100%;
-      max-width: 405px;
       margin: 0;
-      @media (min-width: $screen-sm-min) {
-        width: 405px;
-        margin: 10px;
-      }
       .modal-content {
         border: 0;
       }
@@ -41,16 +33,24 @@
             }
           }
         }
-
+        .step-title {
+          font-size: 38px;
+          font-weight: 700;
+        }
         h1 {
-          font-size: $font-size-h3;
+          font-size: 39px;
+          font-weight: 700;
           margin: 15px 0;
         }
         .description {
-          font-size: $font-size-large;
+          font-size: $font-size-h4;
           font-weight: 300;
+          color: $gray-oslo;
         }
-
+        .sign-in-description {
+          font-size: 16px;
+          color: $gray-oslo;
+        }
         .google-button {
           height: 50px;
           width: 240px;
@@ -106,11 +106,41 @@
         padding: 0;
         .sign-up-form,
         .sign-up-finish-form {
-          padding: 15px 37px 0;
+          .form-left,
+          .form-right {
+            padding: 0 55px 0 55px;
+          }
+          .form-left:after {
+            content: "";
+            background-color: $gray-ultra-light;
+            position: absolute;
+            width: 1px;
+            height: 90%;
+            left: 100%;
+            display: block;
+          }
+          background-color: $white;
+          form {
+            padding-top: 1px;
+          }
+          .firstName {
+            span {
+              margin-left: -15px;
+            }
+            .error {
+              margin-left: 0px;
+            }
+            margin-left: -15px;
+          }
+          .lastName {
+            margin-right: -15px;
+          }
           .form-group {
             margin: 5px 0 10px 0;
             label {
               width: 100%;
+              color: $gray-oslo;
+              font-size: 16px;
             }
             .validation.error {
               position: relative;
@@ -119,7 +149,7 @@
             span.required {
               display: block;
               &:after {
-                content: ' *';
+                content: " *";
               }
             }
             &.birth-day-date {
@@ -139,56 +169,61 @@
             }
             .birth-months {
               float: left;
-              margin-right: 10px;
-              @media (min-width: $screen-sm-min) {
-                margin-right: 20px;
+              margin-right: 11%;
+              width: 25%;
+              margin-top: 8px;
+              span {
+                font-size: 14px;
+                line-height: 31px;
               }
               .bootstrap-select {
                 width: 105px;
-                @media (min-width: $screen-sm-min) {
-                  width: 130px;
-                }
               }
             }
             .birth-days {
               float: left;
-              margin-right: 10px;
-              @media (min-width: $screen-sm-min) {
-                margin-right: 20px;
+              margin-right: 11%;
+              width: 25%;
+              margin-top: 8px;
+              span {
+                font-size: 14px;
+                line-height: 31px;
               }
               .bootstrap-select {
-                width: 55px;
-                @media (min-width: $screen-sm-min) {
-                  width: 65px;
-                }
+                width: 105px;
               }
             }
             .birth-years {
               float: left;
+              width: 25%;
+              margin-top: 8px;
+              span {
+                font-size: 14px;
+                line-height: 31px;
+              }
               .bootstrap-select {
-                width: 65px;
-                @media (min-width: $screen-sm-min) {
-                  width: 95px;
-                }
+                width: 105px;
               }
             }
             &.sign-up-button {
-              margin: 50px -37px 0;
+              margin: 0 -15px -5px;
               button {
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
                 width: 100%;
-                font-size: $font-size-h4;
-                font-weight: 300;
+                font-size: 16px;
+                font-weight: 600;
                 position: relative;
+                text-transform: uppercase;
                 i {
                   position: absolute;
-                  font-size: $font-size-h3;
-                  line-height: 48px;
-                  position: absolute;
-                  right: 5px;
+                  font-size: 28px;
+                  line-height: 33px;
                 }
               }
+            }
+            &.sign-up-finish-btn {
+              margin-top: 10%;
             }
             span.error {
               color: $red-400;
@@ -198,9 +233,17 @@
             }
             &.role {
               margin: 10px 0 20px 0;
+              span {
+                font-size: 16px;
+                color: $gray-oslo;
+              }
               .roles {
                 @include flexbox;
                 .gru-radio {
+                  input[type="radio"] {
+                    margin-top: 10px;
+                    transform: scale(0.8);
+                  }
                   margin-right: 20px;
                   @media (min-width: $screen-sm-min) {
                     margin-right: 30px;
@@ -282,7 +325,16 @@
   &.finish {
     .modal {
       margin: 60px auto 10px auto;
-      min-height: 700px;
+      max-width: 552px;
+      .signUpForm {
+        height: 100%;
+        width: 90%;
+        margin: auto;
+        @media (min-width: $screen-md) {
+          width: 69%;
+          margin: auto;
+        }
+      }
     }
   }
 }

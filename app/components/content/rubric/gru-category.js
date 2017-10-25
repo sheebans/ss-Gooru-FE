@@ -37,6 +37,7 @@ export default Ember.Component.extend({
         isPanelExpanded: false,
         isEditingInline: false
       });
+      component.clearErrorMessages();
     },
     /**
      *Copy category
@@ -64,6 +65,7 @@ export default Ember.Component.extend({
      */
     saveCategory: function() {
       const component = this;
+      component.clearErrorMessages();
       let tempCategory = component.get('tempCategory');
 
       tempCategory.validate().then(function({ validations }) {
@@ -74,11 +76,8 @@ export default Ember.Component.extend({
             component.sendAction('onUpdateCategory', category);
             component.setProperties({
               isPanelExpanded: false,
-              isEditingInline: false,
-              showLevelsError: false
+              isEditingInline: false
             });
-          } else {
-            component.set('showLevelsError', true);
           }
         }
       });
@@ -128,11 +127,6 @@ export default Ember.Component.extend({
   preview: false,
 
   /**
-   * @property {Boolean} showLevelsError
-   */
-  showLevelsError: false,
-
-  /**
    * Copy of the category used for editing.
    * @property {Category}
    */
@@ -150,6 +144,11 @@ export default Ember.Component.extend({
   hasLevels: Ember.computed('category.levels[]', function() {
     return this.get('category.levels.length') > 0 || false;
   }),
+
+  /**
+  * @property {Boolean} showNoLevelsError
+  */
+  showNoLevelsError: false,
 
   // -------------------------------------------------------------------------
   // Events
@@ -173,28 +172,47 @@ export default Ember.Component.extend({
     this.setProperties({
       tempCategory: modelForEditing,
       isPanelExpanded: true,
-      isEditingInline: true,
-      showLevelsError: false
+      isEditingInline: true
     });
   },
 
   validateLevels: function(category) {
+    const component = this;
     let areOk = true;
+    const levels = category.get('levels');
+
     if (category.get('allowsLevels')) {
-      let levels = category.get('levels').filter(level => level.name);
-      if (levels.length) {
-        const scoring = category.get('allowsScoring');
-        if (scoring) {
-          levels.map(function(level) {
-            if (!level.score) {
-              areOk = false;
-            }
-          });
-        }
+      if (levels.length > 0) {
+        let gotFirstName = false;
+        levels.map(function(level, index) {
+          if (!level.name && !gotFirstName) {
+            areOk = false;
+            $(`.name-input.${index} span.name-error`).addClass('visible');
+            gotFirstName = true;
+          }
+        });
       } else {
         areOk = false;
+        component.set('showNoLevelsError', true);
+      }
+
+      if (category.get('allowsScoring')) {
+        let gotFirstScore = false;
+        levels.map(function(level, index) {
+          if (!level.score && !gotFirstScore) {
+            areOk = false;
+            $(`.score-input.${index} span.score-error`).addClass('visible');
+            gotFirstScore = true;
+          }
+        });
       }
     }
     return areOk;
+  },
+
+  clearErrorMessages: function() {
+    $('.name-input span.name-error').removeClass('visible');
+    $('.score-input span.score-error').removeClass('visible');
+    this.set('showNoLevelsError', false);
   }
 });

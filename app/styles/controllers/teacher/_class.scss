@@ -1,5 +1,5 @@
 .teacher.class {
-  padding: 15px 0;
+  padding: 12px 0;
   width: 960px;
   margin: 0 auto;
   .content .no-content {
@@ -7,156 +7,147 @@
   }
   .header {
     .go-back-container {
-      margin: 0 0 25px 0;
       .back-to {
-        font-size: 19px;
+        font-size: $font-size-lead;
+        font-weight: 300;
         i {
-          font-size: 20px;
-          height: 24px;
+          font-size: $font-size-arrow-icon;
+          height: 30px;
           vertical-align: middle;
           width: 25px;
         }
       }
     }
     h1 {
-      font-size: $font-size-h5;
-      display: block;
       color: $dark-500;
-      margin: 0 0 5px 0;
+      font-size: $font-size-lead;
+      font-weight: 300;
+      display: inline-block;
+      margin: 0 0 0 200px;
     }
     .panel.classroom-information {
       float: left;
+      margin: 10px 20px 0 0;
       width: 100%;
-      margin: 15px 20px 0 0;
-      .panel-heading {
-        font-size: $font-size-large;
-        line-height: $font-size-large;
-        border-top-right-radius: 3px;
-        border-top-left-radius: 3px;
-        padding: 5px 10px 6px;
-      }
       .panel-body {
-        padding: 5px;
-        min-height: 185px;
-        @include flexbox();
-        .legend {
-          display: block;
-          font-size: $font-navigator;
-        }
-        .course-info {
-          width: 33%;
-          padding: 0 40px;
-          .gru-course-card {
-            width: 100%;
-            .panel {
-              width: 100%;
-              height: 135px;
-              min-height: 135px;
-              border-radius: 0;
-              border: none;
-              box-shadow: none;
-              overflow: hidden;
-              .panel-body {
-                height: inherit;
-                padding: 0;
-                display: inline-block;
-                width: 100%;
-                .card-header {
-                  .header-content {
-                    padding: 0;
-                    margin-left: 10px;
-                    width: 85%;
-                    h3 {
-                      font-size: $font-navigator;
-                      color: $gray;
-                      height: 20px;
-                    }
-                  }
-                }
-                .card-content {
-                  position: inherit;
-                  margin-top: 8px;
-                  padding: 0;
-                  .taxonomy-standards {
-                    .gru-taxonomy-tag {
-                      padding: 0 3px 3px 2px;
-                      max-width: 75px;
-                      .tag-label {
-                        text-transform: uppercase;
-                        font-size: $font-size-h6;
-                      }
-                      .tag-caption {
-                        font-size: $font-size-xsmall;
-                        font-weight: 100;
-                      }
-                    }
-                    .non-visible-tags {
-                      display: none;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        .graphics {
-          width: 33%;
+        padding: 0;
+        height: 60px;
+        .course-image {
           border-right: 1px solid $light-300;
-          border-left: 1px solid $light-300;
-          padding: 0 35px;
-          .graphic {
-            margin: 0 10px;
+          height: 60px;
+          width: 90px;
+          img {
+            height: 100%;
+            width: 89px;
+          }
+          .no-course-image {
+            background: url("gooru/course-default-medium.png");
+            background-size: 90px 60px;
+            width: 89px;
+            height: 60px;
+          }
+        }
+        .course-name {
+          $line-height: 1.4;
+          $lines-to-show: 2;
+          margin: 10px 0 0 10px;
+          width: 25%;
+          @include ellipsis($font-size: $font-size-h6, $line-height: $line-height, $lines-to-show: $lines-to-show);
+        }
+        .counts-container {
+          padding: 6px 0 0;
+          width: 6%;
+          .count {
+            height: 20px;
+            margin: 2px 0 0;
+            width: 100%;
+            i {
+              font-size: $font-size-units-icon;
+              line-height: 1.1;
+            }
+            span {
+              vertical-align: top;
+              margin-left: 4px;
+            }
+          }
+        }
+        .teacher-profile {
+          margin: 0 0 0 15px;
+          width: 16%;
+          img {
+            border-radius: 50px;
+            display: inline-block;
             float: left;
-            .charts.gru-radial-chart,
-            .charts.gru-bubble-chart {
-              width: 100px;
-              height: 100px;
-              margin: 18px auto 0;
-              .bubble-circle span {
-                font-size: $font-size-h4;
-              }
-            }
-            .legend {
-              text-align: center;
-            }
-            &.performance {
-              margin-right: 48px;
-            }
-            &.completed {
-              .charts.gru-radial-chart .radial-svg {
-                width: inherit !important;
-                height: inherit !important;
+            height: 40px;
+            margin: 10px 10px 10px 0;
+            width: 43px;
+          }
+          .owner-name {
+            $line-height: 1.4;
+            $lines-to-show: 2;
+            display: inline-block !important;
+            float: left;
+            margin: 10px 0 0;
+            width: 65%;
+            @include ellipsis($font-size: $font-size-h6, $line-height: $line-height, $lines-to-show: $lines-to-show);
+          }
+        }
+        .taxonomy-standards {
+          min-width: 100px;
+          margin: 0 0 0 15px;
+          padding: 12px 0 0;
+          width: 18%;
+          .taxonomy.gru-taxonomy-tag {
+            background-color: $light-300;
+            border: none;
+            .content {
+              b,
+              span {
+                color: $white;
               }
             }
           }
         }
-        .students {
-          padding: 0 15px;
-          width: 34%;
-          .row {
-            margin: 0;
-            .instructor {
-              img {
-                width: 30px;
-                height: 30px;
-                border-radius: 50px;
-                cursor: pointer;
-                margin: 10px 0;
-              }
-              .owner {
-                font-size: $font-navigator;
-                line-height: $font-navigator;
-              }
+        .class-code {
+          border-left: 1px solid $light-200;
+          height: 60px;
+          padding: 14px 0 6px;
+          text-align: right;
+          width: 7%;
+          div {
+            line-height: 1;
+            text-transform: uppercase;
+            color: $dark-400;
+            width: 100%;
+            &.title {
+              opacity: 0.5;
+              font-size: $font-size-xxxsmall;
+              font-weight: normal;
             }
-            .members {
-              i {
-                font-size: $expand-arrow;
-              }
-              span {
-                vertical-align: top;
-                font-size: $font-navigator;
-              }
+            &.code {
+              font-size: $font-size-small;
+              font-weight: bold;
+              margin: 3px 0 0;
             }
+          }
+        }
+        .copy-code {
+          margin: 15px 0 0;
+          .copy-btn {
+            height: 30px;
+            i {
+              font-size: 20px;
+            }
+          }
+        }
+        .performance-container {
+          width: 11%;
+          .percentage {
+            margin: 12px 0;
+            font-size: $font-size-h3;
+          }
+          .completion-bar {
+            width: 80%;
           }
         }
       }

@@ -1,69 +1,178 @@
 <div class="panel panel-default">
-  <div class="panel-heading" style="background-image: url({{content.thumbnailUrl}})">
-    <div class="info">
-      <div class="question-resources">
-        {{#if isCourse}}
-          {{gru-icon name="format_align_center"}}
-          <span class="unit-count">
+  {{#if session.anonymouse}}
+    <a {{action "openContentPlayer" content}}>
+      <div class="panel-heading" style="background-image: url({{content.thumbnailUrl}})">
+        <div class="info">
+          <div class="question-resources">
+            {{#if isCourse}}
+              {{gru-icon name="format_align_center"}}
+              <span class="unit-count">
             {{content.unitCount}}
+        </span>
+            {{else}}
+              {{#if hasResources}}
+                {{gru-icon name="format_align_center"}}
+                <span class="resource-count">
+            {{content.resourceCount}}
           </span>
-        {{else}}
-          {{#if hasResources}}
-            {{gru-icon name="format_align_center"}}
-            <span class="resource-count">
+              {{/if}}
+              {{#if hasQuestions}}
+                {{gru-icon name="format_align_center"}}
+                <span class="question-count">
+            {{content.questionCount}}
+          </span>
+              {{/if}}
+            {{/if}}
+          </div>
+          <div class="title-section">
+            <h3 class="title" alt="{{content.title}}">{{truncate text=content.title maxLength=40}}</h3>
+          </div>
+        </div>
+      </div>
+    </a>
+
+  {{else}}
+    {{#if (and isOnProfile isMyProfile)}}
+      <a {{action "editContent" content}}>
+        <div class="panel-heading" style="background-image: url({{content.thumbnailUrl}})">
+          <div class="info">
+            <div class="question-resources">
+              {{#if isCourse}}
+                {{gru-icon name="format_align_center"}}
+                <span class="unit-count">
+              {{content.unitCount}}
+          </span>
+              {{else}}
+                {{#if hasResources}}
+                  {{gru-icon name="format_align_center"}}
+                  <span class="resource-count">
               {{content.resourceCount}}
             </span>
-          {{/if}}
-          {{#if hasQuestions}}
-            {{gru-icon name="format_align_center"}}
-            <span class="question-count">
+                {{/if}}
+                {{#if hasQuestions}}
+                  {{gru-icon name="format_align_center"}}
+                  <span class="question-count">
               {{content.questionCount}}
             </span>
-          {{/if}}
-        {{/if}}
-      </div>
-      <div class="title-section">
-        <h3 class="title" alt="{{content.title}}">{{truncate text=content.title maxLength=40}}</h3>
-      </div>
-    </div>
-  </div>
+                {{/if}}
+              {{/if}}
+            </div>
+            <div class="title-section">
+              <h3 class="title" alt="{{content.title}}">{{truncate text=content.title maxLength=40}}</h3>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    {{else}}
+      {{#if isStudent}}
+        <a {{action "previewContent" content}}>
+          <div class="panel-heading" style="background-image: url({{content.thumbnailUrl}})">
+            <div class="info">
+              <div class="question-resources">
+                {{#if isCourse}}
+                  {{gru-icon name="format_align_center"}}
+                  <span class="unit-count">
+             {{content.unitCount}}
+           </span>
+                {{else}}
+                  {{#if hasResources}}
+                    {{gru-icon name="format_align_center"}}
+                    <span class="resource-count">
+               {{content.resourceCount}}
+             </span>
+                  {{/if}}
+                  {{#if hasQuestions}}
+                    {{gru-icon name="format_align_center"}}
+                    <span class="question-count">
+               {{content.questionCount}}
+             </span>
+                  {{/if}}
+                {{/if}}
+              </div>
+              <div class="title-section">
+                <h3 class="title" alt="{{content.title}}">{{truncate text=content.title maxLength=40}}</h3>
+              </div>
+            </div>
+          </div>
+        </a>
+      {{else}}
+        <a {{action "openContentPlayer" content}}>
+          <div class="panel-heading" style="background-image: url({{content.thumbnailUrl}})">
+            <div class="info">
+              <div class="question-resources">
+                {{#if isCourse}}
+                  {{gru-icon name="format_align_center"}}
+                  <span class="unit-count">
+             {{content.unitCount}}
+           </span>
+                {{else}}
+                  {{#if hasResources}}
+                    {{gru-icon name="format_align_center"}}
+                    <span class="resource-count">
+               {{content.resourceCount}}
+             </span>
+                  {{/if}}
+                  {{#if hasQuestions}}
+                    {{gru-icon name="format_align_center"}}
+                    <span class="question-count">
+               {{content.questionCount}}
+             </span>
+                  {{/if}}
+                {{/if}}
+              </div>
+              <div class="title-section">
+                <h3 class="title" alt="{{content.title}}">{{truncate text=content.title maxLength=40}}</h3>
+              </div>
+            </div>
+          </div>
+        </a>
+      {{/if}}
+
+    {{/if}}
+
+  {{/if}}
 
   {{#if (eq cardSize "md")}}
     <div class="panel-body cca-first">
       {{#if isCourse}}
         <div class="cca-icon-btn pull-left">
-          <div class="units-icon">
-            <i class="icon"> </i>
+          <div class="visibility" title="{{t 'common.unitObj.zero'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
+            {{#if (gt content.unitCount 0)}}
+              <div class="units-icon"> <i class="icon"> </i> </div>
+              <div class="unit-text"> <span>{{content.unitCount}}</span> </div>
+            {{/if}}
           </div>
-          <div class="unit-text"> <span>{{content.unitCount}}</span> </div>
         </div>
       {{/if}}
       {{#if (or isCollection isAssessment)}}
-        <div class="cca-icon-btn pull-left">
-          <div class="question-icon">
-            <i class="icon"> </i>
-          </div>
-          <div class="unit-text"> <span>{{content.questionCount}}</span> </div>
-        </div>
         {{#if (not isAssessment)}}
-          <div class="cca-second-icon-btn pull-left">
-            <div class="resource-icon">
-              <i class="icon"> </i>
+          <div class="cca-icon-btn ">
+            <div class="visibility" title="{{t 'common.resources'}}" data-toggle="tooltip" data-placement="left" data-trigger="hover">
+              {{#if (gt content.resourceCount 0)}}
+                <div class="resource-icon"> <i class="icon"> </i> </div>
+                <div class="resource-text"> <span>{{content.resourceCount}}</span> </div>
+              {{/if}}
             </div>
-            <div class="resource-text"> <span>{{content.resourceCount}}</span> </div>
           </div>
         {{/if}}
+        <div class="cca-second-icon-btn ">
+          <div class="visibility" title="{{t 'common.questions'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+            {{#if (gt content.questionCount 0)}}
+              <div class="question-icon"> <i class="icon"> </i> </div>
+              <div class="unit-text"> <span>{{content.questionCount}}</span> </div>
+            {{/if}}
+          </div>
+        </div>
       {{/if}}
-      {{#if isCourse}}
-      {{#unless content.isVisibleOnProfile }}
-      <div class="visibility course-add-btn" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
-        {{gru-icon name="visibility_off" class='pull-right cca-eye-icon'}}
-      </div>
-      {{/unless}}
+      {{#if (not content.isVisibleOnProfile)}}
+        <div class="visibility  visible_false" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+          {{gru-icon name="visibility_off" class='pull-right cca-eye-icon'}}
+        </div>
       {{else}}
-        <div class="visibility course-add-btn" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+        <div class="visibility" title="{{t 'common.visibility-available'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
           {{gru-icon name="visibility" class='pull-right cca-eye-icon'}}
-      </div>
+        </div>
       {{/if}}
     </div>
   {{/if}}
@@ -103,7 +212,7 @@
           <div class="cca-standards">
             <div class="standards ">
               {{#if tags.length}}
-                {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=2 isInCard=true showDescription=true}}
+                {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true showDescription=true}}
               {{/if}}
             </div>
           </div>
@@ -119,7 +228,7 @@
       <div class="panel-body cca-standards">
         <div class="standards ">
           {{#if tags.length}}
-            {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=2 isInCard=true showDescription=true}}
+            {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true showDescription=true}}
           {{/if}}
         </div>
       </div>

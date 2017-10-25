@@ -1,7 +1,7 @@
 .gru-accordion-lesson {
   $on-air-icon: 25px;
   $collection-icon-size: 48px;
-  height: 67px;
+  height: auto;
 
   &:first-child {
     .panel-heading {
@@ -31,6 +31,13 @@
     height: 67px;
     border-radius: 0;
     padding: 0;
+
+    .controls {
+      width: 95px;
+      padding: 15px 0;
+      margin: 0 20px 0 10px;
+      display: inline-block;
+    }
 
     .panel-title {
       width: 67%;
@@ -72,6 +79,7 @@
             vertical-align: middle;
             color: $light-200;
             font-size: $font-unBookmark;
+            cursor: default;
           }
           &.question-count {
             i.icon {
@@ -83,6 +91,7 @@
             }
           }
           &.assessment-count {
+            margin: 0 0 0 15px;
             i.icon {
               background: url("gooru/images/navigation_assessment.svg");
               -webkit-background-size: 25px 25px;
@@ -92,7 +101,6 @@
             }
           }
           &.collection-count {
-            margin: 0 0 0 15px;
             i.icon {
               background: url("gooru/images/navigation_collection.svg");
               -webkit-background-size: 25px 25px;
@@ -250,13 +258,6 @@
             }
           }
         }
-        &.assessment {
-          .panel-heading {
-            .controls {
-              width: 95px;
-            }
-          }
-        }
       }
 
       .panel-heading {
@@ -266,15 +267,17 @@
         border-radius: 0;
 
         .controls {
+          width: 95px;
           padding: 15px 0;
-          margin: 0 15px 0 0;
+          margin: 0 20px 0 10px;
           display: inline-block;
           .switch {
-            width: 65px;
+            width: 50px;
             display: inline-block;
           }
           .go-live-cnt {
             width: 25px;
+            margin: 0 15px 0 0;
             display: inline-block;
           }
         }
@@ -306,11 +309,10 @@
         .panel-title {
           width: 70%;
           float: left;
-          padding: 0;
           height: inherit;
-          color: $dark-400;
-          font-weight: 300;
-          font-size: $font-size-lead;
+          color: $gray;
+          padding: 0;
+          font-size: $font-size-large;
           .collection-controls {
             height: 100%;
             text-align: center;
@@ -349,7 +351,7 @@
           .title {
             vertical-align: middle;
             margin: 0;
-            padding: 0 0 0 5px;
+            padding: 5px 0 0 5px;
             max-width: 75%;
             .type {
               color: $light-500;
@@ -388,6 +390,7 @@
                 vertical-align: middle;
                 color: $light-200;
                 font-size: $font-unBookmark;
+                cursor: default;
               }
               &.question-count {
                 i.icon {
@@ -478,7 +481,7 @@
   &.expanded {
     height: auto;
     .panel-collapse.collapse.in {
-      margin: -7px 0;
+      margin: -6px 0;
       .collections {
         .study-active,
         .selected {

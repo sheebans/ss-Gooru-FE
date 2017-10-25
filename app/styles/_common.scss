@@ -173,12 +173,6 @@ span.validation.warning {
     height: 100%;
     pointer-events: none;
   }
-  &:hover {
-    @include scale(1.25);
-  }
-  &.active {
-    @include scale(1.4);
-  }
 }
 
 .ellipsis {
@@ -384,6 +378,30 @@ span.validation.warning {
         i {
           background: url("gooru/images/navigation_resource_selected_icon.svg")
             no-repeat;
+        }
+      }
+    }
+    &.questions {
+      a {
+        padding: 2px 0 0 0;
+        line-height: 20px;
+      }
+      i {
+        background: url("gooru/images/navigation_question.svg") no-repeat;
+        background-size: 22px 19px;
+        min-height: 19px;
+        width: 23px;
+        height: 23px;
+        @media (min-width: $screen-md) {
+          background-size: contain;
+          min-height: 21px;
+        }
+      }
+      &.active {
+        i {
+          background: url("gooru/images/navigation_question_selected.svg")
+            no-repeat;
+          background-size: contain;
         }
       }
     }

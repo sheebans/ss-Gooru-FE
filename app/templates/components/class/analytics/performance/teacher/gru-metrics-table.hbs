@@ -1,14 +1,24 @@
 {{#if headers}}
   <div class="metrics-table-wrapper">
+    <div class="outer">
+  <div class="inner">
     <table class="table">
+    {{#if isLoading}}
+    <div class="loading">Loading&#8230;</div>
+ <div class="loading">
+ <img src="{{loaderIcon}}" class="ajax-loader"> 
+</div>
+    {{/if}}   
       <thead>
         <tr class="headers">
-          <td class="fixed"></td>
-          <th class="header" scope="col">
-            {{t "class.analytics.performance.teacher.metricsTable.average"}}
+          <th class=" header htFixed fix borderradius"></th>
+          <th class="header htFixed fix2 row" scope="col">
+            <div class="{{if isExpanded 'textcenteringsub' 'textcentering'}}">
+            <span class="text-center textinsidecenterdiv">{{t "class.analytics.performance.teacher.metricsTable.average"}}</span>
+            </div>
           </th>
           {{#each headers as |header index|}}
-            {{#if (eq header.collectionType 'collection')}}
+             {{#if (eq header.collectionType 'collection')}}
                 <th id="{{{header.id}}}" class="header" scope="col">
                     <div class="header-title">
                         <div class="column">
@@ -17,49 +27,132 @@
                             {{else}}
                                 <div class="prefix">{{{course-sections-prefix index=index type=headerType longName=false}}}</div>
                             {{/if}}
-                              <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=header.title maxLength=10 suffix=true}}}</div>
+                              <div class="title lsntxtalignment" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=header.title maxLength=23 suffix=true}}}</div>
                         </div>
                         <div class="small-icon">{{gru-icon "play_arrow"}}</div>
                     </div>
                 </th>
-            {{else}}
-                <th id="{{{header.id}}}" class="header pointer" scope="col" {{action 'navigate' header.id}}>
+            {{else}} 
+            {{#if header.showSub}}
+                <th colspan="{{header.colspanval}}">
+                   <div class="header-title pull-left">
+                        <div class="column">
+                            <div class="titlenew lsntxtalignment" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{header.title}}}</div>
+                          {{#if header.showAssessments}}
+                           <div class="text-newprimary pointer" {{action 'showlessons' index}}>{{t "common.showlessons"}}</div>
+                           {{else}}
+                           {{#if (eq filterBy 'collection')}}
+                            <div class="text-newprimary pointer" {{action 'showassessments' index}}>{{t "common.showcollections"}}</div>
+                            {{else}}
+                            <div class="text-newprimary pointer" {{action 'showassessments' index}}>{{t "common.showassessments"}}</div>
+                            {{/if}}
+                          {{/if}}
+                        </div>
+                          </div>  
+                <th id="{{{header.id}}}"  class="header subsubwidthmaxCollapse" scope="col">
+   
+                        <div class="text-newprimary pointer" {{action 'collapse' index}}>{{t "common.collapse"}}</div>
+
+                    </th>
+           
+            
+                  {{#each header.subColumns as |subHeader index|}}
+                    {{#if header.showSubSub}}
+                    <th id="{{{subHeader.id}}}" class="header headerbgcolor pointer" scope="col">
                     <div class="header-title">
                         <div class="column">
-                            {{#if header.collectionType}}
-                                <div class="prefix">{{{course-sections-prefix index=index type=header.collectionType longName=false}}}</div>
-                            {{else}}
-                                <div class="prefix">{{{course-sections-prefix index=index type=headerType longName=false}}}</div>
-                            {{/if}}
-                            <div class="title" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=header.title maxLength=10 suffix=true}}}</div>
+                            <div class="title lsntxtalignment" title="{{subHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subHeader.title maxLength=23 suffix=true}}}</div>
                         </div>
-                        <div class="small-icon">{{gru-icon name="play_arrow"}}</div>
+                    </div>
+                    {{#each subHeader.subsubColumns as |subsubHeader index|}}
+                    {{#if (eq subsubHeader.collectionType filterBy)}}
+                    {{#if (eq subsubHeader.title nodata)}}
+                    <th id="{{{subsubHeader.id}}}" class="header headerbgcolor subsubwidthmax" scope="col">
+                    <div class="header-title">
+                        <div class="column">
+                            <div class="title lsntxtalignment" title="{{subsubHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subsubHeader.title maxLength=23 suffix=true}}}</div>
+                        </div>
                     </div>
                 </th>
+                    {{else}}
+                    <th id="{{{subsubHeader.id}}}" class="header headerbgcolor pointer subsubwidthmax" {{action 'navigateToCollection' header.id subHeader.id subsubHeader.id}} scope="col">
+                    <div class="header-title">
+                        <div class="column">
+                            <div class="title lsntxtalignment" title="{{subsubHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subsubHeader.title maxLength=23 suffix=true}}}</div>
+                        </div>
+                    </div>
+                    </th>
+                    {{/if}}
+                {{/if}} 
+                {{/each}}
+                    </th>
+                    {{else}}
+                    <th id="{{{subHeader.id}}}" class="header pointer headerbgcolor" scope="col">
+                    <div class="header-title">
+                        <div class="column">
+                            <div class="title lsntxtalignment" title="{{subHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subHeader.title maxLength=23 suffix=true}}}</div>
+                        </div>
+                    </div>
+                    </th>
+                     {{/if}} 
+                {{/each}}
+            </th>
+         
+             {{else}}
+                <th id="{{{header.id}}}"  class="header pointer" scope="col">
+                    <div class="header-title">
+                        <div class="column">
+                            <div class="title lsntxtalignment" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=header.title maxLength=23 suffix=true}}}</div>
+                        </div>
+                          </div>
+                        {{#if header.showSub}}
+                        <div class="text-newprimary" {{action 'collapse' index}}>{{t "common.collapse"}}</div>
+                         {{else}}
+                        <div class="text-newprimary" {{action 'expand' index}}>{{t "common.expand"}}</div>
+                        {{/if}}
+                    </th>
             {{/if}}
+     
+             {{/if}} 
           {{/each}}
         </tr>
-        <tr class="sub-header hidden-xs">
-          <th class="fixed">
-            {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' metrics=averageMetrics}}
+       <tr class="sub-header hidden-xs">
+          <th class="fix padBottom">
+            {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' showStudyTime=showStudyTime showReport=false metrics=averageMetrics}}
           </th>
-          <th>
-            {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions}}
+          <th class="widthmaxi fix2 padBottom">
+            {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' showStudyTime=showStudyTime showReport=false dataPickerOptions=dataPickerOptions}}
           </th>
           {{#each headers as |header|}}
-            <th>
-              {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions showReport=isCollection}}
+            <th class="widthmaxi">
+              {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions showStudyTime=showStudyTime showReport=false}}
             </th>
+          {{#if header.showSub}}
+              {{#each header.subColumns as |subHeader|}}
+               {{#if header.showSubSub}}
+              {{#each subHeader.subsubColumns as |subsubHeader index|}}
+              <th class="widthmaxi">
+                {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions showStudyTime=showStudyTime showReport=true}}
+              </th>
+              {{/each}}
+               {{else}}
+              <th class="widthmaxi">
+                {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions showStudyTime=showStudyTime showReport=false}}
+              </th>
+               {{/if}}
+            {{/each}}
+          {{/if}}
           {{/each}}
-        </tr>
-        <tr class="average">
-          <th class="header fixed" scope="row">
-             <span class="class-average">
+        </tr> 
+         <tr class="average">
+          <th class="header backgroundclraverage fix" scope="row">
+             <span class="class-average marginleftavgtitle ">
                {{t "class.analytics.performance.teacher.metricsTable.class-average"}}
              </span>
           </th>
           {{#each averageHeaders.performanceData as |average index|}}
-            <th class="performance-information">
+          {{#if (eq index 0)}}
+            <th class="performance-information fix2 topMargin {{if (eq average.unitIdVal tempUnitId) 'selectedUnitcolor' 'backgroundclraverage'}}">
             {{#if (eq index 0)}}
               {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=false}}
             {{else}}
@@ -67,26 +160,43 @@
               isAverage=true}}
             {{/if}}
             </th>
+          {{else}}
+            <th class="performance-information {{if (eq average.unitIdVal tempUnitId) 'selectedUnitcolor' 'backgroundclraverage'}}">
+            {{#if (eq index 0)}}
+              {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=false}}
+            {{else}}
+              {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=isCollection
+              isAverage=true}}
+            {{/if}}
+            </th>
+          {{/if}}
+          
           {{/each}}
-        </tr>
+        </tr> 
       </thead>
       <tbody>
-        {{#each performanceData as |userPerformance index|}}
-          {{#if (is-even index)}}
-            <tr class="even">
-              <th class="header user-info fixed" scope="row">
-                <span>{{{userPerformance.user}}}</span>
+        {{#each performanceData as |userPerformance index|}} 
+            <tr>
+               {{#if (is-even index)}}
+                <th class="header user-info fix backgroundfixed backgroundfixedodd" scope="row">
+                <span class="textAlignment">{{{userPerformance.user}}}</span>
               </th>
+               {{else}}
+                <th class="header user-info fix backgroundfixed backgroundfixedeven" scope="row">
+                <span class="textAlignment">{{{userPerformance.user}}}</span>
+              </th>
+               {{/if}}
               {{#each userPerformance.performanceData as |data index|}}
+           
                 {{#if (eq index 0)}}
-                    <td class="performance-information">
+                    <td class="performance-information subsubwidthmaxCollapseUnit backgroundfixed fix2 {{if (eq data.unitIdVal tempUnitId) 'selectedUnitcolor' 'old'}}">
                       {{class.analytics.performance.teacher.gru-metrics-performance-information
                       userPerformance=userPerformance
                       onClickReport='clickReport'
                       performanceData=data dataPickerOptions=dataPickerOptions}}
-                    </td>
+                    </td>                    
                   {{else}}
-                    <td class="performance-information">
+                    <td class="performance-information subsubwidthmaxCollapseUnit {{if (eq data.unitIdVal tempUnitId) 'selectedUnitcolor' 'old'}}">
                       {{class.analytics.performance.teacher.gru-metrics-performance-information
                       userPerformance=userPerformance
                       onClickReport='clickReport'
@@ -94,36 +204,42 @@
                       showReport=isCollection}}
                     </td>
                 {{/if}}
-              {{/each}}
-            </tr>
-          {{else}}
-            <tr class="odd">
-              <th class="header user-info fixed" scope="row">
-                <span>{{{userPerformance.user}}}</span>
-              </th>
-              {{#each userPerformance.performanceData as |data index|}}
+                {{#each data.subColumns as |data1 index|}}
                 {{#if (eq index 0)}}
-                    <td class="performance-information">
+                    <td class="performance-information subsubwidthmax">
                       {{class.analytics.performance.teacher.gru-metrics-performance-information
                       userPerformance=userPerformance
                       onClickReport='clickReport'
-                      performanceData=data dataPickerOptions=dataPickerOptions}}
+                      performanceData=data1 dataPickerOptions=dataPickerOptions}}
                     </td>
                   {{else}}
-                    <td class="performance-information">
+                    <td class="performance-information subsubwidthmax">
                       {{class.analytics.performance.teacher.gru-metrics-performance-information
                       userPerformance=userPerformance
                       onClickReport='clickReport'
-                      performanceData=data dataPickerOptions=dataPickerOptions
+                      performanceData=data1 dataPickerOptions=dataPickerOptions
                       showReport=isCollection}}
                     </td>
                 {{/if}}
               {{/each}}
+              {{#each data.subsubColumns as |data2 index|}}
+                    <td class="performance-information subsubwidthmax1">
+                      {{class.analytics.performance.teacher.gru-metrics-performance-information
+                      userPerformance=userPerformance
+                      onClickReport='clickReport'
+                      performanceData=data2 dataPickerOptions=dataPickerOptions
+                      showReport=true}}
+                    </td>
+              {{/each}}
+              {{/each}}
             </tr>
-          {{/if}}
         {{/each}}
+
+        
       </tbody>
     </table>
+  </div>
+  </div>
   </div>
 {{else}}
   <span class="no-content">{{t "common.no-content"}}</span>

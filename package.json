@@ -61,6 +61,7 @@
     "ember-export-application-global": "1.0.5",
     "ember-i18n": "4.3.2",
     "ember-i18n-cp-validations": "2.8.0",
+    "ember-responsive": "2.0.5",
     "ember-simple-auth": "^1.1.0",
     "ember-truth-helpers": "1.2.0",
     "emberfire": "2.0.5",

@@ -17,18 +17,38 @@
           display: inline-block;
         }
         .image {
-          display: inline-block;
+          $lines-to-show: 2;
           vertical-align: top;
+          height: 52px;
+          display: flex;
           a > img {
             width: 35px;
             height: 35px;
           }
-          .visibility {
-            display: inline-block;
-            float: right;
-            height: 24px;
-            margin: 4px 0 0 1px;
-            color: $gray-dove;
+          h6 {
+            margin: 2px 0 5px 13px;
+            @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
+            max-height: 40px;
+          }
+          .title-section {
+            width: 100%;
+            h6.title {
+              display: inline-block;
+              width: 79%;
+              color: $blue-400;
+              font-size: 16px;
+            }
+            .publish-icon {
+              display: inline-block;
+              float: right;
+              vertical-align: top;
+              margin-top: 5px;
+              background: url("gooru/badge-01.png");
+              -webkit-background-size: 17px 17px;
+              background-size: 17px 17px;
+              height: 17px;
+              width: 17px;
+            }
           }
           .external-assessment {
             img {
@@ -108,60 +128,61 @@
         }
       }
       .resource-info {
+        display: flex;
         margin-left: 5px;
-        width: 77%;
-        line-height: $line-height;
+        width: 118%;
+        border-bottom: 1px solid $gray-lighter;
+        border-top: 1px solid $gray-lighter;
+        line-height: 2.2;
+        padding-left: 15px;
+        margin-left: -15px;
         $lines-to-show: 2;
         > * {
           display: block;
         }
-        h6 {
-          margin: 2px 0 5px 0;
-          @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
-          max-height: 40px;
+        .visibility {
+          display: inline-block;
+          float: right;
+          height: 24px;
+          margin: 1px 0 0 0;
+        }
+        .visible-icon > i {
+          color: $gray-dove;
+        }
+        .invisible-icon > i {
+          color: $gray-lighter;
         }
         .resource-type,
         .question-type {
+          width: 82%;
           span {
             color: $text-color;
           }
         }
-        .title-section {
-          h6.title {
-            display: inline-block;
-            width: 88%;
-            color: $blue-400;
-            font-size: 16px;
-          }
-          .publish-icon {
-            display: inline-block;
-            float: right;
-            vertical-align: top;
-            margin-top: 5px;
-            background: url("gooru/badge-01.png");
-            -webkit-background-size: 17px 17px;
-            background-size: 17px 17px;
-            height: 17px;
-            width: 17px;
-          }
+        .search-type-position {
+          margin-left: 21%;
         }
+      }
+      .rubric-info {
+        border: none;
       }
       .publish-icon {
         display: inline-block;
         float: right;
         vertical-align: top;
-        margin-top: 2px;
+        margin-top: 4px;
+        margin-right: 5px;
         background: url("gooru/badge-01.png");
-        -webkit-background-size: 17px 17px;
-        background-size: 17px 17px;
-        height: 17px;
+        -webkit-background-size: 17px 20px;
+        background-size: 17px 20px;
+        height: 20px;
         width: 17px;
       }
     }
     .panel-body {
       padding: 12px 15px 0 15px;
       height: 145px;
-
+      margin-top: 5px;
       .publisher {
         margin: 3px 0 3px 2px;
         width: 100%;
@@ -212,12 +233,20 @@
       padding: 0px !important;
       .buttons {
         display: -webkit-flex;
+        .left-btns {
+          width: 50%;
+        }
+        .right-btns {
+          width: 50%;
+          .resource-icon-btn {
+            float: right;
+          }
+        }
         .remix-btn {
           background-color: $blue-400;
           height: 43px;
           width: 74px;
           display: flex;
-          margin-right: 54px;
           border-bottom-left-radius: 5px;
           a {
             color: $white;
@@ -231,10 +260,14 @@
             }
           }
         }
+        .remix-anonymous {
+          margin-right: 0px !important;
+        }
         .resource-icon-btn {
           padding: 10px 15px;
           border-right: solid 1px $gray-ultra-light;
           width: 45px;
+          height: 43px;
           text-align: center;
           display: block;
           > a {
@@ -243,7 +276,6 @@
           }
           &.edit {
             border-left: solid 1px $gray-ultra-light;
-            margin-left: 84px;
             i {
               margin-left: -4px;
             }
@@ -255,9 +287,6 @@
               margin-left: -4px;
             }
           }
-          &.rubric-edit {
-            margin-left: 174px !important;
-          }
           &.add {
             border: none;
             i {
@@ -266,7 +295,6 @@
             }
           }
           &.share {
-            margin-left: 129px;
             border-left: solid 1px $gray-ultra-light;
             a {
               text-decoration: none;
@@ -291,13 +319,14 @@
                 color: $dark-400;
               }
             }
-         }
+          }
           :hover {
             background-color: $white;
           }
           &.play {
             i {
               margin-left: -5px;
+              color: $blue-400;
             }
           }
           .resource-mode-edit > i {

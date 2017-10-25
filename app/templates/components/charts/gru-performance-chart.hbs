@@ -1,7 +1,13 @@
 <div class="container-box" style="background-color:{{grade-color (if hasStarted performanceSummary.score 'NA')}}">
   {{#if hasStarted}}
     <label class="percentage">
-      {{scoreText}}
+      {{#if routeToGo}}
+        {{#link-to routeToGo classId class="pointer" tagName="div"}}
+          {{scoreText}}
+        {{/link-to}}
+      {{else}}
+        {{scoreText}}
+      {{/if}}
     </label>
     <div class="completion-bar" data-toggle="tooltip" data-html="true" data-placement="right"
          title="{{tooltipText}}">

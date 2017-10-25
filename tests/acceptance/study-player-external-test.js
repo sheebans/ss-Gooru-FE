@@ -54,7 +54,7 @@ test('Layout', function(assert) {
     const $playerHeader = find('.gru-study-header');
     T.exists(assert, $playerHeader, 'Missing study player header');
 
-    const $playerContainer = find('.player-container .external-assessment');
+    const $playerContainer = find('.player-container');
     T.exists(assert, $playerContainer, 'Missing external player component');
 
     const $next = find('.player-container .btn-next');

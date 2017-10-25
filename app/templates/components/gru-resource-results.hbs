@@ -1,10 +1,11 @@
-<div class="resource-results">
+<div class="resource-results row">
     <div class="results">
       {{#if resourceResults}}
         {{#each resourceResults as |resource|}}
           {{new-cards.gru-resource-card
             resource=resource
             profile=profile
+            isSearch=true
             onRemixQuestion="remixQuestion"
             onPlayResource="playQuestion"
           }}

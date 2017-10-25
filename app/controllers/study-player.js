@@ -39,13 +39,6 @@ export default PlayerController.extend({
   // Actions
   actions: {
     /**
-     * Action triggered when the performance information panel is expanded/collapsed
-     */
-    toggleHeader: function(toggleState) {
-      this.set('toggleState', toggleState);
-    },
-
-    /**
      * If the user want to continue playing the collection
      */
     playActualCollection: function() {
@@ -112,12 +105,6 @@ export default PlayerController.extend({
   pathId: null,
 
   /**
-   * Shows the performance information
-   * @property {Boolean} toggleState
-   */
-  toggleState: true,
-
-  /**
    * Indicates if it should show the back button
    * @property {boolean}
    */
@@ -149,57 +136,15 @@ export default PlayerController.extend({
   typeSuggestion: ASSESSMENT_SUB_TYPES.PRE_TEST,
 
   /**
-   * Shows the breadcrumbs info of the collection
-   * @property {Array[]}
-   */
-  breadcrumbs: Ember.computed('collection', 'lesson', 'unit', function() {
-    let unit = this.get('unit');
-    let lesson = this.get('lesson');
-    let collection = this.get('collection');
-    let lessonChildren = lesson.children;
-    let titles = Ember.A([]);
-
-    let isChild = lessonChildren.findBy('id', collection.id);
-
-    if (unit) {
-      titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
-    }
-    if (lesson) {
-      titles.push(`L${lesson.get('sequence')}: ${lesson.get('title')}`);
-    }
-    if (collection && isChild) {
-      if (collection.isCollection) {
-        let collections = lessonChildren.filter(
-          collection => collection.format === 'collection'
-        );
-        collections.forEach((child, index) => {
-          if (child.id === collection.id) {
-            let collectionSequence = index + 1;
-            titles.push(`C${collectionSequence}: ${collection.get('title')}`);
-          }
-        });
-      } else {
-        let assessments = lessonChildren.filter(
-          assessment => assessment.format === 'assessment'
-        );
-        assessments.forEach((child, index) => {
-          if (child.id === collection.id) {
-            let assessmentSequence = index + 1;
-            titles.push(`A${assessmentSequence}: ${collection.get('title')}`);
-          }
-        });
-      }
-    } else {
-      titles.push(collection.get('title'));
-    }
-    return titles;
-  }),
-
-  /**
    * Course version Name
    * @property {String}
    */
   courseVersion: Ember.computed.alias('course.version'),
+
+  /**
+   * @property {String} It decide to show the back to course map or not.
+   */
+  showBackToCourseMap: true,
 
   /**
    * Resets to default values
@@ -208,7 +153,7 @@ export default PlayerController.extend({
     //TODO: call the parent reset values method
     this.setProperties({
       showSuggestion: true,
-      toggleState: true,
+      showBackToCourseMap: true,
       classId: null,
       unitId: null,
       lessonId: null,

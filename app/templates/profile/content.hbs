@@ -27,7 +27,7 @@
       {{/link-to}}
       {{#link-to "profile.content.questions" tagName="li" class='questions'}}
         <a href='{{view.href}}' class="btn btn-category">
-          {{gru-icon name='help_outline '}}
+          <i class="icon"></i>
           <span>{{t "common.questions"}}</span>
         </a>
       {{/link-to}}
@@ -55,6 +55,7 @@
     </div>
   {{/if}}
 </div>
+
 {{#unless disableSearch}}
   <div class="container-fluid filters">
     <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
@@ -93,6 +94,6 @@
     </div>
   </div>
 {{/unless}}
-<div class="content_outlet col-md-12">
+<div class="content_outlet">
   {{outlet}}
 </div>

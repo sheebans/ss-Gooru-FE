@@ -1,7 +1,7 @@
 {{#if class.courseId}}
   <div class="controller student course-map">
     <div class="actions">
-      <button {{action "locateMe" userLocation}} class="btn btn-info locate">
+      <button {{action "locateMe" userLocation}} title="{{t 'class.overview.locate'}}" class="btn btn-info locate" data-toggle="tooltip" data-placement="auto">
         <span>{{gru-icon name='near_me'}}</span>
       </button>
       <span class="min-score {{unless class.minScore 'hidden'}}"><i></i> > {{class.minScore}} %</span>
@@ -22,5 +22,5 @@
     toggleLocation=toggleLocation}}
   </div>
 {{else}}
-  <div class="no-content">This classroom does not have a related course and it has no content</div>
+  <div class="no-content">{{t 'student-landing.no-content-classrooms'}}</div>
 {{/if}}

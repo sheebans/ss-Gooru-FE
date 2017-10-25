@@ -177,5 +177,31 @@ export default Ember.Component.extend(ModalMixin, {
    * Indicates if it allow profile navigation or not in the cards
    * @property {boolean} allowProfileNavigation
    */
-  allowProfileNavigation: true
+  allowProfileNavigation: true,
+
+  /**
+  * Indicates if the student logged in and search for resources
+  * @property {boolean} isStudentSearch
+  */
+  isStudentSearch: Ember.computed('profile.isStudent', function() {
+    let isStudent = this.get('profile.isStudent');
+    let isSearch = this.get('isSearch');
+    if (isStudent && isSearch) {
+      return true;
+    }
+    return false;
+  }),
+
+  /**
+  * Indicates if the teacher logged in and search for resources
+  * @property {boolean} isTeacherSearch
+  */
+  isTeacherSearch: Ember.computed('profile.isTeacher', function() {
+    let isTeacher = this.get('profile.isTeacher');
+    let isSearch = this.get('isSearch');
+    if (isTeacher && isSearch) {
+      return true;
+    }
+    return false;
+  })
 });
