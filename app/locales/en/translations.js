@@ -1031,7 +1031,7 @@ export default Object.assign(quizzesTranslations, {
     'browse-featured-courses': 'Browse our featured courses',
     'browse-our': 'Browse our',
     'class-code': 'Class Code',
-    'featured-courses': 'featured courses',
+    'featured-courses': 'Featured Courses',
     class: {
       'assigned-course': 'Assigned Course',
       'back-to': 'Back to Classrooms',
@@ -1052,6 +1052,7 @@ export default Object.assign(quizzesTranslations, {
       'total-time-spent': 'Total time spent'
     },
     'current-activity': 'Current activity',
+    'resume-current-activity': 'Resume Current Activity',
     'join-classroom': 'Join your teacher\'s classroom to start learning',
     learn: 'Learn with a Gooru classroom',
     'my-performance': {

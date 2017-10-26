@@ -99,6 +99,19 @@ test('Class Card Layout', function(assert) {
     'Missing class information'
   );
 
+  const $links = $panelBody.find('.links');
+
+  T.exists(assert, $links, 'Missing card links');
+
+  assert.equal($links.find('li a').length, 3, 'Number of card links');
+  T.exists(
+    assert,
+    $links.find('.class-activities'),
+    'Missing class activities link'
+  );
+  T.exists(assert, $links.find('.course-map'), 'Missing content map link');
+  T.exists(assert, $links.find('.performance'), 'Missing performance link');
+
   T.exists(
     assert,
     $panelBody.find('.performance'),

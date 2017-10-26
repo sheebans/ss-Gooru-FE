@@ -95,6 +95,7 @@
       }
       .author,
       .remixed-by {
+        display: inline-block;
         img {
           width: 20px;
           height: 20px;
@@ -110,6 +111,7 @@
         span.title {
           margin: 2px 5px 10px 0;
           cursor: auto;
+          font-style: italic;
         }
         .owner {
           color: $blue-400;
@@ -118,6 +120,19 @@
           vertical-align: middle;
         }
       }
+
+      .badge-icon {
+        display: inline-block;
+        float: right;
+        vertical-align: top;
+        margin-top: 6px;
+        background: url("gooru/badge-01.png");
+        -webkit-background-size: 17px 17px;
+        background-size: 17px 17px;
+        height: 17px;
+        width: 17px;
+      }
+
       .description {
         height: 51px;
         $line-height: 1.3;

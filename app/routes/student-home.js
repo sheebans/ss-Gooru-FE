@@ -103,6 +103,30 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       suggestionPromise.then(() =>
         route.transitionTo('study-player', courseId, { queryParams })
       );
+    },
+
+    /**
+     * Triggered when a student card menu item is selected
+     * @param {string} item
+     * @param {string} classId
+     */
+    selectMenuItem: function(item, classId) {
+      const route = this;
+      const queryParams = {
+        queryParams: {
+          filterBy: 'assessment'
+        }
+      };
+
+      if (item === 'performance') {
+        route.transitionTo('student.class.performance', classId, queryParams);
+      } else if (item === 'course-map') {
+        route.transitionTo('student.class.course-map', classId);
+      } else if (item === 'class-activities') {
+        route.transitionTo('student.class.class-activities', classId);
+      } else {
+        route.transitionTo('student-home');
+      }
     }
   },
 

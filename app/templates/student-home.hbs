@@ -43,7 +43,8 @@
         {{#each activeClasses as |class|}}
           {{cards.gru-student-class-card
             class=class
-            onPlayCollection='studyPlayer'}}
+            onPlayCollection='studyPlayer'
+            onItemSelected='selectMenuItem'}}
         {{/each}}
       {{/if}}
     </div>

@@ -22,21 +22,13 @@ test('Join Class Card Layout', function(assert) {
 
   const $joinClassCard = $component.find('.gru-join-class-card');
   const $panel = $joinClassCard.find('.panel');
-  const $panelHeading = $panel.find('.panel-heading');
   const $panelBody = $panel.find('.panel-body');
   const $panelFooter = $panel.find('.panel-footer');
 
   T.exists(assert, $joinClassCard, 'Missing join class card section');
   T.exists(assert, $panel, 'Missing join class card panel');
-  T.exists(assert, $panelHeading, 'Missing join class card panel heading');
   T.exists(assert, $panelBody, 'Missing join class card panel body');
   T.exists(assert, $panelFooter, 'Missing join class card panel footer');
-
-  assert.equal(
-    T.text($panelHeading),
-    this.i18n.t('content.classes.join.title').toString(),
-    'Wrong title text'
-  );
 
   T.exists(assert, $panelBody.find('.image'), 'Missing card image');
 

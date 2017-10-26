@@ -4,10 +4,12 @@
       <div class="info">
         <div class="question-resources">
           {{#if isCourse}}
-            {{gru-icon name="format_align_center"}}
-            <span class="unit-count">
-            {{content.unitCount}}
-          </span>
+            <span class="units" title="{{t 'common.unit'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
+              {{gru-icon name="format_align_center"}}
+              <span class="unit-count">
+              {{content.unitCount}}
+              </span>
+            </span>
           {{else}}
             {{#if hasResources}}
               {{gru-icon name="format_align_center"}}
@@ -24,7 +26,7 @@
           {{/if}}
         </div>
         <div class="title-section">
-          <h3 class="title" alt="{{content.title}}">{{truncate text=content.title maxLength=40}}</h3>
+          <h3 class="title" alt="{{content.title}}">{{truncate text=content.title maxLength=50}}</h3>
         </div>
       </div>
     </div>
@@ -99,6 +101,9 @@
         {{/if}}
       {{/if}}
     </div>
+    {{#if isCourse}}
+      <div class="badge-icon"></div>
+    {{/if}}
     {{#if (eq cardSize "md")}}
       <div class="description">
         {{#if isCourse}}

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { COMPLETION_CLASS_BAR_COLOR } from 'gooru-web/config/config';
+import { getBarGradeColor } from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -33,6 +33,18 @@ export default Ember.Component.extend({
       const component = this;
       const currentLocation = component.get('class.currentLocation');
       this.sendAction('onPlayCollection', currentLocation);
+    },
+
+    /**
+     *
+     * Triggered when an menu item is selected
+     * @param item
+     */
+    selectItem: function(item) {
+      const classId = this.get('class.id');
+      if (this.get('onItemSelected')) {
+        this.sendAction('onItemSelected', item, classId);
+      }
     }
   },
   // -------------------------------------------------------------------------
@@ -64,11 +76,6 @@ export default Ember.Component.extend({
    * @property {Course} course information
    */
   course: null,
-
-  /**
-   * @property {String} color - Hex color value for the default bgd color of the bar chart
-   */
-  defaultBarColor: COMPLETION_CLASS_BAR_COLOR,
 
   /**
    * @property {boolean} Show or not the current location
@@ -126,17 +133,23 @@ export default Ember.Component.extend({
   /**
    * @property {[Number]} barChartData
    */
-  barChartData: Ember.computed('class.performanceSummary', function() {
-    const completed = this.get('class.performanceSummary.totalCompleted');
-    const total = this.get('class.performanceSummary.total');
-    const percentage = completed ? completed / total * 100 : 0;
-    return [
-      {
-        color: this.get('defaultBarColor'),
-        percentage
-      }
-    ];
-  }),
+  barChartData: Ember.computed(
+    'class.performanceSummary',
+    'class.performanceSummary.score',
+    function() {
+      let score = this.get('class.performanceSummary.score');
+      let scoreColor = getBarGradeColor(score);
+      const completed = this.get('class.performanceSummary.totalCompleted');
+      const total = this.get('class.performanceSummary.total');
+      const percentage = completed ? completed / total * 100 : 0;
+      return [
+        {
+          color: scoreColor,
+          percentage
+        }
+      ];
+    }
+  ),
 
   /**
    * @property {String} current location title
