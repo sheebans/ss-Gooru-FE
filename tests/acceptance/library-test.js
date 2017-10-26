@@ -40,7 +40,7 @@ test('Library Controller Layout', function(assert) {
       'Missing Featured Courses Section'
     );
     assert.equal(
-      $libraries.find('#featured-courses .gru-collection-card').length,
+      $libraries.find('#featured-courses .gru-standard-card').length,
       2,
       'It should show 2 cards'
     );
@@ -67,12 +67,10 @@ test('Clicking card title should open the player', function(assert) {
     assert.equal(currentURL(), '/library');
     const $libraries = find('.libraries ');
     const $firstResult = $libraries.find(
-      '#featured-courses .gru-collection-card:eq(0)'
+      '#featured-courses .gru-standard-card:eq(0)'
     );
     const $cardHeader = $firstResult.find('.panel .panel-heading');
-    const $cardTitle = $cardHeader.find(
-      '.collection-info .title-section .play-content'
-    );
+    const $cardTitle = $cardHeader.find('.info .title-section ');
     click($cardTitle);
     andThen(function() {
       assert.equal(
@@ -90,11 +88,10 @@ test('Clicking card image should open the player', function(assert) {
     assert.equal(currentURL(), '/library');
     const $libraries = find('.libraries ');
     const $firstResult = $libraries.find(
-      '#featured-courses .gru-collection-card:eq(0)'
+      '#featured-courses .gru-standard-card:eq(0)'
     );
     const $cardHeader = $firstResult.find('.panel .panel-heading');
-    const $cardImage = $cardHeader.find('.image .play-content');
-    click($cardImage);
+    click($cardHeader);
     andThen(function() {
       assert.equal(
         currentURL(),
