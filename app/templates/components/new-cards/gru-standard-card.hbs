@@ -97,7 +97,7 @@
           </div>
         </a>
       {{else}}
-        {{#link-to 'content.courses.play' content.id}}
+        <a {{action "openContentPlayer" content}}>
           <div class="panel-heading" style="background-image: url({{content.thumbnailUrl}})">
             <div class="info">
               <div class="question-resources">
@@ -126,7 +126,7 @@
               </div>
             </div>
           </div>
-        {{/link-to}}
+        </a>
       {{/if}}
 
     {{/if}}
