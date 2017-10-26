@@ -5,10 +5,12 @@
         <div class="info">
           <div class="question-resources">
             {{#if isCourse}}
-              {{gru-icon name="format_align_center"}}
-              <span class="unit-count">
-            {{content.unitCount}}
-        </span>
+              <span class="units" title="{{t 'common.unit'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
+                {{gru-icon name="format_align_center"}}
+                <span class="unit-count">
+                  {{content.unitCount}}
+                </span>
+              </span>
             {{else}}
               {{#if hasResources}}
                 {{gru-icon name="format_align_center"}}
@@ -30,7 +32,6 @@
         </div>
       </div>
     </a>
-
   {{else}}
     {{#if (and isOnProfile isMyProfile)}}
       <a {{action "editContent" content}}>
@@ -38,10 +39,12 @@
           <div class="info">
             <div class="question-resources">
               {{#if isCourse}}
-                {{gru-icon name="format_align_center"}}
-                <span class="unit-count">
-              {{content.unitCount}}
-          </span>
+                <span class="units" title="{{t 'common.unit'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
+                  {{gru-icon name="format_align_center"}}
+                    <span class="unit-count">
+                      {{content.unitCount}}
+                    </span>
+                </span>
               {{else}}
                 {{#if hasResources}}
                   {{gru-icon name="format_align_center"}}
@@ -71,10 +74,12 @@
             <div class="info">
               <div class="question-resources">
                 {{#if isCourse}}
-                  {{gru-icon name="format_align_center"}}
-                  <span class="unit-count">
-             {{content.unitCount}}
-           </span>
+                  <span class="units" title="{{t 'common.unit'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
+                    {{gru-icon name="format_align_center"}}
+                      <span class="unit-count">
+                        {{content.unitCount}}
+                      </span>
+                  </span>
                 {{else}}
                   {{#if hasResources}}
                     {{gru-icon name="format_align_center"}}
@@ -102,10 +107,12 @@
             <div class="info">
               <div class="question-resources">
                 {{#if isCourse}}
-                  {{gru-icon name="format_align_center"}}
-                  <span class="unit-count">
-             {{content.unitCount}}
-           </span>
+                  <span class="units" title="{{t 'common.unit'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
+                    {{gru-icon name="format_align_center"}}
+                      <span class="unit-count">
+                        {{content.unitCount}}
+                      </span>
+                  </span>
                 {{else}}
                   {{#if hasResources}}
                     {{gru-icon name="format_align_center"}}
