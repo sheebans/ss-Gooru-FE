@@ -32,6 +32,14 @@ export default Ember.Component.extend({
      */
     onIndependentPlayer: function(collection) {
       this.sendAction('onOpenIndependentPlayer', collection);
+    },
+
+    /**
+     * Action triggered to open the independent player
+     * @param {string} collectionId collection identifier
+     */
+    playCourse: function(course) {
+      this.sendAction('onOpenContentPlayer', course);
     }
   },
 
