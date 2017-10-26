@@ -215,6 +215,18 @@
             }
           }
 
+          .author {
+            pan.title {
+              width: 63px;
+              line-height: 1.69;
+              font-style: italic;
+            }
+            .owner {
+              margin-left: 3px;
+              max-width: 75px;
+            }
+          }
+
           .description {
             width: 260px;
             height: 75px;

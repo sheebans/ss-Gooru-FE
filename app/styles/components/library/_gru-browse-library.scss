@@ -249,8 +249,21 @@
             }
           }
           .unit-text {
-            margin-left: 43px;
+            margin-left: 25px;
+            line-height: 25px;
           }
+          .visibility {
+            float: right;
+            .cca-eye-icon {
+              margin-top: 2px;
+            }
+          }
+        }
+      }
+      .cca-first {
+        .visible_false {
+          color: #eee;
+          float: right;
         }
       }
 
