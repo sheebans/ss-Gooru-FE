@@ -1,5 +1,5 @@
 .student.class {
-  padding: 15px 0;
+  padding: 12px 0;
   width: 960px;
   margin: 0 auto;
   .content .no-content {
@@ -48,15 +48,12 @@
           }
         }
         .course-name {
-          $line-height: 1.4;
-          $lines-to-show: 2;
+          line-height: 1.4;
           margin: 10px 0 0 10px;
           width: 25%;
-          @include ellipsis($font-size: $font-size-h6, $line-height: $line-height, $lines-to-show: $lines-to-show);
         }
         .counts-container {
           padding: 6px 0 0;
-          margin: 0 0 0 5px;
           width: 6%;
           .count {
             height: 20px;
@@ -73,7 +70,7 @@
           }
         }
         .teacher-profile {
-          margin: 0 0 0 40px;
+          margin: 0 0 0 20px;
           width: 16%;
           img {
             border-radius: 50px;
@@ -84,20 +81,18 @@
             width: 43px;
           }
           .owner-name {
-            $line-height: 1.4;
-            $lines-to-show: 2;
             display: inline-block !important;
             float: left;
+            line-height: 1.4;
             margin: 10px 0 0;
             width: 65%;
-            @include ellipsis($font-size: $font-size-h6, $line-height: $line-height, $lines-to-show: $lines-to-show);
           }
         }
         .taxonomy-standards {
           min-width: 100px;
           margin: 0 0 0 20px;
           padding: 12px 0 0;
-          width: 16%;
+          width: 18%;
           .taxonomy.gru-taxonomy-tag {
             background-color: $light-300;
             border: none;
@@ -134,7 +129,7 @@
           }
         }
         .performance-container {
-          width: 12%;
+          width: 11%;
           .percentage {
             margin: 12px 0;
             font-size: $font-size-h3;
