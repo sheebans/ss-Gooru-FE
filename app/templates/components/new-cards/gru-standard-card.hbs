@@ -137,7 +137,7 @@
     <div class="panel-body cca-first">
       {{#if isCourse}}
         <div class="cca-icon-btn pull-left">
-          <div class="visibility" title="{{t 'common.unitObj.zero'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
+          <div class="visibility" title="{{t 'common.unitObj.one'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
             {{#if (gt content.unitCount 0)}}
               <div class="units-icon"> <i class="icon"> </i> </div>
               <div class="unit-text"> <span>{{content.unitCount}}</span> </div>
@@ -148,7 +148,7 @@
       {{#if (or isCollection isAssessment)}}
         {{#if (not isAssessment)}}
           <div class="cca-icon-btn ">
-            <div class="visibility" title="{{t 'common.resources'}}" data-toggle="tooltip" data-placement="left" data-trigger="hover">
+            <div class="visibility" title="{{t 'common.resource'}}" data-toggle="tooltip" data-placement="left" data-trigger="hover">
               {{#if (gt content.resourceCount 0)}}
                 <div class="resource-icon"> <i class="icon"> </i> </div>
                 <div class="resource-text"> <span>{{content.resourceCount}}</span> </div>
@@ -157,7 +157,7 @@
           </div>
         {{/if}}
         <div class="cca-second-icon-btn ">
-          <div class="visibility" title="{{t 'common.questions'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
+          <div class="visibility" title="{{t 'common.question'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
             {{#if (gt content.questionCount 0)}}
               <div class="question-icon"> <i class="icon"> </i> </div>
               <div class="unit-text"> <span>{{content.questionCount}}</span> </div>
@@ -165,6 +165,7 @@
           </div>
         </div>
       {{/if}}
+      {{#if (not novisibility)}}
       {{#if (not content.isVisibleOnProfile)}}
         <div class="visibility  visible_false" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
           {{gru-icon name="visibility_off" class='pull-right cca-eye-icon'}}
@@ -173,6 +174,7 @@
         <div class="visibility" title="{{t 'common.visibility-available'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
           {{gru-icon name="visibility" class='pull-right cca-eye-icon'}}
         </div>
+      {{/if}}
       {{/if}}
     </div>
   {{/if}}
