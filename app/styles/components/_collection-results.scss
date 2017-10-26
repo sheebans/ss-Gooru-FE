@@ -53,8 +53,9 @@
 }
 
 .collection-results .results {
-  margin: 40px 0 0 0px;
+  margin: 40px 0 0;
   justify-content: left;
+
   .new-cards.gru-standard-card {
     width: 220px;
     margin: 10px;
@@ -127,7 +128,20 @@
 
         .remixed-by {
           span.title {
-            width: 60px;
+            width: 63px;
+            line-height: 1.69;
+            font-style: italic;
+          }
+
+          .owner {
+            margin-left: 3px;
+            max-width: 75px;
+          }
+        }
+
+        .author {
+          span.title {
+            width: 63px;
             line-height: 1.69;
             font-style: italic;
           }
@@ -183,8 +197,6 @@
         }
 
         .cca-second-icon-btn {
-          margin-left: auto;
-
           .question-icon {
             float: left;
 
@@ -203,6 +215,12 @@
             margin-left: 2px;
             width: 15px;
           }
+        }
+        .assessment {
+          width: 33px;
+        }
+        .collection {
+          width: 80px;
         }
 
         .visibility {
@@ -295,6 +313,7 @@
         border-top-right-radius: 6px;
         height: 126px;
         padding-bottom: 2px;
+
         .author {
           .pointer {
             .owner {

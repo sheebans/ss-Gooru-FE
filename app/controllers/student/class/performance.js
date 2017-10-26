@@ -17,6 +17,8 @@ export default Ember.Controller.extend({
 
   applicationController: Ember.inject.controller('application'),
 
+  classController: Ember.inject.controller('student.class'),
+
   /**
    * @type {PerformanceService}
    */
