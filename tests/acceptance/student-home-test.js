@@ -193,10 +193,9 @@ test('Class order', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/student-home');
     let $title = find('.gru-student-class-card:eq(0) .panel-heading >.title');
-    assert.equal(
-      $title.text().trim(),
-      'First Class Pochita as Student',
-      'Incorrect first class'
+    assert.ok(
+      $title.text().includes('First Class Pochita'),
+      'Incorrect first class title'
     );
   });
 });
