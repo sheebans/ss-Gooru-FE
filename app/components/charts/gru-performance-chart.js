@@ -51,11 +51,6 @@ export default Ember.Component.extend({
   routeToGo: null,
 
   /**
-   * @property {String} Class Id if needed
-   */
-  classId: null,
-
-  /**
    * @property {Text} score text
    * Computed property for the performance score text to be displayed
    */
