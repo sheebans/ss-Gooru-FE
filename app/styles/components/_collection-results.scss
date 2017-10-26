@@ -127,13 +127,13 @@
 
         .remixed-by {
           span.title {
-            width: 68px;
+            width: 60px;
             line-height: 1.69;
             font-style: italic;
           }
 
           .owner {
-            margin-left: 4px;
+            margin-left: 3px;
             max-width: 75px;
           }
         }
@@ -296,13 +296,13 @@
         height: 126px;
         padding-bottom: 2px;
         .author {
-          .pointer{
-            .owner{
+          .pointer {
+            .owner {
               max-width: 75px;
+              margin-left: 3px;
             }
           }
         }
-
       }
 
       .cca-standards {

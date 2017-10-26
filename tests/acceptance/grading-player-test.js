@@ -27,6 +27,7 @@ test('Layout', function(assert) {
 
     const $gradingContainer = find('.teacher.grading');
     const $rosterHeader = $gradingContainer.find('.header .gru-roster-header');
+
     const $taskHeader = $gradingContainer.find('.header .gru-task-header');
     const $response = $gradingContainer.find('.question-response');
     T.exists(assert, $gradingContainer, 'Missing grading container');
@@ -41,10 +42,7 @@ test('Layout', function(assert) {
       'Missing go back link'
     );
     T.exists(assert, $rosterHeader, 'Missing roster header');
-    assert.ok(
-      T.text($rosterHeader.find('.submitted-at')).includes('03/05/17'),
-      'Wrong text in submitted at'
-    );
+
     assert.ok(
       T.text($rosterHeader.find('.current-response')).includes(
         'Profile Number 1'
