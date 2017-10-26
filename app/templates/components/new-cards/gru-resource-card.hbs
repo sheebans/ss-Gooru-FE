@@ -62,11 +62,6 @@
                   {{#link-to (if isQuestion 'content.questions.play' 'content.resources.play') resource.id tagName="h6" class="title truncate pointer" alt=resource.title}}{{{resource.title}}}{{/link-to}}
                 {{/if}}
               {{/if}}
-              {{#unless (or publishVisible isSearch)}}
-                {{#if resource.isPublished}}
-                  <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
-                {{/if}}
-              {{/unless}}
             {{/if}}
           {{/if}}
         </div>
@@ -85,20 +80,17 @@
             </div>
           {{/if}}
         {{/unless}}
-
+        {{#if (and publishVisible (not isSearch))}}
+          {{#if resource.isPublished}}
+            <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
+          {{/if}}
+        {{/if}}
         {{#unless (or isRubric isSearch)}}
           <div class="resource-icon-btn visibility {{if resource.isVisibleOnProfile 'visible-icon' 'invisible-icon'}}"  title="{{t (if resource.isVisibleOnProfile 'common.visibility-available' 'common.visibility-tooltip')}}" data-toggle="tooltip">
             {{gru-icon name="visibility" class="visibility"}}
           </div>
         {{/unless}}
       </div>
-
-      {{#if publishVisible}}
-        {{#if resource.isPublished}}
-          <div class="publish-icon" title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
-        {{/if}}
-      {{/if}}
-
     </div>
   </div>
   <div class="panel-body">

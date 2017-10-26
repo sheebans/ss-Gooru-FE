@@ -33,9 +33,15 @@
     height: 100%;
     width: 100%;
     .libraries-container {
+      @media (min-width: $screen-lg) {
+        max-width: 1095px;
+        margin: 0;
+        margin-left: 10%;
+        margin-top: 80px;
+      }
       @include flexbox;
       @include flex-wrap(wrap);
-      @include justify-content(center);
+      @include justify-content(left);
       margin: 100px 0 30px;
       padding: 0 25px;
     }

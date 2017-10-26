@@ -170,11 +170,12 @@
         display: inline-block;
         float: right;
         vertical-align: top;
-        margin-top: 2px;
+        margin-top: 4px;
+        margin-right: 5px;
         background: url("gooru/badge-01.png");
-        -webkit-background-size: 17px 17px;
-        background-size: 17px 17px;
-        height: 17px;
+        -webkit-background-size: 17px 20px;
+        background-size: 17px 20px;
+        height: 20px;
         width: 17px;
       }
     }

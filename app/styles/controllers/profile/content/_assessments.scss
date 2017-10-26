@@ -72,7 +72,7 @@
             font-style: italic;
           }
           .owner {
-              margin-left: 6px;
+            margin-left: 6px;
           }
         }
 
@@ -93,7 +93,6 @@
             $line-height: 1.5;
             $lines-to-show: 3;
             @include ellipsis($font-size: 10px, $line-height: $line-height, $lines-to-show: 3, $excerpt-bg: $white);
-
           }
         }
 
@@ -119,7 +118,7 @@
         }
 
         .visibility {
-         .cca-eye-icon {
+          .cca-eye-icon {
             height: 13px;
             width: 13px;
             margin-top: -3px;
@@ -129,7 +128,7 @@
       }
       .cca-first {
         height: 25px;
-        .visible_false{
+        .visible_false {
           color: #eee;
         }
       }

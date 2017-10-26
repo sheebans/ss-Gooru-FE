@@ -35,49 +35,65 @@ test('Partner Library card', function(assert) {
 
   const $header = $component.find('.panel-heading');
   assert.ok($header.length, 'Missing header');
-  assert.ok($header.find('.image img').length, 'Missing image');
-
-  const $info = $header.find('.library-info');
-  assert.ok($info.length, 'Missing library info container');
-  assert.ok($info.find('.title-section').length, 'Missing name');
-
-  const $countsContainer = $info.find('.counts-info');
-  assert.ok($countsContainer.length, 'Missing counts container');
-  assert.equal(
-    $countsContainer.find('.total-courses').text().trim(),
-    '5 Courses',
-    'Wrong label for courses count'
-  );
-  assert.equal(
-    $countsContainer.find('.total-collections').text().trim(),
-    '15 Collections',
-    'Wrong label for collections count'
-  );
-  assert.equal(
-    $countsContainer.find('.total-assessments').text().trim(),
-    '12 Assessments',
-    'Wrong label for assessments count'
-  );
-  assert.notOk(
-    $countsContainer.find('.total-resources').length,
-    'Resources count should not be displayed'
-  );
-  assert.equal(
-    $countsContainer.find('.total-questions').text().trim(),
-    '45 Questions',
-    'Wrong label for questions count'
-  );
-  assert.notOk(
-    $countsContainer.find('.total-rubrics').length,
-    'Rubrics count should not be displayed'
-  );
+  assert.ok($header.find('.title-section').length, 'Missing library name');
 
   const $body = $component.find('.panel-body');
   assert.ok($body.length, 'Missing body');
-  assert.ok($body.find('.description').length, 'Missing description');
+  assert.ok($body.find('.image img').length, 'Missing partner library image');
+  assert.ok(
+    $body.find('.description').length,
+    'Missing partner library description'
+  );
   assert.equal(
-    $body.find('.description').text().trim(),
+    $body
+      .find('.description')
+      .text()
+      .trim(),
     'Library description',
     'Wrong description displayed'
+  );
+
+  const $footer = $component.find('.panel-footer');
+  const $info = $footer.find('.library-info');
+  assert.ok($info.length, 'Missing library info container');
+  assert.equal(
+    $info
+      .find('.total-courses span')
+      .text()
+      .trim(),
+    '5',
+    'Missing courses count'
+  );
+  assert.equal(
+    $info
+      .find('.total-collections span')
+      .text()
+      .trim(),
+    '15',
+    'Missing collections count'
+  );
+  assert.equal(
+    $info
+      .find('.total-assessments span')
+      .text()
+      .trim(),
+    '12',
+    'Missing assessments count'
+  );
+  assert.notOk(
+    $info.find('.total-resources span').length,
+    'Resources count should not be displayed'
+  );
+  assert.equal(
+    $info
+      .find('.total-questions span')
+      .text()
+      .trim(),
+    '45',
+    'Missing questions count'
+  );
+  assert.notOk(
+    $info.find('.total-rubrics span').length,
+    'Rubrics count should not be displayed'
   );
 });

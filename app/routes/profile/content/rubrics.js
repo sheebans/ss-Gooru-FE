@@ -17,11 +17,10 @@ export default Ember.Route.extend(ModalMixin, {
   model: function() {
     const profile = this.modelFor('profile').profile;
     const params = {
-      pageSize: DEFAULT_PAGE_SIZE
-      //TO DO: SEARCH BY TERM AND SORT WILL BE COMPLETED IN OTHER TICKET
-      //searchText:  this.paramsFor('profile.content').term,
-      //sortOn: this.paramsFor('profile.content').sortOn,
-      //order:this.paramsFor('profile.content').order
+      pageSize: DEFAULT_PAGE_SIZE,
+      searchText: this.paramsFor('profile.content').term,
+      sortOn: this.paramsFor('profile.content').sortOn,
+      order: this.paramsFor('profile.content').order
     };
 
     return this.get('profileService').readRubrics(profile.get('id'), params);
@@ -29,7 +28,6 @@ export default Ember.Route.extend(ModalMixin, {
 
   setupController: function(controller, model) {
     controller.set('rubrics', model);
-    controller.set('disableSearch', true);
   },
 
   deactivate: function() {

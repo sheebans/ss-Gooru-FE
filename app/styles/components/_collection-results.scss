@@ -2,40 +2,49 @@
   .search-results {
     height: 35px;
   }
+
   .label a {
     text-decoration: none;
     color: $white;
   }
+
   .results {
     margin: 18px auto;
     float: none;
   }
+
   .gru-standard-card {
     display: inline-block;
     margin: 10px;
     text-align: left;
   }
+
   .no-results-found {
     width: 292px;
     height: 362px;
     display: inline-block;
     border-radius: 6px;
+
     .panel-body {
       height: inherit;
       @include flexbox;
       @include align-items(center);
     }
+
     .no-results-content {
       margin: 0 auto;
       vertical-align: middle;
+
       > * {
         display: block;
       }
+
       i {
         font-size: 86px;
         color: $gray-dark;
         margin: 25px 0;
       }
+
       .title {
         font-size: 18px;
       }
@@ -43,10 +52,9 @@
   }
 }
 
-
-
-
 .collection-results .results {
+  margin: 40px 0 0 0px;
+  justify-content: left;
   .new-cards.gru-standard-card {
     width: 220px;
     margin: 10px;
@@ -98,6 +106,7 @@
     .panel {
       .panel-body {
         border-top: 1px solid $gray-lighter;
+
         .standards {
           margin: 4px 0;
 
@@ -118,12 +127,14 @@
 
         .remixed-by {
           span.title {
-            width: 68px;
+            width: 60px;
             line-height: 1.69;
             font-style: italic;
           }
-          .owner{
-            margin-left: 4px;
+
+          .owner {
+            margin-left: 3px;
+            max-width: 75px;
           }
         }
 
@@ -131,9 +142,11 @@
           width: 196px;
           height: 30px;
           color: $gray;
+
           .ca-desc {
-            min-height: 28px;;
+            min-height: 28px;
           }
+
           .truncate {
             font-family: Lato;
             font-size: 10px;
@@ -148,6 +161,30 @@
         }
 
         .cca-icon-btn {
+          .resource-icon {
+            float: left;
+
+            i {
+              background: url("gooru/images/collections_resource_icon.svg");
+              width: 13.1px;
+              height: 15px;
+              display: block;
+              background-size: cover;
+            }
+          }
+
+          .resource-text {
+            float: left;
+            text-align: center;
+            line-height: 14px;
+            width: 20px;
+            margin-right: 10px;
+          }
+        }
+
+        .cca-second-icon-btn {
+          margin-left: auto;
+
           .question-icon {
             float: left;
 
@@ -168,29 +205,7 @@
           }
         }
 
-        .cca-second-icon-btn {
-          margin-left: 28px;
-
-          .resource-icon {
-            float: left;
-
-            i {
-              background: url("gooru/images/collections_resource_icon.svg");
-              width: 13.1px;
-              height: 15px;
-              display: block;
-              background-size: cover;
-            }
-          }
-
-          .resource-text {
-            float: left;
-            text-align: center;
-            line-height: 14px;
-            width: 20px
-          }
-        }
-         .visibility {
+        .visibility {
           .cca-eye-icon {
             height: 13px;
             width: 13px;
@@ -198,11 +213,12 @@
             font-size: 21px;
           }
         }
-
       }
+
       .cca-first {
-         height: 25px;
-        .visible_false{
+        height: 25px;
+
+        .visible_false {
           color: #eee;
         }
       }
@@ -231,7 +247,8 @@
 
         .options {
           width: 100%;
-          padding: 0px;
+          padding: 0;
+
           .preview-btn {
             width: 74px;
             height: 44px;
@@ -259,8 +276,9 @@
           }
         }
       }
+
       .cca-footer {
-        padding: 0px;
+        padding: 0;
       }
 
       .cca-description {
@@ -277,6 +295,14 @@
         border-top-right-radius: 6px;
         height: 126px;
         padding-bottom: 2px;
+        .author {
+          .pointer {
+            .owner {
+              max-width: 75px;
+              margin-left: 3px;
+            }
+          }
+        }
       }
 
       .cca-standards {

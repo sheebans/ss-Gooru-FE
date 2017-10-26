@@ -48,11 +48,9 @@
           }
         }
         .course-name {
-          $line-height: 1.4;
-          $lines-to-show: 2;
+          line-height: 1.4;
           margin: 10px 0 0 10px;
           width: 25%;
-          @include ellipsis($font-size: $font-size-h6, $line-height: $line-height, $lines-to-show: $lines-to-show);
         }
         .counts-container {
           padding: 6px 0 0;
@@ -83,13 +81,11 @@
             width: 43px;
           }
           .owner-name {
-            $line-height: 1.4;
-            $lines-to-show: 2;
             display: inline-block !important;
             float: left;
+            line-height: 1.4;
             margin: 10px 0 0;
             width: 65%;
-            @include ellipsis($font-size: $font-size-h6, $line-height: $line-height, $lines-to-show: $lines-to-show);
           }
         }
         .taxonomy-standards {
@@ -100,6 +96,7 @@
           .taxonomy.gru-taxonomy-tag {
             background-color: $light-300;
             border: none;
+            max-width: 135px;
             .content {
               b,
               span {

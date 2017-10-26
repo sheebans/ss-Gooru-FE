@@ -81,7 +81,7 @@
           height: 30px;
           color: $gray;
           .ca-desc {
-            min-height: 28px;;
+            min-height: 28px;
           }
           .truncate {
             text-align: left;
@@ -111,7 +111,6 @@
             width: 20px;
             margin-right: 10px;
           }
-
         }
 
         .cca-second-icon-btn {
@@ -134,10 +133,8 @@
             margin-left: 2px;
             width: 15px;
           }
-
-
         }
-         .visibility {
+        .visibility {
           .cca-eye-icon {
             height: 13px;
             width: 13px;
@@ -148,11 +145,10 @@
       }
       .cca-first {
         height: 25px;
-        .visible_false{
+        .visible_false {
           color: #eee;
         }
       }
-
 
       .panel-footer {
         .actions {
@@ -203,7 +199,7 @@
       }
 
       .cca-description {
-        height: 143px;;
+        height: 143px;
         padding-bottom: 2px;
       }
 
@@ -213,12 +209,6 @@
     }
   }
 }
-
-
-
-
-
-
 
 .controller.content-collections {
   .collections {
