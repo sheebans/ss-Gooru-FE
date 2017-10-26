@@ -105,7 +105,6 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    */
   role: null,
 
-
   /**
    * @property {string} backUrl is  to store the previous route
    */
