@@ -56,6 +56,14 @@ export default Ember.Controller.extend({
       return this.createBookmark(bookmark).then(() =>
         this.transitionToRoute('student.independent', id)
       );
+    },
+
+    /**
+     * Edit course action, when clicking Play at the course card
+     * @param {Content/Course}
+     */
+    playCourse: function(course) {
+      this.transitionToRoute('content.courses.play', course.get('id'));
     }
   },
 

@@ -1841,7 +1841,7 @@ export default Object.assign(quizzesTranslations, {
   featured: {
     'featured-title': 'Featured Courses',
     'featured-description':
-      'Featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! Click here to  <a href=\'http://about.gooru.org/courses\' target=\'_blank\'>learn more</a> about the development of these courses.'
+      'Gooru’s featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. Learn more <a href=\'http://about.gooru.org/courses\' target=\'_blank\'>learn more</a> about the development of these courses.'
   },
 
   'taxonomy.modals': {
