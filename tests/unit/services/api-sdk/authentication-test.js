@@ -142,3 +142,38 @@ test('signOut', function(assert) {
     done();
   });
 });
+
+test('domainBasedRedirection', function(assert) {
+  const service = this.subject();
+  const expectedData = {
+    domain: 'www.gooru.org'
+  };
+  assert.expect(2);
+  service.set(
+    'authenticationAdapter',
+    Ember.Object.create({
+      domainBasedRedirection: function(data) {
+        assert.deepEqual(expectedData, data, 'Wrong domain redirection data');
+        return Ember.RSVP.resolve({});
+      }
+    })
+  );
+  const responseData = {
+    statusCode: '200',
+    redirectUrl: null
+  };
+  service.set(
+    'authenticationSerializer',
+    Ember.Object.create({
+      normalizeDomainRedirectResponse: function(payload) {
+        assert.deepEqual({}, payload, 'Wrong response payload');
+        return responseData;
+      }
+    })
+  );
+
+  var done = assert.async();
+  service.domainBasedRedirection('www.gooru.org').then(function() {
+    done();
+  });
+});
