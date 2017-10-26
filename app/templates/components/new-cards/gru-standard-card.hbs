@@ -156,25 +156,26 @@
             </div>
           </div>
         {{/if}}
-        <div class="cca-second-icon-btn ">
-          <div class="visibility" title="{{t 'common.question'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
-            {{#if (gt content.questionCount 0)}}
+        <div class="cca-second-icon-btn {{if isAssessment 'assessment' 'collection'}}">
+          {{#if (gt content.questionCount 0)}}
+            <div class="visibility" title="{{t 'common.question'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
               <div class="question-icon"> <i class="icon"> </i> </div>
               <div class="unit-text"> <span>{{content.questionCount}}</span> </div>
-            {{/if}}
-          </div>
+            </div>
+
+          {{/if}}
         </div>
       {{/if}}
       {{#if (not novisibility)}}
-      {{#if (not content.isVisibleOnProfile)}}
-        <div class="visibility  visible_false" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
-          {{gru-icon name="visibility_off" class='pull-right cca-eye-icon'}}
-        </div>
-      {{else}}
-        <div class="visibility" title="{{t 'common.visibility-available'}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
-          {{gru-icon name="visibility" class='pull-right cca-eye-icon'}}
-        </div>
-      {{/if}}
+        {{#if (not content.isVisibleOnProfile)}}
+          <div class="visibility  visible_false" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="left" data-trigger="hover">
+            {{gru-icon name="visibility_off" class='pull-right cca-eye-icon'}}
+          </div>
+        {{else}}
+          <div class="visibility" title="{{t 'common.visibility-available'}}" data-toggle="tooltip" data-placement="left" data-trigger="hover">
+            {{gru-icon name="visibility" class='pull-right cca-eye-icon'}}
+          </div>
+        {{/if}}
       {{/if}}
     </div>
   {{/if}}
