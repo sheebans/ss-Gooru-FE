@@ -262,6 +262,8 @@ export default Object.assign(quizzesTranslations, {
       'file-max-size': 'Only files of size smaller than 5MB are supported',
       'file-upload-missing':
         'Please select a file with any of the following extensions: {{extensions}}',
+      'getting-next-resource':
+        'There was an error submitting your answer. Please try again.',
       'lesson-not-copied':
         'Oops! Unable to copy lesson right now. Please try again shortly.',
       'lesson-not-created':
