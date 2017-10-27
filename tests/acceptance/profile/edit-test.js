@@ -44,7 +44,6 @@ test('Layout', function(assert) {
     );
     T.exists(assert, $editContainer.find('#bio'), 'Missing user biography');
     T.exists(assert, $editContainer.find('.roles'), 'Missing roles radios');
-    T.exists(assert, $editContainer.find('#studentId'), 'Missing username');
     assert.equal(
       find('.roles .gru-radio').length,
       3,
@@ -55,11 +54,6 @@ test('Layout', function(assert) {
       $editContainer.find('.gru-select'),
       'Missing gru-select component of countries'
     );
-
-    const studentIDMaxLenValue = $editContainer
-      .find('#studentId input')
-      .prop('maxlength');
-    assert.equal(studentIDMaxLenValue, 25, 'Incorrect student id max length');
   });
 });
 
@@ -70,23 +64,6 @@ test('no menu option is selected when entering to edit mode', function(assert) {
     var $menu = find('.controller.profile > .navigation .profile-menu');
     assert.equal(currentURL(), '/id-for-pochita/edit');
     assert.notOk(!!$menu.find('.selected').length, 'A menu option is selected');
-  });
-});
-
-test('Validate Student ID field Special Characters', function(assert) {
-  visit('/id-for-pochita/edit');
-
-  andThen(function() {
-    const $studentId = find('#studentId');
-    $studentId.find('input').val('!Value');
-    $studentId.find('input').blur();
-
-    return wait().then(function() {
-      assert.ok(
-        $studentId.find('.error-messages .error').length,
-        'Student ID speacial chars error message should be appear'
-      );
-    });
   });
 });
 
