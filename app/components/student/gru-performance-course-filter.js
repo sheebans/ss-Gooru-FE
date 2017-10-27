@@ -57,6 +57,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
      */
     selectLesson: function(lessonId) {
       this.set('lessonId', lessonId);
+      this.sendAction('onSelectLesson', lessonId);
       this.sendAction('onUpdateReport');
     },
     /**
