@@ -22,28 +22,6 @@ test('expandPanel', function(assert) {
     component.get('isCourseFiltersExpanded'),
     'Incorrect value of isCourseFiltersExpanded'
   );
-
-  component.send('expandPanel', 'unit');
-  assert.notOk(
-    component.get('isUnitFiltersExpanded'),
-    'Incorrect value of isUnitFiltersExpanded'
-  );
-  component.send('expandPanel', 'unit');
-  assert.ok(
-    component.get('isUnitFiltersExpanded'),
-    'Incorrect value of isUnitFiltersExpanded'
-  );
-
-  component.send('expandPanel', 'lesson');
-  assert.notOk(
-    component.get('isLessonFiltersExpanded'),
-    'Incorrect value of isLessonFiltersExpanded'
-  );
-  component.send('expandPanel', 'lesson');
-  assert.ok(
-    component.get('isLessonFiltersExpanded'),
-    'Incorrect value of isLessonFiltersExpanded'
-  );
 });
 
 test('unit', function(assert) {
