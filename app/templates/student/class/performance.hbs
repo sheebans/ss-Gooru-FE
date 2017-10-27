@@ -10,6 +10,9 @@
               {{grading-scale-legend}}
             </div>
         </div>
+        <div class="clearfix row"></div>
+ <div class="clearfix row"></div>
+ <div class="topPadding">
    <div class="navigation pull-left">
      {{student.gru-performance-course-filter
      selectedCourse=course
@@ -21,7 +24,7 @@
      }}
    </div>
     <div class="content pull-left">
-        <div class="panel-header">
+        <div class="panel-header out-of-scope">
             <h1>{{t 'student-landing.my-performance.title'}}</h1>
             <button class="btn btn-primary download out-of-scope">
               {{gru-icon name='file_download'}}
@@ -38,4 +41,5 @@
       showReportColumn=true
       }}
     </div>
+ </div>
 </div>
