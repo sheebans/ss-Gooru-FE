@@ -215,8 +215,7 @@ test('playSuggested', function(assert) {
         courseId,
         collectionUrl: 'collection-url',
         router: {
-          transitionTo(route, classParam, courseParam) {
-            assert.equal(classParam, classId, 'Incorrect Class id');
+          transitionTo(route, courseParam) {
             assert.equal(courseParam, courseId, 'Incorrect Course id');
             assert.equal(route, 'resource-player', 'Incorrect route');
           }
