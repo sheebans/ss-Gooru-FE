@@ -69,7 +69,7 @@ test('next without content', function(assert) {
 });
 
 test('playPostTestSuggestion', function(assert) {
-  assert.expect(8);
+  assert.expect(7);
   let done = assert.async();
   let suggestionResource = Ember.Object.create({
     isResource: true,
@@ -86,13 +86,12 @@ test('playPostTestSuggestion', function(assert) {
   });
   let controller = this.subject({
     mapLocation,
-    transitionToRoute: (transition, classId, courseId, id) => {
+    transitionToRoute: (transition, courseId, id) => {
       assert.equal(
         transition,
         'resource-player',
         'Transition route should match'
       );
-      assert.equal(classId, 'class-id', 'Class id should match');
       assert.equal(courseId, 'course-id', 'Course id should match');
       assert.equal(id, 'suggestion-id', 'Suggestion id should match');
       done();
@@ -139,13 +138,12 @@ test('playBackFillSuggestion', function(assert) {
   });
   let controller = this.subject({
     mapLocation,
-    transitionToRoute: (transition, classId, courseId, id) => {
+    transitionToRoute: (transition, courseId, id) => {
       assert.equal(
         transition,
         'resource-player',
         'Transition route should match'
       );
-      assert.equal(classId, 'class-id', 'Class id should match');
       assert.equal(courseId, 'course-id', 'Course id should match');
       assert.equal(id, 'suggestion-id', 'Suggestion id should match');
       done();
@@ -192,13 +190,12 @@ test('playResourceSuggestion', function(assert) {
   });
   let controller = this.subject({
     mapLocation,
-    transitionToRoute: (transition, classId, courseId, id) => {
+    transitionToRoute: (transition, courseId, id) => {
       assert.equal(
         transition,
         'resource-player',
         'Transition route should match'
       );
-      assert.equal(classId, 'class-id', 'Class id should match');
       assert.equal(courseId, 'course-id', 'Course id should match');
       assert.equal(id, 'suggestion-id', 'Suggestion id should match');
       done();
