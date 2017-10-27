@@ -7,7 +7,7 @@
 
   .table {
     margin: 0;
-    font-size: $font-size-h6;
+    font-size: 13px;
     background: $white;
     -webkit-box-shadow: 0 3px 6px 1px rgba(203, 204, 208, 1);
     -moz-box-shadow: 0 3px 6px 1px rgba(203, 204, 208, 1);
@@ -32,7 +32,7 @@
             &.arrow_upward,
             &.arrow_downward {
               font-weight: bold;
-              font-size: $font-size-large;
+              font-size: 13px;
               padding: 3px 0 0 0;
             }
           }
@@ -80,7 +80,7 @@
             height: 40px;
           }
           th {
-            font-size: $font-size-large;
+            font-size: 13px;
           }
           td {
             .radial-svg {
