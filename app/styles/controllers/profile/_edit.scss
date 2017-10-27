@@ -180,6 +180,15 @@
             color: $gray-dove;
             font-weight: 400;
           }
+          .district {
+            height: 80px;
+          }
+        }
+      }
+      .student-profile {
+        padding-bottom: 0;
+        .row > div {
+          padding-bottom: 0;
         }
       }
     }

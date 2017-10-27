@@ -51,7 +51,7 @@
         <span class="verification pull-right hidden-xs"><i class="gru-icon verified"></i> {{t "common.verified"}}</span>
       </div>
     <div class="panel panel-default">
-        <div class="panel-body">
+        <div class="panel-body {{if profile.isStudent 'student-profile'}}">
             <div class="row role">
               <div class="col-xs-12">
                 <h6><span class="required">{{t "common.role"}}</span></h6>
@@ -104,31 +104,24 @@
                 </div>
               {{/if}}
             </div>
-            {{#if districts}}
-              <div class="row">
+            <div class="row district">
+              <div class="col-xs-12">
+                <h6>{{t "common.district"}}</h6>
+                {{#if districts}}
+                  {{validation.gru-select options=districts optionSelected=tempProfile.schoolDistrictId title=(t "common.select") search="true" onOptionSelect="districtSelect"}}
+                {{else}}
+                  {{input value=otherSchoolDistrict class="form-control" name='otherDistrict'}}
+                {{/if}}
+              </div>
+            </div>
+            {{#if profile.isStudent}}
+              <div class="row student-id">
                   <div class="col-xs-12">
-                    <h6>{{t "sign-up.district"}}</h6>
-                    {{validation.gru-select options=districts optionSelected=tempProfile.schoolDistrictId title=(t "common.select") search="true" onOptionSelect="districtSelect"}}
-                  </div>
-                  <div class="col-xs-12">
-                      <h6>{{t "common.other"}}</h6>
-                      {{input value=otherSchoolDistrict class="form-control" name='otherDistrict'}}
-                      <div class="error-messages">
-                        {{#if showDistrictErrorMessage}}
-                            <span class="error">
-                              {{t "sign-up.error-district-message"}}
-                            </span>
-                        {{/if}}
-                      </div>
+                      <h6><span><label for="student-id">{{t "common.studen-id-display"}}</label></span></h6>
+                    {{validation.gru-input id="studentId" model=tempProfile valuePath='studentId' maxLength=25}}
                   </div>
               </div>
             {{/if}}
-            <div class="row student-id">
-                <div class="col-xs-12">
-                    <h6><span><label for="student-id">{{t "common.studen-id-display"}}</label></span></h6>
-                  {{validation.gru-input id="studentId" model=tempProfile valuePath='studentId' maxLength=25}}
-                </div>
-            </div>
         </div>
     </div>
   </div>
