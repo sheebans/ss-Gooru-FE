@@ -168,11 +168,11 @@
       {{/if}}
       {{#if (not novisibility)}}
         {{#if (not content.isVisibleOnProfile)}}
-          <div class="visibility  visible_false" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="left" data-trigger="hover">
-            {{gru-icon name="visibility_off" class='pull-right cca-eye-icon'}}
+          <div class="visibility  visible_false" title="{{t 'common.visibility-tooltip'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
+            {{gru-icon name="visibility" class='pull-right cca-eye-icon'}}
           </div>
         {{else}}
-          <div class="visibility" title="{{t 'common.visibility-available'}}" data-toggle="tooltip" data-placement="left" data-trigger="hover">
+          <div class="visibility" title="{{t 'common.visibility-available'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
             {{gru-icon name="visibility" class='pull-right cca-eye-icon'}}
           </div>
         {{/if}}
