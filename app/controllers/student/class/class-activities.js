@@ -36,12 +36,17 @@ export default Ember.Controller.extend({
    */
   classActivities: null,
 
-  date: formatDate(new Date(), 'MMM. Do. YYYY'),
+  date: formatDate(new Date(), 'MMMM D, YYYY'),
 
   /**
    * @property {Class}
    */
-  class: Ember.computed.alias('classController.class')
+  class: Ember.computed.alias('classController.class'),
+
+  /**
+   * @property {boolean} Indicates if there are class activities
+   */
+  showClassActivities: Ember.computed.gt('classActivities.length', 0)
 
   // -------------------------------------------------------------------------
   // Observers
