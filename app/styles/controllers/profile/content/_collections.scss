@@ -92,6 +92,7 @@
         }
 
         .cca-icon-btn {
+          width: 56px;
           .resource-icon {
             float: left;
 
@@ -134,6 +135,15 @@
             width: 15px;
           }
         }
+        .publish-icon {
+          width: 30px;
+          float: right;
+          .badge-icon {
+            margin-top: 0px;
+            margin-right: 9px;
+          }
+        }
+
         .visibility {
           .cca-eye-icon {
             height: 13px;

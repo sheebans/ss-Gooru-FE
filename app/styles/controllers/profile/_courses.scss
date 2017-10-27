@@ -48,7 +48,7 @@
         border-top: 1px solid $gray-lighter;
 
         .standards {
-          margin: 11px 0;
+          margin: 3px 0;
 
           .gru-taxonomy-tag-list {
             .gru-taxonomy-tag {
@@ -71,6 +71,7 @@
             line-height: 1.69;
             font-style: italic;
           }
+
           .owner {
             margin-left: 4px;
           }
@@ -83,6 +84,7 @@
           line-height: 1.15;
           text-align: left;
           color: $gray;
+
           .truncate {
             $line-height: 1.5;
             $lines-to-show: 3;
@@ -94,6 +96,7 @@
           .units-icon {
             float: left;
             margin-top: 5px;
+
             i {
               background: url("gooru/images/units-gray.svg");
               width: 15px;
@@ -101,21 +104,34 @@
               display: block;
             }
           }
+
           .unit-text {
             margin-left: 25px;
             line-height: 25px;
           }
         }
+        .publish-icon {
+          width: 30px;
+          float: right;
+          .badge-icon {
+            margin-top: 5px;
+            margin-right: 9px;
+          }
+        }
+
         .visibility {
           float: right;
+
           .cca-eye-icon {
             margin-top: 2px;
           }
         }
       }
+
       .cca-first {
         padding: 4px 15px;
         height: 35px;
+
         .visible_false {
           color: #eee;
           float: right;
@@ -124,8 +140,10 @@
 
       .panel-footer {
         padding: 3px;
+
         .actions {
           width: auto;
+
           .course-icon-btn {
             border-left: solid 1px #f2f2f2;
             width: 45px;
@@ -143,9 +161,10 @@
             }
           }
         }
+
         .options {
           width: 100%;
-          padding: 0px;
+          padding: 0;
 
           .course-icon-btn {
             border-right: solid 1px #f2f2f2;
@@ -176,7 +195,7 @@
       }
 
       .cca-standards {
-        height: 69px;
+        height: 52px;
       }
     }
   }
