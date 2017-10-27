@@ -64,7 +64,7 @@
     width: 100%;
     z-index: $zindex-navbar-fixed;
     @media (min-width: $screen-md) {
-      margin: 63px 0 0;
+      margin: 56px 0 0;
     }
 
     &.affix {
@@ -72,7 +72,7 @@
       left: 0;
       top: 55px;
       @media (min-width: $screen-md-min) {
-        top: 63px;
+        top: 56px;
       }
     }
   }
