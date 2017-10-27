@@ -60,9 +60,12 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
       let controller = this.get('controller');
       let queryParams = {
         role: ROLES.STUDENT,
-        source: controller.get('source'),
-        classId: controller.get('classId')
+        source: controller.get('source')
       };
+      let classId = controller.get('classId');
+      if (classId) {
+        queryParams.classId = classId;
+      }
       const navigateMapService = this.get('navigateMapService');
       navigateMapService
         .getStoredNext()

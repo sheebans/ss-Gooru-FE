@@ -63,11 +63,13 @@ export default Ember.Component.extend({
           { queryParams: { refresh: true } }
         );
       } else {
-        this.get(
-          'router'
-        ).transitionTo('student.independent.course-map', this.get('courseId'), {
-          queryParams: { refresh: true }
-        });
+        this.get('router').transitionTo(
+          'student.independent.course-map',
+          this.get('courseId'),
+          {
+            queryParams: { refresh: true }
+          }
+        );
       }
     },
 
@@ -90,9 +92,12 @@ export default Ember.Component.extend({
      */
     playSuggested(resource) {
       let queryParams = { collectionUrl: window.location.href };
+      let classId = this.get('classId');
+      if (classId) {
+        queryParams.classId = classId;
+      }
       this.get('router').transitionTo(
         'resource-player',
-        this.get('classId'),
         this.get('courseId'),
         resource.id,
         { queryParams }
