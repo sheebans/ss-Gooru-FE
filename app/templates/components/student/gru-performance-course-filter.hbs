@@ -1,5 +1,5 @@
 <div class="header">
-    <div class="title">{{t 'student-landing.my-performance.filter'}}</div>
+    <div class="title">{{t 'common.course'}}</div>
 </div>
 <div class="body">
     {{#if showCourse}}
@@ -17,52 +17,30 @@
             <span>{{selectedCourse.title}}</span>
         </div>
     {{/if}}
-    <div class="filter-type unit">
-        <span>{{t 'common.unit'}}</span>
-        <a class="arrow" {{action 'expandPanel' 'unit'}}>
-          {{#if isUnitFiltersExpanded}}
-            {{gru-icon name='arrow_drop_up'}}
-          {{else}}
+    {{#each units as |unit index|}}
+    <div class="filter-type unit panel-body" {{action 'expandPanel' 'unit' unit}}>
+        <span>{{unit.title}}</span>
+         <a class="arrow" {{action 'togglePanel' unit}}>
+          {{#if (eq unit.id unitId)}}
             {{gru-icon name='arrow_drop_down'}}
-          {{/if}}
-        </a>
-    </div>
-    <div class="content-panel unit {{if isUnitFiltersExpanded 'visible' 'hidden'}}">
-        <div class="items">
-          {{#each units as |unit index|}}
-              <div class="item ellipsis">
-                  <input type="radio" name="unitOption" checked="{{if (eq unit.id unitId) 'checked'}}"
-                    {{action 'selectUnit' unit.id preventDefault=false}}/>{{course-sections-prefix index=index type='unit' longName=false}}:&nbsp;{{unit.title}}</div>
           {{else}}
-            {{t 'common.no-content'}}
-          {{/each}}
-        </div>
-    </div>
-    <div class="filter-type lesson">
-        <span>{{t 'common.lesson'}}</span>
-        <a class="arrow" {{action 'expandPanel' 'lesson'}}>
-          {{#if isLessonFiltersExpanded}}
             {{gru-icon name='arrow_drop_up'}}
-          {{else}}
-            {{gru-icon name='arrow_drop_down'}}
           {{/if}}
-        </a>
+        </a> 
     </div>
-    <div class="content-panel lesson {{if isLessonFiltersExpanded 'visible' 'hidden'}}">
+    {{#if unit.isUnitFiltersExpanded}}
+    <div></div>
+    {{else}}
+      <div class="content-panel lesson {{if (eq unit.id unitId) 'visible' 'hidden'}}">
         <div class="items">
           {{#each lessons as |lesson index|}}
-              <div class="item ellipsis">
-                  <input type="radio" name="lessonOption" checked="{{if (eq lesson.id lessonId) 'checked'}}"
-                    {{action 'selectLesson' lesson.id preventDefault=false}}/>{{course-sections-prefix index=index type='lesson' longName=false}}:&nbsp;{{lesson.title}}</div>
+              <div class="item ellipsis {{if (eq lesson.id lessonId) 'selectedLesson' ''}}" id="{{lesson.id}}" {{action 'selectLesson' lesson.id preventDefault=true}}>
+                  {{course-sections-prefix index=index type='lesson' longName=false}}:&nbsp;{{lesson.title}}</div>
           {{else}}
             {{t 'common.no-content'}}
           {{/each}}
         </div>
     </div>
-    <div class="actions">
-        <button class="btn btn-primary update-report" {{action 'updateReport'}}>
-          {{gru-icon name='trending_up'}}
-            <span>{{t 'student-landing.my-performance.update-report'}}</span>
-        </button>
-    </div>
+     {{/if}}
+     {{/each}}
 </div>
