@@ -2,13 +2,16 @@
   @include flexbox;
   @include flex-wrap(wrap);
   height: 100%;
+
   .content-container {
     @include flexbox;
     @include flex-wrap(wrap);
     margin: 133px 0 40px;
     padding: 0 8%;
+
     .subject-container {
       width: 100%;
+
       .subject-title {
         border-bottom: 1px solid $light-200;
         color: $gray-base;
@@ -16,16 +19,19 @@
         padding: 20px 0 0;
       }
     }
+
     .featured-description {
       width: 100%;
-      margin-bottom: 0px;
+      margin-bottom: 0;
       text-align: justify;
     }
+
     .library-cards {
       @include flexbox;
       @include flex-wrap(wrap);
       @include justify-content(space-between);
       width: 100%;
+
       &::after {
         content: "";
         @include flex-basis(0);
@@ -36,10 +42,10 @@
           @include flex-basis(32%);
         }
       }
+
       .gru-collection-card {
         width: 100%;
         margin: 0;
-
         @media (min-width: $screen-sm-min) {
           width: 49%;
         }
@@ -49,6 +55,7 @@
       }
     }
   }
+
   .navbar {
     position: fixed;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
@@ -59,6 +66,7 @@
     @media (min-width: $screen-md) {
       margin: 63px 0 0;
     }
+
     &.affix {
       background-color: $dark-400;
       left: 0;
@@ -145,8 +153,9 @@
 }
 
 .library-cards {
-  margin: 40px 0 0 0px;
+  margin: 40px 0 0;
   justify-content: left;
+
   .new-cards.gru-standard-card {
     width: 300px;
     margin: 10px;
@@ -195,7 +204,7 @@
         border-top: 1px solid $gray-lighter;
 
         .standards {
-          margin: 11px 0;
+          margin: 3px 0;
 
           .gru-taxonomy-tag-list {
             .gru-taxonomy-tag {
@@ -218,6 +227,7 @@
             line-height: 1.69;
             font-style: italic;
           }
+
           .owner {
             margin-left: 4px;
           }
@@ -229,6 +239,7 @@
           object-fit: contain;
           text-align: left;
           color: $gray;
+
           .truncate {
             $line-height: 1.5;
             $lines-to-show: 3;
@@ -238,9 +249,11 @@
 
         .cca-icon-btn {
           cursor: auto;
+
           .units-icon {
             float: left;
             margin-top: 5px;
+
             i {
               background: url("gooru/images/units-gray.svg");
               width: 15px;
@@ -248,21 +261,36 @@
               display: block;
             }
           }
+
           .unit-text {
             margin-left: 25px;
             line-height: 25px;
           }
+
           .visibility {
             float: right;
+
             .cca-eye-icon {
               margin-top: 2px;
             }
           }
         }
+
+        .publish-icon {
+          width: 30px;
+          float: right;
+
+          .badge-icon {
+            margin-top: 5px;
+            margin-right: 9px;
+          }
+        }
       }
+
       .cca-first {
         padding: 4px 15px;
         height: 35px;
+
         .visible_false {
           color: #eee;
           float: right;
@@ -270,9 +298,11 @@
       }
 
       .panel-footer {
-        padding: 0px;
+        padding: 0;
+
         .actions {
           width: auto;
+
           .course-icon-btn {
             border-left: solid 1px #f2f2f2;
             width: 45px;
@@ -290,9 +320,11 @@
             }
           }
         }
+
         .options {
           width: 100%;
-          padding: 0px;
+          padding: 0;
+
           .preview-btn {
             width: 74px;
             height: 44px;
@@ -315,8 +347,9 @@
           }
         }
       }
+
       .cca-footer {
-        padding: 0px;
+        padding: 0;
       }
 
       .cca-description {
@@ -336,7 +369,7 @@
       }
 
       .cca-standards {
-        height: 69px;
+        height: 52px;
       }
     }
   }
