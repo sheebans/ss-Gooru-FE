@@ -5,7 +5,7 @@
         <div class="info">
           <div class="question-resources">
             {{#if isCourse}}
-              <span class="units" title="{{t 'common.unit'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
+              <span class="units" title="{{t 'common.unit'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
                 {{gru-icon name="format_align_center"}}
                 <span class="unit-count">
                   {{content.unitCount}}
@@ -39,7 +39,7 @@
           <div class="info">
             <div class="question-resources">
               {{#if isCourse}}
-                <span class="units" title="{{t 'common.unit'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
+                <span class="units" title="{{t 'common.unit'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
                   {{gru-icon name="format_align_center"}}
                     <span class="unit-count">
                       {{content.unitCount}}
@@ -155,7 +155,7 @@
       {{#if (or isCollection isAssessment)}}
         {{#if (not isAssessment)}}
           <div class="cca-icon-btn ">
-            <div class="visibility" title="{{t 'common.resource'}}" data-toggle="tooltip" data-placement="left" data-trigger="hover">
+            <div class="visibility" title="{{t 'common.resource'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
               {{#if (gt content.resourceCount 0)}}
                 <div class="resource-icon"> <i class="icon"> </i> </div>
                 <div class="resource-text"> <span>{{content.resourceCount}}</span> </div>
@@ -165,7 +165,7 @@
         {{/if}}
         <div class="cca-second-icon-btn {{if isAssessment 'assessment' 'collection'}}">
           {{#if (gt content.questionCount 0)}}
-            <div class="visibility" title="{{t 'common.question'}}" data-toggle="tooltip" data-placement="right" data-trigger="hover">
+            <div class="visibility" title="{{t 'common.question'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
               <div class="question-icon"> <i class="icon"> </i> </div>
               <div class="unit-text"> <span>{{content.questionCount}}</span> </div>
             </div>
