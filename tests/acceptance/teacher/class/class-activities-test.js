@@ -65,7 +65,7 @@ test('Go to course-map from links panel', function(assert) {
     andThen(function() {
       assert.equal(
         currentURL(),
-        '/teacher/class/class-for-pochita-as-teacher/course-map',
+        '/add-from-course-map/462bcc67-1717-4140-bdc0-672e7bf4cdb1',
         'Wrong route'
       );
     });

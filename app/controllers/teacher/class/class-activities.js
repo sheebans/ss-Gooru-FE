@@ -149,6 +149,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    */
   year: null,
 
+  /**
+   * Class id
+   * @property {String}
+   */
+  classId: Ember.computed.alias('classController.class.id'),
+
   // -------------------------------------------------------------------------
   // Methods
 
