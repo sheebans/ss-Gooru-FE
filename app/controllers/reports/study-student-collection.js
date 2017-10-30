@@ -263,19 +263,18 @@ export default StudentCollection.extend({
       role: ROLES.STUDENT,
       source: this.get('source')
     };
+    let classId = context.get('classId');
+    if (classId) {
+      queryParams.classId = classId;
+    }
     if (suggestion && suggestion.get('isResource')) {
       this.transitionToRoute(
         'resource-player',
-        context.get('classId'),
         context.get('courseId'),
         suggestion.get('id'),
         { queryParams }
       );
     } else {
-      let classId = context.get('classId');
-      if (classId) {
-        queryParams.classId = classId;
-      }
       this.transitionToRoute('study-player', context.get('courseId'), {
         queryParams
       });
