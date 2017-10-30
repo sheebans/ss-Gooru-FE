@@ -42,14 +42,29 @@ export default Ember.Controller.extend({
           if (validations.get('isValid')) {
             controller
               .get('profileService')
-              .forgotPassword(user.get('email'))
+              .checkGoogleEmail(user.get('email'))
               .then(
                 function() {
-                  controller.set('didValidate', true);
-                  controller.set('showSecondStep', true);
+                  controller
+                    .get('profileService')
+                    .forgotPassword(user.get('email'))
+                    .then(
+                      function() {
+                        controller.set('didValidate', true);
+                        controller.set('showSecondStep', true);
+                      },
+                      function(error) {
+                        controller.set(
+                          'emailError',
+                          error.email_id || errorMessage
+                        );
+                        controller.keydownEvents();
+                      }
+                    );
                 },
                 function(error) {
-                  controller.set('emailError', error.email_id || errorMessage);
+                  // This error handler was added because PhantomJS is not handling the validation as Chrome does
+                  controller.set('emailError', error.email_id || error);
                   controller.keydownEvents();
                 }
               );

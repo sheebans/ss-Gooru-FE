@@ -53,6 +53,7 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
+    controller.get('classController').selectMenuItem('performance');
     controller.set('course', model.course);
     controller.set('unitId', model.unitId);
     controller.set('lessonId', model.lessonId);

@@ -34,13 +34,6 @@ export default StudentCollection.extend({
     },
 
     /**
-     * Action triggered when the performance information panel is expanded/collapsed
-     */
-    toggleHeader: function(toggleState) {
-      this.set('toggleState', toggleState);
-    },
-
-    /**
      * If the user want to continue playing the post-test suggestion
      */
     playPostTestSuggestion: function() {
@@ -91,12 +84,6 @@ export default StudentCollection.extend({
    * @property {Collection} collection
    */
   collection: null,
-
-  /**
-   * Shows the performance information
-   * @property {Boolean} toggleState
-   */
-  toggleState: true,
 
   /**
    *Back fill backfill suggestion
@@ -197,53 +184,6 @@ export default StudentCollection.extend({
   hasBenchmarkSuggestions: Ember.computed.alias(
     'mapLocation.hasBenchmarkSuggestions'
   ),
-
-  /**
-   * Shows the breadcrumbs info of the collection
-   * @property {Array[]}
-   */
-  breadcrumbs: Ember.computed('collection', 'lesson', 'unit', function() {
-    let unit = this.get('unit');
-    let lesson = this.get('lesson');
-    let collection = this.get('collection');
-    let lessonChildren = lesson.children;
-    let titles = Ember.A([]);
-
-    let isChild = lessonChildren.findBy('id', collection.id);
-
-    if (unit) {
-      titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
-    }
-    if (lesson) {
-      titles.push(`L${lesson.get('sequence')}: ${lesson.get('title')}`);
-    }
-    if (collection && isChild) {
-      if (collection.isCollection) {
-        let collections = lessonChildren.filter(
-          collection => collection.format === 'collection'
-        );
-        collections.forEach((child, index) => {
-          if (child.id === collection.id) {
-            let collectionSequence = index + 1;
-            titles.push(`C${collectionSequence}: ${collection.get('title')}`);
-          }
-        });
-      } else {
-        let assessments = lessonChildren.filter(
-          assessment => assessment.format === 'assessment'
-        );
-        assessments.forEach((child, index) => {
-          if (child.id === collection.id) {
-            let assessmentSequence = index + 1;
-            titles.push(`A${assessmentSequence}: ${collection.get('title')}`);
-          }
-        });
-      }
-    } else {
-      titles.push(collection.get('title'));
-    }
-    return titles;
-  }),
 
   /**
    * Extracted the course version from course object

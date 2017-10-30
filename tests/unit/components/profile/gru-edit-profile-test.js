@@ -241,3 +241,25 @@ test('saveProfile', function(assert) {
     'Username should match'
   );
 });
+
+test('Student ID', function(assert) {
+  let profile = Profile.create(Ember.getOwner(this).ownerInjection(), {
+    isStudent: true,
+    studentId: 'student-id',
+    isTeacher: false
+  });
+  let component = this.subject({profile});
+  assert.ok(
+    component.get('profile.isStudent'),
+    'Student ID should visible'
+  );
+  assert.equal(
+    component.get('profile.studentId'),
+    'student-id',
+    'Student ID should match'
+  );
+  assert.notOk(
+    component.get('profile.isTeacher'),
+    'Student ID should not be visible'
+  );
+});

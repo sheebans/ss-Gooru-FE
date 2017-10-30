@@ -24,6 +24,20 @@
       .level-list {
         width: 100%;
         margin: 0 0 0 16px;
+        .name-input {
+          height: 60px;
+          .form-group {
+            margin-bottom: 0;
+          }
+          span.name-error {
+            color: $red-400;
+            display: none;
+            font-size: $font-size-small;
+            &.visible {
+              display: block;
+            }
+          }
+        }
       }
     }
   }
@@ -34,6 +48,19 @@
       width: 215px;
       div {
         @include flexbox;
+        height: 60px;
+        position: relative;
+        .score-error {
+          bottom: -8px;
+          color: $red-400;
+          display: none;
+          font-size: $font-size-small;
+          position: absolute;
+          width: 155px;
+          &.visible {
+            display: block;
+          }
+        }
       }
       .btn {
         display: block;
@@ -62,12 +89,19 @@
     }
   }
   .btn-new-level {
-    margin: 0 0 0 65px;
+    margin: 20px 0 0 65px;
     font-size: $font-size-base;
     i {
       font-size: $font-size-h4;
       vertical-align: bottom;
     }
+  }
+  .no-levels-error {
+    color: $red-400;
+    display: inline-block;
+    font-size: $font-size-base;
+    margin: 0 0 0 12px;
+    vertical-align: bottom;
   }
   input {
     font-size: $font-size-base;

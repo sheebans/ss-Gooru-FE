@@ -44,46 +44,6 @@ test('Layout', function(assert) {
   });
 });
 
-test('Clicking card title should open the player', function(assert) {
-  assert.expect(2); //making sure all asserts are called
-  visit('/search/collections?term=any');
-  andThen(function() {
-    assert.equal(currentURL(), '/search/collections?term=any');
-    const $searchResults = find('.collection-results .results');
-    const $firstResult = $searchResults.find('.gru-collection-card:eq(0)');
-    const $cardHeader = $firstResult.find('.panel .panel-heading');
-    const $cardTitle = $cardHeader.find(
-      '.collection-info .title-section .play-content'
-    );
-    click($cardTitle);
-    andThen(function() {
-      assert.equal(
-        currentURL(),
-        '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=student&type=collection'
-      );
-    });
-  });
-});
-
-test('Clicking card image should open the player', function(assert) {
-  assert.expect(2); //making sure all asserts are called
-  visit('/search/collections?term=any');
-  andThen(function() {
-    assert.equal(currentURL(), '/search/collections?term=any');
-    const $searchResults = find('.collection-results .results');
-    const $firstResult = $searchResults.find('.gru-collection-card:eq(0)');
-    const $cardHeader = $firstResult.find('.panel .panel-heading');
-    const $cardImage = $cardHeader.find('.image .play-content');
-    click($cardImage);
-    andThen(function() {
-      assert.equal(
-        currentURL(),
-        '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=student&type=collection'
-      );
-    });
-  });
-});
-
 test('Changing term should filter the current result without changing the root url', function(
   assert
 ) {

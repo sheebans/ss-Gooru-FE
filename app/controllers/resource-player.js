@@ -18,50 +18,15 @@ export default Ember.Controller.extend({
     'classId'
   ],
 
-  actions: {
-    /**
-     * Action triggered when the performance information panel is expanded/collapsed
-     */
-    toggleHeader: function(toggleState) {
-      this.set('toggleState', toggleState);
-    }
-  },
+  actions: {},
 
   // -------------------------------------------------------------------------
   // Properties
 
   /**
-   * Shows the breadcrumbs info of the collection
-   * @property {Array[]}
-   */
-  breadcrumbs: Ember.computed('collection', 'lesson', 'unit', function() {
-    let unit = this.get('unit');
-    let lesson = this.get('lesson');
-    let collection = this.get('collection');
-    let titles = Ember.A([]);
-
-    if (unit) {
-      titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
-    }
-    if (lesson) {
-      titles.push(`L${lesson.get('sequence')}: ${lesson.get('title')}`);
-    }
-    if (collection) {
-      titles.push(collection.get('title'));
-    }
-    return titles;
-  }),
-
-  /**
    * @property {boolean}
    */
   isDone: false,
-
-  /**
-   * Shows the performance information
-   * @property {Boolean} toggleState
-   */
-  toggleState: true,
 
   /**
    * Show the next button and send events
@@ -73,5 +38,15 @@ export default Ember.Controller.extend({
    * Extracted the course version from course object
    * @property {String}
    */
-  courseVersion: Ember.computed.alias('course.version')
+  courseVersion: Ember.computed.alias('course.version'),
+
+  /**
+   * @property {String} It decide to show the back to course map or not.
+   */
+  showBackToCourseMap: true,
+
+  /**
+   * @property {String} It decide to show the back to collection or not.
+   */
+  showBackToCollection: true
 });

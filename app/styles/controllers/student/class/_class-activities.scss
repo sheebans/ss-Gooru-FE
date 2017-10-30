@@ -1,17 +1,37 @@
 .controller.student.class.class-activities {
   padding: 0;
-  margin: 35px 0 0 0;
+  margin: 35px 0 0;
 
   .today {
-    border-bottom: 1px solid #cdd2d6;
-    padding: 0 0 15px 0;
+    background-color: $white;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
+    color: $gray-base;
     font-size: $font-size-lead;
+    height: 52px;
+    padding: 8px 0 0 15px;
   }
 
   .collections {
+    margin-top: 1px;
     padding: 0;
     .gru-student-class-activity-panel {
-      margin: 10px 0 0 0;
+      box-shadow: none;
+      margin: 0;
     }
+  }
+
+  .no-content {
+    color: $gray-dove;
+    font-size: $font-size-lead;
+    text-align: center;
+  }
+  .no-content-image {
+    background-image: url(gooru/no-dca-student.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 240px;
+    margin: 40px auto 0;
   }
 }

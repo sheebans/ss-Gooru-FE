@@ -1,129 +1,68 @@
-<div class="header-panel">
-  <div class="course-info">
-    <div {{action (unless toggleState 'toggleHeader' (action (mut undefProp)))}} class="course-title {{unless toggleState 'pointer'}}">
-      <i class="icon"></i>
-      <span class="title ellipsis">{{courseTitle}}</span>
-      {{#if breadcrumbs}}
-        <div class="breadcrumbs hidden-xs">
-          {{#each breadcrumbs as |breadcrumb|}}
-            <span class="breadcrumb-title ellipsis">{{{breadcrumb}}}</span> {{gru-icon name='keyboard_arrow_right'}}
-          {{/each}}
-        </div>
-      {{/if}}
-    </div>
-    <div class="actions">
-      <button class="btn btn-default course-map" {{action 'redirectCourseMap'}}>{{gru-icon name='map'}} {{t "common.course-map"}}</button>
-    </div>
+<div class="header-panel row">
+  <div class="col-xs-3 course-info">
+    <p class="title">{{courseTitle}}</p>
   </div>
-  <div class="performance-info {{if toggleState 'visible' 'hidden'}}">
-    <div class="graphic performance">
-      {{charts.gru-bubble-chart
-        content= (if class.performanceSummary (concat class.performanceSummary.score '%') '--')
-        color= (if class.performanceSummary (grade-color class.performanceSummary.score) defaultBarColor)
-      }}
-      <span class="legend">{{t 'teacher-landing.class.performance'}}</span>
-    </div>
-    <div class="bar-charts">
-      <div class="completion-chart">
-        {{charts/gru-x-bar-chart data=barChartData }}
-        <span class="legend">
-        {{#if isNUCourse}}
-            {{#if class.courseCompetencyCompletion}}
-               {{class.courseCompetencyCompletion.completedCount}}/{{class.courseCompetencyCompletion.totalCount}}
-            {{/if}}
-        {{else}}
-            {{#if class.performanceSummary}}
-               {{class.performanceSummary.totalCompleted}}/{{class.performanceSummary.total}}
-            {{/if}}
-        {{/if}}
-        {{t 'common.completion'}}
-        </span>
-       </div>
-    </div>
-    {{#unless isExternalAssessment}}
-      <div class="resources">
-        {{#unless isPreTest}}
-          {{#if resource}}
-            {{#if collectionUrl}}
-              <button class="btn btn-default btn-back" {{action 'backToCollection'}}>
-                {{t (if collection.isCollection "common.back-to-collection" "common.back-to-assessment")}}
-              </button>
-            {{else}}
-              <div class="resource-title">
-                <i class="{{resource.type}}-icon"></i>
-                <span class="title ellipsis">{{resource.title}}</span>
+  <div class="col-xs-6 suggest-player">
+    {{#if hasSuggestedResources}}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="slider-container carousel slide multi-item-carousel" id="theCarousel">
+            <div class="slider-inner-container carousel-inner">
+              {{#each suggestedResources as |resource index|}}
+                <div class="item  {{if (eq index 0) "active" "" }}" {{action 'playSuggested' resource}}>
+                  <div class="col-xs-6">
+                    <i class="{{resource.format}}-icon resource-icon"></i>
+                    <span class="title">{{resource.title}}</span>
+                  </div>
+                </div>
+              {{/each}}
               </div>
+            </div>
+          </div>
+        </div>
+        <a class="left carousel-control" href="#theCarousel" data-slide="prev">
+            {{gru-icon name="ic_keyboard_arrow_left"}}
+        </a>
+        <a class="right carousel-control" href="#theCarousel" data-slide="next">
+            {{gru-icon name="ic_keyboard_arrow_right"}}
+        </a>
+    {{else}}
+      <div class="col-xs-12 no-suggestion-title">
+        <p>{{t 'gru-study-header.no-suggestions'}}</p>
+      </div>
+    {{/if}}
+  </div>
+
+    <div class="col-xs-3 performance-completion-info">
+      <div class="row">
+        <div class="col-xs-6 completion">
+          {{#if isNUCourse}}
+            {{#if class.courseCompetencyCompletion}}
+              <span class="score">{{class.courseCompetencyCompletion.completedCount}}/{{class.courseCompetencyCompletion.totalCount}}</span>
+              <span class="label">{{t 'common.completion'}}</span>
             {{/if}}
           {{else}}
-            <div class="count-resources">
-              {{#if fromReport}}
-                {{#if collection.isCollection}}
-                  {{t "gru-study-header.resources-collection-report"}}
-                {{else}}
-                  {{t "gru-study-header.resources-assessment-report"}}
-                {{/if}}
-              {{else}}
-                <span class="counter">
-                  {{#if totalResources}}
-                    {{resourceSequence}}/{{totalResources}}
-                  {{else}}
-                    0
-                  {{/if}}
-                </span>
-                <button class="btn btn-default resources-btn">
-                  {{#if collection.isCollection}}
-                    {{t "gru-study-header.resource" count=totalResources}}
-                  {{else}}
-                    {{t "gru-study-header.question" count=totalResources}}
-                  {{/if}}
-                </button>
-              {{/if}}
-            </div>
-            <div class="navigation">
-              <span class="next">{{t 'common.next'}}:</span>
-            <span class="next-resource">
-              {{#unless fromReport}}
-                {{#if nextResource}}
-                  <i class="icon {{nextResource.format}}-icon"></i>
-                     <span class="title ellipsis">{{nextResource.title}}</span>
-                {{else}}
-                  {{#if collection.isCollection}}
-                    <span class="usage-report"> {{t 'gru-study-header.check-usage'}}</span>
-                  {{else}}
-                    <span class="summary-report"> {{t 'gru-study-header.check-summary'}}</span>
-                  {{/if}}
-                {{/if}}
-              {{/unless}}
-            </span>
-            </div>
+            {{#if class.performanceSummary}}
+              <span class="score">{{class.performanceSummary.totalCompleted}}/{{class.performanceSummary.total}}</span>
+              <span class="label">{{t 'common.completion'}} </span>
+            {{/if}}
           {{/if}}
-        {{else}}
-          <div class="lesson-info">{{t "gru-study-header.lesson-legend"}} {{lessonTitle}}</div>
-        {{/unless}}
+        </div>
+        <div class="col-xs-6 performance" style="background-color:{{if class.performanceSummary (grade-color class.performanceSummary.score) defaultBarColor}}" >
+          <span class="score">
+            {{#if class.performanceSummary}}
+              {{class.performanceSummary.score}}%
+            {{else}}
+              --
+            {{/if}}
+          </span>
+          <span class="label">{{t 'teacher-landing.class.performance'}} </span>
+        </div>
       </div>
-      <div class="suggestions">
-        {{#if collectionUrl}}
-          <div class="description">{{t 'gru-study-header.resource-legend'}}</div>
-          <div class="resource-title">
-            <i class="{{resource.type}}-icon"></i>
-            <span class="title ellipsis">{{resource.title}}</span>
-          </div>
-        {{else}}
-          <div class="description">{{t 'gru-study-header.suggestions-legend'}}</div>
-          <div class="suggested-resources">
-            {{#each suggestedResources as |resource|}}
-              <button class="btn-resource" {{action 'playSuggested' resource}}>
-                <i class="{{resource.format}}-icon"></i>
-                <span class="title ellipsis">{{resource.title}}</span>
-              </button>
-            {{/each}}
-          </div>
-        {{/if}}
-      </div>
-    {{/unless}}
-    <a {{action 'toggleHeader'}} class="collapse-expand {{if toggleState 'visible' 'hidden'}}">
-      {{gru-icon name='expand_less'}}
-      {{gru-icon name='expand_less'}}
-    </a>
+    </div>
   </div>
-</div>
+  <div class="bar-charts">
+    <div class="completion-chart">
+      {{charts/gru-x-bar-chart data=barChartData }}
+    </div>
+  </div>

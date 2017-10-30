@@ -3,13 +3,17 @@ import ClassActivity from 'gooru-web/models/content/class-activity';
 import Collection from 'gooru-web/models/content/collection';
 import Assessment from 'gooru-web/models/content/assessment';
 import { parseDate } from 'gooru-web/utils/utils';
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
 /**
  * Serializer to support the Class Activity operations
  *
  * @typedef {Object} ClassActivitySerializer
  */
-export default Ember.Object.extend({
+export default Ember.Object.extend(ConfigurationMixin, {
+  session: Ember.inject.service('session'),
+
   /**
    * Normalizes class activities/contents
    *
@@ -60,23 +64,37 @@ export default Ember.Object.extend({
    * @return {Goal}
    */
   normalizeClassActivityContent: function(data) {
+    const serializer = this;
     const contentType = data.content_type;
     let content = null;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
+
     if (contentType === 'assessment') {
+      const thumbnailUrl = data.thumbnail
+        ? basePath + data.thumbnail
+        : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
+
       content = Assessment.create({
         id: data.content_id,
         title: data.title,
         resourceCount: data.resource_count,
-        questionCount: data.question_count
+        questionCount: data.question_count,
+        thumbnailUrl: thumbnailUrl
       });
     }
 
     if (contentType === 'collection') {
+      const thumbnailUrl = data.thumbnail
+        ? basePath + data.thumbnail
+        : appRootPath + DEFAULT_IMAGES.COLLECTION;
+
       content = Collection.create({
         id: data.content_id,
         title: data.title,
         resourceCount: data.resource_count,
-        questionCount: data.question_count
+        questionCount: data.question_count,
+        thumbnailUrl: thumbnailUrl
       });
     }
 

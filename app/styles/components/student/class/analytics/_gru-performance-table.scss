@@ -1,5 +1,4 @@
 .gru-performance-table {
-  width: inherit;
   min-width: 475px;
 
   @media (max-width: $screen-xs-max) {
@@ -8,14 +7,14 @@
 
   .table {
     margin: 0;
-    font-size: $font-size-h6;
+    font-size: 13px;
     background: $white;
     -webkit-box-shadow: 0 3px 6px 1px rgba(203, 204, 208, 1);
     -moz-box-shadow: 0 3px 6px 1px rgba(203, 204, 208, 1);
     box-shadow: 0 3px 6px 1px rgba(203, 204, 208, 1);
     border-top: 2px solid $white;
     thead {
-      background-color: $dark-400;
+      background-color: white;
       tr {
         th {
           border: 0;
@@ -23,16 +22,17 @@
           padding: 5px 0 0 10px;
           height: 32px;
           text-align: center;
+          border-right: 2px solid $light-300;
           width: 180px;
           a,
           i {
-            color: $white;
+            color: $dark-400;
             vertical-align: top;
             font-weight: normal;
             &.arrow_upward,
             &.arrow_downward {
               font-weight: bold;
-              font-size: $font-size-large;
+              font-size: 13px;
               padding: 3px 0 0 0;
             }
           }
@@ -41,13 +41,13 @@
             text-align: left;
           }
           &.score {
-            width: 75px;
+            width: 33px;
           }
           &.completion {
             width: 112px;
           }
           &.study-time {
-            width: 115px;
+            width: 60px;
           }
         }
       }
@@ -73,13 +73,14 @@
         }
         &:first-child {
           border-bottom: 2px solid $light-300;
+          border-top: 2px solid #cdd2d6;
           background-color: $white;
           td,
           th {
             height: 40px;
           }
           th {
-            font-size: $font-size-large;
+            font-size: 13px;
           }
           td {
             .radial-svg {
@@ -90,10 +91,11 @@
         }
         td {
           text-align: center;
+          border-right: 2px solid $light-300;
           &.performance-info {
             .score {
               border-radius: 4px;
-              width: 46px;
+              width: 20px;
               height: 32px;
               display: inline-table;
               color: $white;
@@ -124,5 +126,18 @@
         }
       }
     }
+    .reportIcon {
+      text-align: center;
+      vertical-align: middle;
+      top: 9%;
+      position: relative;
+      right: 24%;
+    }
+  }
+  .nodataimg {
+    align: center;
+    display: block;
+    margin: auto;
+    width: 40%;
   }
 }

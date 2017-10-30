@@ -63,29 +63,18 @@ test('Layout', function(assert) {
   );
   T.exists(assert, $collectionPanel, 'Missing class collection panel');
 
-  const $collectionTitle = $collectionPanel.find('.panel-title');
-  assert.ok($collectionTitle.length, 'Panel title element is missing');
+  const $collectionPanelHeading = $collectionPanel.find('.panel-heading');
+  assert.ok($collectionPanelHeading.length, 'Panel heading element is missing');
 
-  const $collectionIcon = $collectionTitle.find('.icon-container .gru-icon');
+  const $collectionIcon = $collectionPanelHeading.find('.icon-container img');
   assert.ok($collectionIcon.length, 'Collection icon is missing');
 
-  const $collectionTitleAnchor = $collectionTitle.find('.title');
-  assert.ok($collectionTitleAnchor.length, 'Title anchor element is missing');
-
-  const $collectionTitleText = $collectionTitle.find('.title .text');
-  assert.ok($collectionTitleText.length, 'Title text element is missing');
+  const $collectionTitle = $collectionPanelHeading.find('.title-container');
+  assert.ok($collectionTitle.length, 'Title anchor element is missing');
   assert.equal(
-    T.text($collectionTitleText),
+    T.text($collectionTitle.find('.title')),
     'The Early Earth',
     'Wrong title text'
-  );
-
-  const $collectionTitleType = $collectionTitle.find('.title .type');
-  assert.ok($collectionTitleType.length, 'Title type element is missing');
-  assert.equal(
-    T.text($collectionTitleType),
-    this.get('i18n').t('common.assessment').string,
-    'Wrong title type'
   );
 
   const $collectionInfo = $collectionPanel.find('.info');
@@ -93,15 +82,13 @@ test('Layout', function(assert) {
 
   const $collectionContentCount = $collectionInfo.find('.content-count');
   assert.ok($collectionContentCount.length, 'Content count panel is missing');
-  assert.equal(
-    T.text($collectionContentCount.find('.question-count')),
-    '4 Questions',
-    'Wrong  question count text'
-  );
+
+  const $collectionPlayButton = $collectionInfo.find('.play-btn');
+  assert.ok($collectionPlayButton.length, 'Play button is missing');
 
   assert.ok(
-    $collectionInfo.find('.left-info .score').length,
-    'Score info element is missing'
+    $collectionInfo.find('.performance').length,
+    'Performance container is missing'
   );
 });
 
@@ -152,14 +139,4 @@ test('Layout - collection', function(assert) {
 
   const $collectionContentCount = $collectionInfo.find('.content-count');
   assert.ok($collectionContentCount.length, 'Content count panel is missing');
-  assert.equal(
-    T.text($collectionContentCount.find('.resource-count')),
-    '4 Resources',
-    'Wrong  resource count text'
-  );
-  assert.equal(
-    T.text($collectionContentCount.find('.question-count')),
-    '2 Questions',
-    'Wrong  question count text'
-  );
 });

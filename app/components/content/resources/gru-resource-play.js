@@ -146,10 +146,7 @@ export default Ember.Component.extend(ProtocolMixin, {
   isLinkOut: Ember.computed('resource', function() {
     let currentProtocol = this.get('currentProtocol');
     let resourceProtocol = this.get('resourceProtocol');
-    if (
-      currentProtocol === 'https:' &&
-      resourceProtocol === 'http:'
-    ) {
+    if (currentProtocol === 'https:' && resourceProtocol === 'http:') {
       return true;
     }
     return false;

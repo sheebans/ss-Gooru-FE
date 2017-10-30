@@ -579,6 +579,7 @@ test('it finishes the sign up correctly and can navigate to home without issues'
     });
   });
 });
+
 test('Sign up as student', function(assert) {
   authenticateSession(this.application, {
     isAnonymous: true,
@@ -639,13 +640,13 @@ test('Sign up as student', function(assert) {
           visit('/search/courses?term=water');
           andThen(function() {
             assert.equal(currentURL(), '/search/courses?term=water');
-            const $courseCard = find('.new-cards.gru-collection-card');
+            const $courseCard = find('.new-cards.gru-standard-card');
             assert.ok(
               $courseCard.find('.bookmark-btn').length,
               'Missing bookmark on card'
             );
             const $previewButton = find(
-              '.new-cards.gru-collection-card:first-child .preview-btn'
+              '.new-cards.gru-standard-card:first-child .preview-btn'
             );
             click($previewButton);
             andThen(function() {

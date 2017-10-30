@@ -4,7 +4,7 @@
     text-align: center;
     white-space: nowrap;
     > strong {
-      color: $white;
+      color: $gray-base;
       display: block;
       font-size: 1.7rem;
       font-weight: normal;
@@ -44,6 +44,7 @@
       line-height: 1;
       font-size: 1.1rem;
       margin-right: -4px;
+      font-weight: 300;
       &:first-of-type {
         padding: 0 20px 0 0;
       }
@@ -54,10 +55,10 @@
         font-style: normal;
         line-height: 1.2;
         padding-bottom: 8px;
+        font-weight: normal;
       }
-
       &:last-child {
-        border-left: 1px solid $blue-300;
+        border-left: 1px solid $gray;
       }
     }
   }

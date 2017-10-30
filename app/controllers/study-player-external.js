@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { CONTENT_TYPES, ROLES } from 'gooru-web/config/config';
+import { ROLES } from 'gooru-web/config/config';
 
 /**
  * Study Player External Controller
@@ -38,12 +38,6 @@ export default Ember.Controller.extend({
      */
     next: function() {
       this.playNextContent();
-    },
-    /**
-     * Action triggered when the performance information panel is expanded/collapsed
-     */
-    toggleHeader: function(toggleState) {
-      this.set('toggleState', toggleState);
     }
   },
 
@@ -65,16 +59,15 @@ export default Ember.Controller.extend({
   collectionId: null,
 
   /**
-   * Shows the performance information
-   * @property {Boolean} toggleState
-   */
-  toggleState: true,
-
-  /**
    * Indicates if it should show the back button
    * @property {boolean}
    */
   showBackButton: false,
+
+  /**
+   * @property {String} It decide to show the back to course map or not.
+   */
+  showBackToCourseMap: true,
 
   /**
    * Current map location
@@ -83,62 +76,11 @@ export default Ember.Controller.extend({
   mapLocation: null,
 
   /**
-   * Shows the breadcrumbs info of the collection
-   * @property {Array[]}
-   */
-  breadcrumbs: Ember.computed('collection', 'lesson', 'unit', function() {
-    let unit = this.get('unit');
-    let lesson = this.get('lesson');
-    let collection = this.get('collection');
-    let collectionId = collection
-      ? collection.get('id')
-      : this.get('collectionId');
-    let lessonChildren = lesson.children;
-    let titles = Ember.A([]);
-
-    let isChild = lessonChildren.findBy('id', collectionId);
-
-    if (unit) {
-      titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
-    }
-    if (lesson) {
-      titles.push(`L${lesson.get('sequence')}: ${lesson.get('title')}`);
-    }
-    if (collection && isChild) {
-      if (collection.isCollection) {
-        let collections = lessonChildren.filter(
-          collection => collection.format === CONTENT_TYPES.collection
-        );
-        collections.forEach((child, index) => {
-          if (child.id === collection.id) {
-            let collectionSequence = index + 1;
-            titles.push(`C${collectionSequence}: ${collection.get('title')}`);
-          }
-        });
-      } else {
-        let assessments = lessonChildren.filter(
-          assessment => assessment.format === CONTENT_TYPES.assessment
-        );
-        assessments.forEach((child, index) => {
-          if (child.id === collection.id) {
-            let assessmentSequence = index + 1;
-            titles.push(`A${assessmentSequence}: ${collection.get('title')}`);
-          }
-        });
-      }
-    } else {
-      titles.push(collection ? collection.get('title') : isChild.get('title'));
-    }
-    return titles;
-  }),
-
-  /**
    * Resets to default values
    */
   resetValues: function() {
     //TODO: call the parent reset values method
     this.setProperties({
-      toggleState: true,
       collectionId: null,
       resourceId: null,
       type: null

@@ -30,7 +30,7 @@ test('Browse Library Test', function(assert) {
   this.render(hbs`{{library/gru-browse-library courses=courses}}`);
   const $component = this.$();
   assert.equal(
-    $component.find('.gru-collection-card').length,
+    $component.find('.gru-standard-card').length,
     2,
     'Should appear 2 cards'
   );

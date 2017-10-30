@@ -1,0 +1,27 @@
+<div class="panel">
+  <div class="panel-body">
+    <div class="image"></div>
+    <div class="info-form">
+      <div class="form-group class-code-input-container">
+        {{validation.gru-input model=this valuePath='code' maxlength=50
+          onTyping="onCodeTyping"
+          didValidate=didValidate
+          onFocusOut="onCodeFocusOut"
+          onChange="onCodeChange"
+          placeholder=(t 'content.classes.join.class-code-input')}}
+      </div>
+      <div class="terms-and-conditions">
+        {{t 'content.classes.join.terms-and-conditions'}}
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    {{#gru-spinner-button classes='join-class-btn' text=(t 'common.loading') isLoading=isLoading}}
+      {{#if allowedButton}}
+        <div class="join-class-btn pointer" {{action "joinClass"}}>{{t 'content.classes.join.join-class'}}</div>
+      {{else}}
+        <div class="join-class-btn">{{t 'content.classes.join.join-class'}}</div>
+      {{/if}}
+    {{/gru-spinner-button}}
+  </div>
+</div>

@@ -158,17 +158,9 @@
 
 .analytics-performance-teacher-collection .gru-two-tier-header-table {
   .table-wrapper {
-    margin-left: 65px;
+    margin-left: 111px;
     @media (max-width: $screen-xs-max) {
       margin-left: 105px;
-    }
-    table {
-      .fixed {
-        left: -45px;
-        @media (max-width: $screen-xs-max) {
-          left: -5px;
-        }
-      }
     }
   }
 }

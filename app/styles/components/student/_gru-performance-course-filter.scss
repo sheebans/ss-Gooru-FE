@@ -1,5 +1,5 @@
 .gru-performance-course-filter {
-  background-color: $dark-400;
+  background-color: white;
   height: auto;
   max-height: 890px;
   color: $dark-100;
@@ -14,7 +14,14 @@
   .header {
     padding: 5px 15px;
     .title {
-      color: $dark-100;
+      width: 45px;
+      height: 30px;
+      font-family: Lato;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 2.14;
+      text-align: left;
+      color: #2773bd;
     }
   }
   .body {
@@ -22,14 +29,15 @@
     .filter-type {
       height: 37px;
       width: 100%;
-      background-color: $dark-200;
+      background-color: white;
       padding: 5px 10px;
-      color: $white;
+      box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.07);
+      color: $dark-300;
       margin: 1px 0 0;
       span {
         float: left;
         line-height: $font-size-h4;
-        font-size: $font-size-large;
+        font-size: 13px;
       }
       a.arrow {
         float: right;
@@ -44,12 +52,14 @@
       }
     }
     .content-panel {
-      height: 190px;
       overflow: hidden;
+      .item {
+        padding: 5px 20px;
+        color: #535e67;
+        box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.07);
+      }
       .items {
-        font-size: $font-size-small;
-        padding: 15px 15px 0;
-        height: 190px;
+        font-size: 10px;
         overflow-x: hidden;
         overflow-y: auto;
         .activity-option {
@@ -64,6 +74,9 @@
           color: $white;
         }
       }
+    }
+    .selectedLesson {
+      background-color: #add8e6;
     }
     .content-panel.course {
       height: auto;

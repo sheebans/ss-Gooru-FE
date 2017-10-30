@@ -207,6 +207,13 @@
         @extend .embed-responsive;
         @extend .embed-responsive-16by9;
       }
+      .gru-url-resource,
+      .gru-image-resource,
+      .gru-pdf-resource {
+        iframe {
+          height: 300px;
+        }
+      }
 
       .not-iframe {
         padding: 25px;

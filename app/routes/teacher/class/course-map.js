@@ -82,8 +82,9 @@ export default Ember.Route.extend({
      * Edit content action, when clicking Edit content on Class Overview
      * @param {Content/Course}
      */
-    editContent: function(id) {
-      this.transitionTo('content.courses.edit', id);
+    editContent: function(id, classId) {
+      let queryParams = { classId: classId };
+      this.transitionTo('content.courses.edit', id, { queryParams });
     }
   },
 
@@ -121,6 +122,7 @@ export default Ember.Route.extend({
     controller.set('units', model.units);
     controller.set('course', model.course);
     controller.set('classMembers', model.classMembers);
+    controller.set('showWelcome', true);
     controller.get('classController').selectMenuItem('course-map');
   }
 });

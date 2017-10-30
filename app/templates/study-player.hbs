@@ -3,16 +3,13 @@
   collection=collection
   courseId=course.id
   courseTitle=course.title
-  breadcrumbs=breadcrumbs
   showConfirmation=showConfirmation
-  onToggleHeader='toggleHeader'
   resourceSequence=resource.sequence
   actualResource=resource
   isPreTest=(and hasPreTestSuggestions showSuggestion)
   courseVersion=courseVersion
 }}
-<div class="player-container {{if toggleState 'expanded' 'collapsed'}} {{if showConfirmation 'show-confirmation' 'no-confirmation'}}">
-
+<div class="player-container {{if showConfirmation 'show-confirmation' 'no-confirmation'}}">
   {{#unless showConfirmation}}
     {{#if toggleState}}
       {{gru-take-tour steps=steps containerClass='study-player-tour'}}

@@ -38,7 +38,7 @@
           </div>
         {{/if}}
       </div>
-      {{grading.gru-task-header promptTitle=(t 'student-open-ended-summary.prompt') promptText=questionText}}
+      {{grading.gru-task-header promptTitle=(t 'student-open-ended-summary.prompt') promptText=questionText promptThumbnail=questionThumbnail }}
     </div>
     {{#if (or categoriesScore.length questionSummary.comment)}}
       <div class="panel panel-default rubric-categories-desc">

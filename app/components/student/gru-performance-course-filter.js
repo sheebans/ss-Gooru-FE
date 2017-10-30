@@ -19,7 +19,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
     /**
      * Expand filter panel
      */
-    expandPanel: function(filterType) {
+    expandPanel: function(filterType, obj) {
+      let component = this;
       switch (filterType) {
       case 'course':
         this.toggleProperty('isCourseFiltersExpanded');
@@ -28,7 +29,25 @@ export default Ember.Component.extend(ConfigurationMixin, {
         this.toggleProperty('isLessonFiltersExpanded');
         break;
       case 'unit':
-        this.toggleProperty('isUnitFiltersExpanded');
+        component.get('units').forEach(function(item) {
+          if (item.get('isUnitFiltersExpanded')) {
+            item.set('isUnitFiltersExpanded', false);
+          }
+        });
+        obj.set('lessons', obj.sortedLessonResults);
+        if (obj.get('lessons').length > 0) {
+          component.set('lessonId', obj.get('lessons').objectAt(0).id);
+          component.set('unitId', obj.id);
+          component.set('unit', obj);
+          component.set('isUnitFiltersExpanded', true);
+          component.set('newlessonId', obj.get('lessons').objectAt(0).id);
+          this.sendAction(
+            'onSelectLesson',
+            obj.get('lessons').objectAt(0).id
+          );
+          this.sendAction('onUpdateReport');
+          obj.set('isUnitFiltersExpanded', true);
+        }
         break;
       }
     },
@@ -39,6 +58,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
     selectLesson: function(lessonId) {
       this.set('lessonId', lessonId);
       this.sendAction('onSelectLesson', lessonId);
+      this.sendAction('onUpdateReport');
     },
     /**
      * Selects the unit
@@ -46,7 +66,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
      */
     selectUnit: function(unitId) {
       this.set('unitId', unitId);
-      this.set('lessonId', null);
       this.sendAction('onSelectUnit', unitId);
     },
 
@@ -127,6 +146,12 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @property {string}
    */
   lessonId: Ember.computed('unit.sortedLessonResults.[]', function() {
+    return this.get('unit.sortedLessonResults.firstObject.id');
+  }),
+  /**
+   * @property {string}
+   */
+  newlessonId: Ember.computed('unit.sortedLessonResults.[]', function() {
     return this.get('unit.sortedLessonResults.firstObject.id');
   }),
 

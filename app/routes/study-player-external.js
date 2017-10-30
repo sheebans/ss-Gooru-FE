@@ -102,6 +102,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         const courseId = mapLocation.get('context.courseId');
         const unitId = mapLocation.get('context.unitId');
         const lessonId = mapLocation.get('context.lessonId');
+        params.collectionId =
+          mapLocation.get('context.itemId') ||
+          mapLocation.get('context.collectionId');
 
         return Ember.RSVP
           .hash({
@@ -110,13 +113,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
             unit: route.get('unitService').fetchById(courseId, unitId),
             lesson: route
               .get('lessonService')
-              .fetchById(courseId, unitId, lessonId)
+              .fetchById(courseId, unitId, lessonId),
+            collection: route
+              .get('collectionService')
+              .readCollection(params.collectionId)
           })
           .then(function(hash) {
             //setting query params using the map location
-            params.collectionId =
-              mapLocation.get('context.itemId') ||
-              mapLocation.get('context.collectionId');
+
             params.type =
               mapLocation.get('context.itemType') ||
               mapLocation.get('context.collectionType');
@@ -153,6 +157,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
               course: hash.course,
               unit: hash.unit,
               lesson: hash.lesson,
+              collection: hash.collection,
               mapLocation,
               collectionId: params.collectionId,
               type: params.type
@@ -170,6 +175,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       course: model.course,
       unit: model.unit,
       lesson: model.lesson,
+      collection: model.collection,
       showConfirmation:
         model.collection &&
         !(model.collection.get('isCollection') || isAnonymous), //TODO: move to computed

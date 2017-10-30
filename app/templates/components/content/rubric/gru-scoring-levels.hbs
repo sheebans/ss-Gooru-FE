@@ -12,11 +12,17 @@
         </div>
         <div class="level-list">
           {{#each scoringLevels as |level index|}}
-            {{validation.gru-input model=level valuePath='name' maxLength=50  placeholder=(if (lt index 5)(t  (concat 'gru-rubric-creation.gru-category.gru-scoring-levels.' index)))}}
+            <div class="name-input {{index}}">
+              {{validation.gru-input model=level valuePath='name' maxLength=50  placeholder=(if (lt index 5)(t  (concat 'gru-rubric-creation.gru-category.gru-scoring-levels.' index)))}}
+              <span class="name-error">
+                {{t 'gru-rubric-creation.gru-category.gru-scoring-levels.name-error'}}
+              </span>
+            </div>
           {{/each}}
         </div>
       </div>
       <button class="btn btn-primary btn-new-level" {{action 'addLevel'}}>{{gru-icon name='add'}}{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.new-level'}}</button>
+      {{#if showNoLevelsError}}<span class="no-levels-error">{{t 'gru-rubric-creation.gru-category.gru-scoring-levels.no-levels-error'}}</span>{{/if}}
     {{/if}}
   </div>
   <div class="score-section points">
@@ -29,11 +35,14 @@
     <div class="point-list">
       {{#each scoringLevels as |level index|}}
         <div>
-          <div class="score-input">
-            {{#if showScore}}
-              {{validation.gru-input-number model=level valuePath='score' min=0 max=200 step='0.5' didValidate=didValidate placeholder=(if (lt index 5) (sub 4 index))}}
-            {{/if}}
-          </div>
+          {{#if showScore}}
+            <div class="score-input {{index}}">
+              {{validation.gru-input-number model=level valuePath='score' min=0 max=200 step='0.5' didValidate=didValidate placeholder=(if (lt index 5) (concat (t 'common.example') (sub 4 index)))}}
+              <span class="score-error">
+                {{t 'gru-rubric-creation.gru-category.gru-scoring-levels.score-error'}}
+              </span>
+            </div>
+          {{/if}}
           {{#if showLevel}}
             <button title="{{t 'common.delete'}}" class="btn no-bgd delete" {{action 'deleteLevel' level}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="delete"}}</button>
           {{/if}}

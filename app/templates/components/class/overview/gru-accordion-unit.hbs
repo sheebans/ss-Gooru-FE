@@ -2,9 +2,9 @@
   <div class="panel-title">
     <a class="collapsed title" role="button" data-toggle="collapse" href="#{{elementId}}-content"
        aria-expanded="false" aria-controls="{{elementId}}-content" {{action "selectUnit" model.id}}>
-      <span class="title">
-        {{course-sections-prefix index=index type='unit' longName=true}}&period;&nbsp;&nbsp;{{model.title}}
-      </span>
+      <div class="title ellipsis">
+        <span class="prefix">{{course-sections-prefix index=index type='unit' longName=true}}</span>{{model.title}}
+      </div>
     </a>
   </div>
 </div>
@@ -38,7 +38,8 @@
           contentVisibility=contentVisibility
           onUpdateContentVisibility="updateContentVisibility"
           isTeacher=isTeacher
-          isNUCourse=isNUCourse}}
+          isNUCourse=isNUCourse
+          toggleLocation=toggleLocation}}
         {{else}}
           <li>{{t "common.contentUnavailable"}}</li>
         {{/each}}

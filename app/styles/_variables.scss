@@ -11,6 +11,8 @@ $green-200: #a3ca9f !default;
 $green-300: #76b072 !default;
 $green-400: #4b9741 !default;
 $green-500: #00793e !default;
+$green-600: #4c9639 !default;
+$green-700: #4b9740 !default;
 //** Blue
 $blue-100: #c1dbee !default;
 $blue-200: #84b7dd !default;
@@ -24,12 +26,15 @@ $dark-200: #67727b !default;
 $dark-300: #535e67 !default;
 $dark-400: #37424b !default;
 $dark-500: #29323a !default;
+$dark-600: #35424b !default;
 //** Light
 $light-100: #f1f3f7 !default;
 $light-200: #e3e5ea !default;
 $light-300: #cdd2d6 !default;
 $light-400: #b8bfc4 !default;
+$light-450: #a6adb1 !default;
 $light-500: #959a9e !default;
+$light-600: #63727d !default;
 //** Teal
 $teal-100: #bbe1dd !default;
 $teal-200: #91cdc7 !default;
@@ -43,6 +48,7 @@ $sky-200: #92cbe4 !default;
 $sky-300: #58beeb !default;
 $sky-400: #1aa9eb !default;
 $sky-500: #0c8fcb !default;
+$sky-600: #0072c0 !default;
 
 //** Yellow
 $yellow-100: #ece0ce !default;
@@ -78,8 +84,15 @@ $gray-icon: #535e67 !default;
 $gray: #666 !default;
 $gray-light: #bbb !default;
 $gray-lighter: lighten($gray-base, 93.5%) !default; // #eee
-$white: #fff;
+$gray-sharper: #f1f1f1 !default;
+$gray-ultra-light: #f2f2f2 !default;
+$gray-shaft: #222222;
+$gray-oslo: #9a9d9f;
+$gray-harder: #d8d8d8 !default;
 
+$white: #fff;
+$gray-submarine: #b8bfc4;
+$gray-dove: #666666;
 $brand-primary: $blue-400 !default;
 $brand-success: $green-400 !default;
 $brand-info: $dark-300 !default;
@@ -88,7 +101,7 @@ $brand-danger: $red-400 !default;
 $brand-incorrect: $red-400 !default;
 $brand-anonymous: $blue-400 !default;
 $brand-muted: $light-400 !default;
-
+$picton-blue: #2cafed !default;
 //== Scaffolding
 //
 //## Settings for some of the most global styles.
@@ -117,18 +130,21 @@ $font-family-monospace: Menlo, Monaco, Consolas, "Courier New",
   monospace !default;
 $font-family-base: $font-family-sans-serif !default;
 //** Default for google sign in button
-$font-family-roboto: 'Roboto', sans-serif !default;
+$font-family-roboto: "Roboto", sans-serif !default;
 
 $font-size-base: 13px !default;
 $font-size-large: ceil(($font-size-base * 1.25)) !default; // ~18px
 $font-size-small: ceil(($font-size-base * 0.85)) !default; // ~12px
-$font-size-xsmall: ceil(($font-size-base * 0.77)) !default; // ~10px
+$font-size-xsmall: ceil(($font-size-base * 0.77)) !default; // ~11px
+$font-size-xxsmall: 10px !default;
+$font-size-xxxsmall: 8px !default;
 
+$font-size-large-icon: 86px !default;
+$font-size-arrow-icon: 27px !default;
 $font-size-tour-icon: 25px !default;
 $font-size-rubric-icon: 22px !default;
-$font-size-rubric-arrow-icon: 27px !default;
+$font-size-units-icon: 20px !default;
 $font-size-rubric-chat-icon: 15px !default;
-$font-size-large-icon: 86px !default;
 
 $font-size-h1: 56px !default;
 $font-size-h2: 45px !default;
@@ -308,7 +324,7 @@ $cursor-disabled: not-allowed !default;
 //** Background for the dropdown menu.
 $dropdown-bg: #fff !default;
 //** Dropdown menu `border-color`.
-$dropdown-border: rgba(0, 0, 0, .15) !default;
+$dropdown-border: rgba(0, 0, 0, 0.15) !default;
 //** Dropdown menu `border-color` **for IE8**.
 $dropdown-fallback-border: #ccc !default;
 //** Divider color for between dropdown items.
@@ -383,6 +399,10 @@ $screen-lg-min: $screen-lg !default;
 //** Deprecated `$screen-lg-desktop` as of v3.0.1
 $screen-lg-desktop: $screen-lg-min !default;
 
+// Varibale screen size
+$screen-in-1350: 1350px;
+$screen-in-1150: 1150px;
+$screen-in-1300: 1300px;
 // So media queries don't overlap when required, provide a maximum
 $screen-xs-max: ($screen-sm-min - 1) !default;
 $screen-sm-max: ($screen-md-min - 1) !default;
@@ -666,7 +686,7 @@ $modal-content-fallback-border-color: #999 !default;
 //** Modal backdrop background color
 $modal-backdrop-bg: #000 !default;
 //** Modal backdrop opacity
-$modal-backdrop-opacity: .5 !default;
+$modal-backdrop-opacity: 0.5 !default;
 //** Modal header border color
 $modal-header-border-color: transparent !default;
 //** Modal footer border color
@@ -857,11 +877,11 @@ $breadcrumb-separator: "/" !default;
 //
 //##
 
-$carousel-text-shadow: 0 1px 2px rgba(0, 0, 0, .6) !default;
+$carousel-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !default;
 
 $carousel-control-color: #fff !default;
 $carousel-control-width: 15% !default;
-$carousel-control-opacity: .5 !default;
+$carousel-control-opacity: 0.5 !default;
 $carousel-control-font-size: 20px !default;
 
 $carousel-indicator-active-bg: #fff !default;
@@ -988,3 +1008,7 @@ $font-title: 16px;
 
 $font-add-bookmark: 52px;
 $font-unBookmark: 28px;
+
+// student class card
+
+$font-percentage: 50px;

@@ -198,6 +198,11 @@ export default Object.assign(quizzesTranslations, {
     'drag-drop-suggestions': 'Or Drag and Drop Suggestions ...',
     'download-report': 'Download Report',
     edit: 'Edit',
+    showassessments: 'Show Assessments',
+    showcollections: 'Show Collections',
+    showlessons: 'Show Lessons',
+    collapse: 'Collapse',
+    expand: 'Expand',
     'edit-assessment': 'Edit Assessment',
     'edit-collection': 'Edit Collection',
     'edit-course': 'Edit Course',
@@ -335,6 +340,7 @@ export default Object.assign(quizzesTranslations, {
         'Please use Google signin. We can\'t reset your password.'
     },
     'essential-questions': 'Essential Questions',
+    example: 'example: ',
     exit: 'Exit',
     explanation: 'Explanation',
     explore: 'Explore',
@@ -398,6 +404,7 @@ export default Object.assign(quizzesTranslations, {
     'new-collection': 'New Collection',
     'new-question': 'New Question',
     'new-question-text': 'Enter question text here',
+    'new-fib-question-text': 'Enter question with [answer]',
     'new-resource': 'New Resource',
     next: 'Next',
     no: 'No',
@@ -418,7 +425,7 @@ export default Object.assign(quizzesTranslations, {
       'Check your spelling. We all make mistakes!<br/>Go broader and remove some filters.<br/> Or try searching for a similar word instead.',
     'no-more-attempts': 'No more attempts',
     'no-dca-student':
-      'Your teacher has not yet assigned any collections or assessments to the daily class activities.',
+      'Your teacher has not yet assigned any collections or assessments to Daily Class Activities.',
     'no-dca-teacher':
       'You have not yet assigned any collections or assessments to your daily class activities.',
     notScored: 'Unscored',
@@ -553,6 +560,7 @@ export default Object.assign(quizzesTranslations, {
     settings: 'Settings',
     search: 'Search',
     'search-placeholder': 'Search',
+    'search-placeholder-text': 'Search...',
     'search-error-message': 'Search terms need to be at least 3 letters.',
     'search-400-error-message': 'Please enter a valid search term',
     'search-competency': 'Search Competency',
@@ -569,12 +577,15 @@ export default Object.assign(quizzesTranslations, {
     sortAverage: 'Sort by Average',
     'sort-most-recently': 'Sort by Most Recently Updated',
     state: 'State or Territory',
+    'state-territory': 'State/Territory',
     standard: 'Standard',
     standards: 'Standards',
     study: 'Study',
     'study-now': 'Study Now',
     student: 'Student',
     'student-id': 'Student ID (not displayed on Profile)',
+    'studen-id-display':
+      'Student ID (not displayed on Profile, displayed in Anonymous mode)',
     'subject-and-framework': 'Subject and Framework',
     submit: 'Submit',
     'submit-all': 'Submit all',
@@ -609,13 +620,17 @@ export default Object.assign(quizzesTranslations, {
     'untitled-lesson': 'Untitled Lesson',
     'untitled-unit': 'Untitled Unit',
     'update-thumbnail': 'Update Thumbnail',
+    'update-photo': 'Update Photo',
     upload: 'Upload',
     'upload-file': 'Upload File',
     'upload-thumbnail': 'Upload Thumbnail',
+    'upload-photo': 'Upload Photo',
+    'remove-photo': 'Remove Photo',
     'use-case': 'Use Case',
     'valid-extensions': 'Valid file extensions are: {{extensions}}',
     verified: 'Verified',
     'visibility-tooltip': 'Not visible to others',
+    'visibility-available': 'Visible to others',
     warnings: {
       'on-air-connection-lost':
         'The Go Live dashboard has lost connection and is retrying automatically. It\'s tempting, but please don\'t refresh your screen!',
@@ -793,16 +808,15 @@ export default Object.assign(quizzesTranslations, {
         'get-started': 'Get Started'
       },
       join: {
-        title: 'Join a Classroom',
+        title: 'Join a new Classroom',
         content: 'Where the journey begins.',
-        'class-code-input': 'Enter a Classroom Code',
+        'not-now': 'Not now',
+        'class-code-input': 'Enter a classroom code',
         'class-not-found':
           'Classroom not found. Make sure you\'ve entered the correct classroom code',
         'invalid-code': 'Invalid classroom code.',
         'already-member': 'You are already a member of this classroom.',
         'join-class': 'Join Classroom',
-        'join-not-allowed': 'You are not able to join this classroom',
-        'not-now': 'Not now',
         'terms-and-conditions':
           'By clicking Join Classroom, I agree to share my assessment and collection progress data generated from studying this Gooru classroom with the teacher(s) of this classroom.'
       }
@@ -1017,12 +1031,15 @@ export default Object.assign(quizzesTranslations, {
   'student-landing': {
     announcement: 'Announcement',
     'browse-featured-courses': 'Browse our featured courses',
+    'browse-our': 'Browse our',
+    'class-code': 'Class Code',
+    'featured-courses': 'Featured Courses',
     class: {
       'assigned-course': 'Assigned Course',
       'back-to': 'Back to Classrooms',
+      'no-course': 'This classroom does not have a related course.',
       'back-to-independent': 'Back to Independent Learning',
       performance: 'Performance',
-      classroom: 'Classroom Information',
       'course-map': 'Course Map',
       unit: 'Unit',
       lesson: 'Lesson',
@@ -1037,6 +1054,7 @@ export default Object.assign(quizzesTranslations, {
       'total-time-spent': 'Total time spent'
     },
     'current-activity': 'Current activity',
+    'resume-current-activity': 'Resume Current Activity',
     'join-classroom': 'Join your teacher\'s classroom to start learning',
     learn: 'Learn with a Gooru classroom',
     'my-performance': {
@@ -1057,6 +1075,8 @@ export default Object.assign(quizzesTranslations, {
     'my-study': 'My Study',
     'no-classrooms':
       'You have not yet joined any classrooms. Click on “Join </br> Classroom” to add your teacher’s class. You can also search for </br> a featured course under the Library tab.',
+    'no-content-classrooms':
+      'This classroom currently has no content available',
     welcome: 'Welcome to Gooru.'
   },
   'teacher-landing': {
@@ -1115,7 +1135,9 @@ export default Object.assign(quizzesTranslations, {
     'no-classrooms':
       'You have not yet created any classrooms. Click on “Create Classroom” or search </br> for a featured course under the Library tab.',
     'no-course': 'You have not assigned a course to this </br> classroom yet.',
-    teach: 'Teach with a Gooru classroom'
+    teach: 'Teach with a Gooru classroom',
+    'welcome-course-map':
+      'This is your Course Map where you can view course content, turn assessments on or off and launch assessments in real-time. You can also view overall class performance and completion. For a detailed view of class performance, visit your classroom\'s Report tab.'
   },
   goals: {
     manage: {
@@ -1467,11 +1489,16 @@ export default Object.assign(quizzesTranslations, {
       MC: 'Multiple Choice',
       FIB: 'Fill in the Blank',
       'T/F': 'True / False',
+      TOF: 'True or False',
       MA: 'Multiple Answer',
       HS_TXT: 'Multiple Select - Text',
+      HSTXT: 'Multiple Select Text',
       HS_IMG: 'Multiple Select - Image',
+      HSIMG: 'Multiple Select Image',
       HT_RO: 'Drag and Drop Order',
+      'HT&RO': 'Drag & Drop Order',
       HT_HL: 'Hot Text- Highlight',
+      'H-THL': 'Hot-Text Highlight',
       OE: 'Free Response'
     },
     author: {
@@ -1815,7 +1842,7 @@ export default Object.assign(quizzesTranslations, {
   featured: {
     'featured-title': 'Featured Courses',
     'featured-description':
-      'Gooru’s featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. They were developed and implemented at innovative schools, districts, and charters, and are designed to support blended learning, flipped classrooms, project-based learning, and many other instructional models. Discover, remix, and customize courses to personalize learning and increase student engagement! Click here to  <a href=\'http://about.gooru.org/courses\' target=\'_blank\'>learn more</a> about the development of these courses.'
+      'Gooru’s featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. <a href=\'http://about.gooru.org/courses\' target=\'_blank\'>Learn more</a> about the development of these courses.'
   },
 
   'taxonomy.modals': {
@@ -2314,16 +2341,19 @@ export default Object.assign(quizzesTranslations, {
       'category-feedback':
         'ex. As you are reviewing this category, pay careful attention to the author’s purpose.',
       'gru-scoring-levels': {
-        '0': 'ex. Exceeding Proficiency',
-        '1': 'ex. Meeting Proficiency',
-        '2': 'ex. Approaching Proficiency',
-        '3': 'ex. Beginning Proficiency',
-        '4': 'ex. No Evidence of Proficiency',
+        '0': 'example: Exceeding Proficiency',
+        '1': 'example: Meeting Proficiency',
+        '2': 'example: Approaching Proficiency',
+        '3': 'example: Beginning Proficiency',
+        '4': 'example: No Evidence of Proficiency',
         best: 'Best',
         levels: 'Level',
         'new-level': 'Add New Level',
         scoring: 'Scoring',
-        worst: 'Worst'
+        worst: 'Worst',
+        'name-error': 'Please enter the level title.',
+        'score-error': 'Please enter the score value.',
+        'no-levels-error': 'Please set a value for at least one level.'
       }
     }
   },
@@ -2374,6 +2404,8 @@ export default Object.assign(quizzesTranslations, {
     'resources-assessment-report': 'Assessment summary report',
     'check-summary': 'Check your summary report',
     'check-usage': 'Check your usage report',
+    'no-suggestions':
+      'We\'re working on the best suggestions to support your learning',
     resource: {
       zero: 'Resource',
       one: 'Resource',
@@ -2414,5 +2446,10 @@ export default Object.assign(quizzesTranslations, {
     'overall-comment': 'Overall Comment',
     'overall-score': 'Overall score',
     prompt: 'Question Prompt'
+  },
+
+  'gru-performance-chart': {
+    'teacher-tooltip':
+      'of your students have completed all the assessments in this lesson'
   }
 });

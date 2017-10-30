@@ -24,16 +24,12 @@ test('gru-question-options-default', function(assert) {
   ); //render the component
   var $component = this.$(); //component dom element
 
-  assert.expect(27); //making sure all asserts are called
+  assert.expect(18); //making sure all asserts are called
 
   const $menuOptions = $component.find('.options');
   const $multipleChoiceButton = $menuOptions.find('.multiple-choice');
   T.exists(assert, $multipleChoiceButton, 'Missing multiple choice button');
-  T.exists(
-    assert,
-    $multipleChoiceButton.find('.icon'),
-    'Missing icon multiple choice button'
-  );
+
   assert.equal(
     T.text($multipleChoiceButton.find('.text')),
     'Multiple Choice',
@@ -42,11 +38,7 @@ test('gru-question-options-default', function(assert) {
 
   const $multipleAnswerButton = $menuOptions.find('.multiple-answer');
   T.exists(assert, $multipleAnswerButton, 'Missing multiple answer button');
-  T.exists(
-    assert,
-    $multipleAnswerButton.find('.icon'),
-    'Missing icon multiple answer button'
-  );
+
   assert.equal(
     T.text($multipleAnswerButton.find('.text')),
     'Multiple Answer',
@@ -55,20 +47,16 @@ test('gru-question-options-default', function(assert) {
 
   const $trueFalseButton = $component.find('.true-false');
   T.exists(assert, $trueFalseButton, 'Missing true-false button');
-  T.exists(
-    assert,
-    $trueFalseButton.find('.icon'),
-    'Missing icon true-false button'
-  );
+
   assert.equal(
     T.text($trueFalseButton.find('.text')),
-    'True / False',
+    'True or False',
     'Incorrect true-false button text'
   );
 
   const $fibButton = $component.find('.fib');
   T.exists(assert, $fibButton, 'Missing fib button');
-  T.exists(assert, $fibButton.find('.icon'), 'Missing icon fib button');
+
   assert.equal(
     T.text($fibButton.find('.text')),
     'Fill in the Blank',
@@ -77,59 +65,43 @@ test('gru-question-options-default', function(assert) {
 
   const $htReorderButton = $component.find('.ht-reorder');
   T.exists(assert, $htReorderButton, 'Missing ht-reorder button');
-  T.exists(
-    assert,
-    $htReorderButton.find('.icon'),
-    'Missing icon ht-reorder button'
-  );
+
   assert.equal(
     T.text($htReorderButton.find('.text')),
-    'Drag and Drop Order',
+    'Drag & Drop Order',
     'Incorrect ht-reorder button text'
   );
 
   const $htHighlightButton = $component.find('.ht-highlight');
   T.exists(assert, $htHighlightButton, 'Missing ht-highlight button');
-  T.exists(
-    assert,
-    $htHighlightButton.find('.icon'),
-    'Missing icon ht-highlight button'
-  );
+
   assert.equal(
     T.text($htHighlightButton.find('.text')),
-    'Hot Text- Highlight',
+    'Hot-Text Highlight',
     'Incorrect ht-highlight button text'
   );
 
   const $hsTextButton = $component.find('.hs-text');
   T.exists(assert, $hsTextButton, 'Missing hs-text button');
-  T.exists(assert, $hsTextButton.find('.icon'), 'Missing icon hs-text button');
+
   assert.equal(
     T.text($hsTextButton.find('.text')),
-    'Multiple Select - Text',
+    'Multiple Select Text',
     'Incorrect hs-text button text'
   );
 
   const $hsImagestButton = $component.find('.hs-images');
   T.exists(assert, $hsImagestButton, 'Missing hs-images button');
-  T.exists(
-    assert,
-    $hsImagestButton.find('.icon'),
-    'Missing icon hs-images button'
-  );
+
   assert.equal(
     T.text($hsImagestButton.find('.text')),
-    'Multiple Select - Image',
+    'Multiple Select Image',
     'Incorrect hs-images button text'
   );
 
   const $freeResponseButton = $component.find('.free-response');
   T.exists(assert, $freeResponseButton, 'Missing free response button');
-  T.exists(
-    assert,
-    $freeResponseButton.find('.icon'),
-    'Missing icon free response button'
-  );
+
   assert.equal(
     T.text($freeResponseButton.find('.text')),
     'Free Response',

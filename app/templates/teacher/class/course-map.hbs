@@ -1,8 +1,19 @@
 {{#if class.courseId}}
   <div class="controller teacher class course-map">
-    <button {{action "editContent" course.id}} class="btn btn-default edit-content">
-      {{t "class.overview.edit-content"}}
-    </button>
+    <div class="actions">
+      <button {{action "editContent" course.id class.id}} class="btn btn-primary edit-content">
+        {{t "common.edit-course"}} {{gru-icon name='edit'}}
+      </button>
+    </div>
+
+    <div class="panel panel-default panel-primary welcome {{if showWelcome 'visible' 'hidden'}}">
+      <div class="panel-body">
+        <div class="description">{{t "teacher-landing.welcome-course-map"}}</div>
+        <div class="close">
+          <a {{action 'toggleHeader'}}>X</a>
+        </div>
+      </div>
+    </div>
 
     {{class.overview.gru-accordion-course
     currentClass=class
