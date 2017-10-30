@@ -589,6 +589,7 @@ export default Object.assign(quizzesTranslations, {
     'subject-and-framework': 'Subject and Framework',
     submit: 'Submit',
     'submit-all': 'Submit all',
+    'submitAll': 'Submit All',
     'submit-finish': 'Submit and Finish',
     swap: 'Re-order',
     suggestion: 'Suggestion',
