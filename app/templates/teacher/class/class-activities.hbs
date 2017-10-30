@@ -1,4 +1,12 @@
 <div class="controller teacher class class-activities">
+  <div class="panel panel-default panel-primary welcome {{if showWelcome 'visible' 'hidden'}}">
+    <div class="panel-body">
+      <div class="description">{{t "teacher-landing.class.class-activities-tab.welcome-dca"}}</div>
+      <div class="close">
+        <a {{action 'toggleHeader'}}>X</a>
+      </div>
+    </div>
+  </div>
   <div class="links">
     {{t "teacher-landing.class.class-activities-tab.add-activities"}}
     {{#link-to "teacher.class.course-map" class="pointer course-map"}}{{t "common.course-map"}}{{/link-to}}
@@ -21,12 +29,9 @@
           </a>
         </div>
       </div>
-      <div id="{{index}}-content"
-           class="panel-collapse collapse in"
-           role="tabpanel"
-           aria-labelledby="{{index}}-heading">
-        {{#each activities.classActivities as |classActivity|}}
-          <ol class="panel-group collections" role="tablist" aria-multiselectable="true">
+      <div id="{{index}}-content" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{index}}-heading">
+        <ol class="panel-group collections" role="tablist" aria-multiselectable="true">
+          {{#each activities.classActivities as |classActivity|}}
             {{class.gru-class-activity-panel
               classActivity=classActivity
               onGoLive='goLive'
@@ -34,10 +39,10 @@
               index=index
               onRemoveClassActivity='removeClassActivity'
             }}
-          </ol>
-        {{else}}
-          <li class="no-content">{{t "common.contentUnavailable"}}</li>
-        {{/each}}
+          {{else}}
+            <li class="no-content">{{t "common.contentUnavailable"}}</li>
+          {{/each}}
+        </ol>
       </div>
     {{/each}}
     <div class="class-activity-accordion">
@@ -49,5 +54,6 @@
     </div>
   {{else}}
     <div class="no-content">{{t "common.no-dca-teacher"}}</div>
+    <div class="no-content-image"></div>
   {{/if}}
 </div>

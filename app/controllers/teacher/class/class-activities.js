@@ -112,6 +112,13 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         'content.modals.gru-remove-class-activity',
         model
       );
+    },
+
+    /**
+     * Triggered when a close welcome panel button is selected.
+     */
+    toggleHeader: function() {
+      this.set('showWelcome', false);
     }
   },
 

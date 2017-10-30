@@ -113,7 +113,9 @@ test('Delete class activity', function(assert) {
       '.collections .gru-class-activity-panel:eq(0)'
     );
     click(
-      $collection.find('.panel-heading .info .left-info button.remove-item')
+      $collection.find(
+        '.panel-heading .info .actions-container button.remove-item'
+      )
     ); //remove class activity
     andThen(function() {
       var $removeClassActivityModal = find(
