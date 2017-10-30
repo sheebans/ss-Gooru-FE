@@ -154,10 +154,13 @@
         }
         .resource-type,
         .question-type {
-          width: 82%;
+          width: 70%;
           span {
             color: $text-color;
           }
+        }
+        .resource-visibility {
+          width: 26%;
         }
         .search-type-position {
           margin-left: 21%;
@@ -171,7 +174,7 @@
         float: right;
         vertical-align: top;
         margin-top: 4px;
-        margin-right: 5px;
+        margin-right: 7px;
         background: url("gooru/badge-01.png");
         -webkit-background-size: 17px 20px;
         background-size: 17px 20px;
