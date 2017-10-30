@@ -80,16 +80,18 @@
             </div>
           {{/if}}
         {{/unless}}
-        {{#if (and publishVisible (not isSearch))}}
-          {{#if resource.isPublished}}
-            <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
+        <div class="resource-visibility">
+          {{#unless (or isRubric isSearch)}}
+            <div class="resource-icon-btn visibility {{if resource.isVisibleOnProfile 'visible-icon' 'invisible-icon'}}"  title="{{t (if resource.isVisibleOnProfile 'common.visibility-available' 'common.visibility-tooltip')}}" data-toggle="tooltip">
+              {{gru-icon name="visibility" class="visibility"}}
+            </div>
+          {{/unless}}
+          {{#if (and publishVisible (not isSearch))}}
+            {{#if resource.isPublished}}
+              <div class="publish-icon"  title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top"></div>
+            {{/if}}
           {{/if}}
-        {{/if}}
-        {{#unless (or isRubric isSearch)}}
-          <div class="resource-icon-btn visibility {{if resource.isVisibleOnProfile 'visible-icon' 'invisible-icon'}}"  title="{{t (if resource.isVisibleOnProfile 'common.visibility-available' 'common.visibility-tooltip')}}" data-toggle="tooltip">
-            {{gru-icon name="visibility" class="visibility"}}
-          </div>
-        {{/unless}}
+        </div>
       </div>
     </div>
   </div>
