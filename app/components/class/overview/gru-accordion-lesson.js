@@ -95,12 +95,18 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     selectLesson: function(lessonId) {
       this.set('isResourceSelected', false);
-      if (!isUpdatingLocation) {
-        let updateValue = this.get('isExpanded') ? '' : lessonId;
-        this.get('onSelectLesson')(updateValue);
-        this.set('showLocation', false);
-      } else if (!this.get('isExpanded')) {
-        this.loadData();
+      if (this.get('isFromDCA')) {
+        if (!this.get('isExpanded')) {
+          this.loadData();
+        }
+      } else {
+        if (!isUpdatingLocation) {
+          let updateValue = this.get('isExpanded') ? '' : lessonId;
+          this.get('onSelectLesson')(updateValue);
+          this.set('showLocation', false);
+        } else if (!this.get('isExpanded')) {
+          this.loadData();
+        }
       }
     },
 
@@ -274,6 +280,12 @@ export default Ember.Component.extend(AccordionMixin, {
    * @type {Boolean}
    */
   isNUCourse: false,
+
+  /**
+   * Indicates if it is from daily class activities
+   * @property {Boolean}
+   */
+  isFromDCA: false,
 
   /**
    * Check if study now button should be disabled

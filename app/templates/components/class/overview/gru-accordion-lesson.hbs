@@ -10,35 +10,37 @@
       <span class="lesson-prefix">{{course-sections-prefix  index=index type='lesson' longName=true}}</span>{{model.title}}
     </a>
   </div>
-  <div class="info">
-    {{#if (or model.assessmentCount model.collectionCount)}}
-      <div class="content-count">
-        {{#if model.collectionCount}}
-          <span class="collection-count">
-            <i class="icon" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.collections"}}"></i>
-            <span>{{model.collectionCount}}</span>
-          </span>
-        {{/if}}
-        {{#if model.assessmentCount}}
-          <span class="assessment-count">
-            <i class="icon" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessments"}}"></i>
-            <span>{{model.assessmentCount}}</span>
-          </span>
-        {{/if}}
+  {{#unless isFromDCA}}
+    <div class="info">
+      {{#if (or model.assessmentCount model.collectionCount)}}
+        <div class="content-count">
+          {{#if model.collectionCount}}
+            <span class="collection-count">
+              <i class="icon" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.collections"}}"></i>
+              <span>{{model.collectionCount}}</span>
+            </span>
+          {{/if}}
+          {{#if model.assessmentCount}}
+            <span class="assessment-count">
+              <i class="icon" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessments"}}"></i>
+              <span>{{model.assessmentCount}}</span>
+            </span>
+          {{/if}}
+        </div>
+      {{/if}}
+      <div class={{if isTeacher 'controls' 'play-btn'}}>
+      {{#unless isTeacher}}
+        <button class="btn btn-info study-now" disabled={{if studyNowDisabled 'true' ''}} {{action "studyNow" 'lesson' model}}
+          data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.play"}}">
+          {{gru-icon name='play_arrow'}}
+        </button>
+      {{/unless}}
       </div>
-    {{/if}}
-    <div class={{if isTeacher 'controls' 'play-btn'}}>
-    {{#unless isTeacher}}
-      <button class="btn btn-info study-now" disabled={{if studyNowDisabled 'true' ''}} {{action "studyNow" 'lesson' model}}
-        data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.play"}}">
-        {{gru-icon name='play_arrow'}}
-      </button>
-    {{/unless}}
+      <div class="performance-container pull-right">
+        {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=model.performance.hasStarted isTeacher=isTeacher}}
+      </div>
     </div>
-    <div class="performance-container pull-right">
-      {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=model.performance.hasStarted isTeacher=isTeacher}}
-    </div>
-  </div>
+  {{/unless}}
 </div>
 
 
@@ -69,7 +71,8 @@
                     <div class="type">{{t (concat 'resource.' item.format)}}</div>
                   </a>
                 </div>
-                <div class="info">
+                {{#unless isFromDCA}}
+                  <div class="info">
                     {{#if (eq activeElement item.id)}}
                       <div class="play-btn">
                         <button class="btn btn-info study-now" disabled={{if item.visible '' 'true'}} {{action "studyNow" 'resource' item}}
@@ -86,7 +89,8 @@
                         {{/if}}
                       </span>
                     {{/if}}
-                </div>
+                  </div>
+                {{/unless}}
               </div>
             </li>
           {{else}}
@@ -144,85 +148,99 @@
                     {{/if}}
                   {{/if}}
                 </div>
-                <div class="info">
-                  <div class="content-count">
-                    {{#if item.isAssessment}}
-                      {{#if item.questionCount}}
-                        <span data-toggle="tooltip" data-html="true" data-placement="top"
-                              title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span><span>{{item.questionCount}}</span>
-                      {{/if}}
-                    {{else}}
-                      {{#if (or item.questionCount item.resourceCount)}}
-                        {{#if item.resourceCount}}
-                          <span data-toggle="tooltip" data-html="true" data-placement="top"
-                                title="{{t "common.resources"}}">{{gru-icon name='local_library'}}</span><span>{{item.resourceCount}}</span>
-                        {{/if}}
+                {{#unless isFromDCA}}
+                  <div class="info">
+                    <div class="content-count">
+                      {{#if item.isAssessment}}
                         {{#if item.questionCount}}
                           <span data-toggle="tooltip" data-html="true" data-placement="top"
                                 title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span><span>{{item.questionCount}}</span>
                         {{/if}}
-                      {{/if}}
-                    {{/if}}
-                  </div>
-                  {{#if isTeacher}}
-                    <div class="controls">
-                      {{#if item.isAssessment}}
-                        <div class="go-live-cnt">
-                          {{#if item.visible}}
-                            {{#unless item.isExternalAssessment}}
-                              <button {{action 'goLive' item.id}}
-                                data-toggle="tooltip" data-html="true" data-placement="bottom"
-                                title="{{t "common.launch-on-air"}}"
-                                class="on-air go-live enabled">{{t "common.launch-on-air"}}
-                              </button>
-                            {{/unless}}
-                          {{/if}}
-                        </div>
-                        {{#unless isNUCourse}}
-                          <span class='switch' data-toggle="tooltip" data-html="true" data-placement="top"
-                                title="{{t "common.assign"}}">
-                            {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}
-                          </span>
-                        {{/unless}}
-                      {{/if}}
-                    </div>
-                  {{else}}
-                    <div class="play-btn">
-                      <button class="btn btn-info study-now" disabled={{if item.visible '' 'true'}} {{action "studyNow" 'collection' item}}
-                        data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.play"}}">
-                        {{gru-icon name='play_arrow'}}
-                      </button>
-                    </div>
-                  {{/if}}
-                  <div class="performance">
-                    {{#if item.isAssessment}}
-                      {{#if item.performance.isCompleted}}
-                        <span class="score" style={{safe-html (concat "color:" (grade-color item.performance.score))}}>
-                        {{item.performance.score}}%
-                        </span>
                       {{else}}
-                        {{#if item.performance.hasStarted}}
+                        {{#if (or item.questionCount item.resourceCount)}}
+                          {{#if item.resourceCount}}
+                            <span data-toggle="tooltip" data-html="true" data-placement="top"
+                                  title="{{t "common.resources"}}">{{gru-icon name='local_library'}}</span><span>{{item.resourceCount}}</span>
+                          {{/if}}
+                          {{#if item.questionCount}}
+                            <span data-toggle="tooltip" data-html="true" data-placement="top"
+                                  title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span><span>{{item.questionCount}}</span>
+                          {{/if}}
+                        {{/if}}
+                      {{/if}}
+                    </div>
+                    {{#if isTeacher}}
+                      <div class="controls">
+                        {{#if item.isAssessment}}
+                          <div class="go-live-cnt">
+                            {{#if item.visible}}
+                              {{#unless item.isExternalAssessment}}
+                                <button {{action 'goLive' item.id}}
+                                  data-toggle="tooltip" data-html="true" data-placement="bottom"
+                                  title="{{t "common.launch-on-air"}}"
+                                  class="on-air go-live enabled">{{t "common.launch-on-air"}}
+                                </button>
+                              {{/unless}}
+                            {{/if}}
+                          </div>
+                          {{#unless isNUCourse}}
+                            <span class='switch' data-toggle="tooltip" data-html="true" data-placement="top"
+                                  title="{{t "common.assign"}}">
+                              {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}
+                            </span>
+                          {{/unless}}
+                        {{/if}}
+                      </div>
+                    {{else}}
+                      <div class="play-btn">
+                        <button class="btn btn-info study-now" disabled={{if item.visible '' 'true'}} {{action "studyNow" 'collection' item}}
+                          data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.play"}}">
+                          {{gru-icon name='play_arrow'}}
+                        </button>
+                      </div>
+                    {{/if}}
+                    <div class="performance">
+                      {{#if item.isAssessment}}
+                        {{#if item.performance.isCompleted}}
                           <span class="score" style={{safe-html (concat "color:" (grade-color item.performance.score))}}>
                           {{item.performance.score}}%
                           </span>
-                          <span class="state">
-                            ({{t 'common.in-progress'}})
+                        {{else}}
+                          {{#if item.performance.hasStarted}}
+                            <span class="score" style={{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                            {{item.performance.score}}%
+                            </span>
+                            <span class="state">
+                              ({{t 'common.in-progress'}})
+                            </span>
+                          {{else}}
+                            <span class="not-started">{{t 'common.not_started'}}</span>
+                          {{/if}}
+                        {{/if}}
+                      {{else}}
+                        {{#if item.performance.hasStarted}}
+                          <span class="time-spent">
+                            {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
                           </span>
                         {{else}}
                           <span class="not-started">{{t 'common.not_started'}}</span>
                         {{/if}}
                       {{/if}}
+                    </div>
+                  </div>
+                {{else}}
+                  <div class="add pull-right">
+                    {{#if item.isAddedToClassActivities}}
+                      <a href="#" class="added add-to">
+                        {{gru-icon name='check'}}
+                      </a>
                     {{else}}
-                      {{#if item.performance.hasStarted}}
-                        <span class="time-spent">
-                          {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
-                        </span>
-                      {{else}}
-                        <span class="not-started">{{t 'common.not_started'}}</span>
-                      {{/if}}
+                      <a href="#" class="add-to" data-toggle="tooltip" {{action "addToClassActivities" item}} title="{{t 'class.overview.add-to-daily-class-activities'}}">
+                        {{gru-icon name='add'}}
+                      </a>
                     {{/if}}
                   </div>
-                </div>
+                {{/unless}}
               </div>
             </li>
           {{/if}}

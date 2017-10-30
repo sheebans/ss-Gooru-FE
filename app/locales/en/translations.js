@@ -1116,6 +1116,7 @@ export default Object.assign(quizzesTranslations, {
         'view-report': 'View Report'
       },
       'class-activities': 'Daily Class Activities',
+      'back-to-class-activities': 'Back to Daily Class Activities',
       'class-activities-tab': {
         today: 'Today, ',
         'add-from-course-map': 'Add from Course Map',
