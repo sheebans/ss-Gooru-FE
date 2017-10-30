@@ -58,9 +58,12 @@ export default Ember.Component.extend({
         this.set('collectionUrl', collectionUrl);
       }
       let queryParams = { collectionUrl: this.get('collectionUrl') };
+      let classId = this.get('classId');
+      if (classId) {
+        queryParams.classId = classId;
+      }
       this.get('router').transitionTo(
         'resource-player',
-        this.get('classId'),
         this.get('courseId'),
         resource.id,
         { queryParams }
