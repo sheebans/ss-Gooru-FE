@@ -16,14 +16,14 @@
                   </div>
                 </div>
               {{/each}}
-              </div>
             </div>
           </div>
         </div>
-        <a class="left carousel-control" href="#theCarousel" data-slide="prev">
+      </div>
+      <a class="left carousel-control" href="#theCarousel" data-slide="prev">
             {{gru-icon name="ic_keyboard_arrow_left"}}
         </a>
-        <a class="right carousel-control" href="#theCarousel" data-slide="next">
+      <a class="right carousel-control" href="#theCarousel" data-slide="next">
             {{gru-icon name="ic_keyboard_arrow_right"}}
         </a>
     {{else}}
@@ -33,36 +33,38 @@
     {{/if}}
   </div>
 
-    <div class="col-xs-3 performance-completion-info">
-      <div class="row">
-        <div class="col-xs-6 completion">
-          {{#if isNUCourse}}
-            {{#if class.courseCompetencyCompletion}}
-              <span class="score">{{class.courseCompetencyCompletion.completedCount}}/{{class.courseCompetencyCompletion.totalCount}}</span>
-              <span class="label">{{t 'common.completion'}}</span>
-            {{/if}}
-          {{else}}
-            {{#if class.performanceSummary}}
-              <span class="score">{{class.performanceSummary.totalCompleted}}/{{class.performanceSummary.total}}</span>
-              <span class="label">{{t 'common.completion'}} </span>
-            {{/if}}
+  <div class="col-xs-3 performance-completion-info">
+    <div class="row">
+      <div class="col-xs-6 completion">
+        {{#if isNUCourse}}
+          {{#if class.courseCompetencyCompletion}}
+            <span class="score">{{class.courseCompetencyCompletion.completedCount}}/{{class.courseCompetencyCompletion.totalCount}}</span>
+            <span class="label">{{t 'common.completion'}}</span>
           {{/if}}
-        </div>
-        <div class="col-xs-6 performance" style="background-color:{{if class.performanceSummary (grade-color class.performanceSummary.score) defaultBarColor}}" >
-          <span class="score">
+        {{else}}
+          {{#if class.performanceSummary}}
+            <span class="score">{{class.performanceSummary.totalCompleted}}/{{class.performanceSummary.total}}</span>
+            <span class="label">{{t 'common.completion'}} </span>
+          {{/if}}
+        {{/if}}
+      </div>
+      <div class="col-xs-6 performance" style="background-color:{{if class.performanceSummary (grade-color class.performanceSummary.score) defaultBarColor}}">
+        <span class="score">
             {{#if class.performanceSummary}}
               {{class.performanceSummary.score}}%
             {{else}}
               --
             {{/if}}
           </span>
-          <span class="label">{{t 'teacher-landing.class.performance'}} </span>
-        </div>
+        <span class="label">{{t 'teacher-landing.class.performance'}} </span>
       </div>
     </div>
   </div>
-  <div class="bar-charts">
-    <div class="completion-chart">
+</div>
+<div class="bar-charts">
+  <div class="completion-chart">
+    <div class="hover-percent" data-content="{{performancePercentage}}% Completed" data-toggle="popover" data-placement="bottom">
       {{charts/gru-x-bar-chart data=barChartData }}
     </div>
   </div>
+</div>

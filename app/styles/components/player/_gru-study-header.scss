@@ -205,7 +205,15 @@
     .completion-chart {
       padding: 15px 20px 0 15px;
     }
-
+    .popover {
+      top: 81px !important;
+      .arrow {
+        left: 25% !important;
+      }
+      .popover-content {
+        color: black;
+      }
+    }
     .charts.gru-x-bar-chart {
       background-color: $light-300;
       height: 10px;
