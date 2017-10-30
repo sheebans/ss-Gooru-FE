@@ -91,11 +91,18 @@ export default Ember.Component.extend(AccordionMixin, {
     selectUnit: function(unitId) {
       const courseId =
         this.get('currentClass.courseId') || this.get('currentCourse.id');
-      if (!isUpdatingLocation) {
-        let newLocation = this.get('isExpanded') ? '' : unitId;
-        this.get('onLocationUpdate')(newLocation);
-      } else if (!this.get('isExpanded')) {
-        this.loadData(courseId, unitId);
+
+      if (this.get('isFromDCA')) {
+        if (!this.get('isExpanded')) {
+          this.loadData(courseId, unitId);
+        }
+      } else {
+        if (!isUpdatingLocation) {
+          let newLocation = this.get('isExpanded') ? '' : unitId;
+          this.get('onLocationUpdate')(newLocation);
+        } else if (!this.get('isExpanded')) {
+          this.loadData(courseId, unitId);
+        }
       }
     },
 
@@ -212,6 +219,12 @@ export default Ember.Component.extend(AccordionMixin, {
    * @property {Boolean}
    */
   isStudent: null,
+
+  /**
+   * Indicates if it is from daily class activities
+   * @property {Boolean}
+   */
+  isFromDCA: null,
 
   // -------------------------------------------------------------------------
   // Observers

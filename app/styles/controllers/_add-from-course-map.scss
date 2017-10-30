@@ -1,0 +1,63 @@
+.content.add-from-course-map {
+  margin: 10px auto;
+  width: 960px;
+  .go-back-container {
+    .back-to {
+      font-size: $font-size-lead;
+      font-weight: 300;
+      i {
+        font-size: $font-size-arrow-icon;
+        height: 30px;
+        vertical-align: middle;
+        width: 25px;
+      }
+    }
+  }
+  .panel.title {
+    border-radius: 4px;
+    font-size: $font-size-large;
+    font-weight: bold;
+    color: $gray-base;
+    margin: 10px 0 0;
+    height: 65px;
+    padding: 5px;
+  }
+  .gru-accordion-course {
+    &.gru-accordion {
+      .panel-heading {
+        padding: 0;
+        margin: 0;
+        background-color: $white;
+        height: 67px;
+        box-shadow: none;
+        .panel-title {
+          width: 95% !important;
+        }
+        .add {
+          display: inherit;
+          width: 5% !important;
+          padding: 20px 0;
+          a {
+            color: $breadcrumb-color;
+            &:hover {
+              color: $blue-400;
+            }
+            &.added {
+              color: $blue-400;
+              cursor: default;
+            }
+          }
+          .tooltip {
+            line-height: $font-size-base;
+          }
+        }
+      }
+      .gru-accordion-lesson {
+        height: 67px;
+        &.expanded {
+          height: auto;
+        }
+      }
+    }
+  }
+}
