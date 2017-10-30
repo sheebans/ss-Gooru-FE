@@ -191,6 +191,16 @@ export default StudentCollection.extend({
    */
   courseVersion: Ember.computed.alias('course.version'),
 
+  /**
+   * @property {String} It decide to show the back to course map or not.
+   */
+  showBackToCourseMap: true,
+
+  /**
+   * @property {String} It decide to show the back to collection or not.
+   */
+  showBackToCollection: false,
+
   // -------------------------------------------------------------------------
   // Methods
 
