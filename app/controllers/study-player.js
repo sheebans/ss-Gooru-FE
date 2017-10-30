@@ -147,6 +147,11 @@ export default PlayerController.extend({
   showBackToCourseMap: true,
 
   /**
+   * @property {String} It decide to show the back to collection or not.
+   */
+  showBackToCollection: false,
+
+  /**
    * Resets to default values
    */
   resetValues: function() {
@@ -154,6 +159,7 @@ export default PlayerController.extend({
     this.setProperties({
       showSuggestion: true,
       showBackToCourseMap: true,
+      showBackToCollection: false,
       classId: null,
       unitId: null,
       lessonId: null,
