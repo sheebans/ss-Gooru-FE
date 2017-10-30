@@ -38,8 +38,14 @@ export default Ember.Route.extend({
     const route = this;
     const course = route.modelFor('student.class').course;
     let classId = route.modelFor('student.class').class.id;
-    let firstUnit = course.get('sortedUnitResults')[0];
-    let firstLesson = firstUnit.get('sortedLessonResults')[0];
+    let firstUnit = null;
+    let firstLesson = [];
+    if (course.get('sortedUnitResults') !== undefined) {
+      firstUnit = course.get('sortedUnitResults')[0];
+    }
+    if (firstUnit !== null) {
+      firstLesson = firstUnit.get('sortedLessonResults')[0];
+    }
     return Ember.RSVP.hash({
       course,
       classId,
