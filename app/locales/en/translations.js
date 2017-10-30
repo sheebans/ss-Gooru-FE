@@ -1118,8 +1118,8 @@ export default Object.assign(quizzesTranslations, {
       'class-activities': 'Daily Class Activities',
       'class-activities-tab': {
         today: 'Today, ',
-        'add-activities': 'Add Activities from the ',
-        or: ' or ',
+        'add-from-course-map': 'Add from Course Map',
+        'add-from-my-content': 'Add from My Content',
         'welcome-dca':
           'Welcome to your Daily Class Activities where you can assign collections and assessments for students to complete today. Please note: any reports generated will only be available today for the most recent attempt.'
       },
