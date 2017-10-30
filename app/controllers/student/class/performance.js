@@ -57,6 +57,10 @@ export default Ember.Controller.extend({
    * @property {string}
    */
   unitId: null,
+  /**
+   * @property {boolean}
+   */
+  showCourseMenu: false,
 
   /**
    * @property {string}
@@ -169,6 +173,7 @@ export default Ember.Controller.extend({
     const controller = this;
     const courseId = controller.get('course.id');
     if (courseId) {
+      controller.set('showCourseMenu', true);
       const userId = controller.get('profile.id');
       const collectionType = controller.get('collectionType');
       const unitId = controller.get('unitId');
