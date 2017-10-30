@@ -149,5 +149,25 @@
       "body": "File not found!",
       "file": "sign-in-token-api3-pochita-200-response.json"
     }
+  },
+  {
+    "description": "API 3.0 Domain based redirection for sigin",
+    "request": {
+      "url": "^/api/nucleus-auth/v2/redirect$",
+      "query": {},
+      "post": "(.+)\"domain\":\"localhost\"(.+)",
+      "method": "POST",
+      "headers": {
+        "authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "domain-based-redirection-api3-200-response.json"
+    }
   }
 ]

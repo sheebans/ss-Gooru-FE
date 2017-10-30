@@ -49,6 +49,12 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    */
   tenant: null,
 
+  /**
+   * Maintain the state of redirection completed or not
+   * @property {Boolean}
+   */
+  isRedirectionDomainDone: false,
+
   // -------------------------------------------------------------------------
   // Actions
 

@@ -34,13 +34,13 @@ moduleForAcceptance('Acceptance | resource-player', {
 
 test('Layout', function(assert) {
   visit(
-    '/study-player/class/class-for-pochita-as-student/course/course-123/resource/image-resource-id?collectionUrl=collection-url'
+    '/study-player/course/course-123/resource/image-resource-id?collectionUrl=collection-url&classId=class-for-pochita-as-student'
   );
 
   andThen(function() {
     assert.equal(
       currentURL(),
-      '/study-player/class/class-for-pochita-as-student/course/course-123/resource/image-resource-id?collectionUrl=collection-url'
+      '/study-player/course/course-123/resource/image-resource-id?collectionUrl=collection-url&classId=class-for-pochita-as-student'
     );
 
     const $playerHeader = find('.gru-study-header');

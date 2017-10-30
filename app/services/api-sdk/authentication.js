@@ -130,7 +130,32 @@ export default Ember.Service.extend({
   signOut: function() {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('authenticationAdapter').signOut().then(resolve, reject);
+      service
+        .get('authenticationAdapter')
+        .signOut()
+        .then(resolve, reject);
+    });
+  },
+
+  /**
+   * Find the domain name have any directions for authentication.
+   * @param logged in bowser session domain name.
+   */
+  domainBasedRedirection: function(domain) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('authenticationAdapter')
+        .domainBasedRedirection({
+          domain: domain
+        })
+        .then(function(response) {
+          resolve(
+            service
+              .get('authenticationSerializer')
+              .normalizeDomainRedirectResponse(response)
+          );
+        }, reject);
     });
   }
 });
