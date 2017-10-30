@@ -14,7 +14,8 @@ export default Ember.Controller.extend({
     'collectionId',
     'pathId',
     'source',
-    'collectionType'
+    'collectionType',
+    'classId'
   ],
 
   actions: {},

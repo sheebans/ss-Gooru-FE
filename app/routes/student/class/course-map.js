@@ -248,7 +248,10 @@ export default Ember.Route.extend({
         classId
       )
       .then(function() {
-        route.transitionTo('resource-player', classId, courseId, resource.id, {
+        if (classId) {
+          queryParams.classId = classId;
+        }
+        route.transitionTo('resource-player', courseId, resource.id, {
           queryParams
         });
       });
