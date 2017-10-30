@@ -43,7 +43,7 @@ export default Ember.Route.extend({
     if (course.get('sortedUnitResults') !== undefined) {
       firstUnit = course.get('sortedUnitResults')[0];
     }
-    if (firstUnit !== null) {
+    if (firstUnit) {
       firstLesson = firstUnit.get('sortedLessonResults')[0];
     }
     return Ember.RSVP.hash({

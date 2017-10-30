@@ -60,7 +60,9 @@ export default Ember.Component.extend({
         .get('courseService')
         .fetchById(courseId)
         .then(function(course) {
-          component.set('course', course);
+          if (!component.isDestroyed) {
+            component.set('course', course);
+          }
         });
     }
   },
