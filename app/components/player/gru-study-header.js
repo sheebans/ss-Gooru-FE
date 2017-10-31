@@ -145,6 +145,28 @@ export default Ember.Component.extend({
       }
     });
     component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+    const performancePercentage = component.get('performancePercentage');
+    if (performancePercentage) {
+      component
+        .$('.bar-charts')
+        .popover({
+          trigger: 'manual',
+          html: true,
+          placement: 'bottom'
+        })
+        .mouseover(function() {
+          component.$(this).popover('show');
+          let left =
+            component
+              .$('.bar-charts')
+              .find('.segment')
+              .width() - 50;
+          component.$('.popover').css({ top: '84px', left: `${left  }px` });
+        })
+        .mouseleave(function() {
+          component.$(this).popover('hide');
+        });
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -244,6 +266,11 @@ export default Ember.Component.extend({
       ];
     }
   ),
+
+  performancePercentage: Ember.computed('barChartData', function() {
+    let data = this.get('barChartData').objectAt(0);
+    return data.percentage.toFixed(0);
+  }),
 
   /**
    * Course version name
