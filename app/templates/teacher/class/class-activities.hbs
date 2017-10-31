@@ -38,10 +38,12 @@
           {{/each}}
         </ol>
       </div>
-      <div class="buttons-container">
-        {{#link-to "add-from-course-map" classId class="btn btn-primary course-map" tagName="button"}}{{t "teacher-landing.class.class-activities-tab.add-from-course-map"}}{{/link-to}}
-        {{#link-to "profile.content.courses" session.userData.gooruUId class="btn btn-primary my-content" tagName="button"}}{{t "teacher-landing.class.class-activities-tab.add-from-my-content"}}{{/link-to}}
-      </div>
+      {{#if (eq index 0)}}
+        <div class="buttons-container">
+          {{#link-to "add-from-course-map" classId class="btn btn-primary course-map" tagName="button"}}{{t "teacher-landing.class.class-activities-tab.add-from-course-map"}}{{/link-to}}
+          {{#link-to "profile.content.courses" session.userData.gooruUId class="btn btn-primary my-content" tagName="button"}}{{t "teacher-landing.class.class-activities-tab.add-from-my-content"}}{{/link-to}}
+        </div>
+      {{/if}}
     {{/each}}
     <div class="class-activity-accordion">
       <a class="title" role="button" {{action "viewMore"}}>
@@ -51,7 +53,11 @@
       </a>
     </div>
   {{else}}
-    <div class="no-content">{{t "common.no-dca-teacher"}}</div>
-    <div class="no-content-image"></div>
+    <div class="no-content pull-left">{{t "common.no-dca-teacher"}}</div>
+    <div class="buttons-container pull-right">
+      {{#link-to "add-from-course-map" classId class="btn btn-primary course-map" tagName="button"}}{{t "teacher-landing.class.class-activities-tab.add-from-course-map"}}{{/link-to}}
+      {{#link-to "profile.content.courses" session.userData.gooruUId class="btn btn-primary my-content" tagName="button"}}{{t "teacher-landing.class.class-activities-tab.add-from-my-content"}}{{/link-to}}
+    </div>
+    <div class="no-content-image pull-left"></div>
   {{/if}}
 </div>
