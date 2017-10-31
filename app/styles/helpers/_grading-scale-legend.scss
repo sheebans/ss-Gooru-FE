@@ -12,7 +12,7 @@
     display: table;
     border-radius: 19px;
     height: 15px;
-    width: 67px;
+    width: 75px;
     margin: 0 5px 0 0;
 
     @media (max-width: $screen-xs) {
@@ -31,11 +31,11 @@
       vertical-align: middle;
     }
     .textspancss {
-      width: 50.2px;
+      width: 75px;
       height: 12px;
       object-fit: contain;
       font-family: Lato;
-      font-size: 10px;
+      font-size: 12px;
       text-align: center;
       color: #ffffff;
     }

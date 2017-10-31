@@ -1,5 +1,5 @@
 <div class="header">
-    <div class="title">{{t 'common.course'}}</div>
+    <div class="title">{{selectedCourse.title}}</div>
 </div>
 <div class="body">
     {{#if showCourse}}
@@ -7,9 +7,9 @@
             <span>{{t 'common.course'}}</span>
             <a class="arrow" {{action 'expandPanel' 'course'}}>
               {{#if isCourseFiltersExpanded}}
-                {{gru-icon name='arrow_drop_up'}}
-              {{else}}
                 {{gru-icon name='arrow_drop_down'}}
+              {{else}}
+                {{gru-icon name='arrow_drop_up'}}
               {{/if}}
             </a>
         </div>
@@ -19,12 +19,12 @@
     {{/if}}
     {{#each units as |unit index|}}
     <div class="filter-type unit panel-body" {{action 'expandPanel' 'unit' unit}}>
-        <span>{{unit.title}}</span>
-         <a class="arrow" {{action 'togglePanel' unit}}>
+        <span>{{course-sections-prefix index=index type='unit' longName=false}}:&nbsp;{{unit.title}}</span>
+         <a class="arrow">
           {{#if (eq unit.id unitId)}}
-            {{gru-icon name='arrow_drop_down'}}
-          {{else}}
             {{gru-icon name='arrow_drop_up'}}
+          {{else}}
+            {{gru-icon name='arrow_drop_down'}}
           {{/if}}
         </a> 
     </div>
