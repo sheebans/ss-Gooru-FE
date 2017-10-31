@@ -87,7 +87,7 @@ export default Ember.Component.extend({
       } else {
         this.get('router').transitionTo(
           'student.independent.course-map',
-          this.get('course.id'),
+          this.get('courseId'),
           {
             queryParams: {
               refresh: true
@@ -144,6 +144,7 @@ export default Ember.Component.extend({
           .appendTo(component.$(this));
       }
     });
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
   },
 
   // -------------------------------------------------------------------------

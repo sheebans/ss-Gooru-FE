@@ -152,6 +152,12 @@ export default PlayerController.extend({
   showBackToCollection: false,
 
   /**
+   * Indicates if it should default player header
+   * @property {boolean}
+   */
+  showPlayerHeader: false,
+
+  /**
    * Resets to default values
    */
   resetValues: function() {
