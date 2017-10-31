@@ -28,10 +28,10 @@
         height: 88px;
         .form-group {
           text-align: center;
-          margin: 0 0 5px;
+          margin: 0;
           .gru-input {
             input {
-              font-size: $font-size-base;
+              font-size: $font-size-small;
               font-weight: bold;
               width: 145px;
               margin: 0 auto;
@@ -59,6 +59,7 @@
             .error-messages {
               height: 14px;
               span.error {
+                vertical-align: top;
                 margin: 0;
                 font-size: $font-size-xxsmall;
                 height: inherit;
@@ -67,7 +68,7 @@
           }
         }
         .terms-and-conditions {
-          font-size: $font-size-xxsmall;
+          font-size: $font-size-small;
           line-height: $font-size-small;
           padding: 0 17px;
           margin: 0;
@@ -89,11 +90,11 @@
           color: $white;
           text-align: center;
           width: 100%;
-          font-size: $font-size-xxsmall;
+          font-size: $font-size-small;
           font-weight: bold;
           text-transform: uppercase;
           background-color: $blue-400;
-          padding: 10px 0;
+          padding: 8px 0;
           border-bottom-right-radius: 4px;
           border-bottom-left-radius: 4px;
         }
