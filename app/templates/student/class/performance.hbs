@@ -13,7 +13,7 @@
         <div class="clearfix row"></div>
  <div class="clearfix row"></div>
  <div class="topPadding">
-   <div class="navigation pull-left">
+   <div class="navigation pull-left {{if showCourseMenu 'visible' 'hidden'}}">
      {{student.gru-performance-course-filter
      selectedCourse=course
      showCourse=false
@@ -23,7 +23,7 @@
      onUpdateReport="updateReport"
      }}
    </div>
-    <div class="content pull-left">
+    <div class="content pull-left {{if showCourseMenu 'menucontent' 'fullcontent'}}">
         <div class="panel-header out-of-scope">
             <h1>{{t 'student-landing.my-performance.title'}}</h1>
             <button class="btn btn-primary download out-of-scope">
