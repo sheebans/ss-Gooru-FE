@@ -136,7 +136,7 @@
     }
   }
 }
-&.view {
+&.view-profile {
   .panel {
     .panel-body {
       @media (min-width: $screen-lg-min) {
@@ -146,7 +146,7 @@
     }
   }
 }
-&.edit {
+&.edit-profile {
   .panel {
     .panel-body {
       @media (min-width: $screen-lg-min) {
