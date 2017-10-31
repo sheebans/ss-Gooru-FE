@@ -1,13 +1,13 @@
-.controller.class.analytics.collection.student {
+.controller.analytics.collection.student {
   .navigation {
-    padding: 10px 35px;
+    padding: 10px 25px;
 
     @media (min-width: $screen-xs) {
-      padding: 10px 27px;
+      padding: 10px 15px;
     }
 
     @media (min-width: $screen-md) {
-      padding: 10px 65px;
+      padding: 15px 15px;
     }
   }
   .gru-assessment-report {
@@ -22,7 +22,7 @@
             overflow: hidden;
           }
           .questions {
-            max-width: 20%;
+            // max-width: 20%;
           }
         }
         .resource-cards-section {
