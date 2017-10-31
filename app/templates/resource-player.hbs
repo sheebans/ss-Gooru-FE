@@ -7,23 +7,11 @@
   resourceSequence=resource.sequence
   collectionUrl=collectionUrl
   courseVersion=courseVersion
+  showBackToCourseMap=showBackToCourseMap
+  showBackToCollection=showBackToCollection
 }}
 <div class="player-container">
     <div class="player">
-      <div class="qz-aside">
-        {{player.qz-navigator
-        isTeacher=isTeacher
-        collection=collection
-        unit=unit
-        lesson=lesson
-        classId=classId
-        course=course
-        onRemixCollection="remixCollection"
-        showBackToCourseMap=showBackToCourseMap
-        showBackToCollection=showBackToCollection
-        collectionUrl=collectionUrl
-      }}
-      </div>
       <div class="qz-main" role="main">
         {{#if isDone}}
           {{player.gru-player-done classId=classId}}

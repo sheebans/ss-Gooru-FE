@@ -27,14 +27,16 @@ test('Layout', function(assert) {
       '.teacher.class .controller.teacher.class.class-activities'
     );
     assert.ok($container.length, 'Missing class activities tab container');
-    assert.ok($container.find('.links').length, 'Missing links');
+
+    const $buttonsContainer = $container.find('.buttons-container');
+    assert.ok($buttonsContainer.length, 'Missing buttons container');
     assert.ok(
-      $container.find('.links a.course-map').length,
-      'Missing course-map link'
+      $buttonsContainer.find('.course-map').length,
+      'Missing course-map button'
     );
     assert.ok(
-      $container.find('.links a.my-content').length,
-      'Missing my-content link'
+      $buttonsContainer.find('.my-content').length,
+      'Missing my-content button'
     );
     assert.ok(
       $container.find('.class-activity-accordion').length,
@@ -57,13 +59,13 @@ test('Go to course-map from links panel', function(assert) {
       currentURL(),
       '/teacher/class/class-for-pochita-as-teacher/class-activities'
     );
-    const $courseMapLink = find('.links a.course-map');
+    const $courseMapLink = find('.buttons-container .course-map');
 
     click($courseMapLink);
     andThen(function() {
       assert.equal(
         currentURL(),
-        '/teacher/class/class-for-pochita-as-teacher/course-map',
+        '/add-from-course-map/462bcc67-1717-4140-bdc0-672e7bf4cdb1',
         'Wrong route'
       );
     });
@@ -78,7 +80,7 @@ test('Go to my content from links panel', function(assert) {
       currentURL(),
       '/teacher/class/class-for-pochita-as-teacher/class-activities'
     );
-    const $myContentLink = find('.links a.my-content');
+    const $myContentLink = find('.buttons-container .my-content');
 
     click($myContentLink);
     andThen(function() {
@@ -113,7 +115,9 @@ test('Delete class activity', function(assert) {
       '.collections .gru-class-activity-panel:eq(0)'
     );
     click(
-      $collection.find('.panel-heading .info .left-info button.remove-item')
+      $collection.find(
+        '.panel-heading .info .actions-container button.remove-item'
+      )
     ); //remove class activity
     andThen(function() {
       var $removeClassActivityModal = find(

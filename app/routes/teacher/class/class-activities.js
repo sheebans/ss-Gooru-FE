@@ -66,11 +66,11 @@ export default Ember.Route.extend({
       .then(hash => [
         {
           classActivities: hash.todayActivities,
-          date: formatDate(today, 'MMMM Do, YYYY')
+          date: formatDate(today, 'MMMM D, YYYY')
         },
         {
           classActivities: hash.yesterdayActivities,
-          date: formatDate(yesterday, 'MMMM Do, YYYY')
+          date: formatDate(yesterday, 'MMMM D, YYYY')
         }
       ]);
   },
@@ -85,6 +85,7 @@ export default Ember.Route.extend({
     const date = new Date();
     controller.set('month', date.getMonth());
     controller.set('year', date.getFullYear());
+    controller.set('showWelcome', true);
     controller.set('classActivities', model);
   }
 });

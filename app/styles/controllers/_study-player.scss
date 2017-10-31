@@ -16,9 +16,6 @@
   .no-confirmation {
     .qz-player {
       padding-top: 104px;
-      @media (max-width: $screen-sm) {
-        padding-top: 255px;
-      }
     }
   }
 }

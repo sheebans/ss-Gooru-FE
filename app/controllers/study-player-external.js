@@ -93,6 +93,11 @@ export default Ember.Controller.extend({
    */
   courseVersion: Ember.computed.alias('course.version'),
 
+  /**
+    * @property {String} It decide to show the back to collection or not.
+    */
+  showBackToCollection: false,
+
   // -------------------------------------------------------------------------
   // Methods
 

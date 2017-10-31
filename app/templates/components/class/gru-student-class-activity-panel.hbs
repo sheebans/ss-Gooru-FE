@@ -67,7 +67,7 @@
     </div>
     <div class="performance">
       {{#if item.isAssessment}}
-        <span class="score" style={{safe-html (concat "color:" (grade-color collectionPerformanceSummary.score))}}>
+        <span class="score" style={{safe-html (concat "color:" (grade-color (if collectionPerformanceSummary.score collectionPerformanceSummary.score 'NA')))}}>
           {{if collectionPerformanceSummary.score (concat collectionPerformanceSummary.score '%') '--'}}
         </span>
       {{else}}

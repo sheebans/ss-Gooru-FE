@@ -9,9 +9,17 @@ export default Ember.Route.extend({
    */
   session: Ember.inject.service('session'),
 
+  /**
+   * @requires service:authentication
+   */
+  authenticationService: Ember.inject.service('api-sdk/authentication'),
+
   // -------------------------------------------------------------------------
   // Methods
 
+  /**
+   * Verfiy the domain have any directions before model get execute.
+   */
   beforeModel: function() {
     if (!this.get('session.isAnonymous')) {
       this.transitionTo('index');
@@ -25,6 +33,23 @@ export default Ember.Route.extend({
    */
   setupController: function(controller) {
     controller.resetProperties();
+    this.handleRedirectionBasedOnDomain(controller);
+  },
+
+  /**
+   * Verfiy the domain have any directions before model get execute.
+   */
+  handleRedirectionBasedOnDomain: function(controller) {
+    let domain = window.location.hostname;
+    this.get('authenticationService')
+      .domainBasedRedirection(domain)
+      .then(function(data) {
+        if (data && data.statusCode === 303) {
+          window.location.href = data.redirectUrl;
+        } else {
+          controller.set('isRedirectionDomainDone', true);
+        }
+      });
   },
 
   // -------------------------------------------------------------------------

@@ -427,7 +427,7 @@ export default Object.assign(quizzesTranslations, {
     'no-dca-student':
       'Your teacher has not yet assigned any collections or assessments to Daily Class Activities.',
     'no-dca-teacher':
-      'You have not yet assigned any collections or assessments to your daily class activities.',
+      'No current activities. Add Daily Class Activities from the Course Map or My Content.',
     notScored: 'Unscored',
     notStarted: 'Not started',
     'not-added': 'Not Added',
@@ -589,6 +589,7 @@ export default Object.assign(quizzesTranslations, {
     'subject-and-framework': 'Subject and Framework',
     submit: 'Submit',
     'submit-all': 'Submit all',
+    'submitAll': 'Submit All',
     'submit-finish': 'Submit and Finish',
     swap: 'Re-order',
     suggestion: 'Suggestion',
@@ -1116,10 +1117,13 @@ export default Object.assign(quizzesTranslations, {
         'view-report': 'View Report'
       },
       'class-activities': 'Daily Class Activities',
+      'back-to-class-activities': 'Back to Daily Class Activities',
       'class-activities-tab': {
         today: 'Today, ',
-        'add-activities': 'Add Activities from the ',
-        or: ' or '
+        'add-from-course-map': 'Add from Course Map',
+        'add-from-my-content': 'Add from My Content',
+        'welcome-dca':
+          'Welcome to your Daily Class Activities where you can assign collections and assessments for students to complete today. Please note: any reports generated will only be available today for the most recent attempt.'
       },
       'click-to-copy': 'Click to copy class code',
       'course-map': 'Course Map',

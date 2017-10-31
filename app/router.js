@@ -67,7 +67,7 @@ Router.map(function() {
   this.route('study-player-external');
   this.route('study-player', { path: '/study-player/course/:courseId' });
   this.route('resource-player', {
-    path: '/study-player/class/:classId/course/:courseId/resource/:resourceId'
+    path: '/study-player/course/:courseId/resource/:resourceId'
   });
 
   this.route('context-player', {
@@ -152,6 +152,8 @@ Router.map(function() {
       });
     });
   });
+
+  this.route('add-from-course-map', { path: '/add-from-course-map/:classId' });
 
   this.route('featured');
 

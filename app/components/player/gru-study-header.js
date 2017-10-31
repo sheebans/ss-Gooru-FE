@@ -58,13 +58,50 @@ export default Ember.Component.extend({
         this.set('collectionUrl', collectionUrl);
       }
       let queryParams = { collectionUrl: this.get('collectionUrl') };
+      let classId = this.get('classId');
+      if (classId) {
+        queryParams.classId = classId;
+      }
       this.get('router').transitionTo(
         'resource-player',
-        this.get('classId'),
         this.get('courseId'),
         resource.id,
         { queryParams }
       );
+    },
+
+    /**
+     * Redirect to course map
+     */
+    redirectCourseMap() {
+      if (this.get('classId')) {
+        this.get('router').transitionTo(
+          'student.class.course-map',
+          this.get('classId'),
+          {
+            queryParams: {
+              refresh: true
+            }
+          }
+        );
+      } else {
+        this.get('router').transitionTo(
+          'student.independent.course-map',
+          this.get('course.id'),
+          {
+            queryParams: {
+              refresh: true
+            }
+          }
+        );
+      }
+    },
+
+    /**
+    * Go back to collection
+    */
+    backToCollection() {
+      window.location.href = this.get('collectionUrl');
     }
   },
 

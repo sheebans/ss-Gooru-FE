@@ -1,9 +1,11 @@
 <div class="controller teacher class class-activities">
-  <div class="links">
-    {{t "teacher-landing.class.class-activities-tab.add-activities"}}
-    {{#link-to "teacher.class.course-map" class="pointer course-map"}}{{t "common.course-map"}}{{/link-to}}
-    {{t "teacher-landing.class.class-activities-tab.or"}}
-    {{#link-to "profile.content.courses" session.userData.gooruUId class="pointer my-content"}}{{t "common.myContent"}}{{/link-to}}
+  <div class="panel panel-default panel-primary welcome {{if showWelcome 'visible' 'hidden'}}">
+    <div class="panel-body">
+      <div class="description">{{t "teacher-landing.class.class-activities-tab.welcome-dca"}}</div>
+      <div class="close">
+        <a {{action 'toggleHeader'}}>X</a>
+      </div>
+    </div>
   </div>
   {{#if classActivities}}
     {{#each classActivities as |activities index|}}
@@ -21,12 +23,9 @@
           </a>
         </div>
       </div>
-      <div id="{{index}}-content"
-           class="panel-collapse collapse in"
-           role="tabpanel"
-           aria-labelledby="{{index}}-heading">
-        {{#each activities.classActivities as |classActivity|}}
-          <ol class="panel-group collections" role="tablist" aria-multiselectable="true">
+      <div id="{{index}}-content" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="{{index}}-heading">
+        <ol class="panel-group collections" role="tablist" aria-multiselectable="true">
+          {{#each activities.classActivities as |classActivity|}}
             {{class.gru-class-activity-panel
               classActivity=classActivity
               onGoLive='goLive'
@@ -34,11 +33,17 @@
               index=index
               onRemoveClassActivity='removeClassActivity'
             }}
-          </ol>
-        {{else}}
-          <li class="no-content">{{t "common.contentUnavailable"}}</li>
-        {{/each}}
+          {{else}}
+            <li class="no-content">{{t "common.contentUnavailable"}}</li>
+          {{/each}}
+        </ol>
       </div>
+      {{#if (eq index 0)}}
+        <div class="buttons-container">
+          {{#link-to "add-from-course-map" classId class="btn btn-primary course-map" tagName="button"}}{{t "teacher-landing.class.class-activities-tab.add-from-course-map"}}{{/link-to}}
+          {{#link-to "profile.content.courses" session.userData.gooruUId class="btn btn-primary my-content" tagName="button"}}{{t "teacher-landing.class.class-activities-tab.add-from-my-content"}}{{/link-to}}
+        </div>
+      {{/if}}
     {{/each}}
     <div class="class-activity-accordion">
       <a class="title" role="button" {{action "viewMore"}}>
@@ -48,6 +53,11 @@
       </a>
     </div>
   {{else}}
-    <div class="no-content">{{t "common.no-dca-teacher"}}</div>
+    <div class="no-content pull-left">{{t "common.no-dca-teacher"}}</div>
+    <div class="buttons-container pull-right">
+      {{#link-to "add-from-course-map" classId class="btn btn-primary course-map" tagName="button"}}{{t "teacher-landing.class.class-activities-tab.add-from-course-map"}}{{/link-to}}
+      {{#link-to "profile.content.courses" session.userData.gooruUId class="btn btn-primary my-content" tagName="button"}}{{t "teacher-landing.class.class-activities-tab.add-from-my-content"}}{{/link-to}}
+    </div>
+    <div class="no-content-image pull-left"></div>
   {{/if}}
 </div>

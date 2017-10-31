@@ -94,7 +94,9 @@ export default Ember.Component.extend(AccordionMixin, {
      * @param {string} newLocation - String of the form 'unitId[+lessonId[+resourceId]]'
      */
     updateLocation: function(newLocation) {
-      this.get('onLocationUpdate')(newLocation);
+      if (this.get('onLocationUpdate')) {
+        this.get('onLocationUpdate')(newLocation);
+      }
     },
     /**
      * Trigger action to update content visibility list
@@ -197,6 +199,12 @@ export default Ember.Component.extend(AccordionMixin, {
    * Will resolve to {Location[]}
    */
   usersLocation: Ember.A([]),
+
+  /**
+   * Indicates if it is from daily class activities
+   * @property {Boolean}
+   */
+  isFromDCA: null,
 
   // -------------------------------------------------------------------------
   // Observers
