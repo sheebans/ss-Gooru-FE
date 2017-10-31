@@ -1,6 +1,4 @@
 .gru-class-activity-panel.panel {
-  $on-air-icon: 25px;
-
   border-radius: 2px;
   box-shadow: none;
   height: 60px;
@@ -25,7 +23,6 @@
         width: 94px;
       }
     }
-
     .title-container {
       line-height: 1.4;
       margin: 15px 0 0 10px;
@@ -36,10 +33,9 @@
         font-weight: 300;
       }
     }
-
     .info {
       height: 60px;
-      width: 35%;
+      width: 36%;
       .content-count {
         font-size: $font-navigator;
         margin: 10px 10px 0 0;
@@ -68,12 +64,10 @@
           }
         }
       }
-
       .actions-container {
         float: left;
         padding: 8px 0 0;
-        width: 35%;
-
+        width: 36%;
         button.no-bgd {
           background-color: transparent;
           float: right;
@@ -83,7 +77,6 @@
             color: $gray;
           }
         }
-
         .visibility-panel {
           margin: 10px 8px 0 0;
           float: right;
@@ -91,8 +84,8 @@
             color: $green-500;
           }
         }
-
         button.on-air {
+          $on-air-icon: 25px;
           float: right;
           margin: 10px 8px 0 0;
           width: $on-air-icon;
@@ -111,7 +104,7 @@
         width: 75px;
         margin: 0;
         vertical-align: middle;
-        padding: 20px 0 0;
+        padding: 16px 0 0;
         text-align: center;
         font-weight: 900;
         span {

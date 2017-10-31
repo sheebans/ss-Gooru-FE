@@ -7,7 +7,6 @@
         <div class="ellipsis">{{item.title}}</div>
     {{/link-to}}
   </div>
-
   <div class="info pull-right">
     <div class="content-count">
       {{#if item.isAssessment}}
@@ -30,7 +29,6 @@
     </div>
     <div class="actions-container">
       <button title="{{t 'common.remove'}}" class="btn no-bgd remove-item" {{action 'removeClassActivity' classActivity}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="remove_circle"}}</button>
-
       {{#if (eq index 0)}}
         {{#if visible}}
           <span class='visibility-panel item-visible hidden-xs'>
@@ -49,7 +47,6 @@
           {{gru-icon name='assignment_turned_in'}}
         </span>
       {{/if}}
-
       {{#if item.isAssessment}}
         <button {{action 'goLive' item.id}}
           data-toggle="tooltip" data-html="true" data-placement="bottom"
@@ -58,7 +55,6 @@
         </button>
       {{/if}}
     </div>
-
     <div class="performance">
       {{#if item.isAssessment}}
         <span class="score" style={{safe-html (concat "color:" (grade-color (if collectionPerformanceSummary.score collectionPerformanceSummary.score 'NA')))}}>
@@ -70,6 +66,5 @@
         </span>
       {{/if}}
     </div>
-
   </div>
 </div>
