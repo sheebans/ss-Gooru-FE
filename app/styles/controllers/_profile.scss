@@ -1,12 +1,25 @@
-.application.profile {
-  .gru-take-tour {
-    top: 68px;
-    right: 8px;
-  }
-}
 .controller.profile {
   min-height: 100%;
-
+  .gru-take-tour {
+    position: absolute;
+    right: 20px;
+    top: 138px;
+    width: 40px;
+    button {
+      width: 35px;
+      height: 35px;
+      padding: 5px 0px 0 0px;
+      border-radius: 18px;
+      i {
+        font-size: 25px;
+      }
+      .descriptive-text {
+        bottom: 4px;
+        font-size: 13px;
+        left: 5px;
+      }
+    }
+  }
   .navigation {
     height: auto;
 

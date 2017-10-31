@@ -2000,7 +2000,7 @@ export default Object.assign(quizzesTranslations, {
       },
       stepFour: {
         title: 'My Study',
-        description: 'Returns to your home page.'
+        description: 'Returns to your homepage.'
       },
       stepFive: {
         title: 'Library',
@@ -2196,11 +2196,11 @@ export default Object.assign(quizzesTranslations, {
       stepOne: {
         title: 'Welcome!',
         description:
-          'Welcome to your Profile. Here you can access your content and personal information.'
+          'Welcome to your Profile. Here you can access your content, personal information and followers.'
       },
       stepTwo: {
         title: 'My Content',
-        description: 'Review the content you have remixed and created.'
+        description: 'Create new content and view the content you have remixed.'
       },
       stepThree: {
         title: 'About Me',
