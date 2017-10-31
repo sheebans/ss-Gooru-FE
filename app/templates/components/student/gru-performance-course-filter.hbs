@@ -19,7 +19,7 @@
     {{/if}}
     {{#each units as |unit index|}}
     <div class="filter-type unit panel-body" {{action 'expandPanel' 'unit' unit}}>
-        <span>{{course-sections-prefix index=index type='unit' longName=false}}:&nbsp;{{unit.title}}</span>
+        <span class="unitTitleellipsis">{{course-sections-prefix index=index type='unit' longName=false}}:&nbsp;{{unit.title}}</span>
          <a class="arrow">
           {{#if (eq unit.id unitId)}}
             {{gru-icon name='arrow_drop_up'}}
