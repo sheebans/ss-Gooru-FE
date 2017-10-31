@@ -197,10 +197,10 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         elementSelector: '.student-left-panel .featured-courses',
         title: route
           .get('i18n')
-          .t('gru-take-tour.student-home.stepFeatureCourses.title'),
+          .t('gru-take-tour.student-home.stepFeaturedCourses.title'),
         description: route
           .get('i18n')
-          .t('gru-take-tour.student-home.stepFeatureCourses.description')
+          .t('gru-take-tour.student-home.stepFeaturedCourses.description')
       },
       {
         elementSelector: '.student-navigator .active-classes a',

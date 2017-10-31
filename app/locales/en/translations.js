@@ -1985,7 +1985,7 @@ export default Object.assign(quizzesTranslations, {
         description:
           'Welcome to Take a Tour and your homepage! Let’s walk through the features available to you on your homepage.'
       },
-      stepFeatureCourses: {
+      stepFeaturedCourses: {
         title: 'Featured Courses',
         description:
           'Browse the featured courses in the Learning Navigator’s content catalog for topics that interest you. '
