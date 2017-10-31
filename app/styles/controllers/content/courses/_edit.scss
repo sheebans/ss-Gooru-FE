@@ -74,6 +74,7 @@
       .title {
         display: inline-block;
         width: 53%;
+        @include text-overflow();
         @media (max-width: $screen-xs-max) {
           width: 50%;
         }
