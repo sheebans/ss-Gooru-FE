@@ -2,6 +2,11 @@
   padding: 12px 0;
   width: 960px;
   margin: 0 auto;
+  .gru-take-tour {
+    position: absolute;
+    right: 80px;
+    top: 125px;
+  }
   .content .no-content {
     margin-top: 15px;
   }
@@ -27,7 +32,7 @@
     }
     .panel.classroom-information {
       float: left;
-      margin: 10px 20px 0 0;
+      margin: 10px 0 0;
       width: 100%;
       .panel-body {
         padding: 0;

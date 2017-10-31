@@ -2075,10 +2075,15 @@ export default Object.assign(quizzesTranslations, {
         description:
           'Welcome to your classroom. Here you will find your daily class activities, course map, and performance data. Let’s get started!'
       },
+      stepTopBar: {
+        title: 'Course, Performance, Completion',
+        description:
+          'See a summary of your course and overall performance so far.'
+      },
       stepTwo: {
         title: 'Daily Class Activities',
         description:
-          'Access a list of activities assigned by your teacher. Select the activities you want to study.'
+          'Access and study today’s activities assigned by your teacher.'
       },
       stepThree: {
         title: 'Course Map',
@@ -2087,12 +2092,12 @@ export default Object.assign(quizzesTranslations, {
       },
       stepFour: {
         title: 'My Report',
-        description: 'Take a look at your overall class performance. '
+        description: 'Review your overall class performance.'
       },
       stepFive: {
         title: 'Finished!',
         description:
-          'Get started by clicking on the Course Map or Daily Activities tab to start studying.'
+          'Start studying the course by clicking on the Course Map or Daily Activities.'
       }
     },
     'teacher-class': {
