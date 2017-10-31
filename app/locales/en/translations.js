@@ -2104,26 +2104,35 @@ export default Object.assign(quizzesTranslations, {
       stepOne: {
         title: 'Welcome!',
         description:
-          'Welcome to your classroom. Here you will find your daily class activities, course map, and performance data. Let’s get started!'
+          'Welcome to your classroom. Here you will we be able to view and assign your daily class activities, course map, update class information and review student performance data. Let’s get started!'
+      },
+      stepTopBar: {
+        title: 'Course, Performance, Completion',
+        description:
+          'See a summary of your course and overall student performance so far.'
       },
       stepTwo: {
         title: 'Daily Class Activities',
-        description:
-          'Assign collections or assessments to your students. If you want to use our live assessment feature, you must also place those assessments here.'
+        description: 'View and assign today’s activities to your students.'
       },
       stepThree: {
         title: 'Course Map',
         description:
-          'Click on the units and lessons to complete the collections and assessments in the course.'
+          'View or edit the units, lessons, collections or assessments assigned in the course.'
       },
       stepFour: {
         title: 'My Report',
-        description: 'Take a look at your overall class performance. '
+        description:
+          'View the summary of how your students are performing in the course and access their reports.'
+      },
+      stepClassManagement: {
+        title: 'Class Management',
+        description:
+          'Assign or update your class information and students enrolled in the class. '
       },
       stepFive: {
         title: 'Finished!',
-        description:
-          'Get started by clicking on the Course Map or Daily Activities tab to start studying.'
+        description: 'Now go ahead and share the classroom with your students.'
       }
     },
     'study-player': {
