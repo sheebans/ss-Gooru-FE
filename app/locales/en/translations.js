@@ -1927,7 +1927,7 @@ export default Object.assign(quizzesTranslations, {
       'This setting makes your content visible via your user profile. If you wish to share the courses, collections, assessments, resources, and/or questions you create with colleagues, we suggest you turn this feature on.'
   },
   'gru-take-tour': {
-    text: 'Take a Tour',
+    text: 'Tour',
     'teacher-home': {
       stepOne: {
         title: 'Take a Tour',
@@ -1983,25 +1983,29 @@ export default Object.assign(quizzesTranslations, {
       stepOne: {
         title: 'Take a Tour',
         description:
-          'Welcome to Take a Tour and your Gooru homepage! Now let’s get started!'
+          'Welcome to Take a Tour and your homepage! Let’s walk through the features available to you on your homepage.'
+      },
+      stepFeatureCourses: {
+        title: 'Featured Courses',
+        description:
+          'Browse the featured courses in the Learning Navigator’s content catalog for topics that interest you. '
       },
       stepTwo: {
         title: 'Gooru Logo',
-        description:
-          'Clicking on the Gooru logo at any time during your session returns you to your homepage.'
+        description: 'Clicking on the Gooru logo returns you to your homepage.'
       },
       stepThree: {
         title: 'Search Bar',
-        description:
-          'Search our content catalog for topics that interest to you.'
+        description: 'Search our content catalog for topics that interest you.'
       },
       stepFour: {
         title: 'My Study',
-        description: 'Return to your homepage.'
+        description: 'Returns to your home page.'
       },
       stepFive: {
         title: 'Library',
-        description: 'Browse our featured courses.'
+        description:
+          'Browse the Learning Navigator’s featured courses and partner libraries for topics that interest you.'
       },
       stepSix: {
         title: 'Performance',
@@ -2010,7 +2014,7 @@ export default Object.assign(quizzesTranslations, {
       },
       stepSeven: {
         title: 'Your Profile',
-        description: 'Access and update your user profile and settings.'
+        description: 'Access and update your content and user profile.'
       },
       stepEight: {
         title: 'Support',
@@ -2023,16 +2027,16 @@ export default Object.assign(quizzesTranslations, {
       },
       stepTen: {
         title: 'Classrooms',
-        description: 'See all of the classes in which you are enrolled.'
+        description: 'See all the classrooms in which you are enrolled.'
       },
       stepEleven: {
         title: 'Independent Learning',
         description:
-          'Explore and bookmark topics that interest you and that you want learn more about. To start exploring click, on the plus sign to search for a topic or view featured courses.'
+          'Explore the topics you have bookmarked and that you want to learn more about.'
       },
       stepTwelve: {
         title: 'Join Classroom',
-        description: 'To join a new classroom, enter the class code.'
+        description: 'Enter the classroom code to join a classroom. '
       },
       stepThirteen: {
         title: 'Finished!',

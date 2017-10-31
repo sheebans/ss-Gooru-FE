@@ -194,6 +194,15 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
           .t('gru-take-tour.student-home.stepEight.description')
       },
       {
+        elementSelector: '.student-left-panel .featured-courses',
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-home.stepFeatureCourses.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-home.stepFeatureCourses.description')
+      },
+      {
         elementSelector: '.student-navigator .active-classes a',
         title: route.get('i18n').t('gru-take-tour.student-home.stepTen.title'),
         description: route
@@ -210,7 +219,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
           .t('gru-take-tour.student-home.stepEleven.description')
       },
       {
-        elementSelector: '.student-navigator .actions .join-class-cta',
+        elementSelector: '.content .gru-join-class-card',
         title: route
           .get('i18n')
           .t('gru-take-tour.student-home.stepTwelve.title'),
