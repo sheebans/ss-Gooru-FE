@@ -591,7 +591,7 @@ export default Object.assign(quizzesTranslations, {
     'subject-and-framework': 'Subject and Framework',
     submit: 'Submit',
     'submit-all': 'Submit all',
-    'submitAll': 'Submit All',
+    submitAll: 'Submit All',
     'submit-finish': 'Submit and Finish',
     swap: 'Re-order',
     suggestion: 'Suggestion',
@@ -1991,7 +1991,7 @@ export default Object.assign(quizzesTranslations, {
       stepFeaturedCourses: {
         title: 'Featured Courses',
         description:
-          'Browse the featured courses in the Learning Navigator’s content catalog for topics that interest you. '
+          'Browse the featured courses in the Learning Navigator’s content catalog for topics that interest you.'
       },
       stepTwo: {
         title: 'Gooru Logo',
@@ -2039,7 +2039,7 @@ export default Object.assign(quizzesTranslations, {
       },
       stepTwelve: {
         title: 'Join Classroom',
-        description: 'Enter the classroom code to join a classroom. '
+        description: 'Enter the classroom code to join a classroom.'
       },
       stepThirteen: {
         title: 'Finished!',
@@ -2131,7 +2131,7 @@ export default Object.assign(quizzesTranslations, {
       stepClassManagement: {
         title: 'Class Management',
         description:
-          'Assign or update your class information and students enrolled in the class. '
+          'Assign or update your class information and students enrolled in the class.'
       },
       stepFive: {
         title: 'Finished!',
