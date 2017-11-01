@@ -92,7 +92,7 @@ test('it renders for assessment', function(assert) {
   var $gradeContainer = $component.find('.summary-container .grade');
   assert.ok($gradeContainer.length, 'Grade container is missing');
   assert.ok(
-    $gradeContainer.attr('style').indexOf('background-color:') >= 0,
+    $gradeContainer.attr('style').indexOf('color:') >= 0,
     'Missing grade color'
   );
 
@@ -113,29 +113,15 @@ test('it renders for assessment', function(assert) {
     $attempts.find('.latest').length,
     'Latest attempt label should not be visible'
   );
-  var $fractional = $attempts.find('.fractional');
-  assert.ok($fractional, 'Fractional not found');
-  assert.equal(
-    $fractional.find('.top').text().trim(),
-    '1',
-    'Incorrect fractional top text'
-  );
-  assert.equal(
-    $fractional.find('.bottom').text().trim(),
-    '1',
-    'Incorrect fractional bottom text'
-  );
-  assert.equal(
-    $attempts.find('.text').text().trim(),
-    this.get('i18n').t('common.correct').string,
-    'Incorrect attempts text'
-  );
 
   var $overviewContainer = $component.find('.summary-container .overview');
   assert.ok($overviewContainer.length, 'Overview container is missing');
   assert.ok($overviewContainer.find('h5').length, 'Header element is missing');
   assert.equal(
-    $overviewContainer.find('h5').text().trim(),
+    $overviewContainer
+      .find('h5')
+      .text()
+      .trim(),
     'collection',
     'Incorrect header text'
   );
@@ -147,7 +133,10 @@ test('it renders for assessment', function(assert) {
     'Header element for \'attempt\' section in overview is missing'
   );
   assert.equal(
-    $overviewSection.find('.dropdown button').text().trim(),
+    $overviewSection
+      .find('.dropdown button')
+      .text()
+      .trim(),
     '4',
     'Current attempt value is incorrect'
   );
@@ -157,23 +146,21 @@ test('it renders for assessment', function(assert) {
     'Incorrect number of attempts in dropdown menu'
   );
   assert.equal(
-    $overviewSection.find('.total-attempts').text().trim(),
+    $overviewSection
+      .find('.total-attempts')
+      .text()
+      .trim(),
     '4',
     'Incorrect number of total attempts'
-  );
-
-  // Date
-  $overviewSection = $overviewContainer.find('.information .date');
-  assert.equal(
-    $overviewSection.find('span').text().trim(),
-    '11:15 am Feb. 20th, 2010',
-    'Incorrect attempt date value'
   );
 
   // Time
   $overviewSection = $overviewContainer.find('.information .time');
   assert.equal(
-    $overviewSection.find('span').text().trim(),
+    $overviewSection
+      .find('span')
+      .text()
+      .trim(),
     '40s',
     'Incorrect time value'
   );
@@ -189,7 +176,7 @@ test('it renders for assessment', function(assert) {
   var $questionLinks = $overviewContainer.find('.gru-bubbles');
   assert.equal(
     $questionLinks.find('li').length,
-    2,
+    0,
     'Incorrect number of question links'
   );
 
@@ -295,16 +282,6 @@ test('Assessment attempts on real time', function(assert) {
   assert.notOk(
     $attempts.find('.latest').length,
     'Latest attempt label should not be visible'
-  );
-  assert.equal(
-    $component.find('.fractional .top').text(),
-    '2',
-    'Wrong fractional numerator'
-  );
-  assert.equal(
-    $component.find('.fractional .bottom').text(),
-    '3',
-    'Wrong fractional denominator'
   );
 });
 
@@ -458,19 +435,6 @@ test('it renders for collection with questions', function(assert) {
   var $gradeContainer = $component.find('.summary-container .grade');
   assert.ok($gradeContainer.length, 'Grade container should be visible');
 
-  var $fractional = $gradeContainer.find('.fractional');
-  assert.ok($fractional, 'Fractional not found');
-  assert.equal(
-    $fractional.find('.top').text().trim(),
-    '1',
-    'Incorrect fractional top text'
-  );
-  assert.equal(
-    $fractional.find('.bottom').text().trim(),
-    '1',
-    'Incorrect fractional bottom text'
-  );
-
   var $thumbnailContainer = $component.find('.summary-container .thumbnail');
   assert.notOk(
     $thumbnailContainer.length,
@@ -481,7 +445,10 @@ test('it renders for collection with questions', function(assert) {
   assert.ok($overviewContainer.length, 'Overview container is missing');
   assert.ok($overviewContainer.find('h5').length, 'Header element is missing');
   assert.equal(
-    $overviewContainer.find('h5').text().trim(),
+    $overviewContainer
+      .find('h5')
+      .text()
+      .trim(),
     'collection',
     'Incorrect header text'
   );
@@ -493,18 +460,13 @@ test('it renders for collection with questions', function(assert) {
     '\'attempt\' section should not be visible'
   );
 
-  // Date
-  $overviewSection = $overviewContainer.find('.information .date');
-  assert.equal(
-    $overviewSection.find('span').text().trim(),
-    '11:15 am Feb. 20th, 2010',
-    'Incorrect attempt date value'
-  );
-
   // Time
   $overviewSection = $overviewContainer.find('.information .time');
   assert.equal(
-    $overviewSection.find('span').text().trim(),
+    $overviewSection
+      .find('span')
+      .text()
+      .trim(),
     '20s',
     'Incorrect time value'
   );
@@ -520,7 +482,7 @@ test('it renders for collection with questions', function(assert) {
   var $questionLinks = $overviewContainer.find('.gru-bubbles');
   assert.equal(
     $questionLinks.find('li').length,
-    2,
+    0,
     'Incorrect number of resource links'
   );
 });

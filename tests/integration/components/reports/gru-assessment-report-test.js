@@ -53,7 +53,9 @@ test('Layout when answer results are shown', function(assert) {
     assessmentResult=assessmentResult
   }}`);
 
-  const $component = this.$('.reports.gru-assessment-report');
+  const $component = this.$(
+    '.reports.gru-assessment-report .gru-assessment-summary'
+  );
   assert.ok($component.length, 'Component');
   assert.ok($component.find('> .gru-summary').length, 'Top Summary');
   assert.ok($component.find('> .gru-mastery').length, 'Mastery Summary');
@@ -94,7 +96,9 @@ test('Layout when answer results are not shown', function(assert) {
     assessmentResult=assessmentResult
   }}`);
 
-  const $component = this.$('.reports.gru-assessment-report');
+  const $component = this.$(
+    '.reports.gru-assessment-report .gru-assessment-summary'
+  );
   assert.ok($component.length, 'Component');
   assert.ok($component.find('> .gru-summary').length, 'Top Summary');
   assert.ok($component.find('> .hidden-report').length, 'Top Summary');
