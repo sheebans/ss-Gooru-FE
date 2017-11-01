@@ -89,6 +89,15 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           .t('gru-take-tour.student-class.stepOne.description')
       },
       {
+        elementSelector: '.student .classroom-information',
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepTopBar.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepTopBar.description')
+      },
+      {
         elementSelector: '.gru-class-navigation .nav-tabs .class-activities',
         title: route.get('i18n').t('gru-take-tour.student-class.stepTwo.title'),
         description: route

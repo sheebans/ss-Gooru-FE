@@ -94,6 +94,15 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           .t('gru-take-tour.teacher-class.stepOne.description')
       },
       {
+        elementSelector: '.teacher .classroom-information',
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.teacher-class.stepTopBar.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.teacher-class.stepTopBar.description')
+      },
+      {
         elementSelector: '.gru-class-navigation .nav-tabs .class-activities',
         title: route.get('i18n').t('gru-take-tour.teacher-class.stepTwo.title'),
         description: route
@@ -117,6 +126,15 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         description: route
           .get('i18n')
           .t('gru-take-tour.teacher-class.stepFour.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .nav-tabs .class-management',
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.teacher-class.stepClassManagement.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.teacher-class.stepClassManagement.description')
       },
       {
         title: route

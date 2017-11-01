@@ -591,7 +591,7 @@ export default Object.assign(quizzesTranslations, {
     'subject-and-framework': 'Subject and Framework',
     submit: 'Submit',
     'submit-all': 'Submit all',
-    'submitAll': 'Submit All',
+    submitAll: 'Submit All',
     'submit-finish': 'Submit and Finish',
     swap: 'Re-order',
     suggestion: 'Suggestion',
@@ -1930,7 +1930,7 @@ export default Object.assign(quizzesTranslations, {
       'This setting makes your content visible via your user profile. If you wish to share the courses, collections, assessments, resources, and/or questions you create with colleagues, we suggest you turn this feature on.'
   },
   'gru-take-tour': {
-    text: 'Take a Tour',
+    text: 'Tour',
     'teacher-home': {
       stepOne: {
         title: 'Take a Tour',
@@ -1986,25 +1986,29 @@ export default Object.assign(quizzesTranslations, {
       stepOne: {
         title: 'Take a Tour',
         description:
-          'Welcome to Take a Tour and your Gooru homepage! Now let’s get started!'
+          'Welcome to Take a Tour and your homepage! Let’s walk through the features available to you on your homepage.'
+      },
+      stepFeaturedCourses: {
+        title: 'Featured Courses',
+        description:
+          'Browse the featured courses in the Learning Navigator’s content catalog for topics that interest you.'
       },
       stepTwo: {
         title: 'Gooru Logo',
-        description:
-          'Clicking on the Gooru logo at any time during your session returns you to your homepage.'
+        description: 'Clicking on the Gooru logo returns you to your homepage.'
       },
       stepThree: {
         title: 'Search Bar',
-        description:
-          'Search our content catalog for topics that interest to you.'
+        description: 'Search our content catalog for topics that interest you.'
       },
       stepFour: {
         title: 'My Study',
-        description: 'Return to your homepage.'
+        description: 'Returns to your homepage.'
       },
       stepFive: {
         title: 'Library',
-        description: 'Browse our featured courses.'
+        description:
+          'Browse the Learning Navigator’s featured courses and partner libraries for topics that interest you.'
       },
       stepSix: {
         title: 'Performance',
@@ -2013,7 +2017,7 @@ export default Object.assign(quizzesTranslations, {
       },
       stepSeven: {
         title: 'Your Profile',
-        description: 'Access and update your user profile and settings.'
+        description: 'Access and update your content and user profile.'
       },
       stepEight: {
         title: 'Support',
@@ -2026,16 +2030,16 @@ export default Object.assign(quizzesTranslations, {
       },
       stepTen: {
         title: 'Classrooms',
-        description: 'See all of the classes in which you are enrolled.'
+        description: 'See all the classrooms in which you are enrolled.'
       },
       stepEleven: {
         title: 'Independent Learning',
         description:
-          'Explore and bookmark topics that interest you and that you want learn more about. To start exploring click, on the plus sign to search for a topic or view featured courses.'
+          'Explore the topics you have bookmarked and that you want to learn more about.'
       },
       stepTwelve: {
         title: 'Join Classroom',
-        description: 'To join a new classroom, enter the class code.'
+        description: 'Enter the classroom code to join a classroom.'
       },
       stepThirteen: {
         title: 'Finished!',
@@ -2074,10 +2078,15 @@ export default Object.assign(quizzesTranslations, {
         description:
           'Welcome to your classroom. Here you will find your daily class activities, course map, and performance data. Let’s get started!'
       },
+      stepTopBar: {
+        title: 'Course, Performance, Completion',
+        description:
+          'See a summary of your course and overall performance so far.'
+      },
       stepTwo: {
         title: 'Daily Class Activities',
         description:
-          'Access a list of activities assigned by your teacher. Select the activities you want to study.'
+          'Access and study today’s activities assigned by your teacher.'
       },
       stepThree: {
         title: 'Course Map',
@@ -2086,38 +2095,47 @@ export default Object.assign(quizzesTranslations, {
       },
       stepFour: {
         title: 'My Report',
-        description: 'Take a look at your overall class performance. '
+        description: 'Review your overall class performance.'
       },
       stepFive: {
         title: 'Finished!',
         description:
-          'Get started by clicking on the Course Map or Daily Activities tab to start studying.'
+          'Start studying the course by clicking on the Course Map or Daily Activities.'
       }
     },
     'teacher-class': {
       stepOne: {
         title: 'Welcome!',
         description:
-          'Welcome to your classroom. Here you will find your daily class activities, course map, and performance data. Let’s get started!'
+          'Welcome to your classroom. Here you will we be able to view and assign your daily class activities, course map, update class information and review student performance data. Let’s get started!'
+      },
+      stepTopBar: {
+        title: 'Course, Performance, Completion',
+        description:
+          'See a summary of your course and overall student performance so far.'
       },
       stepTwo: {
         title: 'Daily Class Activities',
-        description:
-          'Assign collections or assessments to your students. If you want to use our live assessment feature, you must also place those assessments here.'
+        description: 'View and assign today’s activities to your students.'
       },
       stepThree: {
         title: 'Course Map',
         description:
-          'Click on the units and lessons to complete the collections and assessments in the course.'
+          'View or edit the units, lessons, collections or assessments assigned in the course.'
       },
       stepFour: {
         title: 'My Report',
-        description: 'Take a look at your overall class performance. '
+        description:
+          'View the summary of how your students are performing in the course and access their reports.'
+      },
+      stepClassManagement: {
+        title: 'Class Management',
+        description:
+          'Assign or update your class information and students enrolled in the class.'
       },
       stepFive: {
         title: 'Finished!',
-        description:
-          'Get started by clicking on the Course Map or Daily Activities tab to start studying.'
+        description: 'Now go ahead and share the classroom with your students.'
       }
     },
     'study-player': {
@@ -2190,11 +2208,11 @@ export default Object.assign(quizzesTranslations, {
       stepOne: {
         title: 'Welcome!',
         description:
-          'Welcome to your Profile. Here you can access your content and personal information.'
+          'Welcome to your Profile. Here you can access your content, personal information and followers.'
       },
       stepTwo: {
         title: 'My Content',
-        description: 'Review the content you have remixed and created.'
+        description: 'Create new content and view the content you have remixed.'
       },
       stepThree: {
         title: 'About Me',
