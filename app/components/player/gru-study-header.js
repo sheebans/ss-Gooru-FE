@@ -116,18 +116,6 @@ export default Ember.Component.extend({
   didRender() {
     this._super(...arguments);
     let component = this;
-
-    //tooltip active event
-    component.$('[data-toggle="popover"]').popover({
-      trigger: 'hover'
-    });
-
-    component.$('[data-toggle=popover]').on('shown.bs.popover', function() {
-      component
-        .$('.bar-charts .completion-chart .popover')
-        .css('left', `${component.get('performancePercentage') - 1  }%`);
-    });
-
     component.$('.multi-item-carousel').carousel({ interval: false });
     // for every slide in carousel, copy the next slide's item in the slide.
     // Do the same for the next, next item.
@@ -255,11 +243,6 @@ export default Ember.Component.extend({
       ];
     }
   ),
-
-  performancePercentage: Ember.computed('barChartData', function() {
-    let data = this.get('barChartData').objectAt(0);
-    return data.percentage.toFixed(2);
-  }),
 
   /**
    * Course version name
