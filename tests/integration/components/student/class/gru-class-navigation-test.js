@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import T from 'gooru-web/tests/helpers/assert';
 import hbs from 'htmlbars-inline-precompile';
-import wait from 'ember-test-helpers/wait';
 
 moduleForComponent(
   'student/class/gru-class-navigation',
@@ -65,13 +64,6 @@ test('Class Navigation', function(assert) {
     $navigation.find('.performance.active'),
     'Missing selected performance item'
   );
-
-  // extra buttons
-  T.exists(
-    assert,
-    $navigation.find('.extra-buttons .collapse-expand'),
-    'Missing collapse-expand button'
-  );
 });
 
 test('Layout when a menu Item is selected', function(assert) {
@@ -98,32 +90,4 @@ test('Layout when a menu Item is selected', function(assert) {
     1,
     'The class menu should have only one item selected'
   );
-});
-
-test('Toggle header collapse expand click', function(assert) {
-  assert.expect(3);
-
-  this.on('toggleHeader', function() {
-    assert.ok(true, 'external Action was called!');
-  });
-
-  this.render(
-    hbs`{{student.class.gru-class-navigation class='class' onCollapseExpandClicked='toggleHeader' expand=true}}`
-  );
-  var $navigation = this.$(); //component dom element
-
-  const $collapseExpand = $navigation.find('.extra-buttons a.collapse-expand');
-  assert.ok(
-    $collapseExpand.text().includes('expand_less'),
-    'The icons shlud be expand_less'
-  );
-  $collapseExpand.click();
-
-  return wait().then(function() {
-    assert.ok(
-      $collapseExpand
-        .text()
-        .includes('expand_more', 'The icons shlud be expand_more')
-    );
-  });
 });
