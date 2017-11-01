@@ -110,9 +110,11 @@
             line-height: 25px;
           }
         }
+
         .publish-icon {
           width: 30px;
           float: right;
+
           .badge-icon {
             margin-top: 5px;
             margin-right: 9px;
@@ -254,6 +256,18 @@
 
         p {
           margin-left: 5px;
+        }
+      }
+    }
+
+    .gru-standard-card {
+      .panel .panel-footer {
+        padding: 0px !important;
+        .options {
+          .preview-btn {
+            height: 44px;
+            background-color: #0072bc;
+          }
         }
       }
     }

@@ -233,4 +233,16 @@
       }
     }
   }
+  .gru-standard-card {
+    .panel .panel-footer {
+      padding: 0px !important;
+      .options {
+        padding: 0px !important;
+        .preview-btn {
+          height: 44px;
+          background-color: #0072bc;
+        }
+      }
+    }
+  }
 }
