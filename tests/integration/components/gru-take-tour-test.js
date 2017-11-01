@@ -25,7 +25,7 @@ test('Layout', function(assert) {
   T.exists(assert, $textContainer, 'Missing text container');
   assert.equal(
     $textContainer.find('p').text(),
-    'Take a Tour',
+    'Tour',
     'Wrong descriptive text'
   );
 });

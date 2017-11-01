@@ -5,6 +5,9 @@
   height: 104px;
   color: $white;
   z-index: $zindex-navbar-fixed + 1;
+  .popover {
+    color: $dark-400;
+  }
   .header-panel {
     .course-info {
       padding: 0px;

@@ -1,10 +1,10 @@
 {{#if class.courseId}}
   <div class="controller student course-map">
     <div class="actions">
+      <span class="min-score {{unless class.minScore 'hidden'}}"><i></i> > {{class.minScore}} %</span>
       <button {{action "locateMe" userLocation}} title="{{t 'class.overview.locate'}}" class="btn btn-info locate" data-toggle="tooltip" data-placement="auto">
         <span>{{gru-icon name='near_me'}}</span>
       </button>
-      <span class="min-score {{unless class.minScore 'hidden'}}"><i></i> > {{class.minScore}} %</span>
     </div>
 
     {{class.overview.gru-accordion-course

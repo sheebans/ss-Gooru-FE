@@ -15,7 +15,7 @@
       border-top-right-radius: 4px;
       border-top-left-radius: 4px;
       > .title {
-        width: 76%;
+        width: 70%;
         padding: 6px 0;
         a {
           color: $white;
@@ -33,17 +33,16 @@
         border-left: 1px solid $white;
         text-align: center;
         padding: 10px 0;
-        width: 24%;
+        width: 30%;
         div {
-          font-size: $font-size-xxsmall;
+          font-size: $font-size-small;
           font-weight: bold;
-          line-height: $font-size-xxsmall;
+          line-height: $font-size-small;
           text-transform: uppercase;
           color: $white;
           width: 100%;
           &.title {
             opacity: 0.5;
-            font-size: $font-size-xxxsmall;
             font-weight: normal;
           }
         }
@@ -173,8 +172,7 @@
         }
         label {
           display: block;
-          font-size: $font-size-xxsmall;
-          line-height: $font-navigator;
+          font-size: $font-size-small;
           margin: 0;
           padding: 0 10px;
         }

@@ -54,7 +54,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="summary">
+        <tr class="summary out-of-scope">
               <th class="header assessment-title" scope="row">
                   <span>{{contentTitle}}</span>
               </th>
@@ -75,8 +75,8 @@
                 maxValue=assessments.length }}
               </td>
           </tr>
-          {{#each performanceData as |studentPerformance|}}
-              <tr>
+          {{#each performanceData as |studentPerformance index|}}
+              <tr class="{{if (eq index 0) 'firstrow' ''}}">
                   <th class="header assessment-title" scope="row">
                       <span>{{{studentPerformance.assessment.title}}}</span>
                   </th>
@@ -103,6 +103,6 @@
           </tbody>
       </table>
   {{else}}
-  <img class="nodataimg" src="/assets/gooru/no-data-myreport.png" align="middle"/>
+  <div class="no-contentcss">{{t 'common.no-content-my-report'}}</div>
   {{/if}}
 </div>

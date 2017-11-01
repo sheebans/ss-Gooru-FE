@@ -57,6 +57,10 @@ export default Ember.Controller.extend({
    * @property {string}
    */
   unitId: null,
+  /**
+   * @property {boolean}
+   */
+  showCourseMenu: false,
 
   /**
    * @property {string}
@@ -169,6 +173,7 @@ export default Ember.Controller.extend({
     const controller = this;
     const courseId = controller.get('course.id');
     if (courseId) {
+      controller.set('showCourseMenu', true);
       const userId = controller.get('profile.id');
       const collectionType = controller.get('collectionType');
       const unitId = controller.get('unitId');
@@ -187,18 +192,20 @@ export default Ember.Controller.extend({
         .getCourseStructure(courseId, collectionType)
         .then(function(course) {
           if (!lessonId) {
-            let unitLessons = course
-              .get('children')
-              .findBy('id', unitId)
-              .get('sortedLessonResults');
-            if (unitLessons.length > 0) {
-              var lesson = unitLessons[0].get('id');
-              Ember.run(function() {
-                controller.set('lessonId', lesson);
-                lessonId = lesson;
-              });
+            if (unitId !== null) {
+              let unitLessons = course
+                .get('children')
+                .findBy('id', unitId)
+                .get('sortedLessonResults');
+              if (unitLessons.length > 0) {
+                var lesson = unitLessons[0].get('id');
+                Ember.run(function() {
+                  controller.set('lessonId', lesson);
+                  lessonId = lesson;
+                });
+              }
+              criteria.lessonId = controller.get('lessonId');
             }
-            criteria.lessonId = controller.get('lessonId');
           }
           Ember.RSVP
             .hash({

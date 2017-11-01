@@ -70,6 +70,12 @@ export default Ember.Controller.extend({
   showBackToCourseMap: true,
 
   /**
+   * Indicates if it should default player header
+   * @property {boolean}
+   */
+  showPlayerHeader: false,
+
+  /**
    * Current map location
    * @property {MapLocation}
    */

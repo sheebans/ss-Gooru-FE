@@ -1,14 +1,14 @@
 <div class="panel {{if course 'has-course' 'no-course'}}">
   {{#if course}}
     <div class="panel-heading" style="background-color:{{grade-color class.performanceSummary.score}}">
-      <div class="title">
+      <div class="title ellipsis">
         {{#link-to 'student.class.course-map' class.id}}
           {{truncate text=class.title maxLength=25}}
         {{/link-to}}
       </div>
       <div class="code">
         <div class="title">{{t 'student-landing.class-code'}}</div>
-        <div class="class-code">{{class.code}}</div>
+        <div class="class-code ellipsis">{{class.code}}</div>
       </div>
     </div>
     <div class="panel-body" style="background-color:{{grade-color class.performanceSummary.score}}">
