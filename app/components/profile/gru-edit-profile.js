@@ -373,7 +373,7 @@ export default Ember.Component.extend({
       .then(function() {
         let session = component.get('session');
         if (!profile.get('avatarUrl')) {
-          profile.set('avatarUrl', DEFAULT_IMAGES.USER_PROFILE);
+          profile.set('avatarUrl', DEFAULT_IMAGES.DEFAULT_PROFILE);
         }
         session.set('userData.avatarUrl', profile.get('avatarUrl'));
         session.set('userData.isNew', false);

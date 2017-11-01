@@ -71,6 +71,7 @@
       margin-left: 15px;
       width: 59px;
       img {
+        border-radius: 50%;
         @media (min-width: $screen-sm-min) {
           width: 100%;
         }
