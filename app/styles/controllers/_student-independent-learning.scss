@@ -25,9 +25,8 @@
       float: left;
       .greetings {
         span {
-          color: $gray-base;
-          font-size: $font-size-h4;
-          line-height: $font-size-h4;
+          color: $gray;
+          font-size: $font-size-lead;
         }
         p {
           font-weight: lighter;
