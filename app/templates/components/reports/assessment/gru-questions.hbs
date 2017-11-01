@@ -1,8 +1,5 @@
 <div class="summary-report-questions">
 <div class="questions-header">
-  <!-- <div class="title">
-    <h4>{{if isOpenEnded (t "common.questions-OE") (t "common.questions")}}</h4>
-  </div> -->
   {{#unless isOpenEnded}}
     {{#if isAnswerKeyHidden}}
       <em>{{t "common.answer-key-was-hidden"}}</em>
@@ -79,7 +76,7 @@
                           {{gru-icon name='radio_button_checked'}}
                  {{/if}}
            </span>
-        </td>
+          </td>
       {{/unless}}
       <td class="question-time {{if showPerformance 'visible' 'hide'}}">
         {{format-time result.timeSpent}}
