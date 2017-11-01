@@ -1,18 +1,8 @@
 <div class="summary-container">
-  {{#if assessmentResult.hasNonOpenEndedQuestions}}
-    <div class="grade" style={{safe-html (concat "background-color:" (grade-color assessmentResult.correctPercentage))}}>
-      <span class="percentage">{{round-number assessmentResult.correctPercentage}}%</span>
-    <span class="attempts">
-      <span class="fractional fraction"> {{{fractional numerator=assessmentResult.correctAnswers denominator=(if isRealTime assessmentResult.totalQuestionsCompleted assessmentResult.totalNonOpenEndedQuestions)}}}</span>
-      <span class="text">{{t 'common.correct'}}</span>
-    </span>
-    </div>
-  {{else}}
-    <div class="thumbnail">
-      <span class="title">{{t "gru-assessment-report.gru-summary.total-time-spent"}}</span>
-      <span class="time-spent">{{gru-icon name='av_timer'}}<span>{{format-time assessmentResult.totalTimeSpent}}</span></span>
-    </div>
-  {{/if}}
+
+  <div class="profile-image">
+  </div>
+
   <div class="overview">
     <h5>{{assessmentResult.title}}</h5>
     <div class="information">
@@ -44,7 +34,7 @@
       {{/if}}
       {{#if assessmentResult.submittedAt}}
         <span class="date">
-        {{gru-icon name='event'}}<span>{{format-date assessmentResult.submittedAt 'h:mm a MMM. Do, YYYY'}}</span>
+        {{gru-icon name='event'}}<span>{{format-date assessmentResult.submittedAt 'h:mm a MMM DD'}}</span>
       </span>
       {{/if}}
       <span class="time">
@@ -56,10 +46,27 @@
         </span>
       {{/if}}
     </div>
-    <div class="bubbles">
-      {{#if (not areQuestionLinksHidden)}}
-        {{gru-bubbles bubbleOptions=resourceLinks onBubbleSelect='bubbleSelect'}}
-      {{/if}}
-    </div>
   </div>
+
+  <div class="bubbles">
+    {{#if (not areQuestionLinksHidden)}}
+      {{gru-bubbles bubbleOptions=resourceLinks onBubbleSelect='bubbleSelect'}}
+    {{/if}}
+  </div>
+
+  {{#if assessmentResult.hasNonOpenEndedQuestions}}
+    <div class="grade" style={{safe-html (concat "color:" (grade-color assessmentResult.correctPercentage))}}>
+      <span class="percentage">{{round-number assessmentResult.correctPercentage}}%</span>
+      <span class="attempts">
+      <span class="text">PERFORMANCE</span>
+      </span>
+
+    </div>
+  {{else}}
+    <div class="thumbnail">
+      <span class="title">{{t "gru-assessment-report.gru-summary.total-time-spent"}}</span>
+      <span class="time-spent">{{gru-icon name='av_timer'}}<span>{{format-time assessmentResult.totalTimeSpent}}</span></span>
+    </div>
+  {{/if}}
+
 </div>

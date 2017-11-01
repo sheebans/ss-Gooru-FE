@@ -65,9 +65,6 @@ test('Questions Layout-non open ended', function(assert) {
   );
 
   T.exists(assert, $component, 'Missing questions component');
-  var title = $component.find('.title h4');
-  T.exists(assert, title, 'Missing questions title');
-  assert.equal(T.text(title), 'Questions', 'Wrong title text');
   T.exists(assert, $component.find('.btn-group'), 'Missing btn-group section');
   T.exists(
     assert,
@@ -220,9 +217,6 @@ test('Questions Layout-open ended', function(assert) {
   const $component = this.$('.reports.assessment.gru-questions');
 
   T.exists(assert, $component, 'Missing questions component');
-  var title = $component.find('.title h4');
-  T.exists(assert, title, 'Missing questions title');
-  assert.equal(T.text(title), 'Free Response Questions', 'Wrong title text');
   T.notExists(
     assert,
     $component.find('table th.header.score'),

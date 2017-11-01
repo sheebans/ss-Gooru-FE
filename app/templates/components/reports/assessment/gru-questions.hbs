@@ -1,12 +1,10 @@
+<div class="summary-report-questions">
 <div class="questions-header">
-  <div class="title">
-    <h4>{{if isOpenEnded (t "common.questions-OE") (t "common.questions")}}</h4>
-  </div>
   {{#unless isOpenEnded}}
     {{#if isAnswerKeyHidden}}
       <em>{{t "common.answer-key-was-hidden"}}</em>
     {{else}}
-      <div class="btn-group" role="group">
+      <div class="btn-group summary-report-btn" role="group">
         <button type="button" {{action 'selectPerformanceOption' true}} class="performance btn {{if showPerformance 'btn-primary' 'btn-info'}}">{{t "common.performance"}}</button>
         <button type="button" {{action 'selectPerformanceOption' false}} class="correct-answer btn {{unless showPerformance 'btn-primary' 'btn-info' }}">{{t "common.show-correct-answer"}}</button>
       </div>
@@ -70,11 +68,15 @@
         {{/if}}
       </td>
       {{#unless result.question.isOpenEnded}}
-        <td class="question-score {{if showPerformance 'visible' 'hide'}}">
-          <span class="{{if result.correct 'correct' 'incorrect'}}">
-            {{gru-icon name='radio_button_checked'}}
-          </span>
-        </td>
+      <td class="question-score {{if showPerformance 'visible' 'hide'}}">
+            <span class="{{if result.started (if result.correct 'correct' 'incorrect') 'not-started'}}">
+                  {{#if result.started}}
+                         <i class="icon"> </i>
+                   {{else}}
+                          {{gru-icon name='radio_button_checked'}}
+                 {{/if}}
+           </span>
+          </td>
       {{/unless}}
       <td class="question-time {{if showPerformance 'visible' 'hide'}}">
         {{format-time result.timeSpent}}
@@ -114,4 +116,6 @@
       </li>
     {{/each}}
   </ul>
+</div>
+
 </div>
