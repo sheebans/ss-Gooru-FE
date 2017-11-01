@@ -53,11 +53,6 @@ test('Layout', function(assert) {
     $performanceFilterPanelHeader.find('.title'),
     'Missing filter header title'
   );
-  assert.equal(
-    T.text($performanceFilterPanel.find('.title')),
-    'Course',
-    'Wrong header title text'
-  );
   const units = [
     Ember.Object.create({
       collectionType: 'assessment',
@@ -199,11 +194,6 @@ test('Do not show the course tab', function(assert) {
     assert,
     $performanceFilterPanelHeader.find('.title'),
     'Missing filter header title'
-  );
-  assert.equal(
-    T.text($performanceFilterPanel.find('.title')),
-    'Course',
-    'Wrong header title text'
   );
 
   const units = [

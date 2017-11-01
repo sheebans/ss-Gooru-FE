@@ -71,7 +71,7 @@
         &:nth-of-type(odd) {
           background-color: $light-100;
         }
-        &:first-child {
+        .firstrow {
           border-bottom: 2px solid $light-300;
           border-top: 2px solid #cdd2d6;
           background-color: $white;
@@ -139,5 +139,14 @@
     display: block;
     margin: auto;
     width: 40%;
+  }
+  .firstrow {
+    border-bottom: 2px solid $light-300;
+    border-top: 2px solid #cdd2d6;
+    background-color: $white;
+  }
+  .no-contentcss {
+    text-align: center;
+    font-size: 18px;
   }
 }

@@ -48,5 +48,11 @@ export default Ember.Controller.extend({
   /**
    * @property {String} It decide to show the back to collection or not.
    */
-  showBackToCollection: true
+  showBackToCollection: true,
+
+  /**
+   * Indicates if it should default player header
+   * @property {boolean}
+   */
+  showPlayerHeader: true
 });

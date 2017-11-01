@@ -410,6 +410,8 @@ export default Object.assign(quizzesTranslations, {
     no: 'No',
     'no-archived': 'You do not have any archived classrooms.',
     'no-content': 'No content available',
+    'no-content-my-report':
+      'No reports available yet. Once you begin studying, your reports will become available.',
     'no-assessments-to-display': 'No <span>assessments</span> to display.',
     'no-collections-to-display': 'No <span>collections</span> to display.',
     'no-courses-to-display': 'No <span>courses</span> to display.',
@@ -589,6 +591,7 @@ export default Object.assign(quizzesTranslations, {
     'subject-and-framework': 'Subject and Framework',
     submit: 'Submit',
     'submit-all': 'Submit all',
+    'submitAll': 'Submit All',
     'submit-finish': 'Submit and Finish',
     swap: 'Re-order',
     suggestion: 'Suggestion',
