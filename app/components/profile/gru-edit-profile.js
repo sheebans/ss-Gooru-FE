@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import { COUNTRY_CODES, DEFAULT_IMAGES } from 'gooru-web/config/config';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -373,7 +374,7 @@ export default Ember.Component.extend({
       .then(function() {
         let session = component.get('session');
         if (!profile.get('avatarUrl')) {
-          profile.set('avatarUrl', DEFAULT_IMAGES.DEFAULT_PROFILE);
+          profile.set('avatarUrl', component.get('appRootPath')+DEFAULT_IMAGES.USER_PROFILE);
         }
         session.set('userData.avatarUrl', profile.get('avatarUrl'));
         session.set('userData.isNew', false);
