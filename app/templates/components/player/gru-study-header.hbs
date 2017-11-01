@@ -1,14 +1,14 @@
 <div class="header-panel row">
   <div class="col-xs-3 course-info">
     {{#if showBackToCourseMap}}
-      <div class="course-map pull-left" {{action 'redirectCourseMap'}}>
+      <div class="course-map pull-left" {{action 'redirectCourseMap'}} data-toggle="tooltip" data-placement="bottom" title="{{t 'common.back-to-course-map'}}">
         <div class="nav-icon-container">
           {{gru-icon name="sort"}}
         </div>
       </div>
     {{/if}}
     {{#if showBackToCollection}}
-      <div class="back-to-collection pull-left" {{action 'backToCollection'}}>
+      <div class="back-to-collection pull-left" {{action 'backToCollection'}} data-toggle="tooltip" data-placement="bottom" title="{{if collection.isCollection (t 'common.back-to-collection') (t 'common.back-to-assessment') }}">
         <div class="nav-icon-container">
           {{gru-icon name='ic_close'}}
         </div>
@@ -77,8 +77,8 @@
     </div>
   </div>
 </div>
-<div class="bar-charts">
-  <div class="completion-chart">
+  <div class="bar-charts" data-content="{{performancePercentage}}% Completed">
+    <div class="completion-chart">
       {{charts/gru-x-bar-chart data=barChartData }}
   </div>
 </div>
