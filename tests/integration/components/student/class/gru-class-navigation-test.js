@@ -15,7 +15,7 @@ moduleForComponent(
 );
 
 test('Class Navigation', function(assert) {
-  assert.expect(6);
+  assert.expect(5);
 
   const classMock = Ember.Object.create({
     id: '1',
