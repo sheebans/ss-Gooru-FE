@@ -1,10 +1,11 @@
 <div class="controller profile-courses">
   <div class="course-content">
     {{#each courses as |course|}}
-      {{new-cards.gru-collection-card
+      {{new-cards.gru-standard-card
         profile=sessionProfile
         isCourse=true
         isOnProfile=true
+        cardSize="md"
         content=course
         onOpenIndependentPlayer="playIndependentContent"
         onBookmarkContent="onBookmarkCourse"

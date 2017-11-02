@@ -243,4 +243,36 @@
       }
     }
   }
+  .gru-standard-card {
+    .panel .panel-footer {
+      padding: 0px !important;
+      .options {
+        padding: 0px !important;
+        .preview-btn {
+          height: 44px;
+          background-color: $blue-400;
+        }
+      }
+    }
+    .panel {
+      .cca-description {
+        .remixed-by {
+          .title {
+            width: 63px !important;
+          }
+          .owner {
+            max-width: 75px !important;
+          }
+        }
+        .author {
+          .title {
+            width: 63px !important;
+          }
+          .owner {
+            max-width: 75px !important;
+          }
+        }
+      }
+    }
+  }
 }
