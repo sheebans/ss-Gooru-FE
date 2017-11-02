@@ -27,7 +27,9 @@
               <div class="item  {{if (eq index 0) "active" "" }}" {{action 'playSuggested' resource}}>
                 <div class="col-xs-6">
                   <i class="{{resource.format}}-icon resource-icon"></i>
-                  <span class="title">{{resource.title}}</span>
+                  <div class="suggest-resource-title">
+                      <span class="title">{{resource.title}}</span>
+                  </div>
                 </div>
               </div>
             {{/each}}
