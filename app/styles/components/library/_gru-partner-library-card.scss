@@ -35,9 +35,6 @@
           padding-bottom: 3px;
           @include ellipsis($font-size: 16px, $line-height: 0.94, $lines-to-show: 2, $excerpt-bg: $white);
         }
-        .title::before {
-          content: none;
-        }
       }
       @include flexbox;
       @include align-items(center);
