@@ -36,6 +36,7 @@ export const DEFAULT_IMAGES = {
   RUBRIC: 'assets/gooru/rubric-default.png',
   COLLECTION: 'assets/gooru/collection-default.png',
   ASSESSMENT: 'assets/gooru/assessment-default.png',
+  REPORTICON: '/assets/gooru/shape.png',
   QUESTION_PLACEHOLDER_IMAGE: 'assets/gooru/question-placeholder-image.png',
   LOADER_IMAGE: '/assets/gooru/giphy.gif'
 };
