@@ -1,24 +1,5 @@
 .controller.profile {
   min-height: 100%;
-  .gru-take-tour {
-    right: 20px;
-    top: 138px;
-    width: 40px;
-    button {
-      width: 35px;
-      height: 35px;
-      padding: 5px 0 0;
-      border-radius: 18px;
-      i {
-        font-size: $font-size-tour-icon-small;
-      }
-      .descriptive-text {
-        bottom: 4px;
-        font-size: $font-size-base;
-        left: 5px;
-      }
-    }
-  }
   .navigation {
     height: auto;
 
