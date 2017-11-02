@@ -41,11 +41,12 @@ export default Ember.Component.extend(ConfigurationMixin, {
           component.set('unit', obj);
           component.set('isUnitFiltersExpanded', true);
           component.set('newlessonId', obj.get('lessons').objectAt(0).id);
+          this.sendAction('onSelectUnit', obj.id);
+          this.sendAction('onUpdateReport');
           this.sendAction(
             'onSelectLesson',
             obj.get('lessons').objectAt(0).id
           );
-          this.sendAction('onUpdateReport');
           obj.set('isUnitFiltersExpanded', true);
         }
         break;
