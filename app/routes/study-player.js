@@ -115,7 +115,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
           .t('gru-take-tour.study-player.stepOne.description')
       },
       {
-        elementSelector: '.header-panel .course-info',
+        elementSelector: '.header-panel .content-title',
         title: route.get('i18n').t('gru-take-tour.study-player.stepTwo.title'),
         description: route
           .get('i18n')
@@ -125,27 +125,41 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         elementSelector: '.header-panel .suggest-player',
         title: route
           .get('i18n')
-          .t('gru-take-tour.study-player.stepSeven.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.study-player.stepSeven.description')
-      },
-      {
-        elementSelector: '.header-panel .performance-info',
-        title: route
-          .get('i18n')
           .t('gru-take-tour.study-player.stepThree.title'),
         description: route
           .get('i18n')
           .t('gru-take-tour.study-player.stepThree.description')
       },
       {
-        title: route
-          .get('i18n')
-          .t('gru-take-tour.study-player.stepEight.title'),
+        elementSelector:
+          '.header-panel .performance-completion-take-tour-info .completion',
+        title: route.get('i18n').t('gru-take-tour.study-player.stepFour.title'),
         description: route
           .get('i18n')
-          .t('gru-take-tour.study-player.stepEight.description')
+          .t('gru-take-tour.study-player.stepFour.description')
+      },
+      {
+        elementSelector:
+          '.header-panel  .performance-completion-take-tour-info .performance',
+        title: route.get('i18n').t('gru-take-tour.study-player.stepFive.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFive.description')
+      },
+      {
+        elementSelector: '.qz-player-footer .reaction-bar',
+        title: route.get('i18n').t('gru-take-tour.study-player.stepSix.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSix.description')
+      },
+      {
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSeven.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSeven.description')
       }
     ]);
     return route

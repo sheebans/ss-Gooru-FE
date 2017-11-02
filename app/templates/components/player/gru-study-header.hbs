@@ -18,53 +18,51 @@
       <p class="title">{{courseTitle}}</p>
     </div>
   </div>
-  <div class="col-xs-6 suggest-player">
+  <div class="col-xs-9 suggest-performance">
+    <div class="suggest-player pull-left">
     {{#if hasSuggestedResources}}
-      <div class="row">
-        <div class="col-md-12">
-          <div class="slider-container carousel slide multi-item-carousel" id="theCarousel">
-            <div class="slider-inner-container carousel-inner">
-              {{#each suggestedResources as |resource index|}}
-                <div class="item  {{if (eq index 0) "active" "" }}" {{action 'playSuggested' resource}}>
-                  <div class="col-xs-6">
-                    <i class="{{resource.format}}-icon resource-icon"></i>
-                    <span class="title">{{resource.title}}</span>
-                  </div>
+        <div class="slider-container carousel slide multi-item-carousel" id="theCarousel">
+          <div class="slider-inner-container carousel-inner">
+            {{#each suggestedResources as |resource index|}}
+              <div class="item  {{if (eq index 0) "active" "" }}" {{action 'playSuggested' resource}}>
+                <div class="col-xs-6">
+                  <i class="{{resource.format}}-icon resource-icon"></i>
+                  <span class="title">{{resource.title}}</span>
                 </div>
-              {{/each}}
-            </div>
+              </div>
+            {{/each}}
           </div>
+          <a class="left carousel-control" href="#theCarousel" data-slide="prev">
+                {{gru-icon name="ic_keyboard_arrow_left"}}
+            </a>
+          <a class="right carousel-control" href="#theCarousel" data-slide="next">
+                {{gru-icon name="ic_keyboard_arrow_right"}}
+          </a>
         </div>
-      </div>
-      <a class="left carousel-control" href="#theCarousel" data-slide="prev">
-            {{gru-icon name="ic_keyboard_arrow_left"}}
-        </a>
-      <a class="right carousel-control" href="#theCarousel" data-slide="next">
-            {{gru-icon name="ic_keyboard_arrow_right"}}
-        </a>
-    {{else}}
-      <div class="col-xs-12 no-suggestion-title">
-        <p>{{t 'gru-study-header.no-suggestions'}}</p>
-      </div>
-    {{/if}}
-  </div>
-
-  <div class="col-xs-3 performance-completion-info">
-    <div class="row">
-      <div class="col-xs-6 completion">
+      {{else}}
+        <div class="no-suggestion-title">
+          <p>{{t 'gru-study-header.no-suggestions'}}</p>
+        </div>
+      {{/if}}
+    </div>
+    <div class="performance-completion-take-tour-info pull-left">
+      <div class="completion pull-left">
         {{#if isNUCourse}}
           {{#if class.courseCompetencyCompletion}}
             <span class="score">{{class.courseCompetencyCompletion.completedCount}}/{{class.courseCompetencyCompletion.totalCount}}</span>
-            <span class="label">{{t 'common.completion'}}</span>
+          {{else}}
+            <span class="score">--</span>
           {{/if}}
         {{else}}
           {{#if class.performanceSummary}}
             <span class="score">{{class.performanceSummary.totalCompleted}}/{{class.performanceSummary.total}}</span>
-            <span class="label">{{t 'common.completion'}} </span>
+          {{else}}
+            <span class="score">--</span>
           {{/if}}
         {{/if}}
+        <span class="label">{{t 'common.completion'}}</span>
       </div>
-      <div class="col-xs-6 performance" style="background-color:{{if class.performanceSummary (grade-color class.performanceSummary.score) defaultBarColor}}">
+      <div class="performance pull-left" style="background-color:{{if class.performanceSummary (grade-color class.performanceSummary.score) defaultBarColor}}">
         <span class="score">
             {{#if class.performanceSummary}}
               {{class.performanceSummary.score}}%
@@ -73,6 +71,9 @@
             {{/if}}
           </span>
         <span class="label">{{t 'teacher-landing.class.performance'}} </span>
+      </div>
+      <div class="take-a-tour pull-left">
+        {{gru-take-tour steps=steps containerClass='study-player-tour'}}
       </div>
     </div>
   </div>
