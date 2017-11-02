@@ -39,7 +39,7 @@ test('Resource Card Layout', function(assert) {
 
   this.set('resource', resource);
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=resource allowProfileNavigation=true}}`
+    hbs`{{new-cards/gru-resource-card resource=resource isOnProfile=true allowProfileNavigation=true}}`
   );
   var $component = this.$(); //component dom element
   const $resourceCard = $component.find('.gru-resource-card');
@@ -129,7 +129,7 @@ test('Question Card Layout', function(assert) {
 
   this.set('question', question);
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=question allowProfileNavigation=true}}`
+    hbs`{{new-cards/gru-resource-card resource=question isOnProfile=true allowProfileNavigation=true}}`
   );
   var $component = this.$(); //component dom element
   const $resourceCard = $component.find('.gru-resource-card');
@@ -170,10 +170,10 @@ test('Question Card Layout', function(assert) {
     $resourceCard.find('.panel-body .description p'),
     'Missing Description'
   );
-  T.exists(
+  T.notExists(
     assert,
     $resourceCard.find('.panel-footer a.copy-btn'),
-    'Missing remix button'
+    'Remix button should not be visible'
   );
   T.exists(
     assert,
@@ -242,7 +242,7 @@ test('Resource card trying buttons', function(assert) {
   });
 
   this.render(
-    hbs`{{new-cards/gru-resource-card resource=resource editEnabled=true onPlayResource="playResource" onEditResource="editResource" session=session profileService=profileService}}`
+    hbs`{{new-cards/gru-resource-card resource=resource editEnabled=true isOnProfile=true onPlayResource="playResource" onEditResource="editResource" session=session profileService=profileService}}`
   );
   var $component = this.$(); //component dom element
   const $resourceCard = $component.find('.gru-resource-card');
