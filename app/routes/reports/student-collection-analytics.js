@@ -46,6 +46,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   learnerService: Ember.inject.service('api-sdk/learner'),
 
+  /**
+   * @property {Service} profile service
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -136,7 +141,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       collection: collectionPromise,
       completedSessions: completedSessionsPromise,
       lesson: lessonPromise,
-      context: context
+      context: context,
+      profile: route.get('profileService').readUserProfile(context.userId)
     });
   },
 
@@ -181,6 +187,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('lesson', model.lesson);
     controller.set('completedSessions', model.completedSessions);
     controller.set('context', model.context);
+    controller.set('profile', model.profile);
     const isCollection = controller.get('collection.isCollection');
 
     if (model.assessmentResult) {

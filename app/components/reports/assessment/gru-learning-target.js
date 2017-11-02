@@ -98,14 +98,19 @@ export default Ember.Component.extend({
   getBubblesQuestions: function(questionResults) {
     let results = this.getQuestions(questionResults);
     return results.map(function(questionResult) {
+      var status = '';
+      if (questionResult.skipped) {
+        status = 'skipped';
+      } else {
+        status = questionResult.get('correct') ? 'correct' : 'incorrect';
+      }
       return Ember.Object.create({
         label: questionResult.get('question.order'),
-        status: questionResult.get('correct') ? 'correct' : 'incorrect',
+        status: status,
         value: questionResult.get('id')
       });
     });
   },
-
   getQuestions: function(questionResults) {
     let relatedQuestions = this.get('learningTarget.relatedQuestions');
     let questions = questionResults.filter(function(questionResult) {

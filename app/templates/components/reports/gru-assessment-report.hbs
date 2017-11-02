@@ -1,6 +1,6 @@
 <div class="gru-assessment-summary">
   <div class="reports-owner">
-    <span> Test Name</span>
+    <span> {{profile.username}}</span>
   </div>
 {{reports.assessment.gru-summary
   assessmentResult=assessmentResult
@@ -9,7 +9,8 @@
   onBubbleSelect='bubbleSelect'
   isRealTime=isRealTime
   showAttempts=showAttempts
-  showReactionBar=showReactionBar}}
+  showReactionBar=showReactionBar
+  profile=profile}}
 
 {{#if areAnswersHidden}}
   <div class="hidden-report">
