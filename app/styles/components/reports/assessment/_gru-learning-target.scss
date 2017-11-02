@@ -83,6 +83,8 @@
         height: 36px;
         object-fit: contain;
         border-radius: 3px;
+        overflow: hidden;
+        padding: 2px;
         float: left;
         margin-left: 10px;
         background-color: $light-300;
@@ -90,7 +92,6 @@
 
       .title {
         color: $white;
-        padding: 4px 4px 0;
         font-size: 12px;
       }
     }
