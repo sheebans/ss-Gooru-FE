@@ -124,7 +124,7 @@ test('Layout', function(assert) {
   );
 
   const $performanceCompletionInfo = $header.find(
-    '.performance-completion-info'
+    '.performance-completion-take-tour-info'
   );
   T.exists(
     assert,
@@ -174,7 +174,11 @@ test('Study player | NU Course : Completion metrics', function(assert) {
   );
   var $component = this.$(); //component dom element
   assert.equal(
-    T.text($component.find('.performance-completion-info .completion .score')),
+    T.text(
+      $component.find(
+        '.performance-completion-take-tour-info .completion .score'
+      )
+    ),
     '2/5',
     'Wrong completion count!!'
   );
@@ -191,7 +195,11 @@ test('Study player | Non NU Course : Completion metrics', function(assert) {
   this.render(hbs`{{player/gru-study-header  class=class}}`);
   var $component = this.$(); //component dom element
   assert.equal(
-    T.text($component.find('.performance-completion-info .completion .score')),
+    T.text(
+      $component.find(
+        '.performance-completion-take-tour-info .completion .score'
+      )
+    ),
     '4/5',
     'Wrong completion count!!'
   );
