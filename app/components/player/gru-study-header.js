@@ -146,7 +146,7 @@ export default Ember.Component.extend({
     });
     component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
     const performancePercentage = component.get('performancePercentage');
-    if (performancePercentage) {
+    if (performancePercentage > 0) {
       component
         .$('.bar-charts')
         .popover({
@@ -161,7 +161,7 @@ export default Ember.Component.extend({
               .$('.bar-charts')
               .find('.segment')
               .width() - 50;
-          component.$('.popover').css({ top: '84px', left: `${left  }px` });
+          component.$('.popover').css({ top: '84px', left: `${left}px` });
         })
         .mouseleave(function() {
           component.$(this).popover('hide');
