@@ -58,7 +58,7 @@
         th {
           border: 0;
           height: 35px;
-          padding: 0 10px;
+          padding: 0 0px;
           vertical-align: middle;
         }
         th {
@@ -95,11 +95,12 @@
           &.performance-info {
             .score {
               border-radius: 4px;
-              width: 20px;
+              width: 37px;
               height: 32px;
               display: inline-table;
               color: $white;
               text-align: center;
+              margin-left: 28%;
               span {
                 vertical-align: middle;
               }
@@ -129,9 +130,8 @@
     .reportIcon {
       text-align: center;
       vertical-align: middle;
-      top: 9%;
       position: relative;
-      right: 24%;
+      right: 11%;
     }
   }
   .nodataimg {
