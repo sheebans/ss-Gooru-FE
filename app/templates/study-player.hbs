@@ -10,14 +10,9 @@
   courseVersion=courseVersion
   showBackToCourseMap=showBackToCourseMap
   showBackToCollection=showBackToCollection
+  steps=steps
 }}
 <div class="player-container {{if showConfirmation 'show-confirmation' 'no-confirmation'}}">
-  {{#unless showConfirmation}}
-    {{#if toggleState}}
-      {{gru-take-tour steps=steps containerClass='study-player-tour'}}
-    {{/if}}
-  {{/unless}}
-
   {{#if (and hasPreTestSuggestions showSuggestion)}}
       {{player.gru-suggest-test type=typeSuggestion onPlayCollection='playActualCollection' onPlaySuggestion='playSuggestion'}}
   {{else}}
