@@ -10,8 +10,8 @@
     </div>
     {{/if}}
     {{#if metric.visible}}
-    <div class="metrics-sub-header">
-      <a class="metric-sub-header {{metric.value}}" {{action 'sort' metric}}>
+    <div class="metrics-sub-header"  {{action 'sort' metric}}>
+      <a class="metric-sub-header {{metric.value}}">
         {{t (concat 'gru-metrics-sub-header.' metric.value) }}
       </a>
       {{#if metric.sorted}}
@@ -28,8 +28,8 @@
   </div>
   {{else}}
   {{#if metric.visible}}
-    <div class="metrics-sub-header table-cell {{if (eq metric.value 'time-spent') 'pull-right paddingright' ''}} {{if (and showStudyTime (eq metric.value 'score')) 'pull-left paddingleft' ''}}">
-      <a class="metric-sub-header {{metric.value}}" {{action 'sort' metric}}>
+    <div class="metrics-sub-header table-cell {{if (eq metric.value 'time-spent') 'pull-right paddingright' ''}} {{if (and showStudyTime (eq metric.value 'score')) 'pull-left paddingleft' ''}}"  {{action 'sort' metric}}>
+      <a class="metric-sub-header {{metric.value}}">
         {{t (concat 'gru-metrics-sub-header.' metric.value) }}
       </a>
       {{#if metric.sorted}}
