@@ -6,10 +6,6 @@
   padding: 0;
   font-size: $font-size-lead;
 
-  @media (min-width: $screen-sm) {
-    height: 1100px;
-    max-height: 1100px;
-  }
   .unitTitle {
     font-size: 12px;
     overflow-x: hidden;
