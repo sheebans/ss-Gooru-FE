@@ -471,6 +471,10 @@
             }
           }
         }
+        a.add-to-disabled {
+          cursor: default;
+          pointer-events: none;
+        }
       }
       .no-content {
         margin: 5px 10px 10px;

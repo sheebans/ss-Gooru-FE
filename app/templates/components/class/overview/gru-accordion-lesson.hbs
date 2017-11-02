@@ -235,7 +235,7 @@
                         {{gru-icon name='check'}}
                       </a>
                     {{else}}
-                      <a href="#" class="add-to" data-toggle="tooltip" {{action "addToClassActivities" item}} title="{{t 'class.overview.add-to-daily-class-activities'}}">
+                      <a href="#" class="add-to {{if item.visible '' 'add-to-disabled'}}" data-toggle="tooltip" {{action "addToClassActivities" item}} title="{{t 'class.overview.add-to-daily-class-activities'}}">
                         {{gru-icon name='add'}}
                       </a>
                     {{/if}}
