@@ -160,7 +160,7 @@
           <div class="right-btns">
             {{#unless (or isRubric isStudentSearch)}}
               {{#if addEnabled}}
-               {{if (not profile.isStudent)}}
+               {{#if (not profile.isStudent)}}
                 <div class="resource-icon-btn add" title="Add to" data-toggle="tooltip">
                   <a {{action "addToCollection"}} class="add-to-btn">{{gru-icon name="add"}}</a>
                 </div>
