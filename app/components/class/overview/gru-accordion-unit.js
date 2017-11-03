@@ -387,7 +387,7 @@ export default Ember.Component.extend(AccordionMixin, {
                 'performance',
                 Ember.Object.create({
                   score: averageScore,
-                  hasStarted: averageScore > 0
+                  hasStarted: averageScore >= 0
                 })
               );
             } else {

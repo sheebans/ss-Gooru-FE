@@ -96,16 +96,14 @@ export default Ember.Component.extend({
   tooltipText: Ember.computed('performanceSummary', function() {
     const completed =
       this.get('performanceSummary.totalCompleted') ||
-      this.get('performanceSummary.completionDone') ||
+      this.get('performanceSummary.completionTotal') ||
       0;
     const total =
       this.get('performanceSummary.total') ||
       this.get('performanceSummary.completionTotal');
-
     const percentage = completed ? roundFloat(completed / total * 100) : 0;
     var tooltipText = `${percentage}% ${this.get('i18n').t('common.completed')
       .string}`;
-
     return tooltipText;
   }),
 
