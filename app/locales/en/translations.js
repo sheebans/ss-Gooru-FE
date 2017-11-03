@@ -1848,7 +1848,7 @@ export default Object.assign(quizzesTranslations, {
   featured: {
     'featured-title': 'Featured Courses',
     'featured-description':
-      'Gooru’s featured courses are vetted and reviewed, educator-curated, created in classrooms, and studied by students. <a href=\'http://about.gooru.org/courses\' target=\'_blank\'>Learn more</a> about the development of these courses.'
+      'Featured courses are curated by innovative teachers, vetted and reviewed by content experts, and implemented in classrooms with students. Discover, remix, and customize courses to personalize learning and increase student engagement! <a href=\'http://about.gooru.org/courses\' target=\'_blank\'>Learn more</a> about the development of these courses.'
   },
 
   'taxonomy.modals': {

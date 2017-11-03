@@ -5,9 +5,11 @@
             {{new-cards.gru-resource-card
               resource=resource
               onRemixQuestion="remixQuestion"
-              onPlayResource="playQuestion"
+              onPlayResource="playResource"
               profile=sessionProfile
-              addEnabled=isMyProfile
+              addEnabled=true
+              editEnabled=false
+              partnerLibrary=true
               isOnProfile=true}}
           </div>
       {{else}}
