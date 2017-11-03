@@ -48,21 +48,21 @@ export default Ember.Route.extend({
           .t('gru-take-tour.library.stepTwo.description')
       },
       {
-        elementSelector: '.gru-collection-card .panel-footer .preview-btn',
+        elementSelector: '.gru-standard-card .panel-footer .preview-btn',
         title: route.get('i18n').t('gru-take-tour.library.stepFour.title'),
         description: route
           .get('i18n')
           .t('gru-take-tour.library.stepFour.description')
       },
       {
-        elementSelector: '.gru-collection-card .panel-footer .share-btn',
+        elementSelector: '.gru-standard-card .panel-footer .share-btn',
         title: route.get('i18n').t('gru-take-tour.library.stepFive.title'),
         description: route
           .get('i18n')
           .t('gru-take-tour.library.stepFive.description')
       },
       {
-        elementSelector: '.gru-collection-card .panel-footer .bookmark-btn',
+        elementSelector: '.gru-standard-card .panel-footer .bookmark-btn',
         title: route.get('i18n').t('gru-take-tour.library.stepSix.title'),
         description: route
           .get('i18n')
