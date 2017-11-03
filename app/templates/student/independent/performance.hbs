@@ -1,7 +1,7 @@
 <div class="student class performance">
       <div class="filters">
             <div class="radios-container pull-left widthradiobtns">
-              <div class="Classrooms-Reports">
+              <div class="classrooms-reports">
                 <div id="assessment-content-type" class="{{if (eq collectionType 'assessment') 'selectedButton' 'radioNormalButton'}} pull-left pointer" {{action 'selectContentType' 'assessment' preventDefault=false}}><div for="assessment-content-type" class="{{if (eq collectionType 'assessment') 'selectedButtonType' 'normalButtonType'}}">{{t 'student-landing.my-performance.assessments'}}</div></div>
                 <div id="collection-content-type" class="{{if (eq collectionType 'collection') 'selectedButton' 'radioNormalButton'}} pull-left pointer" {{action 'selectContentType' 'collection' preventDefault=false}}><div for="collection-content-type" class="{{if (eq collectionType 'collection') 'selectedButtonType' 'normalButtonType'}}">{{t 'student-landing.my-performance.collections'}}</div></div>
               </div>
