@@ -59,14 +59,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           .t('gru-take-tour.study-player.stepOne.description')
       },
       {
-        elementSelector: '.header-panel .course-info .course-title',
+        elementSelector: '.header-panel .course-map',
         title: route.get('i18n').t('gru-take-tour.study-player.stepTwo.title'),
         description: route
           .get('i18n')
           .t('gru-take-tour.study-player.stepTwo.description')
       },
       {
-        elementSelector: '.header-panel .performance-info .performance',
+        elementSelector: '.header-panel .content-title',
         title: route
           .get('i18n')
           .t('gru-take-tour.study-player.stepThree.title'),
@@ -75,17 +75,29 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           .t('gru-take-tour.study-player.stepThree.description')
       },
       {
-        elementSelector: '.header-panel .course-info .actions .course-map',
+        elementSelector: '.header-panel .suggest-player',
+        title: route.get('i18n').t('gru-take-tour.study-player.stepFour.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFour.description')
+      },
+      {
+        elementSelector:
+          '.header-panel .performance-completion-take-tour-info .completion',
         title: route.get('i18n').t('gru-take-tour.study-player.stepFive.title'),
         description: route
           .get('i18n')
           .t('gru-take-tour.study-player.stepFive.description')
       },
-      /*{
-       elementSelector: '.header-panel .performance-info .suggestions',
-       title: route.get('i18n').t('gru-take-tour.study-player.stepSeven.title'),
-       description: route.get('i18n').t('gru-take-tour.study-player.stepSeven.description')
-       },*/
+      {
+        elementSelector:
+          '.header-panel  .performance-completion-take-tour-info .performance',
+        title: route.get('i18n').t('gru-take-tour.study-player.stepSix.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSix.description')
+      },
+
       {
         title: route
           .get('i18n')
@@ -153,7 +165,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
               return found;
             });
             return Ember.RSVP.hash({
-              ourSteps: tourSteps,
+              tourSteps: tourSteps,
               course: hash.course,
               unit: hash.unit,
               lesson: hash.lesson,
