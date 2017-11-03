@@ -37,12 +37,55 @@ export default Ember.Route.extend({
    */
   i18n: Ember.inject.service(),
 
+
+  /**
+   * Get model for the controller
+   */
+  model: function() {
+    let route = this;
+
+    //Steps for Take a Tour functionality
+    const tourSteps = Ember.A([
+      {
+        title: route.get('i18n').t('gru-take-tour.profile.stepOne.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.profile.stepOne.description')
+      },
+      {
+        elementSelector: '.navigation .profile-menu .content',
+        title: route.get('i18n').t('gru-take-tour.profile.stepTwo.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.profile.stepTwo.description')
+      },
+      {
+        elementSelector: '.navigation .profile-menu .about',
+        title: route.get('i18n').t('gru-take-tour.profile.stepThree.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.profile.stepThree.description')
+      },
+      {
+        elementSelector: '.navigation .profile-menu .network',
+        title: route.get('i18n').t('gru-take-tour.profile.stepFive.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.profile.stepFive.description')
+      }
+    ]);
+
+    return Ember.RSVP.hash({
+      tourSteps: tourSteps
+    });
+  },
   // -------------------------------------------------------------------------
   // Methods
 
-  setupController: function(controller) {
+  setupController: function(controller, model) {
     controller.resetProperties();
     controller.get('parentController').selectMenuItem('content');
+    controller.set('steps', model.tourSteps);
   },
 
   /**
