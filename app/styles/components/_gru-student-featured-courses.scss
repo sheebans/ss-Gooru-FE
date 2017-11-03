@@ -10,6 +10,20 @@
       &:last-child {
         margin: 0;
       }
+      .panel {
+        .cca-description {
+          .remixed-by {
+            float: left;
+            .owner {
+              max-width: 75px;
+            }
+          }
+          .publish-icon {
+            width: 20px;
+            float: right;
+          }
+        }
+      }
     }
   }
 }

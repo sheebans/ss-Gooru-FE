@@ -188,7 +188,7 @@
       {{/if}}
       {{#if publishVisible}}
         {{#if content.isPublished}}
-          <div class="publish-icon" title="{{t 'common.published-tooltip'}}" data-toggle="tooltip"  data-placement="top">
+          <div class="publish-icon" title="{{t 'common.published-tooltip'}}" data-toggle="tooltip" data-placement="top">
             <div class="badge-icon"></div>
           </div>
         {{/if}}
@@ -220,8 +220,6 @@
         {{/if}}
       {{/if}}
     </div>
-    {{#if isCourse}}
-    {{/if}}
     {{#if (eq cardSize "md")}}
       <div class="description">
         {{#if isCourse}}
@@ -240,6 +238,13 @@
         {{/if}}
 
       </div>
+    {{/if}}
+    {{#if publishVisible}}
+      {{#if content.isPublished}}
+        <div class="publish-icon" title="{{t 'common.published-tooltip'}}" data-toggle="tooltip" data-placement="top">
+          <div class="badge-icon"></div>
+        </div>
+      {{/if}}
     {{/if}}
   </div>
 
