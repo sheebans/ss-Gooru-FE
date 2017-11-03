@@ -101,15 +101,6 @@ export default StudentCollection.extend({
           .t('gru-take-tour.study-player.stepSix.description')
       },
       {
-        elementSelector: '.qz-player-footer .reaction-bar',
-        title: route
-          .get('i18n')
-          .t('gru-take-tour.study-player.stepSeven.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.study-player.stepSeven.description')
-      },
-      {
         title: route
           .get('i18n')
           .t('gru-take-tour.study-player.stepEight.title'),
