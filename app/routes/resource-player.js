@@ -50,6 +50,11 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
    */
   collectionService: Ember.inject.service('api-sdk/collection'),
 
+  /**
+   * @dependency {i18nService} Service to retrieve translations information
+   */
+  i18n: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -92,6 +97,62 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
   model(params) {
     const route = this;
     const { classId, courseId, collectionUrl } = params;
+    //Steps for Take a Tour functionality
+    const tourSteps = Ember.A([
+      {
+        title: route.get('i18n').t('gru-take-tour.study-player.stepOne.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepOne.description')
+      },
+      {
+        elementSelector: '.header-panel .back-to-collection',
+        title: route.get('i18n').t('gru-take-tour.study-player.stepNine.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepNine.description')
+      },
+      {
+        elementSelector: '.header-panel .content-title',
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepThree.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepThree.description')
+      },
+      {
+        elementSelector: '.header-panel .suggest-player',
+        title: route.get('i18n').t('gru-take-tour.study-player.stepFour.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFour.description')
+      },
+      {
+        elementSelector:
+          '.header-panel .performance-completion-take-tour-info .completion',
+        title: route.get('i18n').t('gru-take-tour.study-player.stepFive.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFive.description')
+      },
+      {
+        elementSelector:
+          '.header-panel  .performance-completion-take-tour-info .performance',
+        title: route.get('i18n').t('gru-take-tour.study-player.stepSix.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSix.description')
+      },
+      {
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepEight.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepEight.description')
+      }
+    ]);
     return route.getMapLocation().then(currentContext => {
       const unitId = currentContext.get('unitId');
       const lessonId = currentContext.get('lessonId');
@@ -138,14 +199,18 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
 
           let { course, unit, lesson, collection } = hash;
           return this.quizzesModel(params).then(quizzesModel =>
-            Object.assign(quizzesModel, {
-              course,
-              unit,
-              lesson,
-              collection,
-              classId,
-              collectionUrl
-            })
+            Object.assign(
+              quizzesModel,
+              {
+                course,
+                unit,
+                lesson,
+                collection,
+                classId,
+                collectionUrl
+              },
+              { tourSteps: tourSteps }
+            )
           );
         });
     });
@@ -153,6 +218,7 @@ export default QuizzesResourcePlayer.extend(PrivateRouteMixin, {
 
   setupController(controller, model) {
     controller.setProperties({
+      steps: model.tourSteps,
       course: model.course,
       unit: model.unit,
       lesson: model.lesson,

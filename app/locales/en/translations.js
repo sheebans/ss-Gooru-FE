@@ -2173,6 +2173,11 @@ export default Object.assign(quizzesTranslations, {
       stepEight: {
         title: 'Finished!',
         description: 'Start studying!'
+      },
+      stepNine: {
+        title: 'Back To Collection',
+        description:
+          'Click on the icon at any time to return to your Collection or Assessment.'
       }
     },
     library: {
