@@ -2145,27 +2145,32 @@ export default Object.assign(quizzesTranslations, {
           'This is your study player. Let’s walk through the features available to you.'
       },
       stepTwo: {
+        title: 'Course Map',
+        description:
+          'Click on the icon at any time to return to your Course Map.'
+      },
+      stepThree: {
         title: 'Course Name',
         description: 'Indicates the course you are working on.'
       },
-      stepThree: {
+      stepFour: {
         title: 'Suggestions',
         description:
           'Additional resources you may want to explore based on what you are currently studying.'
       },
-      stepFour: {
+      stepFive: {
         title: 'Competencies',
         description: 'Indicates how much of the course you have completed.'
       },
-      stepFive: {
+      stepSix: {
         title: 'Performance',
         description: 'Indicates how you are performing in the course.'
       },
-      stepSix: {
+      stepSeven: {
         title: 'React to Resource',
         description: 'Let your teacher know what you think about this resource.'
       },
-      stepSeven: {
+      stepEight: {
         title: 'Finished!',
         description: 'Start studying!'
       }
