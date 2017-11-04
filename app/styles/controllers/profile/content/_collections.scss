@@ -67,12 +67,13 @@
 
         .remixed-by {
           span.title {
-            width: 68px;
+            width: 63px;
             line-height: 1.69;
             font-style: italic;
           }
           .owner {
             margin-left: 4px;
+            max-width: 85px;
           }
         }
 
@@ -135,6 +136,10 @@
             width: 15px;
           }
         }
+        .visible_true {
+          width: 20px;
+          float: right;
+        }
         .publish-icon {
           width: 30px;
           float: right;
@@ -186,19 +191,25 @@
 
         .options {
           width: 100%;
+          padding: 0px;
+          .preview-btn {
+            width: 74px;
+            height: 44px;
+            background-color: $blue-400;
+          }
 
           .course-icon-btn {
-            border-right: solid 1px #f2f2f2;
+            border-right: solid 1px $gray-ultra-light;
             width: auto;
             text-align: center;
             display: block;
-            .play-btn {
-              color: $blue-400;
-            }
-
             .course-mode-edit > i {
               font-size: 21px;
             }
+          }
+          .play-btn {
+            color: $blue-400;
+            padding: 6px;
           }
 
           .course-add-btn {
@@ -207,7 +218,7 @@
         }
       }
       .cca-footer {
-        padding: 0px 0px 3px;
+        padding: 0px 0px 0px;
       }
 
       .cca-description {
@@ -240,38 +251,6 @@
 
       p {
         margin-left: 5px;
-      }
-    }
-  }
-  .gru-standard-card {
-    .panel .panel-footer {
-      padding: 0px !important;
-      .options {
-        padding: 0px !important;
-        .preview-btn {
-          height: 44px;
-          background-color: $blue-400;
-        }
-      }
-    }
-    .panel {
-      .cca-description {
-        .remixed-by {
-          .title {
-            width: 63px !important;
-          }
-          .owner {
-            max-width: 75px !important;
-          }
-        }
-        .author {
-          .title {
-            width: 63px !important;
-          }
-          .owner {
-            max-width: 75px !important;
-          }
-        }
       }
     }
   }
