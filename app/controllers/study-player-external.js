@@ -210,7 +210,7 @@ export default Ember.Controller.extend({
     if (classId) {
       queryParams.classId = classId;
     }
-    this.transitionTocontroller('study-player', context.get('courseId'), {
+    this.transitionToRoute('study-player', context.get('courseId'), {
       queryParams
     });
   },
