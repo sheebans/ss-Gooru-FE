@@ -1,5 +1,8 @@
 import Ember from 'ember';
-import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
+import {
+  ASSESSMENT_SUB_TYPES,
+  NU_COURSE_VERSION
+} from 'gooru-web/config/config';
 import PlayerController from 'gooru-web/controllers/player';
 
 /**
@@ -26,21 +29,26 @@ export default PlayerController.extend({
   // -------------------------------------------------------------------------
   // Dependencies
   /**
-   * @property {CourseMapService}
-   */
+       * @property {CourseMapService}
+       */
   courseMapService: Ember.inject.service('api-sdk/course-map'),
 
   /**
-   * @property {NavigateMapService}
-   */
+       * @property {NavigateMapService}
+       */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
+
+  /**
+       * @dependency {i18nService} Service to retrieve translations information
+       */
+  i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Actions
   actions: {
     /**
-     * If the user want to continue playing the collection
-     */
+         * If the user want to continue playing the collection
+         */
     playActualCollection: function() {
       const navigateMapService = this.get('navigateMapService');
       navigateMapService
@@ -50,8 +58,8 @@ export default PlayerController.extend({
     },
 
     /**
-     * If the user want to continue playing the suggestion
-     */
+         * If the user want to continue playing the suggestion
+         */
     playSuggestion: function() {
       const controller = this;
       const courseMapService = controller.get('courseMapService');
@@ -67,7 +75,7 @@ export default PlayerController.extend({
             type: null
           })
         );
-        //sending action to route
+        //sending action to controller
         controller.send('loadPreTest');
       });
     },
@@ -80,86 +88,180 @@ export default PlayerController.extend({
   // -------------------------------------------------------------------------
   // Properties
   /**
-   * @property {string}
-   */
+       * @property {string}
+       */
   classId: null,
 
   /**
-   * @property {string}
-   */
+       * @property {string}
+       */
   unitId: null,
 
   /**
-   * @property {string}
-   */
+       * @property {string}
+       */
   lessonId: null,
 
   /**
-   * @property {string}
-   */
+       * @property {string}
+       */
   collectionId: null,
 
   /**
-   * @property {string}
-   */
+       * @property {string}
+       */
   pathId: null,
 
   /**
-   * Indicates if it should show the back button
-   * @property {boolean}
-   */
+       * Indicates if it should show the back button
+       * @property {boolean}
+       */
   showBackButton: false,
 
   /**
-   * Indicate if show pre test suggestion
-   * @property {Boolean} showSuggestion
-   */
+       * Indicate if show pre test suggestion
+       * @property {Boolean} showSuggestion
+       */
   showSuggestion: true,
 
   /**
-   * Current map location
-   * @property {MapLocation}
-   */
+       * Current map location
+       * @property {MapLocation}
+       */
   mapLocation: null,
 
   /**
-   * @property {boolean}
-   */
+       * @property {boolean}
+       */
   hasPreTestSuggestions: Ember.computed.alias(
     'mapLocation.hasPreTestSuggestions'
   ),
 
   /**
-   * Pre test suggestion
-   * @property {String} typeSuggestion
-   */
+       * Pre test suggestion
+       * @property {String} typeSuggestion
+       */
   typeSuggestion: ASSESSMENT_SUB_TYPES.PRE_TEST,
 
   /**
-   * Course version Name
-   * @property {String}
-   */
+       * Course version Name
+       * @property {String}
+       */
   courseVersion: Ember.computed.alias('course.version'),
 
   /**
-   * @property {String} It decide to show the back to course map or not.
-   */
+       * Check it's nu course version or not
+       * @type {Boolean}
+       */
+  isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
+
+  /**
+       * @property {String} It decide to show the back to course map or not.
+       */
   showBackToCourseMap: true,
 
   /**
-   * @property {String} It decide to show the back to collection or not.
-   */
+       * @property {String} It decide to show the back to collection or not.
+       */
   showBackToCollection: false,
 
   /**
-   * Indicates if it should default player header
-   * @property {boolean}
-   */
+       * Indicates if it should default player header
+       * @property {boolean}
+       */
   showPlayerHeader: false,
 
   /**
-   * Resets to default values
-   */
+       * Steps for Take a Tour functionality
+       * @property {Array}
+       */
+  steps: Ember.computed(function() {
+    let controller = this;
+    let steps = Ember.A([
+      {
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepOne.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepOne.description')
+      },
+      {
+        elementSelector: '.header-panel .course-map',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepTwo.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepTwo.description')
+      },
+      {
+        elementSelector: '.header-panel .content-title',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepThree.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepThree.description')
+      },
+      {
+        elementSelector: '.header-panel .suggest-player',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFour.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFour.description')
+      },
+      {
+        elementSelector:
+          '.header-panel .performance-completion-take-tour-info .completion',
+        title: controller.get('isNUCourse')
+          ? controller
+            .get('i18n')
+            .t('gru-take-tour.study-player.stepFive.nuTitle')
+          : controller
+            .get('i18n')
+            .t('gru-take-tour.study-player.stepFive.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFive.description')
+      },
+      {
+        elementSelector:
+          '.header-panel  .performance-completion-take-tour-info .performance',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSix.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSix.description')
+      },
+      {
+        elementSelector: '.qz-player-footer .qz-emotion-picker',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSeven.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSeven.description'),
+        position: 'top'
+      },
+      {
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepEight.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepEight.description')
+      }
+    ]);
+    return steps;
+  }),
+
+  /**
+         * Resets to default values
+         */
   resetValues: function() {
     //TODO: call the parent reset values method
     this.setProperties({

@@ -55,14 +55,15 @@
           {{else}}
             <span class="score">--</span>
           {{/if}}
+          <span class="label">{{t 'common.competencies'}}</span>
         {{else}}
           {{#if class.performanceSummary}}
             <span class="score">{{class.performanceSummary.totalCompleted}}/{{class.performanceSummary.total}}</span>
           {{else}}
             <span class="score">--</span>
           {{/if}}
+          <span class="label">{{t 'common.completion'}}</span>
         {{/if}}
-        <span class="label">{{t 'common.completion'}}</span>
       </div>
       <div class="performance pull-left" style="background-color:{{if class.performanceSummary (grade-color class.performanceSummary.score) defaultBarColor}}">
         <span class="score">

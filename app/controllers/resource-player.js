@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+import { NU_COURSE_VERSION } from 'gooru-web/config/config';
 /**
  * Study Player Controller
  *
@@ -19,6 +19,14 @@ export default Ember.Controller.extend({
   ],
 
   actions: {},
+
+  // ------------------------------------------------------------------------
+  // Dependencies
+
+  /**
+   * @dependency {i18nService} Service to retrieve translations information
+   */
+  i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Properties
@@ -41,6 +49,12 @@ export default Ember.Controller.extend({
   courseVersion: Ember.computed.alias('course.version'),
 
   /**
+   * Check it's nu course version or not
+   * @type {Boolean}
+   */
+  isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
+
+  /**
    * @property {String} It decide to show the back to course map or not.
    */
   showBackToCourseMap: false,
@@ -54,5 +68,83 @@ export default Ember.Controller.extend({
    * Indicates if it should default player header
    * @property {boolean}
    */
-  showPlayerHeader: true
+  showPlayerHeader: true,
+
+  /**
+   * Steps for Take a Tour functionality
+   * @property {Array}
+   */
+  steps: Ember.computed(function() {
+    let controller = this;
+    let steps = Ember.A([
+      {
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepOne.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepOne.description')
+      },
+      {
+        elementSelector: '.header-panel .back-to-collection',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepNine.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepNine.description')
+      },
+      {
+        elementSelector: '.header-panel .content-title',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepThree.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepThree.description')
+      },
+      {
+        elementSelector: '.header-panel .suggest-player',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFour.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFour.description')
+      },
+      {
+        elementSelector:
+          '.header-panel .performance-completion-take-tour-info .completion',
+        title: controller.get('isNUCourse')
+          ? controller
+            .get('i18n')
+            .t('gru-take-tour.study-player.stepFive.nuTitle')
+          : controller
+            .get('i18n')
+            .t('gru-take-tour.study-player.stepFive.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFive.description')
+      },
+      {
+        elementSelector:
+          '.header-panel  .performance-completion-take-tour-info .performance',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSix.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSix.description')
+      },
+      {
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepEight.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepEight.description')
+      }
+    ]);
+    return steps;
+  })
 });
