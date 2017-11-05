@@ -311,7 +311,7 @@ export default StudentCollection.extend({
       queryParams.classId = classId;
     }
     if (suggestion && suggestion.get('isResource')) {
-      this.transitionTocontroller(
+      this.transitionToRoute(
         'resource-player',
         context.get('courseId'),
         suggestion.get('id'),
@@ -320,7 +320,7 @@ export default StudentCollection.extend({
         }
       );
     } else {
-      this.transitionTocontroller('study-player', context.get('courseId'), {
+      this.transitionToRoute('study-player', context.get('courseId'), {
         queryParams
       });
     }
