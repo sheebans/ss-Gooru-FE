@@ -1,5 +1,8 @@
 import Ember from 'ember';
-import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
+import {
+  ASSESSMENT_SUB_TYPES,
+  NU_COURSE_VERSION
+} from 'gooru-web/config/config';
 import PlayerController from 'gooru-web/controllers/player';
 
 /**
@@ -25,6 +28,7 @@ export default PlayerController.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @property {CourseMapService}
    */
@@ -34,6 +38,11 @@ export default PlayerController.extend({
    * @property {NavigateMapService}
    */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
+
+  /**
+   * @dependency {i18nService} Service to retrieve translations information
+   */
+  i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -142,6 +151,12 @@ export default PlayerController.extend({
   courseVersion: Ember.computed.alias('course.version'),
 
   /**
+   * Check it's nu course version or not
+   * @type {Boolean}
+   */
+  isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
+
+  /**
    * @property {String} It decide to show the back to course map or not.
    */
   showBackToCourseMap: true,
@@ -156,6 +171,94 @@ export default PlayerController.extend({
    * @property {boolean}
    */
   showPlayerHeader: false,
+
+  /**
+   * Steps for Take a Tour functionality
+   * @property {Array}
+   */
+  steps: Ember.computed(function() {
+    let controller = this;
+    let steps = Ember.A([
+      {
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepOne.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepOne.description')
+      },
+      {
+        elementSelector: '.header-panel .course-map',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepTwo.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepTwo.description')
+      },
+      {
+        elementSelector: '.header-panel .content-title',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepThree.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepThree.description')
+      },
+      {
+        elementSelector: '.header-panel .suggest-player',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFour.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFour.description')
+      },
+      {
+        elementSelector:
+          '.header-panel .performance-completion-take-tour-info .completion',
+        title: controller.get('isNUCourse')
+          ? controller
+            .get('i18n')
+            .t('gru-take-tour.study-player.stepFive.nuTitle')
+          : controller
+            .get('i18n')
+            .t('gru-take-tour.study-player.stepFive.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFive.description')
+      },
+      {
+        elementSelector:
+          '.header-panel  .performance-completion-take-tour-info .performance',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSix.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSix.description')
+      },
+      {
+        elementSelector: '.qz-player-footer .qz-emotion-picker',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSeven.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSeven.description'),
+        position: 'top'
+      },
+      {
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepEight.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepEight.description')
+      }
+    ]);
+    return steps;
+  }),
 
   /**
    * Resets to default values
