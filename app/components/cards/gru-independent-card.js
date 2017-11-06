@@ -67,7 +67,6 @@ export default Ember.Component.extend({
         role: ROLES.STUDENT,
         backUrl: router.get('currentPath')
       };
-      
       router.transitionTo('reports.student-collection-analytics', {
         queryParams
       });
