@@ -26,11 +26,21 @@ const performanceServiceStub = Ember.Service.extend({
       classId: 'class-1',
       score: 80,
       timeSpent: 3242209,
-      total: 10,
-      totalCompleted: 5
+      total: 5,
+      totalCompleted: 4
     });
 
     return new Ember.RSVP.resolve([aClassPerformance]);
+  },
+  findCourseCompetencyCompletionByCourseIds: function() {
+    const courseCompetencyCompletion = Class.create({
+      courseId: 'course-1',
+      score: 80,
+      timeSpent: 3242209,
+      totalCount: 5,
+      completedCount: 2
+    });
+    return new Ember.RSVP.resolve([courseCompetencyCompletion]);
   }
 });
 
@@ -161,16 +171,11 @@ test('Layout', function(assert) {
 });
 
 test('Study player | NU Course : Completion metrics', function(assert) {
-  let classObj = Ember.Object.create({
-    courseCompetencyCompletion: Ember.Object.create({
-      completedCount: 2,
-      totalCount: 5
-    })
-  });
   this.set('courseVersion', NU_COURSE_VERSION);
-  this.set('class', classObj);
+  this.set('courseId', 'course-1');
+  this.set('classId', 'class-1');
   this.render(
-    hbs`{{player/gru-study-header  courseVersion=courseVersion class=class}}`
+    hbs`{{player/gru-study-header  classId=classId courseVersion=courseVersion courseId=courseId}}`
   );
   var $component = this.$(); //component dom element
   assert.equal(
@@ -185,14 +190,11 @@ test('Study player | NU Course : Completion metrics', function(assert) {
 });
 
 test('Study player | Non NU Course : Completion metrics', function(assert) {
-  let classObj = Ember.Object.create({
-    performanceSummary: Ember.Object.create({
-      totalCompleted: 4,
-      total: 5
-    })
-  });
-  this.set('class', classObj);
-  this.render(hbs`{{player/gru-study-header  class=class}}`);
+  this.set('courseId', 'course-1');
+  this.set('classId', 'class-1');
+  this.render(
+    hbs`{{player/gru-study-header courseId=courseId classId=classId }}`
+  );
   var $component = this.$(); //component dom element
   assert.equal(
     T.text(
