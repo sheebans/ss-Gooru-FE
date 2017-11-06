@@ -171,9 +171,13 @@ export default DS.Model.extend({
         studentPerformanceData,
         false
       );
-      avgValue = sumValue / counter;
-      if (doRoundValue) {
-        avgValue = Utils.roundFloat(avgValue);
+      if (sumValue !== null) {
+        avgValue = sumValue / counter;
+        if (doRoundValue) {
+          avgValue = Utils.roundFloat(avgValue);
+        }
+      } else {
+        avgValue = null;
       }
     }
     return avgValue;
@@ -196,7 +200,11 @@ export default DS.Model.extend({
     var sumValue = 0;
     if (studentPerformanceData && studentPerformanceData.length > 0) {
       studentPerformanceData.forEach(function(studentPerformance) {
-        sumValue += studentPerformance.get(fieldName);
+        if (studentPerformance.get(fieldName) !== null) {
+          sumValue += studentPerformance.get(fieldName);
+        } else {
+          sumValue = null;
+        }
       });
       if (doRoundValue) {
         sumValue = Utils.roundFloat(sumValue);
