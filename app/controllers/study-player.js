@@ -28,27 +28,28 @@ export default PlayerController.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
-       * @property {CourseMapService}
-       */
+   * @property {CourseMapService}
+   */
   courseMapService: Ember.inject.service('api-sdk/course-map'),
 
   /**
-       * @property {NavigateMapService}
-       */
+   * @property {NavigateMapService}
+   */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
   /**
-       * @dependency {i18nService} Service to retrieve translations information
-       */
+   * @dependency {i18nService} Service to retrieve translations information
+   */
   i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Actions
   actions: {
     /**
-         * If the user want to continue playing the collection
-         */
+     * If the user want to continue playing the collection
+     */
     playActualCollection: function() {
       const navigateMapService = this.get('navigateMapService');
       navigateMapService
@@ -58,8 +59,8 @@ export default PlayerController.extend({
     },
 
     /**
-         * If the user want to continue playing the suggestion
-         */
+     * If the user want to continue playing the suggestion
+     */
     playSuggestion: function() {
       const controller = this;
       const courseMapService = controller.get('courseMapService');
@@ -75,7 +76,7 @@ export default PlayerController.extend({
             type: null
           })
         );
-        //sending action to controller
+        //sending action to route
         controller.send('loadPreTest');
       });
     },
@@ -88,93 +89,93 @@ export default PlayerController.extend({
   // -------------------------------------------------------------------------
   // Properties
   /**
-       * @property {string}
-       */
+   * @property {string}
+   */
   classId: null,
 
   /**
-       * @property {string}
-       */
+   * @property {string}
+   */
   unitId: null,
 
   /**
-       * @property {string}
-       */
+   * @property {string}
+   */
   lessonId: null,
 
   /**
-       * @property {string}
-       */
+   * @property {string}
+   */
   collectionId: null,
 
   /**
-       * @property {string}
-       */
+   * @property {string}
+   */
   pathId: null,
 
   /**
-       * Indicates if it should show the back button
-       * @property {boolean}
-       */
+   * Indicates if it should show the back button
+   * @property {boolean}
+   */
   showBackButton: false,
 
   /**
-       * Indicate if show pre test suggestion
-       * @property {Boolean} showSuggestion
-       */
+   * Indicate if show pre test suggestion
+   * @property {Boolean} showSuggestion
+   */
   showSuggestion: true,
 
   /**
-       * Current map location
-       * @property {MapLocation}
-       */
+   * Current map location
+   * @property {MapLocation}
+   */
   mapLocation: null,
 
   /**
-       * @property {boolean}
-       */
+   * @property {boolean}
+   */
   hasPreTestSuggestions: Ember.computed.alias(
     'mapLocation.hasPreTestSuggestions'
   ),
 
   /**
-       * Pre test suggestion
-       * @property {String} typeSuggestion
-       */
+   * Pre test suggestion
+   * @property {String} typeSuggestion
+   */
   typeSuggestion: ASSESSMENT_SUB_TYPES.PRE_TEST,
 
   /**
-       * Course version Name
-       * @property {String}
-       */
+   * Course version Name
+   * @property {String}
+   */
   courseVersion: Ember.computed.alias('course.version'),
 
   /**
-       * Check it's nu course version or not
-       * @type {Boolean}
-       */
+   * Check it's nu course version or not
+   * @type {Boolean}
+   */
   isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
 
   /**
-       * @property {String} It decide to show the back to course map or not.
-       */
+   * @property {String} It decide to show the back to course map or not.
+   */
   showBackToCourseMap: true,
 
   /**
-       * @property {String} It decide to show the back to collection or not.
-       */
+   * @property {String} It decide to show the back to collection or not.
+   */
   showBackToCollection: false,
 
   /**
-       * Indicates if it should default player header
-       * @property {boolean}
-       */
+   * Indicates if it should default player header
+   * @property {boolean}
+   */
   showPlayerHeader: false,
 
   /**
-       * Steps for Take a Tour functionality
-       * @property {Array}
-       */
+   * Steps for Take a Tour functionality
+   * @property {Array}
+   */
   steps: Ember.computed(function() {
     let controller = this;
     let steps = Ember.A([
@@ -260,8 +261,8 @@ export default PlayerController.extend({
   }),
 
   /**
-         * Resets to default values
-         */
+   * Resets to default values
+   */
   resetValues: function() {
     //TODO: call the parent reset values method
     this.setProperties({
