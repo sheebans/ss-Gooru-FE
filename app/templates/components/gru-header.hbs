@@ -37,7 +37,8 @@
           </form>
         </div>
         <div class="navbar-collapse">
-        <div class="btn-group clearfix dropMenuLabelWidth {{if showDropMenu '' 'out-of-scope'}}">
+        {{#if showDropMenu}}
+        <div class="btn-group clearfix dropMenuLabelWidth">
           <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-primary btn-sm ">
               {{t i18n.locale}}
           </button>
@@ -51,6 +52,7 @@
             {{/each}}
           </ul>
         </div>
+        {{/if}}
           <ul class="nav navbar-nav menu-navbar">
             {{#if session.isAnonymous}}
               <li class="navbar-nav-list visible-md visible-lg library-link">
