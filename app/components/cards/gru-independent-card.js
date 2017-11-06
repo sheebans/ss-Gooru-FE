@@ -67,9 +67,7 @@ export default Ember.Component.extend({
         role: ROLES.STUDENT,
         backUrl: router.get('currentPath')
       };
-      const reportController = Ember.getOwner(this).lookup(
-        'controller:reports.student-collection-analytics'
-      );
+      
       router.transitionTo('reports.student-collection-analytics', {
         queryParams
       });
