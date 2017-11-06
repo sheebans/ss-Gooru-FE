@@ -1,4 +1,6 @@
-export default {
+import quizzesTranslations from './quizzes/translations';
+
+export default Object.assign(quizzesTranslations, {
   en: 'English',
   sp: 'Spanish',
   ar: 'Arabic',
@@ -2116,4 +2118,4 @@ export default {
     'benchmark-lead':
       'أنت الآن جاهز لإثبات تفهمك من خلال إجراء تقييم معياري. سوف تكسب شارة لإكمال المعيار بنجاح. لن يؤثر المعيار على درجة أداء الدورة.'
   }
-};
+});

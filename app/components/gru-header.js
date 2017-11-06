@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import SessionMixin from '../mixins/session';
 import ModalMixin from '../mixins/modal';
-import { KEY_CODES } from 'gooru-web/config/config';
+import { KEY_CODES, DROP_MENU_DISPLAY } from 'gooru-web/config/config';
 import Env from 'gooru-web/config/environment';
 
 /**
@@ -27,7 +27,11 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
 
     var arr = Ember.A();
     this.get('i18n.locales').map(function(loc) {
-      if (loc !== 'en/quizzes') {
+      if (
+        loc !== 'en/quizzes' &&
+        loc !== 'sp/quizzes' &&
+        loc !== 'ar/quizzes'
+      ) {
         arr.addObject({ id: loc, text: i18n.t(loc) });
       }
     });
@@ -36,6 +40,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   }),
 
   tagName: 'header',
+  showDropMenu: false,
 
   // -------------------------------------------------------------------------
   // Actions
@@ -76,6 +81,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   // Events
 
   didInsertElement: function() {
+    this.set('showDropMenu', DROP_MENU_DISPLAY);
     $('.search-input').on(
       'keyup',
       function(e) {

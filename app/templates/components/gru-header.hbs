@@ -37,6 +37,20 @@
           </form>
         </div>
         <div class="navbar-collapse">
+        <div class="btn-group clearfix dropMenuLabelWidth {{if showDropMenu '' 'out-of-scope'}}">
+          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-primary btn-sm ">
+              {{t i18n.locale}}
+          </button>
+          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-primary btn-sm dropdown-toggle ">
+            <span class="caret"></span>
+            <span class="sr-only">{{t "common.choose-lang"}}</span>
+          </button>
+          <ul class="dropdown-menu">
+              {{#each locales as |loc|}}
+              <li><a {{action 'setLocale' loc.id}}>{{loc.text}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
           <ul class="nav navbar-nav menu-navbar">
             {{#if session.isAnonymous}}
               <li class="navbar-nav-list visible-md visible-lg library-link">
