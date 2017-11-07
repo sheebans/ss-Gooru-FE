@@ -2,6 +2,7 @@ import Ember from 'ember';
 import SessionMixin from '../mixins/session';
 import ModalMixin from '../mixins/modal';
 import { KEY_CODES } from 'gooru-web/config/config';
+import LanguageSettingConfig from 'gooru-web/utils/endpoint-config';
 import Env from 'gooru-web/config/environment';
 
 /**
@@ -27,7 +28,11 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
 
     var arr = Ember.A();
     this.get('i18n.locales').map(function(loc) {
-      if (loc !== 'en/quizzes') {
+      if (
+        loc !== 'en/quizzes' &&
+        loc !== 'sp/quizzes' &&
+        loc !== 'ar/quizzes'
+      ) {
         arr.addObject({ id: loc, text: i18n.t(loc) });
       }
     });
@@ -36,6 +41,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   }),
 
   tagName: 'header',
+  showDropMenu: false,
 
   // -------------------------------------------------------------------------
   // Actions
@@ -76,6 +82,27 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   // Events
 
   didInsertElement: function() {
+    if (LanguageSettingConfig.getLanguageSettingdropMenu() !== undefined) {
+      this.set(
+        'showDropMenu',
+        LanguageSettingConfig.getLanguageSettingdropMenu()
+      );
+    }
+    if (LanguageSettingConfig.getLanguageSettingdefaultLang() !== undefined) {
+      this.set(
+        'i18n.locale',
+        LanguageSettingConfig.getLanguageSettingdefaultLang()
+      );
+      if (LanguageSettingConfig.getLanguageSettingdefaultLang() === 'ar') {
+        const rootElement = Ember.$(Env.rootElement);
+        rootElement.addClass('changeDir');
+        rootElement.removeClass('changeDirDefault');
+      } else {
+        const rootElement = Ember.$(Env.rootElement);
+        rootElement.removeClass('changeDir');
+        rootElement.addClass('changeDirDefault');
+      }
+    }
     $('.search-input').on(
       'keyup',
       function(e) {

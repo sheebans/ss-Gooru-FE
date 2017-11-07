@@ -36,7 +36,7 @@
   },
 
   "languageSetting": {
-    "defaultLang": "en",
-    "showDropMenu": false
+    "defaultLang": "ar",
+    "showDropMenu": true
   }
 }

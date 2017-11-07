@@ -12,5 +12,10 @@
   },
   "teams": {
     "url": "http://teams.gooru.org"
+  },
+
+  "languageSetting": {
+    "defaultLang": "en",
+    "showDropMenu": false
   }
 }
