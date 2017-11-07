@@ -62,13 +62,13 @@ test('Mastery Layout', function(assert) {
   );
 
   const $component = this.$(); //component dom element
-  const $mastery = $component.find('.gru-mastery');
+  const $mastery = $component.find('.gru-mastery ');
 
   T.exists(assert, $mastery, 'Missing mastery component');
   T.exists(assert, $mastery.find('h4'), 'Missing mastery title');
   T.exists(
     assert,
-    $mastery.find('.gru-learning-target'),
+    $mastery.find('.standard-root .gru-learning-target'),
     'Missing learning target component'
   );
 });
