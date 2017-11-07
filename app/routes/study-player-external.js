@@ -40,73 +40,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   lessonService: Ember.inject.service('api-sdk/lesson'),
 
-  /**
-   * @dependency {i18nService} Service to retrieve translations information
-   */
-  i18n: Ember.inject.service(),
-
   // -------------------------------------------------------------------------
   // Methods
   model: function(params) {
     const route = this;
-
-    //Steps for Take a Tour functionality
-    const tourSteps = Ember.A([
-      {
-        title: route.get('i18n').t('gru-take-tour.study-player.stepOne.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.study-player.stepOne.description')
-      },
-      {
-        elementSelector: '.header-panel .course-map',
-        title: route.get('i18n').t('gru-take-tour.study-player.stepTwo.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.study-player.stepTwo.description')
-      },
-      {
-        elementSelector: '.header-panel .content-title',
-        title: route
-          .get('i18n')
-          .t('gru-take-tour.study-player.stepThree.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.study-player.stepThree.description')
-      },
-      {
-        elementSelector: '.header-panel .suggest-player',
-        title: route.get('i18n').t('gru-take-tour.study-player.stepFour.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.study-player.stepFour.description')
-      },
-      {
-        elementSelector:
-          '.header-panel .performance-completion-take-tour-info .completion',
-        title: route.get('i18n').t('gru-take-tour.study-player.stepFive.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.study-player.stepFive.description')
-      },
-      {
-        elementSelector:
-          '.header-panel  .performance-completion-take-tour-info .performance',
-        title: route.get('i18n').t('gru-take-tour.study-player.stepSix.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.study-player.stepSix.description')
-      },
-
-      {
-        title: route
-          .get('i18n')
-          .t('gru-take-tour.study-player.stepEight.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.study-player.stepEight.description')
-      }
-    ]);
     return route
       .get('navigateMapService')
       .getStoredNext()
@@ -165,7 +102,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
               return found;
             });
             return Ember.RSVP.hash({
-              tourSteps: tourSteps,
               course: hash.course,
               unit: hash.unit,
               lesson: hash.lesson,
@@ -183,7 +119,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const isAnonymous = model.isAnonymous;
     const mapLocation = model.mapLocation;
     controller.setProperties({
-      steps: model.tourSteps,
       course: model.course,
       unit: model.unit,
       lesson: model.lesson,

@@ -162,6 +162,8 @@ export const TIME_SPENT_CHART_COLOR = '#0072BC'; //blue-400
 // Height of the application header in pixels
 export const HEADER_HEIGHT = 50;
 
+export const DROP_MENU_DISPLAY = false; //i18n dropmenu display status
+
 export const REAL_TIME_CLIENT = {
   CONNECTION_ATTEMPT_DELAY: 3000,
   OUTGOING_HEARTBEAT: 5000,

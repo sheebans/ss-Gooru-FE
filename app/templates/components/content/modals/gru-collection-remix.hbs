@@ -14,9 +14,13 @@
       <button type="button" class="btn btn-default cancel" data-dismiss="modal" aria-label="{{t 'common.close'}}">
         <span aria-hidden="true">{{t 'common.cancel'}}</span>
       </button>
-      <button type="submit" class="btn btn-primary">{{t 'common.remix'}}</button>
+      {{#if isLoading}}
+        {{#gru-spinner-button classes='btn btn-primary' text=(t 'common.loading') isLoading=isLoading}}
+        {{/gru-spinner-button}}
+      {{else}}
+        <button type="submit" class="btn btn-primary">{{t 'common.remix'}}</button>
+      {{/if}}
     </div>
 
   </form>
 </div>
-

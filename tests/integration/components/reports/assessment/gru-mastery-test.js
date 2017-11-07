@@ -16,7 +16,7 @@ moduleForComponent(
 );
 
 test('Mastery Layout', function(assert) {
-  assert.expect(3);
+  assert.expect(2);
 
   const learningTargets = Ember.A([
     LearningTargetResult.create({
@@ -66,6 +66,7 @@ test('Mastery Layout', function(assert) {
 
   T.exists(assert, $mastery, 'Missing mastery component');
   T.exists(assert, $mastery.find('h4'), 'Missing mastery title');
+
   T.exists(
     assert,
     $mastery.find('.standard-root .gru-learning-target'),

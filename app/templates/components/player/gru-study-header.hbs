@@ -50,24 +50,25 @@
     <div class="performance-completion-take-tour-info pull-left">
       <div class="completion pull-left">
         {{#if isNUCourse}}
-          {{#if class.courseCompetencyCompletion}}
-            <span class="score">{{class.courseCompetencyCompletion.completedCount}}/{{class.courseCompetencyCompletion.totalCount}}</span>
+          {{#if courseCompetencyCompletion}}
+            <span class="score">{{courseCompetencyCompletion.completedCount}}/{{courseCompetencyCompletion.totalCount}}</span>
           {{else}}
             <span class="score">--</span>
           {{/if}}
+          <span class="label">{{t 'common.competencies'}}</span>
         {{else}}
-          {{#if class.performanceSummary}}
-            <span class="score">{{class.performanceSummary.totalCompleted}}/{{class.performanceSummary.total}}</span>
+          {{#if performanceSummary}}
+            <span class="score">{{performanceSummary.totalCompleted}}/{{performanceSummary.total}}</span>
           {{else}}
             <span class="score">--</span>
           {{/if}}
+          <span class="label">{{t 'common.completion'}}</span>
         {{/if}}
-        <span class="label">{{t 'common.completion'}}</span>
       </div>
-      <div class="performance pull-left" style="background-color:{{if class.performanceSummary (grade-color class.performanceSummary.score) defaultBarColor}}">
+      <div class="performance pull-left" style="background-color:{{if performanceSummary (grade-color performanceSummary.score) defaultBarColor}}">
         <span class="score">
-            {{#if class.performanceSummary}}
-              {{class.performanceSummary.score}}%
+            {{#if performanceSummary}}
+              {{performanceSummary.score}}%
             {{else}}
               --
             {{/if}}

@@ -2159,7 +2159,8 @@ export default Object.assign(quizzesTranslations, {
           'Additional resources you may want to explore based on what you are currently studying.'
       },
       stepFive: {
-        title: 'Competencies',
+        title: 'Completion',
+        nuTitle: 'Competencies',
         description: 'Indicates how much of the course you have completed.'
       },
       stepSix: {

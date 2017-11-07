@@ -1,4 +1,6 @@
-export default {
+import quizzesTranslations from './quizzes/translations';
+
+export default Object.assign(quizzesTranslations, {
   en: 'English',
   sp: 'Spanish',
   ar: 'Arabic',
@@ -2182,4 +2184,4 @@ export default {
     'benchmark-lead':
       'Ahora está listo para demostrar su comprensión tomando una evaluación de referencia. Obtendrá una insignia para completar satisfactoriamente el punto de referencia. El punto de referencia no afectará la puntuación de rendimiento del curso.'
   }
-};
+});

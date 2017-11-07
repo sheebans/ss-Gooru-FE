@@ -14,5 +14,10 @@
 
   "teams": {
     "url": "http://teams-qa.gooru.org"
+  },
+
+  "languageSetting": {
+    "defaultLang": "en",
+    "showDropMenu": false
   }
 }
