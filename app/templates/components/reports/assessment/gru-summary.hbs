@@ -1,7 +1,7 @@
 <div class="summary-container">
 
   <div class="profile-image">
-    <img class="img-responsive" src="{{profile.avatarUrl}}" alt="Avatar for {{profile.username}}">
+    <img class="img-responsive" src="{{collection.imageUrl}}" alt="Avatar for {{profile.username}}">
   </div>
 
   <div class="overview">
@@ -35,7 +35,7 @@
       {{/if}}
       {{#if assessmentResult.submittedAt}}
         <span class="date">
-        {{gru-icon name='event'}}<span>{{format-date assessmentResult.submittedAt 'h:mm a MMM DD'}}</span>
+        {{gru-icon name='event'}}<span>{{format-date assessmentResult.submittedAt 'h:mm a MMM. Do, YYYY'}}</span>
       </span>
       {{/if}}
       <span class="time">
