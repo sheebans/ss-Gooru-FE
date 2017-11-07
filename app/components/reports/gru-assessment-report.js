@@ -38,9 +38,7 @@ export default Ember.Component.extend({
           );
         }
       } else {
-        const $parentContainer = $(
-          '.controller.class.analytics.collection.student'
-        );
+        const $parentContainer = $('.controller.analytics.collection.student');
         const parentTopOffset = $parentContainer.length
           ? $parentContainer.offset().top
           : 0;

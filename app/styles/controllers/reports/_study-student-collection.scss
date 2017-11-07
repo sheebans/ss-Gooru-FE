@@ -1,4 +1,6 @@
 .reports_study-student-collection {
+  // overflow: hidden;
+
   .app-container {
     padding: 0;
   }
@@ -9,6 +11,8 @@
 
   .report-container {
     padding-top: 104px;
+    // height: 100vh;
+    // overflow: auto;
     .suggestion-panel {
       padding: 20px 180px;
       @media (min-width: $screen-sm) {

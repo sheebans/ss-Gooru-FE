@@ -39,16 +39,15 @@
   }
   .bubbles-list {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
-    width: 75px;
     list-style: none;
     padding: 10px 0 0 0;
     margin: 0;
     li {
       display: inline-block;
       padding: 0;
-      margin: 0 15px 5px 0;
+      margin: 0px 7px 10px 0;
     }
     a {
       color: $white;
