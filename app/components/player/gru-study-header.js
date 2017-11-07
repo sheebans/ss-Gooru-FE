@@ -39,6 +39,11 @@ export default Ember.Component.extend({
    */
   session: Ember.inject.service('session'),
 
+  /**
+   * @type {Learner} Service to retrieve course performance summary
+   */
+  learnerService: Ember.inject.service('api-sdk/learner'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -247,16 +252,16 @@ export default Ember.Component.extend({
    * @property {Number} barChartData
    */
   barChartData: Ember.computed(
-    'class.performanceSummary',
-    'class.courseCompetencyCompletion',
+    'performanceSummary',
+    'courseCompetencyCompletion',
     function() {
       const isNUCourse = this.get('isNUCourse');
       const completed = isNUCourse
-        ? this.get('class.courseCompetencyCompletion.completedCount')
-        : this.get('class.performanceSummary.totalCompleted');
+        ? this.get('courseCompetencyCompletion.completedCount')
+        : this.get('performanceSummary.totalCompleted');
       const total = isNUCourse
-        ? this.get('class.courseCompetencyCompletion.totalCount')
-        : this.get('class.performanceSummary.total');
+        ? this.get('courseCompetencyCompletion.totalCount')
+        : this.get('performanceSummary.total');
       const percentage = completed ? completed / total * 100 : 0;
       return [
         {
@@ -310,32 +315,52 @@ export default Ember.Component.extend({
     if (classId) {
       Ember.RSVP
         .hash({
-          aClass: component.get('classService').readClassInfo(classId),
           classPerformanceSummaryItems: component
             .get('performanceService')
             .findClassPerformanceSummaryByStudentAndClassIds(myId, [classId])
         })
-        .then(({ aClass, classPerformanceSummaryItems }) => {
-          aClass.set(
+        .then(({ classPerformanceSummaryItems }) => {
+          component.set(
             'performanceSummary',
             classPerformanceSummaryItems.findBy('classId', classId)
           );
-          const isNUCourse = this.get('isNUCourse');
-          if (isNUCourse) {
-            Ember.RSVP
-              .hash({
-                courseCompetencyCompletion: component
-                  .get('performanceService')
-                  .findCourseCompetencyCompletionByCourseIds(myId, [courseId])
-              })
-              .then(({ courseCompetencyCompletion }) => {
-                aClass.set(
-                  'courseCompetencyCompletion',
-                  courseCompetencyCompletion.findBy('courseId', courseId)
-                );
-              });
-          }
-          component.set('class', aClass);
+        });
+    } else {
+      Ember.RSVP
+        .hash({
+          coursePerformanceSummaryItems: component
+            .get('learnerService')
+            .fetchCoursesPerformance(myId, [courseId])
+        })
+        .then(({ coursePerformanceSummaryItems }) => {
+          let coursePerformanceSummaryItem = coursePerformanceSummaryItems.findBy(
+            'courseId',
+            courseId
+          );
+          component.set(
+            'performanceSummary',
+            Ember.create({
+              totalCompleted: coursePerformanceSummaryItem.completedCount,
+              total: coursePerformanceSummaryItem.totalCount,
+              score: coursePerformanceSummaryItem.scoreInPercentage
+            })
+          );
+        });
+    }
+
+    const isNUCourse = this.get('isNUCourse');
+    if (isNUCourse) {
+      Ember.RSVP
+        .hash({
+          courseCompetencyCompletion: component
+            .get('performanceService')
+            .findCourseCompetencyCompletionByCourseIds(myId, [courseId])
+        })
+        .then(({ courseCompetencyCompletion }) => {
+          component.set(
+            'courseCompetencyCompletion',
+            courseCompetencyCompletion.findBy('courseId', courseId)
+          );
         });
     }
     if (collectionId) {

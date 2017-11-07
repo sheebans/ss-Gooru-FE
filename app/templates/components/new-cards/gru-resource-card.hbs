@@ -198,7 +198,7 @@
                 {{/if}}
               {{/unless}}
             {{/unless}}
-            {{#unless (or isRubric session.isAnonymous isTeacherSearch (not isOnProfile))}}
+            {{#unless (or isRubric session.isAnonymous isTeacherSearch)}}
               <div class="resource-icon-btn play" title="{{t (if (or isSearch addEnabled) 'common.play' 'common.study')}}" data-toggle="tooltip">
                 <a {{action "playResource"}} class="play-btn">{{gru-icon name="play_arrow"}}</a>
               </div>
