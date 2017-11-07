@@ -66,4 +66,10 @@ test('Mastery Layout', function(assert) {
 
   T.exists(assert, $mastery, 'Missing mastery component');
   T.exists(assert, $mastery.find('h4'), 'Missing mastery title');
+
+  T.exists(
+    assert,
+    $mastery.find('.standard-root .gru-learning-target'),
+    'Missing learning target component'
+  );
 });
