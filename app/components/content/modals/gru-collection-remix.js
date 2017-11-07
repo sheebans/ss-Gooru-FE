@@ -20,6 +20,7 @@ export default RemixBaseModal.extend({
   // Actions
 
   copyContent: function(collection) {
+    this.set('isLoading', true);
     return this.get('collectionService').copyCollection(collection.get('id'));
   },
 
@@ -78,5 +79,10 @@ export default RemixBaseModal.extend({
     this.set('unitId', this.get('model.unitId'));
     this.set('lessonId', this.get('model.lessonId'));
     this.set('isCollection', this.get('model.isCollection'));
-  }
+  },
+
+  /**
+  * Disable remix button once user clicked it
+  */
+  isLoading: false
 });
