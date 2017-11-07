@@ -144,8 +144,11 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     studyNow: function(type, item) {
       let lessonId = this.get('model.id');
+      this.loadData();
       if (type === 'lesson') {
-        this.get('onStudyNow')(type, item.id, this.get('items')[0]);
+        if (this.get('items') !== null) {
+          this.get('onStudyNow')(type, item.id, this.get('items')[0]);
+        }
       } else {
         this.get('onStudyNow')(type, lessonId, item);
       }
@@ -419,6 +422,7 @@ export default Ember.Component.extend(AccordionMixin, {
     let collections = Ember.A();
     let lessonPeers = Ember.A();
 
+    component.set('items', collections);
     component.set('loading', true);
 
     let peersPromise = classId
@@ -436,6 +440,7 @@ export default Ember.Component.extend(AccordionMixin, {
       })
       .then(({ lesson, peers }) => {
         collections = lesson.get('children');
+        component.set('items', collections);
         lessonPeers = peers;
 
         let loadDataPromise = Ember.RSVP.resolve();
