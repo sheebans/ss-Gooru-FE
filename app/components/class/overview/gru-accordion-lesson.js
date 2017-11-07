@@ -145,7 +145,11 @@ export default Ember.Component.extend(AccordionMixin, {
     studyNow: function(type, item) {
       let lessonId = this.get('model.id');
       if (type === 'lesson') {
-        this.get('onStudyNow')(type, item.id, this.get('items')[0]);
+        if (this.get('items') !== null) {
+          this.get('onStudyNow')(type, item.id, this.get('items')[0]);
+        } else {
+          this.get('onStudyNow')(type, item.id, item);
+        }
       } else {
         this.get('onStudyNow')(type, lessonId, item);
       }
