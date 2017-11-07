@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import SessionMixin from '../mixins/session';
 import ModalMixin from '../mixins/modal';
-import { KEY_CODES, DROP_MENU_DISPLAY } from 'gooru-web/config/config';
+import { KEY_CODES } from 'gooru-web/config/config';
+import LanguageSettingConfig from 'gooru-web/utils/endpoint-config';
 import Env from 'gooru-web/config/environment';
 
 /**
@@ -81,7 +82,23 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   // Events
 
   didInsertElement: function() {
-    this.set('showDropMenu', DROP_MENU_DISPLAY);
+    this.set(
+      'showDropMenu',
+      LanguageSettingConfig.getLanguageSettingdropMenu()
+    );
+    this.set(
+      'i18n.locale',
+      LanguageSettingConfig.getLanguageSettingdefaultLang()
+    );
+    if (LanguageSettingConfig.getLanguageSettingdefaultLang() === 'ar') {
+      const rootElement = Ember.$(Env.rootElement);
+      rootElement.addClass('changeDir');
+      rootElement.removeClass('changeDirDefault');
+    } else {
+      const rootElement = Ember.$(Env.rootElement);
+      rootElement.removeClass('changeDir');
+      rootElement.addClass('changeDirDefault');
+    }
     $('.search-input').on(
       'keyup',
       function(e) {

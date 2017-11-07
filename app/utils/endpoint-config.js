@@ -48,3 +48,21 @@ export function getRealTimeWebSocketUrl() {
   const configuration = ConfigurationService.configuration;
   return configuration.get('realTime.webSocketUrl') + getRealTimeWebSocketUri();
 }
+
+/**
+ * Get defaultLanguage setting from config
+ */
+export function getLanguageSettingdefaultLang() {
+  //TODO don't use global configuration variable
+  const configuration = ConfigurationService.configuration;
+  return configuration ? configuration.get('languageSetting.defaultLang') : '';
+}
+
+/**
+ * Get defaultLanguage drop menu setting from config
+ */
+export function getLanguageSettingdropMenu() {
+  //TODO don't use global configuration variable
+  const configuration = ConfigurationService.configuration;
+  return configuration ? configuration.get('languageSetting.showDropMenu') : '';
+}
