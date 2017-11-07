@@ -82,22 +82,26 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   // Events
 
   didInsertElement: function() {
-    this.set(
-      'showDropMenu',
-      LanguageSettingConfig.getLanguageSettingdropMenu()
-    );
-    this.set(
-      'i18n.locale',
-      LanguageSettingConfig.getLanguageSettingdefaultLang()
-    );
-    if (LanguageSettingConfig.getLanguageSettingdefaultLang() === 'ar') {
-      const rootElement = Ember.$(Env.rootElement);
-      rootElement.addClass('changeDir');
-      rootElement.removeClass('changeDirDefault');
-    } else {
-      const rootElement = Ember.$(Env.rootElement);
-      rootElement.removeClass('changeDir');
-      rootElement.addClass('changeDirDefault');
+    if (LanguageSettingConfig.getLanguageSettingdropMenu() !== undefined) {
+      this.set(
+        'showDropMenu',
+        LanguageSettingConfig.getLanguageSettingdropMenu()
+      );
+    }
+    if (LanguageSettingConfig.getLanguageSettingdefaultLang() !== undefined) {
+      this.set(
+        'i18n.locale',
+        LanguageSettingConfig.getLanguageSettingdefaultLang()
+      );
+      if (LanguageSettingConfig.getLanguageSettingdefaultLang() === 'ar') {
+        const rootElement = Ember.$(Env.rootElement);
+        rootElement.addClass('changeDir');
+        rootElement.removeClass('changeDirDefault');
+      } else {
+        const rootElement = Ember.$(Env.rootElement);
+        rootElement.removeClass('changeDir');
+        rootElement.addClass('changeDirDefault');
+      }
     }
     $('.search-input').on(
       'keyup',
