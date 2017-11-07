@@ -16,7 +16,7 @@ moduleForComponent(
 );
 
 test('Mastery Layout', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   const learningTargets = Ember.A([
     LearningTargetResult.create({
