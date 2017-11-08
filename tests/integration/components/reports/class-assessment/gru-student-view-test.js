@@ -35,15 +35,18 @@ test('Layout', function(assert) {
   var students = Ember.A([
     Ember.Object.create({
       id: '56983a9060a68052c1ed934c',
-      fullName: 'Lorena Prendas Chavarria'
+      fullName: 'Lorena Prendas Chavarria',
+      lastFirstName: 'Chavarria, Lorena Prendas'
     }),
     Ember.Object.create({
       id: '56983a90fb01fecc328e2388',
-      fullName: 'Andres Charpentier Zuñiga'
+      fullName: 'Andres Charpentier Zuñiga',
+      lastFirstName: 'Zuñiga, Andres Charpentier'
     }),
     Ember.Object.create({
       id: '56983a906596902edadedc7c',
-      fullName: 'David Zumbado Alfaro'
+      fullName: 'David Zumbado Alfaro',
+      lastFirstName: 'Alfaro, David Zumbado'
     })
   ]);
 
@@ -137,7 +140,7 @@ test('Layout', function(assert) {
   T.exists(assert, $firstHeaderName, 'Missing student box name');
   assert.equal(
     T.text($firstHeaderName),
-    'Lorena Prendas Chavarria',
+    'Chavarria, Lorena Prendas',
     'Wrong name'
   );
   var $firstHeaderScore = $firstStudentPerformanceBox.find('.score');
@@ -151,7 +154,7 @@ test('Layout', function(assert) {
   T.exists(assert, $lastStudentPerformanceBox, 'Missing last student box');
   var $lastHeaderName = $lastStudentPerformanceBox.find('.name');
   T.exists(assert, $lastHeaderName, 'Missing student box name');
-  assert.equal(T.text($lastHeaderName), 'David Zumbado Alfaro', 'Wrong name');
+  assert.equal(T.text($lastHeaderName), 'Alfaro, David Zumbado', 'Wrong name');
   var $lastHeaderScore = $lastStudentPerformanceBox.find('.score');
   T.exists(assert, $lastHeaderScore, 'Missing student box score');
   assert.equal(T.text($lastHeaderScore), '33%', 'Wrong score');
@@ -166,12 +169,12 @@ test('Layout', function(assert) {
   T.exists(assert, $firstHeaderName, 'Missing student box name');
   assert.equal(
     T.text($firstHeaderName),
-    'Andres Charpentier Zuñiga',
+    'Alfaro, David Zumbado',
     'Wrong name'
   );
   $firstHeaderScore = $firstStudentPerformanceBox.find('.score');
   T.exists(assert, $firstHeaderScore, 'Missing student box score');
-  assert.equal(T.text($firstHeaderScore), '67%', 'Wrong score');
+  assert.equal(T.text($firstHeaderScore), '33%', 'Wrong score');
 
   $lastStudentPerformanceBox = $component.find(
     '.gru-student-performance-box:last-child'
@@ -181,10 +184,10 @@ test('Layout', function(assert) {
   T.exists(assert, $lastHeaderName, 'Missing student box name');
   assert.equal(
     T.text($lastHeaderName),
-    'Lorena Prendas Chavarria',
+    'Zuñiga, Andres Charpentier',
     'Wrong name'
   );
   $lastHeaderScore = $lastStudentPerformanceBox.find('.score');
   T.exists(assert, $lastHeaderScore, 'Missing student box score');
-  assert.equal(T.text($lastHeaderScore), '100%', 'Wrong score');
+  assert.equal(T.text($lastHeaderScore), '67%', 'Wrong score');
 });
