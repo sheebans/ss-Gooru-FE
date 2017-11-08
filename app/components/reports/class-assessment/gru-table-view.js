@@ -108,7 +108,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
       value: -1,
       label: this.get('i18n').t('reports.gru-table-view.totals').string
     });
-
     return questions;
   }),
 
@@ -282,6 +281,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
       return {
         id: student.get('id'),
         header: anonymous ? student.get('code') : student.get('fullName'),
+        lastFirstName: anonymous ? student.get('code') : student.get('lastFirstName'),
         content: []
       };
     });
