@@ -55,6 +55,13 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Events
 
+  init: function() {
+    this._super(...arguments);
+    Ember.run.scheduleOnce('afterRender', this, function() {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  },
+
   // -------------------------------------------------------------------------
   // Properties
 

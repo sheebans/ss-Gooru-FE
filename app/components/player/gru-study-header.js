@@ -79,34 +79,18 @@ export default Ember.Component.extend({
      * Redirect to course map
      */
     redirectCourseMap() {
-      if (this.get('classId')) {
-        this.get('router').transitionTo(
-          'student.class.course-map',
-          this.get('classId'),
-          {
-            queryParams: {
-              refresh: true
-            }
-          }
-        );
-      } else {
-        this.get('router').transitionTo(
-          'student.independent.course-map',
-          this.get('courseId'),
-          {
-            queryParams: {
-              refresh: true
-            }
-          }
-        );
-      }
+      this.backToCourseMap();
     },
 
     /**
     * Go back to collection
     */
     backToCollection() {
-      window.location.href = this.get('collectionUrl');
+      if (this.get('collectionUrl')) {
+        window.location.href = this.get('collectionUrl');
+      } else {
+        this.backToCourseMap();
+      }
     }
   },
 
@@ -337,14 +321,16 @@ export default Ember.Component.extend({
             'courseId',
             courseId
           );
-          component.set(
-            'performanceSummary',
-            Ember.create({
-              totalCompleted: coursePerformanceSummaryItem.completedCount,
-              total: coursePerformanceSummaryItem.totalCount,
-              score: coursePerformanceSummaryItem.scoreInPercentage
-            })
-          );
+          if (coursePerformanceSummaryItem) {
+            component.set(
+              'performanceSummary',
+              Ember.create({
+                totalCompleted: coursePerformanceSummaryItem.completedCount,
+                total: coursePerformanceSummaryItem.totalCount,
+                score: coursePerformanceSummaryItem.scoreInPercentage
+              })
+            );
+          }
         });
     }
 
@@ -376,6 +362,33 @@ export default Ember.Component.extend({
             component.set('hasSuggestedResources', true);
           }
         });
+    }
+  },
+
+  /**
+   *  It will redirect to the course map.
+   */
+  backToCourseMap: function() {
+    if (this.get('classId')) {
+      this.get('router').transitionTo(
+        'student.class.course-map',
+        this.get('classId'),
+        {
+          queryParams: {
+            refresh: true
+          }
+        }
+      );
+    } else {
+      this.get('router').transitionTo(
+        'student.independent.course-map',
+        this.get('courseId'),
+        {
+          queryParams: {
+            refresh: true
+          }
+        }
+      );
     }
   }
 });

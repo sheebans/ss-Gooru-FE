@@ -8,11 +8,19 @@
       </div>
     {{/if}}
     {{#if showBackToCollection}}
-      <div class="back-to-collection pull-left" {{action 'backToCollection'}} data-toggle="tooltip" data-placement="bottom" title="{{if collection.isCollection (t 'common.back-to-collection') (t 'common.back-to-assessment') }}">
-        <div class="nav-icon-container">
-          {{gru-icon name='ic_close'}}
+      {{#if collectionUrl}}
+        <div class="back-to-collection pull-left" {{action 'backToCollection'}} data-toggle="tooltip" data-placement="bottom" title="{{if collection.isCollection (t 'common.back-to-collection') (t 'common.back-to-assessment') }}">
+          <div class="nav-icon-container">
+            {{gru-icon name='ic_close'}}
+          </div>
         </div>
-      </div>
+      {{else}}
+        <div class="course-map pull-left" {{action 'redirectCourseMap'}} data-toggle="tooltip" data-placement="bottom" title="{{t 'common.back-to-course-map'}}">
+          <div class="nav-icon-container">
+            {{gru-icon name="sort"}}
+          </div>
+        </div>
+      {{/if}}
     {{/if}}
     <div class="pull-left content-title">
       <p class="title">{{courseTitle}}</p>
@@ -68,7 +76,11 @@
       <div class="performance pull-left" style="background-color:{{if performanceSummary (grade-color performanceSummary.score) defaultBarColor}}">
         <span class="score">
             {{#if performanceSummary}}
-              {{performanceSummary.score}}%
+              {{#if performanceSummary.score}}
+                {{performanceSummary.score}}%
+              {{else}}
+                0%
+              {{/if}}
             {{else}}
               --
             {{/if}}
