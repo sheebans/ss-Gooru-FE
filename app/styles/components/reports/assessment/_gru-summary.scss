@@ -48,8 +48,8 @@
           font-size: $font-size-h6;
           padding-top: 10px;
           @media (min-width: $screen-xs) {
-            padding-top: 0px;
-            padding-bottom: 0px;
+            padding-top: 0;
+            padding-bottom: 0;
           }
         }
 
@@ -89,6 +89,7 @@
       @media (min-width: $screen-lg-min) {
         height: 64px;
       }
+
       .img-responsive {
         height: 100%;
       }
@@ -97,7 +98,7 @@
     .grade {
       width: 160px;
       height: 106px;
-      padding: 18px 15px 0px 4px;
+      padding: 18px 15px 0 4px;
       text-align: left;
       border-left: 2px solid;
       color: $white;
@@ -175,7 +176,7 @@
 
       h5 {
         margin: 0;
-        width: 232px;
+        width: 450px;
         height: 40px;
         font-size: 16px;
         line-height: 2.25;
@@ -263,23 +264,37 @@
     }
 
     .bubbles {
-      width: 350px;
-      max-width: 350px;
+      width: 330px;
+      max-width: 330px;
       height: 85px;
       max-height: 85px;
       overflow: auto;
 
       .gru-bubbles {
         margin-top: 3px;
+
         .bubbles-list {
-          height: AU;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          list-style: none;
+          padding: 10px 0 0;
+          margin: 0;
+
+          li {
+            display: inline-block;
+            padding: 0;
+            margin: 0 7px 10px 0;
+          }
         }
       }
     }
+
     .bubbles::-webkit-scrollbar {
       height: 6px;
       width: 6px;
     }
+
     .bubbles::-webkit-scrollbar-thumb {
       border-radius: 3px;
       background-color: $gray-harder;

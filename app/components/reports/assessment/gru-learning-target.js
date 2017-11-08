@@ -99,12 +99,9 @@ export default Ember.Component.extend({
     let results = this.getQuestions(questionResults);
     return results.map(function(questionResult) {
       var status = '';
-      if (questionResult.skipped === true) {
+      if (questionResult.get('skipped')) {
         status = 'skipped';
-      } else if (
-        questionResult.correct === true ||
-        questionResult.correct === false
-      ) {
+      } else {
         status = questionResult.get('correct') ? 'correct' : 'incorrect';
       }
       return Ember.Object.create({
