@@ -337,14 +337,16 @@ export default Ember.Component.extend({
             'courseId',
             courseId
           );
-          component.set(
-            'performanceSummary',
-            Ember.create({
-              totalCompleted: coursePerformanceSummaryItem.completedCount,
-              total: coursePerformanceSummaryItem.totalCount,
-              score: coursePerformanceSummaryItem.scoreInPercentage
-            })
-          );
+          if (coursePerformanceSummaryItem) {
+            component.set(
+              'performanceSummary',
+              Ember.create({
+                totalCompleted: coursePerformanceSummaryItem.completedCount,
+                total: coursePerformanceSummaryItem.totalCount,
+                score: coursePerformanceSummaryItem.scoreInPercentage
+              })
+            );
+          }
         });
     }
 
