@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   {{#if started}}
     <div class="panel-heading {{ if anonymous 'anonymous'}}" style={{safe-html (concat "background-color:" (grade-color score))}} {{action 'selectStudent'}}>
-      <span class="name ellipsis">{{ if anonymous student.code student.fullName }}</span>
+      <span class="name ellipsis">{{ if anonymous student.code student.lastFirstName }}</span>
       {{#unless anonymous}}
         <span class="score">{{score}}%</span>
         {{#if totalNotStarted}}<span class="question-in-progress">{{gru-icon name='av_timer'}}</span>{{/if}}
@@ -9,7 +9,7 @@
     </div>
   {{else}}
     <div class="panel-heading {{ if anonymous 'anonymous'}} not-started" {{action 'selectStudent'}}>
-      <span class="name ellipsis">{{ if anonymous student.code student.fullName }}</span>
+      <span class="name ellipsis">{{ if anonymous student.code student.lastFirstName }}</span>
     </div>
   {{/if}}
   <div class="panel-body questions">

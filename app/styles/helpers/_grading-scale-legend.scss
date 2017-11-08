@@ -41,13 +41,15 @@
     }
 
     &.not-started {
-      i {
-        border: 1px solid $gray-light;
-        background-color: $light-200;
-      }
+      background-color: $light-200;
+      text-align: center;
     }
     &:last-child {
       margin: 0;
+    }
+    &.not-scored {
+      color: $white;
+      text-align: center;
     }
   }
 }
