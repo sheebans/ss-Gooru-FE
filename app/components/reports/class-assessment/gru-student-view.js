@@ -30,11 +30,11 @@ export default Ember.Component.extend({
     sortStudentView: function(sort) {
       this.set('sortAlphabetically', sort);
       if (this.get('sortAlphabetically')) {
-        this.set('studentPerformanceListSorting', ['student.fullName']);
+        this.set('studentPerformanceListSorting', ['student.lastFirstName']);
       } else {
         this.set('studentPerformanceListSorting', [
           'score:desc',
-          'student.fullName'
+          'student.lastFirstName'
         ]);
       }
     }
@@ -124,7 +124,7 @@ export default Ember.Component.extend({
    *
    * @property {Array}
    */
-  studentPerformanceListSorting: ['score:desc', 'student.fullName'],
+  studentPerformanceListSorting: ['score:desc', 'student.lastFirstName'],
   /**
    * Property containing t he sorted list
    *
