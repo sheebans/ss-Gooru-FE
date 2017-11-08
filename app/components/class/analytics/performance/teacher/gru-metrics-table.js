@@ -396,6 +396,9 @@ export default Ember.Component.extend({
       }
     }
     component.set('averageHeaderstempAssessment', []);
+    if (component.getStoredUnitIdVal() !== null) {
+      component.expandByUnit(component.getStoredUnitIdVal());
+    }
   },
   didInsertElement() {
     'use strict';
@@ -463,6 +466,7 @@ export default Ember.Component.extend({
           this.removeexpandedUnit();
           this.set('filterBy', this.get('filterBy'));
           this.set('tempUnitId', temp.get('id'));
+          this.storeClickValues(temp.get('id'));
           this.set('isExpanded', true);
           this.set('tempheaders', this.get('headers'));
           this.expandLesson(temp.get('id'), index);
@@ -473,6 +477,7 @@ export default Ember.Component.extend({
       } else {
         this.set('filterBy', this.get('filterBy'));
         this.set('tempUnitId', temp.get('id'));
+        this.storeClickValues(temp.get('id'));
         this.set('isExpanded', true);
         this.set('tempheaders', this.get('headers'));
         this.expandLesson(temp.get('id'), index);
@@ -505,6 +510,7 @@ export default Ember.Component.extend({
       var inxArr = [];
       component.removeexpandedUnit();
       component.set('tempUnitId', null);
+      this.storeClickValues(null);
       this.set('isExpanded', false);
       component.set('tempheaders', null);
       Ember.set(temp, 'showSub', false);
@@ -1317,6 +1323,57 @@ export default Ember.Component.extend({
         }
       });
     index1 = index1 + 1;
+  },
+  storeClickValues: function(unitId) {
+    let localStorage = window.localStorage;
+    localStorage.setItem('uId', unitId);
+    localStorage.setItem('cId', this.get('classId'));
+  },
+  getStoredUnitIdVal: function() {
+    let localStorage = window.localStorage;
+    if (this.get('classId') === localStorage.getItem('cId')) {
+      return localStorage.getItem('uId');
+    } else {
+      localStorage.setItem('uId', null);
+      localStorage.setItem('cId', null);
+      return null;
+    }
+  },
+  expandByUnit: function(unitId) {
+    this.set('isLoading', true);
+    var unitObj = this.get('headers').findBy('id', unitId);
+    if (unitObj !== undefined) {
+      var index = this.get('headers').indexOf(unitObj);
+      var temp = this.get('headers').objectAt(index);
+      if (this.get('tempUnitId') !== null) {
+        var unitDetails = this.get('tempheaders').findBy(
+          'id',
+          this.get('tempUnitId')
+        );
+        if (unitDetails !== undefined) {
+          this.removeexpandedUnit();
+          this.set('filterBy', this.get('filterBy'));
+          this.set('tempUnitId', temp.get('id'));
+          this.storeClickValues(temp.get('id'));
+          this.set('isExpanded', true);
+          this.set('tempheaders', this.get('headers'));
+          this.expandLesson(temp.get('id'), index);
+          Ember.set(temp, 'showSub', true);
+          Ember.set(temp, 'showSubSub', true);
+          Ember.set(temp, 'showAssessments', true);
+        }
+      } else {
+        this.set('filterBy', this.get('filterBy'));
+        this.set('tempUnitId', temp.get('id'));
+        this.storeClickValues(temp.get('id'));
+        this.set('isExpanded', true);
+        this.set('tempheaders', this.get('headers'));
+        this.expandLesson(temp.get('id'), index);
+        Ember.set(temp, 'showSub', true);
+        Ember.set(temp, 'showSubSub', true);
+        Ember.set(temp, 'showAssessments', true);
+      }
+    }
   },
   /**
    * Initialize the table's sort criteria
