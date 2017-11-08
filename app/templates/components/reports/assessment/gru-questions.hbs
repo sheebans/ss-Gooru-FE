@@ -1,5 +1,8 @@
 <div class="summary-report-questions">
 <div class="questions-header">
+  <div class="title">
+    <h4>{{if isOpenEnded (t "common.questions-OE") (t "common.questions")}}</h4>
+  </div>
   {{#unless isOpenEnded}}
     {{#if isAnswerKeyHidden}}
       <em>{{t "common.answer-key-was-hidden"}}</em>
