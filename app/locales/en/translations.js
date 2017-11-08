@@ -1041,6 +1041,7 @@ export default Object.assign(quizzesTranslations, {
       'assigned-course': 'Assigned Course',
       'back-to': 'Back to Classrooms',
       'no-course': 'This classroom does not have a related course.',
+      'no-course-assigned': 'No Course Assigned',
       'back-to-independent': 'Back to Independent Learning',
       performance: 'Performance',
       'course-map': 'Course Map',
