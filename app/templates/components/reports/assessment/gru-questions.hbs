@@ -73,29 +73,18 @@
           {{#unless result.question.isOpenEnded}}
             <td class="question-score {{if showPerformance 'visible' 'hide'}}">
               {{#if (and result.started  result.skipped)}}
-              <span class="skipped">
-                  {{gru-icon name='ic_block'}}
-            </span>
+                  <span class="skipped">
+                      {{gru-icon name='ic_block'}}
+                  </span>
               {{else}}
-                <span class="{{if result.started (if result.correct 'correct' 'incorrect') 'not-started'}}">
-                    {{#if result.started}}
-                           <i class="icon"> </i>
-                     {{else}}
-                          {{gru-icon name='radio_button_checked'}}
-                   {{/if}}
-                </span>
-                {{/if}}
-
-<!--
-
-                <span class="{{if result.started (if result.correct 'correct' 'incorrect') 'not-started'}}">
-                 {{#if result.started}}
-                        <i class="icon"> </i>
-                  {{else}}
-                         {{gru-icon name='radio_button_checked'}}
-                {{/if}}
-          </span> -->
-
+                  <span class="{{if result.started (if result.correct 'correct' 'incorrect') 'not-started'}}">
+                      {{#if result.started}}
+                             <i class="icon"> </i>
+                       {{else}}
+                            {{gru-icon name='radio_button_checked'}}
+                     {{/if}}
+                  </span>
+              {{/if}}
             </td>
           {{/unless}}
           <td class="question-time {{if showPerformance 'visible' 'hide'}}">
