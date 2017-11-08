@@ -79,18 +79,34 @@ export default Ember.Component.extend({
      * Redirect to course map
      */
     redirectCourseMap() {
-      this.backToCourseMap();
+      if (this.get('classId')) {
+        this.get('router').transitionTo(
+          'student.class.course-map',
+          this.get('classId'),
+          {
+            queryParams: {
+              refresh: true
+            }
+          }
+        );
+      } else {
+        this.get('router').transitionTo(
+          'student.independent.course-map',
+          this.get('courseId'),
+          {
+            queryParams: {
+              refresh: true
+            }
+          }
+        );
+      }
     },
 
     /**
     * Go back to collection
     */
     backToCollection() {
-      if (this.get('collectionUrl')) {
-        window.location.href = this.get('collectionUrl');
-      } else {
-        this.backToCourseMap();
-      }
+      window.location.href = this.get('collectionUrl');
     }
   },
 
@@ -362,33 +378,6 @@ export default Ember.Component.extend({
             component.set('hasSuggestedResources', true);
           }
         });
-    }
-  },
-
-  /**
-   *  It will redirect to the course map.
-   */
-  backToCourseMap: function() {
-    if (this.get('classId')) {
-      this.get('router').transitionTo(
-        'student.class.course-map',
-        this.get('classId'),
-        {
-          queryParams: {
-            refresh: true
-          }
-        }
-      );
-    } else {
-      this.get('router').transitionTo(
-        'student.independent.course-map',
-        this.get('courseId'),
-        {
-          queryParams: {
-            refresh: true
-          }
-        }
-      );
     }
   }
 });
