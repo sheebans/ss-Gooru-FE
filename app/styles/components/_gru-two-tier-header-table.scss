@@ -153,6 +153,11 @@
       margin: 0 auto;
       text-align: center;
     }
+    .top-header >
+      th:nth-child(2) {
+        pointer-events: none;
+
+    }
   }
 }
 
