@@ -148,6 +148,15 @@
       }
     }
 
+    .question-score span.skipped {
+      color: $gray-icon;
+
+      i {
+        display: inline-flex;
+        margin-right: 67px;
+      }
+    }
+
     .question-reaction div {
       margin: 10px auto;
     }

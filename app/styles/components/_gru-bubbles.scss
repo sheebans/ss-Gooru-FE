@@ -9,6 +9,7 @@
     vertical-align: middle;
     line-height: 18px;
   }
+
   .summary-bubbles {
     width: 20px;
     height: 20px;
@@ -21,34 +22,39 @@
     line-height: 15px;
     margin-top: 5px;
   }
+
   .incorrect {
     border-color: $brand-incorrect;
     background-color: $brand-incorrect;
   }
+
   .correct {
     border-color: $brand-success;
     background-color: $brand-success;
   }
+
   .skipped {
     border-color: $light-200;
     background-color: $light-200;
   }
+
   .started {
     border-color: $green-600;
     background-color: $green-600;
   }
+
   .bubbles-list {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
     list-style: none;
-    padding: 10px 0 0 0;
+    padding: 10px 0 0;
     margin: 0;
+    display: inline-block;
+
     li {
       display: inline-block;
       padding: 0;
-      margin: 0px 7px 10px 0;
+      margin: 0 0 5px;
     }
+
     a {
       color: $white;
     }
