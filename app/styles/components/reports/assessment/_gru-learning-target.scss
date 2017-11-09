@@ -2,16 +2,17 @@
   .learning-target {
     border-radius: 5px;
     background-color: $white;
-    margin: 10px 0px;
+    margin: 10px 0;
     display: flex;
-    padding: 0px !important;
+    padding: 0 !important;
 
     .header-content {
       display: inline-block;
       font-size: $font-size-h6;
       line-height: $font-size-h6;
       width: 100%;
-      margin: 0 0 0px;
+      margin: 0;
+      border-left: 2px solid;
 
       .score {
         width: 61px;
@@ -29,19 +30,17 @@
 
       .learning-target-description {
         width: 100% !important;
-        overflow: hidden;
-        // border-bottom: 1px solid $light-300;
 
         .description {
-          height: 40px;
+          height: 60px;
           float: left;
-          width: 357px;
-          margin: 0px 25px;
+          width: 420px;
 
           .desc-align {
-            @include ellipsis($font-size: 13px, $line-height: 1.5, $lines-to-show: 2, $excerpt-bg: $white);
+            @include ellipsis($font-size: 13px, $line-height: 1.5, $lines-to-show: 3);
             margin-left: 10px;
-            width: 350px;
+            width: 415px;
+            position: absolute;
           }
         }
         @media (max-width: $screen-xs) {
@@ -51,12 +50,15 @@
 
         .standard-score {
           float: left;
+          width: 80px;
+          height: 35px;
+          text-align: center;
+
           .performance {
             height: 29px;
             width: 73px;
 
             .no-percentage {
-              margin-left: 24px;
               font-size: 35px;
               font-weight: 600;
               line-height: 3px;
@@ -65,7 +67,6 @@
           }
 
           .percentage {
-            margin-left: 24px;
             font-size: 25px;
             font-weight: 600;
             line-height: 31px;
@@ -74,22 +75,34 @@
       }
 
       .questions {
-        min-width: 165px;
-        display: none;
+        max-width: 330px;
+        display: block;
+        float: left;
+        max-width: 330px;
+        margin-left: 10px;
+        height: 50px;
+        border-left: 1px solid #b8bfc4;
         @media (min-width: $screen-xs) {
           display: block;
+        }
+
+        span {
+          font-size: 13px;
+          margin-left: 11px;
         }
       }
 
       .standard-tags {
-        width: 75px;
-        height: 36px;
-        object-fit: contain;
-        border-radius: 3px;
-        overflow: hidden;
+        width: 90px;
+        margin: 4px 0 0 0px;
+        height: 35px;
         padding: 2px;
+        overflow: hidden;
+        object-fit: contain;
+        text-align: center;
+        text-overflow: ellipsis;
+        border-radius: 3px;
         float: left;
-        margin-left: 10px;
       }
 
       .title {
@@ -105,9 +118,16 @@
       .gru-bubbles {
         .bubbles-list {
           flex-direction: row;
+          height: 20px;
           padding: 0;
           margin-left: 10px;
           width: auto;
+
+          li {
+            display: inline-block;
+            padding: 0;
+            margin: 0 4px 3px 0;
+          }
         }
       }
     }
@@ -128,12 +148,5 @@
         }
       }
     }
-  }
-}
-
-.gru-learning-target {
-  .learning-target {
-    width: 300px;
-    float: left;
   }
 }

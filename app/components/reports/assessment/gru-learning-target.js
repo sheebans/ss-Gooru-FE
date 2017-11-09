@@ -101,6 +101,11 @@ export default Ember.Component.extend({
       var status = '';
       if (questionResult.get('skipped')) {
         status = 'skipped';
+      } else if (
+        !questionResult.get('correct') &&
+        questionResult.get('started')
+      ) {
+        status = 'started';
       } else {
         status = questionResult.get('correct') ? 'correct' : 'incorrect';
       }
