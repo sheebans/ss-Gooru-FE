@@ -78,7 +78,7 @@ test('it renders for assessment', function(assert) {
   assessmentResult.merge(collection);
   this.set('assessmentResult', assessmentResult);
   this.set('areQuestionLinksHidden', false);
-
+  assessmentResult.set('score', 10);
   this.render(hbs`
     {{reports/assessment/gru-summary
       assessmentResult=assessmentResult
@@ -421,6 +421,7 @@ test('it renders for collection with questions', function(assert) {
     title: 'collection'
   });
 
+  assessmentResult.set('score', 10);
   assessmentResult.merge(collection);
 
   this.set('assessmentResult', assessmentResult);
