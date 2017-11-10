@@ -215,7 +215,9 @@
             </span>
             <img class="img-responsive" src="{{content.owner.avatarUrl}}">
             <span class="owner">{{content.owner.displayName}}</span>
-            {{#if content.remixCount}}+{{content.remixCount}}{{/if}}
+            {{#if content.remixCount}}
+               <span class="remix-counts">+{{content.remixCount}} </span>
+           {{/if}}
           {{/link-to}}
         {{/if}}
       {{/if}}
