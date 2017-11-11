@@ -98,20 +98,9 @@ export default Ember.Component.extend({
   getBubblesQuestions: function(questionResults) {
     let results = this.getQuestions(questionResults);
     return results.map(function(questionResult) {
-      var status = '';
-      if (questionResult.get('skipped')) {
-        status = 'skipped';
-      } else if (
-        !questionResult.get('correct') &&
-        questionResult.get('started')
-      ) {
-        status = 'started';
-      } else {
-        status = questionResult.get('correct') ? 'correct' : 'incorrect';
-      }
       return Ember.Object.create({
         label: questionResult.get('question.order'),
-        status: status,
+        status: questionResult.get('attemptStatus'),
         value: questionResult.get('id')
       });
     });
