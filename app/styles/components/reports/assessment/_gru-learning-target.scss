@@ -34,7 +34,7 @@
         .description {
           height: 60px;
           float: left;
-          width: 420px;
+          width: 410px;
 
           .desc-align {
             @include ellipsis($font-size: 13px, $line-height: 1.5, $lines-to-show: 3);
