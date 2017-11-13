@@ -1059,6 +1059,7 @@ export default Object.assign(quizzesTranslations, {
     },
     'current-activity': 'Current activity',
     'resume-current-activity': 'Resume Current Activity',
+    'not-available': '-NA-',
     'join-classroom': 'Join your teacher\'s classroom to start learning',
     learn: 'Learn with a Gooru classroom',
     'my-performance': {
