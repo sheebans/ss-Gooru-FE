@@ -5,12 +5,9 @@
   width: 100vw;
 
   .side-panel {
-    background: $blue-500;
-    background: -moz-linear-gradient(left, $blue-500 0%, $blue-400 100%);
-    background: -webkit-linear-gradient(left, $blue-500 0%, $blue-400 100%);
-    background: linear-gradient(-90deg, $blue-500 0%, $blue-400 100%);
-    box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
-    width: 18vw;
+    background: $white;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+    width: 20vw;
 
     .partner-library-info {
       @include flexbox;
@@ -20,13 +17,14 @@
 
       .partner-library-img {
         border-radius: 50%;
+        border: 1px solid $red-100;
         height: 9rem;
         margin-top: 20px;
         width: 9rem;
       }
 
       .partner-library-name {
-        color: $white;
+        color: $gray;
         font-size: $font-size-lead;
         font-weight: bold;
         overflow: hidden;
@@ -53,11 +51,11 @@
         padding: 7px 32px;
 
         h6 {
-          color: $white;
+          color: $gray;
         }
 
         &.selected {
-          background-color: rgba(255, 255, 255, 0.1);
+          background-color: $gray-sharper;
         }
 
         .gru-icon {
@@ -65,7 +63,7 @@
           height: 24px;
 
           &.content {
-            background: url(/assets/gooru/images/icon-content-light.svg)
+            background: url("/assets/gooru/images/icon-content-light.svg")
               no-repeat center center;
             width: 24px;
           }
@@ -76,15 +74,166 @@
 
   > .content {
     width: 82vw;
+    margin: 0 auto auto;
+    max-width: 1017px;
   }
 
   .partner-library-content {
     @include flexbox;
     @include align-items(center);
     @include justify-content(space-between);
-
-    background-color: rgb(55, 66, 75);
+    background-color: $light-100;
     height: 50px;
-    padding-left: 2rem;
+    margin-bottom: 30px;
+
+    .category-options li a span {
+      font-size: 16px;
+      color: $light-500;
+    }
+
+    .category-options li.active a {
+      padding-bottom: 3px;
+    }
+
+    .category-options ul li:first-of-type {
+      margin-left: 0;
+    }
+
+    .category-options li.active a > * {
+      color: $gray-darker;
+    }
+
+    .category-options li.active {
+      border-bottom: 4px solid #222;
+    }
+
+    .category-options li {
+      display: inline-block;
+      margin: 0 10px;
+      height: 100%;
+    }
+
+    .category-options ul li {
+      top: 3px;
+    }
+
+    .category-options li:hover {
+      border-bottom: 4px solid $gray-darker;
+    }
+
+    .category-options {
+      border-bottom: 2px solid $gray-light;
+      margin-left: 18px;
+      margin-right: 18px;
+
+      .btn-category span {
+        vertical-align: middle;
+        display: inline-block;
+        font-size: 16px;
+        margin: 0 5px 0 0;
+      }
+
+      .courses {
+        margin-left: 0;
+
+        i {
+          color: $light-500;
+        }
+      }
+    }
+  }
+
+  .content_outlet {
+    .content-collections {
+      .collections {
+        .card {
+          .gru-standard-card {
+            .panel .panel-footer {
+              padding: 0;
+
+              .options {
+                padding: 0;
+
+                .preview-btn {
+                  height: 44px;
+                  background-color: $blue-400;
+                }
+              }
+            }
+
+            .panel {
+              .cca-description {
+                .remixed-by {
+                  .title {
+                    width: 63px;
+                  }
+
+                  .owner {
+                    max-width: 75px;
+                  }
+                }
+
+                .author {
+                  .title {
+                    width: 63px;
+                  }
+
+                  .owner {
+                    max-width: 75px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .content_outlet {
+    .content-assessments {
+      .assessments {
+        .card {
+          .gru-standard-card {
+            .panel .panel-footer {
+              padding: 0;
+
+              .options {
+                padding: 0;
+
+                .preview-btn {
+                  height: 44px;
+                  background-color: $blue-400;
+                }
+              }
+            }
+
+            .panel {
+              .cca-description {
+                .remixed-by {
+                  .title {
+                    width: 63px;
+                  }
+
+                  .owner {
+                    max-width: 75px;
+                  }
+                }
+
+                .author {
+                  .title {
+                    width: 63px;
+                  }
+
+                  .owner {
+                    max-width: 75px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

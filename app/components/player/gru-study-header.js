@@ -39,59 +39,30 @@ export default Ember.Component.extend({
    */
   session: Ember.inject.service('session'),
 
+  /**
+   * @type {Learner} Service to retrieve course performance summary
+   */
+  learnerService: Ember.inject.service('api-sdk/learner'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
   classNames: ['gru-study-header'],
-  classNameBindings: [
-    'toggleState:expanded:collapsed',
-    'showConfirmation:hidden'
-  ],
+  classNameBindings: ['showConfirmation:hidden'],
 
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
     /**
-     * Redirect to course map
-     */
-    redirectCourseMap() {
-      if (this.get('classId')) {
-        this.get('router').transitionTo(
-          'student.class.course-map',
-          this.get('classId'),
-          { queryParams: { refresh: true } }
-        );
-      } else {
-        this.get('router').transitionTo(
-          'student.independent.course-map',
-          this.get('courseId'),
-          {
-            queryParams: { refresh: true }
-          }
-        );
-      }
-    },
-
-    /**
-     * Go back to collection
-     */
-    backToCollection() {
-      window.location.href = this.get('collectionUrl');
-    },
-
-    /**
-     * Action triggered when the performance information panel is expanded/collapsed
-     */
-    toggleHeader() {
-      this.toggleProperty('toggleState');
-      this.sendAction('onToggleHeader', this.get('toggleState'));
-    },
-    /**
      * Action triggered when a suggested resource is clicked
      */
     playSuggested(resource) {
-      let queryParams = { collectionUrl: window.location.href };
+      let collectionUrl = window.location.href;
+      if (!this.get('collectionUrl')) {
+        this.set('collectionUrl', collectionUrl);
+      }
+      let queryParams = { collectionUrl: this.get('collectionUrl') };
       let classId = this.get('classId');
       if (classId) {
         queryParams.classId = classId;
@@ -102,6 +73,40 @@ export default Ember.Component.extend({
         resource.id,
         { queryParams }
       );
+    },
+
+    /**
+     * Redirect to course map
+     */
+    redirectCourseMap() {
+      if (this.get('classId')) {
+        this.get('router').transitionTo(
+          'student.class.course-map',
+          this.get('classId'),
+          {
+            queryParams: {
+              refresh: true
+            }
+          }
+        );
+      } else {
+        this.get('router').transitionTo(
+          'student.independent.course-map',
+          this.get('courseId'),
+          {
+            queryParams: {
+              refresh: true
+            }
+          }
+        );
+      }
+    },
+
+    /**
+    * Go back to collection
+    */
+    backToCollection() {
+      window.location.href = this.get('collectionUrl');
     }
   },
 
@@ -110,8 +115,62 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    if (!this.get('collectionUrl')) {
-      this.loadContent();
+    this.loadContent();
+  },
+
+  didRender() {
+    this._super(...arguments);
+    let component = this;
+    component.$('.multi-item-carousel').carousel({ interval: false });
+    // for every slide in carousel, copy the next slide's item in the slide.
+    // Do the same for the next, next item.
+    component.$('.multi-item-carousel .item').each(function(index, element) {
+      var next = component.$(element).next();
+      if (!next.length) {
+        next = component.$(this).siblings(':first');
+      }
+      next
+        .children(':first-child')
+        .clone()
+        .appendTo(component.$(this));
+
+      if (next.next().length > 0) {
+        next
+          .next()
+          .children(':first-child')
+          .clone()
+          .appendTo(component.$(this));
+      } else {
+        component
+          .$(this)
+          .siblings(':first')
+          .children(':first-child')
+          .clone()
+          .appendTo(component.$(this));
+      }
+    });
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+    const performancePercentage = component.get('performancePercentage');
+    if (performancePercentage > 0) {
+      component
+        .$('.bar-charts')
+        .popover({
+          trigger: 'manual',
+          html: true,
+          placement: 'bottom'
+        })
+        .mouseover(function() {
+          component.$(this).popover('show');
+          let left =
+            component
+              .$('.bar-charts')
+              .find('.segment')
+              .width() - 50;
+          component.$('.popover').css({ top: '84px', left: `${left}px` });
+        })
+        .mouseleave(function() {
+          component.$(this).popover('hide');
+        });
     }
   },
 
@@ -145,15 +204,6 @@ export default Ember.Component.extend({
    * @property {collection} collection - The current Collection
    */
   collection: null,
-  /**
-   * @property {Resource} nextResource - Return the next resource
-   */
-  nextResource: Ember.computed('actualResource', 'collection', function() {
-    const collection = this.get('collection');
-    return collection && collection.nextResource
-      ? this.get('collection').nextResource(this.get('actualResource'))
-      : null;
-  }),
 
   /**
    * @property {Number} resourceSequence - The resource sequence in the collection / assessment
@@ -171,11 +221,6 @@ export default Ember.Component.extend({
   suggestedResources: null,
 
   /**
-   * @property {Array} list of breadcrumbs of a collection
-   */
-  breadcrumbs: null,
-
-  /**
    * @property {String} color - Hex color value for the bar in the bar chart
    */
   color: ANONYMOUS_COLOR,
@@ -184,12 +229,6 @@ export default Ember.Component.extend({
    * @property {String} color - Hex color value for the default bgd color of the bar chart
    */
   defaultBarColor: STUDY_PLAYER_BAR_COLOR,
-
-  /**
-   * Shows the performance information
-   * @property {Boolean} toggleState
-   */
-  toggleState: true,
 
   /**
    * Shows if the component is called from collection report
@@ -213,16 +252,16 @@ export default Ember.Component.extend({
    * @property {Number} barChartData
    */
   barChartData: Ember.computed(
-    'class.performanceSummary',
-    'class.courseCompetencyCompletion',
+    'performanceSummary',
+    'courseCompetencyCompletion',
     function() {
       const isNUCourse = this.get('isNUCourse');
       const completed = isNUCourse
-        ? this.get('class.courseCompetencyCompletion.completedCount')
-        : this.get('class.performanceSummary.totalCompleted');
+        ? this.get('courseCompetencyCompletion.completedCount')
+        : this.get('performanceSummary.totalCompleted');
       const total = isNUCourse
-        ? this.get('class.courseCompetencyCompletion.totalCount')
-        : this.get('class.performanceSummary.total');
+        ? this.get('courseCompetencyCompletion.totalCount')
+        : this.get('performanceSummary.total');
       const percentage = completed ? completed / total * 100 : 0;
       return [
         {
@@ -233,12 +272,9 @@ export default Ember.Component.extend({
     }
   ),
 
-  /**
-   * @property {String} lessonTitle
-   */
-  lessonTitle: Ember.computed('breadcrumbs', function() {
-    const breadcrumbs = this.get('breadcrumbs');
-    return breadcrumbs[1] || '';
+  performancePercentage: Ember.computed('barChartData', function() {
+    let data = this.get('barChartData').objectAt(0);
+    return data.percentage.toFixed(0);
   }),
 
   /**
@@ -252,6 +288,12 @@ export default Ember.Component.extend({
    * @type {Boolean}
    */
   isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
+
+  /**
+   * This property will decide to show the suggested resoure or not.
+   * @property {Boolean}
+   */
+  hasSuggestedResources: false,
 
   // -------------------------------------------------------------------------
   // Methods
@@ -273,32 +315,54 @@ export default Ember.Component.extend({
     if (classId) {
       Ember.RSVP
         .hash({
-          aClass: component.get('classService').readClassInfo(classId),
           classPerformanceSummaryItems: component
             .get('performanceService')
             .findClassPerformanceSummaryByStudentAndClassIds(myId, [classId])
         })
-        .then(({ aClass, classPerformanceSummaryItems }) => {
-          aClass.set(
+        .then(({ classPerformanceSummaryItems }) => {
+          component.set(
             'performanceSummary',
             classPerformanceSummaryItems.findBy('classId', classId)
           );
-          const isNUCourse = this.get('isNUCourse');
-          if (isNUCourse) {
-            Ember.RSVP
-              .hash({
-                courseCompetencyCompletion: component
-                  .get('performanceService')
-                  .findCourseCompetencyCompletionByCourseIds(myId, [courseId])
+        });
+    } else {
+      Ember.RSVP
+        .hash({
+          coursePerformanceSummaryItems: component
+            .get('learnerService')
+            .fetchCoursesPerformance(myId, [courseId])
+        })
+        .then(({ coursePerformanceSummaryItems }) => {
+          let coursePerformanceSummaryItem = coursePerformanceSummaryItems.findBy(
+            'courseId',
+            courseId
+          );
+          if (coursePerformanceSummaryItem) {
+            component.set(
+              'performanceSummary',
+              Ember.create({
+                totalCompleted: coursePerformanceSummaryItem.completedCount,
+                total: coursePerformanceSummaryItem.totalCount,
+                score: coursePerformanceSummaryItem.scoreInPercentage
               })
-              .then(({ courseCompetencyCompletion }) => {
-                aClass.set(
-                  'courseCompetencyCompletion',
-                  courseCompetencyCompletion.findBy('courseId', courseId)
-                );
-              });
+            );
           }
-          component.set('class', aClass);
+        });
+    }
+
+    const isNUCourse = this.get('isNUCourse');
+    if (isNUCourse) {
+      Ember.RSVP
+        .hash({
+          courseCompetencyCompletion: component
+            .get('performanceService')
+            .findCourseCompetencyCompletionByCourseIds(myId, [courseId])
+        })
+        .then(({ courseCompetencyCompletion }) => {
+          component.set(
+            'courseCompetencyCompletion',
+            courseCompetencyCompletion.findBy('courseId', courseId)
+          );
         });
     }
     if (collectionId) {
@@ -308,9 +372,12 @@ export default Ember.Component.extend({
           component.get('session.userId'),
           collectionId
         )
-        .then(suggestedResources =>
-          component.set('suggestedResources', suggestedResources)
-        );
+        .then(suggestedResources => {
+          component.set('suggestedResources', suggestedResources);
+          if (suggestedResources && suggestedResources.length > 0) {
+            component.set('hasSuggestedResources', true);
+          }
+        });
     }
   }
 });

@@ -33,12 +33,14 @@ export default Ember.Component.extend({
       const tempSavedUrl = this.get('savedUrl');
       const savedUrl = this.get('rubric.url');
       this.set('rubric.url', tempSavedUrl || null);
-      this.get('rubric').validate().then(({ validations }) => {
-        component.set(
-          'resource.url',
-          validations.get('isValid') ? tempSavedUrl : null
-        );
-      });
+      this.get('rubric')
+        .validate()
+        .then(({ validations }) => {
+          component.set(
+            'resource.url',
+            validations.get('isValid') ? tempSavedUrl : null
+          );
+        });
       this.set('rubric.uploaded', type === 'fromComputer');
       this.$('.gru-input.url input').val(tempSavedUrl);
       this.set('savedUrl', savedUrl);
@@ -67,13 +69,15 @@ export default Ember.Component.extend({
      */
     addURL: function(url) {
       this.set('emptyFileError', false);
-      this.get('rubric').validate().then(({ validations }) => {
-        if (validations.get('isValid') && !this.get('rubric.uploaded')) {
-          // For preview to work
-          let resource = this.get('resource');
-          resource.set('url', url);
-        }
-      });
+      this.get('rubric')
+        .validate()
+        .then(({ validations }) => {
+          if (validations.get('isValid') && !this.get('rubric.uploaded')) {
+            // For preview to work
+            let resource = this.get('resource');
+            resource.set('url', url);
+          }
+        });
     }
   },
 

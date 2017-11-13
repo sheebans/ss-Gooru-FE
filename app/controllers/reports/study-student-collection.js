@@ -1,6 +1,10 @@
 import Ember from 'ember';
 import StudentCollection from 'gooru-web/controllers/reports/student-collection';
-import { ASSESSMENT_SUB_TYPES, ROLES } from 'gooru-web/config/config';
+import {
+  ASSESSMENT_SUB_TYPES,
+  ROLES,
+  NU_COURSE_VERSION
+} from 'gooru-web/config/config';
 
 /**
  *
@@ -22,6 +26,11 @@ export default StudentCollection.extend({
    */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
+  /**
+   * @dependency {i18nService} Service to retrieve translations information
+   */
+  i18n: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -31,13 +40,6 @@ export default StudentCollection.extend({
      */
     next: function() {
       this.playNextContent();
-    },
-
-    /**
-     * Action triggered when the performance information panel is expanded/collapsed
-     */
-    toggleHeader: function(toggleState) {
-      this.set('toggleState', toggleState);
     },
 
     /**
@@ -91,12 +93,6 @@ export default StudentCollection.extend({
    * @property {Collection} collection
    */
   collection: null,
-
-  /**
-   * Shows the performance information
-   * @property {Boolean} toggleState
-   */
-  toggleState: true,
 
   /**
    *Back fill backfill suggestion
@@ -199,57 +195,104 @@ export default StudentCollection.extend({
   ),
 
   /**
-   * Shows the breadcrumbs info of the collection
-   * @property {Array[]}
+   * @property {String} It decide to show the back to course map or not.
    */
-  breadcrumbs: Ember.computed('collection', 'lesson', 'unit', function() {
-    let unit = this.get('unit');
-    let lesson = this.get('lesson');
-    let collection = this.get('collection');
-    let lessonChildren = lesson.children;
-    let titles = Ember.A([]);
-
-    let isChild = lessonChildren.findBy('id', collection.id);
-
-    if (unit) {
-      titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
-    }
-    if (lesson) {
-      titles.push(`L${lesson.get('sequence')}: ${lesson.get('title')}`);
-    }
-    if (collection && isChild) {
-      if (collection.isCollection) {
-        let collections = lessonChildren.filter(
-          collection => collection.format === 'collection'
-        );
-        collections.forEach((child, index) => {
-          if (child.id === collection.id) {
-            let collectionSequence = index + 1;
-            titles.push(`C${collectionSequence}: ${collection.get('title')}`);
-          }
-        });
-      } else {
-        let assessments = lessonChildren.filter(
-          assessment => assessment.format === 'assessment'
-        );
-        assessments.forEach((child, index) => {
-          if (child.id === collection.id) {
-            let assessmentSequence = index + 1;
-            titles.push(`A${assessmentSequence}: ${collection.get('title')}`);
-          }
-        });
-      }
-    } else {
-      titles.push(collection.get('title'));
-    }
-    return titles;
-  }),
+  showBackToCourseMap: true,
 
   /**
-   * Extracted the course version from course object
+   * @property {String} It decide to show the back to collection or not.
+   */
+  showBackToCollection: false,
+
+  /**
+   * Course version Name
    * @property {String}
    */
   courseVersion: Ember.computed.alias('course.version'),
+
+  /**
+   * Check it's nu course version or not
+   * @type {Boolean}
+   */
+  isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
+
+  /**
+   * Steps for Take a Tour functionality
+   * @return {Array}
+   */
+  steps: Ember.computed(function() {
+    let controller = this;
+    let steps = Ember.A([
+      {
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepOne.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepOne.description')
+      },
+      {
+        elementSelector: '.header-panel .course-map',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepTwo.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepTwo.description')
+      },
+      {
+        elementSelector: '.header-panel .content-title',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepThree.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepThree.description')
+      },
+      {
+        elementSelector: '.header-panel .suggest-player',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFour.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFour.description')
+      },
+      {
+        elementSelector:
+          '.header-panel .performance-completion-take-tour-info .completion',
+        title: controller.get('isNUCourse')
+          ? controller
+            .get('i18n')
+            .t('gru-take-tour.study-player.stepFive.nuTitle')
+          : controller
+            .get('i18n')
+            .t('gru-take-tour.study-player.stepFive.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFive.description')
+      },
+      {
+        elementSelector:
+          '.header-panel  .performance-completion-take-tour-info .performance',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSix.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSix.description')
+      },
+      {
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepEight.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepEight.description')
+      }
+    ]);
+    return steps;
+  }),
 
   // -------------------------------------------------------------------------
   // Methods
@@ -272,7 +315,9 @@ export default StudentCollection.extend({
         'resource-player',
         context.get('courseId'),
         suggestion.get('id'),
-        { queryParams }
+        {
+          queryParams
+        }
       );
     } else {
       this.transitionToRoute('study-player', context.get('courseId'), {

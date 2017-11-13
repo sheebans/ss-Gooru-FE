@@ -3,14 +3,15 @@
   collection=collection
   courseId=course.id
   courseTitle=course.title
-  breadcrumbs=breadcrumbs
   showConfirmation=false
-  onToggleHeader='toggleHeader'
   fromReport=true
   courseVersion=courseVersion
+  showBackToCourseMap=showBackToCourseMap
+  showBackToCollection=showBackToCollection
+  steps=steps
 }}
 
-<div class="report-container {{if toggleState 'expanded' 'collapsed'}}">
+<div class="report-container">
   {{#if hasAnySuggestion}}
     {{#if hasBackFillSuggestions}}
       <div class="suggestion-panel">
@@ -33,20 +34,21 @@
       </div>
     {{/if}}
   {{else}}
-    <div class="suggestion-panel no-suggestions">
+    <!-- <div class="suggestion-panel no-suggestions">
       {{#if isDone}}
         {{player.gru-player-done classId=classId}}
       {{else}}
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="description">{{t 'gru-suggest-test.no-suggestions'}}</div>
-            <div class="actions right">
-              <button class="btn btn-primary btn-next" {{action 'next'}}>{{t 'common.next'}}</button>
-            </div>
           </div>
         </div>
       {{/if}}
-    </div>
+    </div> -->
   {{/if}}
-  {{reports.qz-student-report attemptData=attemptData}}
+
+  <div class="summary-reset">
+    {{reports.qz-student-report attemptData=attemptData profile=profile}}
+  </div>
+  {{player.gru-player-summary-footer isDone=isDone classId=classId parents="next" collection=collection}}
 </div>

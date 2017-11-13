@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { alphabeticalStringSort, numberSort } from 'gooru-web/utils/utils';
+import { DEFAULT_IMAGES } from 'gooru-web/config/config';
 import { aggregateCollectionPerformanceSummaryItems } from 'gooru-web/utils/performance-summary';
 
 /**
@@ -18,6 +19,11 @@ export default Ember.Component.extend({
   // Attributes
 
   classNames: ['gru-performance-table'],
+  /**
+   * Query param, filterBy selected
+   * @property {String}
+   */
+  reportIcon: '',
 
   // -------------------------------------------------------------------------
   // Actions
@@ -56,7 +62,7 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     this._super(...arguments);
-
+    this.set('reportIcon', DEFAULT_IMAGES.REPORTICON);
     Ember.run.scheduleOnce('afterRender', this, function() {
       this.set('sortCriteria', this.initSortCriteria());
       this.resetSortByMetrics();

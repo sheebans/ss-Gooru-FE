@@ -95,12 +95,18 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     selectLesson: function(lessonId) {
       this.set('isResourceSelected', false);
-      if (!isUpdatingLocation) {
-        let updateValue = this.get('isExpanded') ? '' : lessonId;
-        this.get('onSelectLesson')(updateValue);
-        this.set('showLocation', false);
-      } else if (!this.get('isExpanded')) {
-        this.loadData();
+      if (this.get('isFromDCA')) {
+        if (!this.get('isExpanded')) {
+          this.loadData();
+        }
+      } else {
+        if (!isUpdatingLocation) {
+          let updateValue = this.get('isExpanded') ? '' : lessonId;
+          this.get('onSelectLesson')(updateValue);
+          this.set('showLocation', false);
+        } else if (!this.get('isExpanded')) {
+          this.loadData();
+        }
       }
     },
 
@@ -139,7 +145,11 @@ export default Ember.Component.extend(AccordionMixin, {
     studyNow: function(type, item) {
       let lessonId = this.get('model.id');
       if (type === 'lesson') {
-        this.get('onStudyNow')(type, item.id, this.get('items')[0]);
+        if (this.get('items') !== null) {
+          this.get('onStudyNow')(type, item.id, this.get('items')[0]);
+        } else {
+          this.get('onStudyNow')(type, item.id, item);
+        }
       } else {
         this.get('onStudyNow')(type, lessonId, item);
       }
@@ -276,6 +286,12 @@ export default Ember.Component.extend(AccordionMixin, {
   isNUCourse: false,
 
   /**
+   * Indicates if it is from daily class activities
+   * @property {Boolean}
+   */
+  isFromDCA: false,
+
+  /**
    * Check if study now button should be disabled
    * @type {Boolean}
    */
@@ -373,8 +389,14 @@ export default Ember.Component.extend(AccordionMixin, {
   /**
    * Removed the selected element if the user decide to show the current location
    */
-  showMyLocation: Ember.observer('showLocation', function() {
+  showMyLocation: Ember.observer('showLocation', 'toggleLocation', function() {
+    var divPosition =
+      $('.panel.selected').offset() || $('.panel.study-active').offset();
+
     if (this.get('showLocation')) {
+      if (divPosition) {
+        $('html, body').animate({ scrollTop: divPosition.top - 80 }, 'slow');
+      }
       this.set('activeElement', '');
     }
   }),

@@ -1,4 +1,4 @@
-<div class="controller class analytics collection student">
+<div class="controller analytics collection student">
   <div class="row">
     {{#if showBackLink}}
       <div class="col-sm-12 navigation">
@@ -26,6 +26,7 @@
           assessmentResult=assessmentResult
           onSelectAttempt='selectAttempt'
           onViewOEReport='viewOEReport'
+          profile=profile
         }}
       {{else}}
         {{t 'common.no-available-results'}}
@@ -33,4 +34,3 @@
     </div>
   </div>
 </div>
-

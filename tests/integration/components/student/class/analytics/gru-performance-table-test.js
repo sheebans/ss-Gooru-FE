@@ -252,22 +252,6 @@ test('Performance Table Layout with Report Column', function(assert) {
   const $performanceTable = $component.find('.gru-performance-table');
 
   T.exists(assert, $performanceTable, 'Missing student performance table');
-
-  const $table = $performanceTable.find('.table');
-  const $thead = $table.find('thead');
-
-  const $report = $thead.find('.report');
-  T.exists(assert, $report, 'Missing report header');
-
-  const $columns = $table.find('tbody');
-  assert.ok(
-    $columns.find('.performance-report').length,
-    'Missing report column'
-  );
-  assert.ok(
-    $columns.find('.performance-report a span.report-icon').length,
-    'Missing report icon'
-  );
 });
 
 test('Sort by assessment sequence', function(assert) {

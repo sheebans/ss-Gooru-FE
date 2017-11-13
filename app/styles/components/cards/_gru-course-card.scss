@@ -63,7 +63,7 @@
       > * {
         &::before {
           background-color: $gray-base;
-          content: '';
+          content: "";
           width: 5px;
         }
       }
@@ -90,7 +90,7 @@
     }
 
     .icon {
-      background: url('gooru/badge-01.png');
+      background: url("gooru/badge-01.png");
       height: 20px;
       position: absolute;
       right: 0;
@@ -135,7 +135,7 @@
 
     &::before {
       background-color: $light-100;
-      content: '';
+      content: "";
       height: 1px;
       left: -15px;
       position: absolute;

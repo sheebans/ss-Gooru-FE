@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import { test } from 'qunit';
 import moduleForAcceptance from 'gooru-web/tests/helpers/module-for-acceptance';
 import { authenticateSession } from 'gooru-web/tests/helpers/ember-simple-auth';
@@ -24,25 +23,19 @@ test('Layout', function(assert) {
 
     const $classContainer = find('.teacher.class');
     T.exists(assert, $classContainer, 'Missing class container');
-
-    const $classHeader = $classContainer.find('.header');
-    const $classCodeContainer = $classHeader.find('.code');
-    const $classroomInformation = $classHeader.find('.classroom-information');
-    const $courseInfo = $classroomInformation.find('.course-info');
-    const $graphics = $classroomInformation.find('.graphics');
-    const $students = $classroomInformation.find('.students');
-
-    T.exists(assert, $classHeader, 'Missing class header');
-    T.exists(assert, $classCodeContainer, 'Missing class code container');
     T.exists(
       assert,
-      $classroomInformation,
-      'Missing classroom information panel'
+      $classContainer.find('> .gru-class-navigation'),
+      'Missing class navigation component'
     );
-    T.exists(assert, $courseInfo, 'Missing course info section');
-    T.exists(assert, $graphics, 'Missing graphics section');
-    T.exists(assert, $students, 'Missing students section');
+    T.exists(
+      assert,
+      $classContainer.find('> .content'),
+      'Missing class content'
+    );
 
+    const $classHeader = $classContainer.find('.header');
+    T.exists(assert, $classHeader, 'Missing class header');
     T.exists(
       assert,
       $classHeader.find('.go-back-container .back-to'),
@@ -55,103 +48,60 @@ test('Layout', function(assert) {
       'Incorrect class title text'
     );
 
-    assert.equal(
-      T.text($classCodeContainer.find('.class-code')),
-      'I4BYYQZ',
-      'Incorrect class code text'
-    );
+    const $classroomInformation = $classHeader.find('.classroom-information');
     T.exists(
       assert,
-      $classCodeContainer.find('.gru-copy-value'),
-      'Missing copy value component'
-    );
-
-    T.exists(
-      assert,
-      $classroomInformation.find('.panel-heading'),
-      'Missing announcements panel-heading'
+      $classroomInformation,
+      'Missing classroom information panel'
     );
     T.exists(
       assert,
       $classroomInformation.find('.panel-body'),
-      'Missing announcements panel-body'
+      'Missing class info panel-body'
     );
 
-    T.exists(assert, $courseInfo.find('.legend'), 'Missing course info legend');
-    T.exists(
-      assert,
-      $courseInfo.find('.gru-course-card'),
-      'Missing gru-course-card component'
+    const $courseImage = $classroomInformation.find('.course-image');
+    T.exists(assert, $courseImage, 'Missing course image container');
+
+    const $courseName = $classroomInformation.find('.course-name');
+    T.exists(assert, $courseName, 'Missing course name');
+
+    const $countsContainer = $classroomInformation.find('.counts-container');
+    T.exists(assert, $countsContainer, 'Missing counts container');
+    assert.equal(
+      $countsContainer.find('.count').length,
+      2,
+      'Wrong number of counts'
     );
 
-    assert.equal($graphics.find('.graphic').length, 2, 'Number of graphics');
-    T.exists(
-      assert,
-      $graphics.find('.graphic.performance'),
-      'Missing performance graphic'
+    const $teacherProfile = $classroomInformation.find('.teacher-profile');
+    T.exists(assert, $teacherProfile, 'Missing teacher profile info');
+    T.exists(assert, $teacherProfile.find('img'), 'Missing owner avatar');
+    T.exists(assert, $teacherProfile.find('.owner-name'), 'Missing owner name');
+
+    const $taxonomyStandards = $classroomInformation.find(
+      '.taxonomy-standards'
     );
     T.exists(
       assert,
-      $graphics.find('.graphic.performance .gru-bubble-chart'),
-      'Missing performance gru-bubble-chart component'
-    );
-    T.exists(
-      assert,
-      $graphics.find('.graphic.performance .legend'),
-      'Missing performance legend'
-    );
-    T.exists(
-      assert,
-      $graphics.find('.graphic.completed'),
-      'Missing completed graphic'
-    );
-    T.exists(
-      assert,
-      $graphics.find('.graphic.completed .gru-radial-chart'),
-      'Missing completed gru-radial-chart component'
-    );
-    T.exists(
-      assert,
-      $graphics.find('.graphic.completed .legend'),
-      'Missing completed legend'
+      $taxonomyStandards,
+      'Missing taxonomy standards container'
     );
 
-    T.exists(
-      assert,
-      $students.find('.instructor'),
-      'Missing course instructor'
-    );
-    T.exists(
-      assert,
-      $students.find('.instructor .legend'),
-      'Missing course instructor legend'
-    );
-    T.exists(
-      assert,
-      $students.find('.instructor img'),
-      'Missing course instructor image'
-    );
-    T.exists(
-      assert,
-      $students.find('.instructor .owner'),
-      'Missing course instructor name'
-    );
-    T.exists(assert, $students.find('.members'), 'Missing course members');
-    T.exists(
-      assert,
-      $students.find('.members .legend'),
-      'Missing course members legend'
-    );
+    const $classCode = $classroomInformation.find('.class-code');
+    T.exists(assert, $classCode, 'Missing class code container');
 
-    T.exists(
-      assert,
-      $classContainer.find('> .gru-class-navigation'),
-      'Missing class navigation component'
+    const $copyClassCode = $classroomInformation.find('.copy-code');
+    T.exists(assert, $copyClassCode, 'Missing copy class code container');
+
+    const $performanceContainer = $classroomInformation.find(
+      '.performance-container'
     );
+    T.exists(assert, $performanceContainer, 'Missing performance container');
     T.exists(
       assert,
-      $classContainer.find('> .content'),
-      'Missing class content'
+      $performanceContainer.find('.gru-performance-chart'),
+      'Missing performance chart component'
     );
   });
 });
@@ -168,36 +118,6 @@ test('Click on back link', function(assert) {
     andThen(function() {
       assert.equal(currentURL(), '/teacher-home');
     });
-  });
-});
-
-test('Click the toggle button to collapse and expand header', function(assert) {
-  assert.expect(2);
-  visit('/teacher/class/class-for-pochita-as-teacher');
-  andThen(function() {
-    const $classContainer = find('.teacher.class');
-    const $panels = $classContainer.find('.header .panel');
-    const $toggle = $classContainer.find(
-      '.gru-class-navigation .extra-buttons a.collapse-expand'
-    );
-
-    assert.ok(
-      !$panels.css('display') || $panels.css('display') === 'block',
-      'The panels should be visible'
-    );
-    $toggle.click();
-    var done = assert.async();
-    Ember.run.later(
-      this,
-      () => {
-        assert.ok(
-          $panels.css('display') === 'none',
-          'The panels should be hidden'
-        );
-        done();
-      },
-      500
-    );
   });
 });
 

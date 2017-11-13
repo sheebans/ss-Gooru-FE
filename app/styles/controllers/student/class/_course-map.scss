@@ -3,26 +3,35 @@
     display: inline-block;
     text-align: right;
     float: right;
-    margin: 20px 0 0;
+    font-size: $font-size-base;
+    margin: -23px 0 0;
+    height: 24px;
     button {
-      padding: 3px 10px 3px 3px;
+      padding: 0 10px 0 7px;
       i {
         color: $white;
         font-size: $font-size-h5;
         width: 18px;
       }
       &.locate {
+        background-color: $green-400;
+        width: 35px;
+        height: 35px;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        margin: 0 0 0 40px;
         i {
-          font-size: $font-size-lead;
-          width: 24px;
+          margin: 0 3px 0 0;
+          font-size: $font-size-large;
         }
       }
     }
     .min-score {
-      margin-right: 13px;
-      vertical-align: text-top;
+      margin-right: 5px;
+      vertical-align: text-bottom;
       i {
-        background: url("gooru/images/trophy-dark.svg");
+        background: url("gooru/trophy.png");
         background-size: 20px 20px;
         height: 20px;
         width: 20px;
@@ -34,43 +43,31 @@
   .gru-accordion {
     clear: both;
     .panel-heading {
-      padding: 8px 5px;
+      padding: 0;
       margin: 0;
       background-color: $white;
-      @media (min-width: $screen-lg) {
-        padding: 8px 20px 8px 20px;
-      }
-
-      .panel-title {
-        > a {
-          width: 95%;
-          max-width: 95%;
-        }
-      }
-    }
-    .panel-heading.study-active {
-      background-color: $blue-400;
-      color: $white;
-      .panel-title {
-        .title {
-          .type {
-            color: $white;
+      height: 67px;
+      &.study-active {
+        -webkit-box-shadow: 0px 0px 11px 3px rgba(75, 151, 65, 1);
+        -moz-box-shadow: 0px 0px 11px 3px rgba(75, 151, 65, 1);
+        box-shadow: 0px 0px 11px 3px rgba(75, 151, 65, 1);
+        z-index: 9;
+        .info {
+          .btn.study-now {
+            width: 58px;
+            i {
+              font-size: $font-size-anonymous;
+              color: $green-400;
+            }
           }
         }
       }
-      .info {
-        .content-count.mixed {
-          > span:first-child {
-            border-right: 1px solid $white;
-          }
-        }
-        .gru-user-icons .item {
-          color: $white;
-        }
-      }
     }
-    .panel-group .panel + .panel {
-      margin-top: 10px;
+    .gru-accordion-lesson {
+      height: 67px;
+      &.expanded {
+        height: auto;
+      }
     }
   }
 }

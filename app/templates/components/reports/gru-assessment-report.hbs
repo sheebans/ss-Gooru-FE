@@ -1,3 +1,7 @@
+<div class="gru-assessment-summary">
+  <div class="reports-owner">
+    <span> {{profile.username}}</span>
+  </div>
 {{reports.assessment.gru-summary
   assessmentResult=assessmentResult
   areQuestionLinksHidden=areAnswersHidden
@@ -5,7 +9,12 @@
   onBubbleSelect='bubbleSelect'
   isRealTime=isRealTime
   showAttempts=showAttempts
-  showReactionBar=showReactionBar}}
+  showReactionBar=showReactionBar
+  profile=profile
+  questionCount=orderedQuestions.length
+  resourceCount=orderedResources.length
+  oeQuestionCount=orderedOpenEndedQuestions.length
+  }}
 
 {{#if areAnswersHidden}}
   <div class="hidden-report">
@@ -39,3 +48,4 @@
       showReactionBar=showReactionBar}}
   {{/if}}
 {{/if}}
+</div>

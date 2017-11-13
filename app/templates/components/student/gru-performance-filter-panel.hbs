@@ -86,6 +86,17 @@
               <div class="item ellipsis">
                   <input type="radio" name="unitOption" checked="{{if (eq unit.id unitId) 'checked'}}"
                     {{action 'selectUnit' unit.id preventDefault=false}}/> {{unit.title}}</div>
+                     <div class="content-panel lesson {{if isLessonFiltersExpanded 'visible' 'hidden'}}">
+                      <div class="items">
+                        {{#each lessons as |lesson|}}
+                            <div class="item ellipsis">
+                                <input type="radio" name="lessonOption" checked="{{if (eq lesson.id lessonId) 'checked'}}"
+                                  {{action 'selectLesson' lesson.id preventDefault=false}}/> {{lesson.title}}</div>
+                        {{else}}
+                          {{t 'common.no-content'}}
+                        {{/each}}
+                      </div>
+                  </div>
           {{else}}
             {{t 'common.no-content'}}
           {{/each}}
@@ -101,17 +112,7 @@
           {{/if}}
         </a>
     </div>
-    <div class="content-panel lesson {{if isLessonFiltersExpanded 'visible' 'hidden'}}">
-        <div class="items">
-          {{#each lessons as |lesson|}}
-              <div class="item ellipsis">
-                  <input type="radio" name="lessonOption" checked="{{if (eq lesson.id lessonId) 'checked'}}"
-                    {{action 'selectLesson' lesson.id preventDefault=false}}/> {{lesson.title}}</div>
-          {{else}}
-            {{t 'common.no-content'}}
-          {{/each}}
-        </div>
-    </div>
+   
     <div class="actions">
         <button class="btn btn-primary update-report" {{action 'updateReport'}}>
           {{gru-icon name='trending_up'}}

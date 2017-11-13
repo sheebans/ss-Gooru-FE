@@ -89,5 +89,20 @@ export default Ember.Component.extend({
   /**
    * @property {string} changeVisibility action name
    */
-  onChangeVisibility: 'changeVisibility'
+  onChangeVisibility: 'changeVisibility',
+
+  /**
+   * Toggle Options
+   * @property {Ember.Array}
+   */
+  switchOptions: Ember.A([
+    Ember.Object.create({
+      label: 'On',
+      value: true
+    }),
+    Ember.Object.create({
+      label: 'Off',
+      value: false
+    })
+  ])
 });

@@ -1,0 +1,30 @@
+<div class="nav-player-container">
+  <div class="prev disabled">
+    {{gru-icon name="ic_skip_previous"}}
+    <span>{{t "qz-question-viewer.previous"}}</span>
+  </div>
+
+
+  <div class="player-container">
+    <div class="player-info">
+      <div class="pull-left resource-title">
+        <span>Report: {{collection.title}}</span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="next-action">
+    {{#if isDone}}
+      {{#link-to 'student.class.course-map' classId }}
+        <div class="next {{unless isNextEnabled 'disabled'}}" data-toggle="tooltip" title="{{ t 'common.exit'}}">
+          <span>{{t 'common.exit'}}</span>
+        </div>
+      {{/link-to}}
+    {{else}}
+      <div {{action 'parentNext'}} class="next {{unless isNextEnabled 'disabled'}}" data-toggle="tooltip" title="{{ t 'common.next'}}">
+        <span>{{t 'common.next'}}</span> {{gru-icon name="ic_skip_next"}}
+      </div>
+    {{/if}}
+  </div>
+</div>

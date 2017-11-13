@@ -2,7 +2,7 @@
   <span>{{t 'common.preview'}}</span>
 {{/if}}
 {{#if url}}
-  {{#if (not (eq currentProtocol resourceProtocol))}}
+  {{#if isLinkOut}}
     <div class="external-link">
       <div class="panel panel-default placeholder">
         <div class="panel-body">

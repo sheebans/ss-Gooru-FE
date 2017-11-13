@@ -1,6 +1,6 @@
 .reports_study-student-collection {
-  overflow: auto;
-  height: 100vh;
+  // overflow: hidden;
+
   .app-container {
     padding: 0;
   }
@@ -10,31 +10,16 @@
   }
 
   .report-container {
-    &.expanded {
-      margin-top: 275px;
-      @media (min-width: $screen-sm) {
-        margin-top: 155px;
-      }
-      @media (min-width: $screen-md) {
-        margin-top: 130px;
-      }
-    }
-    &.collapsed {
-      margin-top: 40px;
-      @media (min-width: $screen-sm) {
-        margin-top: 65px;
-      }
-      @media (min-width: $screen-md) {
-        margin-top: 40px;
-      }
-    }
+    padding-top: 104px;
+    // height: 100vh;
+    // overflow: auto;
     .suggestion-panel {
-      padding: 20px 20px;
+      padding: 20px 180px;
       @media (min-width: $screen-sm) {
-        padding: 20px 10px;
+        padding: 20px 180px;
       }
       @media (min-width: $screen-md) {
-        padding: 20px 50px;
+        padding: 20px 180px;
       }
       .player.gru-suggest-test {
         width: 100%;
@@ -58,7 +43,18 @@
       }
     }
     .qz-assessment-report {
-      padding-top: 0;
+      .qz-assessment-summary {
+        background: $white;
+      }
+    }
+    .summary-report-next {
+      padding: 0px 190px 0px;
+      margin: 20px 0 0 auto;
+      .btn-next {
+        width: 71px;
+        height: 36px;
+        border-radius: 3px;
+      }
     }
   }
 }

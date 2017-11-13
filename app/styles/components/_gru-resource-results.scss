@@ -9,14 +9,16 @@
     color: $white;
   }
   .results {
-    margin: 20px 126px;
     @include flexbox;
     @include flex-wrap(wrap);
-    @include justify-content(space-around);
+    @include justify-content(left);
+    @media (max-width: $screen-sm) {
+      margin-left: 14%;
+    }
   }
   .gru-resource-card {
     display: inline-block;
-    margin: 10px;
+    margin: 10px 10px 28px 16px;
     text-align: left;
   }
   .no-results-found {

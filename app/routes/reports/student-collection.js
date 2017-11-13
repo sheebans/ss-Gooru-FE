@@ -40,6 +40,11 @@ export default QuizzesReport.extend(PublicRouteMixin, ContextMixin, {
     }
   },
 
+  //--------------------------------------------------------------------------
+  // Properties
+
+  collectionObj: null,
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -97,6 +102,8 @@ export default QuizzesReport.extend(PublicRouteMixin, ContextMixin, {
         params.type = collection.get('collectionType');
         params.contextId = id;
         params.role = role;
+        route.set('collectionObj', collection);
+        params.thumbnailUrl = collection.get('thumbnailUrl');
         return route.quizzesModel(params);
       });
   },
@@ -104,7 +111,10 @@ export default QuizzesReport.extend(PublicRouteMixin, ContextMixin, {
   setupController(controller, model) {
     this._super(...arguments);
     if (model && model.collection) {
-      controller.set('collection', model.collection);
+      let collectionObj = this.get('collectionObj');
+      let collection = model.collection;
+      collection.set('thumbnailUrl', collectionObj.get('thumbnailUrl'));
+      controller.set('collection', collection);
     }
   }
 });

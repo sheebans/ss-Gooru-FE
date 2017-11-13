@@ -6,33 +6,41 @@
       @include align-items(center);
       @include justify-content(center);
       padding: 2em;
+
       .gru-resource-card .header {
         border-bottom: none;
         padding: 0;
       }
     }
+
     .form-field {
       &.title {
         padding-left: 0;
       }
     }
+
     .not-iframe {
       padding: 25px;
+
       .panel-header {
         text-align: center;
       }
+
       p.description {
         line-height: $font-size-base;
       }
+
       p.title {
         font-size: $font-size-large;
         font-weight: 300;
-        margin: 0 0 7px 0;
+        margin: 0 0 7px;
       }
+
       .panel-footer {
         text-align: center;
         background-color: $white;
       }
+
       .panel-body {
         display: flex;
         justify-content: center;
@@ -42,17 +50,42 @@
 
         .cards.gru-resource-card {
           margin: 0 auto;
+
           .panel-heading {
-            padding: 12px 15px 0 15px;
+            padding: 12px 15px 0;
 
             .header {
               padding: 0;
               margin: 0;
               border: 0;
+
+              i {
+                &.webpage-icon {
+                  width: 35px;
+                }
+
+                &.video-icon {
+                  width: 35px;
+                }
+
+                &.video-icon {
+                  width: 37px;
+                }
+                &.image-icon {
+                  width: 36px;
+                }
+                &.text-icon {
+                  width: 36px;
+                }
+                &.interactive-icon {
+                  width: 40px;
+                }
+              }
             }
           }
+
           .panel-body {
-            padding: 12px 15px 0 15px;
+            padding: 12px 15px 0;
             display: block;
 
             .publisher {
@@ -61,35 +94,49 @@
               }
             }
           }
+
           .panel-footer {
             margin: 0;
             text-align: left;
+            .buttons {
+              padding: 10px;
+              width: 40px;
+            }
+            .resource-icon-btn {
+              width: 40px;
+            }
           }
         }
       }
     }
+
     .gru-taxonomy-selector {
       > div {
         display: table;
       }
+
       .gru-subject-picker {
         margin-bottom: 15px;
       }
     }
   }
+
   .tags {
     margin: 10px 0;
   }
+
   .century-skills {
     > label {
       width: 100%;
+
       .choose {
         float: left;
         padding: 4px 16px;
       }
+
       .skills-buttons {
         width: inherit;
-        margin: 5px 0 0 0;
+        margin: 5px 0 0;
         float: left;
       }
     }

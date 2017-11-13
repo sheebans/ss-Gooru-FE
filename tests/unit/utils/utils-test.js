@@ -25,7 +25,8 @@ import {
   createFileNameToDownload,
   isVideoURL,
   nullIfEmpty,
-  prepareStudentFileDataToDownload
+  prepareStudentFileDataToDownload,
+  validateSquareBracket
 } from 'gooru-web/utils/utils';
 
 import { module, test } from 'qunit';
@@ -270,49 +271,49 @@ test('getGradeColor', function(assert) {
 
   assert.equal(
     getGradeColor(70),
-    '#F8BA41',
+    '#FABA36',
     'Third bracket color -lowest value'
   );
   assert.equal(
     getGradeColor(75),
-    '#F8BA41',
+    '#FABA36',
     'Third bracket color -value in the middle'
   );
   assert.equal(
     getGradeColor(79),
-    '#F8BA41',
+    '#FABA36',
     'Third bracket color -highest value'
   );
 
   assert.equal(
     getGradeColor(80),
-    '#A3CA9F',
+    '#A8C99C',
     'Fourth bracket color -lowest value'
   );
   assert.equal(
     getGradeColor(85),
-    '#A3CA9F',
+    '#A8C99C',
     'Fourth bracket color -value in the middle'
   );
   assert.equal(
     getGradeColor(89),
-    '#A3CA9F',
+    '#A8C99C',
     'Fourth bracket color -highest value'
   );
 
   assert.equal(
     getGradeColor(90),
-    '#4B9741',
+    '#4B9740',
     'Fifth bracket color -lowest value'
   );
   assert.equal(
     getGradeColor(95),
-    '#4B9741',
+    '#4B9740',
     'Fifth bracket color -value in the middle'
   );
   assert.equal(
     getGradeColor(100),
-    '#4B9741',
+    '#4B9740',
     'Fifth bracket color -highest value'
   );
 });
@@ -1310,5 +1311,20 @@ test('Detects if url is from Vimeo or Youtube', function(assert) {
     isVideoURL(randomURL),
     false,
     'Any input, if not from Vimeo or Youtube, should return false.'
+  );
+});
+
+test('Test, square bracket pattern matching or not', function(assert) {
+  var validTextFormat = 'I am [smart]';
+  var inValidTextFormat = 'I [] am Smart';
+  assert.equal(
+    validateSquareBracket(validTextFormat),
+    true,
+    'The text ${validTextFormat} shoud return true'
+  );
+  assert.equal(
+    validateSquareBracket(inValidTextFormat),
+    false,
+    'The text ${inValidTextFormat} shoud return false'
   );
 });

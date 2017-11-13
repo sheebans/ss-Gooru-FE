@@ -2,8 +2,22 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import ClassModel from 'gooru-web/models/content/resource';
+import Course from 'gooru-web/models/content/course';
 import Ember from 'ember';
-import { NU_COURSE_VERSION } from 'gooru-web/config/config';
+
+const courseServiceStub = Ember.Service.extend({
+  fetchById(courseId) {
+    if (courseId) {
+      let course = Course.create(Ember.getOwner(this).ownerInjection(), {
+        id: 'course-123',
+        title: 'Sample Course Name'
+      });
+      return Ember.RSVP.resolve(course);
+    } else {
+      return Ember.RSVP.reject('Fetch failed');
+    }
+  }
+});
 
 moduleForComponent(
   'cards/gru-student-class-card',
@@ -13,7 +27,8 @@ moduleForComponent(
     beforeEach: function() {
       this.container.lookup('service:i18n').set('locale', 'en');
       this.inject.service('i18n');
-      this.inject.service('api-sdk/course');
+      this.register('service:api-sdk/course', courseServiceStub);
+      this.inject.service('api-sdk/course', { as: 'courseService' });
     }
   }
 );
@@ -64,52 +79,18 @@ test('Class Card Layout', function(assert) {
   T.exists(assert, $panel, 'Missing class card panel');
   T.exists(assert, $panelHeading, 'Missing class card panel heading');
   T.exists(assert, $panelBody, 'Missing class card panel body');
-  T.exists(assert, $panelHeading.find('h5'), 'Missing class card title');
+  T.exists(assert, $panelHeading.find('.title'), 'Missing class card title');
   assert.equal(
-    T.text($panelHeading.find('h5')),
+    T.text($panelHeading.find('> .title')),
     'My class - 1',
     'Wrong class title text'
   );
 
   T.exists(assert, $panelHeading.find('.code'), 'Missing class card code');
   assert.equal(
-    T.text($panelHeading.find('.code span')),
+    T.text($panelHeading.find('.code .class-code')),
     'VZFMEWH',
     'Wrong class code text'
-  );
-
-  T.exists(
-    assert,
-    $panelBody.find('.charts .charts.gru-bubble-chart'),
-    'Missing gru-bubble-chart component'
-  );
-  assert.equal(
-    T.text(
-      $panelBody.find('.charts .charts.gru-bubble-chart .bubble-circle span')
-    ),
-    '90%',
-    'Wrong performance score of the chart'
-  );
-  assert.equal(
-    T.text($panelBody.find('.charts .col-md-6:eq(0) span:eq(1)')),
-    this.get('i18n').t('student-landing.class.performance').string,
-    'Wrong legend of the performance chart'
-  );
-
-  T.exists(
-    assert,
-    $panelBody.find('.charts .charts.gru-radial-chart'),
-    'Missing gru-radial-chart component'
-  );
-  assert.equal(
-    T.text($panelBody.find('.charts .charts.gru-radial-chart text')),
-    '50%',
-    'Wrong completed score of the chart'
-  );
-  assert.equal(
-    T.text($panelBody.find('.charts .col-md-6:eq(1) span:eq(0)')),
-    this.get('i18n').t('common.completed').string,
-    'Wrong legend of the completed chart'
   );
 
   T.exists(
@@ -117,49 +98,40 @@ test('Class Card Layout', function(assert) {
     $panelBody.find('.information'),
     'Missing class information'
   );
+
+  const $links = $panelBody.find('.links');
+
+  T.exists(assert, $links, 'Missing card links');
+
+  assert.equal($links.find('li a').length, 3, 'Number of card links');
+  T.exists(
+    assert,
+    $links.find('.class-activities'),
+    'Missing class activities link'
+  );
+  T.exists(assert, $links.find('.course-map'), 'Missing content map link');
+  T.exists(assert, $links.find('.performance'), 'Missing performance link');
+
+  T.exists(
+    assert,
+    $panelBody.find('.performance'),
+    'Missing class performance'
+  );
+
   assert.equal(
-    T.text($panelBody.find('.information span:eq(0)')),
-    this.get('i18n').t('student-landing.current-activity').string,
-    'Wrong legend of the current activity'
+    T.text($panelBody.find('.performance .percentage')),
+    '90%',
+    'Wrong performance score of the chart'
+  );
+
+  T.exists(
+    assert,
+    $panelBody.find('.completion-chart .gru-x-bar-chart'),
+    'Missing completion-chart gru-x-bar-chart component'
   );
   assert.equal(
-    T.text($panelBody.find('.information .current-activity')),
-    this.get('i18n').t('common.not-applicable').string,
-    'Wrong legend of the current activity'
+    T.text($panelBody.find('.completion-chart label')),
+    '50% Completed',
+    'Wrong completed score of the chart'
   );
-});
-
-test('Student Class Card | NU Course : Completion metrics', function(assert) {
-  let classObj = Ember.Object.create({
-    isNUCourse: true,
-    courseCompetencyCompletion: Ember.Object.create({
-      completedCount: 2,
-      totalCount: 5
-    })
-  });
-  this.set('courseVersion', NU_COURSE_VERSION);
-  this.set('class', classObj);
-  this.render(hbs `{{cards/gru-student-class-card class=class}}`);
-  var $component = this.$(); //component dom element
-  const $classCard = $component.find('.gru-student-class-card');
-  const $panel = $classCard.find('.panel');
-  const $panelBody = $panel.find('.panel-body');
-  assert.equal(T.text($panelBody.find('.charts .charts.gru-radial-chart text')), '40%', 'Wrong completed score of the chart');
-});
-
-test('Student Class Card | Non NU Course : Completion metrics', function(assert) {
-  let classObj = Ember.Object.create({
-    isNUCourse: false,
-    performanceSummary: Ember.Object.create({
-      totalCompleted: 4,
-      total: 5
-    })
-  });
-  this.set('class', classObj);
-  this.render(hbs `{{cards/gru-student-class-card class=class}}`);
-  var $component = this.$(); //component dom element
-  const $classCard = $component.find('.gru-student-class-card');
-  const $panel = $classCard.find('.panel');
-  const $panelBody = $panel.find('.panel-body');
-  assert.equal(T.text($panelBody.find('.charts .charts.gru-radial-chart text')), '80%', 'Wrong completed score of the chart');
 });

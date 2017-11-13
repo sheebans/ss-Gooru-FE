@@ -218,6 +218,20 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       }
     ];
   }),
+
+  /*
+   *  @property {Object}  backButton
+   */
+  backButton: Ember.computed(function() {
+    return {
+      text: this.get('i18n').t('common.back'),
+      class: 'back-to',
+      name: 'keyboard_arrow_left',
+      visible: true,
+      action: () => this.back()
+    };
+  }),
+
   /**
    * @property {String} headerTitle
    */
@@ -277,6 +291,17 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    */
   cancel: function() {
     this.set('isEditing', false);
+  },
+
+  /*
+   * Back fucntion  for rubric edition
+   */
+  back: function() {
+    let rubric = this.get('rubric');
+    this.get('router').transitionTo(
+      'profile.content.rubrics',
+      rubric.get('owner')
+    );
   },
 
   delete: function() {

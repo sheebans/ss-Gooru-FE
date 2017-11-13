@@ -59,6 +59,7 @@ export default Ember.Component.extend(
       editContent: function() {
         var resourceForEditing = this.get('resource').copy();
         this.set('tempResource', resourceForEditing);
+        this.get('tempResource').set('owner', this.get('resource.owner'));
         this.set('isEditing', true);
         this.set('selectedSubject', null);
       },
@@ -447,6 +448,20 @@ export default Ember.Component.extend(
         }
       }
       return selectedCenturySkillsData;
-    }
+    },
+
+    /**
+    * Check it can be render inside player or not
+    * @property {boolean}
+    */
+
+    isLinkOut: Ember.computed('resource', function() {
+      let currentProtocol = this.get('currentProtocol');
+      let resourceProtocol = this.get('resourceProtocol');
+      if (currentProtocol === 'https:' && resourceProtocol === 'http:') {
+        return true;
+      }
+      return false;
+    })
   }
 );

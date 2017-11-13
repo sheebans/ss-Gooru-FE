@@ -53,42 +53,35 @@ test('Layout', function(assert) {
     $performanceFilterPanelHeader.find('.title'),
     'Missing filter header title'
   );
-  assert.equal(
-    T.text($performanceFilterPanel.find('.title')),
-    'Filter',
-    'Wrong header title text'
-  );
+  const units = [
+    Ember.Object.create({
+      collectionType: 'assessment',
+      courseId: '0101',
+      lessonId: '0103',
+      unitId: '0102',
+      title: 'new unit title',
+      isUnitFiltersExpanded: true
+    })
+  ];
+
+  this.set('units', units);
 
   const $performanceFilterPanelBody = $performanceFilterPanel.find('.body');
   T.exists(assert, $performanceFilterPanelBody, 'Missing filter body');
 
   const $filterType = $performanceFilterPanelBody.find('.filter-type');
-  assert.equal($filterType.length, 3, 'Incorrect number of filter Types');
+  assert.equal($filterType.length, 1, 'Incorrect number of filter Types');
 
   const $course = $performanceFilterPanelBody.find('.filter-type.course');
   assert.ok($course.length, 'Missing course option');
 
-  const $unit = $performanceFilterPanelBody.find('.filter-type.unit');
-  assert.ok($unit.length, 'Missing unit option');
-
-  const $lesson = $performanceFilterPanelBody.find('.filter-type.lesson');
-  assert.ok($lesson.length, 'Missing lesson option');
-
   const $contenPanel = $performanceFilterPanelBody.find('.content-panel');
-  assert.equal($contenPanel.length, 3, 'Incorrect number of content Panels');
+  assert.equal($contenPanel.length, 1, 'Incorrect number of content Panels');
 
   const $coursePanel = $performanceFilterPanelBody.find(
     '.content-panel.course'
   );
   assert.ok($coursePanel.length, 'Missing course panel');
-
-  const $unitPanel = $performanceFilterPanelBody.find('.content-panel.unit');
-  assert.ok($unitPanel.length, 'Missing unit panel');
-
-  const $lessonPanel = $performanceFilterPanelBody.find(
-    '.content-panel.lesson'
-  );
-  assert.ok($lessonPanel.length, 'Missing lesson panel');
 
   const $courseContentPanel = $performanceFilterPanelBody.find(
     '.content-panel.course'
@@ -96,17 +89,6 @@ test('Layout', function(assert) {
   assert.ok(
     $courseContentPanel.hasClass('visible'),
     'Course content panel is visible by default'
-  );
-
-  T.exists(
-    assert,
-    $performanceFilterPanelBody.find('.actions'),
-    'Missing action buttons'
-  );
-  T.exists(
-    assert,
-    $performanceFilterPanelBody.find('.update-report'),
-    'Missing update report button'
   );
 });
 
@@ -213,42 +195,30 @@ test('Do not show the course tab', function(assert) {
     $performanceFilterPanelHeader.find('.title'),
     'Missing filter header title'
   );
-  assert.equal(
-    T.text($performanceFilterPanel.find('.title')),
-    'Filter',
-    'Wrong header title text'
-  );
+
+  const units = [
+    Ember.Object.create({
+      collectionType: 'assessment',
+      courseId: '0101',
+      lessonId: '0103',
+      unitId: '0102',
+      title: 'new unit title',
+      isUnitFiltersExpanded: true
+    })
+  ];
+
+  this.set('units', units);
 
   const $performanceFilterPanelBody = $performanceFilterPanel.find('.body');
   T.exists(assert, $performanceFilterPanelBody, 'Missing filter body');
 
-  const $filterType = $performanceFilterPanelBody.find('.filter-type');
-  assert.equal($filterType.length, 2, 'Incorrect number of filter Types');
-
   const $course = $performanceFilterPanelBody.find('.filter-type.course');
   assert.notOk($course.length, 'Course filter should not appear');
-
-  const $unit = $performanceFilterPanelBody.find('.filter-type.unit');
-  assert.ok($unit.length, 'Missing unit option');
-
-  const $lesson = $performanceFilterPanelBody.find('.filter-type.lesson');
-  assert.ok($lesson.length, 'Missing lesson option');
-
-  const $contenPanel = $performanceFilterPanelBody.find('.content-panel');
-  assert.equal($contenPanel.length, 2, 'Incorrect number of content Panels');
 
   const $coursePanel = $performanceFilterPanelBody.find(
     '.content-panel.course'
   );
   assert.notOk($coursePanel.length, 'Course panel should not appear');
-
-  const $unitPanel = $performanceFilterPanelBody.find('.content-panel.unit');
-  assert.ok($unitPanel.length, 'Missing unit panel');
-
-  const $lessonPanel = $performanceFilterPanelBody.find(
-    '.content-panel.lesson'
-  );
-  assert.ok($lessonPanel.length, 'Missing lesson panel');
 
   const $courseContentPanel = $performanceFilterPanelBody.find(
     '.content-panel.course'
@@ -256,16 +226,5 @@ test('Do not show the course tab', function(assert) {
   assert.notOk(
     $courseContentPanel.hasClass('visible'),
     'Course content panel is not visible by default'
-  );
-
-  T.exists(
-    assert,
-    $performanceFilterPanelBody.find('.actions'),
-    'Missing action buttons'
-  );
-  T.exists(
-    assert,
-    $performanceFilterPanelBody.find('.update-report'),
-    'Missing update report button'
   );
 });

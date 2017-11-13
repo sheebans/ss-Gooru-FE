@@ -1,0 +1,24 @@
+<div class="content add-from-course-map">
+  <div class="go-back-container">
+    {{#link-to 'teacher.class.class-activities' class.id class="back-to"}}
+      {{gru-icon name='arrow_back'}}
+      {{t 'teacher-landing.class.back-to-class-activities'}}
+    {{/link-to}}
+  </div>
+  <div class="panel title">
+    <div class="panel-heading">
+     {{t "common.course-map"}}
+    </div>
+  </div>
+  {{#if class.courseId}}
+    {{class.overview.gru-accordion-course
+      currentClass=class
+      units=units
+      classMembers=members
+      contentVisibility=contentVisibility
+      isFromDCA=true
+      isTeacher=true}}
+  {{else}}
+    <div class="no-content">{{t 'student-landing.no-content-classrooms'}}</div>
+  {{/if}}
+</div>

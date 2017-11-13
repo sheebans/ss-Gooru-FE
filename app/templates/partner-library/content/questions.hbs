@@ -1,13 +1,16 @@
 <div class="controller content-questions">
-  <div class="questions clearfix">
+  <div class="questions clearfix col-xs-12">
     {{#each questions as |question|}}
-      <div class="card">
+      <div class="card col-lg-3 col-sm-4 col-xs-6">
         {{new-cards.gru-resource-card
           resource=question
           addEnabled=true
+          remixEnabled=true
+          isMyProfile=true
           onRemixQuestion="remixQuestion"
           onPlayResource="playQuestion"
           profile=sessionProfile
+          partnerLibrary=true
           isOnProfile=true}}
       </div>
     {{else}}
@@ -19,7 +22,9 @@
       </div>
     {{/each}}
   </div>
-  {{#if showMoreResultsButton}}
-    <span class="show-more-results" {{action 'showMoreResults'}}>{{t "common.show-more-results"}}</span>
-  {{/if}}
+  <div class="col-xs-12">
+    {{#if showMoreResultsButton}}
+      <span class="show-more-results" {{action 'showMoreResults'}}>{{t "common.show-more-results"}}</span>
+    {{/if}}
+  </div>
 </div>

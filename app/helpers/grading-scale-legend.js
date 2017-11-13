@@ -25,7 +25,6 @@ export function gradingScaleLegend(params, hash) {
 
   if (notStarted) {
     $legend.append(`<li class="not-started">
-                      <i></i>
                       <span>${notStarted}</span>
                    </li>`);
   }
@@ -38,17 +37,15 @@ export function gradingScaleLegend(params, hash) {
       ? GRADING_SCALE[i + 1].LOWER_LIMIT - 1
       : 100;
 
-    $legend.append(`<li>
-                      <i style="background-color: ${bracket.COLOR};"></i>
-                      <span>${bracket.LOWER_LIMIT} - ${upperLimit}%</span>
+    $legend.append(`<li style="background-color: ${bracket.COLOR};">
+                      <span class="textspancss">${bracket.LOWER_LIMIT} - ${upperLimit}%</span>
                    </li>`);
   }
 
   if (notScored) {
     $legend.append(
-      `<li class="not-scored"> \
-                      <i style="background-color: ${OPEN_ENDED_COLOR};"></i> \
-                      <span>${notScored}</span>\
+      `<li class="not-scored" style="background-color: ${OPEN_ENDED_COLOR};"> \
+                      <span >${notScored}</span>\
                    </li>`
     );
   }

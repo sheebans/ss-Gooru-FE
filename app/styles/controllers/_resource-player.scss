@@ -1,39 +1,29 @@
 .resource-player {
-  height: 100%;
-  .gru-header,
-  .gru-footer {
+  .gru-header {
     display: none;
   }
-
   .app-container {
-    margin: 0;
-    padding: 0;
+    padding-top: 0px;
+  }
+  .player-container {
+    overflow: auto;
     height: 100vh;
-  }
-
-  .qz-resource-viewer {
-    padding-bottom: 15px;
-  }
-
-  &.expanded {
-    .gru-player-done {
-      padding: 20px 50px;
+    .player {
+      @include flexbox;
+      @include flex-direction(row);
+      @include align-content(flex-start);
+      height: 100%;
+      padding-top: 104px;
     }
-    .qz-resource-viewer,
-    .gru-player-done {
-      padding-top: 300px;
-      @media (min-width: $screen-sm) {
-        padding-top: 170px;
-      }
-      @media (min-width: $screen-md) {
-        padding-top: 145px;
-      }
-    }
-  }
-  &.collapsed {
-    .qz-resource-viewer,
-    .gru-player-done {
-      padding-top: 55px;
+
+    .qz-main {
+      @include flexbox;
+      @include flex-direction(column);
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      margin-left: 20px;
+      margin-right: 20px;
     }
   }
 }

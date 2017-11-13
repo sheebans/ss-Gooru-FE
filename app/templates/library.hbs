@@ -1,10 +1,10 @@
-{{gru-take-tour steps=filteredSteps containerClass='library'}}
 <div class="libraries">
   {{content.gru-header options=options selected=selected}}
   {{#if (eq selected 'featured-courses')}}
     <div id="featured-courses">
       {{library.gru-browse-library
         courses=courses
+        onOpenContentPlayer="playCourse"
         onBookmarkCourse='onBookmarkCourse'
         onOpenIndependentPlayer="playIndependentContent"
         profile=profile
@@ -20,4 +20,7 @@
       </div>
     </div>
   {{/if}}
+  <div class="take-tour">
+    {{gru-take-tour steps=filteredSteps containerClass='library'}}
+  </div>
 </div>

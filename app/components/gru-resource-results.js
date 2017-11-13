@@ -62,5 +62,10 @@ export default Ember.Component.extend(ModalMixin, {
   /**
    * @property {array} Term used to search
    */
-  term: ''
+  term: '',
+
+  /**
+  * @property {boolean} isSearch component from search
+  */
+  isSearch: false
 });

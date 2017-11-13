@@ -25,11 +25,14 @@
 
       <div class="library-cards">
         {{#each content.courses as |course|}}
-          {{new-cards.gru-collection-card
+          {{new-cards.gru-standard-card
             content=course
             profile=profile
             isCourse=true
+            cardSize="md"
             publishVisible=true
+            novisibility=true
+            onOpenContentPlayer="playCourse"
             onBookmarkContent="onBookmarkCourse"
             onOpenIndependentPlayer="onIndependentPlayer"
           }}

@@ -31,6 +31,9 @@ test('Layout as a teacher', function(assert) {
       0,
       'Wrong number of unit accordions expanded'
     );
+
+    const $welcomePanel = $container.find('.panel.welcome');
+    assert.ok($welcomePanel.length, 'Missing welcome panel');
   });
 });
 

@@ -5,7 +5,8 @@ import { aggregateCollectionPerformanceSummaryItems } from 'gooru-web/utils/perf
 import {
   DEFAULT_IMAGES,
   EMOTION_VALUES,
-  GRADING_SCALE
+  GRADING_SCALE,
+  BARS_GRADING_SCALE
 } from 'gooru-web/config/config';
 /**
  * Function for sorting strings alphabetically in ascending order
@@ -158,12 +159,33 @@ export function getAnswerResultIcon(isCorrect) {
  */
 export function getGradeColor(grade) {
   var bracket = GRADING_SCALE.length - 1;
-  var color = '#949A9F'; // Default color - $dark-100
+  var color = '#E3E5EA'; // Default color
 
   if (isNumeric(grade)) {
     for (; bracket >= 0; bracket--) {
       if (grade >= GRADING_SCALE[bracket].LOWER_LIMIT) {
         color = GRADING_SCALE[bracket].COLOR;
+        break;
+      }
+    }
+  }
+  return color;
+}
+
+/**
+ * Find the color corresponding to the grade bracket that a specific grade belongs to
+ * @see gooru-web/config/config#BARS_GRADING_SCALE
+ * @param grade
+ * @returns {String} - Hex color value
+ */
+export function getBarGradeColor(grade) {
+  var bracket = BARS_GRADING_SCALE.length - 1;
+  var color = '#E3E5EA'; // Default color
+
+  if (isNumeric(grade)) {
+    for (; bracket >= 0; bracket--) {
+      if (grade >= BARS_GRADING_SCALE[bracket].LOWER_LIMIT) {
+        color = BARS_GRADING_SCALE[bracket].COLOR;
         break;
       }
     }
@@ -848,4 +870,13 @@ export function inferUploadType(filename, uploadTypes) {
     }
   }
   return selectedType;
+}
+
+/**
+ * Check both without [] and empty []
+ * @param {String} text - Text to validate for square brackets
+ * @return {Boolean}
+ */
+export function validateSquareBracket(text) {
+  return !/\[\]/g.test(text) && /(\[[^\]]+\])/g.test(text);
 }

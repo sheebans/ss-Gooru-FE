@@ -100,12 +100,11 @@ export default Ember.Component.extend({
     return results.map(function(questionResult) {
       return Ember.Object.create({
         label: questionResult.get('question.order'),
-        status: questionResult.get('correct') ? 'correct' : 'incorrect',
+        status: questionResult.get('attemptStatus'),
         value: questionResult.get('id')
       });
     });
   },
-
   getQuestions: function(questionResults) {
     let relatedQuestions = this.get('learningTarget.relatedQuestions');
     let questions = questionResults.filter(function(questionResult) {

@@ -1,7 +1,7 @@
-<div class="profile-content content-navigation">
-  <div class="category-menu">
+<div class="profile-content content-navigation col-md-12">
+  <div class="category-menu col-md-10 col-sm-12 col-xs-12">
     <ul class="nav nav-tabs category-options">
-      {{#link-to "profile.content.courses" tagName="li" class='courses'}}
+      {{#link-to "profile.content.courses" tagName="li" class='courses '}}
         <a href='{{view.href}}' class="btn btn-category">
           {{gru-icon name='chrome_reader_mode'}}
           <span>{{t "common.courses"}}</span>
@@ -27,7 +27,7 @@
       {{/link-to}}
       {{#link-to "profile.content.questions" tagName="li" class='questions'}}
         <a href='{{view.href}}' class="btn btn-category">
-          {{gru-icon name='help_outline '}}
+          <i class="icon"></i>
           <span>{{t "common.questions"}}</span>
         </a>
       {{/link-to}}
@@ -41,9 +41,9 @@
 
   </div>
   {{#if isMyProfile}}
-    <div class="btn-group hidden-xs">
-      <a href="#" class="btn btn-success" data-toggle="dropdown"><span class="hidden-sm">{{t "common.create"}}</span>{{gru-icon name="add" class="visible-sm-inline symbol"}}</a>
-      <a href="#" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+    <div class="btn-group hidden-xs col-sm-2">
+      <a href="#" class="btn btn-primary create-dropdown" data-toggle="dropdown"><span class="hidden-sm hidden-md">{{t "common.create"}}</span>{{gru-icon name="add" class="visible-sm-inline visible-md-inline symbol"}}</a>
+      <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
       <ul class="dropdown-menu dropdown-menu-right">
         <li><a class="course" href="#" {{action "showModal" "content.modals.gru-course-new"}}><i></i>{{t "common.course"}}</a></li>
         <li><a class="collection" href="#" {{action "showModal" "content.modals.gru-collection-new"}}><i></i>{{t "common.collection"}}</a></li>
@@ -54,24 +54,35 @@
       </ul>
     </div>
   {{/if}}
+  <div class="take-tour">
+    {{gru-take-tour steps=steps containerClass='profile'}}
+  </div>
 </div>
+
 {{#unless disableSearch}}
   <div class="container-fluid filters">
-    <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">
       <div class="search-navigation">
         <div class="search-keyword">
           <span class="search-icon">
             {{gru-icon name='search'}}
           </span>
-          {{validation.gru-input model=searchObject valuePath='term' placeholder=(t "common.search-placeholder") hasClearButton=true onEnter=(action "searchByTerm" value=searchObject.term) onClearContent='clearContent'}}
+          {{validation.gru-input model=searchObject valuePath='term' placeholder=(t "common.search-placeholder-text") hasClearButton=true onEnter=(action "searchByTerm" value=searchObject.term) onClearContent='clearContent'}}
         </div>
       </div>
     </div>
-    <div class="col-md-4 col-sm-4 col-xs-12">
-      <!--TODO IN COURSE AND NOT IN COURSE FILTERS-->
-    </div>
-    <div class="col-md-4 col-sm-4 hidden-xs sort">
+    <div class="col-lg-2 col-md-3 col-sm-3 hidden-xs sort sort-buttons">
       <div class="filter-date-asc btn-group" role="group">
+        <button type="button" title="Sort Alphabetically" data-toggle="tooltip" {{action 'filterByTitle'}} class="filter-asc btn {{if (eq sortOn 'title') 'btn-primary' 'btn-info'}}">
+          <span class="az-text">AZ</span>
+          {{#if (eq sortOn 'title')}}
+            {{#if (eq order 'desc')}}
+              <div class="arrow arrow-up"></div>
+            {{else}}
+              <div class="arrow arrow-down"></div>
+            {{/if}}
+          {{/if}}
+        </button>
         <button type="button" title="Sort by Most Recently Updated" data-toggle="tooltip" {{action 'filterByDate'}} class="filter-date btn {{if (eq sortOn 'updated_at') 'btn-primary' 'btn-info'}}">
           {{#if (eq sortOn 'updated_at')}}
             {{#if (eq order 'asc')}}
@@ -81,16 +92,6 @@
             {{/if}}
           {{/if}}
           {{gru-icon name='timer'}}
-        </button>
-        <button type="button" title="Sort Alphabetically" data-toggle="tooltip" {{action 'filterByTitle'}} class="filter-asc btn {{if (eq sortOn 'title') 'btn-primary' 'btn-info'}}">
-          {{gru-icon name='sort_by_alpha'}}
-          {{#if (eq sortOn 'title')}}
-            {{#if (eq order 'desc')}}
-              <div class="arrow arrow-up"></div>
-            {{else}}
-              <div class="arrow arrow-down"></div>
-            {{/if}}
-          {{/if}}
         </button>
       </div>
     </div>

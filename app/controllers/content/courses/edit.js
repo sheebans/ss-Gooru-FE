@@ -31,6 +31,16 @@ export default Ember.Controller.extend({
    */
   lessonId: null,
 
+  /**
+   * @property {string}
+   */
+  classId: null,
+
+  /**
+   * @property {string}
+   */
+  userId: null,
+
   // -------------------------------------------------------------------------
   // Methods
   resetValues: function() {

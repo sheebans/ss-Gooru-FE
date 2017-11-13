@@ -17,7 +17,8 @@ test('Layout when all completed', function(assert) {
 
   const student = Ember.Object.create({
     id: '56983a9060a68052c1ed934c',
-    fullName: 'Rocha, Perez'
+    fullName: 'Rocha, Perez',
+    lastFirstName: 'Perez, Rocha'
   });
 
   const reportData = Ember.A([
@@ -70,7 +71,7 @@ test('Layout when all completed', function(assert) {
   T.exists(assert, $header, 'Missing student box title');
   const $headerName = $header.find('.name');
   T.exists(assert, $headerName, 'Missing student box name');
-  assert.equal(T.text($headerName), 'Rocha, Perez', 'Wrong name');
+  assert.equal(T.text($headerName), 'Perez, Rocha', 'Wrong name');
   const $headerScore = $header.find('.score');
   T.exists(assert, $headerScore, 'Missing student box score');
   assert.equal(T.text($headerScore), '50%', 'Wrong score');

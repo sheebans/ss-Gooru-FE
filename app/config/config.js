@@ -36,7 +36,9 @@ export const DEFAULT_IMAGES = {
   RUBRIC: 'assets/gooru/rubric-default.png',
   COLLECTION: 'assets/gooru/collection-default.png',
   ASSESSMENT: 'assets/gooru/assessment-default.png',
-  QUESTION_PLACEHOLDER_IMAGE: 'assets/gooru/question-placeholder-image.png'
+  REPORTICON: '/assets/gooru/shape.png',
+  QUESTION_PLACEHOLDER_IMAGE: 'assets/gooru/question-placeholder-image.png',
+  LOADER_IMAGE: '/assets/gooru/giphy.gif'
 };
 
 export const K12_CATEGORY = {
@@ -107,8 +109,6 @@ export const EMOTION_VALUES = [
   { value: 1, unicode: '1f625' }
 ];
 
-export const DISABLED_EMOTION_UNICODE = '1f64d';
-
 // unicode values for the correct and incorrect svg files
 export const FEEDBACK_EMOTION_VALUES = {
   CORRECT: '1f44d',
@@ -123,11 +123,19 @@ export const SCORES = {
 };
 
 export const GRADING_SCALE = [
-  { LOWER_LIMIT: 0, COLOR: '#F46360' }, //red-400
-  { LOWER_LIMIT: 60, COLOR: '#ED8E36' }, //orange-400
-  { LOWER_LIMIT: 70, COLOR: '#F8BA41' }, //yellow-400
-  { LOWER_LIMIT: 80, COLOR: '#A3CA9F' }, //green-200
-  { LOWER_LIMIT: 90, COLOR: '#4B9741' } //green-400
+  { LOWER_LIMIT: 0, COLOR: '#F46360' },
+  { LOWER_LIMIT: 60, COLOR: '#ED8E36' },
+  { LOWER_LIMIT: 70, COLOR: '#FABA36' },
+  { LOWER_LIMIT: 80, COLOR: '#A8C99C' },
+  { LOWER_LIMIT: 90, COLOR: '#4B9740' }
+];
+
+export const BARS_GRADING_SCALE = [
+  { LOWER_LIMIT: 0, COLOR: '#D82100' },
+  { LOWER_LIMIT: 60, COLOR: '#CF7400' },
+  { LOWER_LIMIT: 70, COLOR: '#CC9700' },
+  { LOWER_LIMIT: 80, COLOR: '#4B9740' },
+  { LOWER_LIMIT: 90, COLOR: '#A8C99C' }
 ];
 
 export const ROLES = {
@@ -145,12 +153,16 @@ export const OPEN_ENDED_COLOR = '#0072BC'; //blue-400
 
 export const NO_ANSWER_COLOR = '#FFFFFF'; //white
 
-export const STUDY_PLAYER_BAR_COLOR = '#CDD2D6'; //$light-300
+export const STUDY_PLAYER_BAR_COLOR = '#0072BC'; //blue-400
+
+export const COMPLETION_CLASS_BAR_COLOR = '#535e67'; //$dark-300
 
 export const TIME_SPENT_CHART_COLOR = '#0072BC'; //blue-400
 
 // Height of the application header in pixels
 export const HEADER_HEIGHT = 50;
+
+export const DROP_MENU_DISPLAY = false; //i18n dropmenu display status
 
 export const REAL_TIME_CLIENT = {
   CONNECTION_ATTEMPT_DELAY: 3000,

@@ -61,6 +61,7 @@
     "ember-export-application-global": "1.0.5",
     "ember-i18n": "4.3.2",
     "ember-i18n-cp-validations": "2.8.0",
+    "ember-responsive": "2.0.5",
     "ember-simple-auth": "^1.1.0",
     "ember-truth-helpers": "1.2.0",
     "emberfire": "2.0.5",
@@ -90,6 +91,6 @@
     "firebase": "^3.6.2",
     "grunt-exec": "^1.0.0",
     "loader.js": "^4.0.11",
-    "quizzes-addon": "3.16.4"
+    "quizzes-addon": "3.17.0"
   }
 }

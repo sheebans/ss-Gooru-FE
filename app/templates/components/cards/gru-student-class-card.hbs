@@ -1,47 +1,114 @@
-<div class="panel">
-  {{#link-to 'student.class.course-map' class.id}}
-    <div class="panel-heading">
-      <div class="title">
-        <h5>{{class.title}}</h5>
+<div class="panel {{if course 'has-course' 'no-course'}}">
+  {{#if course}}
+    <div class="panel-heading" style="background-color:{{grade-color class.performanceSummary.score}}">
+      <div class="title ellipsis">
+        {{#link-to 'student.class.course-map' class.id}}
+          {{truncate text=class.title maxLength=25}}
+        {{/link-to}}
       </div>
       <div class="code">
-        <span>{{class.code}}</span>
+        <div class="title">{{t 'student-landing.class-code'}}</div>
+        <div class="class-code ellipsis">{{class.code}}</div>
       </div>
     </div>
-  {{/link-to}}
-  <div class="panel-body border-between">
-    <div class="charts col-md-5">
-      <div class="row">
-        <div class="col-md-6 performance">
-          {{charts.gru-bubble-chart content= (if class.performanceSummary (concat class.performanceSummary.score '%') '--') color=(grade-color class.performanceSummary.score)}}
-          <span>{{t 'student-landing.class.performance'}}</span>
-        </div>
-        <div class="col-md-6 completed">
-          {{#if class.isNUCourse}}
-            {{charts.gru-radial-chart
-            value=class.courseCompetencyCompletion.completedCount
-            minValue=0
-            maxValue=class.courseCompetencyCompletion.totalCount}}
-          {{else}}
-            {{charts.gru-radial-chart
-            value=class.performanceSummary.totalCompleted
-            minValue=0
-            maxValue=class.performanceSummary.total}}
+    <div class="panel-body" style="background-color:{{grade-color class.performanceSummary.score}}">
+      <div class="information" style="background-image: url({{course.thumbnailUrl}})">
+        <div class="current-activity">{{t "student-landing.resume-current-activity"}}</div>
+        <div class="title-section">
+          {{#if showCurrentLocation}}
+            <i class="{{if class.currentLocation.collection.isAssessment 'assessment' 'collection'}}"></i>
+            <div class="title pointer" alt="{{class.currentLocation.collection.title}}" {{action "playCollection"}}>
+              {{truncate text=currentLocationTitle maxLength=90}}
+            </div>
+            {{else}}
+              <span>{{t "student-landing.not-available"}}</span>
           {{/if}}
-          <span>{{t "common.completed"}}</span>
+        </div>
+      </div>
+      <div class="links">
+        <ul>
+          <li class="class-activities">
+            <a {{action 'selectItem' 'class-activities'}}>
+              <span>{{t 'student-landing.class.class-activities'}}</span>
+            </a>
+          </li>
+          <li class="course-map">
+            <a {{action 'selectItem' 'course-map'}}>
+              <span>{{t 'student-landing.class.course-map'}}</span>
+            </a>
+          </li>
+          <li class="performance">
+            <a {{action 'selectItem' 'performance'}}>
+              <span>{{t 'student-landing.class.my-report'}}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="performance" style="background-color:{{grade-color class.performanceSummary.score}}">
+        {{#link-to 'student.class.performance' class.id class="pointer percentage" tagName="div"}}
+          {{scorePercentage}}
+        {{/link-to}}
+        <div class="completion-chart">
+          {{charts/gru-x-bar-chart data=barChartData }}
+          <label>{{completedPercentage}}</label>
         </div>
       </div>
     </div>
-    <div class="information col-md-7">
-      <span>{{t "student-landing.current-activity"}}</span>
-      <div class="current-activity ellipsis">
-        {{#if showCurrentLocation}}
-          <i class="{{if class.currentLocation.collection.isAssessment 'assessment' 'collection'}}"></i>
-          {{class.currentLocation.collection.title}}, {{t "student-landing.class.unit"}} {{plus-one class.currentLocation.unitIndex}}, {{t "student-landing.class.lesson" }} {{plus-one class.currentLocation.lessonIndex}}
-        {{else}}
-          {{t "common.not-applicable"}}
-        {{/if}}
+  {{else}}
+    <div class="panel-heading">
+      <div class="title">
+        {{#link-to 'student.class.course-map' class.id}}
+          {{truncate text=class.title maxLength=25}}
+        {{/link-to}}
+      </div>
+      <div class="code">
+        <div class="title">{{t 'student-landing.class-code'}}</div>
+        <div class="class-code">{{class.code}}</div>
       </div>
     </div>
-  </div>
+    <div class="panel-body">
+      <div class="information">
+        <div class="current-activity">{{t "student-landing.resume-current-activity"}}</div>
+        <div class="title-section">
+          {{#if showCurrentLocation}}
+            <i class="{{if class.currentLocation.collection.isAssessment 'assessment' 'collection'}}"></i>
+            <div class="title pointer" alt="{{class.currentLocation.collection.title}}" {{action "playCollection"}}>
+              {{truncate text=currentLocationTitle maxLength=90}}
+            </div>
+          {{else}}
+            <span>{{t "student-landing.not-available"}}</span>
+          {{/if}}
+        </div>
+        <span class="no-course-assigned">{{t "student-landing.class.no-course-assigned"}}</span>
+      </div>
+      <div class="links">
+        <ul>
+          <li class="class-activities">
+            <a {{action 'selectItem' 'class-activities'}}>
+              <span>{{t 'student-landing.class.class-activities'}}</span>
+            </a>
+          </li>
+          <li class="course-map">
+            <a {{action 'selectItem' 'course-map'}}>
+              <span>{{t 'student-landing.class.course-map'}}</span>
+            </a>
+          </li>
+          <li class="performance">
+            <a {{action 'selectItem' 'performance'}}>
+              <span>{{t 'student-landing.class.my-report'}}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="performance">
+        {{#link-to 'student.class.performance' class.id class="pointer percentage" tagName="div"}}
+          {{scorePercentage}}
+        {{/link-to}}
+        <div class="completion-chart">
+          {{charts/gru-x-bar-chart data=barChartData }}
+          <label>{{completedPercentage}}</label>
+        </div>
+      </div>
+    </div>
+  {{/if}}
 </div>

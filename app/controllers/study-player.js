@@ -1,5 +1,8 @@
 import Ember from 'ember';
-import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
+import {
+  ASSESSMENT_SUB_TYPES,
+  NU_COURSE_VERSION
+} from 'gooru-web/config/config';
 import PlayerController from 'gooru-web/controllers/player';
 
 /**
@@ -25,6 +28,7 @@ export default PlayerController.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @property {CourseMapService}
    */
@@ -35,16 +39,14 @@ export default PlayerController.extend({
    */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
+  /**
+   * @dependency {i18nService} Service to retrieve translations information
+   */
+  i18n: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-    /**
-     * Action triggered when the performance information panel is expanded/collapsed
-     */
-    toggleHeader: function(toggleState) {
-      this.set('toggleState', toggleState);
-    },
-
     /**
      * If the user want to continue playing the collection
      */
@@ -112,12 +114,6 @@ export default PlayerController.extend({
   pathId: null,
 
   /**
-   * Shows the performance information
-   * @property {Boolean} toggleState
-   */
-  toggleState: true,
-
-  /**
    * Indicates if it should show the back button
    * @property {boolean}
    */
@@ -149,57 +145,120 @@ export default PlayerController.extend({
   typeSuggestion: ASSESSMENT_SUB_TYPES.PRE_TEST,
 
   /**
-   * Shows the breadcrumbs info of the collection
-   * @property {Array[]}
-   */
-  breadcrumbs: Ember.computed('collection', 'lesson', 'unit', function() {
-    let unit = this.get('unit');
-    let lesson = this.get('lesson');
-    let collection = this.get('collection');
-    let lessonChildren = lesson.children;
-    let titles = Ember.A([]);
-
-    let isChild = lessonChildren.findBy('id', collection.id);
-
-    if (unit) {
-      titles.push(`U${unit.get('sequence')}: ${unit.get('title')}`);
-    }
-    if (lesson) {
-      titles.push(`L${lesson.get('sequence')}: ${lesson.get('title')}`);
-    }
-    if (collection && isChild) {
-      if (collection.isCollection) {
-        let collections = lessonChildren.filter(
-          collection => collection.format === 'collection'
-        );
-        collections.forEach((child, index) => {
-          if (child.id === collection.id) {
-            let collectionSequence = index + 1;
-            titles.push(`C${collectionSequence}: ${collection.get('title')}`);
-          }
-        });
-      } else {
-        let assessments = lessonChildren.filter(
-          assessment => assessment.format === 'assessment'
-        );
-        assessments.forEach((child, index) => {
-          if (child.id === collection.id) {
-            let assessmentSequence = index + 1;
-            titles.push(`A${assessmentSequence}: ${collection.get('title')}`);
-          }
-        });
-      }
-    } else {
-      titles.push(collection.get('title'));
-    }
-    return titles;
-  }),
-
-  /**
    * Course version Name
    * @property {String}
    */
   courseVersion: Ember.computed.alias('course.version'),
+
+  /**
+   * Check it's nu course version or not
+   * @type {Boolean}
+   */
+  isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
+
+  /**
+   * @property {String} It decide to show the back to course map or not.
+   */
+  showBackToCourseMap: true,
+
+  /**
+   * @property {String} It decide to show the back to collection or not.
+   */
+  showBackToCollection: false,
+
+  /**
+   * Indicates if it should default player header
+   * @property {boolean}
+   */
+  showPlayerHeader: false,
+
+  /**
+   * Steps for Take a Tour functionality
+   * @property {Array}
+   */
+  steps: Ember.computed(function() {
+    let controller = this;
+    let steps = Ember.A([
+      {
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepOne.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepOne.description')
+      },
+      {
+        elementSelector: '.header-panel .course-map',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepTwo.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepTwo.description')
+      },
+      {
+        elementSelector: '.header-panel .content-title',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepThree.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepThree.description')
+      },
+      {
+        elementSelector: '.header-panel .suggest-player',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFour.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFour.description')
+      },
+      {
+        elementSelector:
+          '.header-panel .performance-completion-take-tour-info .completion',
+        title: controller.get('isNUCourse')
+          ? controller
+            .get('i18n')
+            .t('gru-take-tour.study-player.stepFive.nuTitle')
+          : controller
+            .get('i18n')
+            .t('gru-take-tour.study-player.stepFive.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFive.description')
+      },
+      {
+        elementSelector:
+          '.header-panel  .performance-completion-take-tour-info .performance',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSix.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSix.description')
+      },
+      {
+        elementSelector: '.qz-player-footer .qz-emotion-picker',
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSeven.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepSeven.description'),
+        position: 'top'
+      },
+      {
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepEight.title'),
+        description: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepEight.description')
+      }
+    ]);
+    return steps;
+  }),
 
   /**
    * Resets to default values
@@ -208,7 +267,8 @@ export default PlayerController.extend({
     //TODO: call the parent reset values method
     this.setProperties({
       showSuggestion: true,
-      toggleState: true,
+      showBackToCourseMap: true,
+      showBackToCollection: false,
       classId: null,
       unitId: null,
       lessonId: null,

@@ -36,7 +36,6 @@
     class="clearfix"}}
     <div class="actions">
       {{#if isMyProfile}}
-      {{#link-to 'profile.edit' tagName="button" class="edit btn btn-default btn-lg"}}{{t "common.edit"}}{{/link-to}}
       {{else}}
       <button class="btn btn-default btn-lg {{if profile.isFollowing 'unfollow' 'follow'}}" {{action 'toggleFollowingStatus'}}>
         {{if profile.isFollowing (t "common.unfollow") (t "common.follow")}}

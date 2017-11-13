@@ -49,14 +49,27 @@ export default Ember.Controller.extend({
     locateMe: function(location) {
       this.set('location', location);
       this.set('showLocation', true);
+      this.set('toggleLocation', !this.get('toggleLocation'));
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
 
+  init: function() {
+    this._super(...arguments);
+    Ember.run.scheduleOnce('afterRender', this, function() {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  },
+
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * @property {boolean} toggleLocation - indicates the toggle location state to scroll down
+   */
+  toggleLocation: false,
 
   /**
    * @prop {String} userLocation - Location of a user in a course

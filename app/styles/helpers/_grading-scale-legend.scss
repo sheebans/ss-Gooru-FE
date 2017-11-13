@@ -10,6 +10,10 @@
     line-height: 1;
     margin-right: 1em;
     display: table;
+    border-radius: 19px;
+    height: 15px;
+    width: 75px;
+    margin: 0 5px 0 0;
 
     @media (max-width: $screen-xs) {
       width: 80px;
@@ -26,15 +30,26 @@
       display: table-cell;
       vertical-align: middle;
     }
+    .textspancss {
+      width: 75px;
+      height: 12px;
+      object-fit: contain;
+      font-family: Lato;
+      font-size: 12px;
+      text-align: center;
+      color: #ffffff;
+    }
 
     &.not-started {
-      i {
-        border: 1px solid $gray-light;
-        background-color: $light-200;
-      }
+      background-color: $light-200;
+      text-align: center;
     }
     &:last-child {
       margin: 0;
+    }
+    &.not-scored {
+      color: $white;
+      text-align: center;
     }
   }
 }

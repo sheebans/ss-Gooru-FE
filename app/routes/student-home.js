@@ -1,7 +1,11 @@
 import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
-import { NU_COURSE_VERSION } from 'gooru-web/config/config';
+import {
+  ROLES,
+  NU_COURSE_VERSION,
+  PLAYER_EVENT_SOURCE
+} from 'gooru-web/config/config';
 
 /**
  * Student home route
@@ -23,12 +27,108 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   courseService: Ember.inject.service('api-sdk/course'),
 
   /**
+   * @property {NavigateMapService}
+   */
+  navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
+
+  /**
    * @dependency {i18nService} Service to retrieve translations information
    */
   i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Actions
+
+  actions: {
+    /**
+     * Open the player with the specific currentLocation
+     *
+     * @function actions:playItem
+     * @param {string} currentLocation - All the params for the currentLocation
+     */
+    studyPlayer: function(currentLocation) {
+      const route = this;
+      let role = ROLES.STUDENT;
+      let source = PLAYER_EVENT_SOURCE.COURSE_MAP;
+      let courseId = currentLocation.get('courseId');
+      let classId = currentLocation.get('classId');
+      let unitId = currentLocation.get('unitId');
+      let lessonId = currentLocation.get('lessonId');
+      let collectionId = currentLocation.get('collectionId');
+      let collectionType = currentLocation.get('collectionType');
+      let collectionSubType = currentLocation.get(
+        'collection.collectionSubType'
+      );
+      let pathId = currentLocation.get('collection.pathId') || 0;
+      let queryParams = {
+        classId,
+        unitId,
+        lessonId,
+        collectionId,
+        role,
+        source,
+        type: collectionType,
+        subtype: collectionSubType,
+        pathId
+      };
+
+      let suggestionPromise = null;
+      // Verifies if it is a suggested Collection/Assessment
+      if (collectionSubType) {
+        suggestionPromise = route
+          .get('navigateMapService')
+          .startSuggestion(
+            courseId,
+            unitId,
+            lessonId,
+            collectionId,
+            collectionType,
+            collectionSubType,
+            pathId,
+            classId
+          );
+      } else {
+        suggestionPromise = route
+          .get('navigateMapService')
+          .startCollection(
+            courseId,
+            unitId,
+            lessonId,
+            collectionId,
+            collectionType,
+            classId
+          );
+      }
+
+      suggestionPromise.then(() =>
+        route.transitionTo('study-player', courseId, { queryParams })
+      );
+    },
+
+    /**
+     * Triggered when a student card menu item is selected
+     * @param {string} item
+     * @param {string} classId
+     */
+    selectMenuItem: function(item, classId) {
+      const route = this;
+      const queryParams = {
+        queryParams: {
+          filterBy: 'assessment'
+        }
+      };
+
+      if (item === 'performance') {
+        route.transitionTo('student.class.performance', classId, queryParams);
+      } else if (item === 'course-map') {
+        route.transitionTo('student.class.course-map', classId);
+      } else if (item === 'class-activities') {
+        route.transitionTo('student.class.class-activities', classId);
+      } else {
+        route.transitionTo('student-home');
+      }
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Methods
@@ -94,6 +194,15 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
           .t('gru-take-tour.student-home.stepEight.description')
       },
       {
+        elementSelector: '.student-left-panel .featured-courses',
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-home.stepFeaturedCourses.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-home.stepFeaturedCourses.description')
+      },
+      {
         elementSelector: '.student-navigator .active-classes a',
         title: route.get('i18n').t('gru-take-tour.student-home.stepTen.title'),
         description: route
@@ -110,7 +219,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
           .t('gru-take-tour.student-home.stepEleven.description')
       },
       {
-        elementSelector: '.student-navigator .actions .join-class-cta',
+        elementSelector: '.content .gru-join-class-card',
         title: route
           .get('i18n')
           .t('gru-take-tour.student-home.stepTwelve.title'),
@@ -133,12 +242,20 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       route.controllerFor('application').get('myClasses'); //after login the variable is refreshed at the controller
     let firstCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
     let secondCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
+    let thirdCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
+    let fourthCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
     const myId = route.get('session.userId');
     const firstCourseId = configuration.get(
       'exploreFeaturedCourses.firstCourseId'
     );
     const secondCourseId = configuration.get(
       'exploreFeaturedCourses.secondCourseId'
+    );
+    const thirdCourseId = configuration.get(
+      'exploreFeaturedCourses.thirdCourseId'
+    );
+    const fourthCourseId = configuration.get(
+      'exploreFeaturedCourses.fourthCourseId'
     );
     const activeClasses = myClasses.getStudentActiveClasses(myId);
     var featuredCourses = Ember.A([]);
@@ -151,17 +268,31 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         .get('courseService')
         .fetchById(secondCourseId);
     }
+    if (thirdCourseId) {
+      thirdCoursePromise = route.get('courseService').fetchById(thirdCourseId);
+    }
+    if (fourthCourseId) {
+      fourthCoursePromise = route
+        .get('courseService')
+        .fetchById(fourthCourseId);
+    }
     return Ember.RSVP
       .hash({
         firstCourse: firstCoursePromise,
-        secondCourse: secondCoursePromise
+        secondCourse: secondCoursePromise,
+        thirdCourse: thirdCoursePromise,
+        fourthCourse: fourthCoursePromise
       })
       .then(function(hash) {
         const firstFeaturedCourse = hash.firstCourse;
         const secondFeaturedCourse = hash.secondCourse;
+        const thirdFeaturedCourse = hash.thirdCourse;
+        const fourthFeaturedCourse = hash.fourthCourse;
 
         featuredCourses.push(firstFeaturedCourse);
         featuredCourses.push(secondFeaturedCourse);
+        featuredCourses.push(thirdFeaturedCourse);
+        featuredCourses.push(fourthFeaturedCourse);
 
         return {
           activeClasses,
@@ -238,5 +369,12 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   setupController: function(controller, model) {
     controller.set('steps', model.tourSteps);
     controller.set('featuredCourses', model.featuredCourses);
+  },
+
+  /**
+   * Before leaving the route
+   */
+  deactivate: function() {
+    this.controller.set('isLoading', false);
   }
 });

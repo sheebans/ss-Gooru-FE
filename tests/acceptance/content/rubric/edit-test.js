@@ -50,7 +50,7 @@ test('Rubric edit', function(assert) {
   andThen(function() {
     assert.equal(currentURL(), '/content/rubric/edit/123?editing=true');
     var $container = find('.rubric.edit');
-    assert.equal(currentURL(), '/content/rubric/edit/123?editing=true');
+
     var $cancel = $container.find('.header button.cancel');
     click($cancel);
     andThen(function() {
@@ -181,6 +181,48 @@ test('Share rubric', function(assert) {
         $container.find('.gru-share-pop-over-window').length,
         'Missing rubric title'
       );
+    });
+  });
+});
+
+test('Create category without level input', function(assert) {
+  visit('/content/rubric/edit/123?editing=true');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/content/rubric/edit/123?editing=true');
+    var $container = find('.rubric.edit');
+
+    var $addCategory = $container.find('.category-panel a.add-category');
+    click($addCategory);
+    andThen(function() {
+      var $newCategoryContainer = $container
+        .find('.category-panel .content.rubric.gru-category')
+        .eq(1);
+      assert.ok(
+        $newCategoryContainer.length,
+        'New category container should be displayed'
+      );
+      assert.notOk(
+        $newCategoryContainer.find('.levels-error').length,
+        'Levels error should not be displayed'
+      );
+
+      var $levelInput = $newCategoryContainer
+        .find('.gru-scoring-levels .level .level-list .gru-input')
+        .eq(0);
+      $levelInput.find('input').val(' ');
+      $levelInput.find('input').blur();
+
+      var $save = $newCategoryContainer.find(
+        '.actions .item-actions button.save'
+      );
+      click($save);
+      andThen(function() {
+        assert.ok(
+          $newCategoryContainer.find('.levels-error'),
+          'Levels error should be displayed'
+        );
+      });
     });
   });
 });

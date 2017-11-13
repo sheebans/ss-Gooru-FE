@@ -1,44 +1,22 @@
-{{gru-take-tour steps=steps containerClass='home-tour'}}
 <div class="controller student-landing container-fluid">
+  {{gru-take-tour steps=steps containerClass='home-tour'}}
   <div class="student-left-panel">
     <div class="greetings">
-      <div class="title">
+      <div class="title pull-left">
         <span>{{t 'user.hello' name=profile.firstName}}</span>
       </div>
-      <p>{{t 'user.joined-classes' count=totalJoinedClasses}}</p>
+      {{#unless (gt loginCount 5)}}
+        <div class="featured-courses pull-right">
+          <span>{{t 'student-landing.browse-our'}} {{#link-to 'library'}}{{t 'student-landing.featured-courses'}}{{/link-to}}</span>
+        </div>
+      {{/unless}}
     </div>
     {{#unless (gt loginCount 5)}}
-      <div class="row panels">
-        <div class="col-sm-6 col-xs-12">
-          {{gru-explore-featured-courses
-            courses=featuredCourses
-            profile=profile
-            loginCount=loginCount
-          }}
-        </div>
-        <div class="col-sm-6 col-xs-12">
-          <div class="panel join-class">
-            <div class="panel-heading">{{t 'student-landing.learn'}}</div>
-            <div class="panel-body">
-              <div class="legend">
-                {{t 'student-landing.join-classroom'}}
-              </div>
-              <div class="actions">
-                {{#link-to 'content.classes.join' class="btn btn-info join" tagName='button'}}
-                  {{t 'user.join-class'}}
-                {{/link-to}}
-              </div>
-              <div class="pull-right will-disappear">
-                {{#if (eq loginCount 5)}}
-                  {{t 'common.disappear-next-login'}}
-                {{else}}
-                  {{t 'common.disappear-after-login' loginNumber=(sub 6 loginCount)}}
-                {{/if}}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {{gru-student-featured-courses
+        courses=featuredCourses
+        profile=profile
+        loginCount=loginCount
+      }}
     {{/unless}}
     <div class="student-navigator">
       <ul class="nav nav-tabs" role="tablist">
@@ -53,34 +31,22 @@
           {{/link-to}}
         </li>
       </ul>
-      {{#unless hasClasses}}
-        <div class="pull-left no-classes-found">
-          {{t 'student-landing.no-classrooms'}}
-        </div>
-      {{/unless}}
-      <div class="pull-right actions">
-        {{#link-to 'content.classes.join' class="btn btn-success join-class-cta" tagName='button'}}
-          {{t 'user.join-class'}}
-        {{/link-to}}
-      </div>
     </div>
-    <div class="content tab-content">
-      <div role="tabpanel" class="tab-pane row active">
-        {{#if hasClasses}}
-        <!-- TODO: delete unnecesary dependencies -->
-          <!-- {{cards.gru-class-card
+    <div class="content">
+      {{cards.gru-join-class-card
+        onJoinClass="joinClass"
+        validCode=validCode
+        notMember=notMember
+        allowedCode=allowedCode
+        isLoading=isLoading}}
+      {{#if hasClasses}}
+        {{#each activeClasses as |class|}}
+          {{cards.gru-student-class-card
             class=class
-            profile=profile
-            classStudentCount=myClasses.memberCount}} -->
-          {{#each activeClassesChunks as |activeClasses|}}
-            <div class="row">
-              {{#each activeClasses as |class|}}
-                {{cards.gru-student-class-card class=class}}
-              {{/each}}
-            </div>
-          {{/each}}
-        {{/if}}
-      </div>
+            onPlayCollection='studyPlayer'
+            onItemSelected='selectMenuItem'}}
+        {{/each}}
+      {{/if}}
     </div>
   </div>
 </div>

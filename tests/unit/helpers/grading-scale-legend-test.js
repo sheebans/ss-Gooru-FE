@@ -19,17 +19,10 @@ test('it works without named arguments', function(assert) {
   );
   assert.ok(
     $legend
-      .find('li:first-child > i')
+      .find('li')
       .attr('style')
       .indexOf(GRADING_SCALE[0].COLOR) > 0,
     'starts with the lowest bracket in the grading scale'
-  );
-  assert.ok(
-    $legend
-      .find('li:last-child > i')
-      .attr('style')
-      .indexOf(GRADING_SCALE[GRADING_SCALE.length - 1].COLOR) > 0,
-    'ends with the highest bracket in the grading scale'
   );
 });
 
@@ -42,7 +35,10 @@ test('it works with the argument \'notStarted\'', function(assert) {
     'shows an additional option \'not started\''
   );
   assert.equal(
-    $legend.find('li.not-started').text().trim(),
+    $legend
+      .find('li.not-started')
+      .text()
+      .trim(),
     'not started string',
     'shows the correct text label for the option \'not started\''
   );
