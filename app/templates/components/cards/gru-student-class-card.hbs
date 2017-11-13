@@ -13,15 +13,17 @@
     </div>
     <div class="panel-body" style="background-color:{{grade-color class.performanceSummary.score}}">
       <div class="information" style="background-image: url({{course.thumbnailUrl}})">
-        {{#if showCurrentLocation}}
-          <div class="current-activity">{{t "student-landing.resume-current-activity"}}</div>
-          <div class="title-section">
+        <div class="current-activity">{{t "student-landing.resume-current-activity"}}</div>
+        <div class="title-section">
+          {{#if showCurrentLocation}}
             <i class="{{if class.currentLocation.collection.isAssessment 'assessment' 'collection'}}"></i>
             <div class="title pointer" alt="{{class.currentLocation.collection.title}}" {{action "playCollection"}}>
               {{truncate text=currentLocationTitle maxLength=90}}
             </div>
-          </div>
-        {{/if}}
+            {{else}}
+              <span>{{t "student-landing.not-available"}}</span>
+          {{/if}}
+        </div>
       </div>
       <div class="links">
         <ul>
@@ -66,15 +68,17 @@
     </div>
     <div class="panel-body">
       <div class="information">
-        {{#if showCurrentLocation}}
-          <div class="current-activity">{{t "student-landing.resume-current-activity"}}</div>
-          <div class="title-section">
+        <div class="current-activity">{{t "student-landing.resume-current-activity"}}</div>
+        <div class="title-section">
+          {{#if showCurrentLocation}}
             <i class="{{if class.currentLocation.collection.isAssessment 'assessment' 'collection'}}"></i>
             <div class="title pointer" alt="{{class.currentLocation.collection.title}}" {{action "playCollection"}}>
               {{truncate text=currentLocationTitle maxLength=90}}
             </div>
-          </div>
-        {{/if}}
+          {{else}}
+            <span>{{t "student-landing.not-available"}}</span>
+          {{/if}}
+        </div>
         <span class="no-course-assigned">{{t "student-landing.class.no-course-assigned"}}</span>
       </div>
       <div class="links">
