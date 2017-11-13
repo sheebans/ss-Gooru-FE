@@ -93,6 +93,21 @@ export default Ember.Component.extend({
       return this.createBookmark(bookmark).then(() =>
         this.get('router').transitionTo('student.independent', id)
       );
+    },
+
+    /**
+     * Edit course action, when clicking Play at the course card
+     * @param {Course}
+     */
+    playIndependentContent: function({ title, id }) {
+      let bookmark = Bookmark.create(Ember.getOwner(this).ownerInjection(), {
+        title,
+        contentId: id,
+        contentType: CONTENT_TYPES.COURSE
+      });
+      return this.createBookmark(bookmark).then(() => {
+        this.get('router').transitionTo('student.independent', id);
+      });
     }
   },
 
