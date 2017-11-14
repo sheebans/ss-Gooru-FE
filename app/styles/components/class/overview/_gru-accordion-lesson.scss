@@ -50,7 +50,7 @@
         vertical-align: middle;
         margin: 0;
         padding: 0;
-        height: 43px;
+        height: 48px;
         .lesson-prefix {
           border-right: solid 1px $light-300;
           margin: 0 20px 0 0;
@@ -364,6 +364,9 @@
               color: $light-500;
               line-height: 1;
             }
+          }
+          .typeCollection {
+            margin-top: -15px;
           }
           .trophy {
             vertical-align: bottom;
