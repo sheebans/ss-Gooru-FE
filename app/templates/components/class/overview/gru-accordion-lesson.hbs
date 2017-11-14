@@ -38,11 +38,11 @@
       </div>
       {{#if model.assessmentCount}}
       <div class="performance-container pull-right">
-        {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=model.performance.hasStarted isTeacher=isTeacher}}
+        {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=model.performance.hasStarted isTeacher=isTeacher assessmentCount=model.assessmentCount}}
       </div>
       {{else}}
       <div class="performance-container pull-right">
-        {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher}}
+        {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
       </div>
       {{/if}}
     </div>
@@ -130,6 +130,7 @@
                       {{#if item.collectionSubType}}
                         <div class="type">{{t 'common.suggestion'}}</div>
                       {{/if}}
+                        <div class="type typeCollection">{{item.format}}</div>
                     </a>
                     {{#if item.showTrophy}}
                       <span class="trophy"><i></i></span>
@@ -145,10 +146,12 @@
                       {{#if isTeacher}}
                         <a class="title disabled" {{action "selectResource" item}}>
                           <div>{{item.title}}</div>
+                          <div class="type typeCollection">{{item.format}}</div>
                         </a>
                       {{else}}
                         <a class="title disabled"  data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessment-disabled"}}">
                           <div class="ellipsis">{{item.title}}</div>
+                          <div class="type typeCollection">{{item.format}}</div>
                         </a>
                       {{/if}}
                     {{/if}}
@@ -220,7 +223,9 @@
                               ({{t 'common.in-progress'}})
                             </span>
                           {{else}}
+                          {{#if (eq item.format 'assessment')}}
                             <span class="not-started">{{t 'common.not_started'}}</span>
+                            {{/if}}
                           {{/if}}
                         {{/if}}
                       {{else}}
@@ -229,7 +234,9 @@
                             {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
                           </span>
                         {{else}}
+                        {{#if (eq item.format 'assessment')}}
                           <span class="not-started">{{t 'common.not_started'}}</span>
+                           {{/if}}
                         {{/if}}
                       {{/if}}
                     </div>
