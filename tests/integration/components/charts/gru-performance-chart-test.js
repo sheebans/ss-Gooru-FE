@@ -37,18 +37,3 @@ test('Layout', function(assert) {
     'Wrong percentage text'
   );
 });
-
-test('Layout - Full bar segment', function(assert) {
-  assert.expect(0);
-
-  var performanceSummary = Ember.Object.create({
-    totalCompleted: 4,
-    score: 25,
-    total: 4
-  });
-
-  this.set('performanceSummary', performanceSummary);
-  this.render(
-    hbs`{{charts/gru-performance-chart performanceSummary=performanceSummary assessmentCount=1}}`
-  );
-});
