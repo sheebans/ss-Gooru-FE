@@ -64,8 +64,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
               .get('lessonService')
               .fetchById(courseId, unitId, lessonId),
             collection: route
-              .get('collectionService')
-              .readCollection(params.collectionId)
+              .get('assessmentService')
+              .readExternalAssessment(params.collectionId)
           })
           .then(function(hash) {
             //setting query params using the map location

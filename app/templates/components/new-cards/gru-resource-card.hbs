@@ -83,7 +83,7 @@
           {{/if}}
         {{/unless}}
         <div class="resource-visibility">
-          {{#unless (or isRubric isSearch)}}
+          {{#unless (or isRubric isSearch externalAssessment)}}
             <div class="resource-icon-btn visibility {{if resource.isVisibleOnProfile 'visible-icon' 'invisible-icon'}}" title="{{t (if resource.isVisibleOnProfile 'common.visibility-available' 'common.visibility-tooltip')}}" data-toggle="tooltip">
               {{gru-icon name="visibility" class="visibility"}}
             </div>

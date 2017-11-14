@@ -52,6 +52,24 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Reads an External Assessment by id
+   *
+   * @param {string} assessmentId
+   * @returns {Promise}
+   */
+  readExternalAssessment: function(assessmentId) {
+    const adapter = this;
+    const namespace = adapter.get('externalNamespace');
+    const url = `${namespace}/${assessmentId}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Update an Assessment
    *
    * @param assessmentId the id of the Assessment to be updated

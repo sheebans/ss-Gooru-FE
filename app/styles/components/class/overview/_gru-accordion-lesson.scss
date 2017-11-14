@@ -351,12 +351,18 @@
           .title {
             vertical-align: middle;
             margin: 0;
-            padding: 5px 0 0 5px;
+            padding: 0 0 0 5px;
             max-width: 75%;
+            font-size: 16px;
             .type {
               color: $light-500;
               font-size: $font-navigator;
               padding: 5px 0 0 0;
+            }
+            .format {
+              font-size: 12px;
+              color: $light-500;
+              line-height: 1;
             }
           }
           .trophy {
@@ -468,6 +474,9 @@
             .not-started {
               color: $light-300;
               font-size: $font-size-xxsmall;
+            }
+            .not-started-external {
+              font-size: 18px;
             }
           }
         }
