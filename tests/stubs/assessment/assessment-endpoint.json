@@ -103,5 +103,23 @@
       "body": "File not found!",
       "file": "get-assessment-200-response.json"
     }
+  },
+  {
+    "description": "Gets any external assessment",
+    "request": {
+      "url": "^/api/nucleus/v1/assessments-external/first-assessment-id$",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Token (.+)"
+      }
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "File not found!",
+      "file": "get-assessment-200-response.json"
+    }
   }
 ]

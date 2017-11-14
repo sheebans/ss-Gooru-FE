@@ -48,6 +48,12 @@
         .panel-footer {
           text-align: center;
           background-color: $white;
+          .resource-icon-btn {
+            width: 20px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 10px;
+          }
         }
         .panel-body {
           display: flex;
