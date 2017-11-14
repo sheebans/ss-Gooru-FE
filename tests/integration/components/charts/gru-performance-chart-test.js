@@ -29,14 +29,12 @@ test('Layout', function(assert) {
   const $performanceChart = $component.find('.gru-performance-chart');
   T.exists(assert, $performanceChart, 'Missing performance chart component');
   assert.equal(
-    $performanceChart.find('.percentage').text().trim(),
+    $performanceChart
+      .find('.percentage')
+      .text()
+      .trim(),
     '25%',
     'Wrong percentage text'
-  );
-  T.exists(
-    assert,
-    $performanceChart.find('.completion-bar'),
-    'Missing completion bar'
   );
 });
 
@@ -56,6 +54,5 @@ test('Layout - Full bar segment', function(assert) {
   const $component = this.$(); //component dom element
 
   const $segmentBar = $component.find('.gru-performance-chart .segment');
-  T.exists(assert, $segmentBar, 'Missing segment bar');
   assert.ok($segmentBar.hasClass('full'), 'Missing full class');
 });
