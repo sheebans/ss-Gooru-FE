@@ -85,6 +85,27 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Gets an External Assessment by id
+   * @param {string} assessmentId
+   * @returns {Promise}
+   */
+  readExternalAssessment: function(assessmentId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('assessmentAdapter')
+        .readExternalAssessment(assessmentId)
+        .then(function(responseData) {
+          resolve(
+            service
+              .get('assessmentSerializer')
+              .normalizeReadAssessment(responseData)
+          );
+        }, reject);
+    });
+  },
+
+  /**
    * Updates an Assessment
    *
    * @param assessmentId the id of the Assessment to be updated

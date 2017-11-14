@@ -129,6 +129,8 @@
                       <div class="ellipsis">{{item.title}}</div>
                       {{#if item.collectionSubType}}
                         <div class="type">{{t 'common.suggestion'}}</div>
+                      {{else}}
+                        <div class="format">{{item.format}}</div>
                       {{/if}}
                     </a>
                     {{#if item.showTrophy}}
@@ -139,16 +141,19 @@
                       <a class="title disabled"
                          data-toggle="tooltip" data-html="true" data-placement="top"
                          title="{{t "common.no-more-attempts"}}">
-                        <div>{{item.title}}</div>
+                        <div class="ellipsis">{{item.title}}</div>
+                        <div class="format">{{item.format}}</div>
                       </a>
                     {{else}}
                       {{#if isTeacher}}
                         <a class="title disabled" {{action "selectResource" item}}>
-                          <div>{{item.title}}</div>
+                          <div class="ellipsis">{{item.title}}</div>
+                          <div class="format">{{item.format}}</div>
                         </a>
                       {{else}}
                         <a class="title disabled"  data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessment-disabled"}}">
                           <div class="ellipsis">{{item.title}}</div>
+                          <div class="format">{{item.format}}</div>
                         </a>
                       {{/if}}
                     {{/if}}
@@ -220,7 +225,11 @@
                               ({{t 'common.in-progress'}})
                             </span>
                           {{else}}
-                            <span class="not-started">{{t 'common.not_started'}}</span>
+                            {{#if (eq item.format "assessment-external")}}
+                                <span class="not-started-external">--</span>
+                            {{else}}
+                                <span class="not-started">{{t 'common.not_started'}}</span>
+                            {{/if}}
                           {{/if}}
                         {{/if}}
                       {{else}}
