@@ -76,6 +76,19 @@
           </label>
         </div>
 
+        {{#if isEditing}}
+          {{#if aggregatedTags.length}}
+          <div class="standards">
+            <div>Suggested standards based on resources in this collection</div>
+            <label>
+              <div class="tags">
+                  {{taxonomy.gru-taxonomy-tag-list tags=aggregatedTags onAdd=(action 'addTag')}}
+              </div>
+            </label>
+          </div>
+          {{/if}}
+        {{/if}}
+
         {{!content.gru-audience isEditing=isEditing srcSelectedAudiences=collection.audience editSelectedAudiences=tempCollection.audience}}
 
         <div class="century-skills">

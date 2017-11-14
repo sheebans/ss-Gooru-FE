@@ -27,7 +27,9 @@ const TaxonomyTag = Ember.Object.extend({
   /**
    * @property {TaxonomyTagData} data - Data for the taxonomy tag
    */
-  data: null
+  data: null,
+
+  canAdd: false
 });
 
 TaxonomyTag.reopenClass({
@@ -40,13 +42,15 @@ TaxonomyTag.reopenClass({
   getTaxonomyTags: function(
     taxonomy = [],
     editable = false,
-    removable = false
+    removable = false,
+    canAdd = false
   ) {
     return taxonomy.map(function(tagData) {
       return TaxonomyTag.create({
         isActive: false,
         isReadonly: !editable,
         isRemovable: removable,
+        canAdd: canAdd,
         data: tagData
       });
     });

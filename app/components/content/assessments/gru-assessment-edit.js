@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import CollectionEdit from 'gooru-web/components/content/collections/gru-collection-edit';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 export default CollectionEdit.extend({
   // -------------------------------------------------------------------------
@@ -20,6 +21,16 @@ export default CollectionEdit.extend({
    * @type {SessionService} Service to retrieve session information
    */
   session: Ember.inject.service('session'),
+
+  aggregatedTags: Ember.computed('tempCollection.aggregatedTag.[]', function() {
+    let aggregatedTags = TaxonomyTag.getTaxonomyTags(
+      this.get('tempCollection.aggregatedTag'),
+      false,
+      false,
+      true
+    );
+    return aggregatedTags;
+  }),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -82,6 +93,11 @@ export default CollectionEdit.extend({
       });
     },
 
+    addTag: function(taxonomyTag) {
+      let tagData = taxonomyTag.get('data');
+      this.get('tempCollection.aggregatedTag').removeObject(tagData);
+    },
+
     /**
      * Save setting for visibility of collection in profile
      */
@@ -124,5 +140,39 @@ export default CollectionEdit.extend({
         false
       );
     }
+  },
+
+  init: function() {
+    this._super(...arguments);
+    this.set('tempCollection', this.get('collection').copy());
+    let aggregatedStandards = [];
+    let unitStandards = this.get('tempCollection.children');
+    let selectedStandards = this.get('collection.standards');
+    let selectedStandardCodes = [];
+    for (let j = 0; j < selectedStandards.length; j++) {
+      selectedStandardCodes.push(selectedStandards[j].code);
+    }
+    for (let i = 0; i < unitStandards.length; i++) {
+      let unitStandardTag = unitStandards[i].standards;
+      for (let k = 0; k < unitStandardTag.length; k++) {
+        if (selectedStandardCodes.length !== 0) {
+          for (let m = 0; m <= selectedStandardCodes.length; m++) {
+            if (selectedStandardCodes[m] !== unitStandardTag[k].code) {
+              aggregatedStandards.push(unitStandardTag[k]);
+            }
+          }
+        } else {
+          aggregatedStandards.push(unitStandardTag[k]);
+        }
+      }
+    }
+
+    let result = aggregatedStandards.reduceRight(function(r, a) {
+      r.some(function(b) {
+        return a.code === b.code;
+      }) || r.push(a);
+      return r;
+    }, []);
+    this.set('tempCollection.aggregatedTag', result);
   }
 });

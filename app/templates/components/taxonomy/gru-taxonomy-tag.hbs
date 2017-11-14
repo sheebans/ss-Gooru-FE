@@ -23,3 +23,6 @@
   <button class="remove" {{action 'removeTag'}}>{{gru-icon name="clear"}}</button>
 {{/if}}
 
+{{#if model.canAdd}}
+   <button class="add" {{action 'addTag'}}>{{gru-icon name="add"}}</button>
+{{/if}}
