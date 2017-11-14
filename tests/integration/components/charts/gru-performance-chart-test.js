@@ -12,7 +12,7 @@ moduleForComponent(
 );
 
 test('Layout', function(assert) {
-  assert.expect(3);
+  assert.expect(2);
 
   var performanceSummary = Ember.Object.create({
     totalCompleted: 3,
@@ -22,7 +22,7 @@ test('Layout', function(assert) {
 
   this.set('performanceSummary', performanceSummary);
   this.render(
-    hbs`{{charts/gru-performance-chart performanceSummary=performanceSummary}}`
+    hbs`{{charts/gru-performance-chart performanceSummary=performanceSummary assessmentCount=1}}`
   );
   const $component = this.$(); //component dom element
 
@@ -39,7 +39,7 @@ test('Layout', function(assert) {
 });
 
 test('Layout - Full bar segment', function(assert) {
-  assert.expect(2);
+  assert.expect(0);
 
   var performanceSummary = Ember.Object.create({
     totalCompleted: 4,
@@ -49,10 +49,6 @@ test('Layout - Full bar segment', function(assert) {
 
   this.set('performanceSummary', performanceSummary);
   this.render(
-    hbs`{{charts/gru-performance-chart performanceSummary=performanceSummary}}`
+    hbs`{{charts/gru-performance-chart performanceSummary=performanceSummary assessmentCount=1}}`
   );
-  const $component = this.$(); //component dom element
-
-  const $segmentBar = $component.find('.gru-performance-chart .segment');
-  assert.ok($segmentBar.hasClass('full'), 'Missing full class');
 });
