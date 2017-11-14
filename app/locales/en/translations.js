@@ -1940,9 +1940,9 @@ export default Object.assign(quizzesTranslations, {
           'Welcome to Take a Tour and your homepage! Now let’s get started!'
       },
       stepTwo: {
-        title: 'Gooru Logo',
+        title: 'Logo',
         description:
-          'Clicking on the Gooru logo at any time during your session returns you to your homepage.'
+          'Clicking on the logo returns you to your homepage.'
       },
       stepThree: {
         title: 'Search Bar',
@@ -1996,8 +1996,8 @@ export default Object.assign(quizzesTranslations, {
           'Browse the featured courses in the Learning Navigator’s content catalog for topics that interest you.'
       },
       stepTwo: {
-        title: 'Gooru Logo',
-        description: 'Clicking on the Gooru logo returns you to your homepage.'
+        title: 'Logo',
+        description: 'Clicking on the logo returns you to your homepage.'
       },
       stepThree: {
         title: 'Search Bar',
@@ -2223,7 +2223,7 @@ export default Object.assign(quizzesTranslations, {
       stepThree: {
         title: 'About Me',
         description:
-          'Update your personal information, school information, your profile picture, email, and password.'
+          'Update your personal information, school information and your profile picture.'
       },
       stepFour: {
         title: 'Goals',

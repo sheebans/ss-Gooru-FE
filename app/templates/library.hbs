@@ -20,7 +20,9 @@
       </div>
     </div>
   {{/if}}
-  <div class="take-tour">
-    {{gru-take-tour steps=filteredSteps containerClass='library'}}
-  </div>
+  {{#if (eq selected 'featured-courses')}}
+    <div class="take-tour">
+      {{gru-take-tour steps=filteredSteps containerClass='library'}}
+    </div>
+  {{/if}}
 </div>
