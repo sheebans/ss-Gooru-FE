@@ -114,15 +114,6 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         description: route
           .get('i18n')
           .t('gru-take-tour.teacher-home.stepTen.description')
-      },
-      {
-        elementSelector: '.teacher-navigator .actions .create-class-cta',
-        title: route
-          .get('i18n')
-          .t('gru-take-tour.teacher-home.stepEleven.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.teacher-home.stepEleven.description')
       }
     ]);
 
