@@ -9,10 +9,12 @@
         {{scoreText}}
       {{/if}}
     </label>
+    {{#if (not tooltipText 'NA')}}
     <div class="completion-bar" data-toggle="tooltip" data-html="true" data-placement="right"
          title="{{tooltipText}}">
       <div class="segment {{if isFull 'full'}}" style="{{colorStyle}} {{widthStyle}}"></div>
     </div>
+      {{/if}}
   {{else}}
     <label class="not-started">
       {{t "common.notStarted"}}
