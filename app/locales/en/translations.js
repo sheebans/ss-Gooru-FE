@@ -177,6 +177,7 @@ export default Object.assign(quizzesTranslations, {
     'course-title': 'Course Title',
     courses: 'Courses',
     create: 'Create',
+    createClass: 'Create Class',
     'created-by': 'Created by',
     'create-rubric': 'Create New Rubric',
     'current-attempt': 'Current Attempt',

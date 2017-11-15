@@ -59,13 +59,13 @@
           {{t 'teacher-landing.no-classrooms'}}
         </div>
       {{/unless}}
-      {{#if showActiveClasses }}
+      <!-- {{#if showActiveClasses }}
         <div class="pull-right actions">
           {{#link-to 'content.classes.create' class="btn btn-success create-class-cta" tagName='button'}}
             {{t 'user.create-class'}}
           {{/link-to}}
         </div>
-      {{/if}}
+      {{/if}} -->
       {{#if showArchivedClasses}}
         <div class="pull-right sort">
           <div class="filter-date-asc btn-group" role="group">
@@ -88,12 +88,21 @@
 
     <div class="content tab-content">
       <div role="tabpanel" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
+        {{new-cards.gru-new-class-card
+          onJoinClass="joinClass"
+          validCode=validCode
+          notMember=notMember
+          allowedCode=allowedCode
+          onUpdateUserClasses='updateClass'
+          isLoading=isLoading}}
         {{#if hasClasses}}
           {{#each activeClasses as |class|}}
-            {{cards.gru-teacher-class-card
+            {{new-cards.gru-teacher-class-card
             class=class
             course=class.course
-            classStudentCount=myClasses.memberCount}}
+            classStudentCount=myClasses.memberCount
+            onPlayCollection='studyPlayer'
+            onItemSelected='selectMenuItem'}}
           {{/each}}
         {{/if}}
       </div>
