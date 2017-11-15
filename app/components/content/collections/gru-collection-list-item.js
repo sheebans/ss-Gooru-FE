@@ -189,10 +189,10 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     },
 
     showStandards: function(availableStandards) {
-      var standards = [];
-      for (let i = 0; i < availableStandards.length; i++) {
-        standards.push(availableStandards[i].code);
-      }
+      var standards = Ember.A([]);
+      availableStandards.forEach(function(standardObj) {
+        standards.push(standardObj.code);
+      });
 
       this.set('key', standards);
 
