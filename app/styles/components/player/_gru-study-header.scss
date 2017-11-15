@@ -74,11 +74,9 @@
             width: 27px;
             background-color: rgba(255, 255, 255, 0.17);
             i {
-              position: relative;
-              left: -83px;
-              top: 18px;
-              width: 1px;
-              height: 1px;
+              margin-left: -72px;
+              margin-top: 20px;
+              pointer-events: none;
             }
           }
           opacity: 1;
@@ -131,7 +129,7 @@
         }
         .suggest-resource-title {
           float: left;
-          width: calc(100% - 50px);
+          width: calc(100% - 55px);
           height: 64px;
           .title {
             $line-height: 1.3;

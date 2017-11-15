@@ -32,8 +32,8 @@
         <div class="slider-container carousel slide multi-item-carousel" id="theCarousel">
           <div class="slider-inner-container carousel-inner">
             {{#each suggestedResources as |resource index|}}
-              <div class="item  {{if (eq index 0) "active" "" }}" {{action 'playSuggested' resource}}>
-                <div class="col-xs-6">
+              <div class="item  {{if (eq index 0) "active" "" }}">
+                <div class="col-xs-6" {{action 'playSuggested' resource}}>
                   <i class="{{resource.format}}-icon resource-icon"></i>
                   <div class="suggest-resource-title">
                       <span class="title">{{resource.title}}</span>
