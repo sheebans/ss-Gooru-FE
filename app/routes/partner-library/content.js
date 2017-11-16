@@ -122,8 +122,8 @@ export default Ember.Route.extend({
     },
 
     /**
-     * Edit course action, when clicking Play at the course card
-     * @param {Content/Course}
+     * when clicking Play at the course card
+     * @param {Course}
      */
     playCourse: function(course) {
       this.transitionTo('content.courses.play', course.get('id'));
