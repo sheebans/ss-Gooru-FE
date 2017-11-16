@@ -37,35 +37,16 @@
         }
       }
 
-      .code {
-        border-left: 1px solid $white;
-        text-align: center;
-        padding: 10px 0;
-        width: 30%;
-
-        div {
-          font-size: $font-size-small;
-          font-weight: bold;
-          line-height: $font-size-small;
-          text-transform: uppercase;
-          color: $white;
-          width: 100%;
-
-          &.title {
-            opacity: 0.5;
-            font-weight: normal;
-          }
-        }
-      }
-
       .class-management {
         padding: 10px;
+
         i {
           background: url("gooru/class-settings .svg");
           width: 20px;
           height: 20px;
           object-fit: contain;
           display: block;
+          cursor: pointer;
         }
       }
     }
@@ -152,7 +133,7 @@
 
       .links {
         display: inline-block;
-        width: 150px;
+        width: 168px;
         height: 93px;
         background-color: $white;
         box-shadow: 1px -1px 4px 0 rgba(0, 0, 0, 0.5);
@@ -166,7 +147,7 @@
             display: block;
             border-bottom: 1px solid $light-300;
             text-align: left;
-            padding: 5px 0 0 12px;
+            padding: 5px 0 0 10px;
             list-style: none;
 
             a {
@@ -176,7 +157,46 @@
 
             &:last-child {
               border: none;
-              padding: 2px 0 0 12px;
+              padding: 2px 0 0 10px;
+            }
+
+            .icon-class-activities {
+              float: left;
+              margin: 7px 15px 0 0;
+
+              i {
+                background: url("gooru/images/teacher-landing-class-activities.svg");
+                width: 10.2px;
+                height: 15.8px;
+                display: block;
+                object-fit: contain;
+              }
+            }
+
+            .icon-course-map {
+              float: left;
+              margin: 7px 15px 0 0;
+
+              i {
+                background: url("gooru/images/teacher-landing-course-map.svg");
+                width: 15.2px;
+                height: 9.5px;
+                display: block;
+                object-fit: contain;
+              }
+            }
+
+            .icon-performance {
+              float: left;
+              margin: 4px 15px 0 0;
+
+              i {
+                background: url("gooru/images/teacher-landing-class-report.svg");
+                width: 15.2px;
+                height: 15.8px;
+                display: block;
+                object-fit: contain;
+              }
             }
           }
         }
@@ -187,13 +207,33 @@
         text-align: center;
         padding: 0;
         display: inline-block;
-        // width: 145px;
+        width: 125px;
         vertical-align: top;
         border-bottom-right-radius: 4px;
 
+        .code {
+          .title {
+            height: 16px;
+            object-fit: contain;
+            opacity: 0.5;
+            font-family: Lato;
+            font-size: 13px;
+            font-weight: bold;
+          }
+
+          .class-code {
+            height: 16px;
+            object-fit: contain;
+            font-family: Lato;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: center;
+          }
+        }
+
         .percentage {
           font-size: $font-percentage;
-          line-height: $user-card-avatar-height;
+          line-height: 56px;
           font-weight: 900;
         }
 
@@ -240,6 +280,7 @@
             color: $dark-600;
           }
         }
+
         .class-management-noCourse {
           padding: 10px;
 
@@ -268,6 +309,7 @@
         }
 
         .performance {
+          width: 125px;
           color: $light-400;
 
           .percentage {

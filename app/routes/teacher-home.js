@@ -97,7 +97,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     },
 
     /**
-     * Triggered when a student card menu item is selected
+     * Triggered when a teacher card menu item is selected
      * @param {string} item
      * @param {string} classId
      */

@@ -6,9 +6,10 @@
           {{truncate text=class.title maxLength=25}}
         {{/link-to}}
       </div>
-      <div class="class-management">
+
+      {{#link-to 'teacher.class.class-management' class.id class="class-management" tagName="div" }}
         <i class="icon"> </i>
-      </div>
+      {{/link-to}}
       <!-- <div class="code">
         <div class="title">{{t 'student-landing.class-code'}}</div>
         <div class="class-code ellipsis">{{class.code}}</div>
@@ -23,24 +24,33 @@
             <div class="title pointer" alt="{{class.currentLocation.collection.title}}" {{action "playCollection"}}>
               {{truncate text=currentLocationTitle maxLength=90}}
             </div>
-            {{else}}
-              <span>{{t "student-landing.not-available"}}</span>
+          {{else}}
+            <span>{{t "student-landing.not-available"}}</span>
           {{/if}}
         </div>
       </div>
       <div class="links">
         <ul>
           <li class="class-activities">
+            <div class="icon-class-activities">
+              <i class="icon"> </i>
+            </div>
             <a {{action 'selectItem' 'class-activities'}}>
               <span>{{t 'student-landing.class.class-activities'}}</span>
             </a>
           </li>
           <li class="course-map">
+            <div class="icon-course-map">
+              <i class="icon"> </i>
+            </div>
             <a {{action 'selectItem' 'course-map'}}>
               <span>{{t 'student-landing.class.course-map'}}</span>
             </a>
           </li>
           <li class="performance">
+            <div class="icon-performance">
+              <i class="icon"> </i>
+            </div>
             <a {{action 'selectItem' 'performance'}}>
               <span>{{t 'student-landing.class.my-report'}}</span>
             </a>
@@ -48,13 +58,13 @@
         </ul>
       </div>
       <div class="performance" style="background-color:{{grade-color class.performanceSummary.score}}">
-        {{#link-to 'teacher.class.performance' class.id class="pointer percentage" tagName="div"}}
+        <div class="code">
+          <div class="title">{{t 'student-landing.class-code'}}</div>
+          <div class="class-code">{{class.code}}</div>
+        </div>
+        {{#link-to 'teacher.class.performance' class.id class="pointer percentage" tagName="div" }}
           {{scorePercentage}}
         {{/link-to}}
-        <div class="completion-chart">
-          {{charts/gru-x-bar-chart data=barChartData }}
-          <label>{{completedPercentage}}</label>
-        </div>
       </div>
     </div>
   {{else}}
@@ -64,13 +74,9 @@
           {{truncate text=class.title maxLength=25}}
         {{/link-to}}
       </div>
-      <div class="class-management-noCourse">
+      {{#link-to 'teacher.class.class-management' class.id class="class-management-noCourse" tagName="div" }}
         <i class="icon"> </i>
-      </div>
-      <!-- <div class="code">
-        <div class="title">{{t 'student-landing.class-code'}}</div>
-        <div class="class-code">{{class.code}}</div>
-      </div> -->
+      {{/link-to}}
     </div>
     <div class="panel-body">
       <div class="information">
@@ -90,16 +96,25 @@
       <div class="links">
         <ul>
           <li class="class-activities">
+            <div class="icon-class-activities">
+              <i class="icon"> </i>
+            </div>
             <a {{action 'selectItem' 'class-activities'}}>
               <span>{{t 'student-landing.class.class-activities'}}</span>
             </a>
           </li>
           <li class="course-map">
+            <div class="icon-course-map">
+              <i class="icon"> </i>
+            </div>
             <a {{action 'selectItem' 'course-map'}}>
               <span>{{t 'student-landing.class.course-map'}}</span>
             </a>
           </li>
           <li class="performance">
+            <div class="icon-performance">
+              <i class="icon"> </i>
+            </div>
             <a {{action 'selectItem' 'performance'}}>
               <span>{{t 'student-landing.class.my-report'}}</span>
             </a>
@@ -107,13 +122,13 @@
         </ul>
       </div>
       <div class="performance">
-        {{#link-to 'teacher.class.performance' class.id class="pointer percentage" tagName="div"}}
+        <div class="code">
+          <div class="title">{{t 'student-landing.class-code'}}</div>
+          <div class="class-code">{{class.code}}</div>
+        </div>
+        {{#link-to 'teacher.class.performance' class.id class="pointer percentage" tagName="div" }}
           {{scorePercentage}}
         {{/link-to}}
-        <div class="completion-chart">
-          {{charts/gru-x-bar-chart data=barChartData }}
-          <label>{{completedPercentage}}</label>
-        </div>
       </div>
     </div>
   {{/if}}
