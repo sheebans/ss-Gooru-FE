@@ -56,24 +56,23 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       let unitStandards = this.get('tempCollection.children');
       let selectedStandards = this.get('collection.standards');
       let selectedStandardCodes = [];
-      for (let j = 0; j < selectedStandards.length; j++) {
-        selectedStandardCodes.push(selectedStandards[j].code);
-      }
-      for (let i = 0; i < unitStandards.length; i++) {
-        let unitStandardTag = unitStandards[i].standards;
-        for (let k = 0; k < unitStandardTag.length; k++) {
+      selectedStandards.forEach(function(standardObj) {
+        selectedStandardCodes.push(standardObj.code);
+      });
+      unitStandards.forEach(function(unitstandardObj) {
+        let unitStandardTag = unitstandardObj.standards;
+        unitStandardTag.forEach(function(onestandardObj) {
           if (selectedStandardCodes.length !== 0) {
-            for (let m = 0; m <= selectedStandardCodes.length; m++) {
-              if (selectedStandardCodes[m] !== unitStandardTag[k].code) {
-                aggregatedStandards.push(unitStandardTag[k]);
+            selectedStandardCodes.forEach(function(newstandardObj) {
+              if (newstandardObj !== onestandardObj.code) {
+                aggregatedStandards.push(onestandardObj);
               }
-            }
+            });
           } else {
-            aggregatedStandards.push(unitStandardTag[k]);
+            aggregatedStandards.push(onestandardObj);
           }
-        }
-      }
-
+        });
+      });
       let result = aggregatedStandards.reduceRight(function(r, a) {
         r.some(function(b) {
           return a.code === b.code;

@@ -106,6 +106,40 @@ export default CollectionEdit.extend({
       this.set('tempCollection', collectionForEditing);
       this.actions.updateContent.call(this);
     },
+    /**
+     * Initialize variables and get standards data.
+     */
+    initializeVariables: function() {
+      let aggregatedStandards = Ember.A([]);
+      let unitStandards = this.get('tempCollection.children');
+      let selectedStandards = this.get('collection.standards');
+      let selectedStandardCodes = Ember.A([]);
+      selectedStandards.forEach(function(standardObj) {
+        selectedStandardCodes.push(standardObj.code);
+      });
+      unitStandards.forEach(function(unitstandardObj) {
+        let unitStandardTag = unitstandardObj.standards;
+        unitStandardTag.forEach(function(onestandardObj) {
+          if (selectedStandardCodes.length !== 0) {
+            selectedStandardCodes.forEach(function(newstandardObj) {
+              if (newstandardObj !== onestandardObj.code) {
+                aggregatedStandards.push(onestandardObj);
+              }
+            });
+          } else {
+            aggregatedStandards.push(onestandardObj);
+          }
+        });
+      });
+
+      let result = aggregatedStandards.reduceRight(function(r, a) {
+        r.some(function(b) {
+          return a.code === b.code;
+        }) || r.push(a);
+        return r;
+      }, []);
+      this.set('tempCollection.aggregatedTag', result);
+    },
 
     /**
      * Delete assessment
@@ -145,34 +179,6 @@ export default CollectionEdit.extend({
   init: function() {
     this._super(...arguments);
     this.set('tempCollection', this.get('collection').copy());
-    let aggregatedStandards = [];
-    let unitStandards = this.get('tempCollection.children');
-    let selectedStandards = this.get('collection.standards');
-    let selectedStandardCodes = [];
-    selectedStandards.forEach(function(standardObj) {
-      selectedStandardCodes.push(standardObj.code);
-    });
-    unitStandards.forEach(function(unitstandardObj) {
-      let unitStandardTag = unitstandardObj.standards;
-      unitStandardTag.forEach(function(onestandardObj) {
-        if (selectedStandardCodes.length !== 0) {
-          selectedStandardCodes.forEach(function(newstandardObj) {
-            if (newstandardObj !== onestandardObj.code) {
-              aggregatedStandards.push(onestandardObj);
-            }
-          });
-        } else {
-          aggregatedStandards.push(onestandardObj);
-        }
-      });
-    });
-
-    let result = aggregatedStandards.reduceRight(function(r, a) {
-      r.some(function(b) {
-        return a.code === b.code;
-      }) || r.push(a);
-      return r;
-    }, []);
-    this.set('tempCollection.aggregatedTag', result);
+    this.initializeVariables();
   }
 });
