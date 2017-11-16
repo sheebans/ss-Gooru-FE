@@ -137,12 +137,16 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       : context.get('classId')
         ? route.get('userSessionService').getCompletedSessions(context)
         : route.get('learnerService').fetchLearnerSessions(context);
+
     return Ember.RSVP.hash({
       collection: collectionPromise,
       completedSessions: completedSessionsPromise,
       lesson: lessonPromise,
       context: context,
-      profile: route.get('profileService').readUserProfile(context.userId)
+      profile:
+        context.userId !== 'anonymous'
+          ? route.get('profileService').readUserProfile(context.userId)
+          : {}
     });
   },
 

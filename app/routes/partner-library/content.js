@@ -84,7 +84,9 @@ export default Ember.Route.extend({
             role: ROLES.STUDENT,
             source: PLAYER_EVENT_SOURCE.INDEPENDENT_ACTIVITY
           };
-          this.transitionTo('player', id, { queryParams });
+          this.transitionTo('player', id, {
+            queryParams
+          });
         }
       });
     },
@@ -117,6 +119,14 @@ export default Ember.Route.extend({
       this.createBookmark(bookmark).then(() =>
         this.notifyBookmarkSuccess(bookmark, showType)
       );
+    },
+
+    /**
+     * Edit course action, when clicking Play at the course card
+     * @param {Content/Course}
+     */
+    playCourse: function(course) {
+      this.transitionTo('content.courses.play', course.get('id'));
     }
   }
 });
