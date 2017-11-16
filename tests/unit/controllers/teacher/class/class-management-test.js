@@ -158,3 +158,58 @@ test('Sort Students By Last Name', function(assert) {
     'Incorrect last member'
   );
 });
+
+test('Sort Students By Student ID', function(assert) {
+  let component = this.subject({
+    class: Ember.Object.create({
+      id: 'class-id',
+      members: Ember.A([
+        Ember.Object.create({
+          firstName: 'Matt',
+          lastName: 'Smith',
+          studentId: 'student1'
+        }),
+        Ember.Object.create({
+          firstName: 'Anthony',
+          lastName: 'Williams',
+          studentId: 'student2'
+        }),
+        Ember.Object.create({
+          firstName: 'Cristin',
+          lastName: 'Edwards',
+          studentId: 'student3'
+        })
+      ])
+    })
+  });
+
+  //Sorting asc
+  component.send('sortStudents', 'studentId');
+  assert.equal(component.get('sortBy'), 'studentId', 'Incorrect Sort criteria');
+  assert.equal(component.get('reverseSort'), false, 'Reverse should be false');
+  assert.equal(
+    component.get('sortedMembers')[0].get('studentId'),
+    'student1',
+    'Incorrect first member'
+  );
+  assert.equal(
+    component.get('sortedMembers')[2].get('studentId'),
+    'student3',
+    'Incorrect last member'
+  );
+
+  //Sorting desc
+  component.send('sortStudents', 'studentId');
+  assert.equal(component.get('sortBy'), 'studentId', 'Incorrect Sort criteria');
+  assert.equal(component.get('reverseSort'), true, 'Reverse should be true');
+  assert.equal(
+    component.get('sortedMembers')[0].get('studentId'),
+    'student3',
+    'Incorrect first member'
+  );
+  assert.equal(
+    component.get('sortedMembers')[2].get('studentId'),
+    'student1',
+    'Incorrect last member'
+  );
+});

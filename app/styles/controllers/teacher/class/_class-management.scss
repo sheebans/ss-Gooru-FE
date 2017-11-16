@@ -1,8 +1,64 @@
 .controller.teacher.class.class-management {
+  .header-info {
+    max-width: 960px;
+    box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.07);
+    margin: auto;
+    background-color: $white;
+    .class-information {
+      height: 60px;
+      .class-name {
+        > span {
+          font-size: 11px;
+          opacity: 0.7;
+          color: $dark-300;
+          position: absolute;
+          margin-top: 10px;
+        }
+        .edit-text {
+          display: flex;
+          position: absolute;
+          margin-top: 26px;
+          .gru-icon.edit {
+            opacity: 0.3;
+            font-size: 18px;
+            margin-left: 10px;
+            position: absolute;
+            line-height: 1.2;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .course-information {
+      height: 60px;
+      display: flex;
+      .actions {
+        margin-left: 283px;
+        margin-top: 18px;
+        .delete-btn, .archive-btn {
+          cursor: pointer;
+        }
+        .archive-btn {
+          margin-right: 10px;
+        }
+      }
+      .edit-text {
+        display: flex;
+        margin-top: 26px;
+        position: absolute;
+        .gru-icon.edit {
+          opacity: 0.3;
+          font-size: 18px;
+          margin-left: 10px;
+          line-height: 1.2;
+          position: absolute;
+          cursor: pointer;
+        }
+      }
+    }
+  }
   padding: 0;
   .panel {
-    border-radius: 5px;
-    padding: 10px 15px;
     min-height: 180px;
     .panel-header {
       min-height: 30px;
@@ -30,8 +86,8 @@
         line-height: $font-family-base;
       }
       .edit-text {
-        font-size: $font-navigator;
-        color: $gray-base;
+        font-size: 13px;
+        color: $dark-300;
         .gru-icon.edit {
           color: $light-400;
           font-size: $font-size-large;
@@ -144,8 +200,10 @@
   }
 
   .students-panel {
+    margin-top: 20px;
     min-height: 0;
     padding: 0;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.07), 0 2px 4px 0 rgba(0, 0, 0, 0.5);
     p {
       color: $gray-base;
     }
@@ -154,9 +212,24 @@
       padding: 6px 20px;
     }
     .panel-heading {
+      height: 48px;
+      padding: 0;
+      border-bottom: 2px solid $light-200;
+      .sortable {
+        width: 219px;
+        padding-left: 23px;
+        border-right: 1px dashed $light-200;
+        span {
+          color: $dark-400;
+          font-size: 14px;
+          font-weight: bold;
+          margin-right: 14px;
+        }
+      }
+      .sortable:last-child {
+        border-right: none;
+      }
       @include flexbox();
-      background-color: $dark-200;
-      color: $white;
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
       div {
@@ -173,46 +246,83 @@
     }
     .panel-body {
       padding: 0;
-      max-height: 322px;
+      max-height: 215px;
       overflow-y: auto;
       table {
         width: 100%;
         margin-bottom: 0;
-        td {
-          padding: 10px;
-          border-top: none;
-          border-bottom: 2px solid $table-border-color;
-        }
+
         .student-id {
           width: 63%;
         }
         .student {
-          span {
-            font-size: 16px;
-            color: $gray-base;
-          }
-        }
-        tr:last-child {
+          height: 36px;
           td {
-            border-bottom: none;
+            padding: 0;
+            width: 146px !important;
+            border-top: none;
+          }
+          span {
+            font-size: 12px;
+            color: $gray-29;
+            margin-left: 23px;
+            line-height: 36px;
+          }
+          .remove-student {
+            cursor: pointer;
+            > i {
+              color: $gray-80;
+            }
           }
         }
       }
       .border-right {
-        width: 12%;
-        border-right: 1px solid $table-border-color;
+        border-right: 1px dashed $table-border-color;
         @media (max-width: $screen-xs) {
           width: 40%;
         }
       }
     }
+    .panel-body::-webkit-scrollbar {
+      width: 4px;
+      border-radius: 3px;
+    }
+
+    .panel-body::-webkit-scrollbar-thumb {
+      background: $gray-light;
+      border: 1px solid $gray-light;
+      border-radius: 5px;
+    }
   }
   .assessment-min-score {
+    margin-left: 100px;
+    > span {
+      font-size: 11px;
+      opacity: 0.7;
+      color: $dark-300;
+      margin-top: 10px;
+      position: absolute;
+    }
     .gru-input-number {
       .error-messages {
-        position: absolute;
-        width: 211px;
+        margin-top: -5px;
       }
+    }
+  }
+  .no-students {
+    .student-null {
+      background: url('gooru/images/student-null.png') no-repeat;
+      height: 250px;
+      width: 250px;
+      background-size: 216px 216px;
+      margin: 25px auto auto;
+    }
+    div.message {
+      color: $gray-dove;
+      font-size: 19.5px;
+      font-weight: 300;
+      line-height: 1.54;
+      text-align: center;
     }
   }
 }

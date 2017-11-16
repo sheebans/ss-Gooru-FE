@@ -1098,6 +1098,7 @@ export default Object.assign(quizzesTranslations, {
         'assigned-course': 'Assigned Course',
         archive: 'Archive',
         'archive-class': 'Archive Class',
+        'archive-classroom': 'Archive Classroom',
         'attend-class-with-code': 'Attend Class With Code',
         'class-information': 'Class Information',
         'class-name': 'Classroom Name',
@@ -1118,7 +1119,8 @@ export default Object.assign(quizzesTranslations, {
         'student-name': 'Student Name',
         'student-id': 'Student ID',
         teachers: 'Teachers',
-        'view-report': 'View Report'
+        'view-report': 'View Report',
+        'students-null': 'Looks like there’s no students in your classroom. Share the link and get them to join.'
       },
       'class-activities': 'Daily Class Activities',
       'back-to-class-activities': 'Back to Daily Class Activities',
