@@ -229,6 +229,9 @@
             font-weight: bold;
             text-align: center;
           }
+          .no-percentage-code {
+            color: $dark-700;
+          }
         }
 
         .percentage {
@@ -316,8 +319,19 @@
             color: $light-200;
           }
 
-          .charts.gru-x-bar-chart {
-            background: $light-200;
+          .no-percentage {
+            text-align: center;
+            width: 125px;
+            padding: 25px;
+            margin-left: 25px;
+
+            i {
+              background: url("gooru/images/teacher-landing-no-performance.svg");
+              width: 28px;
+              height: 6px;
+              object-fit: contain;
+              display: block;
+            }
           }
         }
       }

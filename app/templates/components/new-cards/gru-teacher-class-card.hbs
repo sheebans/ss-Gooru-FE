@@ -10,10 +10,6 @@
       {{#link-to 'teacher.class.class-management' class.id class="class-management" tagName="div" }}
         <i class="icon"> </i>
       {{/link-to}}
-      <!-- <div class="code">
-        <div class="title">{{t 'student-landing.class-code'}}</div>
-        <div class="class-code ellipsis">{{class.code}}</div>
-      </div> -->
     </div>
     <div class="panel-body" style="background-color:{{grade-color class.performanceSummary.score}}">
       <div class="information" style="background-image: url({{course.thumbnailUrl}})">
@@ -124,10 +120,10 @@
       <div class="performance">
         <div class="code">
           <div class="title">{{t 'student-landing.class-code'}}</div>
-          <div class="class-code">{{class.code}}</div>
+          <div class="class-code no-percentage-code">{{class.code}}</div>
         </div>
-        {{#link-to 'teacher.class.performance' class.id class="pointer percentage" tagName="div" }}
-          {{scorePercentage}}
+        {{#link-to 'teacher.class.performance' class.id class="pointer percentage no-percentage" tagName="div" }}
+          <i class="icon"> </i>
         {{/link-to}}
       </div>
     </div>
