@@ -33,10 +33,6 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
    * @requires service:api-sdk/media
    */
   mediaService: Ember.inject.service('api-sdk/media'),
-  /**
-   * @requires service:api-sdk/media
-   */
-  contentService: Ember.inject.service('popover'),
 
   /**
    * @property {Service} profile service
