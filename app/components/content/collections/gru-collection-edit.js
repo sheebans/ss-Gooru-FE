@@ -204,6 +204,11 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     addTag: function(taxonomyTag) {
       let tagData = taxonomyTag.get('data');
       this.get('tempCollection.aggregatedTag').removeObject(tagData);
+      this.get('tempCollection.standards').addObject(tagData);
+      this.set(
+        'tempCollection.standards',
+        this.get('tempCollection.standards').uniqBy('code')
+      );
     },
 
     /**
