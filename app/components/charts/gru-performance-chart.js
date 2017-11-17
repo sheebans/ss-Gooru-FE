@@ -39,7 +39,6 @@ export default Ember.Component.extend({
    * @property {boolean}
    */
   isTeacher: false,
-
   /**
    * @property {Performance} Performance summary
    */
@@ -48,7 +47,6 @@ export default Ember.Component.extend({
    * @property {integer} assessmentCount
    */
   assessmentCount: null,
-
   /**
    * @property {String} Route to go after clicking on percentage
    */
@@ -59,12 +57,27 @@ export default Ember.Component.extend({
    * Computed property for the performance score text to be displayed
    */
   scoreText: Ember.computed('performanceSummary.score', function() {
-    const scorePercentage = this.get('performanceSummary.score');
+    let scorePercentage = this.get('performanceSummary.score');
+    if (this.get('assessmentCount') === 0) {
+      scorePercentage = null;
+    }
     return scorePercentage >= 0 && scorePercentage !== null
       ? `${scorePercentage}%`
       : '--';
   }),
-
+  /**
+   * @property {Text} score text
+   * Computed property for the performance score text to be displayed
+   */
+  scoreVal: Ember.computed('performanceSummary.score', function() {
+    let scorePercentage = this.get('performanceSummary.score');
+    if (this.get('assessmentCount') === 0) {
+      scorePercentage = null;
+    }
+    return scorePercentage >= 0 && scorePercentage !== null
+      ? `${scorePercentage}`
+      : '--';
+  }),
   /**
    * @property {Boolean} hasStarted
    * Computed property to know if course has started

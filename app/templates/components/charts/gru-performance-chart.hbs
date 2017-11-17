@@ -1,4 +1,4 @@
-<div class="container-box" style="background-color:{{grade-color (if hasStarted performanceSummary.score 'NA')}}">
+<div class="container-box" title="{{scoreText}}" style="background-color:{{grade-color (if hasStarted scoreVal 'NA')}}">
   {{#if hasStarted}}
     <label class="percentage">
       {{#if routeToGo}}
@@ -9,8 +9,10 @@
         {{scoreText}}
       {{/if}}
     </label>
-    {{#if (not tooltipText 'NA')}}
-    <div class="completion-bar" data-toggle="tooltip" data-html="true" data-placement="right"
+    {{#if (eq tooltipText 'NA')}}
+    <div ></div>
+     {{else}}
+     <div class="completion-bar" data-toggle="tooltip" data-html="true" data-placement="right"
          title="{{tooltipText}}">
       <div class="segment {{if isFull 'full'}}" style="{{colorStyle}} {{widthStyle}}"></div>
     </div>
