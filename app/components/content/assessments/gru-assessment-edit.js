@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import CollectionEdit from 'gooru-web/components/content/collections/gru-collection-edit';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 export default CollectionEdit.extend({
   // -------------------------------------------------------------------------
@@ -20,6 +21,16 @@ export default CollectionEdit.extend({
    * @type {SessionService} Service to retrieve session information
    */
   session: Ember.inject.service('session'),
+
+  aggregatedTags: Ember.computed('tempCollection.aggregatedTag.[]', function() {
+    let aggregatedTags = TaxonomyTag.getTaxonomyTags(
+      this.get('tempCollection.aggregatedTag'),
+      false,
+      false,
+      true
+    );
+    return aggregatedTags;
+  }),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -82,6 +93,11 @@ export default CollectionEdit.extend({
       });
     },
 
+    addTag: function(taxonomyTag) {
+      let tagData = taxonomyTag.get('data');
+      this.get('tempCollection.aggregatedTag').removeObject(tagData);
+    },
+
     /**
      * Save setting for visibility of collection in profile
      */
@@ -90,10 +106,9 @@ export default CollectionEdit.extend({
       this.set('tempCollection', collectionForEditing);
       this.actions.updateContent.call(this);
     },
-
     /**
-     * Delete assessment
-     */
+   * Delete assessment
+   */
     deleteItem: function() {
       const myId = this.get('session.userId');
       var model = {
@@ -124,5 +139,45 @@ export default CollectionEdit.extend({
         false
       );
     }
+  },
+  /**
+     * Initialize variables and get standards data.
+     */
+  initializeVariables: function() {
+    let aggregatedStandards = Ember.A([]);
+    let unitStandards = this.get('tempCollection.children');
+    let selectedStandards = this.get('collection.standards');
+    let selectedStandardCodes = Ember.A([]);
+    selectedStandards.forEach(function(standardObj) {
+      selectedStandardCodes.push(standardObj.code);
+    });
+    unitStandards.forEach(function(unitstandardObj) {
+      let unitStandardTag = unitstandardObj.standards;
+      unitStandardTag.forEach(function(onestandardObj) {
+        if (selectedStandardCodes.length !== 0) {
+          selectedStandardCodes.forEach(function(newstandardObj) {
+            if (newstandardObj !== onestandardObj.code) {
+              aggregatedStandards.push(onestandardObj);
+            }
+          });
+        } else {
+          aggregatedStandards.push(onestandardObj);
+        }
+      });
+    });
+
+    let result = aggregatedStandards.reduceRight(function(r, a) {
+      r.some(function(b) {
+        return a.code === b.code;
+      }) || r.push(a);
+      return r;
+    }, []);
+    this.set('tempCollection.aggregatedTag', result);
+  },
+
+  init: function() {
+    this._super(...arguments);
+    this.set('tempCollection', this.get('collection').copy());
+    this.initializeVariables();
   }
 });

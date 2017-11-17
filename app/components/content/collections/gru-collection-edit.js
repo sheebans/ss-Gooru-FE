@@ -52,6 +52,35 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       this.set('tempCollection', collectionForEditing);
       this.set('isEditing', true);
       this.set('selectedSubject', null);
+      let aggregatedStandards = [];
+      let unitStandards = this.get('tempCollection.children');
+      let selectedStandards = this.get('collection.standards');
+      let selectedStandardCodes = [];
+      selectedStandards.forEach(function(standardObj) {
+        selectedStandardCodes.push(standardObj.code);
+      });
+      unitStandards.forEach(function(unitstandardObj) {
+        let unitStandardTag = unitstandardObj.standards;
+        unitStandardTag.forEach(function(onestandardObj) {
+          if (selectedStandardCodes.length !== 0) {
+            selectedStandardCodes.forEach(function(newstandardObj) {
+              if (newstandardObj !== onestandardObj.code) {
+                aggregatedStandards.push(onestandardObj);
+              }
+            });
+          } else {
+            aggregatedStandards.push(onestandardObj);
+          }
+        });
+      });
+      let result = aggregatedStandards.reduceRight(function(r, a) {
+        r.some(function(b) {
+          return a.code === b.code;
+        }) || r.push(a);
+        return r;
+      }, []);
+
+      this.set('tempCollection.aggregatedTag', result);
     },
 
     /**
@@ -163,6 +192,23 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     removeTag: function(taxonomyTag) {
       var tagData = taxonomyTag.get('data');
       this.get('tempCollection.standards').removeObject(tagData);
+      this.get('tempCollection.aggregatedTag').addObject(tagData);
+      this.set(
+        'tempCollection.aggregatedTag',
+        this.get('tempCollection.aggregatedTag').uniqBy('code')
+      );
+    },
+    /**
+     * Add tag data from the taxonomy list in tempUnit
+     */
+    addTag: function(taxonomyTag) {
+      let tagData = taxonomyTag.get('data');
+      this.get('tempCollection.aggregatedTag').removeObject(tagData);
+      this.get('tempCollection.standards').addObject(tagData);
+      this.set(
+        'tempCollection.standards',
+        this.get('tempCollection.standards').uniqBy('code')
+      );
     },
 
     /**
@@ -240,6 +286,16 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
    */
   tags: Ember.computed('collection.standards.[]', function() {
     return TaxonomyTag.getTaxonomyTags(this.get('collection.standards'), false);
+  }),
+
+  aggregatedTags: Ember.computed('tempCollection.aggregatedTag.[]', function() {
+    let aggregatedTags = TaxonomyTag.getTaxonomyTags(
+      this.get('tempCollection.aggregatedTag'),
+      false,
+      false,
+      true
+    );
+    return aggregatedTags;
   }),
 
   /**

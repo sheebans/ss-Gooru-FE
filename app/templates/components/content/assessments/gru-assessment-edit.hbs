@@ -88,6 +88,17 @@
           </label>
         </div>
 
+      {{#if isEditing}}
+          <div>
+            {{#if aggregatedTags.length}}
+            <div>Suggested standards based on question in this assessment</div>
+              <div class="tags">
+                  {{taxonomy.gru-taxonomy-tag-list tags=aggregatedTags onAdd=(action 'addTag')}}
+              </div>
+              {{/if}}
+          </div>
+        {{/if}}
+
         {{content.gru-audience isEditing=isEditing srcSelectedAudiences=collection.audience editSelectedAudiences=tempCollection.audience}}
 
         {{content.gru-depth-of-knowledge isEditing=isEditing srcSelectedKnowledge=collection.depthOfknowledge editSelectedKnowledge=tempCollection.depthOfknowledge}}

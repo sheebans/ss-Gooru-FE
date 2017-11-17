@@ -17,7 +17,8 @@ export default Ember.Component.extend({
   classNameBindings: [
     'model.isActive:active',
     'model.isReadonly:read-only',
-    'model.isRemovable:remove'
+    'model.isRemovable:remove',
+    'model.canAdd:add'
   ],
 
   // -------------------------------------------------------------------------
@@ -29,10 +30,14 @@ export default Ember.Component.extend({
         this.get('onSelect')(this.get('model'));
       }
     },
-
     removeTag: function() {
       if (this.get('onRemove')) {
         this.get('onRemove')(this.get('model'));
+      }
+    },
+    addTag: function() {
+      if (this.get('onAdd')) {
+        this.get('onAdd')(this.get('model'));
       }
     }
   },
@@ -78,6 +83,10 @@ export default Ember.Component.extend({
    * @property {Function} onSelect - Event handler called when the tag is selected
    */
   onSelect: null,
+  /**
+   * @property {Function} onAdd - Event handler called when the tag is added
+   */
+  onAdd: null,
 
   // -------------------------------------------------------------------------
   // Methods

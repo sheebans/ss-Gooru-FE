@@ -1,5 +1,5 @@
 {{#each visibleTags as |taxonomyTag|}}
-  {{taxonomy.gru-taxonomy-tag model=taxonomyTag hasTooltip=hasTooltips onRemove=(action 'removeTag' taxonomyTag)}}
+  {{taxonomy.gru-taxonomy-tag model=taxonomyTag hasTooltip=hasTooltips onRemove=(action 'removeTag' taxonomyTag) onAdd=(action 'addTag' taxonomyTag)}}
 {{/each}}
 
 {{#if nonVisibleTags}}
@@ -12,6 +12,7 @@
       model=taxonomyTag
       hasTooltip=false
       onRemove=(action 'removeTag' taxonomyTag)
+      onAdd=(action 'addTag' taxonomyTag)
       }}
       {{#if showDescription}}
         <div class="panel panel-default description-tag">
