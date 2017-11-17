@@ -7,6 +7,13 @@ export default Ember.Route.extend({
   i18n: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
+  // Events
+  didRender() {
+    var component = this;
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+  },
+
+  // -------------------------------------------------------------------------
   // Attributes
 
   // -------------------------------------------------------------------------

@@ -29,84 +29,38 @@ test('Layout', function(assert) {
     );
     assert.ok($container.length, 'Missing class management tab container');
 
-    assert.ok($container.find('.class-panel').length, 'Missing class panel');
-    assert.ok($container.find('.course-panel').length, 'Missing course panel');
+    assert.ok($container.find('.class-information').length, 'Missing class information');
+    assert.ok($container.find('.course-information').length, 'Missing course information');
 
-    const $classPanel = $container.find('.class-panel');
-    const $classPanelHeader = $classPanel.find('.panel-header');
+    const $classInformation = $container.find('.class-information');
 
     assert.ok(
-      $classPanelHeader.find('h5').length,
+      $classInformation.find('.class-name span').length,
       'Missing class information title'
     );
-    assert.ok(
-      $classPanelHeader.find('.actions').length,
-      'Missing class actions panel'
-    );
-    assert.ok(
-      $classPanelHeader.find('.actions .delete-btn').length,
-      'Missing delete btn'
-    );
-    assert.ok(
-      $classPanelHeader.find('.actions .archive-btn').length,
-      'Missing archive btn'
-    );
 
-    const $classPanelBody = $classPanel.find('.panel-body');
     assert.ok(
-      $classPanelBody.find('.class-name p').length,
-      'Missing class name label'
-    );
-    assert.ok(
-      $classPanelBody.find('.class-name .edit-text span').length,
+      $classInformation.find('.class-name .edit-text span').length,
       'Missing class title to edit'
     );
     assert.ok(
-      $classPanelBody.find('.class-name .edit-text i').length,
+      $classInformation.find('.class-name .edit-text i').length,
       'Missing class title edit icon'
     );
 
-    assert.ok(
-      $classPanelBody.find('.class-code p').length,
-      'Missing class code label'
-    );
-    assert.ok(
-      $classPanelBody.find('.class-code .gru-copy-value').length,
-      'Missing class code copy component'
-    );
-    assert.ok(
-      $classPanelBody.find('.class-code .gru-switch').length,
-      'Missing attend class switch component'
-    );
-
-    const $coursePanel = $container.find('.course-panel');
-    const $coursePanelHeader = $coursePanel.find('.panel-header');
+    const $courseInformation = $container.find('.course-information');
 
     assert.ok(
-      $coursePanelHeader.find('h5').length,
+      $courseInformation.find('.assessment-min-score span').length,
       'Missing course information title'
     );
 
-    const $coursePanelBody = $coursePanel.find('.panel-body');
     assert.ok(
-      $coursePanelBody.find('.course-information p').length,
-      'Missing course information label'
-    );
-    assert.ok(
-      $coursePanelBody.find('.course-information .gru-course-card.small')
-        .length,
-      'Missing small course card'
-    );
-    assert.ok(
-      $coursePanelBody.find('.assessment-min-score p').length,
-      'Missing course assessment-min-score label'
-    );
-    assert.ok(
-      $coursePanelBody.find('.assessment-min-score .edit-text span').length,
+      $courseInformation.find('.assessment-min-score .edit-text span').length,
       'Missing assessment min score to edit'
     );
     assert.ok(
-      $coursePanelBody.find('.assessment-min-score .edit-text i').length,
+      $courseInformation.find('.assessment-min-score .edit-text i').length,
       'Missing assessment min score edit icon'
     );
 
@@ -146,23 +100,22 @@ test('If a blank name is saved it is not updated', function(assert) {
     );
     assert.ok($container.length, 'Missing class management tab container');
 
-    const $classPanel = $container.find('.class-panel');
-    const $classPanelBody = $classPanel.find('.panel-body');
-    const $editNameIcon = $classPanelBody.find(
+    const $classInformation = $container.find('.class-information');
+    const $editNameIcon = $classInformation.find(
       '.class-name .edit-text .edit-icon'
     );
 
     click($editNameIcon);
 
     return wait().then(function() {
-      const $titleInput = $classPanelBody.find(
+      const $titleInput = $classInformation.find(
         '.class-name .edit-text .gru-input.title input'
       );
       $titleInput.val('');
       $titleInput.blur();
       return wait().then(function() {
         assert.equal(
-          T.text($classPanelBody.find('.class-name .edit-text .class-title')),
+          T.text($classInformation.find('.class-name .edit-text .class-title')),
           'Pochita As Teacher - With Course'
         );
       });
@@ -184,23 +137,22 @@ test('If a diferent name is saved it is updated', function(assert) {
     );
     assert.ok($container.length, 'Missing class management tab container');
 
-    const $classPanel = $container.find('.class-panel');
-    const $classPanelBody = $classPanel.find('.panel-body');
-    var $editNameIcon = $classPanelBody.find(
+    const $classInformation = $container.find('.class-information');
+    var $editNameIcon = $classInformation.find(
       '.class-name .edit-text .edit-icon'
     );
 
     click($editNameIcon);
 
     return wait().then(function() {
-      const $titleInput = $classPanelBody.find(
+      const $titleInput = $classInformation.find(
         '.class-name .edit-text .gru-input.title input'
       );
       $titleInput.val('Teacher Class');
       $titleInput.blur();
       return wait().then(function() {
         assert.equal(
-          T.text($classPanelBody.find('.class-name .edit-text .class-title')),
+          T.text($classInformation.find('.class-name .edit-text .class-title')),
           'Teacher Class'
         );
       });
@@ -220,10 +172,9 @@ test('Remove class', function(assert) {
     const $container = find(
       '.teacher.class .controller.teacher.class.class-management'
     );
-    const $classPanel = $container.find('.class-panel');
-    const $classPanelHeader = $classPanel.find('.panel-header');
+    const $courseInformation = $container.find('.course-information');
 
-    const $removeButton = $classPanelHeader.find('.actions .delete-btn');
+    const $removeButton = $courseInformation.find('.actions .delete-btn');
     click($removeButton);
     andThen(function() {
       var $deleteContentModal = find('.gru-modal .gru-delete-class');
@@ -387,6 +338,48 @@ test('Sort Student by Last Name', function(assert) {
   });
 });
 
+test('Sort Student by Student ID', function(assert) {
+  visit('/teacher/class/class-for-pochita-as-teacher/class-management');
+  andThen(function() {
+    assert.equal(
+      currentURL(),
+      '/teacher/class/class-for-pochita-as-teacher/class-management'
+    );
+    let $container = find(
+      '.teacher.class .controller.teacher.class.class-management'
+    );
+    let $studentsHeader = $container.find('.students-panel .panel-heading');
+    let $studentsPanel = $container.find('.students-panel .panel-body');
+    let $sortByStudentId = $studentsHeader.find('.sortable.student-id');
+    click($sortByStudentId);
+    andThen(function() {
+      assert.equal(
+        $studentsPanel.find('tr:first-child td.student-id').text(),
+        '',
+        'Incorrect first member'
+      );
+      assert.equal(
+        $studentsPanel.find('tr:last-child td.student-id').text(),
+        'GC88888888888888888888888',
+        'Incorrect last member'
+      );
+      click($sortByStudentId);
+      andThen(function() {
+        assert.equal(
+          $studentsPanel.find('tr:first-child td.student-id').text(),
+          'GC88888888888888888888888',
+          'Incorrect first member'
+        );
+        assert.equal(
+          $studentsPanel.find('tr:last-child td.student-id').text(),
+          '',
+          'Incorrect last member'
+        );
+      });
+    });
+  });
+});
+
 test('Archive Class', function(assert) {
   visit('/teacher/class/class-for-pochita-as-teacher/class-management');
 
@@ -399,9 +392,8 @@ test('Archive Class', function(assert) {
     const $container = find(
       '.teacher.class .controller.teacher.class.class-management'
     );
-    const $classPanel = $container.find('.class-panel');
-    const $classPanelHeader = $classPanel.find('.panel-header');
-    const $archiveButton = $classPanelHeader.find('.actions .archive-btn');
+    const $courseInformation = $container.find('.course-information');
+    const $archiveButton = $courseInformation.find('.actions .archive-btn');
     click($archiveButton);
     andThen(function() {
       const $archiveModal = find('.gru-modal .gru-archive-class');
