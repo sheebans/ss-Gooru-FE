@@ -20,8 +20,8 @@ const courseServiceStub = Ember.Service.extend({
 });
 
 moduleForComponent(
-  'cards/gru-teacher-class-card',
-  'Integration | Component | cards/gru teacher class card',
+  'new-cards/gru-teacher-class-card',
+  'Integration | Component | new cards/gru teacher class card',
   {
     integration: true,
     beforeEach: function() {
@@ -66,11 +66,11 @@ var mockClass = ClassModel.create({
 test('Class Card Layout', function(assert) {
   this.set('class', mockClass);
 
-  this.render(hbs`{{cards/gru-teacher-class-card class=class}}`);
+  this.render(hbs`{{new-cards/gru-teacher-class-card class=class}}`);
 
   var $component = this.$(); //component dom element
 
-  const $classCard = $component.find('.gru-teacher-class-card');
+  const $classCard = $component.find('.gru-teacher-class-cards');
   const $panel = $classCard.find('.panel');
   const $panelHeading = $panel.find('.panel-heading');
   const $panelBody = $panel.find('.panel-body');
@@ -86,9 +86,13 @@ test('Class Card Layout', function(assert) {
     'Wrong class title text'
   );
 
-  T.exists(assert, $panelHeading.find('.code'), 'Missing class card code');
+  T.exists(
+    assert,
+    $panelBody.find('.performance .code'),
+    'Missing class card code'
+  );
   assert.equal(
-    T.text($panelHeading.find('.code .class-code')),
+    T.text($panelBody.find('.performance .code .class-code')),
     'VZFMEWH',
     'Wrong class code text'
   );
@@ -122,16 +126,5 @@ test('Class Card Layout', function(assert) {
     T.text($panelBody.find('.performance .percentage')),
     '90%',
     'Wrong performance score of the chart'
-  );
-
-  T.exists(
-    assert,
-    $panelBody.find('.completion-chart .gru-x-bar-chart'),
-    'Missing completion-chart gru-x-bar-chart component'
-  );
-  assert.equal(
-    T.text($panelBody.find('.completion-chart label')),
-    '50% Completed',
-    'Wrong completed score of the chart'
   );
 });
