@@ -22,14 +22,26 @@
       font-size: 14px;
       line-height: 22px;
       margin: 0 0 15px;
-      span {
-        float: left;
-        font-weight: bold;
-        margin: 0 2px 0 0;
-      }
+
       i {
         font-size: $font-size-tour-icon;
         vertical-align: bottom;
+      }
+      .take-tour-icon {
+        pointer-events: none;
+        background-color: $blue-400;
+        height: 40px;
+        padding: 0px 11px 8px 0;
+        width: 40px;
+        border-radius: 25px;
+        border: none;
+        i {
+          color: $white;
+          font-size: $font-size-tour-icon;
+          height: 22px;
+          width: 25px;
+          margin-left: 4px;
+        }
       }
     }
     .last-text {
