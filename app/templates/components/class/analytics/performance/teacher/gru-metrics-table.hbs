@@ -75,6 +75,7 @@
                     </div>
                 </th>
                     {{else}}
+                    {{#if (eq subsubHeader.collectionType 'assessment')}}
                     <th id="{{{subsubHeader.id}}}" class="header headerbgcolor pointer subsubwidthmax" {{action 'navigateToCollection' header.id subHeader.id subsubHeader.id}} scope="col">
                     <div class="header-title">
                         <div class="column">
@@ -82,6 +83,15 @@
                         </div>
                     </div>
                     </th>
+                    {{else}}
+                    <th id="{{{subsubHeader.id}}}" class="header headerbgcolor subsubwidthmax" scope="col">
+                    <div class="header-title">
+                        <div class="column">
+                            <div class="title lsntxtalignment" title="{{subsubHeader.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=subsubHeader.title maxLength=23 suffix=true}}}</div>
+                        </div>
+                    </div>
+                    </th>
+                    {{/if}}
                     {{/if}}
                 {{/if}} 
                 {{/each}}
