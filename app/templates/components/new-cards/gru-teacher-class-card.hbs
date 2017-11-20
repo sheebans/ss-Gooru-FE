@@ -13,12 +13,17 @@
     </div>
     <div class="panel-body" style="background-color:{{grade-color class.performanceSummary.score}}">
       <div class="information" style="background-image: url({{course.thumbnailUrl}})">
-        <div class="current-activity">{{t "student-landing.resume-current-activity"}}</div>
+        <!-- <div class="current-activity">{{t "student-landing.resume-current-activity"}}</div> -->
+        {{#if course}}
+        <div class="current-activity">{{t "student-landing.class.assigned-course"}}</div>
+        {{else}}
+        <div class="current-activity">{{t "student-landing.class.no-course-assigned"}}</div>
+        {{/if}}
         <div class="title-section">
-          {{#if showCurrentLocation}}
-            <i class="{{if class.currentLocation.collection.isAssessment 'assessment' 'collection'}}"></i>
-            <div class="title pointer" alt="{{class.currentLocation.collection.title}}" {{action "playCollection"}}>
-              {{truncate text=currentLocationTitle maxLength=90}}
+          {{#if course.title}}
+            <!-- <i class="{{if class.currentLocation.collection.isAssessment 'assessment' 'collection'}}"></i> -->
+            <div class="title pointer" alt="{{course.title}}" {{action "playCollection"}}>
+              {{truncate text=course.title maxLength=90}}
             </div>
           {{else}}
             <span>{{t "student-landing.not-available"}}</span>
@@ -76,18 +81,23 @@
     </div>
     <div class="panel-body">
       <div class="information">
-        <div class="current-activity">{{t "student-landing.resume-current-activity"}}</div>
+        {{#if course}}
+        <div class="current-activity">{{t "student-landing.class.assigned-course"}}</div>
+        {{else}}
+        <div class="current-activity">{{t "student-landing.class.no-course-assigned"}}</div>
+        {{/if}}
+        <!-- <div class="current-activity">{{t "student-landing.resume-current-activity"}}</div> -->
         <div class="title-section">
-          {{#if showCurrentLocation}}
-            <i class="{{if class.currentLocation.collection.isAssessment 'assessment' 'collection'}}"></i>
-            <div class="title pointer" alt="{{class.currentLocation.collection.title}}" {{action "playCollection"}}>
-              {{truncate text=currentLocationTitle maxLength=90}}
+          {{#if course.title}}
+            <!-- <i class="{{if class.currentLocation.collection.isAssessment 'assessment' 'collection'}}"></i> -->
+            <div class="title pointer" alt="{{course.title}}" {{action "playCollection"}}>
+              {{truncate text=course.title maxLength=90}}
             </div>
           {{else}}
             <span>{{t "student-landing.not-available"}}</span>
           {{/if}}
         </div>
-        <span class="no-course-assigned">{{t "student-landing.class.no-course-assigned"}}</span>
+        <!-- <span class="no-course-assigned">{{t "student-landing.class.no-course-assigned"}}</span> -->
       </div>
       <div class="links">
         <ul>

@@ -56,7 +56,10 @@ module.exports = function(grunt) {
       },
       default: {
         files: {
-          'public/assets/emoji-one/emoji.svg': ['vendor/emoji-one/*.svg']
+          'public/assets/emoji-one/emoji.svg': ['vendor/emoji-one/*.svg'],
+          'public/assets/performance-report/report.svg': [
+            'vendor/performance-report/*.svg'
+          ]
         }
       }
     },
@@ -84,7 +87,7 @@ module.exports = function(grunt) {
     if (server) {
       command += ' --server';
     }
-    var testExecTask = `exec:run:${  command}`;
+    var testExecTask = `exec:run:${command}`;
 
     var tasks = noStubby ? [testExecTask] : ['stubby:test', testExecTask];
     grunt.task.run(tasks);
@@ -113,7 +116,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('run', function(target) {
     target = target || 'dev';
-    var serverExecTask = `exec:ember-server-${  target}`;
+    var serverExecTask = `exec:ember-server-${target}`;
 
     var tasks = ['generateSVG', 'stubby:test'];
     if (target === 'dev') {
@@ -127,7 +130,7 @@ module.exports = function(grunt) {
 
   // Wrapper for ember build, this runs generateSVG before the build
   grunt.registerTask('build', function(target) {
-    var buildExecTask = `exec:build-${  target || 'dev'}`;
+    var buildExecTask = `exec:build-${target || 'dev'}`;
     grunt.task.run(['generateSVG', buildExecTask]);
   });
 };

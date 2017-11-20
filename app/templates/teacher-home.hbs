@@ -112,9 +112,11 @@
       <div role="tabpanel" class="tab-pane row {{if showArchivedClasses 'active'}}" id="archived-classes">
         {{#each sortedArchivedClassrooms as |class|}}
           {{cards.gru-class-card
-          class=class
-          profile=profile
-          classStudentCount=myClasses.memberCount}}
+            class=class
+            course=class.course
+            classStudentCount=myClasses.memberCount
+            onPlayCollection='studyPlayer'
+            onItemSelected='selectMenuItem'}}
         {{else}}
           <span class="no-archived">{{t 'common.no-archived'}}</span>
         {{/each}}

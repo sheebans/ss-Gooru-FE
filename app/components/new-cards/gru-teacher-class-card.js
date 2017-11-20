@@ -58,7 +58,7 @@ export default Ember.Component.extend({
     if (courseId) {
       component
         .get('courseService')
-        .fetchById(courseId)
+        .fetchByIdWithOutProfile(courseId)
         .then(function(course) {
           if (!component.isDestroyed) {
             component.set('course', course);
