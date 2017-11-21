@@ -65,23 +65,10 @@ test('Layout', function(assert) {
     );
 
     const $studentsPanel = $container.find('.students-panel');
+
     assert.ok(
-      $studentsPanel.find('.panel-heading').length,
-      'Missing student panel heading'
-    );
-    assert.equal(
-      $studentsPanel.find('.panel-heading div').length,
-      3,
-      'The student panel must have 3 columns'
-    );
-    assert.ok(
-      $studentsPanel.find('.panel-body').length,
-      'Missing student panel body'
-    );
-    assert.equal(
-      $studentsPanel.find('.panel-body tr').length,
-      7,
-      'The students panel must have 7 students'
+      $studentsPanel.find('.table').length,
+      'Missing student list table'
     );
   });
 });
@@ -216,7 +203,7 @@ test('Delete Student', function(assert) {
     let $container = find(
       '.teacher.class .controller.teacher.class.class-management'
     );
-    let $studentsPanel = $container.find('.students-panel .panel-body');
+    let $studentsPanel = $container.find('.students-panel');
     let $delete = $studentsPanel.find(
       'table tbody tr:nth-child(1) .student-actions .delete-btn'
     );
@@ -242,8 +229,8 @@ test('Delete Student', function(assert) {
               andThen(function() {
                 assert.equal(
                   $studentsPanel.find('tr').length,
-                  6,
-                  'The students panel must have 6 students'
+                  7,
+                  'The students panel must have 7 students'
                 );
               });
             });
@@ -264,9 +251,8 @@ test('Sort Student by First Name', function(assert) {
     let $container = find(
       '.teacher.class .controller.teacher.class.class-management'
     );
-    let $studentsHeader = $container.find('.students-panel .panel-heading');
-    let $studentsPanel = $container.find('.students-panel .panel-body');
-    let $sortByFirstName = $studentsHeader.find('.sortable.first-name');
+    let $studentsPanel = $container.find('.students-panel');
+    let $sortByFirstName = $studentsPanel.find('.table-header .sortable.first-name');
     click($sortByFirstName);
     andThen(function() {
       assert.equal(
@@ -306,9 +292,8 @@ test('Sort Student by Last Name', function(assert) {
     let $container = find(
       '.teacher.class .controller.teacher.class.class-management'
     );
-    let $studentsHeader = $container.find('.students-panel .panel-heading');
-    let $studentsPanel = $container.find('.students-panel .panel-body');
-    let $sortByLastName = $studentsHeader.find('.sortable.last-name');
+    let $studentsPanel = $container.find('.students-panel');
+    let $sortByLastName = $studentsPanel.find('.table-header .sortable.last-name');
     click($sortByLastName);
     andThen(function() {
       assert.equal(
@@ -348,9 +333,8 @@ test('Sort Student by Student ID', function(assert) {
     let $container = find(
       '.teacher.class .controller.teacher.class.class-management'
     );
-    let $studentsHeader = $container.find('.students-panel .panel-heading');
-    let $studentsPanel = $container.find('.students-panel .panel-body');
-    let $sortByStudentId = $studentsHeader.find('.sortable.student-id');
+    let $studentsPanel = $container.find('.students-panel');
+    let $sortByStudentId = $studentsPanel.find('.table-header .sortable.student-id');
     click($sortByStudentId);
     andThen(function() {
       assert.equal(
