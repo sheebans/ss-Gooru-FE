@@ -1,5 +1,4 @@
 <div class="controller teacher class class-management">
-  <br>
   <div class="row header-info">
     <div class="col-md-6 col-sm-12 class-information">
       <div class="class-name">
@@ -44,44 +43,51 @@
   </div>
 
   {{#if sortedMembers}}
-    <div class="panel students-panel">
-      <div class="panel-heading">
-        <div class='sortable first-name' {{action 'sortStudents' 'firstName'}}>
-          <span>{{t "teacher-landing.class.class-management-tab.first-name"}}</span>
-          {{gru-icon name='swap_vert'}}
-        </div>
-        <div class='sortable last-name' {{action 'sortStudents' 'lastName'}}>
-          <span>{{t "teacher-landing.class.class-management-tab.last-name"}}</span>
-          {{gru-icon name='swap_vert'}}
-        </div>
-        <div class='sortable student-id' {{action 'sortStudents' 'studentId'}}>
-          <span>{{t "teacher-landing.class.class-management-tab.student-id"}}</span>
-          {{gru-icon name='swap_vert'}}
-        </div>
-      </div>
-      <div class="panel-body">
-        <table class="table table-striped">
-          <tbody>
-            {{#each sortedMembers as |student|}}
-              <tr class="student">
-                <td class="first-name border-right"><span>{{student.firstName}}</span></td>
-                <td class="last-name border-right"><span>{{student.lastName}}</span></td>
-                <td class="student-id"><span>{{student.studentId}}</span></td>
-                <td class="student-actions">
-                <span class="delete-btn right remove-student" data-toggle="tooltip" title="{{t 'common.remove'}}" {{action 'removeStudent' student}}>
-                  {{gru-icon name='delete'}}
-                </span>
-                </td>
-              </tr>
-            {{/each}}
-          </tbody>
-        </table>
-      </div>
+    <div class="students-panel">
+      <table class="table table-striped">
+        <thead  class="table-header">
+          <tr>
+            <th>
+              <div class='sortable last-name' {{action 'sortStudents' 'lastName'}}>
+                <span>{{t "teacher-landing.class.class-management-tab.last-name"}}</span>
+                {{gru-icon name='swap_vert'}}
+              </div>
+            </th>
+            <th>
+              <div class='sortable first-name' {{action 'sortStudents' 'firstName'}}>
+                <span>{{t "teacher-landing.class.class-management-tab.first-name"}}</span>
+                {{gru-icon name='swap_vert'}}
+              </div>
+            </th>
+            <th>
+              <div class='sortable student-id' {{action 'sortStudents' 'studentId'}}>
+                <span>{{t "teacher-landing.class.class-management-tab.student-id"}}</span>
+                {{gru-icon name='swap_vert'}}
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each sortedMembers as |student|}}
+            <tr class="student">
+              <td class="last-name border-right"><span>{{student.lastName}}</span></td>
+              <td class="first-name border-right"><span>{{student.firstName}}</span></td>
+              <td class="student-id border-right"><span>{{student.studentId}}</span></td>
+              <td class="student-actions">
+              <span class="delete-btn right remove-student" data-toggle="tooltip" title="{{t 'common.remove'}}" {{action 'removeStudent' student}}>
+                {{gru-icon name='delete'}}
+              </span>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
     </div>
   {{else}}
     <div class="no-students">
       <div class="student-null"></div>
       <div class="message">{{t 'teacher-landing.class.class-management-tab.students-null'}}</div>
+      <div class="message">{{t 'teacher-landing.class.class-management-tab.placeholder-text'}}</div>
     </div>
   {{/if}}
 </div>

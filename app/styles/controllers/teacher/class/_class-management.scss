@@ -3,6 +3,7 @@
     max-width: 960px;
     box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.07);
     margin: auto;
+    margin-top: 10px;
     background-color: $white;
     .class-information {
       height: 60px;
@@ -57,238 +58,96 @@
       }
     }
   }
-  padding: 0;
-  .panel {
-    min-height: 180px;
-    .panel-header {
-      min-height: 30px;
-      h5 {
-        display: inline-block;
-        margin: 0;
-        vertical-align: middle;
-      }
-      .actions {
-        @media (min-width: $screen-sm) {
-          float: right;
-        }
-        button {
-          padding: 4px 15px;
-        }
-      }
-    }
-    .panel-body {
-      clear: both;
-      padding: 5px;
-      p {
-        margin: 0;
-        color: $gray-base;
-        font-weight: 300;
-        line-height: $font-family-base;
-      }
-      .edit-text {
-        font-size: 13px;
-        color: $dark-300;
-        .gru-icon.edit {
-          color: $light-400;
-          font-size: $font-size-large;
-          cursor: pointer;
-        }
-        .gru-input {
-          &.minScore {
-            width: 20%;
-          }
-          &.title {
-            width: 50%;
-          }
-        }
-      }
-    }
-  }
-
-  .class-panel {
-    .class-code {
-      margin: 5px -15px 0;
-      .input-group {
-        width: 132px;
-        @media (max-width: $screen-xs) {
-          width: 100%;
-        }
-        input {
-          text-align: center;
-          border: 1px solid $light-400;
-          -webkit-border-top-left-radius: 3px;
-          -moz-border-top-left-radius: 3px;
-          border-top-left-radius: 3px;
-          -webkit-border-bottom-left-radius: 3px;
-          -moz-border-bottom-left-radius: 3px;
-          border-bottom-left-radius: 3px;
-          color: $gray-base;
-          height: 34px;
-          width: 98px;
-          font-size: $font-navigator;
-          @media (max-width: $screen-xs) {
-            width: 100%;
-            font-size: $font-size-xsmall;
-          }
-        }
-        .gru-copy-value {
-          .copy-btn {
-            height: inherit;
-          }
-        }
-        .input-group-addon {
-          background-color: $dark-300;
-          border-left: 1px solid $white;
-          padding: 0 8px;
-          i {
-            color: white;
-            font-size: $font-size-lead;
-          }
-          .tooltip {
-            width: 100%;
-            line-height: $font-size-base;
-          }
-        }
-      }
-      .gru-switch {
-        margin: 0;
-        padding: 0;
-        .btn-default.active {
-          background-color: $dark-300;
-        }
-      }
-    }
-  }
-
-  .course-panel {
-    .panel-body {
-      padding: 5px 0;
-      .course-information {
-        .gru-course-card.small {
-          padding: 0;
-          margin: 7px 0 0;
-          @media (max-width: $screen-lg) {
-            width: 100%;
-          }
-          .panel {
-            padding: 0;
-            overflow: hidden;
-            border-shadow: none;
-            box-shadow: none;
-            border: 1px solid $light-400;
-            min-height: 65px;
-            .panel-body {
-              padding: 0;
-              .card-header {
-                .header-content {
-                  @media (max-width: $screen-lg) {
-                    width: 100%;
-                  }
-                  .course-title {
-                    width: 100%;
-                  }
-                  .subject {
-                    margin: 15px 0 0;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
 
   .students-panel {
     margin-top: 20px;
     min-height: 0;
     padding: 0;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.07), 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-    p {
-      color: $gray-base;
-    }
-    button {
-      border: 1px solid $table-border-color;
-      padding: 6px 20px;
-    }
-    .panel-heading {
-      height: 48px;
-      padding: 0;
-      border-bottom: 2px solid $light-200;
-      .sortable {
-        width: 219px;
-        padding-left: 23px;
-        border-right: 1px dashed $light-200;
-        span {
-          color: $dark-400;
-          font-size: 14px;
-          font-weight: bold;
-          margin-right: 14px;
-        }
+    table {
+      width: 100%;
+      margin-bottom: 0;
+      thead, tbody {
+        display: block;
       }
-      .sortable:last-child {
-        border-right: none;
-      }
-      @include flexbox();
-      border-top-left-radius: 6px;
-      border-top-right-radius: 6px;
-      div {
-        @include flexbox();
-        @include align-items(center);
-        width: 12%;
-        @media (max-width: $screen-xs) {
-          width: 25%;
-        }
-        &.sortable {
-          cursor: pointer;
-        }
-      }
-    }
-    .panel-body {
-      padding: 0;
-      max-height: 215px;
-      overflow-y: auto;
-      table {
+      .table-header {
+        background-color: $white;
         width: 100%;
-        margin-bottom: 0;
-
-        .student-id {
-          width: 63%;
-        }
-        .student {
-          height: 36px;
-          td {
-            padding: 0;
-            width: 146px !important;
-            border-top: none;
+        border-bottom: 2px solid $light-200;
+        th {
+          padding: 0;
+          border-bottom: none;
+          height: 48px;
+          width: 36%;
+          @media (min-width: $screen-sm-max) {
+            border-right: 2px dashed $table-border-color;
+            width: 218px;
+          }
+          div {
+            padding: 0 0 10px 10px;
+            display: flex;
+            i {
+              margin-left: 15px;
+              cursor: pointer;
+            }
           }
           span {
-            font-size: 12px;
-            color: $gray-29;
-            margin-left: 23px;
-            line-height: 36px;
+            font-size: 14px;
+            color: $dark-400;
+            font-weight: bold;
+            margin-left: 15px;
           }
-          .remove-student {
-            cursor: pointer;
-            > i {
-              color: $gray-80;
+        }
+      }
+      tbody {
+        width: 100%;
+        max-height: 182px;
+        overflow: auto;
+        tr:nth-child(odd) {
+          background-color: $light-100;
+        }
+        tr:nth-child(even) {
+          background-color: $white;
+        }
+        .student{
+          height: 36px;
+          td.border-right {
+            width: 218px;
+            white-space: nowrap;
+            padding: 0;
+            border-top: none;
+            span {
+              font-size: 12px;
+              color: $gray-29;
+              margin-left: 23px;
+              line-height: 36px;
+            }
+          }
+          td.student-actions {
+            border: none;
+            width: calc(955px - 654px);
+            padding: 0;
+            .remove-student {
+              cursor: pointer;
+              > i {
+                line-height: 35px;
+                margin-right: 9px;
+                color: $gray-80;
+              }
             }
           }
         }
       }
-      .border-right {
-        border-right: 1px dashed $table-border-color;
-        @media (max-width: $screen-xs) {
-          width: 40%;
-        }
-      }
     }
-    .panel-body::-webkit-scrollbar {
+    .border-right {
+      border-right: 2px dashed $table-border-color;
+    }
+    tbody::-webkit-scrollbar {
       width: 4px;
       border-radius: 3px;
     }
 
-    .panel-body::-webkit-scrollbar-thumb {
+    tbody::-webkit-scrollbar-thumb {
       background: $gray-light;
       border: 1px solid $gray-light;
       border-radius: 5px;
