@@ -53,12 +53,6 @@ test('it shows an error message if the class code field is left blank and you bl
 
   $codeField.find('input').blur();
   return wait().then(function() {
-    // assert.ok(
-    //   $codeField.find('.error-messages .error').length,
-    //   'Username error message should be visible'
-    // );
-
-    // Fill in the input field
     $codeField.find('input').val('Class code');
     $codeField.find('input').blur();
 

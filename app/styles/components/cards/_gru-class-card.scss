@@ -215,7 +215,7 @@
         }
         .performance-no-percentage {
           width: 128px;
-          color: $light-400;
+          color: $light-500;
           text-align: center;
           padding: 0;
           display: inline-block;
@@ -276,7 +276,7 @@
 
         .performance-no-percentage {
           width: 128px;
-          color: $light-400;
+          color: $light-500;
           text-align: center;
           padding: 0;
           display: inline-block;
@@ -291,6 +291,12 @@
 
           .no-percentage {
             text-align: center;
+            width: 100%;
+            height: 100%;
+            font-size: 43px;
+            font-weight: 500;
+            margin-top: -42px;
+            color: $light-500;
           }
         }
       }
@@ -299,7 +305,7 @@
       .panel-body {
         .performance-no-percentage {
           width: 128px;
-          color: $light-400;
+          color: $light-500;
           text-align: center;
           padding: 0;
           display: inline-block;
@@ -307,6 +313,14 @@
           height: 93px;
           vertical-align: top;
           border-bottom-right-radius: 4px;
+
+          .no-percentage {
+            width: 100%;
+            height: 100%;
+            font-size: 43px;
+            font-weight: 500;
+            margin-top: -42px;
+          }
         }
       }
     }

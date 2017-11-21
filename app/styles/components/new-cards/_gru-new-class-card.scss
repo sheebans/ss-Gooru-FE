@@ -5,7 +5,7 @@
   .panel {
     @include border-top-radius(4px);
     @include border-bottom-radius(4px);
-    @include box-shadow(0 0 7px #ddd);
+    @include box-shadow(0 0 7px $table-border-color);
     margin: 0;
 
     .panel-body {
@@ -32,7 +32,6 @@
         margin-top: 20px;
         input {
           font-size: $font-size-small;
-          // font-weight: bold;
           width: 145px;
           margin: 0 auto;
           height: 24px;

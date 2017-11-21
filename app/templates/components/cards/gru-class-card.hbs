@@ -27,14 +27,14 @@
     <div class="links">
       <ul>
         <li class="performance">
-          <div class="icon-performance">
-            <svg>
+          <a {{action 'selectItem' 'performance'}}>
+            <div class="icon-performance">
+              <svg>
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/performance-report/report.svg#{{grade-range class.performanceSummary.score}}"></use>
             </svg>
-          </div>
-          <a {{action 'selectItem' 'performance'}}>
-              <span class="report-text">{{t 'teacher-landing.class.report'}}</span>
-            </a>
+            </div>
+            <span class="report-text">{{t 'teacher-landing.class.report'}}</span>
+          </a>
         </li>
       </ul>
     </div>

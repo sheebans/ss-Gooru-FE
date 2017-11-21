@@ -115,7 +115,7 @@ export default Ember.Component.extend({
     const scorePercentage = this.get('class.performanceSummary.score');
     return scorePercentage >= 0 && scorePercentage !== null
       ? `${scorePercentage}%`
-      : '--';
+      : '-';
   }),
 
   /**
