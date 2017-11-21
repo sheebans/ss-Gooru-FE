@@ -1984,7 +1984,7 @@ export default Object.assign(quizzesTranslations, {
       stepEleven: {
         title: 'Create Classroom',
         description:
-          'Click the button to create a new classroom for your course, collection, or assessment.'
+          'Name your classroom and click the button to create a new classroom.'
       }
     },
     'student-home': {
