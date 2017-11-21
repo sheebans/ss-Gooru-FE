@@ -216,6 +216,7 @@
         .performance-no-percentage {
           width: 128px;
           color: $light-500;
+          background-color: $white;
           text-align: center;
           padding: 0;
           display: inline-block;
@@ -275,6 +276,7 @@
         }
 
         .performance-no-percentage {
+          background-color: $white;
           width: 128px;
           color: $light-500;
           text-align: center;
@@ -305,6 +307,7 @@
       .panel-body {
         .performance-no-percentage {
           width: 128px;
+          background-color: $white;
           color: $light-500;
           text-align: center;
           padding: 0;

@@ -194,10 +194,10 @@ export function getBarGradeColor(grade) {
 }
 
 /**
- * Find the color corresponding to the grade bracket that a specific grade belongs to
+ * Find the range corresponding to the grade bracket that a specific grade belongs to
  * @see gooru-web/config/config#BARS_GRADING_SCALE
  * @param grade
- * @returns {String} - Hex color value
+ * @returns {String} - range value
  */
 export function getGradeRange(score) {
   var scaleSize = GRADING_SCALE.length - 1;
