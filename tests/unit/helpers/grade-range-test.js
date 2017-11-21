@@ -3,8 +3,7 @@ import { module, test } from 'qunit';
 
 module('Unit | Helper | grade range');
 
-// Replace this with your real tests.
-test('it works', function(assert) {
+test('get range', function(assert) {
   let result = gradeRange([42]);
-  assert.ok(result);
+  assert.ok(result, '0-59', 'Wrong range value');
 });
