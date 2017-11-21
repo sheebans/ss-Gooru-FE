@@ -194,6 +194,27 @@ export function getBarGradeColor(grade) {
 }
 
 /**
+ * Find the range corresponding to the grade bracket that a specific grade belongs to
+ * @see gooru-web/config/config#BARS_GRADING_SCALE
+ * @param grade
+ * @returns {String} - range value
+ */
+export function getGradeRange(score) {
+  var scaleSize = GRADING_SCALE.length - 1;
+  var range = 'not-started'; // Default color
+
+  if (isNumeric(score)) {
+    for (; scaleSize >= 0; scaleSize--) {
+      if (score >= GRADING_SCALE[scaleSize].LOWER_LIMIT) {
+        range = GRADING_SCALE[scaleSize].RANGE;
+        break;
+      }
+    }
+  }
+  return range;
+}
+
+/**
  * Get a html of the score string.
  * @param {number} value - %value
  * @returns {String} - html string
@@ -448,10 +469,14 @@ export function replaceMathExpression(text) {
   var questionText = $.parseHTML(text);
   var newQuestionText = '';
   $.each(questionText, function(i, el) {
-    let latex = $(el).find('.source').text();
+    let latex = $(el)
+      .find('.source')
+      .text();
     if (latex.length > 0) {
       let mathToSave = `<span class='gru-math-expression'><span class='source' hidden>${latex}</span>$$${latex}$$</span>`;
-      $(el).empty().append(mathToSave);
+      $(el)
+        .empty()
+        .append(mathToSave);
     }
     if (el.outerHTML) {
       newQuestionText = newQuestionText.concat(el.outerHTML);

@@ -4,12 +4,12 @@
     width: 100vw;
     > * {
       margin: 0 auto;
-      width: 97%;
+      width: 960px;
       @media (min-width: $screen-sm) {
-        width: 90%;
+        width: 960px;
       }
       @media (min-width: $screen-md) {
-        width: 90%;
+        width: 960px;
       }
     }
     .title {
@@ -167,7 +167,8 @@
   .tab-content {
     padding: 10px 0 0;
     clear: both;
-    @include transition(width .3s ease-out);
+    margin-top: 20px;
+    @include transition(width 0.3s ease-out);
     @media (min-width: $screen-sm) {
       width: 100%;
     }
@@ -178,7 +179,6 @@
       margin: -10px;
     }
     #archived-classes {
-      padding: 16px;
       span.no-archived {
         font-size: $font-size-lead;
       }
@@ -244,4 +244,8 @@
     height: 35px;
     margin: 8px 0 0;
   }
+}
+
+.content .tab-content {
+  margin-top: 20px;
 }

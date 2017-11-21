@@ -1,8 +1,8 @@
-.cards.gru-class-card {
+.new-cards.gru-teacher-class-cards {
   width: 300px;
   height: 300px;
   float: left;
-  margin: 0 13px 30px;
+  margin: 0 10px 30px;
 
   .panel {
     @include border-top-radius(4px);
@@ -11,7 +11,7 @@
     margin: 0;
 
     .panel-heading {
-      background-color: $light-400;
+      background-color: $white;
       @include flexbox;
       width: 100%;
       padding: 0 0 0 10px;
@@ -22,8 +22,6 @@
       > .title {
         width: 85%;
         padding: 6px 0;
-        font-size: 16px;
-        color: $white;
 
         a {
           color: $white;
@@ -38,6 +36,19 @@
           @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
         }
       }
+
+      .class-management {
+        padding: 10px;
+
+        i {
+          background: url("gooru/class-settings .svg");
+          width: 20px;
+          height: 20px;
+          object-fit: contain;
+          display: block;
+          cursor: pointer;
+        }
+      }
     }
 
     .panel-body {
@@ -47,7 +58,6 @@
       height: 260px;
 
       .information {
-        background-image: url("/assets/gooru/course-default.png");
         height: 167px;
         width: 100%;
         color: $white;
@@ -150,37 +160,54 @@
               padding: 2px 0 0 10px;
             }
 
-            .icon-performance {
-              margin-left: 42px;
-              padding: 11px 12px 0 0;
-              margin-bottom: -9px;
+            .icon-class-activities {
+              float: left;
+              margin: 7px 15px 0 0;
 
-              svg {
-                width: 55px;
-                height: 55px;
-                display: inline-block;
+              i {
+                background: url("gooru/images/teacher-landing-class-activities.svg");
+                width: 10.2px;
+                height: 15.8px;
+                display: block;
+                object-fit: contain;
               }
             }
 
-            a {
-              span {
-                margin-left: 46px;
-                padding: -8px -4px 0 0;
-                width: 72px;
-                color: $gray-base;
+            .icon-course-map {
+              float: left;
+              margin: 7px 15px 0 0;
+
+              i {
+                background: url("gooru/images/teacher-landing-course-map.svg");
+                width: 15.2px;
+                height: 9.5px;
+                display: block;
+                object-fit: contain;
+              }
+            }
+
+            .icon-performance {
+              float: left;
+              margin: 4px 15px 0 0;
+
+              i {
+                background: url("gooru/images/teacher-landing-class-report.svg");
+                width: 15.2px;
+                height: 15.8px;
+                display: block;
+                object-fit: contain;
               }
             }
           }
         }
       }
 
-      .performance-percentage {
+      .performance {
         color: $white;
         text-align: center;
         padding: 0;
         display: inline-block;
-        width: 128px;
-        height: 93px;
+        width: 125px;
         vertical-align: top;
         border-bottom-right-radius: 4px;
 
@@ -202,7 +229,6 @@
             font-weight: bold;
             text-align: center;
           }
-
           .no-percentage-code {
             color: $dark-700;
           }
@@ -213,29 +239,27 @@
           line-height: 56px;
           font-weight: 900;
         }
-        .performance-no-percentage {
-          width: 128px;
-          color: $light-500;
-          background-color: $white;
-          text-align: center;
-          padding: 0;
-          display: inline-block;
-          width: 128px;
-          height: 93px;
-          vertical-align: top;
-          border-bottom-right-radius: 4px;
 
-          .percentage {
-            color: $white;
-          }
-
-          .no-percentage {
-            text-align: center;
-          }
-        }
         label {
           font-size: $font-size-xxsmall;
           font-weight: bold;
+        }
+      }
+
+      .completion-chart {
+        height: 27px;
+        padding: 0 11px;
+
+        .charts.gru-x-bar-chart {
+          border-radius: 4px;
+          height: 7px;
+        }
+
+        label {
+          display: block;
+          font-size: $font-size-small;
+          margin: 0;
+          padding: 0 10px;
         }
       }
     }
@@ -243,8 +267,7 @@
     &.no-course {
       .panel-heading {
         color: $dark-600;
-        background: $light-400;
-        border-bottom: 1px solid $white;
+        border-bottom: 1px solid $dark-600;
 
         .title {
           a {
@@ -260,11 +283,24 @@
             color: $dark-600;
           }
         }
+
+        .class-management-noCourse {
+          padding: 10px;
+
+          i {
+            background: url("gooru/class-management-no-course.svg");
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            display: block;
+            cursor: pointer;
+          }
+        }
       }
 
       .panel-body {
         .information {
-          background-image: url("/assets/gooru/course-default.png") !important;
+          background-image: url("/assets/gooru/course-default.png");
 
           .no-course-assigned {
             position: absolute;
@@ -275,54 +311,27 @@
           }
         }
 
-        .performance-no-percentage {
-          background-color: $white;
-          width: 128px;
-          color: $light-500;
-          text-align: center;
-          padding: 0;
-          display: inline-block;
-          width: 128px;
-          height: 93px;
-          vertical-align: top;
-          border-bottom-right-radius: 4px;
+        .performance {
+          width: 125px;
+          color: $light-400;
 
           .percentage {
-            color: $white;
+            color: $light-200;
           }
 
           .no-percentage {
             text-align: center;
-            width: 100%;
-            height: 100%;
-            font-size: 43px;
-            font-weight: 500;
-            margin-top: -42px;
-            color: $light-500;
-          }
-        }
-      }
-    }
-    &.has-course {
-      .panel-body {
-        .performance-no-percentage {
-          width: 128px;
-          background-color: $white;
-          color: $light-500;
-          text-align: center;
-          padding: 0;
-          display: inline-block;
-          width: 128px;
-          height: 93px;
-          vertical-align: top;
-          border-bottom-right-radius: 4px;
+            width: 125px;
+            padding: 25px;
+            margin-left: 25px;
 
-          .no-percentage {
-            width: 100%;
-            height: 100%;
-            font-size: 43px;
-            font-weight: 500;
-            margin-top: -42px;
+            i {
+              background: url("gooru/images/teacher-landing-no-performance.svg");
+              width: 28px;
+              height: 6px;
+              object-fit: contain;
+              display: block;
+            }
           }
         }
       }
@@ -330,7 +339,7 @@
   }
 }
 
-.gru-class-card {
+.gru-new-class-card {
   float: left;
   margin: 0 10px 30px;
 }
