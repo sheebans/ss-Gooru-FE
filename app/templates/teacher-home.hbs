@@ -6,39 +6,19 @@
       <div class="title">
         <span>{{t 'user.hello' name=profile.firstName}}</span>
       </div>
-      <p>{{t 'user.teaching-classes' count=totalTeachingClasses}}</p>
+      {{#unless (gt loginCount 5)}}
+        <div class="featured-courses pull-right">
+          <span>{{t 'student-landing.browse-our'}} {{#link-to 'library'}}{{t 'student-landing.featured-courses'}}{{/link-to}}</span>
+        </div>
+      {{/unless}}
     </div>
     {{#unless (gt loginCount 5)}}
       <div class="row panels">
-        <div class="col-sm-6 col-xs-12">
-          {{gru-explore-featured-courses
+          {{gru-teacher-featured-courses
             courses=featuredCourses
             profile=profile
             loginCount=loginCount
           }}
-        </div>
-        <div class="col-sm-6 col-xs-12">
-          <div class="panel create-class">
-            <div class="panel-heading">{{t 'teacher-landing.teach'}}</div>
-            <div class="panel-body">
-              <div class="legend">
-                {{t 'teacher-landing.create-classroom'}}
-              </div>
-              <div class="actions">
-                {{#link-to 'content.classes.create' class="btn btn-info create" tagName='button'}}
-                  {{t 'user.create-class'}}
-                {{/link-to}}
-              </div>
-              <div class="pull-right will-disappear">
-                {{#if (eq loginCount 5)}}
-                  {{t 'common.disappear-next-login'}}
-                {{else}}
-                  {{t 'common.disappear-after-login' loginNumber=(sub 6 loginCount)}}
-                {{/if}}
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     {{/unless}}
     <div class="teacher-navigator">
