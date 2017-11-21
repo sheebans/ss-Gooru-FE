@@ -167,6 +167,11 @@ export default Ember.Component.extend({
   boolFlag: false,
   /**
    * The average headers of the Data Matrix
+   * @property {expandedUnit}
+   */
+  expandedUnit: false,
+  /**
+   * The average headers of the Data Matrix
    * @property {unitPerformanceData[]}
    */
   assessment1PerformanceData: [],
@@ -383,6 +388,7 @@ export default Ember.Component.extend({
         item.set('title', `U${index + 1}: ${orginalTitle}`);
       }
       Ember.set(item, 'showSub', false);
+      component.set('expandedUnit', false);
       Ember.set(item, 'showSubSub', false);
       Ember.set(item, 'subColumns', []);
       Ember.set(item, 'colspanval', 1);
@@ -443,6 +449,7 @@ export default Ember.Component.extend({
       this.set('isLoading', true);
       this.expandLesson(temp.get('id'), index);
       Ember.set(temp, 'showSub', true);
+      this.set('expandedUnit', true);
       Ember.set(temp, 'showSubSub', true);
       Ember.set(temp, 'showAssessments', true);
     },
@@ -451,6 +458,7 @@ export default Ember.Component.extend({
       this.set('isLoading', true);
       this.expandUnit(temp.get('id'), index);
       Ember.set(temp, 'showSub', true);
+      this.set('expandedUnit', true);
       Ember.set(temp, 'showSubSub', false);
       Ember.set(temp, 'showAssessments', false);
     },
@@ -471,6 +479,7 @@ export default Ember.Component.extend({
           this.set('tempheaders', this.get('headers'));
           this.expandLesson(temp.get('id'), index);
           Ember.set(temp, 'showSub', true);
+          this.set('expandedUnit', true);
           Ember.set(temp, 'showSubSub', true);
           Ember.set(temp, 'showAssessments', true);
         }
@@ -482,6 +491,7 @@ export default Ember.Component.extend({
         this.set('tempheaders', this.get('headers'));
         this.expandLesson(temp.get('id'), index);
         Ember.set(temp, 'showSub', true);
+        this.set('expandedUnit', true);
         Ember.set(temp, 'showSubSub', true);
         Ember.set(temp, 'showAssessments', true);
       }
@@ -506,6 +516,7 @@ export default Ember.Component.extend({
       component.set('filterBy', component.get('filterBy'));
       var temp = component.get('headers').objectAt(index);
       Ember.set(temp, 'showSub', false);
+      component.set('expandedUnit', false);
       Ember.set(temp, 'showSubSub', false);
       var inxArr = [];
       component.removeexpandedUnit();
@@ -546,6 +557,7 @@ export default Ember.Component.extend({
     const component = this;
     component.get('headers').forEach(function(item) {
       Ember.set(item, 'showSub', false);
+      component.set('expandedUnit', false);
       Ember.set(item, 'showSubSub', false);
       Ember.set(item, 'subColumns', []);
       Ember.set(item, 'colspanval', 1);
@@ -1359,6 +1371,7 @@ export default Ember.Component.extend({
           this.set('tempheaders', this.get('headers'));
           this.expandLesson(temp.get('id'), index);
           Ember.set(temp, 'showSub', true);
+          this.set('expandedUnit', true);
           Ember.set(temp, 'showSubSub', true);
           Ember.set(temp, 'showAssessments', true);
         }
@@ -1370,6 +1383,7 @@ export default Ember.Component.extend({
         this.set('tempheaders', this.get('headers'));
         this.expandLesson(temp.get('id'), index);
         Ember.set(temp, 'showSub', true);
+        this.set('expandedUnit', true);
         Ember.set(temp, 'showSubSub', true);
         Ember.set(temp, 'showAssessments', true);
       }
