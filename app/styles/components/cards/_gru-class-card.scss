@@ -11,19 +11,20 @@
     margin: 0;
 
     .panel-heading {
-      background-color: $light-400;
+      background-color: $white;
       @include flexbox;
       width: 100%;
       padding: 0 0 0 10px;
       height: 40px;
       border-top-right-radius: 4px;
       border-top-left-radius: 4px;
+      border-bottom: 1px solid $dark-600;
 
       > .title {
         width: 85%;
         padding: 6px 0;
         font-size: 16px;
-        color: $white;
+        color: $light-600;
 
         a {
           color: $white;
@@ -60,7 +61,7 @@
         .current-activity {
           position: absolute;
           z-index: 10;
-          font-size: $font-size-xxsmall;
+          font-size: 12px;
           padding: 0 10px;
           font-weight: bold;
         }
@@ -175,7 +176,7 @@
       }
 
       .performance-percentage {
-        color: $white;
+        color: $light-600;
         text-align: center;
         padding: 0;
         display: inline-block;
@@ -243,7 +244,7 @@
     &.no-course {
       .panel-heading {
         color: $dark-600;
-        background: $light-400;
+        background: $white;
         border-bottom: 1px solid $white;
 
         .title {
@@ -264,7 +265,7 @@
 
       .panel-body {
         .information {
-          background-image: url("/assets/gooru/course-default.png") !important;
+          background-image: url("/assets/gooru/course-default.png");
 
           .no-course-assigned {
             position: absolute;
@@ -318,11 +319,15 @@
           border-bottom-right-radius: 4px;
 
           .no-percentage {
-            width: 100%;
-            height: 100%;
             font-size: 43px;
             font-weight: 500;
             margin-top: -42px;
+          }
+          .code {
+            .class-code {
+              font-weight: bold;
+              color: $light-600;
+            }
           }
         }
       }
