@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Bookmark from 'gooru-web/models/content/bookmark';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
+import ModalMixin from 'gooru-web/mixins/modal';
 
 /**
  * student featured courses component
@@ -9,7 +10,7 @@ import { CONTENT_TYPES } from 'gooru-web/config/config';
  * @module
  * @augments ember/Component
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -38,31 +39,6 @@ export default Ember.Component.extend({
     return this.get('bookmarkService').createBookmark(bookmark);
   },
 
-  /**
-   * Show notification on bookmark success
-   * @param bookmark
-   * @param showType
-   */
-  notifyBookmarkSuccess: function(bookmark, showType) {
-    this.get('notifications').setOptions({
-      positionClass: 'toast-top-full-width',
-      toastClass: 'gooru-toast',
-      timeOut: 10000
-    });
-    const successMsg = showType
-      ? this.get('i18n').t('common.bookmarked-content-success', {
-        contentType: bookmark.get('contentType')
-      })
-      : this.get('i18n').t('common.bookmarked-success');
-    const independentLearningURL = this.get('router').generate(
-      'student-independent-learning'
-    );
-    const buttonText = this.get('i18n').t('common.take-me-there');
-    this.get('notifications').success(
-      `${successMsg} <a class="btn btn-success" href="${independentLearningURL}">${buttonText}</a>`
-    );
-  },
-
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -88,7 +64,7 @@ export default Ember.Component.extend({
     previewCourse: function(course) {
       let component = this;
       let isTeacher = this.get('isTeacher');
-
+      this.set('course', course);
       var model = Ember.Object.create({
         content: course,
         isTeacher
@@ -98,21 +74,20 @@ export default Ember.Component.extend({
       model.set('playCourse', () => component.playCourse());
       model.set('bookmarkCourse', () => component.bookmarkCourse());
       component.send('showModal', 'gru-preview-course', model);
-    },
+    }
+  },
 
-    /**
-     * Edit course action, when clicking Play at the cHello, June!
-     * @param {Course}
-     */
-    playIndependentContent: function({ title, id }) {
-      let bookmark = Bookmark.create(Ember.getOwner(this).ownerInjection(), {
-        title,
-        contentId: id,
-        contentType: CONTENT_TYPES.COURSE
-      });
-      return this.createBookmark(bookmark).then(() => {
-        this.get('router').transitionTo('student.independent', id);
-      });
+  /**
+   *Action triggered when select remix the course
+   */
+  remixCourse: function() {
+    if (this.get('session.isAnonymous')) {
+      this.send('showModal', 'content.modals.gru-login-prompt');
+    } else {
+      var remixModel = {
+        content: this.get('course')
+      };
+      this.send('showModal', 'content.modals.gru-course-remix', remixModel);
     }
   },
 
