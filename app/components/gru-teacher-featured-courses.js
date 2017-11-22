@@ -1,10 +1,8 @@
 import Ember from 'ember';
-import Bookmark from 'gooru-web/models/content/bookmark';
-import { CONTENT_TYPES } from 'gooru-web/config/config';
 import ModalMixin from 'gooru-web/mixins/modal';
 
 /**
- * student featured courses component
+ * teacher featured courses component
  *
  *
  * @module
@@ -13,10 +11,6 @@ import ModalMixin from 'gooru-web/mixins/modal';
 export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
-  /**
-   * @requires service:api-sdk/bookmark
-   */
-  bookmarkService: Ember.inject.service('api-sdk/bookmark'),
 
   /**
    * @requires service:notifications
@@ -31,32 +25,9 @@ export default Ember.Component.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Attributes
 
-  /**
-   * Create a bookmark
-   * @param bookmark
-   */
-  createBookmark: function(bookmark) {
-    return this.get('bookmarkService').createBookmark(bookmark);
-  },
-
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-    /**
-     * Action triggered to bookmark a course
-     * @param {Course} course
-     */
-    onBookmarkCourse: function({ title, id }, showType) {
-      let bookmark = Bookmark.create(Ember.getOwner(this).ownerInjection(), {
-        title,
-        contentId: id,
-        contentType: CONTENT_TYPES.COURSE
-      });
-      this.createBookmark(bookmark).then(() =>
-        this.notifyBookmarkSuccess(bookmark, showType)
-      );
-    },
-
     /**
      * Action triggered to preview the course
      * @param course

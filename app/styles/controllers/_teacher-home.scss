@@ -101,28 +101,6 @@
   }
 
   .panels {
-    .teacher-featured-courses {
-      margin: 0 0 20px 15px;
-      .courses {
-        .new-cards .gru-standard-card {
-          .panel {
-            .panel-default {
-              .panel-footer {
-                .options {
-                  width: 258px !important;
-                  .preview-btn {
-                    width: 74px !important;
-                    height: 45px !important;
-                    background-color: #0072bc !important;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
     .panel {
       &.create-class,
       &.featured-courses {
