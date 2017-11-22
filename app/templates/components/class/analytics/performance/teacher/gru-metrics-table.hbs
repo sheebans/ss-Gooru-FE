@@ -173,7 +173,7 @@
             {{/if}}
             </th>
           {{else}}
-          {{#if (or (eq average.unitIdVal tempUnitId) (eq average.level 'assessment') (not expandedUnit) (and (eq index 2) (eq average.unitIdVal tempUnitId)))}}
+          {{#if (or (eq average.unitIdVal tempUnitId) (eq average.level 'collection') (eq average.level 'assessment') (eq average.level 'lesson') (not expandedUnit) (and (eq index 2) (eq average.unitIdVal tempUnitId)))}}
             <th id="{{average.level}}" class="performance-information {{if (eq average.unitIdVal tempUnitId) 'selectedUnitcolor' 'backgroundclraverage'}}">
             {{#if (eq index 0)}}
               {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=false}}
