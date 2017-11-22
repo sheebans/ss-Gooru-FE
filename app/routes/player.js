@@ -230,7 +230,7 @@ export default QuizzesPlayer.extend(
       params.partnerId = this.get('session.partnerId');
       params.tenantId = this.get('session.tenantId');
       params.notCheckAttempts =
-        (params.source === PLAYER_EVENT_SOURCE.COURSE_MAP || params.source === PLAYER_EVENT_SOURCE.DAILY_CLASS) ? false : true;
+        !(params.source === PLAYER_EVENT_SOURCE.COURSE_MAP || params.source === PLAYER_EVENT_SOURCE.DAILY_CLASS);
       return route
         .loadCollection(collectionId, type)
         .then(function(collection) {

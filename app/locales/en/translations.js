@@ -1120,7 +1120,7 @@ export default Object.assign(quizzesTranslations, {
         'student-id': 'Student ID',
         teachers: 'Teachers',
         'view-report': 'View Report',
-        'students-null': 'Share the Class Code with students to have them join your Classroom.',
+        'students-null': 'Share the Class Code with students to have them join your Classroom.'
       },
       'class-activities': 'Daily Class Activities',
       'back-to-class-activities': 'Back to Daily Class Activities',
