@@ -96,7 +96,7 @@
                     <span>{{t "user.classrooms"}}</span>
                   {{/link-to}}
                 </li>
-                <li class="navbar-nav-list visible-md visible-lg tools-link dropdown">
+                <li class="navbar-nav-list visible-md visible-lg tools-link dropdown out-of-scope">
                   <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="tools">{{t "common.tools"}}{{gru-icon name='arrow_drop_down'}}</span>
                   </a>
                   <ul class="tools-menu dropdown-menu pull-left" role="menu" id="tools">
@@ -118,6 +118,11 @@
                       </a>
                     </li>
                   </ul>
+                </li>
+                <li class="navbar-nav-list visible-md visible-lg content-link">
+                  {{#link-to 'profile.content.courses' session.userData.gooruUId}}
+                    <span>{{t "common.content-manager"}}</span>
+                  {{/link-to}}
                 </li>
               {{/unless}}
               <li class="navbar-nav-list visible-md visible-lg library-link">
