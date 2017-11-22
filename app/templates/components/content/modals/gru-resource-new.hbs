@@ -59,7 +59,7 @@
             </div>
           {{/if}}
           <div class="existing-resource-message">
-            {{cards.gru-resource-card resource=existingResource addEnabled=false}}
+            {{new-cards.gru-resource-card isExistingResource=true resource=existingResource addEnabled=false}}
           </div>
         {{/if}}
       </label>
@@ -106,7 +106,7 @@
                     aria-label="{{t 'common.close'}}">{{t 'common.create'}}</button>
         {{/gru-spinner-button}}
       {{else}}
-        {{#if model}}
+        {{#if (or model isMyProfile)}}
           <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal"
                   aria-label="{{t 'common.close'}}">
             <span aria-hidden="true">{{t 'common.cancel' }}</span>

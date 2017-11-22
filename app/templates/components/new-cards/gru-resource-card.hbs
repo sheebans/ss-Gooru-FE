@@ -217,7 +217,7 @@
                 <a {{action "editResource"}} class="edit-btn resource-mode-edit">{{gru-icon name="mode_edit"}}</a>
               </div>
             {{/if}}
-            {{#unless editEnabled}}
+            {{#unless (or editEnabled isExistingResource)}}
               {{#unless isOnProfile}}
                 <div class="resource-icon-btn share" title= {{t 'common.share'}} data-toggle="tooltip" data-placement="auto" data-trigger="hover">
                   {{#gru-share-pop-over tagName="a" class="share-btn no-bgd" type=(if isQuestion 'question' 'resource') contentId=resource.id}}
