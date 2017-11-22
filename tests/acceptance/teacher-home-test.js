@@ -37,41 +37,8 @@ test('Layout', function(assert) {
     const $panelsContainer = $teacherPanel.find('.panels');
     T.exists(assert, $panelsContainer, 'Missing panels container');
 
-    const $featuredCourses = $panelsContainer.find('.featured-courses');
+    const $featuredCourses = $panelsContainer.find('.teacher-featured-courses');
     T.exists(assert, $featuredCourses, 'Missing featured courses component');
-
-    const $createClass = $panelsContainer.find('.create-class');
-    T.exists(assert, $createClass, 'Missing create class panel');
-
-    T.exists(
-      assert,
-      $createClass.find('.panel-heading'),
-      'Missing create class panel-heading'
-    );
-    T.exists(
-      assert,
-      $createClass.find('.panel-body'),
-      'Missing create class panel-body'
-    );
-
-    T.exists(
-      assert,
-      $createClass.find('.panel-body .legend'),
-      'Missing panel body legend'
-    );
-    T.exists(
-      assert,
-      $createClass.find('.panel-body .will-disappear'),
-      'Missing will-disappear legend'
-    );
-    assert.equal(
-      $createClass
-        .find('.panel-body .will-disappear')
-        .text()
-        .trim(),
-      'This will disappear after 3 logins',
-      'Incorrect login count for will disappear text'
-    );
 
     const $navigatorContainer = $teacherPanel.find('.teacher-navigator');
     T.exists(assert, $navigatorContainer, 'Missing teacher navigator');
@@ -103,29 +70,8 @@ test('Will disappear next login', function(assert) {
     const $panelsContainer = $teacherPanel.find('.panels');
     T.exists(assert, $panelsContainer, 'Missing panels container');
 
-    const $featuredCourses = $panelsContainer.find('.featured-courses');
+    const $featuredCourses = $panelsContainer.find('.teacher-featured-courses');
     T.exists(assert, $featuredCourses, 'Missing featured courses component');
-
-    const $createClass = $panelsContainer.find('.create-class');
-    T.exists(assert, $createClass, 'Missing create class panel');
-    T.exists(
-      assert,
-      $createClass.find('.panel-body .actions .create'),
-      'Missing create class button'
-    );
-    T.exists(
-      assert,
-      $createClass.find('.panel-body .will-disappear'),
-      'Missing will-disappear legend'
-    );
-    assert.equal(
-      $createClass
-        .find('.panel-body .will-disappear')
-        .text()
-        .trim(),
-      'This will not appear on the next login',
-      'Incorrect message for will disappear text'
-    );
   });
 });
 
@@ -138,40 +84,6 @@ test('Layout without panels', function(assert) {
     const $teacherPanel = $teacherContainer.find('.teacher-panel');
     const $panelsContainer = $teacherPanel.find('.panels');
     T.notExists(assert, $panelsContainer, 'Panels container should not appear');
-  });
-});
-
-test('Go to create from create class panel', function(assert) {
-  visit('/teacher-home');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/teacher-home');
-
-    const $createClass = find('.panel.create-class');
-
-    const $createClassButton = $createClass.find('.actions button.create');
-
-    click($createClassButton);
-    andThen(function() {
-      assert.equal(currentURL(), '/content/classes/create', 'Wrong route');
-    });
-  });
-});
-
-test('Go to library from featured-courses panel', function(assert) {
-  visit('/teacher-home');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/teacher-home');
-    const $featuredCourses = find('.panel.featured-courses');
-    const $featuredCoursesButton = $featuredCourses.find(
-      '.actions button.library'
-    );
-
-    click($featuredCoursesButton);
-    andThen(function() {
-      assert.equal(currentURL(), '/library', 'Wrong route');
-    });
   });
 });
 

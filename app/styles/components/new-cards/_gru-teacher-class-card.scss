@@ -18,6 +18,7 @@
       height: 40px;
       border-top-right-radius: 4px;
       border-top-left-radius: 4px;
+      border-bottom: 1px solid $white;
 
       > .title {
         width: 85%;
@@ -51,6 +52,48 @@
       }
     }
 
+    .no-percentage-header {
+      color: $dark-600;
+      @include flexbox;
+      width: 100%;
+      padding: 0 0 0 10px;
+      height: 40px;
+      border-top-right-radius: 4px;
+      border-top-left-radius: 4px;
+      border-bottom: 1px solid $dark-600;
+
+      .title {
+        width: 85%;
+        padding: 6px 0;
+
+        a {
+          color: $dark-600;
+          font-weight: normal;
+        }
+      }
+
+      .code {
+        border-left: 1px solid $dark-600;
+
+        div {
+          color: $dark-600;
+        }
+      }
+
+      .class-management-noCourse {
+        padding: 10px;
+
+        i {
+          background: url("gooru/class-management-no-course.svg");
+          width: 20px;
+          height: 20px;
+          object-fit: contain;
+          display: block;
+          cursor: pointer;
+        }
+      }
+    }
+
     .panel-body {
       padding: 0;
       border-bottom-right-radius: 4px;
@@ -70,7 +113,7 @@
         .current-activity {
           position: absolute;
           z-index: 10;
-          font-size: $font-size-xxsmall;
+          font-size: 12px;
           padding: 0 10px;
           font-weight: bold;
         }
@@ -207,7 +250,8 @@
         text-align: center;
         padding: 0;
         display: inline-block;
-        width: 125px;
+        width: 129px;
+        height: 93px;
         vertical-align: top;
         border-bottom-right-radius: 4px;
 
@@ -229,6 +273,7 @@
             font-weight: bold;
             text-align: center;
           }
+
           .no-percentage-code {
             color: $dark-700;
           }
@@ -246,20 +291,48 @@
         }
       }
 
-      .completion-chart {
-        height: 27px;
-        padding: 0 11px;
+      .no-performance {
+        text-align: center;
+        padding: 0;
+        display: inline-block;
+        width: 129px;
+        height: 93px;
+        vertical-align: top;
+        border-bottom-right-radius: 4px;
 
-        .charts.gru-x-bar-chart {
-          border-radius: 4px;
-          height: 7px;
+        .code {
+          .title {
+            height: 16px;
+            object-fit: contain;
+            opacity: 0.5;
+            font-family: Lato;
+            font-size: 13px;
+            font-weight: bold;
+          }
+
+          .class-code {
+            height: 16px;
+            object-fit: contain;
+            font-family: Lato;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: center;
+          }
         }
 
-        label {
-          display: block;
-          font-size: $font-size-small;
-          margin: 0;
-          padding: 0 10px;
+        .no-percentage {
+          text-align: center;
+          width: 125px;
+          padding: 25px;
+          margin-left: 25px;
+
+          i {
+            background: url("gooru/images/teacher-landing-no-performance.svg");
+            width: 28px;
+            height: 6px;
+            object-fit: contain;
+            display: block;
+          }
         }
       }
     }
@@ -312,7 +385,8 @@
         }
 
         .performance {
-          width: 125px;
+          width: 129px;
+          height: 93px;
           color: $light-400;
 
           .percentage {
