@@ -62,12 +62,12 @@
                 {{gru-icon name="open_in_new"}} {{t "common.select"}}
               </button>
               <div class="tags">
-                {{taxonomy.gru-taxonomy-tag-list tags=editableTags onRemove=(action 'removeTag')}}
+                {{taxonomy.gru-taxonomy-tag-list tags=tempCollection.standards onRemove=(action 'removeTag')}}
               </div>
             {{else}}
               <div class="tags">
                 {{#if tags.length}}
-                  {{taxonomy.gru-taxonomy-tag-list tags=tags}}
+                  {{taxonomy.gru-taxonomy-tag-list tags=collection.standards}}
                 {{else}}
                   {{t "common.not-specified"}}
                 {{/if}}
@@ -82,7 +82,7 @@
             <div>Suggested standards based on resources in this collection</div>
             <label>
               <div class="tags">
-                  {{taxonomy.gru-taxonomy-tag-list tags=aggregatedTags onAdd=(action 'addTag')}}
+                  {{taxonomy.gru-taxonomy-tag-list tags=tempCollection.aggregatedTag onAdd=(action 'addTag')}}
               </div>
             </label>
           </div>
