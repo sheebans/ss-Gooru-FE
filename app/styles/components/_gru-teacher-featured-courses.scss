@@ -1,7 +1,7 @@
 .teacher-featured-courses {
   clear: both;
   @include flexbox;
-  margin: 0 0 20px;
+  margin: 0 0 20px 15px;
 
   .courses {
     margin: 10px 0 0;
