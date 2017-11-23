@@ -83,13 +83,7 @@ export default Ember.Component.extend({
    * Computed property to know if course has started
    */
   hasStarted: Ember.computed('performanceSummary', function() {
-    const completed = this.get('performanceSummary.totalCompleted');
-    const total =
-      completed > this.get('performanceSummary.total')
-        ? completed
-        : this.get('performanceSummary.total');
-    const percentage = completed ? parseInt(completed / total * 100) : 0;
-    return this.get('performanceSummary') !== null && percentage;
+    return this.get('performanceSummary') !== null;
   }),
 
   /**
@@ -99,7 +93,7 @@ export default Ember.Component.extend({
   completionPercentage: Ember.computed('performanceSummary', function() {
     const completed =
       this.get('performanceSummary.totalCompleted') ||
-      this.get('performanceSummary.completionDone');
+      this.get('performanceSummary.completionTotal');
     const total =
       this.get('performanceSummary.total') ||
       this.get('performanceSummary.completionTotal');
@@ -132,8 +126,16 @@ export default Ember.Component.extend({
    * Computed property to know the width of the bar
    */
   widthStyle: Ember.computed('completionPercentage', function() {
-    const completion = this.get('completionPercentage');
-    return Ember.String.htmlSafe(`width: ${completion}%;`);
+    const completed =
+      this.get('performanceSummary.totalCompleted') ||
+      this.get('performanceSummary.completionTotal') ||
+      0;
+    const total =
+      this.get('performanceSummary.total') ||
+      this.get('performanceSummary.completionTotal');
+    const percentage = completed ? roundFloat(completed / total * 100) : 0;
+
+    return Ember.String.htmlSafe(`width: ${percentage}%;`);
   }),
 
   /**

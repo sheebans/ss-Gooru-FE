@@ -33,19 +33,6 @@
 {{#if model.isRemovable}}
   <button class="remove" {{action 'removeTag'}}>{{gru-icon name="clear"}}</button>
 {{/if}}
-
-{{#if model.canAdd}}
-   <button class="add" {{action 'addTag'}}>{{gru-icon name="add"}}</button>
-   {{else}}
-{{#if (and model.isRemovable model.tagAlreadyexist)}}
+{{#if model.tagAlreadyexist}}
   <button class="add" {{action 'addTag'}}>{{gru-icon name="add"}}</button>
-{{/if}}
-
-{{#if (and (not model.isRemovable) model.tagAlreadyexist)}}
-   <button class="add" {{action 'addTag'}}>{{gru-icon name="add"}}</button>
-{{/if}}
-
-{{#if (and model.isRemovable (not model.tagAlreadyexist))}}
-   <button class="remove" {{action 'removeTag'}}>{{gru-icon name="clear"}}</button>
-{{/if}}
 {{/if}}
