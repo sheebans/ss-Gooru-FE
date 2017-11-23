@@ -8,21 +8,41 @@
           {{/link-to}}
         </div>
         {{#link-to 'teacher.class.class-management' class.id class="class-management" tagName="div" }}
-          <i class="icon"> </i>
+          <div title="{{t 'teacher-landing.class.class-management'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
+            <i class="icon"> </i>
+          </div>
         {{/link-to}}
       </div>
-
     {{else}}
-      <div class="no-percentage-header" style="background-color: white">
-        <div class="title ellipsis">
-          {{#link-to 'teacher.class.course-map' class.id}}
-            {{truncate text=class.title maxLength=25}}
+      {{#if (eq class.performanceSummary.score 0)}}
+        <div class="panel-heading" style="background-color:{{grade-color class.performanceSummary.score}}">
+          <div class="title ellipsis">
+            {{#link-to 'teacher.class.course-map' class.id}}
+              {{truncate text=class.title maxLength=25}}
+            {{/link-to}}
+          </div>
+          {{#link-to 'teacher.class.class-management' class.id class="class-management" tagName="div" }}
+            <div title="{{t 'teacher-landing.class.class-management'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
+              <i class="icon"> </i>
+            </div>
           {{/link-to}}
         </div>
-        {{#link-to 'teacher.class.class-management' class.id class="class-management" tagName="div" }}
-          <i class="icon"> </i>
-        {{/link-to}}
-      </div>
+      {{else}}
+        <div class="no-percentage-header" style="background-color: white">
+          <div class="title ellipsis">
+            {{#link-to 'teacher.class.course-map' class.id}}
+              {{truncate text=class.title maxLength=25}}
+            {{/link-to}}
+          </div>
+          {{#link-to 'teacher.class.class-management' class.id class="class-management" tagName="div" }}
+            <div title="{{t 'teacher-landing.class.class-management'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
+              <i class="icon"> </i>
+            </div>
+          {{/link-to}}
+        </div>
+
+
+      {{/if}}
     {{/if}}
 
     <div class="panel-body" style="background-color:{{grade-color class.performanceSummary.score}}">
@@ -98,7 +118,9 @@
               <div class="class-code">{{class.code}}</div>
             </div>
             {{#link-to 'teacher.class.performance' class.id class="pointer percentage no-percentage" tagName="div" }}
-              <i class="icon"> </i>
+              <div title="{{t 'teacher-landing.class.class-management'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
+                <i class="icon"> </i>
+              </div>
             {{/link-to}}
           </div>
         {{/if}}
@@ -113,7 +135,9 @@
         {{/link-to}}
       </div>
       {{#link-to 'teacher.class.class-management' class.id class="class-management-noCourse" tagName="div" }}
-        <i class="icon"> </i>
+        <div title="{{t 'teacher-landing.class.class-management'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
+          <i class="icon"> </i>
+        </div>
       {{/link-to}}
     </div>
 

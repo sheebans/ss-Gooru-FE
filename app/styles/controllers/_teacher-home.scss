@@ -79,6 +79,7 @@
 
 .teacher-landing {
   .greetings {
+    display: inline-block;
     .title {
       float: left;
 
@@ -211,10 +212,10 @@
     }
 
     .tab-pane {
-      margin-left: 0px;
+      margin: 0px;
     }
-
     #archived-classes {
+      margin: -10px;
       span.no-archived {
         font-size: $font-size-lead;
       }
@@ -223,6 +224,7 @@
 }
 
 .teacher-navigator {
+  padding-top: 7px;
   .nav-tabs {
     @media (min-width: $screen-sm) {
       box-shadow: inset 0 -1px 0 $gray-light;
