@@ -414,6 +414,24 @@ export default Ember.Component.extend({
     Ember.run.scheduleOnce('afterRender', this, function() {
       this.set('sortCriteria', this.initSortCriteria());
     });
+    Ember.$('#clscroll-content').scroll(function() {
+      Ember.$('#clscroll-row-headers').scrollTop(
+        Ember.$('#clscroll-content').scrollTop()
+      );
+      Ember.$('#clscroll-column-headers').scrollLeft(
+        Ember.$('#clscroll-content').scrollLeft()
+      );
+    });
+    Ember.$('#clscroll-column-headers').scroll(function() {
+      Ember.$('#clscroll-content').scrollLeft(
+        Ember.$('#clscroll-column-headers').scrollLeft()
+      );
+    });
+    Ember.$('#clscroll-row-headers').scroll(function() {
+      $('#clscroll-content').scrollTop(
+        Ember.$('#clscroll-row-headers').scrollTop()
+      );
+    });
   },
   didRender() {
     this._super(...arguments);
