@@ -180,7 +180,7 @@ export function getGradeColor(grade) {
  */
 export function getBarGradeColor(grade) {
   var bracket = BARS_GRADING_SCALE.length - 1;
-  var color = '#E3E5EA'; // Default color
+  var color = '#b8bfc4'; // Default color
 
   if (isNumeric(grade)) {
     for (; bracket >= 0; bracket--) {

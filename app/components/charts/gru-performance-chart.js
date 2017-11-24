@@ -115,7 +115,10 @@ export default Ember.Component.extend({
     const percentage = completed ? roundFloat(completed / total * 100) : 0;
     var tooltipText = `${percentage}% ${this.get('i18n').t('common.completed')
       .string}`;
-    if (this.get('assessmentCount') === 0) {
+    if (
+      this.get('assessmentCount') === 0 ||
+      this.get('assessmentCount') === null
+    ) {
       tooltipText = 'NA';
     }
     return tooltipText;
