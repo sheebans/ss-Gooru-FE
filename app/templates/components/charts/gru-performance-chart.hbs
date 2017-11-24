@@ -21,6 +21,8 @@
     <label class="not-started">
       {{t "common.notStarted"}}
     </label>
-    <div class="completion-bar"></div>
+    <div class="completion-bar">
+       <div class="segment {{if isFull 'full'}}" style="{{colorStyle}} {{widthStyle}}"></div>
+    </div>
   {{/if}}
 </div>

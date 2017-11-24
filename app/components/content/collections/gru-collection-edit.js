@@ -49,6 +49,9 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
      */
     editContent: function() {
       var collectionForEditing = this.get('collection').copy();
+      collectionForEditing.standards.forEach(function(standardObj) {
+        standardObj.isRemovable = true;
+      });
       this.set('tempCollection', collectionForEditing);
       this.set('isEditing', true);
       this.set('selectedSubject', null);
@@ -64,7 +67,8 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
         unitStandardTag.forEach(function(onestandardObj) {
           if (selectedStandardCodes.length !== 0) {
             selectedStandardCodes.forEach(function(newstandardObj) {
-              if (newstandardObj !== onestandardObj.code) {
+              if (newstandardObj === onestandardObj.code) {
+                onestandardObj.tagAlreadyexist = false;
                 aggregatedStandards.push(onestandardObj);
               }
             });
@@ -79,7 +83,6 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
         }) || r.push(a);
         return r;
       }, []);
-
       this.set('tempCollection.aggregatedTag', result);
     },
 
@@ -190,25 +193,29 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
      * Remove tag data from the taxonomy list in tempUnit
      */
     removeTag: function(taxonomyTag) {
-      var tagData = taxonomyTag.get('data');
+      var tagData = taxonomyTag;
       this.get('tempCollection.standards').removeObject(tagData);
+      tagData.set('isRemovable', false);
+      tagData.set('tagAlreadyexist', false);
       this.get('tempCollection.aggregatedTag').addObject(tagData);
       this.set(
         'tempCollection.aggregatedTag',
         this.get('tempCollection.aggregatedTag').uniqBy('code')
       );
+      this.compareAggregatedTags();
     },
     /**
      * Add tag data from the taxonomy list in tempUnit
      */
     addTag: function(taxonomyTag) {
-      let tagData = taxonomyTag.get('data');
-      this.get('tempCollection.aggregatedTag').removeObject(tagData);
-      this.get('tempCollection.standards').addObject(tagData);
+      // let tagData = taxonomyTag;
+      taxonomyTag.set('isRemovable', true);
+      this.get('tempCollection.standards').addObject(taxonomyTag);
       this.set(
         'tempCollection.standards',
         this.get('tempCollection.standards').uniqBy('code')
       );
+      this.compareAggregatedTags();
     },
 
     /**
@@ -399,6 +406,28 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       null,
       'gru-century-skills'
     );
+  },
+
+  /**
+   * Returns selectedCenturySkills data
+   * @param {Number[]} compareAggregatedTags ids
+   * @return {centurySkill[]}
+   */
+  compareAggregatedTags: function() {
+    const component = this;
+    component
+      .get('tempCollection.aggregatedTag')
+      .forEach(function(suggeststanObj) {
+        suggeststanObj.set('tagAlreadyexist', true);
+      });
+    component.get('tempCollection.standards').forEach(function(standardObj) {
+      var suggestObj = component
+        .get('tempCollection.aggregatedTag')
+        .findBy('code', standardObj.code);
+      if (suggestObj !== undefined) {
+        Ember.set(suggestObj, 'tagAlreadyexist', false);
+      }
+    });
   },
 
   /**

@@ -1,7 +1,13 @@
 {{#if model.isReadonly}}
   <div class="content">
+    {{#if model.data}}
     <b class="tag-label">{{model.data.label}}</b>
-    <span class="tag-caption">{{model.data.caption}}</span>
+     <span class="tag-caption">{{model.data.caption}}</span>
+   {{else}}
+    <b class="tag-label">{{model.code}}</b>
+     <span class="tag-caption">{{model.frameworkCode}}</span>
+    {{/if}}
+   
   </div>
 
   {{#if hasTooltip}}
@@ -13,8 +19,13 @@
 {{else}}
   <button class="toggle" {{action 'selectTag'}}>
     <div>
+      {{#if model.data}}
       <b class="tag-label">{{model.data.label}}</b>
       <span class="tag-caption">{{model.data.caption}}</span>
+       {{else}}
+        <b class="tag-label" >{{model.code}}</b>
+      <span class="tag-caption">{{model.frameworkCode}}</span>
+       {{/if}}
     </div>
   </button>
 {{/if}}
@@ -22,7 +33,6 @@
 {{#if model.isRemovable}}
   <button class="remove" {{action 'removeTag'}}>{{gru-icon name="clear"}}</button>
 {{/if}}
-
-{{#if model.canAdd}}
-   <button class="add" {{action 'addTag'}}>{{gru-icon name="add"}}</button>
+{{#if model.tagAlreadyexist}}
+  <button class="add" {{action 'addTag'}}>{{gru-icon name="add"}}</button>
 {{/if}}
