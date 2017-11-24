@@ -425,12 +425,12 @@
   }
 
   .column-headers {
-    width: 622px;
+    max-width: 623px;
     overflow: hidden;
   }
 
   .row-headers {
-    height: 81px;
+    height: 194px;
     overflow: hidden;
     position: absolute;
     margin-left: 2px;
@@ -448,7 +448,27 @@
 
   .table-content {
     width: 637px;
-    height: 100px;
+    max-height: 210px;
     overflow: scroll;
+    /*
+ *  STYLE 1
+ */
+
+    .style-1::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      background-color: #f5f5f5;
+    }
+
+    .style-1::-webkit-scrollbar {
+      width: 12px;
+      background-color: #f5f5f5;
+    }
+
+    .style-1::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: #555;
+    }
   }
 }
