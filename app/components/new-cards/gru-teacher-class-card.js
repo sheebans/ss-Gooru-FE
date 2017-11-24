@@ -53,18 +53,6 @@ export default Ember.Component.extend({
   init: function() {
     const component = this;
     component._super(...arguments);
-
-    const courseId = component.get('class.courseId');
-    if (courseId) {
-      component
-        .get('courseService')
-        .fetchByIdWithOutProfile(courseId)
-        .then(function(course) {
-          if (!component.isDestroyed) {
-            component.set('course', course);
-          }
-        });
-    }
   },
 
   didRender() {

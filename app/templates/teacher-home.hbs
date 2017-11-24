@@ -62,7 +62,7 @@
     </div>
 
     <div class="content tab-content">
-      <div role="tabpanel" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
+      <div role="tabpanel active-class" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
         {{new-cards.gru-new-class-card
           onJoinClass="joinClass"
           validCode=validCode
@@ -81,8 +81,6 @@
           {{/each}}
         {{/if}}
       </div>
-
-
 
       <div role="tabpanel" class="tab-pane row {{if showArchivedClasses 'active'}}" id="archived-classes">
         {{#each sortedArchivedClassrooms as |class|}}
