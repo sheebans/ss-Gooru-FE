@@ -50,7 +50,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     editContent: function() {
       var collectionForEditing = this.get('collection').copy();
       collectionForEditing.standards.forEach(function(standardObj) {
-        standardObj.isRemovable = true;
+        Ember.set(standardObj, 'isRemovable', true);
       });
       this.set('tempCollection', collectionForEditing);
       this.set('isEditing', true);
@@ -65,6 +65,8 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       unitStandards.forEach(function(unitstandardObj) {
         let unitStandardTag = unitstandardObj.standards;
         unitStandardTag.forEach(function(onestandardObj) {
+          onestandardObj.tagAlreadyexist = true;
+          aggregatedStandards.push(onestandardObj);
           if (selectedStandardCodes.length !== 0) {
             selectedStandardCodes.forEach(function(newstandardObj) {
               if (newstandardObj === onestandardObj.code) {
@@ -72,8 +74,6 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
                 aggregatedStandards.push(onestandardObj);
               }
             });
-          } else {
-            aggregatedStandards.push(onestandardObj);
           }
         });
       });
@@ -210,11 +210,20 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     addTag: function(taxonomyTag) {
       // let tagData = taxonomyTag;
       taxonomyTag.set('isRemovable', true);
+      taxonomyTag.set('tagAlreadyexist', false);
       this.get('tempCollection.standards').addObject(taxonomyTag);
       this.set(
         'tempCollection.standards',
         this.get('tempCollection.standards').uniqBy('code')
       );
+      this.get('tempCollection.aggregatedTag').removeObject(taxonomyTag);
+      let newtaxonomyObj = Ember.Object.create({
+        code: taxonomyTag.get('code'),
+        frameworkCode: taxonomyTag.get('frameworkCode'),
+        isRemovable: false,
+        tagAlreadyexist: false
+      });
+      this.get('tempCollection.aggregatedTag').addObject(newtaxonomyObj);
       this.compareAggregatedTags();
     },
 

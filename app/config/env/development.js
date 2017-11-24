@@ -4,15 +4,15 @@
 export default {
   appRootPath: '/', //default is root
   endpoint: {
-    url: 'http://nile-dev.gooru.org',
-    secureUrl: 'https://nile-dev.gooru.org',
+    url: 'http://www.gooru.org',
+    secureUrl: 'https://www.gooru.org',
     tenantUrl: 'http://s3-us-west-1.amazonaws.com/nile-tenants/dev'
   },
 
   realTime: {
-    webServiceUrl: 'http://nile-dev.gooru.org',
+    webServiceUrl: 'http://www.gooru.org',
     webServiceUri: '/nucleus/realtime',
-    webSocketUrl: 'https://rt.nile-dev.gooru.org',
+    webSocketUrl: 'https://rt.www.gooru.org',
     webSocketUri: '/ws/realtime'
   },
 
@@ -41,15 +41,15 @@ export default {
 
   'quizzes-addon': {
     endpoint: {
-      url: 'http://nile-dev.gooru.org',
-      secureUrl: 'https://nile-dev.gooru.org',
-      providerUrl: 'http://nile-dev.gooru.org'
+      url: 'http://www.gooru.org',
+      secureUrl: 'https://www.gooru.org',
+      providerUrl: 'http://www.gooru.org'
     },
 
     realTime: {
-      webServiceUrl: 'https://nile-dev.gooru.org',
+      webServiceUrl: 'https://www.gooru.org',
       webServiceUri: '/',
-      webSocketUrl: 'https://nile-dev.gooru.org',
+      webSocketUrl: 'https://www.gooru.org',
       webSocketUri: '/ws/quizzes-realtime'
     }
   },
