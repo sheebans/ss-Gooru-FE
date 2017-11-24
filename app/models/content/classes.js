@@ -59,5 +59,19 @@ export default Ember.Object.extend({
         return !aClass.get('isArchived') && aClass.isTeacher(userId);
       })
       : [];
+  },
+
+  /**
+   * Retrieve the teacher archved classes
+   * @param {string}
+   * @return {Class[]}
+   */
+  getTeacherArchivedClasses: function() {
+    const totalArchivedClasses = this.get('classes.length');
+    return totalArchivedClasses
+      ? this.get('classes').filter(function(archivedClass) {
+        return archivedClass.get('isArchived');
+      })
+      : [];
   }
 });

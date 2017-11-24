@@ -210,7 +210,9 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       },
       {
         elementSelector: '.content .gru-new-class-card',
-        title: route.get('i18n').t('gru-take-tour.teacher-home.stepEleven.title'),
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.teacher-home.stepEleven.title'),
         description: route
           .get('i18n')
           .t('gru-take-tour.teacher-home.stepEleven.description')
@@ -228,6 +230,8 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
 
     const myId = route.get('session.userId');
     const activeClasses = myClasses.getTeacherActiveClasses(myId);
+
+    const archivedClasses = myClasses.getTeacherArchivedClasses();
 
     const firstCourseId = configuration.get(
       'exploreFeaturedCourses.firstCourseId'
@@ -280,6 +284,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
 
         return {
           activeClasses,
+          archivedClasses,
           featuredCourses,
           tourSteps
         };
@@ -290,6 +295,9 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     let route = this;
     let activeClasses = resolvedModel.activeClasses;
     let classIds = activeClasses.mapBy('id');
+
+    let archivedClasses = resolvedModel.archivedClasses;
+    let archivedClassIds = archivedClasses.mapBy('id');
 
     route
       .get('performanceService')
@@ -308,6 +316,19 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
               });
           }
           activeClass.set(
+            'performanceSummary',
+            classPerformanceSummaryItems.findBy('classId', classId)
+          );
+        });
+      });
+
+    route
+      .get('performanceService')
+      .findClassPerformanceSummaryByClassIds(archivedClassIds)
+      .then(function(classPerformanceSummaryItems) {
+        archivedClasses.forEach(function(archiveClass) {
+          let classId = archiveClass.get('id');
+          archiveClass.set(
             'performanceSummary',
             classPerformanceSummaryItems.findBy('classId', classId)
           );

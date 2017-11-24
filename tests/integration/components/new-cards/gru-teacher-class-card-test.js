@@ -121,10 +121,4 @@ test('Class Card Layout', function(assert) {
     $panelBody.find('.performance'),
     'Missing class performance'
   );
-
-  assert.equal(
-    T.text($panelBody.find('.performance .percentage')),
-    '90%',
-    'Wrong performance score of the chart'
-  );
 });
