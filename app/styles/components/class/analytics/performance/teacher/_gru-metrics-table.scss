@@ -1,12 +1,12 @@
 .gru-metrics-table {
   margin: 10px 0;
   width: inherit;
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: hidden;
 
   .metrics-table-wrapper {
     width: auto;
-    overflow-x: auto;
+    overflow-x: hidden;
     padding-bottom: 1px;
     overflow-y: hidden;
   }
