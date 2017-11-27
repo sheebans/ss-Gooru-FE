@@ -77,6 +77,23 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     sendRequest: function() {
       this.set('wasRequestSent', true);
     },
+
+    /**
+     * Edit rubric questions to pass backUrl to backbutton.
+     */
+    rubricQuestionEdit: function() {
+      let queryParams = {
+        backUrl: this.get('router.url')
+      };
+      this.get('router').transitionTo(
+        'content.rubric.edit',
+        this.get('rubric.id'),
+        {
+          queryParams
+        }
+      );
+    },
+
     /**
      * Select question type
      */
@@ -127,8 +144,8 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       this.saveNewContent();
     },
     /**
-    * Delete Question
-    */
+     * Delete Question
+     */
     deleteQuestion: function() {
       const myId = this.get('session.userId');
       const collection = this.get('collection');
