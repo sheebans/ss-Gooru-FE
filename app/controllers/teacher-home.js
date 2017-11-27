@@ -13,8 +13,6 @@ export default Ember.Controller.extend(ModalMixin, {
 
   performanceService: Ember.inject.service('api-sdk/performance'),
 
-  courseService: Ember.inject.service('api-sdk/course'),
-
   /**
    * @property {Service} Session service
    */
