@@ -51,17 +51,33 @@
         </div>
       </div>
     {{else}}
-      <div class="performance-no-percentage">
-        <div class="code">
-          <div class="title">{{t 'student-landing.class-code'}}</div>
-          <div class="class-code">{{class.code}}</div>
+      {{#if (eq class.performanceSummary.score 0)}}
+        <div class="performance-percentage">
+          <div class="code">
+            <div class="title">{{t 'student-landing.class-code'}}</div>
+            <div class="class-code">{{class.code}}</div>
+          </div>
+          <div style="color:{{grade-color class.performanceSummary.score}}">
+            {{#link-to 'teacher.class.performance' class.id class="pointer percentage" tagName="div" }}
+              {{scorePercentage}}
+            {{/link-to}}
+          </div>
         </div>
-        <div style="color:{{grade-color class.performanceSummary.score}}">
-          {{#link-to 'teacher.class.performance' class.id class="pointer percentage no-percentage" tagName="div" }}
-            {{scorePercentage}}
-          {{/link-to}}
+
+      {{else}}
+        <div class="performance-no-percentage">
+          <div class="code">
+            <div class="title">{{t 'student-landing.class-code'}}</div>
+            <div class="class-code">{{class.code}}</div>
+          </div>
+          <div style="color:{{grade-color class.performanceSummary.score}}">
+            {{#link-to 'teacher.class.performance' class.id class="pointer percentage no-percentage" tagName="div" }}
+              {{scorePercentage}}
+            {{/link-to}}
+          </div>
         </div>
-      </div>
+
+      {{/if}}
     {{/if}}
   </div>
 </div>
