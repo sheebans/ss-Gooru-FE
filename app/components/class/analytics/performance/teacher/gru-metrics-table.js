@@ -423,6 +423,10 @@ export default Ember.Component.extend({
       );
     });
     Ember.$('#clscroll-column-headers').scroll(function() {
+      Ember.$('#header-Table').attr('style', 'padding-right:15px;');
+      if (Ember.$('#clscroll-column-headers').scrollLeft() === 0) {
+        Ember.$('#header-Table').attr('style', 'padding-right:0px;');
+      }
       Ember.$('#clscroll-content').scrollLeft(
         Ember.$('#clscroll-column-headers').scrollLeft()
       );
