@@ -1,9 +1,8 @@
 {{#if headers}}
   <div class="metrics-table-wrapper">
-    <div class="outer">
-  <div class="inner">
-    <table class="table">
-    {{#if isLoading}}
+    <div class="column-headers" id="clscroll-column-headers">
+    <table>
+        {{#if isLoading}}
     <div class="loading">Loading&#8230;</div>
  <div class="loading">
  <img src="{{loaderIcon}}" class="ajax-loader"> 
@@ -16,7 +15,7 @@
             <div class="{{if isExpanded 'textcenteringsub' 'textcentering'}}">
             <span class="text-center textinsidecenterdiv">{{t "class.analytics.performance.teacher.metricsTable.average"}}</span>
             </div>
-          </th>
+          </th> 
           {{#each headers as |header index|}}
              {{#if (eq header.collectionType 'collection')}}
                 <th id="{{{header.id}}}" class="header" scope="col">
@@ -129,7 +128,7 @@
           {{/each}}
         </tr>
        <tr class="sub-header hidden-xs">
-          <th class="fix padBottom">
+        <th class="fix padBottom">
             {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' showStudyTime=showStudyTime showReport=false metrics=averageMetrics}}
           </th>
           <th class="widthmaxi fix2 padBottom">
@@ -157,21 +156,21 @@
           {{/each}}
         </tr> 
          <tr class="average">
-          <th class="header backgroundclraverage fix" scope="row">
+         <th class="header backgroundclraverage fix" style="border-right:0.5px solid #cdd2d6 !important;" scope="row">
              <span class="class-average marginleftavgtitle ">
                {{t "class.analytics.performance.teacher.metricsTable.class-average"}}
              </span>
-          </th>
+          </th> 
           {{#each averageHeaders.performanceData as |average index|}}
           {{#if (eq index 0)}}
-            <th id="{{average.unitId}}" class="performance-information fix2 topMargin {{if (eq average.unitIdVal tempUnitId) 'selectedUnitcolor' 'backgroundclraverage'}}">
+          <th id="{{average.unitId}}" class="performance-information fix2 topMargin {{if (eq average.unitIdVal tempUnitId) 'selectedUnitcolor' 'backgroundclraverage'}}">
             {{#if (eq index 0)}}
               {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=false}}
             {{else}}
               {{class.analytics.performance.teacher.gru-metrics-performance-information performanceData=average dataPickerOptions=dataPickerOptions showReport=isCollection
               isAverage=true}}
             {{/if}}
-            </th>
+            </th> 
           {{else}}
           {{#if (or (eq average.unitIdVal tempUnitId) (eq average.level 'collection') (eq average.level 'assessment') (eq average.level 'lesson') (not expandedUnit) (and (eq index 2) (eq average.unitIdVal tempUnitId)))}}
             <th id="{{average.level}}" class="performance-information {{if (eq average.unitIdVal tempUnitId) 'selectedUnitcolor' 'backgroundclraverage'}}">
@@ -187,26 +186,38 @@
           {{/each}}
         </tr> 
       </thead>
-      <tbody>
-        {{#each performanceData as |userPerformance index|}} 
+    </table>
+</div>
+<div class="row-headers" id="clscroll-row-headers">
+    <table>
+            {{#each performanceData as |userPerformance index|}} 
             <tr>
                {{#if (is-even index)}}
-                <th class="header user-info fix backgroundfixed backgroundfixedodd" scope="row">
+                <th class="header user-info backgroundfixed backgroundfixedodd" scope="row">
                 <span class="textAlignment">{{{userPerformance.user}}}</span>
               </th>
                {{else}}
-                <th class="header user-info fix backgroundfixed backgroundfixedeven" scope="row">
+                <th class="header user-info backgroundfixed backgroundfixedeven" scope="row">
                 <span class="textAlignment">{{{userPerformance.user}}}</span>
               </th>
                {{/if}}
               {{#each userPerformance.performanceData as |data index|}}
                 {{#if (eq index 0)}}
-                    <td class="performance-information subsubwidthmaxCollapseUnit backgroundfixed fix2 {{if (eq data.unitIdVal tempUnitId) 'selectedUnitcolor' 'old'}}">
+                    <th class="performance-information subsubwidthmaxCollapseUnit backgroundfixed {{if (eq data.unitIdVal tempUnitId) 'selectedUnitcolor' 'old'}}">
                       {{class.analytics.performance.teacher.gru-metrics-performance-information
                       userPerformance=userPerformance
                       onClickReport='clickReport'
                       performanceData=data dataPickerOptions=dataPickerOptions}}
-                    </td>                    
+                    </th>{{/if}}{{/each}}</tr>{{/each}}
+    </table>
+</div>
+<div class="table-content style-1" id="clscroll-content">
+    <table>
+        <tbody>
+        {{#each performanceData as |userPerformance index|}} 
+            <tr>
+              {{#each userPerformance.performanceData as |data index|}}
+                {{#if (eq index 0)}}
                   {{else}}
                     {{#if (or (eq data.unitIdVal tempUnitId) (not expandedUnit))}}
                     <td class="performance-information subsubwidthmaxCollapseUnit {{if (eq data.unitIdVal tempUnitId) 'selectedUnitcolor' 'old'}}">
@@ -250,9 +261,12 @@
               {{/each}}
             </tr>
         {{/each}}
-
-        
       </tbody>
+    </table>
+</div>
+    <div class="outer">
+  <div class="inner">
+    <table class="table">
     </table>
   </div>
   </div>
