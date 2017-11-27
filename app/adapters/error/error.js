@@ -19,6 +19,7 @@ export default Ember.Object.extend({
       contentType: 'application/json; charset=utf-8',
       dataType: 'text',
       processData: false,
+      global: false /* Stop global ajaxError event from triggering */,
       headers: adapter.defineHeaders(),
       data: JSON.stringify(data.body)
     };
