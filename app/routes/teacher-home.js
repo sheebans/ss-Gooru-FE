@@ -231,7 +231,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     const myId = route.get('session.userId');
     const activeClasses = myClasses.getTeacherActiveClasses(myId);
 
-    const archivedClasses = myClasses.getTeacherArchivedClasses();
+    let archivedClasses = myClasses.getTeacherArchivedClasses();
 
     const firstCourseId = configuration.get(
       'exploreFeaturedCourses.firstCourseId'
@@ -295,10 +295,6 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     let route = this;
     let activeClasses = resolvedModel.activeClasses;
     let classIds = activeClasses.mapBy('id');
-
-    let archivedClasses = resolvedModel.archivedClasses;
-    let archivedClassIds = archivedClasses.mapBy('id');
-
     route
       .get('performanceService')
       .findClassPerformanceSummaryByClassIds(classIds)
@@ -321,19 +317,6 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
           );
         });
       });
-
-    route
-      .get('performanceService')
-      .findClassPerformanceSummaryByClassIds(archivedClassIds)
-      .then(function(classPerformanceSummaryItems) {
-        archivedClasses.forEach(function(archiveClass) {
-          let classId = archiveClass.get('id');
-          archiveClass.set(
-            'performanceSummary',
-            classPerformanceSummaryItems.findBy('classId', classId)
-          );
-        });
-      });
   },
 
   /**
@@ -344,6 +327,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   setupController: function(controller, model) {
     controller.set('steps', model.tourSteps);
     controller.set('featuredCourses', model.featuredCourses);
+    controller.set('archivedClass', model.archivedClasses);
   },
 
   /**

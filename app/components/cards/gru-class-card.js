@@ -9,6 +9,8 @@ export default Ember.Component.extend({
    */
   courseService: Ember.inject.service('api-sdk/course'),
 
+  performanceService: Ember.inject.service('api-sdk/performance'),
+
   // -------------------------------------------------------------------------
   // Attributes
   classNames: ['cards gru-class-card '],
@@ -72,6 +74,18 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * @property {Class} class information
+   */
+  archivedClasses: Ember.computed('activeClasses', function() {
+    'applicationController.myClasses.classes.[]',
+    function() {
+      return this.get(
+        'applicationController.myClasses'
+      ).getTeacherArchivedClasses();
+    };
+  }),
+
+  /**
    * @property {Number} score percentage
    * Computed property for performance score percentage
    */
@@ -104,7 +118,6 @@ export default Ember.Component.extend({
   init: function() {
     const component = this;
     component._super(...arguments);
-
     const courseId = component.get('class.courseId');
     if (courseId) {
       component
