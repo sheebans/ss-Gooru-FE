@@ -93,9 +93,45 @@ export default CollectionEdit.extend({
       });
     },
 
+    /**
+     * Add tag data from the taxonomy list in tempUnit
+     */
     addTag: function(taxonomyTag) {
-      let tagData = taxonomyTag.get('data');
-      this.get('tempCollection.aggregatedTag').removeObject(tagData);
+      // let tagData = taxonomyTag;
+      taxonomyTag.set('isRemovable', true);
+      taxonomyTag.set('tagAlreadyexist', false);
+      this.get('tempCollection.standards').addObject(taxonomyTag);
+      this.set(
+        'tempCollection.standards',
+        this.get('tempCollection.standards').uniqBy('code')
+      );
+      Ember.Logger.info('ember11---', this.get('tempCollection.aggregatedTag'));
+      this.get('tempCollection.aggregatedTag').removeObject(taxonomyTag);
+      Ember.Logger.info('ember---', this.get('tempCollection.aggregatedTag'));
+
+      let newtaxonomyObj = Ember.Object.create({
+        code: taxonomyTag.get('code'),
+        frameworkCode: taxonomyTag.get('frameworkCode'),
+        isRemovable: false,
+        tagAlreadyexist: false
+      });
+      this.get('tempCollection.aggregatedTag').addObject(newtaxonomyObj);
+      this.compareAggregatedTags();
+    },
+    /**
+     * Remove tag data from the taxonomy list in tempUnit
+     */
+    removeTag: function(taxonomyTag) {
+      var tagData = taxonomyTag;
+      this.get('tempCollection.standards').removeObject(tagData);
+      tagData.set('isRemovable', false);
+      tagData.set('tagAlreadyexist', false);
+      this.get('tempCollection.aggregatedTag').addObject(tagData);
+      this.set(
+        'tempCollection.aggregatedTag',
+        this.get('tempCollection.aggregatedTag').uniqBy('code')
+      );
+      this.compareAggregatedTags();
     },
 
     /**
@@ -140,32 +176,54 @@ export default CollectionEdit.extend({
       );
     }
   },
+
+  /**
+   * Returns compareAggregatedTags data
+   * @param {Number[]} compareAggregatedTags ids
+   * @return {compareAggregatedTags[]}
+   */
+  compareAggregatedTags: function() {
+    const component = this;
+    component
+      .get('tempCollection.aggregatedTag')
+      .forEach(function(suggeststanObj) {
+        suggeststanObj.set('tagAlreadyexist', true);
+      });
+    component.get('tempCollection.standards').forEach(function(standardObj) {
+      var suggestObj = component
+        .get('tempCollection.aggregatedTag')
+        .findBy('code', standardObj.code);
+      if (suggestObj !== undefined) {
+        Ember.set(suggestObj, 'tagAlreadyexist', false);
+      }
+    });
+  },
   /**
      * Initialize variables and get standards data.
      */
   initializeVariables: function() {
-    let aggregatedStandards = Ember.A([]);
+    let aggregatedStandards = [];
     let unitStandards = this.get('tempCollection.children');
     let selectedStandards = this.get('collection.standards');
-    let selectedStandardCodes = Ember.A([]);
+    let selectedStandardCodes = [];
     selectedStandards.forEach(function(standardObj) {
       selectedStandardCodes.push(standardObj.code);
     });
     unitStandards.forEach(function(unitstandardObj) {
       let unitStandardTag = unitstandardObj.standards;
       unitStandardTag.forEach(function(onestandardObj) {
+        onestandardObj.tagAlreadyexist = true;
+        aggregatedStandards.push(onestandardObj);
         if (selectedStandardCodes.length !== 0) {
           selectedStandardCodes.forEach(function(newstandardObj) {
-            if (newstandardObj !== onestandardObj.code) {
+            if (newstandardObj === onestandardObj.code) {
+              onestandardObj.tagAlreadyexist = false;
               aggregatedStandards.push(onestandardObj);
             }
           });
-        } else {
-          aggregatedStandards.push(onestandardObj);
         }
       });
     });
-
     let result = aggregatedStandards.reduceRight(function(r, a) {
       r.some(function(b) {
         return a.code === b.code;
