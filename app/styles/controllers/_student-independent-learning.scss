@@ -310,6 +310,15 @@
         margin-left: 35%;
       }
     }
+    .expanded::-webkit-scrollbar {
+      width: 4px;
+      border-radius: 3px;
+    }
+    .expanded::-webkit-scrollbar-thumb {
+      background: $gray-light;
+      border: 1px solid $gray-light;
+      border-radius: 5px;
+    }
   }
   .new-gru-bookmark-card {
     margin: 15px 0 0 0;

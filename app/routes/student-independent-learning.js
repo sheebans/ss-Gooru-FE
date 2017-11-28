@@ -134,6 +134,6 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
 
   setupController: function(controller, model) {
     controller.set('featuredCourses', model.featuredCourses);
-    controller.set('bookmarks', model.bookmarks)
+    controller.set('bookmarks', model.bookmarks);
   }
 });

@@ -74,6 +74,15 @@
           font-weight: 300;
         }
       }
+      .expanded::-webkit-scrollbar {
+        width: 4px;
+        border-radius: 3px;
+      }
+      .expanded::-webkit-scrollbar-thumb {
+        background: $gray-light;
+        border: 1px solid $gray-light;
+        border-radius: 5px;
+      }
     }
   }
   .assessments {
