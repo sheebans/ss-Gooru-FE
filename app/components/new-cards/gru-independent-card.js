@@ -96,12 +96,9 @@ export default Ember.Component.extend({
 
   init: function() {
     const component = this;
-    console.log('location', this.get('location'));
-    console.log('performance', this.get('performance'));
     component._super(...arguments);
     let isCourse = component.get('isCourse');
     let isCollection = component.get('isCollection');
-    let isAssessment = component.get('isAssessment');
     if (isCourse) {
       const courseId = component.get('location.courseId');
       if (courseId) {
@@ -216,6 +213,6 @@ export default Ember.Component.extend({
         percentage
       }
     ];
-  }),
+  })
 
 });

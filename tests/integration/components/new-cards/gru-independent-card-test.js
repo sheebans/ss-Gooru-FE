@@ -67,7 +67,7 @@ test('Course Card Layout', function(assert) {
   );
   assert.equal(
     T.text($panelBody.find('.timestamp .pull-right')),
-    "2 Mar'17 | 6:44pm",
+    '2 Mar\'17 | 6:44pm',
     'Wrong last accessed time'
   );
   assert.equal(
@@ -120,7 +120,7 @@ test('Collection Card Layout', function(assert) {
   );
   assert.equal(
     T.text($panelBody.find('.timestamp .pull-right')),
-    "2 Mar'17 | 6:44pm",
+    '2 Mar\'17 | 6:44pm',
     'Wrong last accessed time'
   );
   T.exists(assert, $panelFooter.find('.collection i.collection'), 'Missing Collection Icon');
@@ -174,7 +174,7 @@ test('Assessment Card Layout', function(assert) {
   );
   assert.equal(
     T.text($panelBody.find('.timestamp .pull-right')),
-    "2 Mar'17 | 6:44pm",
+    '2 Mar\'17 | 6:44pm',
     'Wrong last accessed time'
   );
   T.exists(assert, $panelFooter.find('i.assessment'), 'Missing Assessment Icon');

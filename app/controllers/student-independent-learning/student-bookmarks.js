@@ -105,6 +105,6 @@ export default Ember.Controller.extend({
   showMoreToggle: Ember.computed('bookmarks', function() {
     return (
       this.get('bookmarks.length') >= this.get('ROW_SIZE')
-    )
+    );
   })
 });

@@ -35,7 +35,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
 
       if (item !== currentItem) {
         controller.selectMenuItem(item);
-        if (item == 'current-study') {
+        if (item === 'current-study') {
           route.transitionTo('student-independent-learning.learning-base');
         } else {
           route.transitionTo('student-independent-learning.student-bookmarks');

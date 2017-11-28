@@ -4,7 +4,6 @@ import T from 'gooru-web/tests/helpers/assert';
 import wait from 'ember-test-helpers/wait';
 import {
   CONTENT_TYPES,
-  PLAYER_EVENT_SOURCE,
   ROLES
 } from 'gooru-web/config/config';
 import Bookmark from 'gooru-web/models/content/bookmark';

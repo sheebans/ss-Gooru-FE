@@ -129,6 +129,6 @@ export default Ember.Component.extend({
   showMoreToggle: Ember.computed('locations', function() {
     return (
       this.get('locations.length') >= this.get('ROW_SIZE')
-    )
+    );
   })
 });

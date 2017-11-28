@@ -41,7 +41,6 @@ export default Ember.Component.extend(ModalMixin, {
     component._super(...arguments);
     let isCourse = component.get('isCourse');
     let isCollection = component.get('isCollection');
-    let isAssessment = component.get('isAssessment');
     if (isCourse) {
       const courseId = component.get('bookmark.contentId');
       if (courseId) {

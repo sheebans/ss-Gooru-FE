@@ -104,7 +104,6 @@ export default Ember.Component.extend({
       locations: this.get('learnerService').fetchLocations(userId, contentType, offset, pageSize),
       performance: this.get('learnerService').fetchPerformance(userId,contentType, offset, pageSize)
     }).then(hash => {
-      console.log('hash', hash);
       this.set('locations', hash.locations);
       this.set('CURRENT_ITERATION_SIZE', hash.locations.length);
       this.set('performance', hash.performance);
@@ -138,7 +137,7 @@ export default Ember.Component.extend({
   showMoreToggle: Ember.computed('locations', function() {
     return (
       this.get('locations.length') >= this.get('ROW_SIZE')
-    )
+    );
   })
 
 });

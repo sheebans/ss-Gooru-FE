@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { DEFAULT_SEARCH_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
