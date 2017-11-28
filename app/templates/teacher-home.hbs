@@ -35,13 +35,14 @@
           </a>
         </li>
       </ul>
+      {{#if showActiveClasses}}
       {{#unless hasClasses}}
         <div class="pull-left no-classes-found">
           {{t 'teacher-landing.no-classrooms'}}
         </div>
       {{/unless}}
-
-      {{#if showArchivedClasses}}
+      {{/if}}
+      {{#if (and showArchivedClasses  (gt sortedArchivedClassrooms.length 0))}}
         <div class="pull-right sort">
           <div class="filter-date-asc btn-group" role="group">
             <button type="button" title={{t 'common.sort-most-recently'}} data-toggle="tooltip" {{action 'filterByDate'}} class="filter-date btn {{if (eq sortOn 'startDate') 'btn-primary' 'btn-info'}}">

@@ -124,7 +124,9 @@
                       <button class="btn no-bgd remove-item" {{action 'removeRubric' tempModel.rubric.id}}>
                         {{gru-icon name="remove_circle"}}
                       </button>
-                      {{#link-to 'content.rubric.edit' tempModel.rubric.id class="btn no-bgd edit-item" tagName="button"}}{{gru-icon name="edit"}}{{/link-to}}
+                      <button {{ action 'rubricQuestionEdit' }} class="btn no-bgd edit-item">
+                        {{gru-icon name="edit"}}
+                      </button>
                     </div>
                   </div>
                 {{else}}
