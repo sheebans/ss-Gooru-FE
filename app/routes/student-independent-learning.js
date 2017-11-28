@@ -17,6 +17,11 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
    */
   courseService: Ember.inject.service('api-sdk/course'),
 
+  /**
+   * @type {BookmarkService} Service to retrieve bookmark information
+   */
+  bookmarkService: Ember.inject.service('api-sdk/bookmark'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -50,6 +55,14 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   model: function() {
     let route = this;
     const configuration = this.get('configurationService.configuration');
+    const pagination = {
+      offset: 0,
+      pageSize: 1
+    };
+
+    const bookmarksPromise = route
+      .get('bookmarkService')
+      .fetchBookmarks(pagination, true);
 
     let myClasses =
       route.modelFor('application').myClasses || //when refreshing the page the variable is accessible at the route
@@ -96,13 +109,15 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         firstCourse: firstCoursePromise,
         secondCourse: secondCoursePromise,
         thirdCourse: thirdCoursePromise,
-        fourthCourse: fourthCoursePromise
+        fourthCourse: fourthCoursePromise,
+        bookmarks: bookmarksPromise
       })
       .then(function(hash) {
         const firstFeaturedCourse = hash.firstCourse;
         const secondFeaturedCourse = hash.secondCourse;
         const thirdFeaturedCourse = hash.thirdCourse;
         const fourthFeaturedCourse = hash.fourthCourse;
+        const bookmarks = hash.bookmarks;
 
         featuredCourses.push(firstFeaturedCourse);
         featuredCourses.push(secondFeaturedCourse);
@@ -111,13 +126,14 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
 
         return {
           activeClasses,
-          featuredCourses
+          featuredCourses,
+          bookmarks
         };
       });
   },
 
   setupController: function(controller, model) {
     controller.set('featuredCourses', model.featuredCourses);
-    controller.set('toggleState', false);
+    controller.set('bookmarks', model.bookmarks)
   }
 });

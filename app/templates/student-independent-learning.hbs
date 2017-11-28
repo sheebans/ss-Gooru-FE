@@ -31,11 +31,22 @@
         </li>
       </ul>
     </div>
-    {{student.independent.gru-independent-learning-navigation
-      onItemSelected="selectMenuItem"
-      selectedMenuItem=menuItem}}
-    <div class="independent-content">
-      {{outlet}}
-    </div>
+    {{#if bookmarks}}
+      {{student.independent.gru-independent-learning-navigation
+        onItemSelected="selectMenuItem"
+        selectedMenuItem=menuItem}}
+      <div class="independent-content">
+        {{outlet}}
+      </div>
+    {{else}}
+      <div class="no-bookmarks">
+        <div class="explore-img">
+        </div>
+        <div class="no-independent-results">{{t 'student-independent-learning.no-independent-results'}}</div>
+        {{#link-to 'library'}}
+          <button class="btn btn-primary">{{t 'common.explore'}}</button>
+        {{/link-to}}
+      </div>
+    {{/if}}
   </div>
 </div>

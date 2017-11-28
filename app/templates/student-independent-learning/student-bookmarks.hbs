@@ -25,7 +25,7 @@
         }}
       {{/each}}
     {{else}}
-      bookmark Items not available
+      <div class="no-bookmark">{{t 'student-independent-learning.no-bookmarks'}}</div>
     {{/if}}
     {{#if isShowMoreVisible}}
       <div class="col-md-12 show-more-results" {{action 'showMoreResults'}}>Show More Results</div>
