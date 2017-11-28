@@ -30,7 +30,7 @@ test('Layout', function(assert) {
     const usernameMaxLenValue = $editContainer
       .find('#username input')
       .prop('maxlength');
-    assert.equal(usernameMaxLenValue, 20, 'Incorrect username max length');
+    assert.equal(usernameMaxLenValue, 64, 'Incorrect username max length');
 
     T.exists(
       assert,
