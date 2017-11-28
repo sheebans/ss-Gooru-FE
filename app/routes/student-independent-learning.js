@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
+import { DEFAULT_BOOKMARK_PAGE_SIZE } from 'gooru-web/config/config';
 
 /**
  * Student independent learning route
@@ -57,12 +58,8 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     const configuration = this.get('configurationService.configuration');
     const pagination = {
       offset: 0,
-      pageSize: 1
+      pageSize: DEFAULT_BOOKMARK_PAGE_SIZE
     };
-
-    const bookmarksPromise = route
-      .get('bookmarkService')
-      .fetchBookmarks(pagination, true);
 
     let myClasses =
       route.modelFor('application').myClasses || //when refreshing the page the variable is accessible at the route
@@ -104,6 +101,9 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         .get('courseService')
         .fetchById(fourthCourseId);
     }
+    const bookmarksPromise = route
+      .get('bookmarkService')
+      .fetchBookmarks(pagination, true);
     return Ember.RSVP
       .hash({
         firstCourse: firstCoursePromise,
