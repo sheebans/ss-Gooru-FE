@@ -52,10 +52,11 @@ test('Click on back link', function(assert) {
 
     const $classContainer = find('.student-independent-container');
     const $classHeader = $classContainer.find('.header');
-
-    click($classHeader.find('.go-back-container .back-to'));
+    const $backTo = $classHeader.find('.go-back-container a.back-to');
+    click($backTo);
     andThen(function() {
-      assert.equal(currentURL(), '/student-independent-learning/courses');
+      assert.equal(currentURL(), '/student-independent-learning/studying');
     });
+
   });
 });

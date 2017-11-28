@@ -1043,6 +1043,7 @@ export default Object.assign(quizzesTranslations, {
       'no-course': 'This classroom does not have a related course.',
       'no-course-assigned': 'No Course Assigned',
       'back-to-independent': 'Back to Independent Learning',
+      report: 'Report',
       performance: 'Performance',
       'course-map': 'Course Map',
       unit: 'Unit',
@@ -1083,6 +1084,13 @@ export default Object.assign(quizzesTranslations, {
     'no-content-classrooms':
       'This classroom currently has no content available',
     welcome: 'Welcome to Gooru.'
+  },
+  'student-independent-learning': {
+    'show-more': 'Show More',
+    'show-less': 'Show Less',
+    'no-courses': 'When you start exploring your bookmarked Courses, they will appear here',
+    'no-collections': 'When you start exploring your bookmarked Collections, they will appear here',
+    'no-assessments': 'When you start exploring your bookmarked Assessments, they will appear here'
   },
   'teacher-landing': {
     'latest-announcement': 'Latest Announcement',

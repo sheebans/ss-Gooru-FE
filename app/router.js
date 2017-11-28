@@ -117,9 +117,8 @@ Router.map(function() {
   this.route('student-home');
 
   this.route('student-independent-learning', function() {
-    this.route('courses');
-    this.route('assessments');
-    this.route('collections');
+    this.route('learning-base', {path: '/studying'});
+    this.route('student-bookmarks', {path: '/bookmarks'});
   });
 
   this.route('student', function() {

@@ -1,0 +1,34 @@
+<div class="bookmark-content">
+  <div class="title">
+    <span class="bookmark-section">
+      <span class="section-header">Bookmarks</span>
+      {{#link-to 'search.collections' tagName="span" class='add-bookmark'}}
+        {{gru-icon name="add"}}
+      {{/link-to}}
+    </span>
+    <span class="show-more" {{action 'togglePanel'}}>
+      {{#if showMoreToggle}}
+        {{#if isExpanded}}
+          Show less
+        {{else}}
+          Show more
+        {{/if}}
+      {{/if}}
+    </span>
+  </div>
+  <div class="content-results {{if isExpanded 'expanded' 'not-expanded'}}">
+    {{#if bookmarks}}
+      {{#each bookmarks as |bookmark|}}
+        {{new-cards.gru-bookmark-card
+          bookmark=bookmark
+          onDeleteBookmark=(action 'removeBookmark')
+        }}
+      {{/each}}
+    {{else}}
+      bookmark Items not available
+    {{/if}}
+    {{#if isShowMoreVisible}}
+      <div class="col-md-12 show-more-results" {{action 'showMoreResults'}}>Show More Results</div>
+    {{/if}}
+  </div>
+</div>

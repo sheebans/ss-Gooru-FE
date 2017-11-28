@@ -24,3 +24,52 @@
     }
   }
 }
+
+.independent-content {
+  .courses, .collections, .assessments {
+    margin-top: 25px;
+    border-radius: 4px;
+    box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.07);
+    padding: 0;
+    .course-content, .collection-content, .assessment-content {
+      background-color: $white;
+      .title {
+        border-bottom: solid 1px $light-200;
+        height: 40px;
+        line-height: 40px;
+        .section-header {
+          color: $dark-500;
+          font-size: 16px;
+          font-weight: bold;
+          margin-left: 15px;
+        }
+        .show-more {
+          float: right;
+          margin-right: 15px;
+          color: $sky-400;
+          font-size: 13px;
+          text-transform: uppercase;
+          cursor: pointer;
+        }
+      }
+      .content-results {
+        &.not-expanded {
+          height: 288px;
+          overflow: hidden;
+        }
+        &.expanded {
+          overflow-y: auto;
+          height: 620px;
+        }
+        .show-more-results {
+          width: 30%;
+          padding: 5px;
+          margin-left: 35%;
+        }
+      }
+    }
+  }
+  .new-gru-independent-card {
+    margin: 15px 0 0 0;
+  }
+}
