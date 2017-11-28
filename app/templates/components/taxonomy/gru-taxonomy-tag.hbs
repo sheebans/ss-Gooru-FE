@@ -17,7 +17,7 @@
   {{/if}}
 
 {{else}}
-  <button class="toggle" {{action 'selectTag'}}>
+  <button class="toggle {{if (and isEditing (not model.tagAlreadyexist) (not model.isRemovable))'added-tag' ''}}" {{action 'selectTag'}}>
     <div>
       {{#if model.data}}
       <b class="tag-label">{{model.data.label}}</b>
