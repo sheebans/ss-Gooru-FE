@@ -216,20 +216,20 @@ export default Ember.Object.extend(Validations, {
    * @property {boolean}
    */
   sameOwnerAndCreator: Ember.computed('owner.id', 'creatorId', function() {
-    let createdRemixedBy;
-    if (this.get('originalCreatorId') && !this.get('creator')) {
-      if (this.get('originalCreatorId') === this.get('owner.id')) {
+    let createdRemixedBy = false;
+    if (
+      (this.get('originalCreatorId') && !this.get('creator')) ||
+      (!this.get('originalCreatorId') && !this.get('creator'))
+    ) {
+      if (
+        this.get('originalCreatorId') === this.get('owner.id') ||
+        (!this.get('originalCreatorId') && !this.get('creator'))
+      ) {
         createdRemixedBy = true;
-      } else {
-        createdRemixedBy = false;
       }
-    } else if (!this.get('originalCreatorId') && !this.get('creator')) {
-      createdRemixedBy = true;
     } else {
-      if (this.get('originalCreatorId') === this.get('owner.id')) {
+      if (this.get('creator.id') === this.get('owner.id')) {
         createdRemixedBy = true;
-      } else {
-        createdRemixedBy = false;
       }
     }
     return createdRemixedBy;
@@ -254,7 +254,7 @@ export default Ember.Object.extend(Validations, {
    * @param {string} unitId
    * @param {string} lessonId
    * @return {LessonItem[]} lesson items
-     */
+   */
   getCollectionsByType: function(
     collectionType,
     unitId = undefined,

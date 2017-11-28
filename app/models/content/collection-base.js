@@ -182,20 +182,20 @@ export default (function() {
      * @property {boolean}
      */
     sameOwnerAndCreator: Ember.computed('owner.id', 'creator.id', function() {
-      let createdRemixedBy;
-      if (this.get('originalCreatorId') && !this.get('creator')) {
-        if (this.get('originalCreatorId') === this.get('owner.id')) {
+      let createdRemixedBy = false;
+      if (
+        (this.get('originalCreatorId') && !this.get('creator')) ||
+        (!this.get('originalCreatorId') && !this.get('creator'))
+      ) {
+        if (
+          this.get('originalCreatorId') === this.get('owner.id') ||
+          (!this.get('originalCreatorId') && !this.get('creator'))
+        ) {
           createdRemixedBy = true;
-        } else {
-          createdRemixedBy = false;
         }
-      } else if (!this.get('originalCreatorId') && !this.get('creator')) {
-        createdRemixedBy = true;
       } else {
         if (this.get('creator.id') === this.get('owner.id')) {
           createdRemixedBy = true;
-        } else {
-          createdRemixedBy = false;
         }
       }
       return createdRemixedBy;
