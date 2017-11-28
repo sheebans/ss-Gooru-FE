@@ -182,10 +182,23 @@ export default (function() {
      * @property {boolean}
      */
     sameOwnerAndCreator: Ember.computed('owner.id', 'creator.id', function() {
-      return (
-        !this.get('creator.id') ||
-        this.get('owner.id') === this.get('creator.id')
-      );
+      let createdRemixedBy;
+      if (this.get('originalCreatorId') && !this.get('creator')) {
+        if (this.get('originalCreatorId') === this.get('owner.id')) {
+          createdRemixedBy = true;
+        } else {
+          createdRemixedBy = false;
+        }
+      } else if (!this.get('originalCreatorId') && !this.get('creator')) {
+        createdRemixedBy = true;
+      } else {
+        if (this.get('creator.id') === this.get('owner.id')) {
+          createdRemixedBy = true;
+        } else {
+          createdRemixedBy = false;
+        }
+      }
+      return createdRemixedBy;
     }),
 
     /**

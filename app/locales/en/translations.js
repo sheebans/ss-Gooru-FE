@@ -121,6 +121,7 @@ export default Object.assign(quizzesTranslations, {
     'back-to-collection': 'Back to collection',
     'back-to-course-map': 'Back to Course Map',
     'back-to-data': 'Back to Data',
+    'back-to-report': 'Back to Report',
     'best-practices': 'Best Practices',
     beta: 'Beta',
     'big-ideas': 'Big Ideas',
@@ -1121,7 +1122,8 @@ export default Object.assign(quizzesTranslations, {
         'student-id': 'Student ID',
         teachers: 'Teachers',
         'view-report': 'View Report',
-        'students-null': 'Share the Class Code with students to have them join your Classroom.'
+        'students-null':
+          'Share the Class Code with students to have them join your Classroom.'
       },
       'class-activities': 'Daily Class Activities',
       'back-to-class-activities': 'Back to Daily Class Activities',
@@ -1944,8 +1946,7 @@ export default Object.assign(quizzesTranslations, {
       },
       stepTwo: {
         title: 'Logo',
-        description:
-          'Clicking on the logo returns you to your homepage.'
+        description: 'Clicking on the logo returns you to your homepage.'
       },
       stepThree: {
         title: 'Search Bar',

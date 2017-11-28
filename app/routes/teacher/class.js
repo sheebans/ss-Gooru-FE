@@ -5,7 +5,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
     refresh: {
       refreshModel: true
-    }
+    },
+    backUrls: {}
   },
 
   // -------------------------------------------------------------------------
@@ -84,7 +85,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   model: function(params) {
     const route = this;
-
     //Steps for Take a Tour functionality
     let tourSteps = Ember.A([
       {
@@ -210,5 +210,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('members', model.members);
     controller.set('contentVisibility', model.contentVisibility);
     controller.set('steps', model.tourSteps);
+    controller.set('router', this.get('router'));
   }
 });

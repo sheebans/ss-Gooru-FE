@@ -96,11 +96,15 @@ export default Ember.Route.extend({
       }
     },
     navigateToAssessmentReport: function(unitId, lessonId, collectionId) {
+      const queryParams = {
+        backUrls: this.get('router.url')
+      };
       this.transitionTo(
         'teacher.class.collection',
         unitId,
         lessonId,
-        collectionId
+        collectionId,
+        { queryParams }
       );
     }
   },

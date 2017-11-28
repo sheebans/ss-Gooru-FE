@@ -216,9 +216,23 @@ export default Ember.Object.extend(Validations, {
    * @property {boolean}
    */
   sameOwnerAndCreator: Ember.computed('owner.id', 'creatorId', function() {
-    return (
-      !this.get('creatorId') || this.get('owner.id') === this.get('creatorId')
-    );
+    let createdRemixedBy;
+    if (this.get('originalCreatorId') && !this.get('creator')) {
+      if (this.get('originalCreatorId') === this.get('owner.id')) {
+        createdRemixedBy = true;
+      } else {
+        createdRemixedBy = false;
+      }
+    } else if (!this.get('originalCreatorId') && !this.get('creator')) {
+      createdRemixedBy = true;
+    } else {
+      if (this.get('originalCreatorId') === this.get('owner.id')) {
+        createdRemixedBy = true;
+      } else {
+        createdRemixedBy = false;
+      }
+    }
+    return createdRemixedBy;
   }),
 
   /**
@@ -229,7 +243,9 @@ export default Ember.Object.extend(Validations, {
    * @return {Number}
    */
   getChildUnitIndex: function(unit) {
-    return this.get('sortedUnitResults').mapBy('id').indexOf(unit.get('id'));
+    return this.get('sortedUnitResults')
+      .mapBy('id')
+      .indexOf(unit.get('id'));
   },
 
   /**
