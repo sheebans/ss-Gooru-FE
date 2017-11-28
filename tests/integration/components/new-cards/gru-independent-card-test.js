@@ -55,11 +55,7 @@ test('Course Card Layout', function(assert) {
   T.exists(assert, $panel, 'Missing course card panel');
   T.exists(assert, $panelHeading, 'Missing course card panel heading');
   T.exists(assert, $panelBody, 'Missing course card panel body');
-  assert.equal(
-    T.text($panelHeading.find('> a > .title')),
-    'course-title',
-    'Wrong course title text'
-  );
+
   assert.equal(
     T.text($panelHeading.find('.card-heading .current-activity .title a')),
     'current-title',
@@ -113,11 +109,7 @@ test('Collection Card Layout', function(assert) {
   T.exists(assert, $panel, 'Missing collection card panel');
   T.exists(assert, $panelHeading, 'Missing collection card panel heading');
   T.exists(assert, $panelBody, 'Missing collection card panel body');
-  assert.equal(
-    T.text($panelHeading.find('> a > .title')),
-    'collection-title',
-    'Wrong collection card title'
-  );
+
   assert.equal(
     T.text($panelBody.find('.timestamp .pull-right')),
     '2 Mar\'17 | 6:44pm',
@@ -167,11 +159,7 @@ test('Assessment Card Layout', function(assert) {
   T.exists(assert, $panel, 'Missing assessment card panel');
   T.exists(assert, $panelHeading, 'Missing assessment card panel heading');
   T.exists(assert, $panelBody, 'Missing assessment card panel body');
-  assert.equal(
-    T.text($panelHeading.find('> a > .title')),
-    'assessment-title',
-    'Wrong assessment card title'
-  );
+  
   assert.equal(
     T.text($panelBody.find('.timestamp .pull-right')),
     '2 Mar\'17 | 6:44pm',
