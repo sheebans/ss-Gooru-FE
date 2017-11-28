@@ -12,31 +12,34 @@
         </div>
       </div>
     {{/if}}
+     <div class="row info">
+      <div class="teacher-breadcrumb">
+        {{gru-breadcrumb items=breadcrumb onSelectedItem="selectBreadcrumbItem"}}
+      </div>
+      {{!-- {{#unless (and isAtCollectionLevel reportData)}}
+        <div class="grading-scale">
+          {{grading-scale-legend}}
+        </div>
+      {{/unless}} --}}
+    </div>
     <div class="row">
       <div class="better-experience visible-xs alert alert-warning alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <span class="better-experience-message">{{t 'class.analytics.performance.better-experience-message'}}</span>
       </div>
     </div>
+    <div class="row row-main-container">
     {{#unless (and isAtCollectionLevel reportData)}}
-      <div class="row actions">
-        <div class="radios-container">
-          <label class="radio-button assessment">
-            <input type="radio" name="filter-radio" tabindex="0" checked={{filteredByAssessment}} {{action "selectFilterBy" "assessment" preventDefault=false}}>
-            {{t 'teacher-landing.class.performance-tab.assessments'}}
-          </label>
-          <label class="radio-button collection">
-            <input type="radio" name="filter-radio" tabindex="0"  checked={{filteredByCollection}} {{action "selectFilterBy" "collection" preventDefault=false}}>
-            {{t 'teacher-landing.class.performance-tab.collections'}}
-          </label>
+         <div class="filters filters-container">
+            <div class="radios-container pull-left widthradiobtns">
+              <div class="classrooms-reports">
+                <div id="assessment-content-type" class="{{if filteredByAssessment 'selectedButton' 'radioNormalButton'}} pull-left pointer" {{action "selectFilterBy" "assessment" preventDefault=false}}><div for="assessment-content-type" class="{{if filteredByAssessment 'selectedButtonType' 'normalButtonType'}}">{{t 'teacher-landing.class.performance-tab.assessments'}}</div></div>
+                <div id="collection-content-type" class="{{if filteredByCollection 'selectedButton' 'radioNormalButton'}} pull-left pointer" {{action "selectFilterBy" "collection" preventDefault=false}}><div for="collection-content-type" class="{{if filteredByCollection 'selectedButtonType' 'normalButtonType'}}">{{t 'teacher-landing.class.performance-tab.collections'}}</div></div>
+              </div>
+            </div>
         </div>
-        <button class="btn btn-primary report-btn" {{action 'download'}}>
-          {{gru-icon name='file_download'}}
-          <span>{{t 'common.download'}}</span>
-        </button>
-      </div>
     {{/unless}}
-    <div class="row options">
+     <div class="options pull-left">
       {{#unless (and isAtCollectionLevel reportData)}}
         <div class="data-picker">
           {{#if filteredByAssessment}}
@@ -49,15 +52,23 @@
         </div>
       {{/unless}}
     </div>
-    <div class="row info">
-      <div class="teacher-breadcrumb">
-        {{gru-breadcrumb items=breadcrumb onSelectedItem="selectBreadcrumbItem"}}
-      </div>
-      {{#unless (and isAtCollectionLevel reportData)}}
-        <div class="grading-scale">
-          {{grading-scale-legend}}
+     {{#unless (and isAtCollectionLevel reportData)}}
+    {{!-- <div class="btn btn-primary report-btn" {{action 'download'}}>
+          {{gru-icon name='file_download'}}
+          <span>{{t 'common.download'}}</span>
+        </div> --}}
+        <div class="pull-left text-download-container pointer" {{action 'download'}}>
+         <label class="label-text-font">{{t 'common.download'}}</label>
+        {{gru-icon name='file_download'}}
         </div>
-      {{/unless}}
+         
+        {{!-- <span class="hidden-xs"><i class="gru-icon file_download"></i> {{t 'common.download'}}</span> --}}
+    {{/unless}}
+    {{#unless (and isAtCollectionLevel reportData)}}
+    <div class="performance-scale pull-right">
+      {{grading-scale-legend}}
+    </div>
+     {{/unless}}
     </div>
     <div class="row gru-content">
       <div class="col-md-12 col-sm-12 col-xs-12">
