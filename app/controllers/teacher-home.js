@@ -92,9 +92,9 @@ export default Ember.Controller.extend(ModalMixin, {
   init: function() {
     const component = this;
     component._super(...arguments);
-    if (component.get('showArchivedClasses')) {
-      component.get('archivedClassObject');
-    }
+
+    component.get('archivedClassObject');
+
     let localStorage = this.get('applicationController').getLocalStorage();
     const userId = this.get('session.userId');
     const localStorageItem = `${userId}_dontShowWelcomeModal`;
