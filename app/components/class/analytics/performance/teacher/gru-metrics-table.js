@@ -113,6 +113,17 @@ export default Ember.Component.extend({
     return dataPickerOptions.includes('time-spent');
   }),
   /**
+   * If study time option is selected
+   * @property {Boolean}
+   */
+  showReportTime: Ember.computed('dataPickerOptions.[]', function() {
+    const dataPickerOptions = this.get('dataPickerOptions');
+    return (
+      dataPickerOptions.includes('time-spent') &&
+      dataPickerOptions.includes('score')
+    );
+  }),
+  /**
    * The average headers of the Data Matrix
    * @property {averageHeaders[]}
    */
