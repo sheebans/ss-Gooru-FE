@@ -153,6 +153,22 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     },
 
     /**
+     * Route to Rubric Question edit with backurl in query params.
+     */
+    rubricQuestionEdit: function() {
+      let queryParams = {
+        backUrl: this.get('router.url')
+      };
+      this.get('router').transitionTo(
+        'content.rubric.edit',
+        this.get('tempModel.rubric.id'),
+        {
+          queryParams
+        }
+      );
+    },
+
+    /**
     * Route to edit with correct query params.
     */
     edit: function(item) {
