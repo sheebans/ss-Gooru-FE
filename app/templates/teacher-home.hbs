@@ -35,11 +35,13 @@
           </a>
         </li>
       </ul>
+      {{#if showActiveClasses}}
       {{#unless hasClasses}}
         <div class="pull-left no-classes-found">
           {{t 'teacher-landing.no-classrooms'}}
-        </div>
+        </div>        
       {{/unless}}
+      {{/if}}
 
       {{#if showArchivedClasses}}
         <div class="pull-right sort">
