@@ -159,7 +159,6 @@ test('Assessment Card Layout', function(assert) {
   T.exists(assert, $panel, 'Missing assessment card panel');
   T.exists(assert, $panelHeading, 'Missing assessment card panel heading');
   T.exists(assert, $panelBody, 'Missing assessment card panel body');
-  
   assert.equal(
     T.text($panelBody.find('.timestamp .pull-right')),
     '2 Mar\'17 | 6:44pm',
