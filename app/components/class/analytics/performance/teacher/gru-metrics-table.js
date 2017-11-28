@@ -451,6 +451,8 @@ export default Ember.Component.extend({
   didRender() {
     this._super(...arguments);
     this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+    var width = Ember.$('#clscroll-table').width();
+    Ember.$('#clscroll-content').attr('style', `width:${  width + 15  }px;`);
   },
   actions: {
     onScrolledToBottom() {
