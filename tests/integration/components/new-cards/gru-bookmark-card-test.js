@@ -34,7 +34,6 @@ test('Bookmark Card Layout', function(assert) {
   const $bookmarkCard = $component.find('.new-gru-bookmark-card');
   const $panel = $bookmarkCard.find('.panel');
   const $panelHeading = $panel.find('.panel-heading');
-  const $panelBody = $panel.find('.panel-body');
   const $panelFooter = $panel.find('.panel-footer');
 
   T.exists(assert, $bookmarkCard, 'Missing bookmark card');
