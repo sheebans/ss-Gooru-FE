@@ -53,7 +53,7 @@ const ConfigurationService = Ember.Service.extend({
         //it looks for the specific domain configuration
         if (hostnameConfiguration) {
           service.merge(hostnameConfiguration);
-          Ember.Logger.info(
+          Ember.Logger.debug(
             'Custom host configuration found: ',
             hostnameConfiguration
           );
