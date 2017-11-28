@@ -2,10 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import T from 'gooru-web/tests/helpers/assert';
 import wait from 'ember-test-helpers/wait';
-import {
-  CONTENT_TYPES,
-  ROLES
-} from 'gooru-web/config/config';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 import Bookmark from 'gooru-web/models/content/bookmark';
 
 moduleForComponent('new-cards/gru-bookmark-card',
