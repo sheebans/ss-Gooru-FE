@@ -79,6 +79,11 @@ export default CollectionEdit.extend({
                   'centurySkills'
                 ]);
                 component.set('isEditing', false);
+                component
+                  .get('tempCollection.standards')
+                  .forEach(function(suggeststanObj) {
+                    suggeststanObj.set('isRemovable', false);
+                  });
               })
               .catch(function(error) {
                 var message = component

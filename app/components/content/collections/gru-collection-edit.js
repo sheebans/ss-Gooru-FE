@@ -123,6 +123,11 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
                     'centurySkills'
                   ]);
                   component.set('isEditing', false);
+                  component
+                    .get('tempCollection.standards')
+                    .forEach(function(suggeststanObj) {
+                      suggeststanObj.set('isRemovable', false);
+                    });
                 })
                 .catch(function(error) {
                   var message = component
@@ -381,6 +386,11 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
           const standards = Ember.A(dataTags);
           standards.pushObjects(notInSubjectStandards.toArray());
           component.set('tempCollection.standards', standards);
+          component
+            .get('tempCollection.standards')
+            .forEach(function(suggeststanObj) {
+              suggeststanObj.set('isRemovable', true);
+            });
         }
       }
     };
