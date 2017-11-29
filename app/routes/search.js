@@ -113,7 +113,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
       })
       : this.get('i18n').t('common.bookmarked-success');
     const independentLearningURL = this.get('router').generate(
-      `student-independent-learning.${type}s`
+      `student-independent-learning.student-bookmarks`
     );
     const buttonText = this.get('i18n').t('common.take-me-there');
     this.get('notifications').success(
