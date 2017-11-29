@@ -337,7 +337,7 @@ export default Object.assign(quizzesTranslations, {
         'Oops! Unable to load unit right now. Please try again shortly.',
       'unit-title-required': 'Please enter the unit title.',
       'user-email-presence': 'Please enter a valid email.',
-      'username-length': 'Username must be between 4 and 16 characters.',
+      'username-length': 'Username must be between 4 and 64 characters.',
       'forgot-password-gmail':
         'Please use Google signin. We can\'t reset your password.'
     },
@@ -1045,6 +1045,7 @@ export default Object.assign(quizzesTranslations, {
       'no-course': 'This classroom does not have a related course.',
       'no-course-assigned': 'No Course Assigned',
       'back-to-independent': 'Back to Independent Learning',
+      report: 'Report',
       performance: 'Performance',
       'course-map': 'Course Map',
       unit: 'Unit',
@@ -1085,6 +1086,15 @@ export default Object.assign(quizzesTranslations, {
     'no-content-classrooms':
       'This classroom currently has no content available',
     welcome: 'Welcome to Gooru.'
+  },
+  'student-independent-learning': {
+    'show-more': 'Show More',
+    'show-less': 'Show Less',
+    'no-courses': 'When you start exploring your bookmarked Courses, they will appear here',
+    'no-collections': 'When you start exploring your bookmarked Collections, they will appear here',
+    'no-assessments': 'When you start exploring your bookmarked Assessments, they will appear here',
+    'no-independent-results': 'Explore the Library to learn something new.',
+    'no-bookmarks': 'No bookmarks available.'
   },
   'teacher-landing': {
     'latest-announcement': 'Latest Announcement',

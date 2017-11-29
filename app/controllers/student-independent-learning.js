@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { DEFAULT_SEARCH_PAGE_SIZE } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
@@ -11,36 +10,6 @@ export default Ember.Controller.extend({
    * @property {Service} Session service
    */
   session: Ember.inject.service('session'),
-
-  /**
-   * @type {BookmarkService} Service to retrieve bookmark information
-   */
-  bookmarkService: Ember.inject.service('api-sdk/bookmark'),
-
-  // -------------------------------------------------------------------------
-  // Actions
-  actions: {
-    /**
-     * show more bookmark results
-     */
-    showMoreResults: function() {
-      this.showMoreResults();
-    },
-
-    /**
-     * Remove a bookmark from a list of bookmarks
-     */
-    removeBookmark: function(bookmark) {
-      this.get('bookmarks').removeObject(bookmark);
-    },
-
-    /**
-     * Triggered when the expand/collapse arrows are selected.
-     */
-    togglePanel: function() {
-      this.set('toggleState', !this.get('toggleState'));
-    }
-  },
 
   // -------------------------------------------------------------------------
   // Events
@@ -108,26 +77,6 @@ export default Ember.Controller.extend({
    */
   firstRowLimit: 9,
 
-  /**
-   * @property {boolean}
-   */
-  showExpandIcon: Ember.computed('bookmarks.[]', function() {
-    return (
-      this.get('bookmarks.length') &&
-      this.get('bookmarks.length') > this.get('firstRowLimit')
-    );
-  }),
-
-  /**
-   * @property {*}
-   */
-  pagination: null,
-
-  /**
-   * Shows the rest of bookmarks
-   * @property {Boolean} toggleState
-   */
-  toggleState: true,
 
   /**
    * The menuItem selected
@@ -144,23 +93,5 @@ export default Ember.Controller.extend({
    */
   selectMenuItem: function(item) {
     this.set('menuItem', item);
-  },
-
-  /**
-   * show more bookmark results
-   */
-  showMoreResults: function() {
-    const controller = this;
-    const pagination = this.get('pagination');
-
-    pagination.offset = pagination.offset + pagination.pageSize;
-    pagination.pageSize = DEFAULT_SEARCH_PAGE_SIZE;
-    this.set('pagination', pagination);
-    controller
-      .get('bookmarkService')
-      .fetchBookmarks(pagination, false)
-      .then(function(bookmarkResults) {
-        controller.get('bookmarks').pushObjects(bookmarkResults);
-      });
   }
 });
