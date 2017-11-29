@@ -4,7 +4,7 @@ moduleFor(
   'controller:student-independent-learning/student-bookmarks',
   'Unit | Controller | student independent learning/student bookmarks', {
   // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
+    // needs: ['controller:studentIndependentLearning']
   }
 );
 

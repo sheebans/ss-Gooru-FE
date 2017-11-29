@@ -12,11 +12,6 @@ export default Ember.Controller.extend({
   // Dependencies
 
   /**
-   * @type {StudentIndependentLearningController} Controller information
-   */
-  studentIndependentLearningController: Ember.inject.controller('studentIndependentLearning'),
-
-  /**
    * @property {Service} Session service
    */
   session: Ember.inject.service('session'),
@@ -25,13 +20,7 @@ export default Ember.Controller.extend({
    * @type {BookmarkService} Service to retrieve bookmark information
    */
   bookmarkService: Ember.inject.service('api-sdk/bookmark'),
-
-  // -------------------------------------------------------------------------
-  // Events
-  init: function() {
-    this.set('studentIndependentLearningController.menuItem', 'bookmarks');
-  },
-
+  
   // -------------------------------------------------------------------------
   // Actions
   actions: {
