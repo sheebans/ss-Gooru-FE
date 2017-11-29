@@ -103,7 +103,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
   notifyBookmarkSuccess: function(bookmark, showType) {
     const type = bookmark.get('contentType');
     this.get('notifications').setOptions({
-      positionClass: "toast-top-full-width",
+      positionClass: 'toast-top-full-width',
       toastClass: 'gooru-toast',
       timeOut: 10000
     });
@@ -113,7 +113,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
       })
       : this.get('i18n').t('common.bookmarked-success');
     const independentLearningURL = this.get('router').generate(
-      `student-independent-learning.student-bookmarks`
+      'student-independent-learning.student-bookmarks'
     );
     const buttonText = this.get('i18n').t('common.take-me-there');
     this.get('notifications').success(
