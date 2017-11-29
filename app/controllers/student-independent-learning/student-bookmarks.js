@@ -20,7 +20,6 @@ export default Ember.Controller.extend({
    * @type {BookmarkService} Service to retrieve bookmark information
    */
   bookmarkService: Ember.inject.service('api-sdk/bookmark'),
-  
   // -------------------------------------------------------------------------
   // Actions
   actions: {
