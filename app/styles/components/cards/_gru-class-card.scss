@@ -124,7 +124,7 @@
 
       .links {
         display: inline-block;
-        width: 168px;
+        width: 148px;
         height: 93px;
         background-color: $white;
         box-shadow: 1px -1px 4px 0 rgba(0, 0, 0, 0.5);
@@ -180,7 +180,7 @@
         text-align: center;
         padding: 0;
         display: inline-block;
-        width: 128px;
+        width: 148px;
         height: 93px;
         vertical-align: top;
         border-bottom-right-radius: 4px;
@@ -215,7 +215,7 @@
           font-weight: 900;
         }
         .performance-no-percentage {
-          width: 128px;
+          width: 148px;
           color: $light-500;
           background-color: $white;
           text-align: center;
@@ -278,12 +278,11 @@
 
         .performance-no-percentage {
           background-color: $white;
-          width: 128px;
+          width: 148px;
           color: $light-500;
           text-align: center;
           padding: 0;
           display: inline-block;
-          width: 128px;
           height: 93px;
           vertical-align: top;
           border-bottom-right-radius: 4px;
@@ -307,7 +306,7 @@
     &.has-course {
       .panel-body {
         .performance-no-percentage {
-          width: 128px;
+          width: 148px;
           background-color: $white;
           color: $light-500;
           text-align: center;
