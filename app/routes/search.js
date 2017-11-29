@@ -103,7 +103,7 @@ export default Ember.Route.extend(PublicRouteMixin, {
   notifyBookmarkSuccess: function(bookmark, showType) {
     const type = bookmark.get('contentType');
     this.get('notifications').setOptions({
-      positionClass: 'toast-top-full-width',
+      positionClass: "toast-top-full-width",
       toastClass: 'gooru-toast',
       timeOut: 10000
     });
