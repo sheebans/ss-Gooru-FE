@@ -12,15 +12,10 @@
         </div>
       </div>
     {{/if}}
-     <div class="row info">
+     <div class="row info out-of-scope">
       <div class="teacher-breadcrumb">
         {{gru-breadcrumb items=breadcrumb onSelectedItem="selectBreadcrumbItem"}}
       </div>
-      {{!-- {{#unless (and isAtCollectionLevel reportData)}}
-        <div class="grading-scale">
-          {{grading-scale-legend}}
-        </div>
-      {{/unless}} --}}
     </div>
     <div class="row">
       <div class="better-experience visible-xs alert alert-warning alert-dismissible" role="alert">
@@ -28,7 +23,7 @@
         <span class="better-experience-message">{{t 'class.analytics.performance.better-experience-message'}}</span>
       </div>
     </div>
-    <div class="row row-main-container">
+    <div class="row">
     {{#unless (and isAtCollectionLevel reportData)}}
          <div class="filters filters-container">
             <div class="radios-container pull-left widthradiobtns">
@@ -53,16 +48,10 @@
       {{/unless}}
     </div>
      {{#unless (and isAtCollectionLevel reportData)}}
-    {{!-- <div class="btn btn-primary report-btn" {{action 'download'}}>
-          {{gru-icon name='file_download'}}
-          <span>{{t 'common.download'}}</span>
-        </div> --}}
         <div class="pull-left text-download-container pointer" {{action 'download'}}>
          <label class="label-text-font">{{t 'common.download'}}</label>
         {{gru-icon name='file_download'}}
         </div>
-         
-        {{!-- <span class="hidden-xs"><i class="gru-icon file_download"></i> {{t 'common.download'}}</span> --}}
     {{/unless}}
     {{#unless (and isAtCollectionLevel reportData)}}
     <div class="performance-scale pull-right">

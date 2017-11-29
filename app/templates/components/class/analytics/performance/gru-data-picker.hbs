@@ -2,7 +2,7 @@
     <ul class="list-inline">
       {{#each options as |option|}}
         {{#unless option.isDisabled}}
-          <li>
+          <li class="{{if (not option.selected) 'listart' ''}}">
               <div class="checkbox {{option.value}}">
                 {{#if option.selected}}
                     <input id='{{if areSingleSelected 'mobile-'}}{{option.value}}' type="checkbox" disabled={{option.readOnly}} value="{{option.value}}" checked {{action 'setOption' option}}/>

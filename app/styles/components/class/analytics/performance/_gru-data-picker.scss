@@ -12,6 +12,9 @@
   li.disabled {
     opacity: 0.5;
   }
+  .listart {
+    opacity: 0.4;
+  }
   .checkbox {
     @include flexbox;
     @include flex-direction(column);
@@ -38,6 +41,7 @@
       position: relative;
       top: -3px;
       border: 2px solid #666;
+      border-radius: 50% !important;
       @media (max-width: $screen-xs-max) {
         border-radius: 50%;
         border-color: $gray-light;
