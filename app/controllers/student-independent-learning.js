@@ -82,7 +82,14 @@ export default Ember.Controller.extend({
    * The menuItem selected
    * @property {String}
    */
-  menuItem: null,
+  menuItem: Ember.computed(function() {
+    let currentHref = window.location.href;
+    let currentPage = currentHref.substring(currentHref.lastIndexOf('/') + 1);
+    if (currentPage !== 'bookmarks'){
+      return 'current-study';
+    }
+    return currentPage;
+  }),
 
   // -------------------------------------------------------------------------
   // Methods

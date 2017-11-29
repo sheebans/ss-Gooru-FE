@@ -11,8 +11,6 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  applicationController: Ember.inject.controller('application'),
-
   /**
    * @property {Service} Session service
    */
@@ -22,7 +20,6 @@ export default Ember.Controller.extend({
    * @type {BookmarkService} Service to retrieve bookmark information
    */
   bookmarkService: Ember.inject.service('api-sdk/bookmark'),
-
   // -------------------------------------------------------------------------
   // Actions
   actions: {
