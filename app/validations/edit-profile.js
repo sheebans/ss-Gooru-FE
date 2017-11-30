@@ -28,7 +28,7 @@ export default buildValidations({
       }),
       validator('length', {
         min: 4,
-        max: 64,
+        max: 254,
         message: '{{description}}',
         descriptionKey: 'common.errors.username-length'
       }),
