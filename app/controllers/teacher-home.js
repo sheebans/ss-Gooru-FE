@@ -11,10 +11,36 @@ export default Ember.Controller.extend(ModalMixin, {
 
   applicationController: Ember.inject.controller('application'),
 
+  performanceService: Ember.inject.service('api-sdk/performance'),
+
   /**
    * @property {Service} Session service
    */
   session: Ember.inject.service('session'),
+
+  // -------------------------------------------------------------------------
+  // Methods
+  /**
+   * Clear validation messages
+   */
+  archivedClassObject: Ember.computed('archivedClasses.@each', function() {
+    const component = this;
+    let archivedClasses = component.get('archivedClasses')
+      ? component.get('archivedClasses')
+      : component.get('archivedClass');
+    let archivedClassIds = archivedClasses.mapBy('id');
+    this.get('performanceService')
+      .findClassPerformanceSummaryByClassIds(archivedClassIds)
+      .then(function(classPerformanceSummaryItems) {
+        archivedClasses.forEach(function(archiveClass) {
+          let classId = archiveClass.get('id');
+          archiveClass.set(
+            'performanceSummary',
+            classPerformanceSummaryItems.findBy('classId', classId)
+          );
+        });
+      });
+  }),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -33,6 +59,7 @@ export default Ember.Controller.extend(ModalMixin, {
     },
     /**
      *Filter by alphanumeric
+
      */
     filterByTitle: function() {
       if (this.get('sortOn') === 'startDate') {
@@ -45,12 +72,29 @@ export default Ember.Controller.extend(ModalMixin, {
     showClasses: function(type) {
       this.set('showActiveClasses', type === 'active');
       this.set('showArchivedClasses', type === 'archived');
+    },
+
+    archivedClass: function(type) {
+      this.set('showArchivedClasses', type === 'archived');
+      this.set('showActiveClasses', type === 'active');
+      this.get('archivedClassObject');
+    },
+
+    updateClass: function(classId) {
+      const controller = this;
+      controller.send('updateUserClasses'); // Triggers the refresh of user classes in top header
+      controller.transitionToRoute('teacher.class.course-map', classId);
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
   init: function() {
+    const component = this;
+    component._super(...arguments);
+
+    component.get('archivedClassObject');
+
     let localStorage = this.get('applicationController').getLocalStorage();
     const userId = this.get('session.userId');
     const localStorageItem = `${userId}_dontShowWelcomeModal`;

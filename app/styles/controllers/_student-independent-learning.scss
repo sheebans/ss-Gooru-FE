@@ -22,6 +22,7 @@
   }
   .student-independent {
     .student-left-panel {
+      max-width: 965px;
       float: left;
       .greetings {
         span {
@@ -113,7 +114,6 @@
         display: block;
         a {
           box-shadow: inset 0 -3px 0 $gray-base;
-          padding-left: 10px;
           padding-right: 10px;
           color: $gray-base;
           &:focus {
@@ -249,6 +249,98 @@
           padding: 10px 0 0;
         }
       }
+    }
+  }
+  .bookmark-content {
+    background-color: $white;
+    margin-top: 25px;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.07);
+    padding: 0;
+    .title {
+      border-bottom: solid 1px $light-200;
+      height: 40px;
+      line-height: 40px;
+      .bookmark-section {
+        height: 0;
+        display: flex;
+        .section-header {
+          color: $dark-500;
+          font-size: 16px;
+          font-weight: bold;
+          margin-left: 15px;
+        }
+        .add-bookmark {
+          line-height: 4.5;
+          cursor: pointer;
+          i {
+            margin-left: 15px;
+          }
+        }
+        .no-bookmark {
+          font-size: 19.5px;
+          color: $gray;
+          text-align: center;
+          margin-top: 12%;
+          font-weight: 300;
+        }
+      }
+      .show-more {
+        float: right;
+        margin-right: 15px;
+        color: $sky-400;
+        font-size: 13px;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+    }
+    .content-results {
+      &.not-expanded {
+        height: 245px;
+        overflow: hidden;
+      }
+      &.expanded {
+        overflow-y: auto;
+        height: 540px;
+      }
+      .show-more-results {
+        width: 30%;
+        padding: 5px;
+        margin-left: 35%;
+      }
+    }
+    .expanded::-webkit-scrollbar {
+      width: 4px;
+      border-radius: 3px;
+    }
+    .expanded::-webkit-scrollbar-thumb {
+      background: $gray-light;
+      border: 1px solid $gray-light;
+      border-radius: 5px;
+    }
+  }
+  .new-gru-bookmark-card {
+    margin: 15px 0 0 0;
+  }
+  .no-bookmarks {
+    text-align: center;
+    .explore-img {
+      background: url('gooru/images/independent-learning-null.png') no-repeat;
+      height: 250px;
+      width: 250px;
+      background-size: 216px 216px;
+      margin: 25px auto -15px auto;
+    }
+    .no-independent-results {
+      font-size: 19.5px;
+      font-weight: 300;
+      color: $gray;
+    }
+    .btn {
+      margin-top: 15px;
+      margin-bottom: 15px;
+      font-size: 13px;
     }
   }
 }

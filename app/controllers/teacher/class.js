@@ -9,9 +9,9 @@ export default Ember.Controller.extend({
   // Actions
   actions: {
     /**
-    * Collapses the header section
-    * @param {boolean} state
-    */
+     * Collapses the header section
+     * @param {boolean} state
+     */
     toggleHeader: function(state) {
       var $panels = $('.header .panel');
       if (state) {
@@ -19,6 +19,13 @@ export default Ember.Controller.extend({
       } else {
         $panels.slideDown();
       }
+    },
+
+    /**
+     *  teacher class assessment report view  backbutton to pass  class report  page
+     */
+    backToClassReport: function() {
+      this.get('router').transitionTo(this.get('backUrls'));
     }
   },
 

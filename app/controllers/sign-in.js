@@ -95,9 +95,9 @@ export default Ember.Controller.extend({
     });
 
     controller.set('user', user);
-    const url = `${window.location.protocol}//${window.location.host}${Env[
-      'google-sign-in'
-    ].url}`;
+    const url = `${window.location.protocol}//${window.location.host}${
+      Env['google-sign-in'].url
+    }?redirectURL=${window.location.protocol}//${window.location.host}`;
     controller.set('googleSignInUrl', url);
     controller.set('didValidate', false);
   },

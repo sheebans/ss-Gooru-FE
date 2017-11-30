@@ -18,6 +18,11 @@ export default Ember.Component.extend({
       if (this.get('onRemove')) {
         this.get('onRemove')(tag);
       }
+    },
+    addTag: function(tag) {
+      if (this.get('onAdd')) {
+        this.get('onAdd')(tag);
+      }
     }
   },
 
@@ -100,6 +105,10 @@ export default Ember.Component.extend({
    * @property {string}
    */
   onRemove: null,
+  /**
+   * @property {string}
+   */
+  onAdd: null,
 
   // -------------------------------------------------------------------------
   // Methods

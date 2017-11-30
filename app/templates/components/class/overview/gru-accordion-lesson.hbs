@@ -129,8 +129,6 @@
                       <div class="ellipsis">{{item.title}}</div>
                       {{#if item.collectionSubType}}
                         <div class="type">{{t 'common.suggestion'}}</div>
-                      {{else}}
-                        <div class="format">{{item.format}}</div>
                       {{/if}}
                     </a>
                     {{#if item.showTrophy}}
@@ -142,18 +140,15 @@
                          data-toggle="tooltip" data-html="true" data-placement="top"
                          title="{{t "common.no-more-attempts"}}">
                         <div class="ellipsis">{{item.title}}</div>
-                        <div class="format">{{item.format}}</div>
                       </a>
                     {{else}}
                       {{#if isTeacher}}
                         <a class="title disabled" {{action "selectResource" item}}>
                           <div class="ellipsis">{{item.title}}</div>
-                          <div class="format">{{item.format}}</div>
                         </a>
                       {{else}}
                         <a class="title disabled"  data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessment-disabled"}}">
                           <div class="ellipsis">{{item.title}}</div>
-                          <div class="format">{{item.format}}</div>
                         </a>
                       {{/if}}
                     {{/if}}
@@ -220,9 +215,6 @@
                           {{#if item.performance.hasStarted}}
                             <span class="score" style={{safe-html (concat "color:" (grade-color item.performance.score))}}>
                             {{item.performance.score}}%
-                            </span>
-                            <span class="state">
-                              ({{t 'common.in-progress'}})
                             </span>
                           {{else}}
                             {{#if (eq item.format "assessment-external")}}

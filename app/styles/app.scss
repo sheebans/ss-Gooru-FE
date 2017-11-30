@@ -127,6 +127,7 @@
 @import "components/gru-explore-featured-courses";
 @import "components/gru-grade-items";
 @import "components/gru-student-featured-courses";
+@import "components/gru-teacher-featured-courses";
 
 @import "components/cards/gru-class-card";
 @import "components/cards/gru-student-class-card";
@@ -233,9 +234,13 @@
 @import "components/library/gru-library-card";
 @import "components/library/gru-partner-library-card";
 
+@import "components/new-cards/gru-bookmark-card";
+@import "components/new-cards/gru-independent-card";
 @import "components/new-cards/gru-collection-card";
 @import "components/new-cards/gru-resource-card";
 @import "components/new-cards/gru-standard-card";
+@import "components/new-cards/gru-teacher-class-card";
+@import "components/new-cards/gru-new-class-card";
 
 @import "components/player/gru-navigation";
 @import "components/player/gru-navigator";

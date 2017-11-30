@@ -121,6 +121,7 @@ export default Object.assign(quizzesTranslations, {
     'back-to-collection': 'Back to collection',
     'back-to-course-map': 'Back to Course Map',
     'back-to-data': 'Back to Data',
+    'back-to-report': 'Back to Report',
     'best-practices': 'Best Practices',
     beta: 'Beta',
     'big-ideas': 'Big Ideas',
@@ -177,6 +178,7 @@ export default Object.assign(quizzesTranslations, {
     'course-title': 'Course Title',
     courses: 'Courses',
     create: 'Create',
+    createClass: 'Create Class',
     'created-by': 'Created by',
     'create-rubric': 'Create New Rubric',
     'current-attempt': 'Current Attempt',
@@ -335,7 +337,7 @@ export default Object.assign(quizzesTranslations, {
         'Oops! Unable to load unit right now. Please try again shortly.',
       'unit-title-required': 'Please enter the unit title.',
       'user-email-presence': 'Please enter a valid email.',
-      'username-length': 'Username must be between 4 and 16 characters.',
+      'username-length': 'Username must be between 4 and 254 characters.',
       'forgot-password-gmail':
         'Please use Google signin. We can\'t reset your password.'
     },
@@ -1043,6 +1045,7 @@ export default Object.assign(quizzesTranslations, {
       'no-course': 'This classroom does not have a related course.',
       'no-course-assigned': 'No Course Assigned',
       'back-to-independent': 'Back to Independent Learning',
+      report: 'Report',
       performance: 'Performance',
       'course-map': 'Course Map',
       unit: 'Unit',
@@ -1084,6 +1087,16 @@ export default Object.assign(quizzesTranslations, {
       'This classroom currently has no content available',
     welcome: 'Welcome to Gooru.'
   },
+  'student-independent-learning': {
+    'show-more': 'Show More',
+    'show-less': 'Show Less',
+    'no-courses': 'When you start exploring your bookmarked Courses, they will appear here',
+    'no-collections': 'When you start exploring your bookmarked Collections, they will appear here',
+    'no-assessments': 'When you start exploring your bookmarked Assessments, they will appear here',
+    'no-independent-results': 'Explore the Library to learn something new.',
+    'no-bookmarks': 'No bookmarks available.',
+    'add-bookmark': 'Add Bookmark'
+  },
   'teacher-landing': {
     'latest-announcement': 'Latest Announcement',
     'latest-assessment': 'Latest Assessment',
@@ -1098,6 +1111,7 @@ export default Object.assign(quizzesTranslations, {
         'assigned-course': 'Assigned Course',
         archive: 'Archive',
         'archive-class': 'Archive Class',
+        'archive-classroom': 'Archive Classroom',
         'attend-class-with-code': 'Attend Class With Code',
         'class-information': 'Class Information',
         'class-name': 'Classroom Name',
@@ -1118,7 +1132,9 @@ export default Object.assign(quizzesTranslations, {
         'student-name': 'Student Name',
         'student-id': 'Student ID',
         teachers: 'Teachers',
-        'view-report': 'View Report'
+        'view-report': 'View Report',
+        'students-null':
+          'Share the Class Code with students to have them join your Classroom.'
       },
       'class-activities': 'Daily Class Activities',
       'back-to-class-activities': 'Back to Daily Class Activities',
@@ -1940,9 +1956,8 @@ export default Object.assign(quizzesTranslations, {
           'Welcome to Take a Tour and your homepage! Now let’s get started!'
       },
       stepTwo: {
-        title: 'Gooru Logo',
-        description:
-          'Clicking on the Gooru logo at any time during your session returns you to your homepage.'
+        title: 'Logo',
+        description: 'Clicking on the logo returns you to your homepage.'
       },
       stepThree: {
         title: 'Search Bar',
@@ -1954,7 +1969,7 @@ export default Object.assign(quizzesTranslations, {
         description: 'Return to your homepage.'
       },
       stepFive: {
-        title: 'Tools',
+        title: 'Content Manager',
         description: 'Quick link to create and access your content.'
       },
       stepSix: {
@@ -1981,7 +1996,7 @@ export default Object.assign(quizzesTranslations, {
       stepEleven: {
         title: 'Create Classroom',
         description:
-          'Click the button to create a new classroom for your course, collection, or assessment.'
+          'Name your classroom and click the button to create a new classroom.'
       }
     },
     'student-home': {
@@ -1996,8 +2011,8 @@ export default Object.assign(quizzesTranslations, {
           'Browse the featured courses in the Learning Navigator’s content catalog for topics that interest you.'
       },
       stepTwo: {
-        title: 'Gooru Logo',
-        description: 'Clicking on the Gooru logo returns you to your homepage.'
+        title: 'Logo',
+        description: 'Clicking on the logo returns you to your homepage.'
       },
       stepThree: {
         title: 'Search Bar',
@@ -2223,7 +2238,7 @@ export default Object.assign(quizzesTranslations, {
       stepThree: {
         title: 'About Me',
         description:
-          'Update your personal information, school information, your profile picture, email, and password.'
+          'Update your personal information, school information and your profile picture.'
       },
       stepFour: {
         title: 'Goals',

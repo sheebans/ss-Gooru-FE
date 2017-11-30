@@ -6,8 +6,11 @@
   background-color: $white;
   margin-bottom: 3px;
   vertical-align: top;
-  max-width: 145px;
   overflow: hidden;
+
+  .added-tag {
+    opacity: 0.5;
+  }
 
   div {
     padding: 4px 2px 0;
@@ -47,6 +50,13 @@
     }
 
     &.remove {
+      i {
+        font-size: 13px;
+        vertical-align: top;
+        color: $gray;
+      }
+    }
+    &.add {
       i {
         font-size: 13px;
         vertical-align: top;
@@ -94,6 +104,18 @@
     }
   }
 
+  &.add {
+    position: relative;
+    padding-right: 18px;
+
+    button.add {
+      position: absolute;
+      top: 5px;
+      right: 2px;
+      padding: 0;
+    }
+  }
+
   &.active {
     border-color: $dark-300;
     background-color: $dark-300;
@@ -103,6 +125,12 @@
     }
 
     button.remove {
+      i {
+        color: $gray-lighter;
+      }
+    }
+
+    button.add {
       i {
         color: $gray-lighter;
       }

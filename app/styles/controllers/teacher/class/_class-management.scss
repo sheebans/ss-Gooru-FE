@@ -1,218 +1,187 @@
 .controller.teacher.class.class-management {
-  padding: 0;
-  .panel {
-    border-radius: 5px;
-    padding: 10px 15px;
-    min-height: 180px;
-    .panel-header {
-      min-height: 30px;
-      h5 {
-        display: inline-block;
-        margin: 0;
-        vertical-align: middle;
-      }
-      .actions {
-        @media (min-width: $screen-sm) {
-          float: right;
+  .header-info {
+    max-width: 960px;
+    box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.07);
+    margin: auto;
+    margin-top: 10px;
+    background-color: $white;
+    .class-information {
+      height: 60px;
+      .class-name {
+        > span {
+          font-size: 11px;
+          opacity: 0.7;
+          color: $dark-300;
+          position: absolute;
+          margin-top: 10px;
         }
-        button {
-          padding: 4px 15px;
+        .edit-text {
+          display: flex;
+          position: absolute;
+          margin-top: 26px;
+          .gru-icon.edit {
+            opacity: 0.3;
+            font-size: 18px;
+            margin-left: 10px;
+            position: absolute;
+            line-height: 1.2;
+            cursor: pointer;
+          }
         }
       }
     }
-    .panel-body {
-      clear: both;
-      padding: 5px;
-      p {
-        margin: 0;
-        color: $gray-base;
-        font-weight: 300;
-        line-height: $font-family-base;
-      }
-      .edit-text {
-        font-size: $font-navigator;
-        color: $gray-base;
-        .gru-icon.edit {
-          color: $light-400;
-          font-size: $font-size-large;
+    .course-information {
+      height: 60px;
+      display: flex;
+      .actions {
+        margin-left: 283px;
+        margin-top: 18px;
+        .delete-btn, .archive-btn {
           cursor: pointer;
         }
-        .gru-input {
-          &.minScore {
-            width: 20%;
-          }
-          &.title {
-            width: 50%;
-          }
+        .archive-btn {
+          margin-right: 10px;
         }
       }
-    }
-  }
-
-  .class-panel {
-    .class-code {
-      margin: 5px -15px 0;
-      .input-group {
-        width: 132px;
-        @media (max-width: $screen-xs) {
-          width: 100%;
-        }
-        input {
-          text-align: center;
-          border: 1px solid $light-400;
-          -webkit-border-top-left-radius: 3px;
-          -moz-border-top-left-radius: 3px;
-          border-top-left-radius: 3px;
-          -webkit-border-bottom-left-radius: 3px;
-          -moz-border-bottom-left-radius: 3px;
-          border-bottom-left-radius: 3px;
-          color: $gray-base;
-          height: 34px;
-          width: 98px;
-          font-size: $font-navigator;
-          @media (max-width: $screen-xs) {
-            width: 100%;
-            font-size: $font-size-xsmall;
-          }
-        }
-        .gru-copy-value {
-          .copy-btn {
-            height: inherit;
-          }
-        }
-        .input-group-addon {
-          background-color: $dark-300;
-          border-left: 1px solid $white;
-          padding: 0 8px;
-          i {
-            color: white;
-            font-size: $font-size-lead;
-          }
-          .tooltip {
-            width: 100%;
-            line-height: $font-size-base;
-          }
-        }
-      }
-      .gru-switch {
-        margin: 0;
-        padding: 0;
-        .btn-default.active {
-          background-color: $dark-300;
-        }
-      }
-    }
-  }
-
-  .course-panel {
-    .panel-body {
-      padding: 5px 0;
-      .course-information {
-        .gru-course-card.small {
-          padding: 0;
-          margin: 7px 0 0;
-          @media (max-width: $screen-lg) {
-            width: 100%;
-          }
-          .panel {
-            padding: 0;
-            overflow: hidden;
-            border-shadow: none;
-            box-shadow: none;
-            border: 1px solid $light-400;
-            min-height: 65px;
-            .panel-body {
-              padding: 0;
-              .card-header {
-                .header-content {
-                  @media (max-width: $screen-lg) {
-                    width: 100%;
-                  }
-                  .course-title {
-                    width: 100%;
-                  }
-                  .subject {
-                    margin: 15px 0 0;
-                  }
-                }
-              }
-            }
-          }
+      .edit-text {
+        display: flex;
+        margin-top: 26px;
+        position: absolute;
+        .gru-icon.edit {
+          opacity: 0.3;
+          font-size: 18px;
+          margin-left: 10px;
+          line-height: 1.2;
+          position: absolute;
+          cursor: pointer;
         }
       }
     }
   }
 
   .students-panel {
+    margin-top: 20px;
     min-height: 0;
     padding: 0;
-    p {
-      color: $gray-base;
-    }
-    button {
-      border: 1px solid $table-border-color;
-      padding: 6px 20px;
-    }
-    .panel-heading {
-      @include flexbox();
-      background-color: $dark-200;
-      color: $white;
-      border-top-left-radius: 6px;
-      border-top-right-radius: 6px;
-      div {
-        @include flexbox();
-        @include align-items(center);
-        width: 12%;
-        @media (max-width: $screen-xs) {
-          width: 25%;
-        }
-        &.sortable {
-          cursor: pointer;
-        }
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.07), 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    table {
+      width: 100%;
+      margin-bottom: 0;
+      thead, tbody {
+        display: block;
       }
-    }
-    .panel-body {
-      padding: 0;
-      max-height: 322px;
-      overflow-y: auto;
-      table {
+      .table-header {
+        background-color: $white;
         width: 100%;
-        margin-bottom: 0;
-        td {
-          padding: 10px;
-          border-top: none;
-          border-bottom: 2px solid $table-border-color;
-        }
-        .student-id {
-          width: 63%;
-        }
-        .student {
+        border-bottom: 2px solid $light-200;
+        th {
+          padding: 0;
+          border-bottom: none;
+          height: 48px;
+          width: 36%;
+          @media (min-width: $screen-sm-max) {
+            border-right: 2px dashed $table-border-color;
+            width: 218px;
+          }
+          div {
+            padding: 0 0 10px 10px;
+            display: flex;
+            i {
+              margin-left: 15px;
+              cursor: pointer;
+            }
+          }
           span {
-            font-size: 16px;
-            color: $gray-base;
-          }
-        }
-        tr:last-child {
-          td {
-            border-bottom: none;
+            font-size: 14px;
+            color: $dark-400;
+            font-weight: bold;
+            margin-left: 15px;
           }
         }
       }
-      .border-right {
-        width: 12%;
-        border-right: 1px solid $table-border-color;
-        @media (max-width: $screen-xs) {
-          width: 40%;
+      tbody {
+        width: 100%;
+        max-height: 182px;
+        overflow: auto;
+        tr:nth-child(odd) {
+          background-color: $light-100;
+        }
+        tr:nth-child(even) {
+          background-color: $white;
+        }
+        .student{
+          height: 36px;
+          td.border-right {
+            width: 218px;
+            white-space: nowrap;
+            padding: 0;
+            border-top: none;
+            span {
+              font-size: 12px;
+              color: $gray-29;
+              margin-left: 23px;
+              line-height: 36px;
+            }
+          }
+          td.student-actions {
+            border: none;
+            width: calc(955px - 654px);
+            padding: 0;
+            .remove-student {
+              cursor: pointer;
+              > i {
+                line-height: 35px;
+                margin-right: 9px;
+                color: $gray-80;
+              }
+            }
+          }
         }
       }
+    }
+    .border-right {
+      border-right: 2px dashed $table-border-color;
+    }
+    tbody::-webkit-scrollbar {
+      width: 4px;
+      border-radius: 3px;
+    }
+
+    tbody::-webkit-scrollbar-thumb {
+      background: $gray-light;
+      border: 1px solid $gray-light;
+      border-radius: 5px;
     }
   }
   .assessment-min-score {
+    margin-left: 100px;
+    > span {
+      font-size: 11px;
+      opacity: 0.7;
+      color: $dark-300;
+      margin-top: 10px;
+      position: absolute;
+    }
     .gru-input-number {
       .error-messages {
-        position: absolute;
-        width: 211px;
+        margin-top: -5px;
       }
+    }
+  }
+  .no-students {
+    .student-null {
+      background: url('gooru/images/student-null.png') no-repeat;
+      height: 250px;
+      width: 250px;
+      background-size: 216px 216px;
+      margin: 25px auto auto;
+    }
+    div.message {
+      color: $gray-dove;
+      font-size: 19.5px;
+      font-weight: 300;
+      line-height: 1.54;
+      text-align: center;
     }
   }
 }

@@ -41,13 +41,10 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
 
       if (item !== currentItem) {
         controller.selectMenuItem(item);
-
-        if (item === 'courses') {
-          route.transitionTo('student-independent-learning.courses');
-        } else if (item === 'assessments') {
-          route.transitionTo('student-independent-learning.assessments');
+        if (item === 'current-study') {
+          route.transitionTo('student-independent-learning.learning-base');
         } else {
-          route.transitionTo('student-independent-learning.collections');
+          route.transitionTo('student-independent-learning.student-bookmarks');
         }
       }
     }
@@ -59,6 +56,10 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   model: function() {
     let route = this;
     const configuration = this.get('configurationService.configuration');
+    const pagination = {
+      offset: 0,
+      pageSize: DEFAULT_BOOKMARK_PAGE_SIZE
+    };
 
     let myClasses =
       route.modelFor('application').myClasses || //when refreshing the page the variable is accessible at the route
@@ -81,15 +82,8 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       'exploreFeaturedCourses.fourthCourseId'
     );
     var featuredCourses = Ember.A([]);
-    const pagination = {
-      offset: 0,
-      pageSize: DEFAULT_BOOKMARK_PAGE_SIZE
-    };
 
     const activeClasses = myClasses.getStudentActiveClasses(myId);
-    const bookmarksPromise = route
-      .get('bookmarkService')
-      .fetchBookmarks(pagination, true);
 
     if (firstCourseId) {
       firstCoursePromise = route.get('courseService').fetchById(firstCourseId);
@@ -107,14 +101,16 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         .get('courseService')
         .fetchById(fourthCourseId);
     }
+    const bookmarksPromise = route
+      .get('bookmarkService')
+      .fetchBookmarks(pagination, true);
     return Ember.RSVP
       .hash({
         firstCourse: firstCoursePromise,
         secondCourse: secondCoursePromise,
         thirdCourse: thirdCoursePromise,
         fourthCourse: fourthCoursePromise,
-        bookmarks: bookmarksPromise,
-        pagination
+        bookmarks: bookmarksPromise
       })
       .then(function(hash) {
         const firstFeaturedCourse = hash.firstCourse;
@@ -122,7 +118,6 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         const thirdFeaturedCourse = hash.thirdCourse;
         const fourthFeaturedCourse = hash.fourthCourse;
         const bookmarks = hash.bookmarks;
-        const pagination = hash.pagination;
 
         featuredCourses.push(firstFeaturedCourse);
         featuredCourses.push(secondFeaturedCourse);
@@ -132,8 +127,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         return {
           activeClasses,
           featuredCourses,
-          bookmarks,
-          pagination
+          bookmarks
         };
       });
   },
@@ -141,7 +135,5 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   setupController: function(controller, model) {
     controller.set('featuredCourses', model.featuredCourses);
     controller.set('bookmarks', model.bookmarks);
-    controller.set('pagination', model.pagination);
-    controller.set('toggleState', false);
   }
 });

@@ -53,48 +53,25 @@ test('Class Card Layout', function(assert) {
   this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
 
-  assert.expect(11);
+  assert.expect(5);
 
   this.render(
-    hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount}}`
+    hbs`{{cards/gru-class-card class=class profile=profile course=class.course classStudentCount=classStudentCount}}`
   );
 
   var $component = this.$(); //component dom element
 
   const $classCard = $component.find('.gru-class-card');
   const $panel = $classCard.find('.panel');
+  const $panelBody = $panel.find('.panel-body');
 
   T.exists(assert, $classCard, 'Missing class card section');
   T.exists(assert, $panel, 'Missing class card panel');
   assert.ok($panel.hasClass('teacher'), 'Must be a teacher class card');
-  T.exists(assert, $classCard.find('h5'), 'Missing class card title');
-  T.exists(
-    assert,
-    $classCard.find('.side-info .code'),
-    'Missing class card code'
-  );
-  T.exists(
-    assert,
-    $classCard.find('.side-info .action'),
-    'Missing class card action link'
-  );
-  T.exists(
-    assert,
-    $classCard.find('.collaborators .collaborator-avatar'),
-    'Missing collaborator avatar'
-  );
-  T.exists(
-    assert,
-    $classCard.find('.collaborators .name'),
-    'Missing collaborator name'
-  );
-  T.exists(assert, $classCard.find('.students-info'), 'Missing students info');
-  T.exists(assert, $classCard.find('.description div'), 'Missing class info');
-  T.exists(
-    assert,
-    $classCard.find('.current-location'),
-    'Missing location label'
-  );
+
+  T.exists(assert, $classCard.find('.title'), 'Missing class card title');
+
+  T.exists(assert, $panelBody.find('.information'), 'Missing course images');
 });
 
 test('Student class card', function(assert) {
@@ -177,42 +154,27 @@ test('Class Card Student with location', function(assert) {
   this.set('profile', mockProfile);
   this.set('classStudentCount', classStudentCount);
 
-  assert.expect(10);
+  assert.expect(5);
 
   this.render(
-    hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount}}`
+    hbs`{{cards/gru-class-card class=class course=class.course profile=profile classStudentCount=classStudentCount}}`
   );
 
   var $component = this.$(); //component dom element
 
   const $classCard = $component.find('.gru-class-card');
   const $panel = $classCard.find('.panel');
+  const $panelBody = $panel.find('.panel-body');
 
   T.exists(assert, $classCard, 'Missing class card section');
   T.exists(assert, $panel, 'Missing class card panel');
   assert.ok($panel.hasClass('student'), 'Must be a student class card');
-  T.exists(assert, $classCard.find('h5'), 'Missing class card title');
+  T.exists(assert, $classCard.find('.title'), 'Missing class card title');
+
   T.exists(
     assert,
-    $classCard.find('.side-info'),
-    'side info should be visible'
-  );
-  T.exists(
-    assert,
-    $classCard.find('.collaborators .collaborator-avatar'),
+    $panelBody.find('.information'),
     'Missing collaborator avatar'
-  );
-  T.exists(
-    assert,
-    $classCard.find('.collaborators .name'),
-    'Missing collaborator name'
-  );
-  T.exists(assert, $classCard.find('.students-info'), 'Missing students info');
-  T.exists(assert, $classCard.find('.description div'), 'Missing class info');
-  T.exists(
-    assert,
-    $classCard.find('.description p'),
-    'Missing current location class info'
   );
 });
 
@@ -233,107 +195,6 @@ test('Teacher class card pannel', function(assert) {
   const $component = this.$(); //component dom element
   const $panel = $component.find('.panel.teacher');
   T.exists(assert, $panel, 'Must be a teacher class card');
-});
-
-test('Teacher class card with no course', function(assert) {
-  this.set(
-    'class',
-    Ember.Object.create({
-      id: 'class-id',
-      unitsCount: 0,
-      creatorId: 'creator-id',
-      title: 'My empty class',
-      code: 'VZFMEWH',
-      courseId: null,
-      collaborator: ['collaborator-1'],
-      isArchived: false,
-      isTeacher: function() {
-        return true;
-      }
-    })
-  );
-
-  this.set('profile', mockProfile);
-  this.set('classStudentCount', classStudentCount);
-
-  this.render(
-    hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`
-  );
-
-  const $component = this.$(); //component dom element
-  const $unitsInfo = $component.find('.panel .units-info');
-  assert.equal(
-    T.text($unitsInfo),
-    'No course',
-    'The No Course text should be visible'
-  );
-});
-
-test('Teacher class card with a course with 4 units', function(assert) {
-  this.set(
-    'class',
-    Ember.Object.create({
-      id: 'class-id',
-      unitsCount: 4,
-      creatorId: 'creator-id',
-      title: 'My 4 units class',
-      code: 'VZFMEWH',
-      courseId: '123',
-      collaborator: ['collaborator-1'],
-      isArchived: false,
-      isTeacher: function() {
-        return true;
-      }
-    })
-  );
-
-  this.set('profile', mockProfile);
-  this.set('classStudentCount', classStudentCount);
-
-  this.render(
-    hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`
-  );
-
-  const $component = this.$(); //component dom element
-  const $unitsInfo = $component.find('.panel .units-info');
-  assert.equal(
-    T.text($unitsInfo),
-    '4 Units',
-    'The message should read 4 Units'
-  );
-});
-
-test('Teacher class card with a course with 1 unit', function(assert) {
-  this.set(
-    'class',
-    Ember.Object.create({
-      id: 'class-id',
-      unitsCount: 1,
-      creatorId: 'creator-id',
-      title: 'My 4 units class',
-      code: 'VZFMEWH',
-      courseId: '123',
-      collaborator: ['collaborator-1'],
-      isArchived: false,
-      isTeacher: function() {
-        return true;
-      }
-    })
-  );
-
-  this.set('profile', mockProfile);
-
-  this.render(
-    hbs`{{cards/gru-class-card class=class profile=profile classStudentCount=classStudentCount showUnitsCount=true}}`
-  );
-
-  const $component = this.$(); //component dom element
-  const $unitsInfo = $component.find('.panel .units-info');
-  assert.equal(
-    T.text($unitsInfo),
-    '1 Unit',
-    'The message should read 1 Unit, in singular'
-  );
 });
 
 test('Is Archived', function(assert) {

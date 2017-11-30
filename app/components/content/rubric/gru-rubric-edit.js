@@ -267,6 +267,10 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    */
   selectedSubject: null,
   /**
+   * @property {RubricBackUrl} to back url
+   */
+  RubricBackUrl: null,
+  /**
    * @property {boolean}
    */
   standardDisabled: Ember.computed.not('selectedSubject'),
@@ -298,10 +302,16 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    */
   back: function() {
     let rubric = this.get('rubric');
-    this.get('router').transitionTo(
-      'profile.content.rubrics',
-      rubric.get('owner')
-    );
+    let component = this;
+    const backUrl = component.get('rubric.backUrl');
+    if (backUrl) {
+      this.get('router').transitionTo(backUrl);
+    } else {
+      this.get('router').transitionTo(
+        'profile.content.rubrics',
+        rubric.get('owner')
+      );
+    }
   },
 
   delete: function() {

@@ -4,9 +4,16 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
+  /**
+   * @type {CourseService} Service to retrieve course information
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
+
+  performanceService: Ember.inject.service('api-sdk/performance'),
+
   // -------------------------------------------------------------------------
   // Attributes
-  classNames: ['cards gru-class-card col-xs-12 col-md-6'],
+  classNames: ['cards gru-class-card '],
 
   // -------------------------------------------------------------------------
   // Properties
@@ -14,6 +21,11 @@ export default Ember.Component.extend({
    * @property {Class} class information
    */
   class: null,
+
+  /**
+   * @property {course} course information
+   */
+  course: null,
 
   /**
    * @property {Object} Object containing student count by class
@@ -59,5 +71,63 @@ export default Ember.Component.extend({
         ? classStudentCount[this.get('class.id')]
         : 0
       : 0;
-  })
+  }),
+
+  /**
+   * @property {Class} class information
+   */
+  archivedClasses: Ember.computed('activeClasses', function() {
+    'applicationController.myClasses.classes.[]',
+    function() {
+      return this.get(
+        'applicationController.myClasses'
+      ).getTeacherArchivedClasses();
+    };
+  }),
+
+  /**
+   * @property {Number} score percentage
+   * Computed property for performance score percentage
+   */
+  scorePercentage: Ember.computed('class.performanceSummary', function() {
+    const scorePercentage = this.get('class.performanceSummary.score');
+    return scorePercentage >= 0 && scorePercentage !== null
+      ? `${scorePercentage}%`
+      : '_';
+  }),
+
+  // -------------------------------------------------------------------------
+  // Actions
+  actions: {
+    /**
+     *
+     * Triggered when an menu item is selected
+     * @param item
+     */
+    selectItem: function(item) {
+      const classId = this.get('class.id');
+      if (this.get('onItemSelected')) {
+        this.sendAction('onItemSelected', item, classId);
+      }
+    }
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  init: function() {
+    const component = this;
+    component._super(...arguments);
+    const courseId = component.get('class.courseId');
+    if (courseId) {
+      component
+        .get('courseService')
+        .fetchByIdWithOutProfile(courseId)
+        .then(function(course) {
+          if (!component.isDestroyed) {
+            component.set('course', course);
+          }
+        });
+    }
+  }
 });

@@ -24,15 +24,20 @@ export default Ember.Component.extend(QuestionMixin, {
     let questionUtil = component.getQuestionUtil(question);
     let correctAnswers = questionUtil.getCorrectAnswer();
     let showCorrect = component.get('showCorrect');
-
+    if (!component.get('userAnswer') == null) {
+      component.get('userAnswer').forEach(function(userAns) {
+        userAns.text = `${userAns.text},`;
+        userAns.index = userAns.index - 3;
+      });
+    }
     let userAnswer = showCorrect ? correctAnswers : component.get('userAnswer');
     let items = questionUtil.getItems();
     items.forEach(function(item) {
-      let selected = userAnswer.findBy('index', item.get('index'));
+      let selected = !!userAnswer.findBy('index', item.get('index'));
       item.set('selected', selected);
+      item.set('correct', !!correctAnswers.findBy('index', item.get('index')));
       //getItems already return if it is correct or not
     });
-
     return items;
   })
 

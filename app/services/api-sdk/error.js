@@ -27,12 +27,19 @@ export default Ember.Service.extend({
   createError: function(error) {
     var service = this;
     Ember.Logger.error(error);
-    return new Ember.RSVP.Promise(function(resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve) {
       const errorContent = service.get('errorSerializer').serializeError(error);
       service
         .get('errorAdapter')
         .createError({ body: errorContent })
-        .then(resolve, reject);
+        .then(
+          function() {
+            resolve();
+          },
+          function() {
+            resolve();
+          }
+        );
     });
   }
 });

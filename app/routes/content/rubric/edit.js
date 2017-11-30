@@ -6,6 +6,7 @@ import EditRubricValidations from 'gooru-web/validations/edit-rubric';
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
     editing: {},
+    backUrl: {},
     editingContent: {
       refreshModel: true
     }
@@ -35,7 +36,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         return Ember.RSVP.hash({
           rubric: RubricValidation.create(rubric),
           isEditing: !!isEditing,
-          editingContent: editingContent
+          editingContent: editingContent,
+          backUrl: params.backUrl
         });
       });
   },
@@ -45,5 +47,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('isEditing', model.isEditing);
     controller.set('editingContent', model.editingContent);
     controller.set('tempRubric', model.rubric.copy());
+    controller.set('rubric.backUrl', model.backUrl);
   }
 });

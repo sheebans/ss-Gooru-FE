@@ -15,33 +15,28 @@ moduleForComponent(
 
 test('Independent learning Navigation', function(assert) {
   this.render(
-    hbs`{{student.independent.gru-independent-learning-navigation selectedMenuItem='collections'}}`
+    hbs`{{student.independent.gru-independent-learning-navigation selectedMenuItem='current-study'}}`
   );
 
   var $component = this.$(); //component dom element
   const $navigation = $component.find('.gru-independent-learning-navigation');
   assert.equal(
     $navigation.find('.nav a').length,
-    3,
+    2,
     'Number of class navigator links'
   );
-  T.exists(assert, $navigation.find('.nav .courses'), 'Missing courses link');
+  T.exists(assert, $navigation.find('.nav .bookmarks'), 'Missing bookmarks link');
   T.exists(
     assert,
-    $navigation.find('.nav .collections'),
-    'Missing collections link'
-  );
-  T.exists(
-    assert,
-    $navigation.find('.nav .assessments'),
-    'Missing assessments link'
+    $navigation.find('.nav .current-study'),
+    'Missing current-study link'
   );
 
   //$menu item Selected
   T.exists(
     assert,
-    $navigation.find('.collections.active'),
-    'Missing selected collections item'
+    $navigation.find('.current-study.active'),
+    'Missing selected current-study item'
   );
 });
 
@@ -55,13 +50,13 @@ test('Layout when a menu Item is selected', function(assert) {
   );
   var $navigation = this.$(); //component dom element
 
-  const $collectionsMenuItem = $navigation.find('.nav .collections a');
-  const $coursesMenuItem = $navigation.find('.nav .courses a');
+  const $studyMentItem = $navigation.find('.nav .current-study a');
+  const $bookmarksMenuItem = $navigation.find('.nav .bookmarks a');
 
-  assert.ok($collectionsMenuItem, 'Missing collections item in the class menu');
-  assert.ok($coursesMenuItem, 'Missing courses item in the class menu');
-  $collectionsMenuItem.click();
-  $coursesMenuItem.click();
+  assert.ok($studyMentItem, 'Missing current-study item in the class menu');
+  assert.ok($bookmarksMenuItem, 'Missing bookmarks item in the class menu');
+  $studyMentItem.click();
+  $bookmarksMenuItem.click();
   assert.equal(
     $navigation.find('.nav .tab.active').length,
     1,

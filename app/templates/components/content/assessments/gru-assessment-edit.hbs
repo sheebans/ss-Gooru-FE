@@ -74,12 +74,12 @@
                 {{gru-icon name="open_in_new"}} {{t "common.select"}}
               </button>
               <div class="tags">
-                  {{taxonomy.gru-taxonomy-tag-list tags=editableTags onRemove=(action 'removeTag')}}
+                {{taxonomy.gru-taxonomy-tag-list tags=tempCollection.standards isEditing=isEditing onRemove=(action 'removeTag')}}
               </div>
             {{else}}
               <div class="tags">
                 {{#if tags.length}}
-                  {{taxonomy.gru-taxonomy-tag-list tags=tags}}
+                  {{taxonomy.gru-taxonomy-tag-list isEditing=isEditing tags=tags}}
                 {{else}}
                   {{t "common.not-specified"}}
                 {{/if}}
@@ -87,6 +87,19 @@
             {{/if}}
           </label>
         </div>
+
+        {{#if isEditing}}
+          {{#if aggregatedTags.length}}
+          <div class="standards">
+            <div>Suggested standards based on questions in this assessment</div>
+            <label>
+              <div class="tags">
+                  {{taxonomy.gru-taxonomy-tag-list tags=tempCollection.aggregatedTag isEditing=isEditing onAdd=(action 'addTag')}}
+              </div>
+            </label>
+          </div>
+          {{/if}}
+        {{/if}}
 
         {{content.gru-audience isEditing=isEditing srcSelectedAudiences=collection.audience editSelectedAudiences=tempCollection.audience}}
 

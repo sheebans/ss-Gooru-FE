@@ -1,0 +1,23 @@
+<div class="panel">
+  <div class="panel-body">
+    <div class="image"></div>
+    {{validation.gru-input
+             model=newClass
+             valuePath='title'
+             maxLength=25
+             autofocus=false
+             didValidate=didValidate
+             class="form-group"
+             placeholder=(t 'content.classes.create.class-name-input')
+           }}
+    <div class="info-form">
+    </div>
+    <div class="panel-footer">
+      {{#gru-spinner-button classes='join-class-btn' text=(t 'common.loading') isLoading=isLoading}}
+        <div class="join-class-btn pointer" {{action "createClass"}}>{{t 'common.createClass'}}</div>
+      {{/gru-spinner-button}}
+    </div>
+
+  </div>
+
+</div>

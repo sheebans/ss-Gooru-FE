@@ -25,42 +25,28 @@
           {{/link-to}}
         </li>
         <li role="presentation" class="active independent-learning tab hidden-xs">
-          {{#link-to 'student-independent-learning'}}
+          {{#link-to 'student-independent-learning.learning-base'}}
             <span class="lead">{{t 'user.independent-learning'}}</span>
           {{/link-to}}
         </li>
       </ul>
     </div>
-    <div class="content">
-      <div class="panel bookmarks">
-        <div class="panel-heading">{{t 'common.bookmarks'}}</div>
-        <div class="panel-body bookmarks-list {{if toggleState 'expanded' 'collapsed'}}">
-          <a {{action 'togglePanel'}} class="collapse-expand pull-right less {{if toggleState 'visible' 'hidden'}}">
-            {{gru-icon name='expand_less'}}
-            {{gru-icon name='expand_less'}}
-          </a>
-          {{#link-to 'search.collections' tagName="div" class='add-bookmark'}}
-          {{/link-to}}
-          {{#each bookmarks as |bookmark|}}
-            {{cards.gru-bookmark-card
-              bookmark=bookmark
-              onDeleteBookmark=(action 'removeBookmark')}}
-          {{/each}}
-          {{#if showExpandIcon}}
-            <a {{action 'togglePanel'}} class="collapse-expand pull-right more {{if toggleState 'hidden' 'visible'}}">
-              {{gru-icon name='expand_more'}}
-              {{gru-icon name='expand_more'}}
-            </a>
-            <a class="show-more" {{action 'showMoreResults'}}>{{t "common.show-more-results"}}</a>
-          {{/if}}
-        </div>
+    {{#if bookmarks}}
+      {{student.independent.gru-independent-learning-navigation
+        onItemSelected="selectMenuItem"
+        selectedMenuItem=menuItem}}
+      <div class="independent-content">
+        {{outlet}}
       </div>
-    </div>
-    {{student.independent.gru-independent-learning-navigation
-      onItemSelected="selectMenuItem"
-      selectedMenuItem=menuItem}}
-    <div class="independent-content">
-      {{outlet}}
-    </div>
+    {{else}}
+      <div class="no-bookmarks">
+        <div class="explore-img">
+        </div>
+        <div class="no-independent-results">{{t 'student-independent-learning.no-independent-results'}}</div>
+        {{#link-to 'library'}}
+          <button class="btn btn-primary">{{t 'common.explore'}}</button>
+        {{/link-to}}
+      </div>
+    {{/if}}
   </div>
 </div>

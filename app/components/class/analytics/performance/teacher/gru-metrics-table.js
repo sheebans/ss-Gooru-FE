@@ -113,6 +113,17 @@ export default Ember.Component.extend({
     return dataPickerOptions.includes('time-spent');
   }),
   /**
+   * If study time option is selected
+   * @property {Boolean}
+   */
+  showReportTime: Ember.computed('dataPickerOptions.[]', function() {
+    const dataPickerOptions = this.get('dataPickerOptions');
+    return (
+      dataPickerOptions.includes('time-spent') &&
+      dataPickerOptions.includes('score')
+    );
+  }),
+  /**
    * The average headers of the Data Matrix
    * @property {averageHeaders[]}
    */
@@ -165,6 +176,11 @@ export default Ember.Component.extend({
    * @property {boolFlag}
    */
   boolFlag: false,
+  /**
+   * The average headers of the Data Matrix
+   * @property {expandedUnit}
+   */
+  expandedUnit: false,
   /**
    * The average headers of the Data Matrix
    * @property {unitPerformanceData[]}
@@ -383,6 +399,7 @@ export default Ember.Component.extend({
         item.set('title', `U${index + 1}: ${orginalTitle}`);
       }
       Ember.set(item, 'showSub', false);
+      component.set('expandedUnit', false);
       Ember.set(item, 'showSubSub', false);
       Ember.set(item, 'subColumns', []);
       Ember.set(item, 'colspanval', 1);
@@ -408,10 +425,34 @@ export default Ember.Component.extend({
     Ember.run.scheduleOnce('afterRender', this, function() {
       this.set('sortCriteria', this.initSortCriteria());
     });
+    Ember.$('#clscroll-content').scroll(function() {
+      Ember.$('#clscroll-row-headers').scrollTop(
+        Ember.$('#clscroll-content').scrollTop()
+      );
+      Ember.$('#clscroll-column-headers').scrollLeft(
+        Ember.$('#clscroll-content').scrollLeft()
+      );
+    });
+    Ember.$('#clscroll-column-headers').scroll(function() {
+      Ember.$('#header-Table').attr('style', 'padding-right:15px;');
+      if (Ember.$('#clscroll-column-headers').scrollLeft() === 0) {
+        Ember.$('#header-Table').attr('style', 'padding-right:0px;');
+      }
+      Ember.$('#clscroll-content').scrollLeft(
+        Ember.$('#clscroll-column-headers').scrollLeft()
+      );
+    });
+    Ember.$('#clscroll-row-headers').scroll(function() {
+      $('#clscroll-content').scrollTop(
+        Ember.$('#clscroll-row-headers').scrollTop()
+      );
+    });
   },
   didRender() {
     this._super(...arguments);
     this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+    var width = Ember.$('#clscroll-table').width();
+    Ember.$('#clscroll-content').attr('style', `width:${  width + 15  }px;`);
   },
   actions: {
     onScrolledToBottom() {
@@ -443,6 +484,7 @@ export default Ember.Component.extend({
       this.set('isLoading', true);
       this.expandLesson(temp.get('id'), index);
       Ember.set(temp, 'showSub', true);
+      this.set('expandedUnit', true);
       Ember.set(temp, 'showSubSub', true);
       Ember.set(temp, 'showAssessments', true);
     },
@@ -451,6 +493,7 @@ export default Ember.Component.extend({
       this.set('isLoading', true);
       this.expandUnit(temp.get('id'), index);
       Ember.set(temp, 'showSub', true);
+      this.set('expandedUnit', true);
       Ember.set(temp, 'showSubSub', false);
       Ember.set(temp, 'showAssessments', false);
     },
@@ -471,6 +514,7 @@ export default Ember.Component.extend({
           this.set('tempheaders', this.get('headers'));
           this.expandLesson(temp.get('id'), index);
           Ember.set(temp, 'showSub', true);
+          this.set('expandedUnit', true);
           Ember.set(temp, 'showSubSub', true);
           Ember.set(temp, 'showAssessments', true);
         }
@@ -482,6 +526,7 @@ export default Ember.Component.extend({
         this.set('tempheaders', this.get('headers'));
         this.expandLesson(temp.get('id'), index);
         Ember.set(temp, 'showSub', true);
+        this.set('expandedUnit', true);
         Ember.set(temp, 'showSubSub', true);
         Ember.set(temp, 'showAssessments', true);
       }
@@ -506,6 +551,7 @@ export default Ember.Component.extend({
       component.set('filterBy', component.get('filterBy'));
       var temp = component.get('headers').objectAt(index);
       Ember.set(temp, 'showSub', false);
+      component.set('expandedUnit', false);
       Ember.set(temp, 'showSubSub', false);
       var inxArr = [];
       component.removeexpandedUnit();
@@ -546,6 +592,7 @@ export default Ember.Component.extend({
     const component = this;
     component.get('headers').forEach(function(item) {
       Ember.set(item, 'showSub', false);
+      component.set('expandedUnit', false);
       Ember.set(item, 'showSubSub', false);
       Ember.set(item, 'subColumns', []);
       Ember.set(item, 'colspanval', 1);
@@ -1359,6 +1406,7 @@ export default Ember.Component.extend({
           this.set('tempheaders', this.get('headers'));
           this.expandLesson(temp.get('id'), index);
           Ember.set(temp, 'showSub', true);
+          this.set('expandedUnit', true);
           Ember.set(temp, 'showSubSub', true);
           Ember.set(temp, 'showAssessments', true);
         }
@@ -1370,6 +1418,7 @@ export default Ember.Component.extend({
         this.set('tempheaders', this.get('headers'));
         this.expandLesson(temp.get('id'), index);
         Ember.set(temp, 'showSub', true);
+        this.set('expandedUnit', true);
         Ember.set(temp, 'showSubSub', true);
         Ember.set(temp, 'showAssessments', true);
       }

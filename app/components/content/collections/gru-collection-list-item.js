@@ -153,6 +153,22 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     },
 
     /**
+     * Route to Rubric Question edit with backurl in query params.
+     */
+    rubricQuestionEdit: function() {
+      let queryParams = {
+        backUrl: this.get('router.url')
+      };
+      this.get('router').transitionTo(
+        'content.rubric.edit',
+        this.get('tempModel.rubric.id'),
+        {
+          queryParams
+        }
+      );
+    },
+
+    /**
     * Route to edit with correct query params.
     */
     edit: function(item) {
@@ -182,6 +198,26 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       } else {
         this.send('showModal', 'content.modals.gru-resource-remix', model);
       }
+    },
+
+    showStandards: function(availableStandards) {
+      var standards = Ember.A([]);
+      availableStandards.forEach(function(standardObj) {
+        standards.push(standardObj.code);
+      });
+
+      this.set('key', standards);
+
+      var component = this;
+      component.$().popover({
+        animation: false,
+        placement: component.get('placement'),
+        html: true,
+        template: component.get('getTemplate')(),
+        content: function() {
+          return component.get('template');
+        }
+      });
     },
 
     editNarration: function() {
@@ -350,13 +386,39 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
 
   tagName: 'li',
 
+  key: null,
+
   attributeBindings: ['data-id'],
 
   'data-id': Ember.computed.alias('model.id'),
 
+  dataToggle: 'popover',
+
+  placement: 'top',
+
   // -------------------------------------------------------------------------
   // Events
+  template: Ember.computed('key', function() {
+    return `<div class="gru-icon-popover-content">
+    <span class='lead'><b>Standards</b></span>
+    <p>To adjust, edit collection and or assessment standards</p>
+      <p> ${this.get('key')}</p>
+   </div>`;
+  }),
 
+  // Methods
+
+  getTemplate: function() {
+    return `<div class="gru-icon-popover-window popover" role="tooltip">
+      <div class="arrow"></div>
+      <h3 class="popover-title"></h3>
+      <div class="popover-content"></div>
+    </div>`;
+  },
+
+  willDestroyElement: function() {
+    this.$().popover('destroy');
+  },
   /**
    * DidInsertElement ember event
    */
@@ -421,6 +483,14 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     return this.get('model.standards').filter(function(item, index) {
       return index < visibleStandards;
     });
+  }),
+
+  /**
+   * @property {Object[]} allStandardsList - list of all standards that will be displayed
+   */
+  allVisibleStandardsList: Ember.computed('visibleStandards', function() {
+    var availableStandards = this.get('model.standards');
+    return availableStandards;
   }),
   /**
    * Course model as instantiated by the route. This is the resource that have the assigned collection

@@ -84,4 +84,81 @@
       margin: 20px 0 0 0;
     }
   }
+  .classrooms-reports {
+    width: 189.2px;
+    height: 22px;
+    border-radius: 12px;
+    background-color: #b8bfc4;
+  }
+  .widthradiobtns {
+    width: 21%;
+  }
+  .widthscale {
+    width: 42%;
+  }
+  .topPadding {
+    padding-top: 20px;
+  }
+  .scaleBackgroundPadding {
+    width: 50.2px;
+    height: 20px;
+    object-fit: contain;
+    border-radius: 19px;
+    background-color: #f46360;
+  }
+  .selectedButton {
+    width: 95px;
+    height: 20px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    margin-top: 1px;
+    margin-left: 1px;
+    margin-right: 1px;
+  }
+  .radioNormalButton {
+    width: 92px;
+    height: 20px;
+    border-radius: 12px;
+    background-color: #b8bfc4;
+  }
+  .normalButtonType {
+    width: 92px;
+    height: 10px;
+    font-family: Lato;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 4px;
+  }
+  .selectedButtonType {
+    width: 92px;
+    height: 10px;
+    font-family: Lato;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    color: #0072be;
+    margin-top: 4px;
+  }
+  .label-text-font {
+    color: #000;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: -2px;
+    opacity: 0.4;
+  }
+  .grade-container {
+    margin-top: 6px;
+  }
+  .filters-container {
+    margin-left: 19px;
+  }
+  .text-download-container {
+    margin-left: 73px;
+  }
+  .row-grade-container {
+    margin-right: 16px;
+  }
 }

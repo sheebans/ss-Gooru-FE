@@ -20,6 +20,7 @@ $blue-300: #4795cc !default;
 $blue-400: #0072bc !default;
 $blue-500: #0051a3 !default;
 $blue-600: #00458a !default;
+$blue-700: #43acdb !default;
 //** Dark
 $dark-100: #949a9f !default;
 $dark-200: #67727b !default;
@@ -27,6 +28,7 @@ $dark-300: #535e67 !default;
 $dark-400: #37424b !default;
 $dark-500: #29323a !default;
 $dark-600: #35424b !default;
+$dark-700: #36424b !default;
 //** Light
 $light-100: #f1f3f7 !default;
 $light-200: #e3e5ea !default;
@@ -80,6 +82,7 @@ $pink-500: #bf1d5d !default;
 $gray-base: #000 !default;
 $gray-darker: lighten($gray-base, 13.5%) !default; // #222
 $gray-dark: #212121 !default;
+$gray-very-dark: #474747;
 $gray-icon: #535e67 !default;
 $gray: #666 !default;
 $gray-light: #bbb !default;
@@ -89,8 +92,10 @@ $gray-ultra-light: #f2f2f2 !default;
 $gray-shaft: #222222;
 $gray-oslo: #9a9d9f;
 $gray-harder: #d8d8d8 !default;
+$gray-80: #cccccc;
 
 $white: #fff;
+$gray-29: #4a4a4a;
 $gray-submarine: #b8bfc4;
 $gray-dove: #666666;
 $brand-primary: $blue-400 !default;

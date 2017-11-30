@@ -180,7 +180,7 @@ export function getGradeColor(grade) {
  */
 export function getBarGradeColor(grade) {
   var bracket = BARS_GRADING_SCALE.length - 1;
-  var color = '#E3E5EA'; // Default color
+  var color = '#b8bfc4'; // Default color
 
   if (isNumeric(grade)) {
     for (; bracket >= 0; bracket--) {
@@ -191,6 +191,27 @@ export function getBarGradeColor(grade) {
     }
   }
   return color;
+}
+
+/**
+ * Find the range corresponding to the grade bracket that a specific grade belongs to
+ * @see gooru-web/config/config#BARS_GRADING_SCALE
+ * @param grade
+ * @returns {String} - range value
+ */
+export function getGradeRange(score) {
+  var scaleSize = GRADING_SCALE.length - 1;
+  var range = 'not-started'; // Default color
+
+  if (isNumeric(score)) {
+    for (; scaleSize >= 0; scaleSize--) {
+      if (score >= GRADING_SCALE[scaleSize].LOWER_LIMIT) {
+        range = GRADING_SCALE[scaleSize].RANGE;
+        break;
+      }
+    }
+  }
+  return range;
 }
 
 /**
@@ -448,10 +469,14 @@ export function replaceMathExpression(text) {
   var questionText = $.parseHTML(text);
   var newQuestionText = '';
   $.each(questionText, function(i, el) {
-    let latex = $(el).find('.source').text();
+    let latex = $(el)
+      .find('.source')
+      .text();
     if (latex.length > 0) {
       let mathToSave = `<span class='gru-math-expression'><span class='source' hidden>${latex}</span>$$${latex}$$</span>`;
-      $(el).empty().append(mathToSave);
+      $(el)
+        .empty()
+        .append(mathToSave);
     }
     if (el.outerHTML) {
       newQuestionText = newQuestionText.concat(el.outerHTML);

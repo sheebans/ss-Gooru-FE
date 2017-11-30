@@ -12,6 +12,9 @@
   li.disabled {
     opacity: 0.5;
   }
+  .listart {
+    opacity: 0.4;
+  }
   .checkbox {
     @include flexbox;
     @include flex-direction(column);
@@ -27,13 +30,18 @@
       }
     }
     input[type="checkbox"]:checked:after {
-      background-color: $blue-400;
-      border-color: $blue-400;
+      background: url(/assets/gooru/images/tick-inside-circle-blue.svg) center
+        no-repeat;
+      background-size: contain;
+      border: none;
+      display: block;
+      border-color: #0072bc;
     }
     input[type="checkbox"]:after {
-      border: 2px solid $gray;
-      border-radius: 3px;
-      background-color: transparent;
+      position: relative;
+      top: -3px;
+      border: 2px solid #666;
+      border-radius: 50% !important;
       @media (max-width: $screen-xs-max) {
         border-radius: 50%;
         border-color: $gray-light;
@@ -41,12 +49,17 @@
       }
     }
     input[type="checkbox"]:disabled:checked:after {
-      background-color: $blue-400 !important;
-      border-color: $blue-400 !important;
+      background: url(/assets/gooru/images/tick-inside-circle-blue.svg) center
+        no-repeat;
+      background-size: contain;
+      border: none;
+      display: block;
+      border-color: #0072bc;
       color: $white !important;
     }
     label {
       padding: 0;
+      margin-top: -3px;
     }
   }
 }
@@ -79,9 +92,46 @@
     }
     input[type="checkbox"]:checked:before {
       @media (max-width: $screen-xs-max) {
-        top: 3px;
-        content: none;
+        position: absolute;
+        left: 0;
+        top: -3px;
+        background-color: #0072bc;
+        -webkit-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+        content: "";
+        display: block;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        -webkit-transition: 240ms;
+        -o-transition: 240ms;
+        transition: 240ms;
       }
+    }
+
+    input[type="checkbox"]:checked:before {
+      -webkit-transform: scale(0.5);
+      -ms-transform: scale(0.5);
+      -o-transform: scale(0.5);
+      transform: scale(0.5);
+    }
+
+    input[type="checkbox"] {
+      position: relative;
+      margin-top: 6px;
+      margin-right: 4px;
+      vertical-align: top;
+      border: none;
+      background-color: transparent;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+      margin: 4px 0 0;
+      line-height: normal;
+      box-sizing: border-box;
+      padding: 0;
     }
   }
 }

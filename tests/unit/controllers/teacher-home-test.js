@@ -1,8 +1,16 @@
 import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 
+var performanceService = Ember.Object.create({
+  findClassPerformanceSummaryByClassIds: () => {
+    return Ember.RSVP.resolve([]);
+  }
+});
+
 var applicationController = Ember.Object.create({
-  profile: Ember.Object.create({ id: 'profile-id' }),
+  profile: Ember.Object.create({
+    id: 'profile-id'
+  }),
   myClasses: {
     classes: [
       Ember.Object.create({
@@ -25,11 +33,16 @@ var applicationController = Ember.Object.create({
       })
     ]
   },
-  getLocalStorage: () => ({ getItem: () => null })
+  getLocalStorage: () => ({
+    getItem: () => null
+  })
 });
 moduleFor('controller:teacher-home', 'Unit | Controller | teacher-home', {});
 test('Sort Archived Classes by Date', function(assert) {
-  let controller = this.subject({ applicationController });
+  let controller = this.subject({
+    applicationController,
+    performanceService
+  });
   controller.send('filterByDate');
   assert.equal(
     controller.get('sortedArchivedClassrooms')[0].get('title'),
@@ -55,7 +68,10 @@ test('Sort Archived Classes by Date', function(assert) {
 });
 
 test('Sort Archived Classes By Title', function(assert) {
-  let controller = this.subject({ applicationController });
+  let controller = this.subject({
+    applicationController,
+    performanceService
+  });
   controller.send('filterByTitle');
   assert.equal(
     controller.get('sortedArchivedClassrooms')[0].get('title'),

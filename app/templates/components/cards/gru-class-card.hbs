@@ -1,70 +1,83 @@
-<div class="panel {{if (is-teacher class profile.id) 'teacher' 'student' }} {{if class.isArchived 'archive'}}">
+<div class="panel {{if course 'has-course' 'no-course'}} {{if (is-teacher class profile.id) 'teacher' 'student' }} {{if class.isArchived 'archive'}}">
   {{#if class.isArchived}}
-    {{#link-to 'teacher.class.performance' class.id}}
-      <div class="panel-heading">
-        <div class="title">
-          <h5>{{class.title}}</h5>
-        </div>
+    <div class="panel-heading">
+      <div class="title ellipsis">
+        {{truncate text=class.title maxLength=25}}
       </div>
-    {{/link-to}}
-  {{else}}
-    {{#link-to 'student.class.course-map' class.id}}
-      <div class="panel-heading">
-        <div class="title">
-          <h5>{{class.title}}</h5>
-        </div>
-        <div class="side-info">
-          <span class="code">{{class.code}}</span>
-          <span class="profile-link action">{{if (is-teacher class profile.id) (t "common.teach") (t "common.study") }} {{gru-icon name="keyboard_arrow_right"}} </span>
-        </div>
-      </div>
-    {{/link-to}}
+    </div>
   {{/if}}
   <div class="panel-body">
-    <div class="members-info">
-      <div class="collaborators">
-        {{! Place collaborator avatar and first name in the next two lines }}
-        <img class="collaborator-avatar" src="{{class.owner.avatarUrl}}" alt="{{class.owner.displayName}}">
-        <span class="name">
-          {{truncate text=class.owner.displayName maxLength=18}}
-        </span>
-        {{#if (gt collaboratorsCount 0)}} <span class="collaborators-count">+{{collaboratorsCount}}</span>{{/if}}
-      </div>
-      <div class="students-info">
-        <small>{{gru-icon name="group"}} {{t "cards.gru-class-card.student" count=studentCount}}</small>
-      </div>
-      {{#if showUnitsCount}}
-        <div class="units-info">
-          {{t "cards.gru-class-card.unit" count=class.unitsCount}}
-        </div>
-      {{/if}}
-    </div>
-    <div class="description">
-      {{#if class.isArchived}}
-        {{#if class.isReportAvailable}}
-            <div> {{t "cards.gru-class-card.archived.download-report" }}</div>
-        {{/if}}
-        {{#unless class.hasCourse}}
-            <div>{{t "cards.gru-class-card.archived.no-report-available" }}</div>
-        {{/unless}}
-        {{#if class.isReportInProgress}}
-            <div>{{t "cards.gru-class-card.archived.report-in-progress" }}</div>
-        {{/if}}
-        {{#if class.canRequestReport}}
-            <div>{{t "cards.gru-class-card.archived.request-report" }}</div>
-        {{/if}}
+    <div class="information" style="background-image: url({{course.thumbnailUrl}})">
+      {{#if course}}
+        <div class="current-activity">{{t "student-landing.class.assigned-course"}}</div>
       {{else}}
-          <div>{{class.greeting}}</div>
+        <div class="current-activity">{{t "student-landing.class.no-course-assigned"}}</div>
       {{/if}}
-      {{#unless class.isArchived}}
-          <p class="current-location">
-            {{#if class.currentLocation}}
-                U{{plus-one class.currentLocation.unitIndex}} / L{{plus-one class.currentLocation.lessonIndex}} / {{class.currentLocation.collection.title}}
-            {{else}}
-              {{t "cards.gru-class-card.student.not-started"}}
-            {{/if}}
-          </p>
-      {{/unless}}
+
+      <div class="title-section">
+        {{#if course.title}}
+          <div class="title pointer" alt="{{course.title}}">
+            {{truncate text=course.title maxLength=90}}
+          </div>
+        {{else}}
+          <span>{{t "student-landing.not-available"}}</span>
+        {{/if}}
+      </div>
     </div>
+    <div class="links">
+      <ul>
+        <li class="performance">
+          <a {{action 'selectItem' 'performance'}}>
+            <div class="icon-performance">
+              <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/performance-report/report.svg#{{grade-range class.performanceSummary.score}}"></use>
+              </svg>
+            </div>
+            <span class="report-text" style="color:{{grade-color class.performanceSummary.score}}">{{t 'teacher-landing.class.report'}}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    {{#if (gt class.performanceSummary.score 0)}}
+      <div class="performance-percentage">
+        <div class="code">
+          <div class="title">{{t 'student-landing.class-code'}}</div>
+          <div class="class-code">{{class.code}}</div>
+        </div>
+        <div style="color:{{grade-color class.performanceSummary.score}}">
+          {{#link-to 'teacher.class.performance' class.id class="pointer percentage" tagName="div" }}
+            {{scorePercentage}}
+          {{/link-to}}
+        </div>
+      </div>
+    {{else}}
+      {{#if (eq class.performanceSummary.score 0)}}
+        <div class="performance-percentage">
+          <div class="code">
+            <div class="title">{{t 'student-landing.class-code'}}</div>
+            <div class="class-code">{{class.code}}</div>
+          </div>
+          <div style="color:{{grade-color class.performanceSummary.score}}">
+            {{#link-to 'teacher.class.performance' class.id class="pointer percentage" tagName="div" }}
+              {{scorePercentage}}
+            {{/link-to}}
+          </div>
+        </div>
+
+      {{else}}
+        <div class="performance-no-percentage">
+          <div class="code">
+            <div class="title">{{t 'student-landing.class-code'}}</div>
+            <div class="class-code">{{class.code}}</div>
+          </div>
+          <div style="color:{{grade-color class.performanceSummary.score}}">
+            {{#link-to 'teacher.class.performance' class.id class="pointer percentage no-percentage" tagName="div" }}
+              {{scorePercentage}}
+            {{/link-to}}
+          </div>
+        </div>
+
+      {{/if}}
+    {{/if}}
   </div>
 </div>

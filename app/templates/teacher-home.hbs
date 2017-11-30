@@ -6,39 +6,20 @@
       <div class="title">
         <span>{{t 'user.hello' name=profile.firstName}}</span>
       </div>
-      <p>{{t 'user.teaching-classes' count=totalTeachingClasses}}</p>
+      {{#unless (gt loginCount 5)}}
+        <div class="featured-courses pull-right">
+          <span>{{t 'student-landing.browse-our'}} {{#link-to 'library'}}{{t 'student-landing.featured-courses'}}{{/link-to}}</span>
+        </div>
+      {{/unless}}
     </div>
     {{#unless (gt loginCount 5)}}
       <div class="row panels">
-        <div class="col-sm-6 col-xs-12">
-          {{gru-explore-featured-courses
+          {{gru-teacher-featured-courses
             courses=featuredCourses
             profile=profile
+            isTeacher=true
             loginCount=loginCount
           }}
-        </div>
-        <div class="col-sm-6 col-xs-12">
-          <div class="panel create-class">
-            <div class="panel-heading">{{t 'teacher-landing.teach'}}</div>
-            <div class="panel-body">
-              <div class="legend">
-                {{t 'teacher-landing.create-classroom'}}
-              </div>
-              <div class="actions">
-                {{#link-to 'content.classes.create' class="btn btn-info create" tagName='button'}}
-                  {{t 'user.create-class'}}
-                {{/link-to}}
-              </div>
-              <div class="pull-right will-disappear">
-                {{#if (eq loginCount 5)}}
-                  {{t 'common.disappear-next-login'}}
-                {{else}}
-                  {{t 'common.disappear-after-login' loginNumber=(sub 6 loginCount)}}
-                {{/if}}
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     {{/unless}}
     <div class="teacher-navigator">
@@ -49,24 +30,19 @@
           </a>
         </li>
         <li role="presentation" class="{{if showArchivedClasses 'active'}} archived-classes tab hidden-xs">
-          <a href="#archived-classes" aria-controls="archivedClasses" role="tab" data-toggle="tab" {{action 'showClasses' 'archived'}}>
+          <a href="#archived-classes" aria-controls="archivedClasses" role="tab" data-toggle="tab" {{action 'archivedClass' 'archived'}}>
             <span class="lead">{{t 'user.archived-classrooms'}}</span>
           </a>
         </li>
       </ul>
+      {{#if showActiveClasses}}
       {{#unless hasClasses}}
         <div class="pull-left no-classes-found">
           {{t 'teacher-landing.no-classrooms'}}
         </div>
       {{/unless}}
-      {{#if showActiveClasses }}
-        <div class="pull-right actions">
-          {{#link-to 'content.classes.create' class="btn btn-success create-class-cta" tagName='button'}}
-            {{t 'user.create-class'}}
-          {{/link-to}}
-        </div>
       {{/if}}
-      {{#if showArchivedClasses}}
+      {{#if (and showArchivedClasses  (gt sortedArchivedClassrooms.length 0))}}
         <div class="pull-right sort">
           <div class="filter-date-asc btn-group" role="group">
             <button type="button" title={{t 'common.sort-most-recently'}} data-toggle="tooltip" {{action 'filterByDate'}} class="filter-date btn {{if (eq sortOn 'startDate') 'btn-primary' 'btn-info'}}">
@@ -87,25 +63,34 @@
     </div>
 
     <div class="content tab-content">
-      <div role="tabpanel" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
+      <div role="tabpanel active-class" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">
+        {{new-cards.gru-new-class-card
+          onJoinClass="joinClass"
+          validCode=validCode
+          notMember=notMember
+          allowedCode=allowedCode
+          onUpdateUserClasses='updateClass'
+          isLoading=isLoading}}
         {{#if hasClasses}}
           {{#each activeClasses as |class|}}
-            {{cards.gru-teacher-class-card
+            {{new-cards.gru-teacher-class-card
             class=class
             course=class.course
-            classStudentCount=myClasses.memberCount}}
+            classStudentCount=myClasses.memberCount
+            onPlayCollection='studyPlayer'
+            onItemSelected='selectMenuItem'}}
           {{/each}}
         {{/if}}
       </div>
 
-
-
       <div role="tabpanel" class="tab-pane row {{if showArchivedClasses 'active'}}" id="archived-classes">
         {{#each sortedArchivedClassrooms as |class|}}
           {{cards.gru-class-card
-          class=class
-          profile=profile
-          classStudentCount=myClasses.memberCount}}
+            class=class
+            course=class.course
+            classStudentCount=myClasses.memberCount
+            onPlayCollection='studyPlayer'
+            onItemSelected='selectMenuItem'}}
         {{else}}
           <span class="no-archived">{{t 'common.no-archived'}}</span>
         {{/each}}

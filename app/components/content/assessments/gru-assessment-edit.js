@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import CollectionEdit from 'gooru-web/components/content/collections/gru-collection-edit';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 
 export default CollectionEdit.extend({
   // -------------------------------------------------------------------------
@@ -20,6 +21,16 @@ export default CollectionEdit.extend({
    * @type {SessionService} Service to retrieve session information
    */
   session: Ember.inject.service('session'),
+
+  aggregatedTags: Ember.computed('tempCollection.aggregatedTag.[]', function() {
+    let aggregatedTags = TaxonomyTag.getTaxonomyTags(
+      this.get('tempCollection.aggregatedTag'),
+      false,
+      false,
+      true
+    );
+    return aggregatedTags;
+  }),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -68,6 +79,11 @@ export default CollectionEdit.extend({
                   'centurySkills'
                 ]);
                 component.set('isEditing', false);
+                component
+                  .get('tempCollection.standards')
+                  .forEach(function(suggeststanObj) {
+                    suggeststanObj.set('isRemovable', false);
+                  });
               })
               .catch(function(error) {
                 var message = component
@@ -83,6 +99,47 @@ export default CollectionEdit.extend({
     },
 
     /**
+     * Add tag data from the taxonomy list in tempUnit
+     */
+    addTag: function(taxonomyTag) {
+      // let tagData = taxonomyTag;
+      taxonomyTag.set('isRemovable', true);
+      taxonomyTag.set('tagAlreadyexist', false);
+      this.get('tempCollection.standards').addObject(taxonomyTag);
+      this.set(
+        'tempCollection.standards',
+        this.get('tempCollection.standards').uniqBy('code')
+      );
+      Ember.Logger.info('ember11---', this.get('tempCollection.aggregatedTag'));
+      this.get('tempCollection.aggregatedTag').removeObject(taxonomyTag);
+      Ember.Logger.info('ember---', this.get('tempCollection.aggregatedTag'));
+
+      let newtaxonomyObj = Ember.Object.create({
+        code: taxonomyTag.get('code'),
+        frameworkCode: taxonomyTag.get('frameworkCode'),
+        isRemovable: false,
+        tagAlreadyexist: false
+      });
+      this.get('tempCollection.aggregatedTag').addObject(newtaxonomyObj);
+      this.compareAggregatedTags();
+    },
+    /**
+     * Remove tag data from the taxonomy list in tempUnit
+     */
+    removeTag: function(taxonomyTag) {
+      var tagData = taxonomyTag;
+      this.get('tempCollection.standards').removeObject(tagData);
+      tagData.set('isRemovable', false);
+      tagData.set('tagAlreadyexist', false);
+      this.get('tempCollection.aggregatedTag').addObject(tagData);
+      this.set(
+        'tempCollection.aggregatedTag',
+        this.get('tempCollection.aggregatedTag').uniqBy('code')
+      );
+      this.compareAggregatedTags();
+    },
+
+    /**
      * Save setting for visibility of collection in profile
      */
     publishToProfile: function() {
@@ -90,10 +147,9 @@ export default CollectionEdit.extend({
       this.set('tempCollection', collectionForEditing);
       this.actions.updateContent.call(this);
     },
-
     /**
-     * Delete assessment
-     */
+   * Delete assessment
+   */
     deleteItem: function() {
       const myId = this.get('session.userId');
       var model = {
@@ -124,5 +180,67 @@ export default CollectionEdit.extend({
         false
       );
     }
+  },
+
+  /**
+   * Returns compareAggregatedTags data
+   * @param {Number[]} compareAggregatedTags ids
+   * @return {compareAggregatedTags[]}
+   */
+  compareAggregatedTags: function() {
+    const component = this;
+    component
+      .get('tempCollection.aggregatedTag')
+      .forEach(function(suggeststanObj) {
+        suggeststanObj.set('tagAlreadyexist', true);
+      });
+    component.get('tempCollection.standards').forEach(function(standardObj) {
+      var suggestObj = component
+        .get('tempCollection.aggregatedTag')
+        .findBy('code', standardObj.code);
+      if (suggestObj !== undefined) {
+        Ember.set(suggestObj, 'tagAlreadyexist', false);
+      }
+    });
+  },
+  /**
+     * Initialize variables and get standards data.
+     */
+  initializeVariables: function() {
+    let aggregatedStandards = [];
+    let unitStandards = this.get('tempCollection.children');
+    let selectedStandards = this.get('collection.standards');
+    let selectedStandardCodes = [];
+    selectedStandards.forEach(function(standardObj) {
+      selectedStandardCodes.push(standardObj.code);
+    });
+    unitStandards.forEach(function(unitstandardObj) {
+      let unitStandardTag = unitstandardObj.standards;
+      unitStandardTag.forEach(function(onestandardObj) {
+        onestandardObj.tagAlreadyexist = true;
+        aggregatedStandards.push(onestandardObj);
+        if (selectedStandardCodes.length !== 0) {
+          selectedStandardCodes.forEach(function(newstandardObj) {
+            if (newstandardObj === onestandardObj.code) {
+              onestandardObj.tagAlreadyexist = false;
+              aggregatedStandards.push(onestandardObj);
+            }
+          });
+        }
+      });
+    });
+    let result = aggregatedStandards.reduceRight(function(r, a) {
+      r.some(function(b) {
+        return a.code === b.code;
+      }) || r.push(a);
+      return r;
+    }, []);
+    this.set('tempCollection.aggregatedTag', result);
+  },
+
+  init: function() {
+    this._super(...arguments);
+    this.set('tempCollection', this.get('collection').copy());
+    this.initializeVariables();
   }
 });
