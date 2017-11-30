@@ -163,7 +163,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
           .t('gru-take-tour.teacher-home.stepFour.description')
       },
       {
-        elementSelector: '.gru-header .menu-navbar .tools-link',
+        elementSelector: '.gru-header .menu-navbar .content-link',
         title: route.get('i18n').t('gru-take-tour.teacher-home.stepFive.title'),
         description: route
           .get('i18n')

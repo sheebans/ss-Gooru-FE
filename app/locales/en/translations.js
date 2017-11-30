@@ -1969,7 +1969,7 @@ export default Object.assign(quizzesTranslations, {
         description: 'Return to your homepage.'
       },
       stepFive: {
-        title: 'Tools',
+        title: 'Content Manager',
         description: 'Quick link to create and access your content.'
       },
       stepSix: {
