@@ -68,7 +68,7 @@
                         <div class="form-group username col-sm-12">
                           <label for="usernameId">
                           <span class="required">{{t "sign-up.username"}}</span>
-                          {{validation.gru-input model=profile valuePath='username' didValidate=didValidate inputId='usernameId' isRequired=true}}
+                          {{validation.gru-input model=profile valuePath='username' didValidate=didValidate inputId='usernameId' isRequired=true  maxLength=254}}
                         </label>
                           {{#if usernameError}}
                             <span class="validation error username-error">{{usernameError}}</span>

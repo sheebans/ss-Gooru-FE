@@ -337,7 +337,7 @@ export default Object.assign(quizzesTranslations, {
         'Oops! Unable to load unit right now. Please try again shortly.',
       'unit-title-required': 'Please enter the unit title.',
       'user-email-presence': 'Please enter a valid email.',
-      'username-length': 'Username must be between 4 and 64 characters.',
+      'username-length': 'Username must be between 4 and 254 characters.',
       'forgot-password-gmail':
         'Please use Google signin. We can\'t reset your password.'
     },
