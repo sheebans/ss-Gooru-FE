@@ -5,7 +5,8 @@ import T from 'gooru-web/tests/helpers/assert';
 import Location from 'gooru-web/models/learner/location';
 import Performance from 'gooru-web/models/learner/performance';
 
-moduleForComponent('new-cards/gru-independent-card',
+moduleForComponent(
+  'new-cards/gru-independent-card',
   'Integration | Component | new cards/gru independent card',
   {
     integration: true,
@@ -63,7 +64,7 @@ test('Course Card Layout', function(assert) {
   );
   assert.equal(
     T.text($panelBody.find('.timestamp .pull-right')),
-    '2 Mar\'17 | 6:44pm',
+    'Mar 2, 2017 4:44 PM',
     'Wrong last accessed time'
   );
   assert.equal(
@@ -71,10 +72,13 @@ test('Course Card Layout', function(assert) {
     '90%',
     'Wrong Percentage value'
   );
-  T.exists(assert, $panelFooter.find('.performance .completion-bar'), 'Missing completion bar');
+  T.exists(
+    assert,
+    $panelFooter.find('.performance .completion-bar'),
+    'Missing completion bar'
+  );
   T.exists(assert, $panelFooter.find('.report'), 'Missing Report');
 });
-
 
 test('Collection Card Layout', function(assert) {
   this.set(
@@ -112,18 +116,25 @@ test('Collection Card Layout', function(assert) {
 
   assert.equal(
     T.text($panelBody.find('.timestamp .pull-right')),
-    '2 Mar\'17 | 6:44pm',
+    'Mar 2, 2017 6:44 PM',
     'Wrong last accessed time'
   );
-  T.exists(assert, $panelFooter.find('.collection i.collection'), 'Missing Collection Icon');
+  T.exists(
+    assert,
+    $panelFooter.find('.collection i.collection'),
+    'Missing Collection Icon'
+  );
   assert.equal(
     T.text($panelFooter.find('.time-spent .total-time')),
     '4s',
     'Wrong time spent value'
   );
-  T.exists(assert, $panelFooter.find('.collection-report'), 'Missing Report icon');
+  T.exists(
+    assert,
+    $panelFooter.find('.collection-report'),
+    'Missing Report icon'
+  );
 });
-
 
 test('Assessment Card Layout', function(assert) {
   this.set(
@@ -161,9 +172,13 @@ test('Assessment Card Layout', function(assert) {
   T.exists(assert, $panelBody, 'Missing assessment card panel body');
   assert.equal(
     T.text($panelBody.find('.timestamp .pull-right')),
-    '2 Mar\'17 | 6:44pm',
+    'Mar 2, 2017 6:44 PM',
     'Wrong last accessed time'
   );
-  T.exists(assert, $panelFooter.find('i.assessment'), 'Missing Assessment Icon');
+  T.exists(
+    assert,
+    $panelFooter.find('i.assessment'),
+    'Missing Assessment Icon'
+  );
   T.exists(assert, $panelFooter.find('.report'), 'Missing Report icon');
 });
