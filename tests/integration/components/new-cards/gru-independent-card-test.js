@@ -64,7 +64,7 @@ test('Course Card Layout', function(assert) {
   );
   assert.equal(
     T.text($panelBody.find('.timestamp .pull-right')),
-    'Mar 2, 2017 4:44 PM',
+    'Mar 2, 2017 6:44 PM',
     'Wrong last accessed time'
   );
   assert.equal(
