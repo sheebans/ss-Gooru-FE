@@ -19,7 +19,7 @@ test('Layout', function(assert) {
   visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-independent-learning');
+    assert.equal(currentURL(), '/student-independent-learning/studying');
 
     T.exists(assert, find('header.gru-header'), 'Header component not found');
 
@@ -129,7 +129,7 @@ test('Go to library from featured-courses panel', function(assert) {
   visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-independent-learning');
+    assert.equal(currentURL(), '/student-independent-learning/studying');
     const $featuredCourses = find('.featured-courses');
 
     const $featuredCoursesLink = $featuredCourses.find('a');

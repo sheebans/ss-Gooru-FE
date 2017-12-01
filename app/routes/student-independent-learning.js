@@ -2,6 +2,7 @@ import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import { DEFAULT_BOOKMARK_PAGE_SIZE } from 'gooru-web/config/config';
+import { getCurrentPage } from 'gooru-web/utils/utils';
 
 /**
  * Student independent learning route
@@ -55,8 +56,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
 
   model: function() {
     let route = this;
-    let currentHref = window.location.href;
-    let currentPage = currentHref.substring(currentHref.lastIndexOf('/') + 1);
+    let currentPage = getCurrentPage();
     if (currentPage !== 'bookmarks' && currentPage !== 'studying') {
       route.transitionTo('student-independent-learning.learning-base');
     }
