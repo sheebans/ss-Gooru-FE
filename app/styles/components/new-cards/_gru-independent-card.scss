@@ -30,7 +30,11 @@
           display: block;
           position: absolute;
           z-index: 9;
-          background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #000 100%);
+          background-image: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0) 0,
+            #000 100%
+          );
           margin-top: 52px;
           height: 60%;
           width: 100%;
@@ -81,7 +85,7 @@
       vertical-align: middle;
       display: flex;
       .items-icon {
-        width: 50%;
+        width: 42%;
         display: flex;
         span {
           display: flex;
@@ -89,7 +93,9 @@
         }
       }
 
-      i.resources, i.questions, i.units {
+      i.resources,
+      i.questions,
+      i.units {
         background-size: 13px 12px;
         display: block;
         width: 13px;
@@ -111,9 +117,9 @@
         font-size: 14px;
       }
       .timestamp {
-        margin-left: 6px;
-        font-size: 12px;
-        font-style: italic;
+        width: 58%;
+        font-size: 11px;
+        margin-right: 4px;
         font-weight: bold;
       }
     }
@@ -187,10 +193,10 @@
             font-weight: bold;
           }
           .time-spent-text {
-             font-size: 10px;
-             font-weight: bold;
-             margin-top: -9px;
-             text-transform: uppercase;
+            font-size: 10px;
+            font-weight: bold;
+            margin-top: -9px;
+            text-transform: uppercase;
           }
         }
         .completion-chart {
