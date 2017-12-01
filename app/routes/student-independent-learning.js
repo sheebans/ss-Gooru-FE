@@ -55,6 +55,11 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
 
   model: function() {
     let route = this;
+    let currentHref = window.location.href;
+    let currentPage = currentHref.substring(currentHref.lastIndexOf('/') + 1);
+    if (currentPage !== 'bookmarks' && currentPage !== 'studying') {
+      route.transitionTo('student-independent-learning.learning-base');
+    }
     const configuration = this.get('configurationService.configuration');
     const pagination = {
       offset: 0,
@@ -104,32 +109,30 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     const bookmarksPromise = route
       .get('bookmarkService')
       .fetchBookmarks(pagination, true);
-    return Ember.RSVP
-      .hash({
-        firstCourse: firstCoursePromise,
-        secondCourse: secondCoursePromise,
-        thirdCourse: thirdCoursePromise,
-        fourthCourse: fourthCoursePromise,
-        bookmarks: bookmarksPromise
-      })
-      .then(function(hash) {
-        const firstFeaturedCourse = hash.firstCourse;
-        const secondFeaturedCourse = hash.secondCourse;
-        const thirdFeaturedCourse = hash.thirdCourse;
-        const fourthFeaturedCourse = hash.fourthCourse;
-        const bookmarks = hash.bookmarks;
+    return Ember.RSVP.hash({
+      firstCourse: firstCoursePromise,
+      secondCourse: secondCoursePromise,
+      thirdCourse: thirdCoursePromise,
+      fourthCourse: fourthCoursePromise,
+      bookmarks: bookmarksPromise
+    }).then(function(hash) {
+      const firstFeaturedCourse = hash.firstCourse;
+      const secondFeaturedCourse = hash.secondCourse;
+      const thirdFeaturedCourse = hash.thirdCourse;
+      const fourthFeaturedCourse = hash.fourthCourse;
+      const bookmarks = hash.bookmarks;
 
-        featuredCourses.push(firstFeaturedCourse);
-        featuredCourses.push(secondFeaturedCourse);
-        featuredCourses.push(thirdFeaturedCourse);
-        featuredCourses.push(fourthFeaturedCourse);
+      featuredCourses.push(firstFeaturedCourse);
+      featuredCourses.push(secondFeaturedCourse);
+      featuredCourses.push(thirdFeaturedCourse);
+      featuredCourses.push(fourthFeaturedCourse);
 
-        return {
-          activeClasses,
-          featuredCourses,
-          bookmarks
-        };
-      });
+      return {
+        activeClasses,
+        featuredCourses,
+        bookmarks
+      };
+    });
   },
 
   setupController: function(controller, model) {
