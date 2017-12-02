@@ -64,13 +64,11 @@
           onlySubjectsWithStandards=true
           }}
         {{/if}}
-        <div class="standards">
+         <div class="standards">
           <label>
             <span>{{t standardLabelKey}}</span>
             {{#if isEditing}}
-              <button type="button" class="btn btn-primary"
-                {{action 'openTaxonomyModal'}}
-                      disabled={{standardDisabled}}>
+              <button type="button" class="btn btn-primary" {{action 'openTaxonomyModal'}} disabled={{standardDisabled}}>
                 {{gru-icon name="open_in_new"}} {{t "common.select"}}
               </button>
               <div class="tags">
@@ -79,7 +77,7 @@
             {{else}}
               <div class="tags">
                 {{#if tags.length}}
-                  {{taxonomy.gru-taxonomy-tag-list isEditing=isEditing tags=tags}}
+                  {{taxonomy.gru-taxonomy-tag-list isEditing=isEditing tags=collection.standards}}
                 {{else}}
                   {{t "common.not-specified"}}
                 {{/if}}
