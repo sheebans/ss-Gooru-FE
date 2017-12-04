@@ -86,7 +86,7 @@ export default Ember.Service.extend({
         .readCollection(collectionId)
         .then(function(responseData) {
           //get resources and questions count, if it is not available
-          if (typeof responseData.resource_count !== 'undefined') {
+          if (typeof responseData.resource_count === 'undefined') {
             let content = getContentCount(responseData.content);
             responseData.resource_count = content.resourceCount;
             responseData.question_count = content.questionCount;
