@@ -125,8 +125,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
           ? payload.visible_on_profile
           : true,
       children: serializer.normalizeResources(payload.content),
-      questionCount: content.questionCount || 0,
-      resourceCount: content.resourceCount || 0,
+      questionCount: payload.question_count || content.questionCount,
+      resourceCount: payload.resource_count || content.resourceCount,
       sequence: payload.sequence_id,
       thumbnailUrl: thumbnailUrl,
       standards: serializer
