@@ -28,6 +28,8 @@
     }
 
     .sub-menu {
+      max-height: 300px;
+      overflow: auto;
       top: -5px;
       &.dropdown-menu-left {
         left: 100%;
@@ -35,6 +37,15 @@
       &.dropdown-menu-right {
         right: 100%;
       }
+    }
+    .sub-menu::-webkit-scrollbar {
+      width: 4px;
+      border-radius: 3px;
+    }
+    .sub-menu::-webkit-scrollbar-thumb {
+      background: $gray-light;
+      border: 1px solid $gray-light;
+      border-radius: 5px;
     }
   }
 }
