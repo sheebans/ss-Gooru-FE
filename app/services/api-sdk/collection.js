@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import CollectionSerializer from 'gooru-web/serializers/content/collection';
 import CollectionAdapter from 'gooru-web/adapters/content/collection';
+import { getContentCount } from 'gooru-web/utils/utils';
 
 /**
  * @typedef {Object} CollectionService
@@ -84,6 +85,12 @@ export default Ember.Service.extend({
         .get('collectionAdapter')
         .readCollection(collectionId)
         .then(function(responseData) {
+          //get resources and questions count, if it is not available
+          if (typeof responseData.resource_count === 'undefined') {
+            let content = getContentCount(responseData.content);
+            responseData.resource_count = content.resourceCount;
+            responseData.question_count = content.questionCount;
+          }
           let collection = service
             .get('collectionSerializer')
             .normalizeReadCollection(responseData);

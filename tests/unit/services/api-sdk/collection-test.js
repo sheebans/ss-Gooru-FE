@@ -67,7 +67,6 @@ test('readCollection', function(assert) {
   const service = this.subject();
   const expectedCollectionId = 'collection-id';
   const expectedProfileId = 'profile-id';
-
   assert.expect(3);
 
   service.set(
@@ -90,7 +89,12 @@ test('readCollection', function(assert) {
       normalizeReadCollection: function(collectionData) {
         assert.deepEqual(
           collectionData,
-          { id: expectedCollectionId, ownerId: expectedProfileId },
+          {
+            id: expectedCollectionId,
+            ownerId: expectedProfileId,
+            question_count: 0,
+            resource_count: 0
+          },
           'Wrong Collection data'
         );
         return Ember.Object.create(collectionData);
