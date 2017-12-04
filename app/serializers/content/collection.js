@@ -113,7 +113,6 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const thumbnailUrl = payload.thumbnail
       ? basePath + payload.thumbnail
       : appRootPath + DEFAULT_IMAGES.COLLECTION;
-    let content = this.getContentCount(payload.content);
     const metadata = payload.metadata || {};
     return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
       id: payload.target_collection_id || payload.id,
@@ -125,14 +124,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
           ? payload.visible_on_profile
           : true,
       children: serializer.normalizeResources(payload.content),
-      questionCount:
-        typeof content.questionCount !== 'undefined'
-          ? content.questionCount
-          : payload.question_count,
-      resourceCount:
-        typeof content.resourceCount !== 'undefined'
-          ? content.resourceCount
-          : payload.resource_count,
+      questionCount: payload.question_count || 0,
+      resourceCount: payload.resource_count || 0,
       sequence: payload.sequence_id,
       thumbnailUrl: thumbnailUrl,
       standards: serializer
@@ -178,24 +171,5 @@ export default Ember.Object.extend(ConfigurationMixin, {
     return {
       order: values
     };
-  },
-
-  /**
-   * Method to get Resource and Question count
-   */
-  getContentCount: function(payload) {
-    let resourceCount = 0;
-    let questionCount = 0;
-    if (Ember.isArray(payload)) {
-      payload.map(contentItem => {
-        contentItem.content_format === 'resource'
-          ? resourceCount++
-          : questionCount++;
-      });
-      return {
-        resourceCount: resourceCount,
-        questionCount: questionCount
-      };
-    }
   }
 });
