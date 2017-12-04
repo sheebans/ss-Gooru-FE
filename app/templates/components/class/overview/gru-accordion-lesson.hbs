@@ -36,15 +36,9 @@
         </button>
       {{/unless}}
       </div>
-      {{!-- {{#if model.assessmentCount}}
-      <div class="performance-container pull-right">
-        {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=model.performance.hasStarted isTeacher=isTeacher assessmentCount=model.assessmentCount}}
-      </div>
-      {{else}} --}}
       <div class="performance-container pull-right">
         {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
       </div>
-      {{!-- {{/if}} --}}
     </div>
   {{/unless}}
 </div>
