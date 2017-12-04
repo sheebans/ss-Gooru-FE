@@ -924,9 +924,9 @@ export function getContentCount(data) {
         ? resourceCount++
         : questionCount++;
     });
-    return {
-      resourceCount: resourceCount,
-      questionCount: questionCount
-    };
   }
+  return {
+    resourceCount: resourceCount,
+    questionCount: questionCount
+  };
 }
