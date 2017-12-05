@@ -89,23 +89,7 @@ export default CollectionEdit.extend({
                 component
                   .get('tempCollection.standards')
                   .forEach(function(suggeststanObj) {
-                    component
-                      .get('tempCollection.standards')
-                      .removeObject(suggeststanObj);
-                    let newtaxonomyObj = Ember.Object.create({
-                      id: suggeststanObj.get('id'),
-                      title: suggeststanObj.get('title'),
-                      parentTitle: suggeststanObj.get('parentTitle'),
-                      description: suggeststanObj.get('description'),
-                      code: suggeststanObj.get('code'),
-                      frameworkCode: suggeststanObj.get('frameworkCode'),
-                      taxonomyLevel: suggeststanObj.get('taxonomyLevel'),
-                      isRemovable: true,
-                      tagAlreadyexist: false
-                    });
-                    component
-                      .get('tempCollection.standards')
-                      .addObject(newtaxonomyObj);
+                    suggeststanObj.set('isRemovable', false);
                   });
               })
               .catch(function(error) {
@@ -134,15 +118,9 @@ export default CollectionEdit.extend({
         this.get('tempCollection.standards').uniqBy('code')
       );
       this.get('tempCollection.aggregatedTag').removeObject(taxonomyTag);
-
       let newtaxonomyObj = Ember.Object.create({
-        id: taxonomyTag.get('id'),
-        title: taxonomyTag.get('title'),
-        parentTitle: taxonomyTag.get('parentTitle'),
-        description: taxonomyTag.get('description'),
         code: taxonomyTag.get('code'),
         frameworkCode: taxonomyTag.get('frameworkCode'),
-        taxonomyLevel: taxonomyTag.get('taxonomyLevel'),
         isRemovable: false,
         tagAlreadyexist: false
       });
@@ -229,69 +207,9 @@ export default CollectionEdit.extend({
       }
     });
   },
-  /**
-     * Initialize variables and get standards data.
-     */
-  initializeVariables: function() {
-    let component = this;
-    var collectionForEditing = this.get('collection').copy();
-    collectionForEditing.standards.forEach(function(standardObj) {
-      Ember.set(standardObj, 'isRemovable', true);
-    });
-    this.set('tempCollection', collectionForEditing);
-    this.set('isEditing', false);
-    this.set('selectedSubject', null);
-    let aggregatedStandards = [];
-    let unitStandards = this.get('tempCollection.children');
-    let selectedStandards = this.get('collection.standards');
-    let selectedStandardCodes = [];
-    selectedStandards.forEach(function(standardObj) {
-      selectedStandardCodes.push(standardObj.code);
-    });
-    unitStandards.forEach(function(unitstandardObj) {
-      let unitStandardTag = unitstandardObj.standards;
-      unitStandardTag.forEach(function(onestandardObj) {
-        Ember.set(onestandardObj, 'tagAlreadyexist', true);
-        Ember.set(onestandardObj, 'isRemovable', false);
-        aggregatedStandards.push(onestandardObj);
-        if (selectedStandardCodes.length !== 0) {
-          selectedStandardCodes.forEach(function(newstandardObj) {
-            if (newstandardObj === onestandardObj.code) {
-              Ember.set(onestandardObj, 'tagAlreadyexist', false);
-              Ember.set(onestandardObj, 'isRemovable', false);
-              aggregatedStandards.push(onestandardObj);
-            }
-          });
-        }
-      });
-    });
-    component.get('tempCollection.standards').forEach(function(suggeststanObj) {
-      component.get('tempCollection.standards').removeObject(suggeststanObj);
-      let newtaxonomyObj = Ember.Object.create({
-        id: suggeststanObj.get('id'),
-        title: suggeststanObj.get('title'),
-        parentTitle: suggeststanObj.get('parentTitle'),
-        description: suggeststanObj.get('description'),
-        code: suggeststanObj.get('code'),
-        frameworkCode: suggeststanObj.get('frameworkCode'),
-        taxonomyLevel: suggeststanObj.get('taxonomyLevel'),
-        isRemovable: true,
-        tagAlreadyexist: false
-      });
-      component.get('tempCollection.standards').addObject(newtaxonomyObj);
-    });
-    let result = aggregatedStandards.reduceRight(function(r, a) {
-      r.some(function(b) {
-        return a.code === b.code;
-      }) || r.push(a);
-      return r;
-    }, []);
-    this.set('tempCollection.aggregatedTag', result);
-  },
 
   init: function() {
     this._super(...arguments);
     this.set('tempCollection', this.get('collection').copy());
-    this.initializeVariables();
   }
 });
