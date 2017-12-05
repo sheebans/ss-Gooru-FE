@@ -402,7 +402,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
           });
           const standards = Ember.A(dataTags);
           standards.pushObjects(notInSubjectStandards.toArray());
-          component.set('tempCollection.standards', standards);
+          component.get('tempCollection.standards').pushObjects(standards);
           component
             .get('tempCollection.standards')
             .forEach(function(suggeststanObj) {

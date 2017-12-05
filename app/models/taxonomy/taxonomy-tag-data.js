@@ -139,7 +139,9 @@ TaxonomyTagData.reopenClass({
   filterBySubject: function(subject, tagDataList) {
     const id = subject.get('id');
     return tagDataList.filter(function(tagData) {
-      return tagData.get('id').indexOf(id) >= 0;
+      if (tagData.get('id') !== undefined) {
+        return tagData.get('id').indexOf(id) >= 0;
+      }
     });
   },
 
@@ -151,7 +153,9 @@ TaxonomyTagData.reopenClass({
   filterByNotInSubject: function(subject, tagDataList) {
     const id = subject.get('id');
     return tagDataList.filter(function(tagData) {
-      return tagData.get('id').indexOf(id) < 0;
+      if (tagData.get('id') !== undefined) {
+        return tagData.get('id').indexOf(id) >= 0;
+      }
     });
   }
 });
