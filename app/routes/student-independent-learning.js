@@ -54,12 +54,16 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Methods
 
-  model: function() {
+  beforeModel: function() {
     let route = this;
     let currentPage = getCurrentPage();
     if (currentPage !== 'bookmarks' && currentPage !== 'studying') {
       route.transitionTo('student-independent-learning.learning-base');
     }
+  },
+
+  model: function() {
+    let route = this;
     const configuration = this.get('configurationService.configuration');
     const pagination = {
       offset: 0,
