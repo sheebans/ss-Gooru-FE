@@ -2,6 +2,7 @@ import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import { DEFAULT_BOOKMARK_PAGE_SIZE } from 'gooru-web/config/config';
+import { getCurrentPage } from 'gooru-web/utils/utils';
 
 /**
  * Student independent learning route
@@ -52,6 +53,14 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
+
+  beforeModel: function() {
+    let route = this;
+    let currentPage = getCurrentPage();
+    if (currentPage !== 'bookmarks' && currentPage !== 'studying') {
+      route.transitionTo('student-independent-learning.learning-base');
+    }
+  },
 
   model: function() {
     let route = this;
@@ -104,32 +113,30 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     const bookmarksPromise = route
       .get('bookmarkService')
       .fetchBookmarks(pagination, true);
-    return Ember.RSVP
-      .hash({
-        firstCourse: firstCoursePromise,
-        secondCourse: secondCoursePromise,
-        thirdCourse: thirdCoursePromise,
-        fourthCourse: fourthCoursePromise,
-        bookmarks: bookmarksPromise
-      })
-      .then(function(hash) {
-        const firstFeaturedCourse = hash.firstCourse;
-        const secondFeaturedCourse = hash.secondCourse;
-        const thirdFeaturedCourse = hash.thirdCourse;
-        const fourthFeaturedCourse = hash.fourthCourse;
-        const bookmarks = hash.bookmarks;
+    return Ember.RSVP.hash({
+      firstCourse: firstCoursePromise,
+      secondCourse: secondCoursePromise,
+      thirdCourse: thirdCoursePromise,
+      fourthCourse: fourthCoursePromise,
+      bookmarks: bookmarksPromise
+    }).then(function(hash) {
+      const firstFeaturedCourse = hash.firstCourse;
+      const secondFeaturedCourse = hash.secondCourse;
+      const thirdFeaturedCourse = hash.thirdCourse;
+      const fourthFeaturedCourse = hash.fourthCourse;
+      const bookmarks = hash.bookmarks;
 
-        featuredCourses.push(firstFeaturedCourse);
-        featuredCourses.push(secondFeaturedCourse);
-        featuredCourses.push(thirdFeaturedCourse);
-        featuredCourses.push(fourthFeaturedCourse);
+      featuredCourses.push(firstFeaturedCourse);
+      featuredCourses.push(secondFeaturedCourse);
+      featuredCourses.push(thirdFeaturedCourse);
+      featuredCourses.push(fourthFeaturedCourse);
 
-        return {
-          activeClasses,
-          featuredCourses,
-          bookmarks
-        };
-      });
+      return {
+        activeClasses,
+        featuredCourses,
+        bookmarks
+      };
+    });
   },
 
   setupController: function(controller, model) {

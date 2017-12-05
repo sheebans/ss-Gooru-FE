@@ -913,6 +913,15 @@ export function validateSquareBracket(text) {
 }
 
 /**
+ * Get current page URL string after last /
+ * @return {String}
+ */
+export function getCurrentPage() {
+  let currentHref = window.location.href;
+  return currentHref.substring(currentHref.lastIndexOf('/') + 1);
+}
+
+/**
  * Method to get Resource and Question count
  */
 export function getContentCount(data) {

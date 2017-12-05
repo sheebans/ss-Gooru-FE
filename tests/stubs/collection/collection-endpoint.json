@@ -71,7 +71,7 @@
   {
     "description": "Gets first collection id data",
     "request": {
-      "url": "^/api/nucleus/v1/collections/first-assessment-id$",
+      "url": "^/api/nucleus/v1/collections/(.+)$",
       "method": "GET",
       "headers": {
         "Authorization": "Token (.+)"
