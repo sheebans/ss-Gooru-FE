@@ -920,3 +920,22 @@ export function getCurrentPage() {
   let currentHref = window.location.href;
   return currentHref.substring(currentHref.lastIndexOf('/') + 1);
 }
+
+/**
+ * Method to get Resource and Question count
+ */
+export function getContentCount(data) {
+  let resourceCount = 0;
+  let questionCount = 0;
+  if (Ember.isArray(data)) {
+    data.map(contentItem => {
+      contentItem.content_format === 'resource'
+        ? resourceCount++
+        : questionCount++;
+    });
+  }
+  return {
+    resourceCount: resourceCount,
+    questionCount: questionCount
+  };
+}

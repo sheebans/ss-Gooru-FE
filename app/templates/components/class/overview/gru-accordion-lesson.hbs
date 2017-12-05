@@ -36,15 +36,9 @@
         </button>
       {{/unless}}
       </div>
-      {{#if model.assessmentCount}}
-      <div class="performance-container pull-right">
-        {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=model.performance.hasStarted isTeacher=isTeacher assessmentCount=model.assessmentCount}}
-      </div>
-      {{else}}
       <div class="performance-container pull-right">
         {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
       </div>
-      {{/if}}
     </div>
   {{/unless}}
 </div>
@@ -220,7 +214,11 @@
                             {{#if (eq item.format "assessment-external")}}
                                 <span class="not-started-external">--</span>
                             {{else}}
-                                <span class="not-started">{{t 'common.not_started'}}</span>
+                            {{#if item.isAssessment}}
+                            <span class="not-started-external">--</span>
+                            {{else}}
+                          <span class="not-started">{{t 'common.not_started'}}</span>
+                            {{/if}}
                             {{/if}}
                           {{/if}}
                         {{/if}}
@@ -230,7 +228,11 @@
                             {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
                           </span>
                         {{else}}
+                           {{#if item.isAssessment}}
+                            <span class="not-started-external">--</span>
+                            {{else}}
                           <span class="not-started">{{t 'common.not_started'}}</span>
+                            {{/if}}
                         {{/if}}
                       {{/if}}
                     </div>
