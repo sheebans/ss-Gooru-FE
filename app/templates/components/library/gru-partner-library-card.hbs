@@ -1,12 +1,13 @@
 <div class="panel panel-default">
   <div class="panel-heading">
+
     <div class="title-section">
-      {{#link-to 'partner-library.content.courses' content.shortName class="title" alt="{{content.name}}"}} {{truncate text=content.name maxLength=40}} {{/link-to}}
+      <a href="{{redirectUrl}}" class="title" alt="{{content.name}}">{{truncate text=content.name maxLength=40}}</a>
     </div>
   </div>
   <div class="panel-body">
     <div class="image">
-      {{#link-to 'partner-library.content.courses' content.shortName class="title" alt="{{content.name}}"}}<img class="img-responsive" src="{{content.image}}">{{/link-to}}
+      <a href="{{redirectUrl}}" class="title" alt="{{content.name}}"><img class="img-responsive" src="{{content.image}}"></a>
     </div>
     <div class="description">
       {{#if content.description}}
