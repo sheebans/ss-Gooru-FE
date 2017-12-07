@@ -457,10 +457,13 @@ export default Ember.Component.extend({
     this._super(...arguments);
     this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
     var width = Ember.$('#clscroll-table').width();
-    var height = Ember.$(window).height();
+    var height = Ember.$(window).height() - 63;
+    if (height > 300) {
+      height = height - 170;
+    }
     Ember.$('#clscroll-content').attr('style', `width:${width + 15}px;`);
-    Ember.$('#clscroll-content').attr('style', `max-height:${height - 63}px;`);
-    Ember.$('#clscroll-row-headers').attr('style', `height:${height - 65}px;`);
+    Ember.$('#clscroll-content').attr('style', `max-height:${height}px;`);
+    Ember.$('#clscroll-row-headers').attr('style', `height:${height - 2}px;`);
   },
   actions: {
     onScrolledToBottom() {
