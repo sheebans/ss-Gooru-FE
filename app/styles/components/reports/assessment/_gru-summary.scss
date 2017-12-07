@@ -70,8 +70,8 @@
     }
 
     .profile-image {
-      width: 76px;
-      height: 64px;
+      width: 98px;
+      height: 68px;
       padding: 0;
       margin-top: 18px;
       -webkit-flex: 0 1 auto;
@@ -83,11 +83,11 @@
       text-align: center;
       color: $white;
       @media (min-width: $screen-xs) {
-        width: 76px;
-        height: 64px;
+        width: 98px;
+        height: 68px;
       }
       @media (min-width: $screen-lg-min) {
-        height: 64px;
+        height: 68px;
       }
 
       .img-responsive {
@@ -292,12 +292,12 @@
 
     .bubbles::-webkit-scrollbar {
       height: 6px;
-      width: 3px;
+      width: 4px;
     }
 
     .bubbles::-webkit-scrollbar-thumb {
       border-radius: 3px;
-      background-color: $gray-harder;
+      background-color: $gray;
     }
   }
 }

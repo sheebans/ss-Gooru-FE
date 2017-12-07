@@ -7,11 +7,27 @@ export default Ember.Controller.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Dependencies
+  /**
+   * @requires service:api-sdk/class
+   */
+
   classService: Ember.inject.service('api-sdk/class'),
+  /**
+   * @requires service:api-sdk/application
+   */
 
   applicationController: Ember.inject.controller('application'),
 
+  /**
+   * @requires service:api-sdk/performance
+   */
+
   performanceService: Ember.inject.service('api-sdk/performance'),
+
+  /**
+   * @requires service:api-sdk/course
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
 
   /**
    * @property {Service} Session service
@@ -24,16 +40,26 @@ export default Ember.Controller.extend(ModalMixin, {
    * Clear validation messages
    */
   archivedClassObject: Ember.computed('archivedClasses.@each', function() {
-    const component = this;
-    let archivedClasses = component.get('archivedClasses')
-      ? component.get('archivedClasses')
-      : component.get('archivedClass');
-    let archivedClassIds = archivedClasses.mapBy('id');
-    this.get('performanceService')
-      .findClassPerformanceSummaryByClassIds(archivedClassIds)
+    let route = this;
+    let archivedClasses = this.get('archivedClass')
+      ? this.get('archivedClass')
+      : this.get('archivedClasses');
+    let classIds = archivedClasses.mapBy('id');
+    route
+      .get('performanceService')
+      .findClassPerformanceSummaryByClassIds(classIds)
       .then(function(classPerformanceSummaryItems) {
         archivedClasses.forEach(function(archiveClass) {
           let classId = archiveClass.get('id');
+          let courseId = archiveClass.get('courseId');
+          if (courseId) {
+            route
+              .get('courseService')
+              .fetchByIdWithOutProfile(courseId)
+              .then(course => {
+                archiveClass.set('course', course);
+              });
+          }
           archiveClass.set(
             'performanceSummary',
             classPerformanceSummaryItems.findBy('classId', classId)
@@ -90,11 +116,14 @@ export default Ember.Controller.extend(ModalMixin, {
   // -------------------------------------------------------------------------
   // Events
   init: function() {
-    const component = this;
-    component._super(...arguments);
+    const controller = this;
+    controller._super(...arguments);
 
-    component.get('archivedClassObject');
-
+    Ember.run.schedule('afterRender', this, function() {
+      if (controller.get('showArchivedClasses')) {
+        controller.get('archivedClassObject');
+      }
+    });
     let localStorage = this.get('applicationController').getLocalStorage();
     const userId = this.get('session.userId');
     const localStorageItem = `${userId}_dontShowWelcomeModal`;
