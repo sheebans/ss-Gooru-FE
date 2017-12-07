@@ -3,2119 +3,2241 @@ import quizzesTranslations from './quizzes/translations';
 export default Object.assign(quizzesTranslations, {
   en: 'English',
   sp: 'Spanish',
-  ar: 'Arabic',
-  errors: {
-    tooShort: '{{description}} قصير جدا (الحد الأدنى هو {{min}} حرفا)',
-    date: 'يجب أن يكون {{description}} تاريخا صالحا',
-    notANumber: 'يجب أن يكون {{description}} رقما',
-    blank: 'لا يمكن ترك حقل {{description}} فارغا',
-    before: 'يجب أن يكون {{description}} قبل {{before}}',
-    equalTo: '{{description}} يجب أن يساوي {{is}}',
-    description: 'هذا الحقل',
-    exclusion: '{{description}} محجوز',
-    tooLong: '{{description}} طويل جدا (الحد الأقصى هو {{max}} من الأحرف)',
-    empty: 'لا يمكن أن يكون {{description}} فارغا',
-    inclusion: '{{description}} غير مدرج في القائمة',
-    otherThan: 'يجب أن يكون {{description}} غير {{value}}',
-    lessThan: 'يجب أن يكون {{description}} أقل من {{lt}}',
-    after: '{{description}} يجب أن يكون بعد {{after}}',
-    lessThanOrEqualTo: 'يجب أن يكون {{description}} أقل من أو يساوي {{lte}}',
-    email: 'يجب أن يكون {{description}} عنوان بريد إلكتروني صالحا',
-    greaterThan: 'يجب أن يكون {{description}} أكبر من {{gt}}',
-    greaterThanOrEqualTo:
-      'يجب أن يكون {{description}} أكبر من أو يساوي {{gte}}',
-    accepted: '{{description}} يجب قبوله',
-    confirmation: '{{description}} لا يطابق {{on}}',
-    collection: 'يجب أن يكون {{description}} عبارة عن مجموعة',
-    notAnInteger: 'يجب أن يكون {{description}} عددا صحيحا',
-    positive: '{{description}} يجب أن يكون إيجابيا',
-    odd: '{{description}} يجب أن يكون غريبا',
-    url: 'يجب أن يكون {{description}} عنوان ورل صالحا',
-    wrongDateFormat: 'يجب أن يكون {{description}} بتنسيق {{format}}',
-    even: '{{description}} يجب أن يكون كذلك',
-    phone: 'يجب أن يكون {{description}} رقم هاتف صالحا',
-    wrongLength: '{{description}} هو طول الخطأ (يجب أن يكون {{is}} حرفا)',
-    invalid: '{{description}} غير صالح',
-    singular: '{{description}} لا يمكن أن يكون مجموعة',
-    present: 'يجب أن يكون {{description}} فارغا'
-  },
-  common: {
-    'choose-lang': 'اختر اللغة',
-    'assessment-pl': {
-      zero: 'تقييم',
-      other: 'تقييم',
-      one: 'تقدير'
-    },
-    categoryOptions: {
-      'professional-dev': 'التطوير المهني',
-      'higher-ed': 'تعليم عالى',
-      k12: 'K-12'
-    },
-    'collection-pl': {
-      zero: 'مجموعات',
-      other: 'مجموعات',
-      one: 'مجموعة'
-    },
-    'delete-instructions': {
-      'links-inaccessible': 'جميع روابط الأسهم ستكون غير قابلة للوصول',
-      'content-inaccessible':
-        'جميع المحتويات سوف تكون غير قابلة للوصول إلى الفصول الدراسية المرتبطة به'
-    },
-    emotions: {
-      'emotion-3': 'مه...',
-      'emotion-2': 'أنا لا أفهم',
-      'emotion-5': 'أستطيع أن أشرح',
-      'emotion-4': 'أفهم',
-      'emotion-1': 'انا بحاجة الى مساعدة'
-    },
-    errors: {
-      'class-title-presence': 'يرجى إعطاء اسم صفك.',
-      'add-question-description': 'الرجاء إدخال السؤال.',
-      'lesson-not-created':
-        'وجه الفتاة! تعذر إنشاء الدرس في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.',
-      'resource-same-host-url': 'لا يمكن أن تكون الموارد عناوين ورل ل غورو.',
-      'add-username': 'الرجاء إدخال اسم مستخدم.',
-      'collection-not-created':
-        'وجه الفتاة! تعذر إنشاء المجموعة في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.',
-      'resource-missing-type': 'الرجاء تحديد نوع المورد.',
-      'sign-up-name-only-letters': 'الرجاء إدخال أحرف فقط.',
-      'lesson-title-required': 'الرجاء إدخال عنوان الدرس.',
-      'user-email-presence': 'يرجى إدخال البريد الإلكتروني الصحيح.',
-      'class-not-created':
-        'وجه الفتاة! تعذر إنشاء الفصول الدراسية الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'lesson-not-copied':
-        'وجه الفتاة! تعذر نسخ الدرس في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.',
-      'join-class-code': 'الرجاء إدخال رمز الفصل الدراسي.',
-      'correct-answer-presence': 'يرجى الإشارة إلى الإجابة الصحيحة.',
-      'assessment-not-copied':
-        'وجه الفتاة! تعذر نسخ التقييم الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'password-length': 'يجب أن تكون كلمة المرور بين 5 و 14 حرفا.',
-      'add-question-answer-text': 'الرجاء إدخال نص اختيار الإجابة.',
-      'resource-missing-url': 'أدخل رابط صحيح من فضلك.',
-      'unit-not-created':
-        'وجه الفتاة! تعذر إنشاء الوحدة الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'collection-not-added-to':
-        'وجه الفتاة! يتعذر إضافة المجموعة إلى الدرس في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.',
-      'resource-not-created':
-        'وجه الفتاة! تعذر إنشاء مورد في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.',
-      'file-upload-missing':
-        'الرجاء تحديد ملف مع أي من الإضافات التالية: {{extensions}}',
-      'sign-in-google-account-exists':
-        'الرجاء استخدام تسجيل الدخول من غوغل. لا يمكننا إعادة تعيين كلمة المرور.',
-      'forgot-password-gmail':
-        'الرجاء استخدام تسجيل الدخول من غوغل. لا يمكننا إعادة تعيين كلمة المرور.',
-      'add-course-title': 'الرجاء إدخال عنوان الدورة التدريبية.',
-      'course-not-updated':
-        'وجه الفتاة! تعذر تحديث الدورة التدريبية الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'password-special-characters': 'الرجاء عدم استخدام أحرف خاصة.',
-      'answer-has-no-image': 'الرجاء تحميل صورة إجابة.',
-      'sign-up-name-length': 'يجب أن يحتوي اسم العائلة على حرفين على الأقل.',
-      'sign-up-valid-email': 'رجاء قم بإدخال بريد الكتروني صحيح.',
-      'course-not-created':
-        'وجه الفتاة! تعذر إنشاء الدورة التدريبية الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'special-characters': 'لا يمكنك استخدام أحرف أو مسافات خاصة.',
-      'assessment-not-updated':
-        'وجه الفتاة! تعذر تحديث التقييم الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'resource-description-length': 'لا يمكن أن يتجاوز الوصف 500 حرف.',
-      'password-not-match': 'كلمات المرور غير متطابقة.',
-      'password-required': 'الرجاء إدخال كلمة مرور.',
-      'resource-missing-title': 'الرجاء إدخال عنوان المورد.',
-      'resource-not-updated':
-        'وجه الفتاة! تعذر تحديث المورد في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.',
-      'can-not-join-class':
-        'وجه الفتاة! تعذر الانضمام إلى الفصول الدراسية. الرجاء إعادة المحاولة بعد قليل.',
-      'highlight-text-wrong-format': 'تنسيق السؤال غير صحيح.',
-      'resource-title-length': 'لا يمكن أن يزيد طول العنوان عن 50 حرفا.',
-      'add-question-title': 'الرجاء إدخال عنوان السؤال.',
-      'question-not-added-to':
-        'وجه الفتاة! تعذر إضافة سؤال إلى {{collectionType}} الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'reset-password-error':
-        'أه أوه! يوجد شئ غير صحيح. يتعذر إعادة تعيين كلمة المرور. الرجاء إعادة المحاولة بعد قليل.',
-      'highlight-text-not-selected': 'يرجى الإشارة إلى الإجابة الصحيحة.',
-      'assessment-not-created':
-        'وجه الفتاة! تعذر إنشاء التقييم الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'file-max-size': 'يتم دعم ملفات بحجم أصغر من 5 ميغابايت فقط',
-      'hotspot-text-max-choices': 'لقد وصلت إلى الحد الأقصى من خيارات الإجابة.',
-      'profile-not-updated':
-        'وجه الفتاة! تعذر تحديث الملف الشخصي الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'collection-not-updated':
-        'وجه الفتاة! تعذر تحديث المجموعة الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'question-not-copied':
-        'وجه الفتاة! تعذر نسخ السؤال في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.',
-      'resource-not-added-to-collection':
-        'وجه الفتاة! يتعذر إضافة مورد إلى المجموعة الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'sign-up-error':
-        'وجه الفتاة! تعذر الاشتراك الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'sign-up-last-name': 'الرجاء إدخال اسم العائلة.',
-      'lesson-not-loaded':
-        'وجه الفتاة! تعذر تحميل الدرس في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.',
-      'resource-not-copied':
-        'وجه الفتاة! تعذر نسخ المورد في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.',
-      'unit-not-copied':
-        'وجه الفتاة! تعذر نسخ الوحدة الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'collection-not-copied':
-        'وجه الفتاة! تعذر نسخ المجموعة الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'password-confirm': 'يرجى التأكد من صحة كلمة المرور الخاصة بك.',
-      'course-not-copied':
-        'وجه الفتاة! تعذر نسخ الدورة التدريبية الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'assessment-not-added-to':
-        'وجه الفتاة! تعذر إضافة تقييم للدرس في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.',
-      'assessment-title-presence': 'الرجاء إدخال عنوان التقييم.',
-      'collection-title-presence': 'الرجاء إدخال عنوان المجموعة.',
-      'select-correct-answer': 'الرجاء تحديد الإجابة الصحيحة.',
-      'search-collections-length': 'الرجاء إدخال 3 أحرف على الأقل.',
-      'unit-title-required': 'الرجاء إدخال عنوان الوحدة.',
-      'question-not-created':
-        'وجه الفتاة! تعذر إنشاء سؤال في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.',
-      'reset-google-account-exists':
-        'تم إنشاء تسجيل الدخول إلى البريد الإلكتروني باستخدام حساب غوغل ولا يمكننا إعادة تعيين كلمة مرور غوغل. إذا نسيت كلمة مرور غوغل، فستحتاج إلى إعادة تعيينها من خلال تطبيقات غوغل.',
-      'resource-invalid-url': 'URL غير صالح.',
-      'username-length': 'يجب أن يكون اسم المستخدم بين 4 و 16 حرفا.',
-      'question-not-updated':
-        'وجه الفتاة! تعذر تحديث السؤال في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.',
-      'sign-up-first-name': 'يرجى ادخال الاسم الاول.',
-      'rubric-title-presence': 'الرجاء إدخال عنوان العنوان.',
-      'sign-in-credentials-not-valid':
-        'أه أوه! يوجد شئ غير صحيح. يرجى التحقق مرة أخرى من اسم المستخدم وكلمة المرور وإعادة المحاولة.',
-      'unit-not-loaded':
-        'وجه الفتاة! تعذر تحميل الوحدة الآن. الرجاء إعادة المحاولة بعد قليل.',
-      'class-min-score': 'يجب أن يكون الحد الأدنى للصف رقم بين 1 و 100'
-    },
-    lessonObj: {
-      zero: 'الدروس',
-      other: 'الدروس',
-      one: 'درس'
-    },
-    numberStudents: {
-      zero: '{{count}} الطلاب',
-      other: '{{count}} الطلاب',
-      one: '{{count}} طالب'
-    },
-    'question-pl': {
-      zero: 'الأسئلة',
-      other: 'الأسئلة',
-      one: 'سؤال'
-    },
-    'question-type': {
-      HT_TO: 'سحب وإسقاط النظام',
-      MA: 'إجابة متعددة',
-      HS_IMG: 'متعددة حدد - صورة',
-      MC: 'متعدد الخيارات',
-      OE: 'استجابة مجانية',
-      HS_TXT: 'متعددة حدد - نص',
-      HT_HL: 'تمييز النص',
-      'T/F': 'صحيحة أو خاطئة',
-      T_F: 'صحيحة أو خاطئة',
-      SA: 'إجابة واحدة',
-      FIB: 'املاء الفراغ',
-      HT_RO: 'سحب وإسقاط النظام'
-    },
-    'resource-format': {
-      image: 'صورة',
-      question: 'سؤال',
-      interactive: 'متفاعل',
-      text: 'نص',
-      video: 'فيديو',
-      webpage: 'صفحة ويب',
-      audio: 'سمعي'
-    },
-    'resource-pl': {
-      zero: 'موارد',
-      other: 'موارد',
-      one: 'مورد'
-    },
-    unitObj: {
-      zero: 'وحدات',
-      other: 'وحدات',
-      one: 'وحدة'
-    },
-    warnings: {
-      'on-air-connection-lost':
-        'فقدت لوحة تحكم غو ليف اتصال، وتتم إعادة المحاولة تلقائيا. انها مغرية، ولكن من فضلك لا تحديث الشاشة!',
-      'character-limit': 'لقد وصلت إلى عدد الأحرف المسموح به.'
-    },
-    cancel: 'إلغاء',
-    'add-units': 'إضافة وحدات',
-    'depth-of-knowledge': 'عمق المعرفة',
-    upload: 'تحميل',
-    about: 'حول',
-    'search-error-message': 'يجب أن تتكون عبارات البحث من 3 أحرف على الأقل.',
-    'update-thumbnail': 'تحديث الصورة المصغرة',
-    explanation: 'تفسير',
-    'learning-target': 'مايكرو القياسية',
-    'new-collection': 'مجموعة جديدة',
-    score: 'أحرز هدفاً',
-    'add-to': 'اضف إليه',
-    approved: 'وافق',
-    password: 'كلمه السر',
-    'launch-on-air': 'الذهاب لايف',
-    'new-assessment': 'تقييم جديد',
-    'show-more-results': 'إظهار المزيد من النتائج',
-    state: 'الدولة أو الإقليم',
-    'add-type-question': 'ما نوع السؤال الذي تريد إضافته؟',
-    'bookmarked-content-success':
-      'ستتم إضافة علامة التبويب {{contentType}} هذه المرجعية إلى صفحة التعلم المستقلة.',
-    rubrics: 'عناوين',
-    'add-new-lesson': 'إنشاء درس جديد',
-    'add-standards-to-collection': 'إضافة معايير إلى مجموعة',
-    audience: 'جمهور',
-    edit: 'تصحيح',
-    profile: 'الملف الشخصي',
-    'from-my-resources': 'من مواردي',
-    'remix-lesson-success': 'لقد أزلت الدرس {{lessonTitle}}.',
-    completed: 'منجز',
-    'add-to-daily-class': 'إضافة إلى الأنشطة اليومية الطبقة',
-    community: 'تواصل اجتماعي',
-    'first-name': 'الاسم الاول',
-    remaining: '{{number}} اليسار',
-    'enter-url': 'إدخال عنوان الموقع',
-    standards: 'المعايير',
-    'answer-correct': 'انت على حق!',
-    'from-my-collections': 'من \'مجموعاتي\'',
-    sortAverage: 'الترتيب حسب المتوسط',
-    'resource-url': 'عنوان ورل للموارد',
-    'remix-collection-success':
-      'لقد قمت بإعادة تعيين مجموعة {{collectionTitle}}. هل تريد تعديل هذه المجموعة؟',
-    'remix-question': 'ريميكس السؤال',
-    domain: 'نطاق',
-    'answer-key-was-hidden': 'ملاحظة: قام معلمك بإخفاء مفتاح الإجابة.',
-    collectionInitial: 'C',
-    'no-independent-results':
-      'عند بدء استكشاف علامة مرجعية {{contentType}}، ستظهر هنا.',
-    'launch-anonymous': 'إطلاق مجهول',
-    'click-unBookmark': 'انقر لإلغاء وضع علامة',
-    role: 'وظيفة',
-    'search-competency': 'البحث الكفاءة',
-    'submit-all': 'تقديم جميع',
-    'show-correct-answer': 'إظهار الإجابة الصحيحة',
-    'add-collection-item': 'إنشاء الموارد أو سؤال',
-    'request-to': 'طلب مراجعته للحصول على شارة',
-    mastery: 'تمكن',
-    'new-question': 'سؤال جديد',
-    'create-rubric': 'إنشاء روبريك جديد',
-    'live-assessments': 'التقييمات الحية',
-    search: 'بحث',
-    'lesson-title': 'عنوان الدرس',
-    builder: 'محرر',
-    'collection-title': 'عنوان المجموعة',
-    'confirm-copy': 'تأكيد ونسخ',
-    'visibility-tooltip': 'غير مرئي للآخرين',
-    close: 'قريب',
-    'last-name': 'الكنية',
-    'remix-assessment-success':
-      'لقد أعدت إجراء تقييم {{assessmentTitle}}. هل تريد تعديل هذا التقييم؟',
-    completion: 'إكمال',
-    'remix-question-lead': 'أنت على وشك إعادة تعيين سؤال.',
-    'add-from-url': 'إضافة من ورل',
-    reaction: 'رد فعل',
-    'assessment-external': 'التقييم الخارجي',
-    'select-a-framework':
-      'يرجى أولا تحديد إطار المعايير في قسم معلومات الدورة التدريبية أعلاه.',
-    'no-collections-to-display': 'لا <span>مجموعات</span> لعرضها.',
-    'no-questions-to-display': 'لا توجد <span>أسئلة</span> لعرضها.',
-    biography: 'سيرة شخصية',
-    'not-provided': 'غير مزود',
-    'in-progress': 'في تَقَدم',
-    confirm: 'تؤكد',
-    'published-tooltip': 'محتوى مقترح',
-    'back-to-data': 'الرجوع إلى البيانات',
-    answer: 'اجابتك',
-    'disappear-after-login': 'سيختفي هذا بعد تسجيل الدخول {{loginNumber}}',
-    'download-print': 'تنزيل / طباعة',
-    'choose-file': 'اختيار ملف',
-    'select-resource-type': 'حدد نوع المورد',
-    information: 'معلومات',
-    'show-results': 'أظهر النتائج',
-    'a-resource': 'مورد',
-    'no-more-attempts': 'لا مزيد من المحاولات',
-    'send-request': 'ارسل طلب',
-    standard: 'اساسي',
-    country: 'بلد',
-    correct: 'صيح',
-    added: 'وأضاف',
-    'add-course': 'إنشاء دورة جديدة',
-    'remix-lesson-lead': 'أنت على وشك إعادة تعيين درس.',
-    'add-new-unit': 'إنشاء وحدة جديدة',
-    questions: 'الأسئلة',
-    'no-assessments-to-display': 'لا توجد <span>تقييمات</span> للعرض.',
-    'advanced-editing': 'تعديل متقدم',
-    bookmarks: 'إرسال',
-    'remix-assessment-lead': 'أنت على وشك إعادة تقييم التقييم.',
-    'save-finish': 'حفظ والانتهاء',
-    assessment: 'تقدير',
-    'edit-assessment': 'تعديل التقييم',
-    'not-following': 'أنت لا تتابع أي شخص.',
-    'select-question-type': 'حدد نوع السؤال',
-    school: 'مدرسة',
-    'back-to-course-map': 'العودة إلى خريطة الدورة التدريبية',
-    'edit-collection': 'تحرير المجموعة',
-    finish: 'إنهاء',
-    'featured-courses': 'الدورات المتميزة',
-    'add-to-classroom': 'أضف إلى سلاسروم',
-    add: 'إضافة',
-    'content-manager': 'مدير محتوى',
-    courses: 'الدورات',
-    'search-placeholder': 'بحث',
-    unitInitial: 'U',
-    if_questions: 'إذا كان لديك أية أسئلة،',
-    'add-to-lesson-success':
-      'لقد أضفت {{collectionTitle}} إلى {{lessonTitle}}. هل تريد تعديل ذلك {{collectionType}}؟',
-    collection: 'مجموعة',
-    bookmark: 'المرجعية',
-    'last-updated': 'آخر تحديث',
-    'current-attempt': 'المحاولة الحالية',
-    unBookmark: 'Unbookmark',
-    district: 'منطقة',
-    'remix-assessment': 'ريميكس التقييم',
-    'report-in-progress': 'التقرير قيد التقدم',
-    unexpectedError: 'حدث خطأ غير متوقع وتم الإبلاغ عنه. نأسف للإزعاج!',
-    support: 'الدعم',
-    unfollow: 'الغاء المتابعة',
-    next: 'التالى',
-    'nothing-to-display': 'لا شيء لعرضه.',
-    preview: 'معاينة',
-    'correct-answer': 'اجابة صحيحة',
-    'latest-attempt': 'آخر محاولة',
-    'remix-collection': 'مجموعة ريميكس',
-    avatarFor: 'الصورة الرمزية ل',
-    submit: 'عرض',
-    sortAlphabetical: 'ترتيب هجائي',
-    pending: 'قيد الانتظار',
-    back: 'الى الخلف',
-    description: 'وصف',
-    choose: 'أختر',
-    'unit-title': 'عنوان الوحدة',
-    'untitled-lesson': 'درس بلا عنوان',
-    content: 'يحتوى',
-    remove: 'إزالة',
-    'course-map': 'خريطة الدورة التدريبية',
-    'no-results': 'لا توجد نتائج',
-    'back-to-assessment': 'العودة إلى التقييم',
-    'back-to-collection': 'العودة إلى المجموعة',
-    'remix-resource-success':
-      'لقد قمت بإعادة تعيين مورد {{resourceTitle}}. هل تريد تعديل هذا المورد؟',
-    'add-century-skills': 'إضافة مهارات القرن الحادي والعشرين',
-    'disappear-next-login': 'لن يظهر هذا في تسجيل الدخول التالي',
-    'request-report': 'طلب تقرير',
-    class: 'قاعة الدراسة',
-    'add-competency': 'إضافة الكفاءة',
-    'drag-drop-suggestions': 'أو سحب وإسقاط الاقتراحات ...',
-    'an-assessment': 'تقييم',
-    yes: 'نعم فعلا',
-    teach: 'علم',
-    'a-rubric': 'عنوان',
-    false: 'خاطئة',
-    libraries: 'المكتبات',
-    'valid-extensions': 'امتدادات الملفات الصالحة هي: {{extensions}}',
-    'remix-course': 'دورة ريميكس',
-    'no-content': 'لا يتوفر محتوى',
-    'remix-question-success':
-      'لقد أعدت إنشاء سؤال {{questionTitle}}. هل تريد تعديل هذا السؤال؟',
-    'not-specified': 'غير محدد',
-    home: 'الصفحة الرئيسية',
-    'add-standard': 'إضافة معيار',
-    'file-name': 'اسم الملف',
-    'add-rubric': 'إضافة جديد روبريك',
-    'edit-question': 'تعديل السؤال',
-    'created-by': 'صنع من قبل',
-    'remix-lesson': 'ريميكس الدرس',
-    assign: 'تعيين',
-    play: 'لعب',
-    'download-report': 'تنزيل التقرير',
-    select: 'تحديد',
-    'copy-to': 'نسخ الى',
-    'no-followers': 'ليس لديك متابعون حتى الآن.',
-    'from-my-questions': 'من أسئلتي',
-    'best-practices': 'أفضل الممارسات',
-    myPerformance: 'أدائي',
-    'no-resources-to-display': 'لا توجد <span>موارد</span> للعرض.',
-    'a-course': 'دورة',
-    rubric: 'عنوان',
-    'suggested-resources': 'الموارد المقترحة',
-    'from-my-assessments': 'من تقييماتي',
-    type: 'اكتب',
-    attempt: 'رقم المحاولة',
-    'profile-publishing': 'الرؤية الشخصية',
-    signUp: 'سجل',
-    'add-type-resource': 'ما هو نوع الموارد هذا؟',
-    number: 'لا.',
-    logout: 'الخروج',
-    'essential-questions': 'الأسئلة الأساسية',
-    'remix-resource': 'ريميكس الموارد',
-    'search-standards': 'معايير البحث',
-    'add-question-image': 'أضف صورة سؤال',
-    collections: 'مجموعات',
-    'no-results-message':
-      'تفقد تهجئتك. نحن جميعا نخطئ! <br/> اتسع نطاقا وأزل بعض الفلاتر. <br/> أو حاول البحث عن كلمة مماثلة بدلا من ذلك.',
-    'remixed-by': 'ريميكسد بواسطة',
-    'add-collaborator': 'إضافة متعاون',
-    'new-question-text': 'أدخل نص السؤال هنا',
-    'untitled-course': 'الدورة 1',
-    sentence: 'جملة او حكم على',
-    contentUnavailable: 'المحتوى غير متوفر',
-    'contributed-by': 'أسهم بواسطة',
-    'more-details': 'مزيد من التفاصيل',
-    timeSpent: 'قضاء الوقت',
-    hints: 'إشارة',
-    lesson: 'درس',
-    'not-added': 'غير مضافة',
-    loading: 'جار التحميل ...',
-    'take-me-there': 'خذني هناك',
-    'enrolled-students': 'الطلاب المسجلين',
-    'save-submit': 'حفظ وإرسال الكل',
-    exit: 'ىخرج',
-    'a-collection': 'مجموعة',
-    lessonInitial: 'L',
-    anonymous_mode: 'وضع مجهول',
-    following: 'التالية',
-    'read-first': '<b>قراءة هذا أولا!</b>',
-    'school-info': 'معلومات المدرسة',
-    'add-url': 'إضافة رابط',
-    'link-out-message':
-      '* إذا ظهر موردك فارغا في المعاينة أعلاه، فقد يحتاج إلى \'رابط\' إلى صفحة أخرى لعرض المحتوى.',
-    'remix-resource-lead': 'أنت على وشك إعادة تعيين مورد.',
-    word: 'كلمة',
-    remix: 'ريميكس',
-    other: 'آخر',
-    'rubric-title': 'عنوان روبريك',
-    study: 'دراسة',
-    'all-completed': 'جميع المكتملة',
-    competency: 'جدارات',
-    notStarted: 'لم يبدأ',
-    save: 'حفظ',
-    'remix-unit-success': 'لقد أعدت إنشاء وحدة {{unitTitle}}.',
-    'add-new-resource': 'إنشاء مورد جديد',
-    login: 'تسجيل الدخول',
-    'subject-and-framework': 'الموضوع والإطار',
-    'add-assessment': 'إنشاء تقييم جديد',
-    'add-question': 'إنشاء سؤال',
-    tools: 'أدوات',
-    'add-collection': 'إنشاء مجموعة جديدة',
-    averageScore: 'متوسط ​​درجة',
-    'untitled-unit': 'وحدة بلا عنوان',
-    'question-title': 'عنوان السؤال',
-    forgotPassword: 'هل نسيت كلمة المرور',
-    'add-domains-to-unit': 'إضافة نطاقات إلى الوحدة',
-    library: 'مكتبة',
-    course: 'دورة',
-    share: 'شارك',
-    categories: 'الاقسام',
-    copy: 'نسخ',
-    'add-to-collection-success':
-      'لقد أضفت {{كونتنتيتل}} إلى {{كولكتيونتيتل}}. هل تريد تعديل ذلك {{كولكتيونتيب}}؟',
-    explore: 'إستكشاف',
-    question: 'سؤال',
-    'course-title': 'عنوان الدورة',
-    'resource-title': 'عنوان المورد',
-    suggestion: 'اقتراح',
-    menu: 'قائمة طعام',
-    off: 'إيقاف',
-    'assign-to-course': 'تعيين لدورة',
-    'save-next': 'حفظ و التالي',
-    'search-400-error-message': 'الرجاء إدخال مصطلح البحث ساري المفعول',
-    'sort-most-recently': 'فرز حسب أحدث تحديث',
-    'upload-file': 'رفع ملف',
-    classScores: 'درجات الدرجات',
-    'edit-course': 'تحرير الدورة',
-    'add-standards': 'إضافة معايير',
-    'remix-warning':
-      'انتباه! هناك الكثير من المحتوى رهيبة في هذه الدورة، وجعل نسخة سوف يستغرق وقتا طويلا. تأكد من أنك تريد بدء العملية وفي غضون 15 دقيقة سوف تجد نسختك من هذه الدورة التدريبية في ملفك <b>الشخصي.</b>',
-    'no-rubrics-to-display': 'لا توجد <span>نماذج</span> لعرضها.',
-    'a-question': 'سؤال',
-    not_started: 'لم يبدأ',
-    'remix-unit-lead': 'أنت على وشك إعادة تعيين وحدة.',
-    download: 'تحميل',
-    'publish-to': 'اجعل هذا الأمر مرئيا للآخرين في مكتبة ملفي الشخصي',
-    'assessment-disabled': 'لا يمكنك محاولة هذا التقييم',
-    'student-id': 'معرف الطالب (غير معروض على الملف الشخصي)',
-    'start-tour': 'خذ جولة',
-    create: 'خلق',
-    from: 'من عند',
-    please_contact: 'الرجاء التواصل',
-    'questions-OE': 'أسئلة الاستجابة المجانية',
-    'overall-performance': 'الأداء العام',
-    'published-by': 'نشرت من قبل',
-    settings: 'إعدادات',
-    'add-lessons': 'إضافة دروس',
-    resource: 'مورد',
-    swap: 'إعادة ترتيب',
-    'assign-to-class': 'تعيين إلى سلاسروم',
-    domains: 'المجالات',
-    'remix-collection-lead': 'أنت على وشك إعادة تجميع مجموعة.',
-    myContent: 'المحتوى الخاص بي',
-    'edit-resource': 'تحرير الموارد',
-    'bookmarked-success':
-      'ستتم إضافة كل المحتوى الذي تم وضع إشارة مرجعية إليه إلى صفحة التعلم المستقلة.',
-    license: 'رخصة',
-    'study-now': 'ادرس الان',
-    unit: 'وحدة',
-    followers: 'متابعون',
-    'performance-dashboard': 'لوحة تحكم الأداء',
-    instructor: 'مدرب',
-    true: 'صحيح',
-    'no-archived': 'ليس لديك أي فصول دراسية مؤرشفة.',
-    publisher: 'الناشر',
-    'post-message': 'مشاركة الرسالة',
-    'remix-course-success':
-      'لقد أعدت دورة تدريبية {{courseTitle}}. هل تريد تعديل هذه الدورة التدريبية؟',
-    announcements: 'الإعلانات',
-    'big-ideas': 'أفكار كبيرة',
-    no: 'لا',
-    'hide-results': 'إخفاء النتائج',
-    student: 'طالب علم',
-    'upload-thumbnail': 'تحميل صورة مصغرة',
-    link: 'حلقة الوصل',
-    'remix-course-lead': 'أنت على وشك إعادة دورة تدريبية.',
-    'about-you': 'حولك',
-    delete: 'حذف',
-    'add-content-prompt': 'لم تنشئ <span>{{type}}</span> بعد. استمر، كن جريئا.',
-    email_support: 'support@gooru.org',
-    teacher: 'مدرس',
-    of: 'من',
-    'not-applicable': 'N / A',
-    beta: 'بيتا',
-    on: 'على',
-    assessments: 'تقييم',
-    move: 'نقل',
-    assessmentInitial: 'ا',
-    'assessment-title': 'عنوان التقييم',
-    'link-out': 'ربط خارج',
-    verified: 'التحقق',
-    resources: 'موارد',
-    'toggle-dropdown': 'تبديل القائمة المنسدلة',
-    competencies: 'الكفاءات',
-    follow: 'إتبع',
-    'use-case': 'حالة الاستخدام',
-    'learning-target-mobile': 'مايكرو القياسية في معيار',
-    'remix-unit': 'وحدة ريميكس',
-    'learning-objectives': 'أهداف التعلم',
-    performance: 'عرض الأداء',
-    'century-skills': 'مهارات القرن الحادي والعشرين',
-    'edit-narration': 'تحرير السرد',
-    narration: 'رواية',
-    'answer-incorrect': 'أنت غير صحيح ...',
-    'no-courses-to-display': 'لا توجد <span>دورات</span> لعرضها.',
-    suggestions: 'اقتراحات',
-    category: 'الفئة',
-    'add-new-question': 'إنشاء سؤال جديد',
-    'new-resource': 'مورد جديد'
-  },
-  index: {
-    browseContent: {
-      footer: {
-        description_1: 'هل لديك حساب بالفعل؟',
-        description_2: 'هنا.',
-        login: 'تسجيل الدخول'
+  ar: 'Arabic',  
+   "errors":{  
+      "description":"الحقل",
+      "inclusion":"{{description}} غير مدرج في القائمة",
+      "exclusion":"{{description}} محجوز",
+      "invalid":"{{description}} غير صالح",
+      "confirmation":"{{description}} doesn\\\u0027t match {{on}}",
+      "accepted":"يجب قبول {{description}} ",
+      "empty":"{{description}} can\\\u0027t be empty",
+      "blank":"{{description}} can\\\u0027t be blank",
+      "present":"يجب أن يكون {{description}} فارغا",
+      "collection":"يجب أن يكون {{description}} عبارة عن مجموعة",
+      "singular":"{{description}} can\\\u0027t be a collection",
+      "tooLong":"{{description}} طويل جدا (الحد الأقصى هو {{max}} حرفا",
+      "tooShort":"{{description}} قصير جدا (الحد الأدنى هو {{min}} حرف",
+      "before":"يجب أن يكون {{description}} قبل {{before}}",
+      "after":"يجب أن يكون {{description}} بعد {{after}}",
+      "wrongDateFormat":"يجب أن يكون {{description}} بصيغة {{format}}",
+      "wrongLength":"{{description}} هو الطول الخاطئ (يجب أن يكون {{is}} حرفاً)",
+      "notANumber":"يجب أن يكون {{description}} رقما",
+      "notAnInteger":"يجب أن يكون {{description}} عددا صحيحا",
+      "greaterThan":"يجب أن يكون {{description}} أكبر من {{gt}}",
+      "greaterThanOrEqualTo":"يجب أن يكون {{description}} أكبر من أو يساوي {{gte}}",
+      "equalTo":"{{description}} يجب أن يساوي {{is}}",
+      "lessThan":"يجب أن يكون {{description}} أقل من {{lt}}",
+      "lessThanOrEqualTo":"يجب أن يكون {{description}} أقل من أو يساوي {{lte}}",
+      "otherThan":"يجب أن يختلف {{description}} عن {{value}}",
+      "odd":"يجب أن يكون {{description}} فردياً",
+      "even":"يجب أن يكون {{description}}  زوجياً",
+      "positive":"يجب أن يكون {{description}}  موجباً",
+      "date":"يجب أن يكون {{description}} تاريخا صحيحاً",
+      "email":"يجب أن يكون {{description}} بريدا إلكترونيا صحيحا",
+      "phone":"يجب أن يكون {{description}} رقم هاتف صحيحا",
+      "url":"يجب أن يكون {{description}} رابط موقع صحيح"
+   },
+   "common":{  
+      "a-collection":"مجموعة",
+      "a-course":"مساق دراسي\n",
+      "a-question":"سؤال",
+      "a-resource":"مصدر",
+      "a-rubric":"سلم تقييم",
+      "all-completed":"تم إنجاز الكل",
+      "an-assessment":"تقييم",
+      "about":"حول",
+      "about-you":"حولي",
+      "about-me":"About Me",
+      "add":"إضافة",
+      "add-assessment":"إنشاء تقييم جديد",
+      "add-century-skills":"إضافة مهارات القرن الحادي والعشرين",
+      "add-collaborator":"إضافة مشارك",
+      "add-collection":"إنشاء مجموعة جديدة",
+      "add-collection-item":"إنشاء مصدر أو سؤال",
+      "add-competency":"إضافة كفاءة",
+      "add-content-prompt":"You haven\\\u0027t created \u003cspan\u003e{{type}}\u003c/span\u003e yet. Go on, be bold.",
+      "add-course":"إنشاء مساق جديد\n",
+      "add-domains-to-unit":"إضافة مجالات إلى الوحدة",
+      "add-url":"إضافة رابط",
+      "add-from-url":"إضافة من الرابط",
+      "add-lessons":"إضافة دروس",
+      "add-new-lesson":"إنشاء درس جديد",
+      "add-new-unit":"إنشاء وحدة جديدة",
+      "add-new-resource":"إنشاء مصدر جديد",
+      "add-new-question":"إنشاء سؤال جديد",
+      "add-question":"إنشاء سؤال",
+      "add-question-image":"إضافة سؤال على شكل صورة",
+      "add-rubric":"إضافة سلم تقييم جديد",
+      "add-standard":"إضافة معيار",
+      "add-standards":"إضافة معايير",
+      "add-standards-to-collection":"إضافة معايير إلى مجموعة",
+      "add-to":"إضافة إلى",
+      "add-to-classroom":"إضافة إلى الصف",
+      "add-to-daily-class":"إضافة إلى أنشطة الصف اليومية",
+      "add-to-collection-success":"You\\\u0027ve added {{contentTitle}} to {{collectionTitle}}. Do you want to edit that {{collectionType}}?",
+      "add-to-lesson-success":"You\\\u0027ve added {{collectionTitle}} to {{lessonTitle}}. Do you want to edit that {{collectionType}}?",
+      "add-type-question":"ما نوع السؤال الذي تريد إضافته؟",
+      "add-type-resource":"ما هو نوع هذا المصدر؟",
+      "add-units":"إضافة وحدات",
+      "added":"مضاف",
+      "advanced-editing":"تعديل متقدم",
+      "announcements":"الإعلانات",
+      "anonymous_mode":"أسلوب تقييم المجهول",
+      "answer":"الإجابة",
+      "answer-correct":"صحيح",
+      "answer-incorrect":"خطأ",
+      "answer-key-was-hidden":"ملاحظة: قام المعلم بإخفاء مفتاح الإجابة.",
+      "approved":"معتمد",
+      "archive":"أرشيف",
+      "assessment":"التقييم",
+      "assessment-disabled":"You can\\\u0027t attempt this assessment",
+      "assessment-external":"التقييم الخارجي",
+      "assessment-pl":{  
+         "zero":"التقييمات",
+         "one":"التقييم",
+         "other":"التقييمات"
       },
-      button: 'تصفح المحتوى',
-      description_3: 'أو',
-      description_1: 'أنا أبحث عن',
-      description_2: 'مواد التعلم في',
-      title: 'مرحباً! عما تبحث؟',
-      grades_missing_message: 'يرجى تحديد الدرجة والموضوع.',
-      subjects_missing_message: 'الرجاء تحديد الموضوع.'
-    },
-    gettingStarted: {
-      toolkit: {
-        description:
-          'مرحبا بكم في غورو! تحقق من هذه الموارد لمعرفة ما يمكنك القيام به مع غورو وتبدأ بسرعة.',
-        title: 'أدوات بدء الاستخدام'
+      "assessment-title":"عنوان التقييم",
+      "assessmentInitial":"أ",
+      "assessments":"التقييمات",
+      "assign":"تعيين",
+      "assign-to-class":"تعيين إلى الصف",
+      "assign-to-course":"تعيين إلى المساق",
+      "attempt":"رقم المحاولة",
+      "audience":"الجمهور",
+      "avatarFor":"صورة رمزية لـ",
+      "averageScore":"متوسط العلامات",
+      "back":"عودة",
+      "back-to-assessment":"العودة إلى التقييم",
+      "back-to-collection":"العودة إلى المجموعة",
+      "back-to-course-map":"العودة إلى خريطة المساق الدراسي",
+      "back-to-data":"العودة إلى البيانات",
+      "back-to-report":"Back to Report",
+      "best-practices":"أفضل التمارين",
+      "beta":"بيتا",
+      "big-ideas":"أفكار كبيرة",
+      "biography":"السيرة الشخصية",
+      "bookmark":"علامة",
+      "bookmarks":"علامات",
+      "bookmarked-content-success":"سيتم إضافة {{contentType}} الذي تم وضع إشارة مرجعية عليه إلى صفحة التعليم المستقل الخاصة بك",
+      "bookmarked-success":"سيتم إضافة كل المحتوى الذي تم وضع إشارة مرجعية عليه إلى صفحة التعليم المستقل الخاصة بك",
+      "builder":"محرر",
+      "cancel":"إلغاء",
+      "categories":"فئات",
+      "category":"فئة",
+      "categoryOptions":{  
+         "k12":"روضة - الصف12",
+         "higher-ed":"تعليم عالى",
+         "professional-dev":"التطوير المهني"
       },
-      classroom: {
-        description:
-          'تعلم عن طريق المثال من خلال قصص من المعلمين الذين يقولون غورو قد تحدث فرقا في الفصول الدراسية.',
-        title: 'قصص من الفصول الدراسية'
+      "century-skills":"مهارات القرن الحادي والعشرين",
+      "choose":"اختر",
+      "choose-file":"اختر ملفاً",
+      "class":"الصف الدراسي",
+      "classScores":"علامات الصف",
+      "click-unBookmark":"انقر لإلغاء المؤشر",
+      "close":"إغلاق",
+      "collection":"مجموعة",
+      "collection-pl":{  
+         "zero":"مجموعات",
+         "one":"مجموعة",
+         "other":"مجموعات"
       },
-      events: {
-        description:
-          'نحن نقدم ندوات مجانية والتدريبات لمساعدتك على البدء مع غورو.',
-        title: 'تحقق من الأحداث لدينا!'
+      "collection-title":"عنوان المجموعة",
+      "collections":"مجموعات",
+      "collectionInitial":"س",
+      "competency":"كفاءة",
+      "competencies":"كفاءات",
+      "completed":"تم إنجازه",
+      "completion":"إنجاز",
+      "community":"المجتمع",
+      "confirm":"تأكيد",
+      "confirm-copy":"تأكيد ونسخ",
+      "content":"محتوى",
+      "content-manager":"مدير المحتوى",
+      "contentUnavailable":"المحتوى غير متوفر",
+      "contributed-by":"ساهم في ذلك",
+      "copy":"نسخ",
+      "copy-to":"نسخ الى",
+      "correct":"صحيح",
+      "correct-answer":"إجابة صحيحة",
+      "country":"البلد",
+      "course-map":"خريطة المساق الدراسي",
+      "course":"مساق دراسي",
+      "course-title":"عنوان المساق الدراسي",
+      "courses":"المساقات الدراسية",
+      "create":"إنشاء",
+      "createClass":"Create Class",
+      "created-by":"أنشي من قبل",
+      "create-rubric":"إنشاء سلم تقييم جديد",
+      "current-attempt":"الإجراء الحالي",
+      "delete":"حذف",
+      "delete-instructions":{  
+         "links-inaccessible":"سيتعذر الوصول إلى  جميع الروابط المشاركة",
+         "content-inaccessible":"سيتعذر وصول محتوى المساق المحذوف إلى الصفوف الدراسية المرتبطة به."
       },
-      title: 'الشروع في العمل مع غورو'
-    },
-    empowerStudents: {
-      find: 'تجد',
-      share: 'شارك',
-      monitor: 'مراقب',
-      title: 'تمكين الطلاب لتعلم طريقهم',
-      remix: 'ريميكس'
-    },
-    freeAndOpen: {
-      button: 'معرفة المزيد عن نهجنا',
-      description:
-        'ونعتقد أن التعليم حق من حقوق الإنسان. سوف غورو تكون دائما خالية من التكلفة والإعلانات للمعلمين والطلاب في جميع أنحاء العالم.',
-      title: 'حرة ومفتوحة. <br/> دائما.'
-    },
-    remixDescription:
-      'مجموعات ريميكس وتخصيص المحتوى لتلبية احتياجات الطلاب الخاص بك.',
-    joinUs: 'الانضمام إلينا <br/> شرف حق الإنسان في <br/> التعليم',
-    findDescription:
-      'تصفح الآلاف من مجموعات K-12 التي أدلى بها المعلمين، أو البحث على 16M الموارد',
-    monitorDescription: 'قياس مشاركة الطلاب وتقدمهم للتدخل في الوقت الحقيقي.',
-    shareDescription:
-      'تبادل مجموعات مع الطلاب من خلال الفصول الدراسية غورو. تسجيل الدخول غير مطلوب للوصول.'
-  },
-  class: {
-    info: {
-      'edit-info': 'تحرير المعلومات',
-      'share-class': 'مشاركة الفصول الدراسية',
-      teachers: 'معلمون',
-      subject: 'موضوع',
-      grade: 'درجة',
-      'class-code': 'رمز الفصل الدراسي',
-      students: 'الطلاب',
-      description: 'وصف',
-      'add-students': 'إضافة الطلاب',
-      delete: 'حذف سلاسروم',
-      'class-info': 'معلومات الفصول الدراسية',
-      'invite-co-teachers': 'دعوة المعلمين المشاركين'
-    },
-    edit: {
-      'basic-info': 'معلومات اساسية',
-      'class-greetings': 'إعلانات الفصول الدراسية',
-      'class-minscore': 'التقييم الحد الأدنى لدرجات الجوائز (1-100٪)',
-      'edit-class': 'تحرير إعدادات الفصول الدراسية',
-      'assigned-course': 'الدورة المخصصة',
-      'class-name': 'اسم الفصل الدراسي',
-      'class-greetings-placeholder':
-        'تحية طلابك أو تحفيزهم أو الإعلان عنها، وما إلى ذلك.',
-      'course-map': 'خريطة الدورة التدريبية'
-    },
-    overview: {
-      locate: 'حدد موقعي',
-      title: 'خريطة الدورة التدريبية',
-      'add-to-daily-class-activities': 'إضافة إلى الأنشطة اليومية الطبقة',
-      'edit-content': 'تعديل المحتوى'
-    },
-    analytics: {
-      performance: {
-        actions: {
-          assessment: 'عرض التقييم',
-          download: 'تحميل',
-          edit: 'تعديل المحتوى',
-          exitFullScreen: 'الخروج من الشاشة الكاملة',
-          share: 'شارك',
-          collection: 'عرض المجموعة',
-          fullScreen: 'عرض كامل الشاشة',
-          both: 'عرض كلاهما'
-        },
-        teacher: {
-          metricsTable: {
-            'class-average': 'متوسط ​​الصف',
-            average: 'معدل'
-          }
-        },
-        'no-content': 'طلابك لم تبدأ بعد دراسة دورة.',
-        title: 'عرض الأداء',
-        'better-experience-message':
-          'للحصول على أفضل تجربة غورو، عرض كامل سلاسروم أناليتيكش في الكمبيوتر اللوحي أو سطح المكتب.'
+      "depth-of-knowledge":"عمق المعرفة",
+      "description":"وصف",
+      "disappear-after-login":"سيختفي هذا بعد  تسجيل دخول {{loginNumber}} ",
+      "disappear-next-login":"لن يظهر هذا عند تسجيل الدخول مرة أخرى",
+      "district":"مقاطعة",
+      "domain":"مجال",
+      "domains":"مجالات",
+      "download":"تنزيل",
+      "download-print":"تنزيل أو طباعة",
+      "drag-drop-suggestions":"أو ضع اقتراحاتك هنا.",
+      "download-report":"تنزيل  التقرير",
+      "edit":"تعديل",
+      "showassessments":"Show Assessments",
+      "showcollections":"Show Collections",
+      "showlessons":"Show Lessons",
+      "collapse":"Collapse",
+      "expand":"Expand",
+      "edit-assessment":"تعديل التقييم",
+      "edit-collection":"تعديل المجموعة",
+      "edit-course":"تعديل المساق الدراسي",
+      "edit-question":"تعديل السؤال",
+      "edit-resource":"تعديل المصدر",
+      "edit-rubric":"Edit Rubric",
+      "email_support":"support@gooru.org",
+      "emotions":{  
+         "emotion-1":"أحتاج المساعدة",
+         "emotion-2":"I don\\\u0027t understand",
+         "emotion-3":"الحيرة",
+         "emotion-4":"أفهم ذلك",
+         "emotion-5":"أستطيع الشرح"
       },
-      mastery: {
-        title: 'مشاهدة ملف ماستيري'
+      "enter-url":"ادخل رابط",
+      "enrolled-students":"الطلاب المسجلين",
+      "errors":{  
+         "join-class-code":"يرجى إدخال رمز الصف",
+         "answer-has-no-image":"يرجى تحميل الإجابة على شكل صورة",
+         "add-username":"يرجى إدخال اسم مستخدم.",
+         "add-course-title":"يرجى إدخال عنوان المساق الدراسي",
+         "add-question-answer-text":"يرجى إدخال نص الإجابة المختارة .",
+         "add-question-description":"يرجى إدخال السؤال.",
+         "add-question-title":"يرجى إدخال عنوان السؤال.",
+         "assessment-title-presence":"يرجى إدخال عنوان التقييم.",
+         "can-not-join-class":"تعذر الانضمام إلى الصف الدراسي، يرجى إعادة المحاولة بعد قليل.",
+         "assessment-not-added-to":"تعذر إضافة التقييم للدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "assessment-not-copied":"تعذر نسخ التقييم الآن. يرجى إعادة المحاولة بعد قليل.",
+         "assessment-not-created":"تعذر إنشاء التقييم الآن. يرجى إعادة المحاولة بعد قليل.",
+         "assessment-not-updated":"تعذر تحديث التقييم الآن. يرجى إعادة المحاولة بعد قليل.",
+         "category-title-presence":"Please enter the category title.",
+         "class-min-score":"يجب أن يكون الحد الأدنى للعلامة رقماً بين 1 و 100",
+         "class-not-created":"تعذر إنشاء الصف الدراسي الآن. يرجى إعادة المحاولة بعد قليل.",
+         "class-title-presence":"يرجى تسمية صفك الدراسي.",
+         "collection-not-added-to":"يتعذر إضافة المجموعة إلى الدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "collection-not-copied":"تعذر نسخ المجموعة في الوقت الحالي، يرجى إعادة المحاولة بعد قليل.",
+         "collection-not-created":"تعذر إنشاء المجموعة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "collection-not-updated":"تعذر تحديث المجموعة الآن. يرجى إعادة المحاولة بعد قليل.",
+         "collection-title-presence":"يرجى إدخال عنوان المجموعة.",
+         "correct-answer-presence":"يرجى تحديد الإجابة الصحيحة.",
+         "course-not-copied":"تعذر نسخ المساق الدراسي في الوقت الحالي، يرجى إعادة المحاولة بعد قليل.",
+         "course-not-created":"تعذر إنشاء المساق الدراسي في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "course-not-updated":"تعذر تحديث المساق الدراسي في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "highlight-text-not-selected":"يرجى تحديد الإجابة الصحيحة.",
+         "highlight-text-wrong-format":"صيغة السؤال غير صحيحة ",
+         "hotspot-text-max-choices":"لقد وصلت إلى الحد الأقصى من خيارات الإجابة.",
+         "file-max-size":"يتم دعم الملفات التي يقل حجمها عن 5 ميغابايت فقط.",
+         "file-upload-missing":"يرجى اختيار ملف بأي من الامتدادت التالية: {{extensiones}}",
+         "getting-next-resource":"There was an error submitting your answer. Please try again.",
+         "lesson-not-copied":"تعذر نسخ الدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "lesson-not-created":"تعذر إنشاء الدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "lesson-not-loaded":"تعذر تحميل الدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "lesson-title-required":"يرجى إدخال عنوان الدرس.",
+         "password-confirm":"يرجى التأكد من صحة كلمة المرور.",
+         "password-length":"يجب أن تكون كلمة المرور بين 5 و 14 حرفاً.",
+         "password-not-match":"كلمات المرور غير متطابقة.",
+         "password-required":"يرجى إدخال كلمة المرور.",
+         "password-special-characters":"Please don\\\u0027t use special characters.",
+         "profile-not-updated":"تعذر تحديث الملف الشخصي في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "question-not-added-to":"تعذر إضافة سؤال إلى {{collectionType}} في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "question-not-copied":"تعذر نسخ السؤال في الوقت الحالي. يرجى  إعادة المحاولة بعد قليل.",
+         "question-not-created":"تعذر إنشاء سؤال في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "question-not-updated":"تعذر تحديث السؤال في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "reset-password-error":"Uh oh! Something\\’s not right. Unable to reset password. Please try again shortly.",
+         "reset-google-account-exists":"لقد تم إنشاء حسابك لدينا باستخدام حساب جوجل، ولا يمكننا إعادة تعيين كلمة المرور الخاصة به. إذا نسيت كلمة المرور الخاصة بحساب جوجل، يجب عليك إعادة تعيينها عن طريق تطبيقات جوجل.",
+         "resource-description-length":"الحد الأقصى لعدد الأحرف في الوصف هو 500 حرف.",
+         "resource-invalid-url":"رابط غير صحيح.",
+         "resource-missing-title":"يرجى إدخال عنوان المصدر.",
+         "resource-missing-type":"يرجى تحديد نوع المصدر.",
+         "resource-missing-url":"يرجى إدخال رابط صحيح.",
+         "resource-not-added-to-collection":"تعذر إضافة المصدر إلى المجموعة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "resource-not-copied":"تعذر نسخ المصدر في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "resource-not-created":" تعذر إنشاء المصدر في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.",
+         "resource-not-updated":"تعذر تحديث المصدر في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "resource-same-host-url":"لا يمكن أن تكون المصادر عبارة عن روابط خاصة بجورو.",
+         "resource-title-length":"الحد الأقصى لعدد الأحرف في العنوان هو 50 حرفاً.",
+         "rubric-title-presence":"يرجى إدخال عنوان سلم التقييم.",
+         "rubric-url-presence":"Please enter the rubric URL.",
+         "select-correct-answer":"يرجى اختيار الإجابة الصحيحة.",
+         "search-collections-length":"يرجى إدخال 3 أحرف على الأقل.",
+         "sign-in-credentials-not-valid":"Uh oh! Something\\\u0027s not right. Please double check your username and password and try again.",
+         "sign-in-google-account-exists":"Please use Google signin. We can\\\u0027t reset your password.",
+         "sign-up-error":"تعذر إنشاء الحساب الآن. يرجى إعادة المحاولة بعد قليل.",
+         "sign-up-first-name":"يرجى إدخال الاسم الاول.",
+         "sign-up-last-name":"يرجى إدخال اسم العائلة.",
+         "sign-up-name-length":"يجب أن يحتوي اسم العائلة على حرفين على الأقل.",
+         "sign-up-name-only-letters":"يرجى استخدام الأحرف فقط.",
+         "sign-up-valid-email":"يرجى إدخال  بريد الكتروني صحيح.",
+         "special-characters":"يرجى عدم  استخدام الرموز أو المسافات.",
+         "unit-not-copied":"تعذر نسخ الوحدة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "unit-not-created":"تعذر إنشاء الوحدة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "unit-not-loaded":"تعذر تحميل الوحدة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+         "unit-title-required":"يرجى إدخال عنوان الوحدة.",
+         "user-email-presence":"يرجى إدخال بريد إلكتروني صحيح.",
+         "username-length":"Username must be between 4 and 254 characters.",
+         "forgot-password-gmail":"Please use Google signin. We can\\\u0027t reset your password."
+      },
+      "essential-questions":"الأسئلة الأساسية",
+      "example":"example: ",
+      "exit":"خروج",
+      "explanation":"شرح",
+      "explore":"إستكشاف",
+      "false":"خطأ",
+      "featured-courses":"المساقات الدراسية المميزة",
+      "file-name":"اسم الملف",
+      "finish":"إنهاء",
+      "first-name":"الاسم الأول",
+      "follow":"اتبع",
+      "followers":"متابعون",
+      "following":"متابعة",
+      "forgotPassword":"هل نسيت كلمة المرور؟",
+      "from":"من",
+      "from-my-assessments":"من تقييماتي",
+      "from-my-collections":"من \u0027مجموعاتي\u0027",
+      "from-my-questions":"من أسئلتي",
+      "from-my-resources":"من مصادري",
+      "hide-results":"إخفاء النتائج",
+      "hints":"تلميحات",
+      "home":"الصفحة الرئيسية",
+      "if_questions":"إذا كان لديك أية أسئلة،",
+      "information":"معلومات",
+      "in-progress":"جاري",
+      "instructor":"مدرب",
+      "last-name":"اسم العائلة",
+      "last-updated":"آخر تحديث",
+      "latest-attempt":"آخر محاولة",
+      "launch-anonymous":"بدء التقييم المجهول",
+      "launch-on-air":"التقييم المباشر",
+      "learning-objectives":"أهداف التعلم",
+      "learning-target":"معيار جزئي",
+      "learning-target-mobile":"المعيار الجزئي ضمن المعيارالأساسي.",
+      "lesson":"درس",
+      "lessonInitial":"ل",
+      "lesson-title":"عنوان الدرس",
+      "lessonObj":{  
+         "zero":"الدروس",
+         "one":"درس",
+         "other":"الدروس"
+      },
+      "libraries":"المكتبات",
+      "license":"رخصة",
+      "link":"الربط",
+      "link-out":"ربط خارجي",
+      "link-out-message":"* إذا ظهر المصدر الخاص بك فارغاً عند المعاينة أعلاه، فقد تحتاج إلى تفعيل خاصية \"ربط خارجي\" لعرض المحتوى في صفحة أخرى.",
+      "live-assessments":"التقييمات المباشرة",
+      "loading":"جار التحميل ...",
+      "login":"تسجيل الدخول",
+      "logout":"تسجيل الخروج",
+      "mastery":"إتقان",
+      "menu":"القائمة",
+      "more-details":"مزيد من التفاصيل",
+      "move":"نقل",
+      "myContent":"المحتوى الخاص بي",
+      "library":"المكتبة",
+      "myPerformance":"آدائي",
+      "edit-narration":"تعديل السرد",
+      "narration":"السرد",
+      "new-assessment":"تقييم جديد",
+      "new-collection":"مجموعة جديدة",
+      "new-question":"سؤال جديد",
+      "new-question-text":"أدخل نص السؤال هنا",
+      "new-fib-question-text":"Enter question with [answer]",
+      "new-resource":"مصدر جديد",
+      "next":"التالى",
+      "no":"لا",
+      "no-archived":"لا يوجد لديك أي صفوف دراسية مؤرشفة.",
+      "no-content":"لا يوجد محتوى.",
+      "no-content-my-report":"No reports available yet. Once you begin studying, your reports will become available.",
+      "no-assessments-to-display":"No \u003cspan\u003eassessments\u003c/span\u003e to display.",
+      "no-collections-to-display":"No \u003cspan\u003ecollections\u003c/span\u003e to display.",
+      "no-courses-to-display":"No \u003cspan\u003ecourses\u003c/span\u003e to display.",
+      "no-questions-to-display":"No \u003cspan\u003equestions\u003c/span\u003e to display.",
+      "no-resources-to-display":"No \u003cspan\u003eresources\u003c/span\u003e to display.",
+      "no-rubrics-to-display":"No \u003cspan\u003erubrics\u003c/span\u003e to display.",
+      "no-followers":"You don\\\u0027t have followers yet.",
+      "no-independent-results":"عندما تبدأ البحث عن  {{contentType}} يحتوي على مؤشر، سيظهر هنا.",
+      "no-results":"لم يتمّ العثور على نتائج.",
+      "no-available-results":"Not available results",
+      "no-results-message":"Check your spelling. We all make mistakes!\u003cbr/\u003eGo broader and remove some filters.\u003cbr/\u003e Or try searching for a similar word instead.",
+      "no-more-attempts":"لا مزيد من المحاولات.",
+      "no-dca-student":"Your teacher has not yet assigned any collections or assessments to Daily Class Activities.",
+      "no-dca-teacher":"No current activities. Add Daily Class Activities from the Course Map or My Content.",
+      "notScored":"Unscored",
+      "notStarted":"لم تبدأ.",
+      "not-added":"غير مضاف",
+      "not-applicable":"غ/م",
+      "not-following":"You\\\u0027re not following anyone.",
+      "not-provided":"غير مزوَّد",
+      "not-specified":"غير محدد",
+      "not_started":"لم تبدأ.",
+      "nothing-to-display":"لا شيء للعرض",
+      "number":"رقم",
+      "numberStudents":{  
+         "zero":"{{count}} الطلاب",
+         "one":"{{count}} طالب",
+         "other":"{{count}} الطلاب"
+      },
+      "of":"من",
+      "off":"إيقاف",
+      "on":"تشغيل",
+      "other":"أخرى",
+      "overall-performance":"الآداء العام",
+      "password":"كلمة السر",
+      "pending":"قيد الانتظار",
+      "performance":"عرض الآداء",
+      "performance-dashboard":"لوحة التحكم بالأداء",
+      "play":"تشغيل",
+      "please_contact":"يرجى التواصل",
+      "post-message":"نشر الرسالة",
+      "preview":"معاينة",
+      "profile":"الملف الشخصي",
+      "profile-publishing":"إمكانية رؤية الملف الشخصي",
+      "publish-to":"اجعل هذا مرئيا للآخرين في مكتبة ملفي الشخصي",
+      "published-by":"نشرت من قبل",
+      "published-tooltip":"محتوى مميز",
+      "publisher":"الناشر",
+      "question":"سؤال",
+      "questions":"أسئلة",
+      "questions-OE":"الأسئلة الكتابية الحرة",
+      "question-pl":{  
+         "zero":"أسئلة",
+         "one":"سؤال",
+         "other":"أسئلة"
+      },
+      "question-title":"عنوان السؤال",
+      "question-type":{  
+         "SA":"إجابة واحدة",
+         "MC":"خيارات متعددة",
+         "FIB":"املأ الفراغ",
+         "T/F":"صح أم خطأ",
+         "T_F":"صح أم خطأ",
+         "MA":"إجابات متعددة",
+         "OE":"إجابة كتابية",
+         "HS_TXT":"اختيار متعدد - نص",
+         "HS_IMG":"اختيار متعدد - صورة",
+         "HT_TO":"سحب وإفلات",
+         "HT_RO":"سحب وإفلات",
+         "HT_HL":"تظليل النص"
+      },
+      "reaction":"تفاعل",
+      "read-first":"\u003cb\u003eRead this first!\u003c/b\u003e",
+      "remaining":"بقي {{number}}",
+      "remix":"إعادة مزج",
+      "remix-assessment":"إعادة مزج التقييم",
+      "remix-assessment-lead":"أنت على وشك إعادة مزج التقييم.",
+      "remix-assessment-success":"You\\\u0027ve remixed an assessment {{assessmentTitle}}. Do you want to edit that assessment?",
+      "remix-collection":"إعادة مزج المجموعة.",
+      "remix-collection-lead":"أنت على وشك إعادة مزج المجموعة.",
+      "remix-collection-success":"You\\\u0027ve remixed a collection {{collectionTitle}}. Do you want to edit that collection?",
+      "remix-course":"إعادة مزج المساق الدراسي.",
+      "remix-course-lead":"أنت على وشك إعادة مزج المساق الدراسي.",
+      "remix-course-success":"You\\\u0027ve remixed a course {{courseTitle}}. Do you want to edit that course?",
+      "remix-lesson":"إعادة مزج الدرس",
+      "remix-lesson-lead":"أنت على وشك إعادة مزج هذا الدرس.",
+      "remix-lesson-success":"You\\\u0027ve remixed a lesson {{lessonTitle}}.",
+      "remix-question":"إعادة مزج السؤال",
+      "remix-question-lead":"أنت على وشك إعادة مزج السؤال.",
+      "remix-question-success":"You\\\u0027ve remixed a question {{questionTitle}}. Do you want to edit that question?",
+      "remix-resource":"إعادة مزج المصدر",
+      "remix-resource-lead":"أنت على وشك إعادة مزج المصدر.",
+      "remix-resource-success":"You\\\u0027ve remixed a resource {{resourceTitle}}. Do you want to edit that resource?",
+      "remix-unit":"إعادة مزج الوحدة",
+      "remix-unit-lead":"أنت على وشك إعادة مزج الوحدة.",
+      "remix-unit-success":"You\\\u0027ve remixed a unit {{unitTitle}}.",
+      "remixed-by":"أُعيد مزجه من قبل",
+      "remix-warning":"Heads up! There\\’s a lot of awesome content in this course and making a copy will take time. Confirm you want to start the process and in 15 minutes you will find your copy of this course on your \u003cb\u003eProfile.\u003c/b\u003e",
+      "remove":"حذف",
+      "report":"أبلغ عن",
+      "report-in-progress":"جاري إعداد التقرير.",
+      "request-to":"الطلب قيد المراجعة للحصول على شارة.",
+      "request-report":"طلب تقرير",
+      "resource":"مصدر",
+      "resources":"مصادر",
+      "resource-format":{  
+         "image":"صورة",
+         "text":"نص",
+         "video":"فيديو",
+         "interactive":"تفاعلي\n",
+         "webpage":"صفحة ويب",
+         "audio":"تسجيل صوتي",
+         "question":"سؤال"
+      },
+      "resource-pl":{  
+         "zero":"مصادر",
+         "one":"مصدر",
+         "other":"مصادر"
+      },
+      "resource-title":"عنوان المصدر",
+      "resource-url":"رابط المصدر",
+      "role":"دور",
+      "rubric":"سلم تقييم",
+      "rubric-creation":"Rubric Creation",
+      "rubrics":"سلم تقييم",
+      "rubric-title":"عنوان سلم التقييم",
+      "save":"حفظ",
+      "save-next":"حفظ والتالي",
+      "save-submit":"حفظ وإرسال الكل",
+      "save-finish":"الحفظ والانتهاء",
+      "school":"مدرسة",
+      "school-info":"معلومات المدرسة",
+      "score":"العلامة",
+      "select":"اختر",
+      "select-a-framework":"يرجى أولا اختيار إطار المعايير في قسم معلومات المساق الدراسي أعلاه.",
+      "sentence":"جملة",
+      "settings":"إعدادات",
+      "search":"بحث",
+      "search-placeholder":"بحث",
+      "search-placeholder-text":"Search...",
+      "search-error-message":"يجب أن تتكون مصطلحات البحث من 3 أحرف على الأقل.",
+      "search-400-error-message":"يرجى  إدخال مصطلح صحيح للبحث",
+      "search-competency":"كفاءة البحث",
+      "search-standards":"معايير البحث",
+      "select-question-type":"اختر نوع السؤال",
+      "select-resource-type":"اختر نوع المصدر",
+      "send-request":"أرسل الطلب",
+      "share":"مشاركة",
+      "show-correct-answer":"أظهر الإجابة الصحيحة",
+      "show-more-results":"أظهر المزيد من النتائج",
+      "show-results":"أظهر النتائج",
+      "signUp":"إنشاء حساب",
+      "sortAlphabetical":"فرز حسب الترتيب أبجدي",
+      "sortAverage":"فرز حسب المتوسط",
+      "sort-most-recently":"فرز حسب آخر تحديث",
+      "state":"الدولة أو المقاطعة",
+      "state-territory":"State/Territory",
+      "standard":"معيار",
+      "standards":"المعايير",
+      "study":"ادرس",
+      "study-now":"ادرس الآن",
+      "student":"طالب",
+      "student-id":"هوية الطالب (لن يتم عرضها على الملف الشخصي)",
+      "studen-id-display":"Student ID (not displayed on Profile, displayed in Anonymous mode)",
+      "subject-and-framework":"الموضوع وإطار العمل",
+      "submit":"إرسال",
+      "submit-all":"إرسال الكل",
+      "submitAll":"إرسال الكل",
+      "submit-finish":"Submit and Finish",
+      "swap":"إعادة ترتيب",
+      "suggestion":"اقتراح",
+      "suggestions":"اقتراحات",
+      "suggested-resources":"المصادر المقترحة",
+      "support":"الدعم",
+      "start-tour":"قم بجولة",
+      "take-me-there":"خذني هناك",
+      "teach":"درِّس",
+      "teacher":"مدرس",
+      "timeSpent":"الوقت المستغرق",
+      "toggle-dropdown":"تبديل القائمة المنسدلة",
+      "tools":"أدوات",
+      "true":"صحيح",
+      "type":"اكتب",
+      "unBookmark":"إلغاء المؤشر ",
+      "unexpectedError":"An unexpected error has occurred and has been reported. We\\\u0027re sorry for the inconvenience!",
+      "unfollow":"الغاء المتابعة",
+      "unit":"وحدة",
+      "unit-title":"عنوان الوحدة",
+      "unitInitial":"U",
+      "unitObj":{  
+         "zero":"وحدات",
+         "one":"وحدة",
+         "other":"وحدات"
+      },
+      "untitled-course":"المساق الأول",
+      "untitled-lesson":"درس بلا عنوان",
+      "untitled-unit":"وحدة بلا عنوان",
+      "update-thumbnail":"تحديث الصورة المصغرة",
+      "update-photo":"Update Photo",
+      "upload":"تحميل",
+      "upload-file":"تحميل ملف",
+      "upload-thumbnail":"تحميل الصورة المصغرة",
+      "upload-photo":"Upload Photo",
+      "remove-photo":"Remove Photo",
+      "use-case":"حالة الاستخدام",
+      "valid-extensions":"امتدادات الملفات الصالحة هي: {{extensions}}",
+      "verified":"تم التحقق منه",
+      "visibility-tooltip":"غير مرئي للآخرين",
+      "visibility-available":"Visible to others",
+      "warnings":{  
+         "on-air-connection-lost":"The Go Live dashboard has lost connection and is retrying automatically. It\\\u0027s tempting, but please don\\\u0027t refresh your screen!",
+         "character-limit":"You\\\u0027ve reached the character limit."
+      },
+      "word":"كلمة",
+      "yes":"نعم"
+   },
+   "index":{  
+      "joinUs":"Join Us to \u003cbr/\u003e Honor the Human Right to \u003cbr/\u003e Education",
+      "browseContent":{  
+         "title":"مرحباً! عن ماذا تبحث؟",
+         "description_1":"أنا أبحث عن",
+         "description_2":"مواد التعليم في",
+         "description_3":"أو",
+         "button":"تصفح المحتوى ",
+         "footer":{  
+            "description_1":"هل لديك حساب؟",
+            "description_2":"هنا.",
+            "login":"تسجيل الدخول"
+         },
+         "grades_missing_message":"يرجى تحديد المرحلة الدراسية والموضوع.",
+         "subjects_missing_message":"يرجى تحديد الموضوع"
+      },
+      "gettingStarted":{  
+         "title":"بدء استخدام موقع جورو",
+         "toolkit":{  
+            "title":"أدوات بدء الاسنخدام",
+            "description":"مرحبا بكم في جورو! ألق نظرة على هذه المصادر لمعرفة ما يمكنك القيام به مع جورو والبدء بسرعة."
+         },
+         "classroom":{  
+            "title":"قصص من الصف الدراسي",
+            "description":"تعلم مقتدياً بالقصص المطروحة من قبل المعلمين الذين يقولون أن جورو قد أحدث فرقاً في صفوفهم الدراسية."
+         },
+         "events":{  
+            "title":"أهم الأحداث.",
+            "description":"نقدم ندوات ودورات تدريبية مجانية لمساعدتك في البدء مع جورو."
+         }
+      },
+      "empowerStudents":{  
+         "title":"تمكين الطلاب من التعلم على طريقتهم الخاصة.",
+         "find":"جد",
+         "remix":"إعادة مزج",
+         "share":"مشاركة",
+         "monitor":"مراقب"
+      },
+      "findDescription":"تصفح الآلاف من المجموعات من الروضة وحتى الصف 12 التي أعدّها المعلمون  أو ابحث فيما يزيد عن 16 مليون مصدر. ",
+      "remixDescription":"Remix collections and customize content to meet your students\\\u0027 needs.",
+      "shareDescription":"شارك المجموعات مع طلابك من خلال صفوف جورو. تسجيل الدخول غير مطلوب.",
+      "monitorDescription":"Measure your students\\\u0027 engagement and progress to intervene in real-time.",
+      "freeAndOpen":{  
+         "title":"Free and Open.\u003cbr/\u003eAlways.",
+         "description":"نؤمن بان التعليم حق من حقوق الإنسان. سيقدم موقع جورو للمعلمين والطلاب في جميع انحاء العالم خدمات تعليم مجانية دائمة وبدون إعلانات. ",
+         "button":"تعرف على المزيد عن نهجنا"
       }
-    },
-    'quick-start': {
-      'featured-course': 'عرض الدورات المميزة',
-      'remix-desc': 'نسخ وتخصيص بالطبع مميزة لطلابك',
-      'add-existing-course': 'إضافة دورة من المكتبة',
-      title: 'تعيين محتوى إلى هذا الفصل الدراسي.',
-      'remix-from-course': 'ريميكس دورة مميزة',
-      'new-collection': 'مجموعة جديدة',
-      'remix-a-sample': 'ريميكس عينة',
-      'new-assessment': 'تقييم جديد',
-      'existing-course-desc': 'أسرع طريقة لبدء فصل دراسي',
-      'new-course-desc': 'ابدأ بإنشاء دورة جديدة أو مجموعة أو تقييم',
-      course: 'دورة جديدة',
-      'choose-course': 'اختر الدورة التدريبية',
-      'new-course': 'بدء تشغيل دورة جديدة'
-    }
-  },
-  classes: {
-    classesJoined: 'الفصول الدراسية لقد انضممت',
-    noClassesJoined: 'لم تنضم إلى أي فصل دراسي',
-    classesTaught: 'الفصول الدراسية I تعليم',
-    noClassesTaught: 'لم يكن لديك أي الفصول الدراسية التي تم إنشاؤها'
-  },
-  content: {
-    assessments: {
-      edit: {
-        'best-practices':
-          '<p style=\';text-align:right;direction:rtl\'> التقييم هو مجموعة من الأسئلة التي سجلتها أنت وطلابك يمكن استخدامها لمراقبة الفهم والأداء. </p><p style=\';text-align:right;direction:rtl\'> استخدام مجموعة متنوعة من أنواع الأسئلة (بما في ذلك عدة استنادا إلى سباك) في التقييم الخاص بك حتى يتمكن الطلاب من إثبات التفاهم بطرق مختلفة. نوصي بوضع علامة على كل سؤال للمعايير، والمعايير الدقيقة، وعمق ويب في المعرفة. </p>'
+   },
+   "class":{  
+      "info":{  
+         "class-info":"معلومات الصف االدراسي",
+         "teachers":"المعلمون",
+         "students":"الطلاب",
+         "subject":"موضوع",
+         "grade":"مرحلة دراسية",
+         "description":"وصف",
+         "edit-info":"تعديل المعلومات",
+         "share-class":"مشاركة الصف الدراسي",
+         "invite-co-teachers":"قم بدعوة المعلمين المشاركين",
+         "add-students":"إضافة الطلاب",
+         "class-code":"رمز الصف الدراسي",
+         "delete":"حذف الصف الدراسي"
+      },
+      "edit":{  
+         "assigned-course":"المساق الدراسي المعيّن",
+         "basic-info":"معلومات أساسية",
+         "class-name":"اسم الصف الدراسي",
+         "class-greetings":"إعلانات الصف الدراسي",
+         "class-greetings-placeholder":"ألقِ التحية على طلابك أو حفزهم أو أنشئ إعلاناً لهم...إلخ",
+         "class-minscore":"علامة التقييم الدنيا للجوائز (1-100%)",
+         "course-map":"خريطة المساق الدراسي",
+         "edit-class":"تعديل إعدادات الصف الدراسي"
+      },
+      "overview":{  
+         "title":"خريطة المساق الدراسي",
+         "locate":"حدد موقعي",
+         "edit-content":"تعديل المحتوى",
+         "add-to-daily-class-activities":"إضافة إلى أنشطة الصف اليومية"
+      },
+      "analytics":{  
+         "performance":{  
+            "title":"عرض الأداء",
+            "better-experience-message":"للحصول على تجربة أفضل مع جورو، قم بعرض التحليل الخاص بالصف الدراسي على الحاسوب المكتبي أو الحاسوب اللوحي.",
+            "no-content":"لم يبدأ طلابك بدراسة المساق بعد.",
+            "actions":{  
+               "share":"مشاركة",
+               "edit":"تعديل المحتوى",
+               "download":"تنزيل",
+               "fullScreen":"عرض ملء الشاشة",
+               "exitFullScreen":"تصغير الشاشة ",
+               "assessment":"عرض التقييم",
+               "collection":"عرض المجموعة",
+               "both":"عرض كلاهما"
+            },
+            "teacher":{  
+               "metricsTable":{  
+                  "average":"معدل",
+                  "class-average":"معدل الصف"
+               }
+            },
+            "grade-items":"Items to Grade",
+            "gru-grade-items":{  
+               "students":{  
+                  "zero":"{{count}} الطلاب",
+                  "one":"{{count}} طالب",
+                  "other":"{{count}} الطلاب",
+                  "not-started":"لم تبدأ."
+               }
+            }
+         },
+         "mastery":{  
+            "title":"عرض الإتقان"
+         }
+      },
+      "quick-start":{  
+         "title":"تعيين محتوى لهذا الصف الدراسي.",
+         "new-course":"بداية سريعة لمساق دراسي جديد",
+         "new-course-desc":"ابدأ بإنشاء مساق دراسي جديد، أو مجموعة أو تقييم",
+         "course":"مساق دراسي جديد",
+         "new-collection":"مجموعة جديدة",
+         "new-assessment":"تقييم جديد",
+         "remix-a-sample":"امزج عينة",
+         "add-existing-course":"إضافة مساق دراسي من مكتبتك",
+         "existing-course-desc":"الطريقة الأسرع لبدء الصف الدراسي",
+         "choose-course":"اختر المساق الدراسي",
+         "remix-from-course":"امزج مساقاً دراسياً مميزاً",
+         "featured-course":"عرض المساقات الدراسية المميزة",
+         "remix-desc":"انسخ ونسق درساً مميزاً لطلابك"
       }
-    },
-    classes: {
-      create: {
-        'condition-prompt': 'كيف سينضم الطلاب إلى الفصل الدراسي؟',
-        'get-started': 'البدء',
-        'condition-prompt-invite': 'دعوة فقط',
-        'condition-prompt-code': 'أي شخص لديه رمز الفصل الدراسي',
-        'class-name-input': 'اختر اسم الفصل الدراسي',
-        title: 'إنشاء سلاسروم',
-        content: 'حيث يتفاعل الطلاب مع المحتوى.'
+   },
+   "classes":{  
+      "classesJoined":"Classrooms I\\\u0027ve Joined",
+      "classesTaught":"الصفوف التي أدرّسها",
+      "noClassesJoined":"لم تنضم إلى أي صف دراسي",
+      "noClassesTaught":"لم تنشئ أي صف دراسي"
+   },
+   "content":{  
+      "assessments":{  
+         "edit":{  
+            "best-practices":"\u003cp\u003eAn assessment is a set of scored questions which you and your students can use to monitor understanding and performance.\u003c/p\u003e\u003cp\u003eUse a variety of question types (including several based on the SBAC) in your assessment so students can demonstrate understanding in different ways. We recommend tagging each question to standards, micro-standards, and Webb\\\u0027s Depth of Knowledge.\u003c/p\u003e"
+         }
       },
-      join: {
-        'already-member': 'أنت بالفعل عضو في هذا الفصل الدراسي.',
-        'join-not-allowed': 'لا يمكنك الانضمام إلى هذا الفصل الدراسي',
-        'terms-and-conditions':
-          'من خلال النقر على الانضمام إلى الفصول الدراسية، أوافق على مشاركة تقييمي وبيانات تقدم المجموعة التي تم إنشاؤها من دراسة هذا الفصول الدراسية غورو مع المعلم (ق) من هذا الفصول الدراسية.',
-        'invalid-code': 'رمز الفصل الدراسي غير صالح.',
-        'class-not-found':
-          'لم يتم العثور على سلاسروم. تأكد من إدخال رمز الفصل الدراسي الصحيح',
-        'join-class': 'الانضمام إلى الفصول الدراسية',
-        title: 'الانضمام إلى الفصول الدراسية',
-        'not-now': 'ليس الان',
-        'class-code-input': 'أدخل رمز الفصل الدراسي',
-        content: 'حيث تبدأ الرحلة.'
+      "classes":{  
+         "create":{  
+            "title":"أنشئ صف دراسي",
+            "content":"تفاعل الطلاب مع المحتوى",
+            "class-name-input":"قم بتسمية صفك الدراسي",
+            "condition-prompt":"كيف سينضم الطلاب إلى صفك الدراسي؟",
+            "condition-prompt-code":"أي شخص لديه رمز الصف الدراسي",
+            "condition-prompt-invite":"دعوة فقط",
+            "get-started":"ابدأ"
+         },
+         "join":{  
+            "title":"Join a new Classroom",
+            "content":"حيث تبدأ الرحلة.",
+            "not-now":"ليس الان",
+            "class-code-input":"أدخل رمز الصف الدراسي",
+            "class-not-found":"Classroom not found. Make sure you\\\u0027ve entered the correct classroom code",
+            "invalid-code":"رمز الصف الدراسي غير صالح.",
+            "already-member":"أنت عضو في هذا الصف  الدراسي بالفعل.",
+            "join-class":"انضم للصف الدراسي",
+            "terms-and-conditions":"من خلال النقر على الانضمام إلى الصف الدراسي، أوافق على مشاركة بيانات تقدُّم تقييمي ومجموعتي التي تم إنشاؤها من خلال الدراسة في هذا الصف الدراسي ومعلميه في جورو."
+         }
+      },
+      "collections":{  
+         "edit":{  
+            "assign-to-course":"تعيين إلى المساق",
+            "best-practices":"\u003cp\u003eStudents interact with your content at the collection level. When creating a learning collection, make sure to include learning objectives, and consider using a variety of resource types to expose students to the concepts in multiple ways.\u003c/p\u003e\u003cp\u003eUse the sequencing of the resources to build on concepts. Progression through a collection should flow in a logical manner and take the intended audience from a general to more complex level of understanding if appropriate, or allow adequately for student exploration.\u003c/p\u003e\u003cp\u003eInclude checks for understanding along the way via our Gooru questions or other interactives. We recommend enough resources and/or enough variety of resources to accomplish the objectives in the collection and ensuring that each resource has a role and purpose.\u003c/p\u003e"
+         }
+      },
+      "courses":{  
+         "edit":{  
+            "assign-to-class":"تعيين إلى الصف",
+            "best-practices":"\u003cp\u003eA course is a folder that allows you to organize your learning content into units and lessons. When creating a course consider the essential questions you are addressing, the learning objectives, and organization of your content.\u003c/p\u003e\u003cp\u003eYou can piece the lessons together to create a diverse experience for your student population (for example, you could sequence your units chronologically, by topic, or by standard).\u003c/p\u003e",
+            "information":{  
+               "course-title":"عنوان المساق الدراسي",
+               "description":"وصف"
+            }
+         }
+      },
+      "questions":{  
+         "edit":{  
+            "add-to":"إضافة إلى",
+            "best-practices":"\u003cp\u003eA question is a resource that requires an answer from the student, and we offer a variety of question types to support the kinds of questions your students will see on SBAC, PARCC and other assessments.\u003c/p\u003e\u003cp\u003eConsider alternating the kinds of questions you use to offer students exposure to these question types and to provide multiple formats for demonstrating knowledge.\u003c/p\u003e\u003cp\u003eTag your questions to standards, micro-standards, and Webb\\\u0027s Depth of Knowledge. You can see how your students are interacting with questions through the teacher dashboard.\u003c/p\u003e",
+            "information":{  
+               "question-title":"عنوان السؤال",
+               "question-type":"نوع السؤال"
+            },
+            "builder":{  
+               "add-answer-choice":"+ إضافة خيار سؤال",
+               "add-hint":"إضافة تلميحات",
+               "add-explanation":"إضافة شرح",
+               "answer":"إجابة",
+               "answer-instructions":{  
+                  "FIB":"أضف ما يصل إلى 5 ملحوظات وشرح للإجابة.",
+                  "HS_IMG":"يمكنك إضافة ما يصل إلى 10 إجابات على شكل صورة واختيار إجابة صحيحة واحدة أو أكثر.",
+                  "HS_TXT":"يمكنك إضافة ما يصل إلى 10 إجابات على شكل خيارات واختيار إجابة صحيحة واحدة أو أكثر.",
+                  "HT_HL_ST":"عند كتابة السؤال، استخدم الأقواس للإشارة إلى الجمل المهمة. بحيث يحتوي زوج الأقواس الواحد على جملة واحدة فقط تنتهي بنقطة. مثال: بنى الخنزير الأول الصغير منزله من القش. (هاجم الذئب السيء الكبير المنزل من الأسفل.) بنى الخنزير الثاني بيته من الخشب. الحد الأقصى للأحرف: 5000",
+                  "HT_HL_WD":"عند كتابة السؤال، استخدم الأقواس للإشارة إلى الكلمات المهمة. بحيث يحتوي زوج الأقواس الواحد على كلمة واحدة فقط. مثال: هاجم الذئب الشرير (الكبير) المنزل من (الأسفل). الحد الأقصى للأحرف: 5000",
+                  "HT_RO":"يمكنك إضافة ما يصل إلى 10 إجابات بالترتيب الصحيح. حيث أن الترتيب سيكون عشوائيا لدى الطلاب.",
+                  "MA":"يمكنك إضافة ما يصل إلى 10 إجابات وصورة وشرح وما يصل إلى 5 تلميحات.",
+                  "MC":"يمكنك إضافة ما يصل إلى 10 إجابات وتحديد إجابة صحيحة واحدة. الحد الأقصى للأحرف: 200 ",
+                  "OE":"اكتب الإجابة الصحيحة. الحد الأقصى للأحرف: 5000.",
+                  "T/F":"اختر الإجابة الصحيحة."
+               },
+               "question-instructions":{  
+                  "FIB":"عند كتابة السؤال بصيغة \"املأ الفراغ\"، استخدم الأقواس لتحديد الكلمات التي يجب أن يكون مكانها فارغاً في الجملة. مثال: \"هاجم (الذئب) الشرير الكبير (المنزل) من الأسفل.\" يمكنك إضافة صورة أيضاً.",
+                  "HS_TXT":"اكتب سؤالك.",
+                  "HS_IMG":"اكتب سؤالك.",
+                  "HT_RO":"اكتب سؤالك.",
+                  "HT_HL":"وجِه سؤالاً لطلابك.",
+                  "MC":"اكتب سؤالك.",
+                  "MA":"اكتب سؤالك.",
+                  "OE":"اكتب سؤالك.",
+                  "T/F":"اكتب سؤالك."
+               },
+               "submission-format":{  
+                  "title":"Student Submission Format",
+                  "answer-type":{  
+                     "text-box":"Text Box"
+                  }
+               },
+               "feedback-grading":{  
+                  "title":"Feedback and Grading",
+                  "from-existing-rubric":"From Existing Rubric",
+                  "scoring":"مجموع العلامات",
+                  "maximum-points":"Maximum Points",
+                  "increment":"Increment",
+                  "rubric-error":"Please add a Rubric"
+               }
+            }
+         }
+      },
+      "modals":{  
+         "delete-bookmark":{  
+            "confirmation":"هل تريد حذف المؤشر عن الـ {{type}}؟",
+            "delete-error":"تعذر حذف المؤشر عن هذا الـ {{type}} الآن. يرجى إعادة المحاولة بعد قليل."
+         },
+         "remove-class-activity":{  
+            "confirmation":"Are you sure you want to remove this {{type}} from your Daily Class Activities?",
+            "delete-error":"Oops! Unable to remove this {{type}} right now. Please try again shortly."
+         },
+         "delete-class":{  
+            "legend":"You\\\u0027re about to delete your classroom",
+            "student-access":"Students won\\\u0027t be able to access the classroom",
+            "student-data-deleted":"سيتم حذف جميع بيانات الطالب."
+         },
+         "archive-class":{  
+            "title":"Archive classroom",
+            "legend":"You are about to archive your classroom",
+            "links-not-accessible":"All shared links will be inaccessible",
+            "students-no-access":"Students will not be able to access the classroom",
+            "not-add-students":"You will not be able to add more students to the class",
+            "confirmation":"Are you sure you want to archive?"
+         },
+         "delete-content":{  
+            "legend":"أنت على وشك حذف",
+            "content-legend":"\u003cspan\u003e{{type}}\u003c/span\u003e {{index}} - {{title}} from {{parentName}}",
+            "content-legend-header":"{{title}} من {{parentName}}",
+            "delete-warning":"سيتم حذف جميع المحتويات الموجودة في {{type}}",
+            "delete-error":"تعذر حذف {{type}} في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+            "confirmation":"هل تريد المتابعة؟ يرجى كتابة \"حذف\" أدناه وانقر على \"حذف\"."
+         },
+         "delete-resource":{  
+            "legend":"Confirm you want to permanently delete \u003cb\u003e{{title}}\u003c/b\u003e",
+            "delete-warning":"سيتم حذف جميع المحتويات الموجودة في {{type}}",
+            "delete-error":"تعذر حذف {{type}} في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+            "confirmation":"هل تريد المتابعة؟ يرجى النقر على \u0027حذف نهائي\u0027.",
+            "first-check":"هذا حذف نهائي ولا يمكن التراجع عنه.",
+            "second-check":"سيتم حذف نُسخ من هذا المصدر، في مجموعاتك ومجموعات أي مستخدم في منظمتك."
+         },
+         "delete-rubric":{  
+            "legend":"Confirm you want to permanently delete \u003cb\u003e{{title}}\u003c/b\u003e",
+            "delete-warning":"All content in this Rubric will be deleted",
+            "delete-error":"Oops! Unable to delete Rubric right now. Please try again shortly.",
+            "confirmation":"هل تريد المتابعة؟ يرجى النقر على \u0027حذف نهائي\u0027.",
+            "first-check":"هذا حذف نهائي ولا يمكن التراجع عنه."
+         },
+         "remove-content":{  
+            "legend":"You are about to remove \u003cb\u003e{{title}}\u003c/b\u003e from \u003cb\u003e{{parentName}}\u003c/b\u003e",
+            "remove-error":"يتعذر حذف {{type}} في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+            "confirmation":"هل تريد المتابعة؟ يرجى كتابة \"حذف\" أدناه وانقر على \"حذف\"."
+         },
+         "remove-student":{  
+            "title":"حذف الطلاب وبياناتهم.",
+            "legend":"أنت على وشك حذف{{studentName}} من هذا الفصل الدراسي وحذف جميع بياناتهم.",
+            "data-inaccessible":"سيتم حذف جميع البيانات الخاصة بهم ولا يمكن الوصول إليها من قبل أيٍ منكم.",
+            "classroom-access":"لن يتمكنوا من الوصول إلى الصفوف الدراسية أو المحتوى.",
+            "data-lost":"في حالة إعادة الانضمام إلى الصف الدراسي، ستفقد جميع البيانات السابقة.",
+            "remove-error":"تعذر حذف هذا الطالب في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.",
+            "confirmation":"هل تريد المتابعة؟ يرجى كتابة \"حذف\" أدناه وانقر على \"حذف\"."
+         },
+         "quick-remove-content":{  
+            "legend":"Confirm you want to remove \u003cb\u003e{{title}}\u003c/b\u003e from \u003cb\u003e{{parentName}}\u003c/b\u003e."
+         },
+         "quick-delete-content":{  
+            "legend":"Confirm you want to permanently delete \u003cb\u003e{{title}}\u003c/b\u003e from \u003cb\u003e{{parentName}}\u003c/b\u003e.",
+            "delete":"حذف نهائي"
+         }
+      },
+      "resources":{  
+         "edit":{  
+            "best-practices":"\u003cp\u003eResources are multimedia content in a variety of formats such as videos, interactives, websites, images, Google docs, and more. Get creative and use your own resources or get “resourceful” and search our ample supply in Gooru.\u003c/p\u003e\u003cp\u003eUse a variety of resource types to engage your students and include narration so you can help guide your students through the resource.\u003c/p\u003e\u003cp\u003eWe recommend tagging each question to standards, micro-standards and 21st century skills. You can see how your students are interacting with resources through the teacher dashboard.\u003c/p\u003e",
+            "placeholder-message":"Add a resource to \u003cspan\u003epreview it here.\u003c/span\u003e",
+            "not-implemented":"Resource format preview \u003cspan\u003enot implemented yet.\u003c/span\u003e",
+            "information":{  
+               "im-publisher":"I\\\u0027m the publisher",
+               "select-a-license":"يرجى تحديد رخصة"
+            }
+         }
       }
-    },
-    collections: {
-      edit: {
-        'assign-to-course': 'تعيين لدورة',
-        'best-practices':
-          '<p style=\';text-align:right;direction:rtl\'> يتفاعل الطلاب مع المحتوى الخاص بك على مستوى المجموعة. عند إنشاء مجموعة التعلم، تأكد من تضمين أهداف التعلم، والنظر في استخدام مجموعة متنوعة من أنواع الموارد لفضح الطلاب للمفاهيم بطرق متعددة. </p><p style=\';text-align:right;direction:rtl\'> استخدام تسلسل الموارد للبناء على المفاهيم. وينبغي أن يتدفق التقدم من خلال مجموعة بطريقة منطقية ويأخذ الجمهور المستهدف من مستوى عام إلى أكثر تعقيدا من الفهم إذا كان ذلك مناسبا، أو السماح بشكل كاف لاستكشاف الطلاب. </p><p style=\';text-align:right;direction:rtl\'> وتشمل الشيكات لفهم على طول الطريق عن طريق أسئلة غورو لدينا أو التفاعلات الأخرى. نوصي بما يكفي من الموارد و / أو مجموعة كافية من الموارد لتحقيق الأهداف في جمع والتأكد من أن كل مورد له دور والغرض. </p>'
+   },
+   "user":{  
+      "active-classrooms":"الصفوف الدراسية المفعّلة.",
+      "archived-classrooms":"الصفوف الدراسية المؤرشفة",
+      "classrooms":"الصفوف الدراسية",
+      "create-class":"إنشاء صوف دراسية",
+      "hello":"مرحباً، {{name}}!",
+      "independent-learning":"التعليم المستقل",
+      "join-class":"انضم للصف الدراسي",
+      "joined-classes":{  
+         "zero":"You\\\u0027re currently enrolled in {{count}} classrooms",
+         "one":"You\\\u0027re currently enrolled in 1 classroom",
+         "other":"You\\\u0027re currently enrolled in {{count}} classrooms"
+      },
+      "my-current-classes":"صفوفي الدراسية الحالية",
+      "manage-goals":"إدارة الأهداف",
+      "my-classes":"صفوفي الدراسية",
+      "teaching-classes":{  
+         "zero":"You\\\u0027re currently teaching {{count}} classrooms",
+         "one":"You\\\u0027re currently teaching 1 classroom",
+         "other":"You\\\u0027re currently teaching {{count}} classrooms"
       }
-    },
-    courses: {
-      edit: {
-        information: {
-          'course-title': 'عنوان الدورة',
-          description: 'وصف'
-        },
-        'assign-to-class': 'تعيين إلى سلاسروم',
-        'best-practices':
-          '<p style=\';text-align:right;direction:rtl\'> دورة هو المجلد الذي يسمح لك لتنظيم المحتوى التعليمي الخاص بك إلى وحدات والدروس. عند إنشاء دورة دراسية النظر في الأسئلة الأساسية التي تتناولها، وأهداف التعلم، وتنظيم المحتوى الخاص بك. </p><p style=\';text-align:right;direction:rtl\'> يمكنك وضع الدروس معا لخلق تجربة متنوعة لطالبك (على سبيل المثال، هل يمكن تسلسل الوحدات الخاصة بك زمنيا، حسب الموضوع، أو حسب المعيار). </p>'
+   },
+   "student-landing":{  
+      "announcement":"إعلان",
+      "browse-featured-courses":"تصفح مساقاتنا الدراسية المميزة.",
+      "browse-our":"Browse our",
+      "class-code":"رمز الصف.",
+      "featured-courses":"المساقات الدراسية المميزة",
+      "class":{  
+         "assigned-course":"المساق الدراسي المعيّن",
+         "back-to":"العودة إلى الصفوف الدراسية",
+         "no-course":"This classroom does not have a related course.",
+         "no-course-assigned":"No Course Assigned",
+         "back-to-independent":"العودة إلى التعليم المستقل.",
+         "report":"أبلغ عن",
+         "performance":"آداء",
+         "course-map":"خريطة المساق الدراسي",
+         "unit":"وحدة",
+         "lesson":"درس",
+         "class-activities":"أنشطة الصف اليومية",
+         "class-activities-tab":{  
+            "today":"اليوم"
+         },
+         "my-report":"تقريري"
+      },
+      "course":{  
+         "to-report":"ملخص الاستخدام",
+         "total-time-spent":"إجمالي الوقت المستغرق."
+      },
+      "current-activity":"النشاط الحالي",
+      "resume-current-activity":"Resume Current Activity",
+      "not-available":"-NA-",
+      "join-classroom":"Join your teacher\\\u0027s classroom to start learning",
+      "learn":"تعلم مع صف دراسي خاص بجورو.",
+      "my-performance":{  
+         "activity":"نشاط",
+         "activities":{  
+            "study":"ادرس"
+         },
+         "assessments":"التقييمات",
+         "collections":"مجموعات",
+         "filter":"مُرشِح",
+         "primary-text":"اختر الأشياء التي تريد تحليلها وسنقوم بإنشاء تقرير خاص بالأداء.",
+         "subject":"موضوع",
+         "title":"حلل أدائك.",
+         "time-period":"فترة زمنية",
+         "update-report":"تحديث التقرير"
+      },
+      "my-study":"دراستي",
+      "no-classrooms":"You have not yet joined any classrooms. Click on “Join \u003c/br\u003e Classroom” to add your teacher\\’s class. You can also search for \u003c/br\u003e a featured course under the Library tab.",
+      "no-content-classrooms":"This classroom currently has no content available",
+      "welcome":"مرحبا بكم في جورو."
+   },
+   "student-independent-learning":{  
+      "show-more":"Show More",
+      "show-less":"Show Less",
+      "no-courses":"When you start exploring your bookmarked Courses, they will appear here.",
+      "no-collections":"When you start exploring your bookmarked Collections, they will appear here.",
+      "no-assessments":"When you start exploring your bookmarked Assessments, they will appear here.",
+      "no-independent-results":"Explore the Library to learn something new.",
+      "no-bookmarks":"When you start bookmarking Courses, Collections, and Assessments, they will appear here.",
+      "add-bookmark":"Add Bookmark"
+   },
+   "teacher-landing":{  
+      "latest-announcement":"أحدث إعلان",
+      "latest-assessment":"أحدث تقييم",
+      "create-classroom":"أنشئ صفا دراسيا ثم عين المحتوى ثم قم بدعوة طلابك.",
+      "class":{  
+         "back-to":"العودة إلى الصفوف الدراسية",
+         "back-to-archived":"Back to Archived Classrooms",
+         "class-management":"إدارة الصف الدراسي. ",
+         "class-management-tab":{  
+            "actions":"أفعال",
+            "assessment-min-score":"علامة التقييم الدنيا للجوائز.",
+            "assigned-course":"المساق الدراسي المعيّن",
+            "archive":"أرشيف",
+            "archive-class":"قم بأرشفة الصف.",
+            "archive-classroom":"Archive Classroom",
+            "attend-class-with-code":"حضور الصف مع رمزك الخاص.",
+            "class-information":"معلومات الصف.",
+            "class-name":"اسم الصف الدراسي",
+            "class-code":"رمز الصف.",
+            "click-to-copy-class-code":"انقر لنسخ رمز الصف.",
+            "course-information":"معلومات المساق الدراسي.",
+            "delete":"حذف",
+            "delete-class":"حذف الصف.",
+            "download-roster":"تنزيل القائمة",
+            "edit":"تعديل",
+            "email-address":"عنوان البريد الإلكتروني.",
+            "first-name":"الاسم الأول",
+            "import-roster":"إدخال القائمة",
+            "last-name":"اسم العائلة",
+            "message":"رسالة",
+            "performance":"آداء",
+            "students":"الطلاب",
+            "student-name":"اسم الطالب",
+            "student-id":"هوية الطالب",
+            "teachers":"المعلمون",
+            "view-report":"عرض التقرير.",
+            "students-null":"Share the Class Code with students to have them join your Classroom."
+         },
+         "class-activities":"أنشطة الصف اليومية",
+         "back-to-class-activities":"Back to Daily Class Activities",
+         "class-activities-tab":{  
+            "today":"اليوم",
+            "add-from-course-map":"Add from Course Map",
+            "add-from-my-content":"Add from My Content",
+            "welcome-dca":"Welcome to your Daily Class Activities where you can assign collections and assessments for students to complete today. Please note: any reports generated will only be available today for the most recent attempt."
+         },
+         "click-to-copy":"انقر لنسخ رمز الصف.",
+         "course-map":"خريطة المساق الدراسي",
+         "management":"إدارة القوائم",
+         "report":"أبلغ عن",
+         "performance":"آداء",
+         "performance-tab":{  
+            "assessments":"التقييمات",
+            "collections":"مجموعات"
+         },
+         "view-more":"عرض المزيد"
+      },
+      "no-classrooms":"You have not yet created any classrooms. Click on “Create Classroom” or search \u003c/br\u003e for a featured course under the Library tab.",
+      "no-course":"You have not assigned a course to this \u003c/br\u003e classroom yet.",
+      "teach":"درس في صفوف جورو الدراسية.",
+      "welcome-course-map":"This is your Course Map where you can view course content, turn assessments on or off and launch assessments in real-time. You can also view overall class performance and completion. For a detailed view of class performance, visit your classroom\\\u0027s Report tab."
+   },
+   "goals":{  
+      "manage":{  
+         "title":"أهدافي!",
+         "add-goal":"أضف هدف",
+         "goal-label":"هدف",
+         "start-date-label":"تاريخ البدء",
+         "end-date-label":"تاريخ الانتهاء",
+         "type-label":"نوع الهدف",
+         "status-label":"الحالة",
+         "not_started":"لم تبدأ.",
+         "activated":"مفعَّل",
+         "completed":"تم إنجازه",
+         "dropped":"مهمل",
+         "reflection-label":"انعكاس",
+         "save":"حفظ",
+         "update":"تحديث",
+         "goals-not-found":"You have not set any goals yet. You can add a goal by clicking \\\"Add Goal\\\" button above."
+      },
+      "create":{  
+         "error-add-title":"الرجاء إدخال الهدف",
+         "error-length-title":"الحد الأقصى من الأحرف لكتابة الهدف 200 حرف.",
+         "error-add-start-date":"الرجاء إدخال تاريخ البدء.",
+         "error-add-end-date":"الرجاء إدخال تاريخ الانتهاء.",
+         "error-greater-end-date":"يجب أن يكون تاريخ الانتهاء أحدث من تاريخ البدء.",
+         "error-add-status":"يرجى تحديد حالة الهدف.",
+         "error-length-reflection":"الحد الأقصى من الأحرف لكتابة انعكاس الهدف 2000 حرف.",
+         "created-success-msg":"You\\\u0027ve created the goal {{goalTitle}}"
+      },
+      "delete":{  
+         "deleted-success-msg":"You\\\u0027ve deleted the goal"
+      },
+      "update":{  
+         "updated-success-msg":"You\\\u0027ve updated the goal"
       }
-    },
-    questions: {
-      edit: {
-        information: {
-          'question-title': 'عنوان السؤال',
-          'question-type': 'نوع السؤال'
-        },
-        builder: {
-          'answer-instructions': {
-            HT_HL_WD:
-              'أثناء كتابة السؤال، استخدم الأقواس للكلمات المميزة. يمكن أن تحتوي شريحة واحدة على كلمة واحدة فقط في كل مرة. على سبيل المثال، و [كبير] الذئب سيئة فجر [أسفل] المنزل. عدد الأحرف المسموح به: 5000.',
-            MA:
-              'يمكنك إضافة ما يصل إلى عشرة إجابات، صورة، شرح، وتصل إلى خمس تلميحات.',
-            HS_IMG:
-              'يمكنك إضافة ما يصل إلى عشرة إجابة الصور واختيار واحد أو أكثر من الإجابات الصحيحة.',
-            MC:
-              'يمكنك إضافة ما يصل إلى عشرة خيارات للإجابة والإشارة إلى إجابة واحدة صحيحة. حد الحرف: 200.',
-            OE: 'اكتب الإجابة الصحيحة. عدد الأحرف المسموح به: 5000.',
-            HS_TXT:
-              'يمكنك إضافة ما يصل إلى عشرة خيارات للإجابة وتحديد إجابة صحيحة واحدة أو أكثر.',
-            'T/F': 'اختر الإجابة الصحيحة.',
-            FIB: 'إضافة ما يصل إلى 5 تلميحات للإجابة وشرح.',
-            HT_HL_ST:
-              'أثناء كتابة السؤال، استخدم الأقواس للإشارة إلى الجمل المميزة. ولا يمكن أن يحتوي أحد الأقواس إلا على جملة واحدة في كل مرة، وذلك باستخدام فترة داخل القوس. على سبيل المثال، أول خنزير صغير بني منزله من القش. [الذئب السيئ الكبير فجر المنزل.] الخنزير الثاني بني منزله من الخشب. عدد الأحرف المسموح به: 5000.',
-            HT_RO:
-              'يمكنك إضافة ما يصل إلى عشرة خيارات الإجابة بالترتيب الصحيح. سيتم سارعت النظام للطلاب.'
-          },
-          'question-instructions': {
-            MA: 'اكتب سؤالك.',
-            HS_IMG: 'اكتب سؤالك.',
-            MC: 'اكتب سؤالك.',
-            OE: 'اكتب سؤالك.',
-            HS_TXT: 'اكتب سؤالك.',
-            HT_HL: 'اكتب سؤالك موجه.',
-            'T/F': 'اكتب سؤالك.',
-            FIB:
-              'أثناء كتابة السؤال، استخدم الأقواس لإجابات ملء الفراغ. على سبيل المثال: \'الضربة السيئة [الذئب] فجرت [المنزل].\' يمكنك أيضا إضافة صورة.',
-            HT_RO: 'اكتب سؤالك.'
-          },
-          'add-hint': 'إضافة تلميحات',
-          answer: 'إجابة',
-          'add-explanation': 'إضافة شرح',
-          'add-answer-choice': '+ إضافة الإجابة الخيار'
-        },
-        'add-to': 'اضف إليه',
-        'best-practices':
-          '<p style=\';text-align:right;direction:rtl\'> والسؤال هو المورد الذي يتطلب إجابة من الطالب، ونحن نقدم مجموعة متنوعة من أنواع الأسئلة لدعم أنواع الأسئلة التي سيشاهدها الطلاب على سباك، بارسك والتقييمات الأخرى. </p><p style=\';text-align:right;direction:rtl\'> ننصحك بالتناوب مع أنواع الأسئلة التي تستخدمها لتزويد الطلاب بالتعرض لأنواع الأسئلة هذه ولتقديم أشكال متعددة لإظهار المعرفة. </p><p style=\';text-align:right;direction:rtl\'> ضع علامة على أسئلتك للمعايير، والمعايير الدقيقة، وعمق ويب من المعرفة. يمكنك أن ترى كيف يتفاعل الطلاب مع الأسئلة من خلال لوحة القيادة المعلم. </p>'
+   },
+   "gru-add-to":{  
+      "add-assessment-to-lesson":"أضف من تقييماتي.",
+      "add-assessment-to-lesson-lead":"اختر تقييما لإضافته إلى هذا الدرس.",
+      "add-collection-to-lesson":"أضف من مجموعاتي.",
+      "add-collection-to-lesson-lead":"اختر مجموعة لإضافتها لهذا الدرس.",
+      "add-to-collection":"أضف إلى المجموعة",
+      "add-to-collection-lead":"اختر مجموعة تريد إضافة {{contentTitle}} لها.",
+      "add-to-existing-classroom":"أضف إلى الصف الدراسي الحالي.",
+      "add-to-existing-classroom-lead":"اختر صفاً دراسياً تريد اضافته إلى ",
+      "add-to-assessment":"أضف إلى التقييم أو المجموعة.",
+      "add-to-assessment-lead":"اختر تقييما تريد إضافة {{contentTitle}} إليه.",
+      "assessments-info":"The assessments listed here \u003cb\u003edo not\u003c/b\u003e belong to another lesson or course",
+      "collections-info":"The collections listed here \u003cb\u003edo not\u003c/b\u003e belong to another lesson or course"
+   },
+   "gru-add-rubric-to-question":{  
+      "title":"Add from my Rubrics",
+      "lead":"Select a rubric to add to this question.",
+      "no-rubrics":"You have not yet created any rubrics that can be attached to this Free Response Question. You can create rubrics under My Content which can be accessed from your profile.",
+      "go-to-content":"Go to My Content"
+   },
+   "gru-assessment-confirmation":{  
+      "title":"أنت على وشك بدء تقييم...",
+      "description":"في هذا التقييم، {{model.title}}",
+      "setting-forward":"يمكنك التنقل إلى الأمام فقط",
+      "setting-forward-backward":"يمكنك التنقل إلى الأمام وإلى الخلف للإجابة على الأسئلة.",
+      "unlimited-attempts-left":"لديك عدد غير محدد من المحاولات.",
+      "attempts-left":{  
+         "zero":"لديك {{count}} من المحاولات.",
+         "one":"تبقى لديك محاولة واحدة فقط.",
+         "other":"لديك {{count}} من المحاولات."
+      },
+      "unlimited-attempts":"لديك عدد غير محدد من المحاولات.",
+      "cancel":"إلغاء",
+      "continue":"استمرار",
+      "start":"ابدأ"
+   },
+   "gru-submit-confirmation":{  
+      "title":"إنهاء الاختبار وإرسال الأجوبة.",
+      "description":"أنت على وشك إنهاء هذا الاختبار وإرسال جميع الأجوبة. أي سؤال لم تتم الإجابة عليه يعتبر جواباً خاطئاً. ",
+      "cancel":"إلغاء",
+      "confirm":"إنهاء الاختبار.",
+      "finish-description":"انقر على \"إنهاء الاختبار\" لإرسال إجاباتك."
+   },
+   "gru-quick-course-search":{  
+      "add-from-course":"إضافة من المساق الحالي",
+      "view-featured-courses":"عرض المساقات الدراسية المميزة",
+      "assign":"تعيين"
+   },
+   "gru-share-pop-over":{  
+      "copy":"نسخ",
+      "ios-tooltip":"انقر مطولاً للنسخ. ",
+      "multiarch-tooltip":"اضغط على \"Ctrl + C\" للنسخ.",
+      "safari-osx-tooltip":"اضغط على \"Ctrl + C\" للنسخ.",
+      "share-course":"شارك المساق الدراسي مع رابط.",
+      "share-question":"شارك سؤالك مع رابط.",
+      "share-resource":"مشاركة المصدر مع رابط.",
+      "share-assessment":"شارك التقييم الخاص بك مع رابط.",
+      "share-rubric":"Share your rubric with link",
+      "share-collection":"شارك مجموعتك مع رابط."
+   },
+   "gru-category-panel":{  
+      "teacher":{  
+         "title":"للمعلمين",
+         "body":"اكتشف المحتوى المتوافق مع المعايير ونسق المحتوى وتتبع تقدم الطلاب من خلال تحليلات البيانات.",
+         "cta":"شاهد القصص"
+      },
+      "student":{  
+         "title":"للطلاب",
+         "body":"اكتشف الاهتمامات وابنِ وراقب التقدم من خلال مواد التعليم. ",
+         "cta":"دخول",
+         "text-placeholder":"أدخل رمز الصف الدراسي"
+      },
+      "district":{  
+         "title":"للمقاطعات",
+         "body":"تعاون  مع جورو لإطلاق العنان للتعليم المخصص ولمشاركة المنهاج الذي تمت مراجعته من قبل السلطات المعنية.",
+         "cta":"شاهد مدى تأثيرنا"
+      },
+      "partner":{  
+         "title":"للشركاء",
+         "body":"تعاون مع شركائنا في المهمة لرفع نسبة التأثير الجماعي على بيئة التعليم. ",
+         "cta":"اعرف المزيد"
       }
-    },
-    modals: {
-      'delete-bookmark': {
-        'delete-error':
-          'وجه الفتاة! تعذر إلغاء وضع علامة على هذا {{type}} الآن. الرجاء إعادة المحاولة بعد قليل.',
-        confirmation: 'هل تريد إلغاء وضع علامة على هذا {{type}}؟'
+   },
+   "class.gru-class-navigation":{  
+      "active":"نشِط:",
+      "members":"أفراد",
+      "greetings":"الإعلانات",
+      "overview":"خريطة المساق الدراسي",
+      "analytics":"البيانات",
+      "teams":"فِرق",
+      "information":"معلومات الصف االدراسي"
+   },
+   "class.gru-class-statistics":{  
+      "title":"إحصاءات الصف",
+      "on-average":"في المتوسط",
+      "performance":"آداء",
+      "completion":"إنجاز",
+      "time-spent":"الوقت المستغرق",
+      "no-performance":"-"
+   },
+   "gru-user-registration":{  
+      "joinTitle":"الانضمام إلى مجتمع جورو!",
+      "joinDescription":"ابحث وامزج، وشارك أفضل مصادر التعليم من الروضة وحتى الصف 12 المجانية. ",
+      "googleButton":"أنشئ حسابك عن طريق جوجل.",
+      "whyGoogle":"لماذا أنشئ حسابا عن طريق جوجل؟",
+      "descriptionWhyGoogle":"It\\\u0027s fast and easy. Use your existing Google account to sign in without a password.",
+      "or":"أو",
+      "noGoogleAccount":"Don\\\u0027t have a Google account?",
+      "signUpEmail":"أنشئ حساباً باستخدام بريدك الإلكتروني.",
+      "haveAccount":"هل لديك حساب بالفعل؟",
+      "clickLogIn":"انقر هنا لتسجيل الدخول."
+   },
+   "gru-welcome-message":{  
+      "title":"Welcome to Gooru\\’s Learning Navigator!",
+      "text-temporary-one":"As you move throughout the Learning Navigator, we are happy to support your journey. Look for the Take a Tour icon ",
+      "text-temporary-two":" for guided tours on how to use our features.",
+      "text-one":"عندما تتنقل في جميع أنحاء المتصفح التعليمي، يسعدنا مساعدتك في رحلتك بالطرق التالية: ",
+      "text-two":{  
+         "subtitle":"قم بجولة",
+         "text":"توفير جولات إرشادية عن كيفية استخدام ميزاتنا.  "
       },
-      'delete-class': {
-        'student-data-deleted': 'سيتم حذف جميع بيانات الطالب',
-        legend: 'أنت على وشك حذف الفصل الدراسي',
-        'student-access': 'لن يتمكن الطلاب من الوصول إلى الفصول الدراسية'
+      "text-three":{  
+         "subtitle":"المساعدة",
+         "text":"أسئلة إضافية في متناول يديك. "
       },
-      'delete-content': {
-        'delete-error':
-          'وجه الفتاة! تعذر حذف {{type}} الآن. الرجاء إعادة المحاولة بعد قليل.',
-        legend: 'أنت على وشك الحذف',
-        'content-legend':
-          '<span>{</span> {Type}} {{index}} - {{title}} فروم {{parentName}}',
-        'delete-warning': 'سيتم حذف جميع المحتويات الموجودة في هذا {{type}}',
-        'content-legend-header': '{{title}} من {{parentName}}',
-        confirmation:
-          'هل تريد بالتأكيد المتابعة؟ يرجى كتابة &quot;حذف&quot; أدناه وانقر على &quot;حذف&quot;.'
+      "text-four":{  
+         "subtitle":"جديد",
+         "text":"تحديد ميزات جديدة لتجربتها. "
       },
-      'delete-resource': {
-        'delete-error':
-          'وجه الفتاة! تعذر حذف {{type}} الآن. الرجاء إعادة المحاولة بعد قليل.',
-        legend: 'تأكد من رغبتك في حذف <b>{{title}}</b>',
-        'second-check':
-          'سيتم حذف نسخ من هذا المورد، في مجموعاتك وأي مجموعة من المستخدمين الآخرين في المجتمع',
-        'delete-warning': 'سيتم حذف جميع المحتويات الموجودة في هذا {{type}}',
-        confirmation: 'هل تريد بالتأكيد المتابعة؟ يرجى النقر على \'حذف نهائي\'.',
-        'first-check': 'هذا حذف دائم ولا يمكن التراجع عنه'
+      "text-five":"إذا أردت العودة إلى الصفحة الرئيسية، ببساطة انقر على",
+      "dont-show-again":"Don\\\u0027t show again"
+   },
+   "sign-up":{  
+      "step-1-title":"مرحباً!",
+      "step-1-description":"We\\’re glad you\\’ve decided to join us.",
+      "step-child-title":"ليس بهذه السرعة!",
+      "step-child-subtitle":"لا يمكننا إكمال عملية التسجيل.",
+      "step-child-description-1":"لم يتمكن جورو من إنشاء حسابك بسبب ",
+      "step-child-age-requirements":"البنود و الشروط",
+      "step-child-description-2":"استمر في التعلم، نراك في سنوات قادمة. ",
+      "step-2-title":"معلومات أساسية.",
+      "step-2-description":"You\\’re not basic, but this info is.",
+      "log-in":"تسجيل الدخول",
+      "log-in-description":"إذا كان لديك حساب مسبقاً.",
+      "google-button":"أنشئ حسابك عن طريق جوجل.",
+      "username":"اسم المستخدم",
+      "dateOfBirth":{  
+         "title":"تاريخ الميلاد",
+         "day":"اليوم",
+         "month":"الشهر",
+         "months":{  
+            "january":"كانون الثاني",
+            "february":"شباط",
+            "march":"آذار",
+            "april":"نيسان",
+            "may":"أيار",
+            "june":"حزيران",
+            "july":"تموز",
+            "august":"آب",
+            "september":"أيلول",
+            "october":"تشرين الأول",
+            "november":"تشرين الثاني",
+            "december":"كانون الأول"
+         },
+         "year":"السنة",
+         "error-message":"يرجى إدخال تاريخ الميلاد."
       },
-      'remove-content': {
-        legend: 'أنت على وشك إزالة <b>{{title}}</b> من <b>{{parentName}}</b>',
-        'remove-error':
-          'وجه الفتاة! يتعذر إزالة {{type}} الآن. الرجاء إعادة المحاولة بعد قليل.',
-        confirmation:
-          'هل تريد بالتأكيد المتابعة؟ يرجى كتابة &quot;إزالة&quot; أدناه وانقر على &quot;إزالة&quot;.'
+      "email":"البريد الإلكتروني",
+      "password":"كلمة السر",
+      "rePassword":"تأكيد كلمة المرور.",
+      "state":"الدولة أو المقاطعة",
+      "district":"المقاطعة",
+      "error-username-taken":"هذا الاسم مستخدم من قبل شخص آخر, جرّب اسماً آخر.",
+      "error-email-taken":"هذا البريد الاكتروني مستخدم من قبل شخص آخر, جرّب بريداً آخر.",
+      "error-role-message":"اختر دورا. ",
+      "error-country-message":"اختر بلدك.",
+      "error-state-message":"يرجى تحديد الولاية أو الإقليم.",
+      "error-district-message":"Please select your district/charter from the list or provide it in \\\"Other\\\"."
+   },
+   "gru-user-sign-up-cancel":{  
+      "title":"مغادرة التسجيل؟",
+      "exit?":"هل أنت متأكد من الخروج؟",
+      "registration_incomplete":"لم يكتمل تسجيلك بعد.",
+      "leave":"مغادرة التسجيل",
+      "continue":"متابعة التسجيل"
+   },
+   "login":{  
+      "title":"أهلاً بعودتك!",
+      "description":"التعليم قريب جداً.",
+      "title-session-ends":"انتهت صلاحية الفصل الدراسي.",
+      "description-session-ends":"يرجى تسجيل الدخول.",
+      "gooruAccountTitle":"تسجيل الدخول إلى حساب جورو الخاص بك.",
+      "googleButton":"تسجيل الدخول باستخدام جوجل.",
+      "or":"أو",
+      "haveAccount":"هل لديك حساب؟",
+      "signUpHere":"أنشئ حسابك هنا!",
+      "forgotPassword":"نسيت كلمة المرور؟ ",
+      "password":"كلمة السر",
+      "usernameOrEmail":"اسم المستخدم أو البريد الالكتروني",
+      "log-in":"تسجيل الدخول"
+   },
+   "forgot-password":{  
+      "description":"يحدث لنا جميعاُ.",
+      "usernameOrEmail":"يرجى إدخال بريدك الإلكتروني.",
+      "footer-google-description-1":"Try logging in again by pressing \u003ca href=\u0027/sign-in\u0027\u003e\\\u0027Sign In with Google.\\\u0027\u003c/a\u003e",
+      "footer-description-1":"ستصلك رسالة إلكترونية تتضمن رابطاً لإعادة تعيين كلمة المرور.",
+      "footer-description-2":"إذا كان لديك أي أسئلة، يرجى التواصل معنا. ",
+      "mail":"support@gooru.org",
+      "error-email-not-exists":"Sorry, we don\\\u0027t recognize this email.",
+      "secondStepTitle":"تفقّد بريدك الالكتروني.",
+      "secondStepDescription-1":"We\\\u0027ve sent you an email with a link to reset your password.",
+      "secondStepDescription-2":"إذا كان لديك أي أسئلة، يرجى الاتصال"
+   },
+   "reset-password":{  
+      "new-password":"أدخل كلمة المرور الجديدة.",
+      "new-password-confirm":"تأكيد كلمة المرور.",
+      "title":"إعادة تعيين كلمة المرور."
+   },
+   "footer":{  
+      "footerDescription":"نلتزم في جورو بالحفاظ على منصة المصادر المفتوحة ومحتوى المجموعات الناشئة CC0. ",
+      "company":"الشركة",
+      "community":"المجتمع",
+      "legal":"قانوني",
+      "connect":"الاتصال",
+      "aboutGooru":"حول جورو",
+      "careers":"الوظائف",
+      "supportCenter":"مركز الدعم",
+      "contactUs":"اتصل بنا",
+      "districts":"المقاطعات",
+      "partners":"الشركاء",
+      "coaches":"المدربون",
+      "events":"الأحداث",
+      "terms":"البنود",
+      "privacy":"الخصوصية",
+      "Copyright":"حقوق النشر"
+   },
+   "grade-dropdown":{  
+      "placeholder":"المراحل الدراسية",
+      "prompt":"اختر مرحلة دراسية",
+      "pre-k":"تعليم ما قبل الروضة",
+      "elementary":"المرحلة الابتدائية",
+      "middle-school":"المرحلة المتوسطة",
+      "high-school":"المدرسة الثانوية",
+      "higher-ed":"التعليم العالي",
+      "k":"روضة",
+      "first":"1",
+      "second":"2",
+      "third":"3",
+      "fourth":"4",
+      "fifth":"5",
+      "sixth":"6",
+      "seventh":"7",
+      "eighth":"8",
+      "ninth":"9",
+      "tenth":"10",
+      "eleventh":"11",
+      "twelfth":"12"
+   },
+   "standard-dropdown":{  
+      "placeholder":"تصفح حسب المعيار"
+   },
+   "subject-dropdown":{  
+      "placeholder":"الموضوع أو المواضيع",
+      "prompt":"اختر موضوعاً"
+   },
+   "search-filter":{  
+      "courses":"المساقات الدراسية",
+      "collections":"مجموعات",
+      "resources":"مصادر",
+      "assessments":"التقييمات",
+      "questions":"أسئلة",
+      "rubrics":"سلم تقييم",
+      "question-types":{  
+         "MC":"خيارات متعددة",
+         "FIB":"املأ الفراغ",
+         "T/F":"صح أم خطأ",
+         "TOF":"صح أم خطأ",
+         "MA":"إجابات متعددة",
+         "HS_TXT":"اختيار متعدد - نص",
+         "HSTXT":"Multiple Select Text",
+         "HS_IMG":"متعددة حدد - صورة",
+         "HSIMG":"Multiple Select Image",
+         "HT_RO":"سحب وإفلات",
+         "HT\u0026RO":"Drag \u0026 Drop Order",
+         "HT_HL":"نص مهم",
+         "H-THL":"Hot-Text Highlight",
+         "OE":"إجابة كتابية"
       },
-      'remove-student': {
-        'data-lost':
-          'في حالة إعادة الانضمام إلى الفصل الدراسي، سيتم فقد جميع البيانات السابقة',
-        legend:
-          'أنت على وشك إزالة {{studentName}} من هذا الفصل الدراسي وحذف جميع بياناتهم.',
-        'classroom-access':
-          'لن يتمكنوا من الوصول إلى الفصول الدراسية أو المحتوى',
-        'data-inaccessible':
-          'سيتم حذف جميع البيانات الخاصة بهم ولا يمكن الوصول إليها من قبلك أو لهم',
-        'remove-error':
-          'وجه الفتاة! تعذر إزالة هذا الطالب الآن. الرجاء إعادة المحاولة بعد قليل.',
-        confirmation:
-          'هل تريد بالتأكيد المتابعة؟ يرجى كتابة &quot;حذف&quot; أدناه وانقر على &quot;حذف&quot;.',
-        title: 'أزل الطالب وحذف بياناته'
-      },
-      'quick-remove-content': {
-        legend:
-          'تأكد من أنك تريد إزالة <b>{{title}}</b> من <b>{{parentName}}</b> .'
-      },
-      'quick-delete-content': {
-        legend:
-          'أكد أنك تريد حذف <b>{{title}}</b> <b>نهائيا</b> من <b>{{parentName}}</b> .',
-        delete: 'حذف بشكل دائم'
+      "author":{  
+         "placeholder":"كاتب"
       }
-    },
-    resources: {
-      edit: {
-        information: {
-          'select-a-license': 'يرجى تحديد ترخيص',
-          'im-publisher': 'أنا الناشر'
-        },
-        'best-practices':
-          '<p style=\';text-align:right;direction:rtl\'> الموارد هي محتوى الوسائط المتعددة بمجموعة متنوعة من الأشكال مثل مقاطع الفيديو، والتفاعلات، ومواقع الويب، والصور، ومستندات غوغل، والمزيد. الحصول على الإبداع واستخدام الموارد الخاصة بك أو الحصول على \'الحيلة\' والبحث لدينا امدادات وافرة في غورو. </p><p style=\';text-align:right;direction:rtl\'> استخدم مجموعة متنوعة من أنواع الموارد لإشراك الطلاب وتضمين السرد حتى تتمكن من المساعدة في توجيه الطلاب من خلال المورد. </p><p style=\';text-align:right;direction:rtl\'> نوصي بوضع علامات على كل سؤال على المعايير والمعايير الدقيقة ومهارات القرن الحادي والعشرين. يمكنك معرفة كيفية تفاعل الطلاب مع الموارد من خلال لوحة تحكم المعلم. </p>',
-        'placeholder-message': 'أضف مورد <span>لمعاينته هنا.</span>',
-        'not-implemented':
-          '<span>لم يتم تنفيذ</span> معاينة تنسيق الموارد <span>بعد.</span>'
+   },
+   "resource":{  
+      "video":"فيديو",
+      "webpage":"صفحة ويب",
+      "interactive":"تفاعلي\n",
+      "question":"سؤال",
+      "image":"صورة",
+      "text":"نص",
+      "audio":"تسجيل صوتي",
+      "oer":"مصادر تعليم مفتوحة OER"
+   },
+   "search-result":{  
+      "resource":"مصدر",
+      "resources":"مصادر",
+      "and":"و",
+      "question":"سؤال",
+      "questions":"أسئلة",
+      "in-this-collection":"في هذه المجموعة",
+      "search-results-for":"نتائج البحث عن"
+   },
+   "gru-image-picker":{  
+      "chooseFile":"اختر ملف.",
+      "instruction":"حمل صورة من حاسوبك.",
+      "restriction":"يجب أن تكون الصورة بصيغة  JPG أو GIF أو PNG وحجمها أقل من 5 MB.",
+      "submit":"استخدم الصورة"
+   },
+   "gru-fib":{  
+      "instructions":"Please type your answer(s) in the blank(s) provided, and click \\\"{{action}}\\\"."
+   },
+   "gru-hs-image":{  
+      "instructions":"Please select the correct image(s), and click \\\"{{action}}\\\"."
+   },
+   "gru-hs-text":{  
+      "instructions":"Please select the correct answer(s), and click \\\"{{action}}\\\"."
+   },
+   "gru-hot-text":{  
+      "instructions":"Please select the correct answer, and click \\\"{{action}}\\\"."
+   },
+   "gru-login-prompt":{  
+      "title":"مرحباً بكم في جورو!",
+      "instructions":"يجب تسجيل الدخول لإكمال هذا الإجراء.",
+      "existing-user":"هل لديك حساب بالفعل؟",
+      "new-user":"جديد هنا؟",
+      "not-now":"ليس الان",
+      "sign-in":"تسجيل الدخول"
+   },
+   "gru-multiple-answer":{  
+      "instructions":"Please select the correct answer, and click \\\"{{action}}\\\"."
+   },
+   "gru-multiple-choice":{  
+      "instructions":"Please select the correct answer, and click \\\"{{action}}\\\"."
+   },
+   "gru-open-ended":{  
+      "instructions":"Please type your answer in the field below, and click the \\\"{{action}}\\\" button to save your response when you\\\u0027re done.",
+      "characterLimit":"الحد الأقصى من الأحرف."
+   },
+   "gru-question-viewer":{  
+      "answer":"إجابة",
+      "question":"سؤال"
+   },
+   "gru-true-false":{  
+      "instructions":"Please select the correct answer, and click \\\"{{action}}\\\".",
+      "true":"صحيح",
+      "false":"خطأ"
+   },
+   "gru-reorder":{  
+      "instructions":"Please reorder the answers in correct order, and click \\\"{{action}}\\\"."
+   },
+   "player":{  
+      "gru-navigation":{  
+         "view-report":"عرض التقرير."
+      },
+      "gru-navigator":{  
+         "see-usage-report":"شاهد تقرير الاستخدام."
+      },
+      "gru-viewer":{  
+         "not-iframe-url":{  
+            "header_1":"لا يمكن عرض هذا المصدر باستخدام جورو.",
+            "header_external_assessment_1":"This assessment cannot be viewed within Gooru.",
+            "header_2":"انقر على الزر أدناه لفتح المصدر في صفحة تبويب جديدة.",
+            "view-resource":"عرض المصدر",
+            "https_external":"This link cannot be viewed within Gooru.",
+            "https_new_tab":"Click the link below to open it in a new tab.",
+            "footer_1":"لماذا أرى هذه الصفحة الفارغة؟",
+            "footer_2":"المصادر المضافة في جورو تأتي من آلاف الناشرين الذين",
+            "footer_3":"ينشؤون ويشاركون المحتوى الخاص بهم. تحتوي المصادر على إعدادت مختلفة تتضمن",
+            "footer_4":"المتطلبات التي تنقلك إلى صفحة أخرى لعرض المحتوى."
+         }
       }
-    }
-  },
-  user: {
-    'joined-classes': {
-      zero: 'أنت مسجل حاليا في {{count}} الفصول الدراسية',
-      other: 'أنت مسجل حاليا في {{count}} الفصول الدراسية',
-      one: 'أنت مسجل حاليا في فصل واحد'
-    },
-    'teaching-classes': {
-      zero: 'أنت تدرس حاليا {{count}} الفصول الدراسية',
-      other: 'أنت تدرس حاليا {{count}} الفصول الدراسية',
-      one: 'كنت تدرس حاليا 1 الفصول الدراسية'
-    },
-    'independent-learning': 'التعلم المستقل',
-    'active-classrooms': 'الفصول الدراسية النشطة',
-    'my-classes': 'فصولي',
-    'manage-goals': 'إدارة الأهداف',
-    'create-class': 'إنشاء الفصول الدراسية',
-    'join-class': 'الانضمام إلى الفصول الدراسية',
-    'my-current-classes': 'فصولي الحالية',
-    hello: 'مرحبا، {{name}}!',
-    'archived-classrooms': 'الفصول الدراسية المؤرشفة',
-    classrooms: 'الفصول الدراسية'
-  },
-  'student-landing': {
-    class: {
-      'class-activities-tab': {
-        today: 'اليوم'
+   },
+   "grading-player":{  
+      "answer":"Submitted Work",
+      "back-to":"عودة",
+      "current-response":"Current Response",
+      "full-rubric":"Full Rubric",
+      "grading":"Grading",
+      "level":"مستوى",
+      "roster":"Roster",
+      "rubric":"سلم تقييم",
+      "submitted-time":"Submitted Time",
+      "points":"Points",
+      "prompt":"Task Prompt",
+      "overall-comment":"Overall Comment",
+      "overall-lead":"تلخيص ملاحظاتك على المقال ككل.",
+      "time-spent":"الوقت المستغرق",
+      "total-score":"Total Score",
+      "student-roster":{  
+         "title":"Students List",
+         "lead":"Have answered this question"
       },
-      unit: 'وحدة',
-      performance: 'أداء',
-      'my-report': 'تقريري',
-      lesson: 'درس',
-      'class-activities': 'الأنشطة اليومية',
-      'assigned-course': 'الدورة المعينة',
-      classroom: 'معلومات الفصول الدراسية',
-      'back-to': 'العودة إلى الفصول الدراسية',
-      'back-to-independent': 'العودة إلى التعلم المستقل',
-      'course-map': 'خريطة الدورة التدريبية'
-    },
-    course: {
-      'total-time-spent': 'إجمالي الوقت المستغرق',
-      'to-report': 'ملخص الاستخدام'
-    },
-    'my-performance': {
-      activities: {
-        study: 'دراسة'
-      },
-      filter: 'منقي',
-      assessments: 'تقييم',
-      activity: 'نشاط',
-      collections: 'مجموعات',
-      subject: 'موضوع',
-      'time-period': 'فترة زمنية',
-      'update-report': 'تحديث التقرير',
-      title: 'تحليل أدائك',
-      'primary-text':
-        'اختر الأشياء التي تريد تحليلها وسنقوم بإنشاء تقرير أداء مخصص.'
-    },
-    'browse-featured-courses': 'تصفح الدورات لدينا مميزة',
-    'current-activity': 'النشاط الحالي',
-    learn: 'تعلم مع الفصول الدراسية غورو',
-    'join-classroom':
-      'الانضمام إلى الفصول الدراسية المعلم الخاص بك لبدء التعلم',
-    welcome: 'مرحبا بكم في غورو.',
-    announcement: 'إعلان',
-    'my-study': 'دراستي',
-    'no-classrooms':
-      'لم تنضم بعد إلى أي فصل دراسي. انقر على \'الانضمام\' </br> سلاسروم \'لإضافة فئة معلمك. يمكنك أيضا البحث عن </br> دورة مميزة ضمن علامة التبويب المكتبة.'
-  },
-  'teacher-landing': {
-    class: {
-      'class-management-tab': {
-        'student-name': 'أسم الطالب',
-        'archive-class': 'فئة الأرشيف',
-        'class-code': 'رمز الفئة',
-        students: 'الطلاب',
-        delete: 'حذف',
-        'attend-class-with-code': 'حضور الفئة مع التعليمات البرمجية',
-        teachers: 'معلمون',
-        'download-roster': 'تحميل القائمة',
-        'student-id': 'هوية الطالب',
-        'last-name': 'الكنية',
-        'email-address': 'عنوان البريد الإلكتروني',
-        edit: 'تصحيح',
-        'view-report': 'عرض التقرير',
-        archive: 'أرشيف',
-        message: 'رسالة',
-        'first-name': 'الاسم الاول',
-        'class-name': 'اسم الفصل الدراسي',
-        'course-information': 'دورة معلومات',
-        'import-roster': 'قائمة الاستيراد',
-        performance: 'أداء',
-        'assessment-min-score':
-          'تقييم الحد الأدنى من النقاط للحصول على الجوائز',
-        'assigned-course': 'الدورة المعينة',
-        'class-information': 'معلومات الفئة',
-        'click-to-copy-class-code': 'انقر لنسخ رمز الفئة',
-        actions: 'أفعال',
-        'delete-class': 'حذف الفئة'
-      },
-      'class-activities-tab': {
-        'add-activities': 'إضافة الأنشطة من',
-        or: 'أو',
-        today: 'اليوم،'
-      },
-      'performance-tab': {
-        assessments: 'تقييم',
-        collections: 'مجموعات'
-      },
-      performance: 'أداء',
-      'click-to-copy': 'انقر لنسخ رمز الفئة',
-      management: 'إدارة القوائم',
-      'view-more': 'عرض المزيد',
-      'class-activities': 'الأنشطة اليومية',
-      report: 'أبلغ عن',
-      'back-to': 'العودة إلى الفصول الدراسية',
-      'class-management': 'إدارة الفئة',
-      'course-map': 'خريطة الدورة التدريبية'
-    },
-    'latest-announcement': 'آخر إعلان',
-    'create-classroom': 'إنشاء فصل دراسي، وتعيين محتويات، دعوة الطلاب',
-    'no-course':
-      'لم يتم تعيين دورة تدريبية لهذا الغرض </br> الفصول الدراسية حتى الآن.',
-    'latest-assessment': 'أحدث تقييم',
-    teach: 'تعلم مع الفصول الدراسية غورو',
-    'no-classrooms':
-      'لم تقم بعد بإنشاء أي فصول دراسية. انقر على \'إنشاء الفصول الدراسية\' أو البحث </br> للحصول على دورة مميزة ضمن علامة التبويب المكتبة.'
-  },
-  goals: {
-    manage: {
-      'type-label': 'نوع الهدف',
-      dropped: 'إسقاط',
-      save: 'حفظ',
-      update: 'تحديث',
-      completed: 'منجز',
-      title: 'أهدافي!',
-      'start-date-label': 'تاريخ البدء',
-      'end-date-label': 'تاريخ الانتهاء',
-      'add-goal': 'إضافة هدف',
-      'goal-label': 'هدف',
-      not_started: 'لم يبدأ',
-      'reflection-label': 'انعكاس',
-      'goals-not-found':
-        'لم يتم تعيين أي أهداف حتى الآن. يمكنك إضافة هدف بالنقر على الزر &quot;إضافة هدف&quot; أعلاه.',
-      'status-label': 'الحالة',
-      activated: 'مفعل'
-    },
-    create: {
-      'error-add-title': 'الرجاء إدخال الهدف',
-      'error-add-end-date': 'الرجاء إدخال تاريخ الانتهاء',
-      'error-add-start-date': 'الرجاء إدخال تاريخ البدء',
-      'error-add-status': 'يرجى تحديد حالة الهدف',
-      'created-success-msg': 'لقد أنشأت الهدف {{goalTitle}}',
-      'error-length-reflection': 'يجب أن يكون انعكاس ماكس 2000 حرفا',
-      'error-length-title': 'يجب أن يحتوي الهدف على 200 حرف كحد أقصى',
-      'error-greater-end-date': 'يجب أن يكون تاريخ الانتهاء أكبر من تاريخ البدء'
-    },
-    delete: {
-      'deleted-success-msg': 'لقد حذفت الهدف'
-    },
-    update: {
-      'updated-success-msg': 'لقد حدثت الهدف'
-    }
-  },
-  'gru-add-to': {
-    'add-to-assessment-lead': 'اختر تقييما تريد إضافة {{contentTitle}} إليه',
-    'add-to-existing-classroom': 'إضافة إلى الفصول الدراسية الحالية',
-    'add-to-existing-classroom-lead': 'اختر فصلا دراسيا تريد إضافته إلى',
-    'add-collection-to-lesson-lead': 'حدد مجموعة لإضافتها إلى هذا الدرس.',
-    'add-assessment-to-lesson-lead': 'حدد تقييما لإضافة إلى هذا الدرس.',
-    'add-to-collection-lead': 'اختر مجموعة تريد إضافة {{contentTitle}} إليها',
-    'collections-info':
-      'المجموعات المدرجة هنا <b>لا</b> تنتمي إلى درس آخر أو دورة أخرى',
-    'add-to-collection': 'إضافة إلى مجموعة',
-    'add-to-assessment': 'إضافة إلى التقييم أو الجمع',
-    'assessments-info':
-      'التقييمات المدرجة هنا <b>لا</b> تنتمي إلى درس آخر أو دورة أخرى',
-    'add-assessment-to-lesson': 'إضافة من تقييماتي',
-    'add-collection-to-lesson': 'إضافة من مجموعات بلدي'
-  },
-  'gru-assessment-confirmation': {
-    'attempts-left': {
-      zero: 'لديك {{count}} من المحاولات',
-      other: 'لديك {{count}} من المحاولات',
-      one: 'يتبقى لديك محاولة واحدة'
-    },
-    'setting-forward-backward':
-      'يمكنك التنقل إلى الأمام وإلى الوراء للإجابة على الأسئلة',
-    cancel: 'إلغاء',
-    'setting-forward': 'يمكنك التنقل إلى الأمام فقط',
-    continue: 'استمر',
-    'unlimited-attempts-left': 'لديك محاولات غير محدودة',
-    start: 'بداية!',
-    description: 'في هذا التقييم، {{model.title}}',
-    'unlimited-attempts': 'لديك محاولات غير محدودة',
-    title: 'أنت على وشك بدء التقييم ...'
-  },
-  'gru-submit-confirmation': {
-    cancel: 'إلغاء',
-    confirm: 'إنهاء مسابقة',
-    'finish-description': 'انقر على \'إنهاء الاختبار\' لإرسال إجاباتك.',
-    description:
-      'أنت على وشك إنهاء هذه المحاولة وتقديم جميع الردود. سيتم احتساب أي أسئلة تخطي كما غير صحيحة.',
-    title: 'إنهاء هذا الاختبار وتقديم كل شيء'
-  },
-  'gru-quick-course-search': {
-    'view-featured-courses': 'عرض الدورات المميزة',
-    'add-from-course': 'إضافة من الدورة الحالية',
-    assign: 'تعيين'
-  },
-  'gru-share-pop-over': {
-    'ios-tooltip': 'عقد الصنبور لنسخ!',
-    'multiarch-tooltip': 'اضغط على كترل + C للنسخ!',
-    'share-question': 'شارك سؤالك مع الرابط',
-    'safari-osx-tooltip': 'اضغط على سمد + C لنسخ!',
-    'share-collection': 'مشاركة مجموعتك مع وصلة',
-    'share-assessment': 'مشاركة التقييم الخاص بك مع وصلة',
-    copy: 'نسخ',
-    'share-course': 'مشاركة الدورة مع الارتباط',
-    'share-resource': 'مشاركة الموارد الخاصة بك مع الارتباط'
-  },
-  'gru-category-panel': {
-    teacher: {
-      cta: 'انظر القصص',
-      title: 'للمعلمين',
-      body:
-        'اكتشف المحتوى المتوافق مع المعايير، وتخصيص المحتوى، وتتبع تقدم الطلاب من خلال تحليلات البيانات.'
-    },
-    student: {
-      cta: 'أدخل',
-      'text-placeholder': 'أدخل رمز الفصل الدراسي',
-      title: 'للطلاب',
-      body:
-        'استكشاف الاهتمامات، وبناء ورصد التقدم المحرز من خلال المواد التعليمية.'
-    },
-    district: {
-      cta: 'انظر تأثيرنا',
-      title: 'للأقضية',
-      body:
-        'التعاون مع غورو لإطلاق العنان للتعلم شخصية وتبادل المناهج الدراسية فحص حي.'
-    },
-    partner: {
-      cta: 'أعرف أكثر',
-      title: 'بالنسبة إلى الشركاء',
-      body:
-        'التعاون مع الشركاء المنتمين إلى البعثات لزيادة تأثيرنا الجماعي على النظام البيئي للتعليم.'
-    }
-  },
-  'class.gru-class-navigation': {
-    analytics: 'البيانات',
-    overview: 'خريطة الدورة التدريبية',
-    teams: 'فرق',
-    members: 'أفراد',
-    active: 'نشيط:',
-    information: 'معلومات الفصول الدراسية',
-    greetings: 'الإعلانات'
-  },
-  'class.gru-class-statistics': {
-    completion: 'إكمال',
-    performance: 'أداء',
-    title: 'إحصاءات الفئة',
-    'no-performance': '-',
-    'on-average': 'في المتوسط',
-    'time-spent': 'قضاء الوقت'
-  },
-  'gru-user-registration': {
-    signUpEmail: 'اشترك مع عنوان البريد الإلكتروني الخاص بك',
-    joinTitle: 'الانضمام إلى المجتمع غورو!',
-    clickLogIn: 'انقر هنا لتسجيل الدخول.',
-    or: 'أو',
-    joinDescription: 'البحث، ريميكس، وتبادل أفضل مجانا K-12 مصادر التعلم.',
-    googleButton: 'اشترك مع غوغل',
-    noGoogleAccount: 'أليس لديك حساب غوغل؟',
-    whyGoogle: 'سبب الاشتراك في غوغل',
-    descriptionWhyGoogle:
-      'انها سريعة وسهلة. استخدم حساب غوغل الحالي لتسجيل الدخول بدون كلمة مرور.',
-    haveAccount: 'هل لديك حساب بالفعل؟'
-  },
-  'gru-welcome-message': {
-    'text-two': {
-      subtitle: 'خذ جولة',
-      text: ': يوفر جولات مصحوبة بمرشدين حول كيفية استخدام ميزاتنا.'
-    },
-    'text-three': {
-      subtitle: 'مساعدة',
-      text: ': في متناول يدك دعم لأسئلة إضافية.'
-    },
-    'text-four': {
-      subtitle: 'الجديد',
-      text: ': يحدد الميزات الجديدة بالنسبة لك لمحاولة الخروج.'
-    },
-    'text-five':
-      'في أي وقت إذا كنت ترغب في العودة إلى الصفحة الرئيسية الخاصة بك، ببساطة انقر على',
-    'text-one':
-      'كما يمكنك التحرك في جميع أنحاء الملاح التعلم، ونحن سعداء لدعم رحلتك بالطرق التالية:',
-    title: 'مرحبا بكم في المستكشف التعلم غورو!',
-    'dont-show-again': 'لا تظهر مرة أخرى'
-  },
-  'sign-up': {
-    dateOfBirth: {
-      months: {
-        november: 'شهر نوفمبر',
-        june: 'يونيو',
-        september: 'سبتمبر',
-        may: 'قد',
-        august: 'أغسطس',
-        january: 'كانون الثاني',
-        february: 'شهر فبراير',
-        july: 'يوليو',
-        december: 'ديسمبر',
-        october: 'شهر اكتوبر',
-        april: 'أبريل',
-        march: 'مارس'
-      },
-      month: 'شهر',
-      'error-message': 'الرجاء ادخال تاريخ ميلادك.',
-      year: 'عام',
-      title: 'عيد الميلاد',
-      day: 'يوم'
-    },
-    'step-child-subtitle': 'لا يمكننا إكمال تسجيلك.',
-    'error-email-taken': 'تم أخذ هذه الرسالة الإلكترونية. جرب شئ اخر.',
-    'google-button': 'اشترك مع غوغل',
-    'error-role-message': 'يرجى تحديد دور.',
-    'step-child-title': 'ليس بهذه السرعة!',
-    'error-username-taken': 'أوو، يتم أخذ اسم المستخدم هذا. جرب شئ اخر.',
-    'step-child-age-requirements': 'البنود و الظروف',
-    'step-1-title': 'مرحبا!',
-    'error-state-message': 'يرجى تحديد الولاية أو الإقليم.',
-    'step-child-description-2': '. حافظ على التعلم ونراكم في غضون سنوات قليلة!',
-    'step-child-description-1': 'لم يتمكن غورو من إنشاء حسابك بسبب موقعنا',
-    'step-2-description': 'أنت لست أساسيا، ولكن هذه المعلومات هي.',
-    password: 'كلمه السر',
-    'step-1-description': 'نحن سعداء بأنك قررت الانضمام إلينا.',
-    'log-in-description': 'إذا كان لديك حساب بالفعل.',
-    rePassword: 'تأكيد كلمة المرور',
-    'error-country-message': 'يرجى تحديد بلدك.',
-    district: 'منطقة أو منظمة الميثاق',
-    'log-in': 'تسجيل الدخول',
-    state: 'الدولة أو الإقليم',
-    'error-district-message':
-      'يرجى تحديد المنطقة / الميثاق من القائمة أو تقديمها في \'أخرى\'.',
-    email: 'البريد الإلكتروني',
-    'step-2-title': 'معلومات أساسية',
-    username: 'اسم المستخدم'
-  },
-  'gru-user-sign-up-cancel': {
-    registration_incomplete: 'لم يكتمل تسجيلك.',
-    'exit?': 'هل أنت متأكد أنك تريد الخروج؟',
-    leave: 'ترك التسجيل',
-    continue: 'متابعة التسجيل',
-    title: 'ترك التسجيل؟'
-  },
-  login: {
-    'description-session-ends': 'الرجاء تسجيل الدخول.',
-    or: 'أو',
-    signUpHere: 'سجل هنا!',
-    description: 'التعلم قاب قوسين أو أدنى.',
-    title: 'مرحبا بعودتك!',
-    gooruAccountTitle: 'تسجيل الدخول إلى حساب غورو الخاص بك',
-    'title-session-ends': 'انتهت صلاحية الجلسة.',
-    haveAccount: 'هل لديك حساب؟',
-    forgotPassword: 'نسيت رقمك السري؟',
-    password: 'كلمه السر',
-    googleButton: 'الدخول مع جوجل',
-    'log-in': 'تسجيل الدخول',
-    usernameOrEmail: 'اسم المستخدم أو البريد الالكتروني'
-  },
-  'forgot-password': {
-    mail: 'support@gooru.org',
-    'footer-description-1':
-      'ستتلقى رسالة إلكترونية تتضمن رابطا لإعادة تعيين كلمة المرور.',
-    'error-email-not-exists': 'عذرا، لا نتعرف على هذه الرسالة الإلكترونية.',
-    'footer-description-2': 'إذا كان لديك أي أسئلة، يرجى الاتصال',
-    'secondStepDescription-1':
-      'لقد أرسلنا إليك رسالة إلكترونية تتضمن رابطا لإعادة تعيين كلمة المرور.',
-    description: 'يحدث لنا جميعا.',
-    'secondStepDescription-2': 'إذا كان لديك أي أسئلة، يرجى الاتصال',
-    'footer-google-description-1':
-      'حاول تسجيل الدخول مرة أخرى عن طريق الضغط على <a href=\'/sign-in\'>\'تسجيل الدخول باستخدام غوغل\'.</a>',
-    usernameOrEmail: 'رجاءا أدخل بريدك الإلكتروني',
-    secondStepTitle: 'تحقق من بريدك الالكتروني'
-  },
-  'reset-password': {
-    'new-password-confirm': 'أكد رقمك السري',
-    'new-password': 'أدخل كلمة المرور الجديدة',
-    title: 'إعادة تعيين كلمة المرور'
-  },
-  footer: {
-    contactUs: 'اتصل بنا',
-    districts: 'المناطق',
-    privacy: 'الإجمالية',
-    community: 'تواصل اجتماعي',
-    aboutGooru: 'حول غورو',
-    coaches: 'المدربين',
-    Copyright: 'حقوق النشر',
-    careers: 'وظائف',
-    partners: 'شركاء',
-    terms: 'شروط',
-    legal: 'قانوني',
-    company: 'شركة',
-    supportCenter: 'مركز الدعم',
-    footerDescription:
-      'وتلتزم غورو للحفاظ على منصة مفتوحة المصدر والمجتمع خلق المحتوى CC0.',
-    connect: 'الاتصال',
-    events: 'أحداث'
-  },
-  'grade-dropdown': {
-    tenth: '10',
-    eighth: '8',
-    eleventh: '11',
-    k: 'ك',
-    second: '2',
-    sixth: '6',
-    third: '3',
-    seventh: '7',
-    twelfth: '12',
-    'middle-school': 'المدرسة المتوسطة',
-    elementary: 'ابتدائي',
-    ninth: '9',
-    fifth: '5',
-    placeholder: 'درجات)',
-    'high-school': 'المدرسة الثانوية',
-    'higher-ed': 'أعلى إد',
-    fourth: '4',
-    prompt: 'حدد درجة',
-    'pre-k': 'قبل K',
-    first: '1'
-  },
-  'standard-dropdown': {
-    placeholder: 'تصفح حسب المعيار'
-  },
-  'subject-dropdown': {
-    placeholder: 'المواضيع)',
-    prompt: 'اختر موضوعا'
-  },
-  'search-filter': {
-    'question-types': {
-      MA: 'إجابة متعددة',
-      HS_IMG: 'متعددة حدد - صورة',
-      MC: 'متعدد الخيارات',
-      OE: 'استجابة مجانية',
-      HS_TXT: 'متعددة حدد - نص',
-      HT_HL: 'النص الساخن تسليط الضوء',
-      'T/F': 'خطأ صحيح',
-      FIB: 'املاء الفراغ',
-      HT_RO: 'سحب وإسقاط النظام'
-    },
-    author: {
-      placeholder: 'مؤلف'
-    },
-    courses: 'الدورات',
-    rubrics: 'عناوين',
-    assessments: 'تقييم',
-    collections: 'مجموعات',
-    questions: 'الأسئلة',
-    resources: 'موارد'
-  },
-  resource: {
-    image: 'صورة',
-    question: 'سؤال',
-    interactive: 'متفاعل',
-    video: 'فيديو',
-    webpage: 'صفحة ويب',
-    text: 'نص',
-    audio: 'سمعي',
-    oer: 'OER'
-  },
-  'search-result': {
-    question: 'سؤال',
-    'in-this-collection': 'في هذه المجموعة',
-    resource: 'مورد',
-    and: 'و',
-    questions: 'الأسئلة',
-    resources: 'موارد',
-    'search-results-for': 'نتائج البحث عن'
-  },
-  'gru-image-picker': {
-    chooseFile: 'اختيار ملف ...',
-    submit: 'استخدام الصورة',
-    instruction: 'حمل صورة من ملف على جهاز الكمبيوتر.',
-    restriction: 'يجب أن تكون الصورة ملف جبغ أو جيف أو ينغ أصغر من 5 ميغابايت.'
-  },
-  'gru-fib': {
-    instructions:
-      'يرجى كتابة الإجابة (الإجابات) في الفراغات التي تم تقديمها، ثم النقر على \'{{action}}\'.'
-  },
-  'gru-hs-image': {
-    instructions: 'يرجى تحديد الصورة الصحيحة، وانقر على \'{{action}}\'.'
-  },
-  'gru-hs-text': {
-    instructions: 'يرجى تحديد الإجابة الصحيحة، وانقر على \'{{action}}\'.'
-  },
-  'gru-hot-text': {
-    instructions: 'يرجى تحديد الإجابة الصحيحة، ثم النقر على \'{{action}}\'.'
-  },
-  'gru-login-prompt': {
-    'new-user': 'جديد هنا؟',
-    instructions: 'يجب تسجيل الدخول لإكمال هذا الإجراء.',
-    'sign-in': 'تسجيل الدخول',
-    title: 'مرحبا بكم في غورو!',
-    'existing-user': 'هل لديك حساب بالفعل؟',
-    'not-now': 'ليس الان'
-  },
-  'gru-multiple-answer': {
-    instructions: 'يرجى تحديد الإجابة الصحيحة، ثم النقر على \'{{action}}\'.'
-  },
-  'gru-multiple-choice': {
-    instructions: 'يرجى تحديد الإجابة الصحيحة، ثم النقر على \'{{action}}\'.'
-  },
-  'gru-open-ended': {
-    instructions:
-      'يرجى كتابة إجابتك في الحقل أدناه، ثم النقر على الزر \'{{أكتيون}}\' لحفظ ردك عند الانتهاء.',
-    characterLimit: 'حد الحرف'
-  },
-  'gru-question-viewer': {
-    answer: 'إجابة',
-    question: 'سؤال'
-  },
-  'gru-true-false': {
-    instructions: 'يرجى تحديد الإجابة الصحيحة، ثم النقر على \'{{action}}\'.',
-    true: 'صحيح',
-    false: 'خاطئة'
-  },
-  'gru-reorder': {
-    instructions:
-      'يرجى إعادة ترتيب الإجابات بالترتيب الصحيح، ثم النقر على \'{{action}}\'.'
-  },
-  player: {
-    'gru-navigation': {
-      'view-report': 'عرض التقرير'
-    },
-    'gru-navigator': {
-      'see-usage-report': 'راجع تقرير الاستخدام'
-    },
-    'gru-viewer': {
-      'not-iframe-url': {
-        'view-resource': 'عرض الموارد',
-        header_2: 'انقر على الزر أدناه لفتح المورد في علامة تبويب جديدة.',
-        footer_4: 'المتطلبات التي تنقلك إلى صفحة أخرى لعرض المحتوى.',
-        footer_3:
-          'إنشاء ومشاركة المحتوى الخاص بهم. الموارد لديها مجموعة متنوعة من الإعدادات، بما في ذلك',
-        header_1: 'لا يمكن عرض هذا المورد ضمن غورو.',
-        footer_2:
-          'الموارد المضافة في غورو تأتي من الآلاف من الناشرين مختلفين الذين',
-        footer_1: 'لماذا أرى هذه الصفحة الفارغة؟'
+      "rubric-panel":{  
+         "previous":"Previous Student",
+         "next":"Next Student",
+         "total-score":"Total Score",
+         "points":"({{total}}pts)"
       }
-    }
-  },
-  profile: {
-    'gru-navigation': {
-      library: 'مكتبة',
-      followers: 'متابعون',
-      about: 'حول',
-      'about-you': 'حولك'
-    },
-    edit: {
-      'select-district': 'تحديد منطقة ...'
-    }
-  },
-  'gru-data-picker': {
-    score: 'أحرز هدفاً',
-    completion: 'إكمال',
-    'study-time': 'وقت الدراسة',
-    reaction: 'رد فعل',
-    timeSpent: 'زمن',
-    report: 'أبلغ عن',
-    'time-spent': 'قضاء الوقت',
-    attempts: 'محاولة'
-  },
-  'gru-performance-summary': {
-    resume: 'استئنف',
-    completion: 'إكمال',
-    study: 'ادرس الان',
-    reaction: 'رد فعل',
-    scores: 'درجات',
-    'view-report': 'عرض التقرير',
-    'not-started': 'لم تبدأ بعد',
-    redo: 'فعل ثانية',
-    title: 'عنوان',
-    'not-applicable': 'N / A',
-    'time-spent': 'الوقت الكلي',
-    attempts: 'محاولات'
-  },
-  'gru-performance': {
-    'no-content': 'لا يتوفر محتوى'
-  },
-  'gru-performance-metrics': {
-    assessment: 'تقدير',
-    completion: 'إكمال',
-    score: 'أحرز هدفاً',
-    'study-time': 'قضاء الوقت',
-    student: 'طالب علم',
-    report: 'أبلغ عن',
-    collection: 'مجموعة'
-  },
-  'gru-metrics-sub-header': {
-    assessment: 'تقدير',
-    score: 'أحرز هدفاً',
-    completion: 'إكمال',
-    student: 'طالب علم',
-    report: 'أبلغ عن',
-    'time-spent': 'زمن'
-  },
-  'gru-resource-new': {
-    'resource-already-exist': 'هذا المورد موجود بالفعل في غورو!'
-  },
-  'gru-assessment-report': {
-    'gru-summary': {
-      'total-time-spent': 'إجمالي الوقت المستغرق'
-    },
-    'hidden-report':
-      'لقد اختار معلمك إخفاء تقرير الملخص الخاص بك لإجراء هذا التقييم.'
-  },
-  cards: {
-    'gru-class-card': {
-      student: {
-        zero: '{{count}} طالب',
-        other: '{{count}} الطلاب',
-        one: '{{count}} طالب',
-        'not-started': 'لم يبدأ'
+   },
+   "profile":{  
+      "gru-navigation":{  
+         "about":"حول",
+         "about-me":"About Me",
+         "content":"محتوى",
+         "followers":"متابعون",
+         "library":"المكتبة",
+         "my-content":"المحتوى الخاص بي"
       },
-      unit: {
-        zero: 'لا بالطبع',
-        other: '{{count}} الوحدات',
-        one: '{{count}} الوحدة'
-      },
-      archived: {
-        'download-report': 'تنزيل بياناتك لهذه الفئة.',
-        'report-in-progress':
-          'تقرير جيل يمكن أن يستغرق فترة تصل إلى 20 دقيقة. يرجى التحقق مرة أخرى.',
-        'request-report':
-          'تم أرشفة هذه الفئة ولا يمكن تعديلها. يمكن الوصول إلى بيانات الفئة الحالية عبر التقرير.',
-        'no-report-available': 'لا تحتوي هذه الفئة على محتوى مقرر.'
+      "edit":{  
+         "select-district":"اختر مقاطعة..."
       }
-    },
-    'gru-course-card': {
-      units: {
-        zero: '{{count}} الوحدات',
-        other: '{{count}} الوحدات',
-        one: '{{count}} الوحدة'
+   },
+   "gru-data-picker":{  
+      "score":"العلامة",
+      "report":"أبلغ عن",
+      "completion":"إنجاز",
+      "timeSpent":"الوقت",
+      "time-spent":"الوقت المستغرق",
+      "study-time":"وقت الدراسة",
+      "reaction":"تفاعل",
+      "attempts":"محاولة"
+   },
+   "gru-performance-summary":{  
+      "title":"عنوان",
+      "scores":"علامات",
+      "completion":"إنجاز",
+      "time-spent":"الوقت الكلي",
+      "reaction":"تفاعل",
+      "attempts":"محاولات",
+      "redo":"قم ذلك مرة أخرى",
+      "resume":"ملخص",
+      "study":"ادرس الآن",
+      "view-report":"عرض التقرير.",
+      "not-applicable":"غ/م",
+      "not-started":"لم تبدأ بعد"
+   },
+   "gru-performance":{  
+      "no-content":"لا يوجد محتوى."
+   },
+   "gru-performance-metrics":{  
+      "assessment":"التقييم",
+      "collection":"مجموعة",
+      "completion":"إنجاز",
+      "report":"أبلغ عن",
+      "student":"طالب",
+      "score":"العلامة",
+      "study-time":"الوقت المستغرق"
+   },
+   "gru-metrics-sub-header":{  
+      "assessment":"التقييم",
+      "student":"طالب",
+      "score":"العلامة",
+      "report":"أبلغ عن",
+      "completion":"إنجاز",
+      "time-spent":"الوقت"
+   },
+   "gru-resource-new":{  
+      "resource-already-exist":"هذا المصدر موجود مسبقاً في جورو!"
+   },
+   "gru-assessment-report":{  
+      "gru-summary":{  
+         "total-time-spent":"إجمالي الوقت المستغرق."
       },
-      resource: {
-        zero: '{{count}} الموارد',
-        other: '{{count}} الموارد',
-        one: '{{count}} مورد'
+      "hidden-report":"لقد قام معلمك بإخفاء ملخص التقرير لهذا التقييم "
+   },
+   "cards":{  
+      "gru-class-card":{  
+         "student":{  
+            "zero":"{{count}} طالب",
+            "one":"{{count}} طالب",
+            "other":"{{count}} الطلاب",
+            "not-started":"لم تبدأ."
+         },
+         "unit":{  
+            "zero":"لا يوجد مساق دراسي",
+            "one":"{{count}} وحدة",
+            "other":"{{count}} وحدات"
+         },
+         "archived":{  
+            "request-report":"لا يمكن تعديل هذا الصف الدراسي لأنه مؤرشف، ويمكن الوصول إلى بيانات الصف الدراسي الحالي من خلال التقرير.",
+            "report-in-progress":"قد يستغرق إنشاء التقرير 20 دقيقة. يرجى التحقق مرة أخرى.",
+            "download-report":"تنزيل بياناتك لهذا الصف.",
+            "no-report-available":"لم يتم تعيين محتوى لهذا الصف"
+         }
       },
-      question: {
-        zero: '{{count}} الأسئلة',
-        other: '{{count}} الأسئلة',
-        one: '{{count}} سؤال'
+      "gru-course-card":{  
+         "in":"في",
+         "units":{  
+            "zero":"{{count}} وحدات",
+            "one":"{{count}} وحدة",
+            "other":"{{count}} وحدات"
+         },
+         "resource":{  
+            "zero":"{{count}} مصادر",
+            "one":"{{count}} مصدر",
+            "other":"{{count}} مصادر"
+         },
+         "and":"و",
+         "question":{  
+            "zero":"{{count}} اسئلة",
+            "one":"{{count}} سؤال",
+            "other":"{{count}} اسئلة"
+         },
+         "start-studying":"بدء الدراسة"
       },
-      in: 'في',
-      'start-studying': 'بدء الدراسة',
-      and: 'و'
-    },
-    'gru-collection-card': {
-      courses: {
-        zero: '{{count}} الدورات التدريبية',
-        other: '{{count}} الدورات التدريبية',
-        one: '{{count}} الدورة التدريبية'
+      "gru-collection-card":{  
+         "courses":{  
+            "zero":"{{count}} مساقات دراسية",
+            "one":"{{count}} مساق دراسي",
+            "other":"{{count}} مساقات دراسية"
+         },
+         "students":{  
+            "zero":"{{count}} الطلاب",
+            "one":"{{count}} طالب",
+            "other":"{{count}} الطلاب"
+         },
+         "collections":{  
+            "one":"{{count}} مجموعة",
+            "other":"{{count}} مجموعات"
+         },
+         "assessments":{  
+            "one":"{{count}} تقييم",
+            "other":"{{count}} تقييمات"
+         },
+         "classrooms":{  
+            "zero":"{{count}} صوف دراسية",
+            "one":"{{count}} صف دراسي",
+            "other":"{{count}} صوف دراسية"
+         }
       },
-      students: {
-        zero: '{{count}} الطلاب',
-        other: '{{count}} الطلاب',
-        one: '{{count}} طالب'
+      "gru-resource-card":{  
+         "add":"إضافة إلى"
       },
-      collections: {
-        other: '{{count}} المجموعات',
-        one: '{{count}} مجموعة'
+      "gru-resource-result-card":{  
+         "skipped":"تم التخطي عنه"
       },
-      assessments: {
-        other: '{{count}} التقييمات',
-        one: '{{count}} تقييم'
+      "gru-profile-card":{  
+         "followers":"متابعون",
+         "following":"متابعة"
       },
-      classrooms: {
-        zero: '{{count}} الفصول الدراسية',
-        other: '{{count}} الفصول الدراسية',
-        one: '{{count}} قاعة الدراسة'
+      "gru-user-network-card":{  
+         "follow":"اتبع"
       }
-    },
-    'gru-resource-card': {
-      add: 'اضف إليه'
-    },
-    'gru-resource-result-card': {
-      skipped: 'تخطي'
-    },
-    'gru-profile-card': {
-      followers: 'متابعون',
-      following: 'التالية'
-    },
-    'gru-user-network-card': {
-      follow: 'إتبع'
-    }
-  },
-  'reports.gru-table-view': {
-    score: 'أحرز هدفاً',
-    'study-time': 'وقت الدراسة',
-    reaction: 'رد فعل',
-    student: 'طالب علم',
-    scores: 'درجات',
-    'first-tier-header-prefix': 'Q',
-    reactions: 'تفاعل',
-    time: 'زمن',
-    totals: 'مجموع',
-    'time-spent': 'قضاء الوقت'
-  },
-  'gru-emotion-picker': {
-    'react-to-resource': 'رد على هذا المورد'
-  },
-  home: {
-    'no-classes-found': {
-      'create-class': {
-        'button-text': 'إنشاء الفصول الدراسية',
-        description: 'إنشاء فصل دراسي، وتعيين المحتوى، ودعوة الطلاب.',
-        title: 'تعلم مع الفصول الدراسية غورو'
-      },
-      'join-class': {
-        'button-text': 'أدخل رمز الفصل الدراسي',
-        description:
-          'الانضمام إلى الفصول الدراسية المعلم الخاص بك لبدء التعلم.',
-        title: 'تعلم مع الفصول الدراسية غورو'
-      },
-      'featured-courses': {
-        'button-text': 'الدورات المتميزة',
-        description:
-          'تصفح الرياضيات والعلوم والدراسات الاجتماعية، ودورات اللغة الإنكليزية.',
-        title: 'الدورات المتميزة'
-      },
-      'teacher-toolkit': {
-        'button-text': 'مجموعة أدوات المعلم',
-        description: 'تحتوي مجموعة الأدوات هذه على موارد لمساعدتك في البدء.',
-        title: 'مجموعة أدوات المعلم'
+   },
+   "reports.gru-table-view":{  
+      "first-tier-header-prefix":"س",
+      "student":"طالب",
+      "reaction":"تفاعل",
+      "reactions":"ردود فعل",
+      "score":"العلامة",
+      "scores":"علامات",
+      "study-time":"وقت الدراسة",
+      "time":"الوقت",
+      "time-spent":"الوقت المستغرق",
+      "totals":"مجموع"
+   },
+   "gru-emotion-picker":{  
+      "react-to-resource":"تفاعل مع هذا المصدر"
+   },
+   "home":{  
+      "no-classes-found":{  
+         "create-class":{  
+            "title":"درس في صفوف جورو الدراسية.",
+            "description":"أنشئئ صف دراسي، عيِّن محتوى، وقم بدعوة الطلاب",
+            "button-text":"إنشاء صوف دراسية"
+         },
+         "join-class":{  
+            "title":"تعلم مع صف دراسي خاص بجورو.",
+            "description":"Join your teacher\\’s classroom to start learning.",
+            "button-text":"أدخل رمز الصف الدراسي"
+         },
+         "featured-courses":{  
+            "title":"المساقات الدراسية المميزة",
+            "description":"تصفح مساقات الرياضيات والعلوم والدراسات الاجتماعية ومهارات اللغة الإنجليزية.",
+            "button-text":"المساقات الدراسية المميزة"
+         },
+         "teacher-toolkit":{  
+            "title":"مجموعة أدوات المعلم",
+            "description":"لمجموعة الأدوات هذه مصادر تساعدك في البدء. ",
+            "button-text":"مجموعة أدوات المعلم"
+         }
       }
-    }
-  },
-  taxonomy: {
-    'gru-taxonomy-selector': {
-      'primary-subject-and-course': 'إطار المعايير ودورة',
-      'add-secondary': 'إضافة ثانوي',
-      'competency-subject-and-course': 'إطار الكفاءات والدورة التدريبية',
-      'choose-subject': 'اختر الموضوع'
-    }
-  },
-  validations: {
-    unsavedChanges: 'لم يتم حفظ التغييرات بعد. هل تريد مغادرة هذه الصفحة؟'
-  },
-  featured: {
-    'featured-title': 'الدورات المتميزة',
-    'featured-description':
-      'ويتم فحص الدورات غورو المميزة واستعراضها، المربعات، التي أنشئت في الفصول الدراسية، ودرس من قبل الطلاب. تم تطويرها وتنفيذها في المدارس المبتكرة، والمقاطعات، والمواثيق، وهي مصممة لدعم التعلم المخلوطة، والفصول الدراسية انقلبت، والتعلم القائم على المشاريع، والعديد من النماذج التعليمية الأخرى. اكتشاف، ريميكس، وتخصيص دورات لتخصيص التعلم وزيادة مشاركة الطلاب! انقر هنا <a href=\'http://about.gooru.org/courses\' target=\'_blank\'>لمعرفة المزيد</a> عن تطوير هذه الدورات.'
-  },
-  'taxonomy.modals': {
-    'gru-domain-picker': {
-      selectedText: {
-        zero: 'تم تحديد {{count}} من النطاقات',
-        other: 'تم تحديد {{count}} من النطاقات',
-        one: 'تم تحديد نطاق {{count}}'
-      },
-      shortcutText: 'الدورة في',
-      browseSelectorText: 'ما النطاقات التي ستغطيها هذه الوحدة؟'
-    },
-    'gru-standard-picker': {
-      selectedText: {
-        zero: 'تم تحديد {{count}} من المعايير',
-        other: 'تم تحديد {{count}} من المعايير',
-        one: 'تم تحديد معيار {{count}}'
-      },
-      selectedCompetencyText: {
-        zero: 'تم تحديد {{count}} من الكفاءات',
-        other: 'تم تحديد {{count}} من الكفاءات',
-        one: 'تم تحديد {{count}} الكفاءة'
-      },
-      browseCompetencySelectorText: 'ما هي الكفاءات التي سيتم تغطيتها؟',
-      shortcutText: 'تم وضع علامة على الوحدة ب',
-      browseSelectorText: 'ما هي المعايير التي سيتم تغطيتها؟'
-    }
-  },
-  'account-settings': {
-    birthday: 'عيد الميلاد',
-    'email-address': 'عنوان البريد الإلكتروني',
-    gender: 'جنس',
-    'account-info': 'معلومات الحساب',
-    title: 'إعدادت الحساب',
-    'private-info': 'معلومات خاصة'
-  },
-  'gru-rich-text-editor': {
-    'expressions-panel': {
-      tabs: {
-        layout: 'نسق',
-        trigonometry: 'علم المثلثات',
-        'set-theory': 'نظرية المجموعات',
-        'greek-letters': 'الحروف اليونانية',
-        calculus: 'حساب التفاضل والتكامل',
-        symbols: 'حرف',
-        relation: 'علاقة'
-      },
-      'update-expression': 'تحديث',
-      'insert-expression': 'إدراج',
-      'create-expression': 'إنشاء التعبير'
-    },
-    expression: 'التعبير',
-    subscript: 'مخطوطة',
-    underline: 'أكد',
-    superscript: 'حرف فوقي',
-    bold: 'بالخط العريض',
-    italic: 'مائل'
-  },
-  'gru-settings-edit': {
-    feedback: 'یرى الطلاب ما إذا کانوا صحیحین / غیر صحیحین',
-    'disable-heading': 'تفعيل التقييم في خريطة الدورة التدريبية',
-    'navigation-scoring': 'الملاحة وسجل',
-    'feedback-immediate': 'لكل سؤال وفي النهاية',
-    'answerkey-attempts': 'الإجابة مفتاح والمحاولات',
-    'disable-legend': 'يمكن للطلاب لعب التقييم من خريطة مسارهم',
-    'feedback-never': 'أبدا',
-    'feedback-summary': 'في نهايةالمطاف',
-    'answer-key': 'يمكن للطلاب رؤية مفتاح الإجابة في النهاية',
-    backwards: 'يمكن للطلاب التنقل إلى الوراء وتغيير الاستجابات',
-    attempts: 'محاولات',
-    'attempts-unlimited': 'غير محدود'
-  },
-  'gru-icon-popover': {
-    'settings-visibility-content':
-      'يؤدي هذا الإعداد إلى جعل المحتوى مرئيا عبر الملف الشخصي للمستخدم. إذا كنت ترغب في مشاركة الدورات والمجموعات والتقييمات والموارد و / أو الأسئلة التي تنشئها مع الزملاء، نقترح عليك تشغيل هذه الميزة.',
-    'settings-visibility-title': 'اجعل المحتوى مرئيا'
-  },
-  'gru-take-tour': {
-    'teacher-home': {
-      stepOne: {
-        description:
-          'مرحبا بكم في موقع غورو الخاص بك! هنا يمكنك العثور على قائمة من الفصول الدراسية التي تقوم بإنشائها في غورو. تتيح لك الفصول الدراسية مشاركة المحتوى مباشرة مع الطلاب. يمكنك دائما العودة إلى صفحتك الرئيسية من خلال النقر على أيقونة غورو.',
-        title: 'الصفحة الرئيسية'
-      },
-      stepTwo: {
-        description:
-          'ستظهر أي غرف صفية تدرسها أو تنضم إليها هذا العام الدراسي هنا تحت الفصول الدراسية النشطة.',
-        title: 'دروس تعليم أو الانضمام'
-      },
-      stepThree: {
-        description:
-          'انقر هنا لإنشاء فصل دراسي جديد. بعد أن يكون لديك محتوى لمشاركته مع الطلاب، سوف تقوم بتعيينه لهم عبر الفصول الدراسية.',
-        title: 'إنشاء سلاسروم'
-      },
-      stepFour: {
-        description:
-          'هذا هو ملفك الشخصي. انقر على ملفك الشخصي في أي وقت للوصول إلى المحتوى الذي تقوم بإنشائه أو إعادة تعيينه في غورو.',
-        title: 'ملفك الشخصي'
+   },
+   "taxonomy":{  
+      "gru-taxonomy-selector":{  
+         "add-secondary":"إضافة ثانوية",
+         "choose-subject":"اختر موضوعاً",
+         "competency-subject-and-course":"إطار الكفاءات والمساق الدراسي",
+         "primary-subject-and-course":"إطار المعايير والمساق الدراسي"
       }
-    },
-    'student-home': {
-      stepOne: {
-        description:
-          'مرحبا بكم في جولة! هذه هي صفحتك الرئيسية الشخصية. تذكر أنه يمكنك دائما الرجوع إلى صفحتك من خلال النقر على شعار غورو. الآن دعونا نبدأ!',
-        title: 'تأخذ رمز جولة'
+   },
+   "validations":{  
+      "unsavedChanges":"Your changes haven\\\u0027t been saved yet. Would you like to leave this page?"
+   },
+   "featured":{  
+      "featured-title":"المساقات الدراسية المميزة",
+      "featured-description":"Featured courses are curated by innovative teachers, vetted and reviewed by content experts, and implemented in classrooms with students. Discover, remix, and customize courses to personalize learning and increase student engagement! \u003ca href=\u0027http://about.gooru.org/courses\u0027 target=\u0027_blank\u0027\u003eLearn more\u003c/a\u003e about the development of these courses."
+   },
+   "taxonomy.modals":{  
+      "gru-domain-picker":{  
+         "browseSelectorText":"ما هي النطاقات التي ستغطيها هذه الوحدة؟",
+         "selectedText":{  
+            "zero":"تم تحديد {{count}} نطاقات",
+            "one":"تم تحديد {{count}} نطاق",
+            "other":"تم تحديد {{count}} نطاقات"
+         },
+         "shortcutText":"المساق الدراسي في"
       },
-      stepTwo: {
-        description:
-          'هنا سترى إعلانات أن معلمك أو المدرسة تود منك أن تعرف عنها.',
-        title: 'الإعلانات'
-      },
-      stepFour: {
-        description: 'انظر جميع الفئات التي كنت مسجلا.',
-        title: 'الفصول الدراسية'
-      },
-      stepFive: {
-        description:
-          'للانضمام إلى فصل دراسي جديد، أدخل رمز الفصل وسيتم عرضه ضمن &quot;فصولي&quot;.',
-        title: 'الانضمام إلى الفصول الدراسية'
-      },
-      stepSix: {
-        description:
-          'استكشاف ومرجعية المواضيع التي تهمك والتي تريد معرفة المزيد عن.',
-        title: 'التعلم المستقل'
-      },
-      stepSeven: {
-        description: 'بحث كتالوج المحتوى لدينا للمواضيع التي تهمك.',
-        title: 'شريط البحث'
-      },
-      stepEight: {
-        description: 'ارجع إلى صفحتك الرئيسية.',
-        title: 'الصفحة الرئيسية'
-      },
-      stepNine: {
-        description: 'تصفح الدورات لدينا مميزة.',
-        title: 'مكتبة'
-      },
-      stepTen: {
-        description: 'اطلع على ملخص لأدائك في الدورات التي تسجل فيها.',
-        title: 'أداء'
-      },
-      stepThirteen: {
-        description: 'الوصول إلى ملف تعريف المستخدم وتحديثه.',
-        title: 'اسم المستخدم'
-      },
-      stepFourteen: {
-        description:
-          'الآن المضي قدما وانقر على دورة كنت قد سجلت في، والانضمام إلى الفصول الدراسية، أو البحث عن المحتوى الذي هو في مصلحة لكم.',
-        title: 'تم الانتهاء من!'
+      "gru-standard-picker":{  
+         "browseSelectorText":"ما هي المعايير التي سيتم تغطيتها؟",
+         "browseCompetencySelectorText":"ما هي الكفاءات التي سيتم تغطيتها؟",
+         "selectedText":{  
+            "zero":"تم تحديد {{count}} معايير",
+            "one":"تم تحديد {{count}} معيار ",
+            "other":"تم تحديد {{count}} معايير"
+         },
+         "selectedCompetencyText":{  
+            "zero":"تم تحديد {{count}} كفاءات",
+            "one":"تم تحديد {{count}} كفاءة",
+            "other":"تم تحديد {{count}} كفاءات"
+         },
+         "shortcutText":"تم ربط الوحدة بـ"
       }
-    },
-    'student-performance': {
-      stepOne: {
-        description:
-          'مرحبا بكم في لوحة الأداء الخاصة بك. يمكنك عرض كيف كنت أداء في جميع الطبقات والدورات.',
-        title: 'أهلا بك!'
-      },
-      stepTwo: {
-        description:
-          'انقر على السهم لتصفية أدائك حسب النشاط والفترة الزمنية والموضوع والدورة التدريبية.',
-        title: 'علامة تبويب الفلتر'
-      },
-      stepThree: {
-        description: 'بعد تحديد الفلاتر، انقر على تقرير التحديث لعرض النتائج.',
-        title: 'تحديث التقرير'
-      },
-      stepFour: {
-        description: 'تنزيل التقرير.',
-        title: 'تنزيل / طباعة'
-      },
-      stepFive: {
-        description: 'المضي قدما وتحليل أدائك!',
-        title: 'تم الانتهاء من!'
+   },
+   "account-settings":{  
+      "title":"إعدادت الحساب",
+      "account-info":"معلومات الحساب",
+      "private-info":"معلومات خاصة",
+      "email-address":"عنوان البريد الإلكتروني.",
+      "gender":"الجنس",
+      "birthday":"تاريخ الميلاد"
+   },
+   "gru-rich-text-editor":{  
+      "bold":"غامق",
+      "expression":"تعبير",
+      "italic":"مائل",
+      "subscript":"حرف أو رمز أو رقم سفلي",
+      "superscript":"حرف أو رمز أو رقم علوي",
+      "underline":"مخطوط",
+      "expressions-panel":{  
+         "tabs":{  
+            "calculus":"الحساب",
+            "greek-letters":"حروف يونانية",
+            "layout":"تصميم",
+            "relation":"علاقة",
+            "set-theory":"نظرية المجموعات",
+            "symbols":"رموز",
+            "trigonometry":"علم المثلثات"
+         },
+         "insert-expression":"إدراج",
+         "update-expression":"تحديث",
+         "create-expression":"إنشاء التعبير"
       }
-    },
-    'student-class': {
-      stepOne: {
-        description:
-          'مرحبا بك في صفحة الدورة التدريبية. هنا سوف تجد الأنشطة اليومية، خريطة بالطبع، وبيانات الأداء. هيا بنا نبدأ!',
-        title: 'أهلا بك!'
+   },
+   "gru-settings-edit":{  
+      "answerkey-attempts":"مفتاح الإجابة والمحاولات",
+      "answer-key":"يمكن للطلاب رؤية مفتاح الإجابة في النهاية",
+      "attempts":"محاولات",
+      "attempts-unlimited":"غير محدود",
+      "backwards":"يمكن للطلاب العودة للخلف وتغيير الاجابات",
+      "feedback":"یرى الطلاب ما إذا کانت إجاباتهم صحیحة أو غیر صحیحة",
+      "feedback-immediate":"لكل سؤال وفي النهاية",
+      "feedback-never":"أبداً",
+      "feedback-summary":"في النهاية",
+      "navigation-scoring":"التنقل والعلامات",
+      "disable-heading":"فعِّل التقييم في خريطة المساق الدراسي",
+      "disable-legend":"يمكن للطلاب تشغيل التقييم من خريطة المساق الدراسي الخاصة بهم"
+   },
+   "gru-icon-popover":{  
+      "settings-visibility-title":"اجعل المحتوى الخاص بك مرئياً",
+      "settings-visibility-content":"هذا الإعداد يجعل المحتوى الخاص بك مرئياً عبر الملف الشخصي للمستخدم. إذا كنت ترغب في مشاركة المساقات والمجموعات والتقييمات والمصادر و/ أو الأسئلة التي تنشئها مع الزملاء، نقترح عليك تفعيل هذه الميزة."
+   },
+   "gru-take-tour":{  
+      "text":"Tour",
+      "teacher-home":{  
+         "stepOne":{  
+            "title":"قم بجولة",
+            "description":"Welcome to Take a Tour and your homepage! Now let\\’s get started!"
+         },
+         "stepTwo":{  
+            "title":"Logo",
+            "description":"Clicking on the logo returns you to your homepage."
+         },
+         "stepThree":{  
+            "title":"شريط البحث",
+            "description":"ابحث في فهرس المحتوى لدينا عن المواضيع التي تهمك."
+         },
+         "stepFour":{  
+            "title":"الصفوف الدراسية",
+            "description":"Return to your homepage."
+         },
+         "stepFive":{  
+            "title":"مدير المحتوى",
+            "description":"Quick link to create and access your content."
+         },
+         "stepSix":{  
+            "title":"المكتبة",
+            "description":"تصفّح مساقاتنا الدراسية المميزة."
+         },
+         "stepSeven":{  
+            "title":"ملفك الشخصي",
+            "description":"Access and update your content, user profile, and settings."
+         },
+         "stepEight":{  
+            "title":"الدعم",
+            "description":"Access the support center or logout."
+         },
+         "stepNine":{  
+            "title":"الصفوف الدراسية",
+            "description":"View a list of classes you are currently teaching."
+         },
+         "stepTen":{  
+            "title":"Archived Classes",
+            "description":"View a list of classes you taught in the past."
+         },
+         "stepEleven":{  
+            "title":"إنشاء صوف دراسية",
+            "description":"Name your classroom and click the button to create a new classroom."
+         }
       },
-      stepTwo: {
-        description:
-          'الوصول إلى قائمة الأنشطة المخصصة من قبل معلمك. حدد الأنشطة التي تريد دراستها.',
-        title: 'الأنشطة اليومية'
+      "student-home":{  
+         "stepOne":{  
+            "title":"قم بجولة",
+            "description":"Welcome to Take a Tour and your homepage! Let\\’s walk through the features available to you on your homepage."
+         },
+         "stepFeaturedCourses":{  
+            "title":"المساقات الدراسية المميزة",
+            "description":"Browse the featured courses in the Learning Navigator\\’s content catalog for topics that interest you."
+         },
+         "stepTwo":{  
+            "title":"Logo",
+            "description":"Clicking on the logo returns you to your homepage."
+         },
+         "stepThree":{  
+            "title":"شريط البحث",
+            "description":"Search our content catalog for topics that interest you."
+         },
+         "stepFour":{  
+            "title":"دراستي",
+            "description":"Returns to your homepage."
+         },
+         "stepFive":{  
+            "title":"المكتبة",
+            "description":"Browse the Learning Navigator\\’s featured courses and partner libraries for topics that interest you."
+         },
+         "stepSix":{  
+            "title":"آداء",
+            "description":"اطلع على ملخص لأدائك في المساقات التي سجلت فيها."
+         },
+         "stepSeven":{  
+            "title":"ملفك الشخصي",
+            "description":"Access and update your content and user profile."
+         },
+         "stepEight":{  
+            "title":"الدعم",
+            "description":"Access the support center or logout."
+         },
+         "stepNine":{  
+            "title":"الإعلانات",
+            "description":"هنا سترى الإعلانات التي يرغب معلمك أو المدرسة أن تعرف عنها."
+         },
+         "stepTen":{  
+            "title":"الصفوف الدراسية",
+            "description":"See all the classrooms in which you are enrolled."
+         },
+         "stepEleven":{  
+            "title":"التعليم المستقل",
+            "description":"Explore the topics you have bookmarked and that you want to learn more about."
+         },
+         "stepTwelve":{  
+            "title":"انضم للصف الدراسي",
+            "description":"Enter the classroom code to join a classroom."
+         },
+         "stepThirteen":{  
+            "title":"انتهيت!",
+            "description":"Now go ahead and click on a course you have enrolled in, join a classroom, or search for content that is of interest to you."
+         }
       },
-      stepThree: {
-        description:
-          'انقر على الوحدات والدروس لاستكمال المجموعات والتقييمات في الدورة.',
-        title: 'خريطة الدورة التدريبية'
+      "student-performance":{  
+         "stepOne":{  
+            "title":"أهلا بك!",
+            "description":"مرحبا بكم في لوحة الأداء الخاصة بك. يمكنك استعراض أداءك في جميع الصفوف والمساقات الدراسية."
+         },
+         "stepTwo":{  
+            "title":"علامة تبويب المرشِّح",
+            "description":"انقر على السهم لترشيح أدائك حسب النشاط والفترة الزمنية والموضوع والمساق الدراسي."
+         },
+         "stepThree":{  
+            "title":"تحديث التقرير",
+            "description":"بعد تحديد المرشِّحات، انقر على \"تحديث\" لعرض النتائج."
+         },
+         "stepFour":{  
+            "title":"تنزيل أو طباعة",
+            "description":"تنزيل التقرير."
+         },
+         "stepFive":{  
+            "title":"انتهيت!",
+            "description":"امضِ قدما وحلّل أدائك!"
+         }
       },
-      stepFour: {
-        description: 'ألق نظرة على الأداء العام للفئة.',
-        title: 'تقريري'
+      "student-class":{  
+         "stepOne":{  
+            "title":"أهلا بك!",
+            "description":"Welcome to your classroom. Here you will find your daily class activities, course map, and performance data. Let\\’s get started!"
+         },
+         "stepTopBar":{  
+            "title":"Course, Performance, Completion",
+            "description":"See a summary of your course and overall performance so far."
+         },
+         "stepTwo":{  
+            "title":"أنشطة الصف اليومية",
+            "description":"Access and study today\\’s activities assigned by your teacher."
+         },
+         "stepThree":{  
+            "title":"خريطة المساق الدراسي",
+            "description":"انقر على الوحدات والدروس لإكمال المجموعات والتقييمات في المساق الدراسي."
+         },
+         "stepFour":{  
+            "title":"تقريري",
+            "description":"Review your overall class performance."
+         },
+         "stepFive":{  
+            "title":"انتهيت!",
+            "description":"Start studying the course by clicking on the Course Map or Daily Activities."
+         }
       },
-      stepFive: {
-        description:
-          'يمكنك البدء بالنقر على علامة التبويب الدورة التدريبية أو علامة التبويب الأنشطة اليومية لبدء الدراسة.',
-        title: 'تم الانتهاء من!'
+      "teacher-class":{  
+         "stepOne":{  
+            "title":"أهلا بك!",
+            "description":"Welcome to your classroom. Here you will we be able to view and assign your daily class activities, course map, update class information and review student performance data. Let\\’s get started!"
+         },
+         "stepTopBar":{  
+            "title":"Course, Performance, Completion",
+            "description":"See a summary of your course and overall student performance so far."
+         },
+         "stepTwo":{  
+            "title":"أنشطة الصف اليومية",
+            "description":"View and assign today\\’s activities to your students."
+         },
+         "stepThree":{  
+            "title":"خريطة المساق الدراسي",
+            "description":"View or edit the units, lessons, collections or assessments assigned in the course."
+         },
+         "stepFour":{  
+            "title":"تقريري",
+            "description":"View the summary of how your students are performing in the course and access their reports."
+         },
+         "stepClassManagement":{  
+            "title":"إدارة الصف الدراسي. ",
+            "description":"Assign or update your class information and students enrolled in the class."
+         },
+         "stepFive":{  
+            "title":"انتهيت!",
+            "description":"Now go ahead and share the classroom with your students."
+         }
+      },
+      "study-player":{  
+         "stepOne":{  
+            "title":"أهلا بك!",
+            "description":"This is your study player. Let\\’s walk through the features available to you."
+         },
+         "stepTwo":{  
+            "title":"خريطة المساق الدراسي",
+            "description":"Click on the icon at any time to return to your Course Map."
+         },
+         "stepThree":{  
+            "title":"Course Name",
+            "description":"Indicates the course you are working on."
+         },
+         "stepFour":{  
+            "title":"اقتراحات",
+            "description":"Additional resources you may want to explore based on what you are currently studying."
+         },
+         "stepFive":{  
+            "title":"إنجاز",
+            "nuTitle":"كفاءات",
+            "description":"Indicates how much of the course you have completed."
+         },
+         "stepSix":{  
+            "title":"آداء",
+            "description":"Indicates how you are performing in the course."
+         },
+         "stepSeven":{  
+            "title":"تفاعل مع المصدر.",
+            "description":"أخبر معلمك عن رأيك في هذا المصدر."
+         },
+         "stepEight":{  
+            "title":"انتهيت!",
+            "description":"ابدأ الدراسة!"
+         },
+         "stepNine":{  
+            "title":"العودة إلى المجموعة",
+            "description":"Click on the icon at any time to return to your Collection or Assessment."
+         }
+      },
+      "library":{  
+         "stepOne":{  
+            "title":"أهلا بك!",
+            "description":"Welcome to Libraries in the Learning Navigator."
+         },
+         "stepTwo":{  
+            "title":"المساقات الدراسية المميزة",
+            "description":"Explore courses developed and implemented in classrooms by educators."
+         },
+         "stepThree":{  
+            "title":"Other Libraries",
+            "description":"Explore content developed by Gooru\\’s partners."
+         },
+         "stepFour":{  
+            "title":"معاينة",
+            "description":"Preview the course to see if it is of interest to you."
+         },
+         "stepFive":{  
+            "title":"مشاركة",
+            "description":"Share this course with others."
+         },
+         "stepSix":{  
+            "title":"علامة",
+            "description":"Bookmark this course to review it later."
+         }
+      },
+      "profile":{  
+         "stepOne":{  
+            "title":"أهلا بك!",
+            "description":"Welcome to your Profile. Here you can access your content, personal information and followers."
+         },
+         "stepTwo":{  
+            "title":"المحتوى الخاص بي",
+            "description":"Create new content and view the content you have remixed."
+         },
+         "stepThree":{  
+            "title":"About Me",
+            "description":"Update your personal information, school information and your profile picture."
+         },
+         "stepFour":{  
+            "title":"Goals",
+            "description":"Set and track goals to help you achieve your learning milestones."
+         },
+         "stepFive":{  
+            "title":"متابعون",
+            "description":"If you like someone\\’s content, you can follow them. You can also view who is following you."
+         },
+         "stepSix":{  
+            "title":"Badges",
+            "description":"Review the badges you have received. You receive a badge if you complete a benchmark assessment assigned by your teacher."
+         }
       }
-    },
-    'study-player': {
-      stepOne: {
-        description:
-          'هذا هو لاعب الدراسة الخاص بك. دعونا المشي من خلال الميزات المتاحة لك.',
-        title: 'أهلا بك!'
+   },
+   "gru-tour":{  
+      "assessments-settings":{  
+         "stepOne":{  
+            "title":"التنقل والعلامات",
+            "description":"يحدد هذا الإعداد الكيفية التي ينتقل من خلالها الطلاب في تقييم معيّن  ويبين ما إذا كانت إجاباتهم صحيحة أو خاطئة. هذا الإعداد لا يظهر لهم مفتاح الإجابة."
+         },
+         "stepTwo":{  
+            "title":"مفتاح الإجابة  وعدد المحاولات.",
+            "description":"يتيح هذا الاإعداد إظهار مفتاح الإجابة  ويحدد عدد المحاولات التي يملكها الطلاب في التقييم."
+         }
       },
-      stepTwo: {
-        description:
-          'يشير إلى مكان وجود المجموعة أو التقييم في الدورة التدريبية.',
-        title: 'وحدة / دورة / عنوان الدرس'
+      "overview":{  
+         "stepOne":{  
+            "title":"خريطة المساق الدراسي",
+            "description":"تتيح خريطة المساق الدراسي للطلاب الوصول إلى جميع التقييمات والمجموعات التي تعيّنها لهم."
+         },
+         "stepTwo":{  
+            "title":"رمز الصف.",
+            "description":"لكل صف تقوم بإنشائه رمز خاص. ستعطي هذا الرمز للطلاب عندما يصبح صفك الدراسي جاهز لانضمامهم ووصولهم إلى المحتوى الخاص بك."
+         },
+         "stepThree":{  
+            "title":"مراقبة بيانات الطالب والصف.",
+            "description":"تتيح لك هذه الخطوة رؤية بيانات تقييم الصف والطالب عند استكمال الطلاب للتقييمات التي تشكّل جزءاً من المساق الدراسي."
+         },
+         "stepFour":{  
+            "title":"معلومات الصف االدراسي",
+            "description":"هنا يمكنك تعديل اسم صفك الدراسي، ونشر الإعلانات لطلابك، ورؤية أسماء الطلاب المسجلين فيه، وحذفه."
+         },
+         "stepFive":{  
+            "title":"تعديل محتوى المساق الدراسي.",
+            "description":"عندما تكون في صف دراسي، انقر هنا لتعديل أي محتوى في المساق الدراسي المعيّن لطلابك."
+         },
+         "stepSix":{  
+            "title":"رصد التقدم المحرز في الوقت الحقيقي!",
+            "description":"Use the real-time dashboard to monitor class progress on an assessment in real-time.\u003cbr\u003e\u003cbr\u003eClick on the \\\"Go Live\\\" icon found to the left of every assessment to launch a real-time assessment for students. \u003cbr\u003e\u003cbr\u003e\u003ci class=\\\"real-time-icon\\\"\u003e"
+         }
       },
-      stepThree: {
-        description: 'یشیر إلی کیفیة أدائك ومقدار الدورة التي أکملتھا.',
-        title: 'أداء / الانتهاء'
+      "quick-start":{  
+         "stepOne":{  
+            "title":"التنقل بين الصفوف الدراسية",
+            "description":"This is a view of a newly created classroom. To get back to a classroom at any time, click on \\\"Classrooms\\\" and use the drop down menu to select the classroom you wish to enter."
+         },
+         "stepTwo":{  
+            "title":"البدء؟ أنشئ تقييم!",
+            "description":"نقترح عليك إنشاء تقييم كوسيلة للبدء مع جورو وتقييم مستوى فهم الطلاب الحالي في صفك."
+         }
       },
-      stepFour: {
-        description: 'دع معلمك يعرف ما هو رأيك في هذا المورد.',
-        title: 'الرد على الموارد'
-      },
-      stepFive: {
-        description:
-          'ارجع إلى خريطة الدورة التدريبية للاطلاع على محتوى إضافي للدورة التدريبية.',
-        title: 'خريطة الدورة التدريبية'
-      },
-      stepSix: {
-        description:
-          'هذه هي الموارد التي قد ترغب في استكشافها بناء على ما تدرسه حاليا.',
-        title: 'اقتراحات'
-      },
-      stepSeven: {
-        description: '',
-        title: 'تحقق من هذه الموارد'
-      },
-      stepEight: {
-        description: 'بدء الدراسة!',
-        title: 'تم الانتهاء من!'
+      "real-time":{  
+         "stepOne":{  
+            "title":"تفاصيل الإجابات",
+            "description":"انقر على كل سؤال للاطلاع على تفاصيل إجابات الطلاب."
+         },
+         "stepTwo":{  
+            "title":"بيانات الطالب الفردية",
+            "description":"اختر خانة كلّ طالب للاطلاع على تقارير بيانات الطالب الفردية."
+         },
+         "stepThree":{  
+            "title":"حدد طريقة عرض",
+            "description":"Select \\\"title view\\\" or \\\"list view\\\" to see options for displaying data."
+         },
+         "stepFour":{  
+            "title":"متوسط العلامات",
+            "description":"اطلع على متوسط ​​معدل الصف المحسوب في الوقت الحقيقي لجميع الإجابات"
+         },
+         "stepFive":{  
+            "title":"عرض البيانات المجهولة",
+            "description":"استخدم هذا الخيار لإظهار عرض مجهول لبيانات الطالب."
+         }
       }
-    },
-    text: 'خذ جولة'
-  },
-  'gru-tour': {
-    'assessments-settings': {
-      stepOne: {
-        description:
-          'يحدد هذا الإعداد كيف يمكن للطلاب الانتقال من خلال تقييم ويبين ما إذا كانت إجاباتهم صحيحة أو غير صحيحة. أنها لا تظهر لهم مفتاح الإجابة.',
-        title: 'الملاحة وسجل'
+   },
+   "gru-course-play":{  
+      "hide-unit-details":"إخفاء بيانات الوحدة الوصفية",
+      "view-unit-details":"عرض بيانات الوحدة الوصفية",
+      "performance":"آداء"
+   },
+   "gru-century-skills":{  
+      "legends":{  
+         "hewlett":"نموذج هيوليت للتعمق في التعليم",
+         "conley":"مفاتيح كونلي الأربعة للمعرفة",
+         "framework":"إطار مهارات القرن الحادي والعشرين\n",
+         "national":"المركز الوطني للبحوث من أجل الحياة والعمل."
       },
-      stepTwo: {
-        description:
-          'يسمح هذا الإعداد لمفتاح الجواب ليتم الكشف عنها ويحدد عدد من المحاولات الطلاب على التقييم.',
-        title: 'الإجابة مفتاح وعدد من المحاولات'
+      "content":{  
+         "groups":{  
+            "cognitive":"المهارات والاستراتيجيات المعرفية الرئيسية.",
+            "content":"محتوى المعرفة الرئيسي",
+            "learning":"مهارات وتقنيات التعلم الأساسية"
+         }
       }
-    },
-    overview: {
-      stepOne: {
-        description:
-          'توفر خريطة الدورة للطلاب الوصول إلى جميع التقييمات والمجموعات التي تعين لهم.',
-        title: 'خريطة الدورة التدريبية'
-      },
-      stepTwo: {
-        description:
-          'كل فصل تقوم بإنشائه لديه رمز فئة فريدة من نوعها. سوف تعطي هذا الرمز للطلاب عندما كنت على استعداد لهم للانضمام إلى الفصول الدراسية والوصول إلى المحتوى الخاص بك.',
-        title: 'رمز الفئة'
-      },
-      stepThree: {
-        description:
-          'هذا يسمح لك أن ترى فئة وفرادى بيانات تقييم الطلاب عند استكمال الطلاب التقييمات التي هي جزء من دورة.',
-        title: 'مراقبة بيانات الطالب والفئة'
-      },
-      stepFour: {
-        description:
-          'هنا يمكنك تعديل اسم الفصل الدراسي الخاص بك، ونشر الإعلانات لطلابك، انظر أسماء الطلاب المسجلين في صفك، وحذف الفصل الدراسي الخاص بك.',
-        title: 'معلومات الفصول الدراسية'
-      },
-      stepFive: {
-        description:
-          'عندما تكون في فصل دراسي، انقر هنا لتعديل أي من محتوى الدورة المخصصة لطلابك.',
-        title: 'تعديل محتوى الدورة التدريبية'
-      },
-      stepSix: {
-        description:
-          'استخدام لوحة القيادة في الوقت الحقيقي لرصد التقدم الطبقة على تقييم في الوقت الحقيقي. <br><br> انقر على أيقونة &quot;الذهاب لايف&quot; وجدت إلى يسار كل تقييم لإطلاق تقييم في الوقت الحقيقي للطلاب. <br><br>',
-        title: 'رصد التقدم المحرز في الوقت الحقيقي!'
+   },
+   "gru-rubric-edit":{  
+      "upload-rubric":"تحميل سلم تقييم",
+      "copy":{  
+         "success-message":"You\\\u0027ve copied rubric {{title}}. Do you want to edit that Rubric?"
       }
-    },
-    'quick-start': {
-      stepOne: {
-        description:
-          'هذا هو وجهة نظر من الفصول الدراسية التي تم إنشاؤها حديثا. للرجوع إلى الفصول الدراسية في أي وقت، انقر على &quot;الفصول الدراسية&quot; واستخدم القائمة المنسدلة لتحديد الفصول الدراسية التي ترغب في إدخالها.',
-        title: 'التنقل في الفصول الدراسية'
+   },
+   "gru-rubric-creation":{  
+      "url":"رابط",
+      "upload-file":"تحميل ملف",
+      "add-category":"إضافة فئة جديدة",
+      "gru-preview-url":{  
+         "preview":"أضف سلم تقييم أعلاه وعاينه هنا."
       },
-      stepTwo: {
-        description:
-          'نقترح إنشاء تقييم كوسيلة للبدء مع غورو وتقييم المستويات الحالية من فهم الطلاب في صفك.',
-        title: 'ابدء؟ إنشاء تقييم!'
+      "overall-narrative":"تغذية راجعة كلامية.",
+      "feedback-guidance":"دليل التغذية الراجعة",
+      "required-feedback":"التغذية الراجعة مطلوبة",
+      "feedback-guidance-placeholder":"تلخيص ملاحظاتك على المقال ككل.",
+      "gru-category":{  
+         "category-title":"استثناء: عند معاينة هذه الفئة، انتبه لهذف الكاتب. ",
+         "category-feedback":"ex. As you are reviewing this category, pay careful attention to the author\\’s purpose.",
+         "gru-scoring-levels":{  
+            "0":"example: Exceeding Proficiency",
+            "1":"example: Meeting Proficiency",
+            "2":"example: Approaching Proficiency",
+            "3":"example: Beginning Proficiency",
+            "4":"example: No Evidence of Proficiency",
+            "best":"أفضل",
+            "levels":"مستوى",
+            "new-level":"إضافة مستوى جديد",
+            "scoring":"مجموع العلامات",
+            "worst":"أسوأ",
+            "name-error":"Please enter the level title.",
+            "score-error":"Please enter the score value.",
+            "no-levels-error":"Please set a value for at least one level."
+         }
       }
-    },
-    'real-time': {
-      stepOne: {
-        description: 'انقر على كل سؤال لمعرفة تفاصيل كيفية الإجابة على الطلاب.',
-        title: 'توزيع الردود'
+   },
+   "library":{  
+      "browse-library":"تصفح المكتبة",
+      "featured-courses":"المساقات الدراسية المميزة",
+      "gru-library-card":{  
+         "featured-course":"مساق دراسي مميز"
       },
-      stepTwo: {
-        description:
-          'حدد كل بلاط طالب للاطلاع على تقارير بيانات الطلاب الفردية.',
-        title: 'بيانات الطالب الفردية'
+      "gru-partner-library-card":{  
+         "course":{  
+            "zero":"{{count}} مساق دراسي",
+            "one":"{{count}} مساق دراسي",
+            "other":"{{count}} مساقات دراسية"
+         },
+         "collection":{  
+            "zero":"{{count}} مجموعة",
+            "one":"{{count}} مجموعة",
+            "other":"{{count}} مجموعات"
+         },
+         "assessment":{  
+            "zero":"{{count}} تقييم",
+            "one":"{{count}} تقييم",
+            "other":"{{count}} تقييمات"
+         },
+         "resource":{  
+            "zero":"{{count}} مصدر",
+            "one":"{{count}} مصدر",
+            "other":"{{count}} مصادر"
+         },
+         "question":{  
+            "zero":"{{count}} سؤال",
+            "one":"{{count}} سؤال",
+            "other":"{{count}} اسئلة"
+         },
+         "rubric":{  
+            "zero":"{{count}} سلم تقييم",
+            "one":"{{count}} سلم تقييم",
+            "other":"{{count}} سلم تقييمي"
+         }
       },
-      stepThree: {
-        description:
-          'حدد &quot;عرض العنوان&quot; أو &quot;عرض القائمة&quot; للاطلاع على خيارات عرض البيانات.',
-        title: 'حدد طريقة عرض'
+      "partner-libraries":"مكتبات الشركاء"
+   },
+   "gru-study-header":{  
+      "lesson-legend":"تمت إضافتك على الدرس",
+      "resource-legend":"أنت تتحقق من المصدر",
+      "resources-collection-report":"تقرير استخدام المجموعة",
+      "resources-assessment-report":"ملخص تقرير التقييم",
+      "check-summary":"تحقق من ملخق التقرير",
+      "check-usage":"تحقق من تقرير الاستخدام",
+      "no-suggestions":"We\\\u0027re working on the best suggestions to support your learning",
+      "resource":{  
+         "zero":"مصدر",
+         "one":"مصدر",
+         "other":"مصادر"
       },
-      stepFour: {
-        description:
-          'اطلع على متوسط ​​الفصل المحسوب في الوقت الفعلي لجميع الردود.',
-        title: 'متوسط ​​درجة'
+      "question":{  
+         "zero":"سؤال",
+         "one":"سؤال",
+         "other":"أسئلة"
       },
-      stepFive: {
-        description: 'استخدم هذا الخيار لعرض عرض مجهول لبيانات الطالب.',
-        title: 'بيانات المشروع المجهول'
-      }
-    }
-  },
-  'gru-course-play': {
-    performance: 'أداء',
-    'view-unit-details': 'عرض وحدة البيانات الوصفية',
-    'hide-unit-details': 'إخفاء الوحدة الوصفية'
-  },
-  'gru-century-skills': {
-    legends: {
-      conley: 'كونلي، أربعة، المفاتيح',
-      hewlett: 'هيوليت أعمق نموذج التعلم',
-      framework: 'P21 الإطار',
-      national: 'المركز الوطني للبحوث من أجل الحياة والعمل'
-    },
-    content: {
-      groups: {
-        cognitive: 'المهارات والاستراتيجيات المعرفية الرئيسية',
-        learning: 'مهارات التعلم الأساسية والتقنيات',
-        content: 'المحتوى الرئيسي المعرفة'
-      }
-    }
-  },
-  'gru-rubric-edit': {
-    'upload-rubric': 'تحميل روبريك'
-  },
-  'gru-rubric-creation': {
-    'gru-preview-url': {
-      preview: 'إضافة فوق فوق ومعاينة هنا'
-    },
-    'gru-category': {
-      'gru-scoring-levels': {
-        '0': 'السابق. بارع',
-        '1': 'السابق. مثالي',
-        '2': 'السابق. الأساسية',
-        scoring: 'النقاط',
-        '3': 'السابق. أسفل الأساسية',
-        'new-level': 'إضافة مستوى جديد',
-        best: 'الأفضل',
-        worst: 'أسوأ',
-        levels: 'مستوى'
-      },
-      'category-feedback':
-        'السابق. كما كنت تقوم بمراجعة هذه الفئة، وإيلاء اهتمام دقيق للغرض المؤلف.',
-      'category-title': 'عنوان الفئة'
-    },
-    'add-category': 'إضافة فئة جديدة',
-    'required-feedback': 'تتطلب ملاحظات',
-    'upload-file': 'رفع ملف',
-    'overall-narrative': 'ملاحظات السرد الشاملة',
-    'feedback-guidance-placeholder': 'تلخيص ملاحظاتك على المقال ككل.',
-    url: 'URL',
-    'feedback-guidance': 'ردود الفعل الإرشاد'
-  },
-  library: {
-    'gru-library-card': {
-      'featured-course': 'دورة مميزة'
-    },
-    'gru-partner-library-card': {
-      course: {
-        zero: '{{count}} الدورة التدريبية',
-        other: '{{count}} الدورات التدريبية',
-        one: '{{count}} الدورة التدريبية'
-      },
-      collection: {
-        zero: '{{count}} مجموعة',
-        other: '{{count}} المجموعات',
-        one: '{{count}} مجموعة'
-      },
-      assessment: {
-        zero: '{{count}} تقييم',
-        other: '{{count}} التقييمات',
-        one: '{{count}} تقييم'
-      },
-      resource: {
-        zero: '{{count}} مورد',
-        other: '{{count}} الموارد',
-        one: '{{count}} مورد'
-      },
-      question: {
-        zero: '{{count}} سؤال',
-        other: '{{count}} الأسئلة',
-        one: '{{count}} سؤال'
-      },
-      rubric: {
-        zero: '{{count}} روبريك',
-        other: '{{count}} النتائج',
-        one: '{{count}} روبريك'
-      }
-    },
-    'partner-libraries': 'مكتبات الشريك',
-    'browse-library': 'تصفح المكتبة',
-    'featured-courses': 'الدورات المتميزة'
-  },
-  'gru-study-header': {
-    resource: {
-      zero: 'مورد',
-      other: 'موارد',
-      one: 'مورد'
-    },
-    question: {
-      zero: 'سؤال',
-      other: 'الأسئلة',
-      one: 'سؤال'
-    },
-    'lesson-legend': 'أنت حاليا في درس',
-    'check-usage': 'تحقق من تقرير الاستخدام',
-    'resources-collection-report': 'تقرير استخدام المجموعة',
-    'check-summary': 'راجع تقرير الملخص',
-    'resources-assessment-report': 'تقرير ملخص التقييم',
-    'suggestions-legend': 'لمعرفة المزيد، راجع هذه الموارد.',
-    'resource-legend': 'أنت تقوم بفحص هذا المورد.'
-  },
-  'gru-suggest-test': {
-    'resource-header': 'المورد المقترح (اختياري)',
-    no: 'لا شكرا',
-    'pre-test-header': 'اختبار ما قبل الاختبار (اختياري)',
-    'resource-lead':
-      'بناء على أدائك في هذه الدورة التدريبية، قد يعزز المورد التالي تفهمك.',
-    'take-resource': 'دراسة الموارد',
-    'post-test-header': 'الاختبار البعدي (اختياري)',
-    'no-suggestions': 'إليك ملخص لأدائك.',
-    'take-backfill-pretest': 'دراسة مجموعة مقترحة',
-    'backfill-lead':
-      'استنادا إلى الردود من الاختبار القبلي، قد يكون من المفيد مراجعة مواد إضافية قبل بدء الدرس. مراجعة المواد الداعمة يمكن أن تساعد في إعداد الطلاب لتعلم مواد جديدة.',
-    'backfill-header': 'المجموعة المقترحة (اختياري)',
-    take: 'اتخاذ {{type}}',
-    'post-test-lead':
-      'يقترح الاختبار البعدي التالي لقياس فهمك للمعلومات المقدمة. لن يؤثر الاختبار البعدي على درجة أداء الدورة التدريبية.',
-    'pre-test-lead':
-      'يقترح اختبار مسبق لقياس فهمك الحالي للمفاهيم في هذا الدرس. يمكن أن يساعدك الاختبار القبلي في إعدادك للمحتوى في الدرس. لن يؤثر الاختبار القبلي على درجة أداء الدورة التدريبية.',
-    'end-of-course': 'لقد وصلت إلى نهاية الدورة.',
-    'benchmark-header': 'اختبار معياري (اختياري)',
-    'benchmark-lead':
-      'أنت الآن جاهز لإثبات تفهمك من خلال إجراء تقييم معياري. سوف تكسب شارة لإكمال المعيار بنجاح. لن يؤثر المعيار على درجة أداء الدورة.'
-  }
+      "suggestions-legend":"لمعرفة المزيد، تحقق من هذه المصادر."
+   },
+   "gru-suggest-test":{  
+      "pre-test-header":"اختبار مسبق للدرس (اختياري)",
+      "post-test-header":"اختباربعد الانتهاء من الدرس (اختياري)",
+      "backfill-header":"المجموعة المقترحة (اختياري)",
+      "benchmark-header":"اختبار معياري (اختياري)",
+      "resource-header":"المصدر المقترح (اختياري)",
+      "pre-test-lead":"يفضل الخضوع لاختبار قبل البدء بالدرس لتقييم مدى استيعاب الطالب للمفهوم الذي سيتم طرحه في هذا الدرس. يساعد هذا الاختبار الطالب في التحضير لمحتوى الدرس دون التأثير على علامة الآداء. ",
+      "post-test-lead":"الاختبار التالي هو اختبار بعد الانتهاء من الدرس، ويفضل الخضوع له لتقييم مدى استيعاب الطالب للمفهوم الذي تم طرحه أثناء شرح الدرس، ولن يؤثرهذا الاختبار على علامة الآداء. ",
+      "backfill-lead":"بناءً على إجاباتك في الامتحان المسبق للدرس، ينصح بمراجعة مواد إضافية قبل البدء بالدرس، فمراجعة إحدى المواد المساندة يساعد الطالب في تعلم مادة جديدة. ",
+      "benchmark-lead":"You\\’re now ready to demonstrate your understanding by taking a benchmark assessment. You will earn a badge for successfully completing the benchmark. The benchmark will not affect your course performance score.",
+      "resource-lead":"بناءً على آدائك في هذا المساق، سيعزز المصدر التالي اسيعابك له. ",
+      "no":"لا، شكرا",
+      "no-suggestions":"Here\\\u0027s a summary of your performance.",
+      "take":"خذ {{type}}",
+      "take-backfill-pretest":"ادرس المجموعات المقترحة",
+      "take-resource":"ادرس المصدر",
+      "end-of-course":"لقد وصلت إلى نهاية المساق الدراسي."
+   },
+   "student-open-ended-summary":{  
+      "overall-comment":"Overall Comment",
+      "overall-score":"Overall score",
+      "prompt":"Question Prompt"
+   },
+   "gru-performance-chart":{  
+      "teacher-tooltip":"of your students have completed all the assessments in this lesson"
+   }
 });
