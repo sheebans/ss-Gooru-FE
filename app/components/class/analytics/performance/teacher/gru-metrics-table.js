@@ -413,8 +413,13 @@ export default Ember.Component.extend({
       }
     }
     component.set('averageHeaderstempAssessment', []);
-    if (component.getStoredUnitIdVal() !== null) {
+    if (
+      component.getStoredUnitIdVal() !== null &&
+      component.getStoredUnitIdVal() !== 'null'
+    ) {
       component.expandByUnit(component.getStoredUnitIdVal());
+    } else {
+      this.set('isLoading', false);
     }
   },
   didInsertElement() {
