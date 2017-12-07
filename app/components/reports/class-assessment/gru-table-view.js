@@ -206,66 +206,69 @@ export default Ember.Component.extend(ConfigurationMixin, {
       var data = this.get('tableFrame').slice(0);
       var totalIndex, propertyValues;
 
-      // Get the value of each question property, for each question, for each student
-      for (let i = 0; i < studentsIdsLen; i++) {
-        // Array for storing all values of the same question property
-        propertyValues = [];
+      // function start after the complete data recieved from previous component
+      Ember.run.schedule('afterRender', this, function() {
+        // Get the value of each question property, for each question, for each student
+        for (let i = 0; i < studentsIdsLen; i++) {
+          // Array for storing all values of the same question property
+          propertyValues = [];
 
-        for (let k = 0; k < questionPropertiesIdsLen; k++) {
-          // Put all values for the same property into an array
-          propertyValues[k] = [];
-        }
-
-        for (let j = 0; j < questionsIdsLen; j++) {
-          const labelPrefix = this.get('i18n').t(
-            'reports.gru-table-view.first-tier-header-prefix'
-          ).string;
-
-          if (questionsIds[j] === -1) {
-            // Save this position to fill it in last (cells with propertyValues)
-            totalIndex = j;
-            continue;
-          }
           for (let k = 0; k < questionPropertiesIdsLen; k++) {
-            let renderFunction = questionProperties[k].renderFunction;
-            let questionResult = reportData[studentsIds[i]][questionsIds[j]];
-            let value = questionResult[questionPropertiesIds[k]];
-            let label;
-
-            //label used for the score tooltip
-            if (k === 0) {
-              label = labelPrefix + j;
-            }
-
-            data[i].content[j * questionPropertiesIdsLen + k] = {
-              label: label,
-              value: value,
-              output: !renderFunction ? value : renderFunction(value)
-            };
-
-            propertyValues[k].push(questionResult);
+            // Put all values for the same property into an array
+            propertyValues[k] = [];
           }
-        }
 
-        // Compute the aggregate values
-        for (let k = 0; k < questionPropertiesIdsLen; k++) {
-          // Set the value in the aggregate (totals) column;
-          let value = questionProperties[k].aggregateFunction(
-            propertyValues[k]
-          );
-          let aggregateRenderFunction =
-            questionProperties[k].aggregateRenderFunction;
+          for (let j = 0; j < questionsIdsLen; j++) {
+            const labelPrefix = this.get('i18n').t(
+              'reports.gru-table-view.first-tier-header-prefix'
+            ).string;
 
-          // For displaying the aggregate value, use the question property's aggregateRenderFunction.
-          // If there's no aggregateRenderFunction, use the property's renderFunction by default.
-          data[i].content[totalIndex * questionPropertiesIdsLen + k] = {
-            value: value,
-            output: aggregateRenderFunction
-              ? aggregateRenderFunction(value)
-              : questionProperties[k].renderFunction(value)
-          };
+            if (questionsIds[j] === -1) {
+              // Save this position to fill it in last (cells with propertyValues)
+              totalIndex = j;
+              continue;
+            }
+            for (let k = 0; k < questionPropertiesIdsLen; k++) {
+              let renderFunction = questionProperties[k].renderFunction;
+              let questionResult = reportData[studentsIds[i]][questionsIds[j]];
+              let value = questionResult[questionPropertiesIds[k]];
+              let label;
+
+              //label used for the score tooltip
+              if (k === 0) {
+                label = labelPrefix + j;
+              }
+
+              data[i].content[j * questionPropertiesIdsLen + k] = {
+                label: label,
+                value: value,
+                output: !renderFunction ? value : renderFunction(value)
+              };
+
+              propertyValues[k].push(questionResult);
+            }
+          }
+
+          for (let k = 0; k < questionPropertiesIdsLen; k++) {
+            // Set the value in the aggregate (totals) column;
+            let value = questionProperties[k].aggregateFunction(
+              propertyValues[k]
+            );
+            let aggregateRenderFunction =
+              questionProperties[k].aggregateRenderFunction;
+
+            // For displaying the aggregate value, use the question property's aggregateRenderFunction.
+            // If there's no aggregateRenderFunction, use the property's renderFunction by default.
+            data[i].content[totalIndex * questionPropertiesIdsLen + k] = {
+              value: value,
+              output: aggregateRenderFunction
+                ? aggregateRenderFunction(value)
+                : questionProperties[k].renderFunction(value)
+            };
+          }
+          // Compute the aggregate values
         }
-      }
+      });
 
       return data;
     }
@@ -281,7 +284,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
       return {
         id: student.get('id'),
         header: anonymous ? student.get('code') : student.get('fullName'),
-        lastFirstName: anonymous ? student.get('code') : student.get('lastFirstName'),
+        lastFirstName: anonymous
+          ? student.get('code')
+          : student.get('lastFirstName'),
         content: []
       };
     });
