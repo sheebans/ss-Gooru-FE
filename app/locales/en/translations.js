@@ -1015,7 +1015,7 @@ export default Object.assign(quizzesTranslations, {
     'active-classrooms': 'Active Classrooms',
     'archived-classrooms': 'Archived Classrooms',
     classrooms: 'Classrooms',
-    researcher: 'RGO',
+    rgo: 'RGO',
     'create-class': 'Create Classroom',
     hello: 'Hello, {{name}}!',
     'independent-learning': 'Independent Learning',

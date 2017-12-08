@@ -60,7 +60,7 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    * RGO role users redirection url
    * @property {string}
    */
-  reSearcherURL: RGORedirectURL.getReSearcherURL(),
+  researcherURL: RGORedirectURL.getResearcherURL(),
 
   // -------------------------------------------------------------------------
   // Actions

@@ -67,6 +67,6 @@ export default {
   },
 
   researcher: {
-    redirectURL: 'http://research.gooru.org/'
+    redirectURL: 'http://research-dev.gooru.org'
   }
 };

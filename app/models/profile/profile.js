@@ -268,7 +268,7 @@ export default Ember.Object.extend({
   },
 
   /**
-   * @property {string} role - The profile role (teacher, student, researcher);
+   * @property {string} userCategory - The profile userCategory equalent to role (teacher, student, researcher);
    */
   userCategory: null
 });
