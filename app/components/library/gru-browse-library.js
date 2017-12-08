@@ -3,7 +3,7 @@ import {
   sortFeaturedCourses,
   getSubjects
 } from 'gooru-web/utils/sort-featured-courses';
-import { getCategoryFromSubjectIdReturnCode } from 'gooru-web/utils/taxonomy';
+import { getCategoryCodeFromSubjectId } from 'gooru-web/utils/taxonomy';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -60,7 +60,7 @@ export default Ember.Component.extend({
   formattedContent: Ember.computed('courses', function() {
     return getSubjects(this.get('courses')).map((subjectBucket, index) =>
       Ember.Object.create({
-        category: getCategoryFromSubjectIdReturnCode(subjectBucket.subject),
+        category: getCategoryCodeFromSubjectId(subjectBucket.subject),
         subject: subjectBucket.taxonomySubject,
         courses: sortFeaturedCourses(this.get('courses'))[index]
       })

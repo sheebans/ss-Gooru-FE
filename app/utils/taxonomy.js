@@ -97,7 +97,7 @@ export function getCategoryFromSubjectId(subjectId) {
  * @param {String} subjectId - The subject id with the format 'CCSS.K12.Math', 'K12.Math'
  * @return {Object} - An object with the category information
  */
-export function getCategoryFromSubjectIdReturnCode(subjectId) {
+export function getCategoryCodeFromSubjectId(subjectId) {
   let categoryCode = subjectId.split('.')[0];
   let categories = Ember.A(TAXONOMY_CATEGORIES);
   let category = categories.findBy('apiCode', categoryCode);
