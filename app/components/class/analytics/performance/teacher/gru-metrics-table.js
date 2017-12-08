@@ -418,8 +418,6 @@ export default Ember.Component.extend({
       component.getStoredUnitIdVal() !== 'null'
     ) {
       component.expandByUnit(component.getStoredUnitIdVal());
-    } else {
-      this.set('isLoading', false);
     }
   },
   didInsertElement() {
