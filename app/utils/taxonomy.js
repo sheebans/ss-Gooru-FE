@@ -91,3 +91,19 @@ export function getCategoryFromSubjectId(subjectId) {
   }
   return category ? category.value : null;
 }
+
+/**
+ * Gets a category object from a subjectId
+ * @param {String} subjectId - The subject id with the format 'CCSS.K12.Math', 'K12.Math'
+ * @return {Object} - An object with the category information
+ */
+export function getCategoryFromSubjectIdReturnCode(subjectId) {
+  let categoryCode = subjectId.split('.')[0];
+  let categories = Ember.A(TAXONOMY_CATEGORIES);
+  let category = categories.findBy('apiCode', categoryCode);
+  if (!category) {
+    categoryCode = subjectId.split('.')[1];
+    category = categories.findBy('apiCode', categoryCode);
+  }
+  return category ? category.apiCode : null;
+}
