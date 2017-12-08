@@ -28,6 +28,7 @@
           {{#each activities.classActivities as |classActivity|}}
             {{class.gru-class-activity-panel
               classActivity=classActivity
+              classId=classId
               onGoLive='goLive'
               onChangeVisibility='changeVisibility'
               index=index

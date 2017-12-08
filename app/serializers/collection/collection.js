@@ -1,5 +1,6 @@
 import DS from 'ember-data';
 import ResourceSerializer from '../resource/resource';
+import Ember from 'ember';
 
 export default DS.JSONAPISerializer.extend({
   normalizeSingleResponse: function(store, primaryModelClass, payload) {
@@ -15,6 +16,49 @@ export default DS.JSONAPISerializer.extend({
     );
     return collectionModel;
   },
+  /**
+   * Normalize the Collection data into a Collection object
+   * @param payload
+   * @returns {Collection}
+   */
+  normalizeReadCollection: function(payload) {
+    const serializer = this;
+    Ember.Logger.info('iam here--', payload);
+    var collectionModel = {
+      data: serializer.normalizeCollectionData(payload),
+      included: []
+    };
+    return collectionModel.create(Ember.getOwner(this).ownerInjection(), {
+      id: payload.id,
+      ownerId: payload.ownerId,
+      isCollection: payload.isCollection,
+      resources: payload.resources,
+      settings:
+        !payload.isCollection && payload.metadata
+          ? serializer.normalizeSettings(payload.metadata.setting || {})
+          : null,
+      title: payload.metadata ? payload.metadata.title : ''
+    });
+  },
+
+  /**
+   * Normalize the resources from a collection
+   * @param payload
+   * @returns {Resource}
+   */
+  normalizeQuizzesResources: function(payload) {
+    let resources = [];
+    if (Ember.isArray(payload)) {
+      resources = payload.map(resource =>
+        this.get('resourceSerializer').normalizeReadResource(resource)
+      );
+      // Fix sequence value
+      resources
+        .sort((a, b) => a.get('sequence') - b.get('sequence'))
+        .forEach((resource, i) => resource.set('sequence', i + 1));
+    }
+    return resources;
+  },
 
   normalizeQueryRecordResponse: function(store, primaryModelClass, payload) {
     var serializer = this;
@@ -27,6 +71,7 @@ export default DS.JSONAPISerializer.extend({
   },
 
   normalizeCollectionData: function(payload) {
+    Ember.Logger.info('iam here');
     return {
       type: 'collection/collection',
       id: payload.gooruOid,
