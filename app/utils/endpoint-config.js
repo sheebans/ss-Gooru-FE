@@ -66,3 +66,12 @@ export function getLanguageSettingdropMenu() {
   const configuration = ConfigurationService.configuration;
   return configuration ? configuration.get('languageSetting.showDropMenu') : '';
 }
+
+/**
+ * Get research application url for reseracher role user
+ */
+export function getReSearcherURL() {
+  //TODO don't use global configuration variable
+  const configuration = ConfigurationService.configuration;
+  return configuration ? configuration.get('researcher.redirectURL') : '';
+}

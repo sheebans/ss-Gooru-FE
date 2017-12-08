@@ -130,7 +130,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       gender: payload.gender,
       grades: payload.grade,
       dateOfBirth: payload.birth_date,
-      role: payload.user_category,
+      userCategory: payload.user_category,
       createdAt: payload.created_at,
       lastUpdate: payload.updated_at,
       countryId: payload.country_id,
@@ -433,7 +433,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * Normalizes multiple profile items information
    * @param { users: [] } payload
    * @returns {ProfileModel[]}
-     */
+   */
   normalizeReadMultipleProfiles: function(payload) {
     const serializer = this;
     let profiles = Ember.A([]);
