@@ -64,5 +64,9 @@ export default {
   languageSetting: {
     defaultLang: 'en',
     showDropMenu: false
+  },
+
+  researcher: {
+    redirectURL: 'http://research-dev.gooru.org'
   }
 };
