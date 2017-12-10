@@ -45,8 +45,8 @@
         width: 38%;
         span {
           vertical-align: middle;
+          display: inline-block;
           i {
-            display: inline-block;
             margin: 0 6px 0 0;
             vertical-align: middle;
             color: $light-200;
@@ -109,6 +109,7 @@
         font-weight: 900;
         span {
           vertical-align: middle;
+          display: inline-block;
         }
         .score {
           font-size: $font-size-large;
@@ -128,6 +129,10 @@
   width: 100%;
 }
 
+.checkbox-margin {
+  margin-left: -39px;
+}
+
 .gru-two-tier-header-table {
   $table-cell-width: 55px;
 
@@ -138,6 +143,14 @@
     padding-bottom: 1px;
     margin-left: 0px !important;
   }
+  .score {
+    border-radius: 4px;
+    text-align: center;
+    width: 42px;
+    height: 25px;
+    display: block;
+    color: #fff;
+  }
 
   table {
     font-size: $font-size-h6;
@@ -146,6 +159,7 @@
     border-top: 0px solid $dark-300;
     border-radius: 0 5px 5px 0;
     border-collapse: inherit;
+    width: 920px;
 
     th,
     td {
@@ -154,7 +168,25 @@
       padding: 0 2px;
       height: 32px;
     }
-
+    tr.data th:nth-child(3n-1) {
+      border-left: 1px solid #eeeeee;
+    }
+    .answer-correct,
+    .answer-incorrect {
+      i {
+        display: block;
+        line-height: 28px;
+      }
+    }
+    .answer-correct {
+      background-color: $brand-success;
+    }
+    .answer-incorrect {
+      background-color: $brand-incorrect;
+    }
+    .answer-undefined {
+      background-color: $light-100;
+    }
     .first-tier,
     .second-tier {
       th,
@@ -190,10 +222,10 @@
       th {
         line-height: 23px;
         > span {
-          display: block;
+          display: inline-block;
           font-weight: normal;
           opacity: 0.6;
-          min-width: $table-cell-width;
+          min-width: 45px;
           white-space: nowrap;
           &:after {
             white-space: nowrap;
@@ -255,7 +287,7 @@
 
     > .data {
       th {
-        border-left: 0;
+        border-left: 1px solid #eeeeee;
         border-bottom: 1px solid $gray-lighter;
         font-weight: normal;
         &:hover {
@@ -282,6 +314,13 @@
       display: block;
       margin: 0 auto;
       text-align: center;
+    }
+    .timePadding {
+      padding-left: 20px;
+      vertical-align: middle;
+    }
+    .smileypadding {
+      padding-left: 32px;
     }
     .top-header > th:nth-child(2) {
       pointer-events: none;

@@ -1,4 +1,16 @@
 import Ember from 'ember';
+import {
+  formatTime,
+  formatTime as formatMilliseconds,
+  getAnswerResultIcon,
+  getScoreString,
+  getReactionIcon
+} from 'gooru-web/utils/utils';
+import {
+  averageReaction,
+  correctPercentage,
+  totalTimeSpent
+} from 'gooru-web/utils/question-result';
 
 /**
  * Class Activity Panel
@@ -24,6 +36,11 @@ export default Ember.Component.extend({
 
   tagName: 'li',
 
+  /**
+   * @requires service:i18n
+   */
+  i18n: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -41,13 +58,47 @@ export default Ember.Component.extend({
     goLive: function(collectionId) {
       this.sendAction('onGoLive', collectionId);
     },
+    checkfilter: function(filterLabl) {
+      const component = this;
+      var chkVal = this.get('questionProperties').findBy(
+        'value',
+        filterLabl.value
+      );
+      if (chkVal !== undefined) {
+        if (chkVal.visible) {
+          chkVal.visible = false;
+          if (chkVal.value === 'timeSpent') {
+            component.set('timevisible', false);
+          }
+          if (chkVal.value === 'reaction') {
+            component.set('reactionvisible', false);
+          }
+        } else {
+          chkVal.visible = true;
+          if (chkVal.value === 'timeSpent') {
+            component.set('timevisible', true);
+          }
+          if (chkVal.value === 'reaction') {
+            component.set('reactionvisible', true);
+          }
+        }
+      }
+    },
     /**
      * @function goLive
      */
     onReportClick: function(collectionId) {
-      this.set('isReportEnabled', true);
+      var dcaDate = new Date(this.get('dcaAddeddate'));
+      var activityDate = `${dcaDate.getFullYear()}-${dcaDate.getMonth() +
+        1}-${dcaDate.getDate()}`;
+      if (this.get('isReportEnabled')) {
+        this.set('isReportEnabled', false);
+      } else {
+        this.set('isReportEnabled', true);
+      }
+      this.set('questionProperties', this.initQuestionProperties());
       this.set('onCollectionclick', collectionId);
-      this.getMembers(collectionId);
+      this.getMembers(collectionId, activityDate);
     },
 
     /**
@@ -99,6 +150,11 @@ export default Ember.Component.extend({
   item: Ember.computed.alias('classActivity.collection'),
 
   /**
+   * @property {string}
+   */
+  dcaAddeddate: Ember.computed.alias('dcadate'),
+
+  /**
    * @property {CollectionPerformanceSummary}
    */
   collectionPerformanceSummary: Ember.computed.alias(
@@ -109,6 +165,14 @@ export default Ember.Component.extend({
    * @property {boolean}
    */
   visible: Ember.computed.alias('classActivity.isActive'),
+  /**
+   * @property {boolean}
+   */
+  timevisible: false,
+  /**
+   * @property {boolean}
+   */
+  reactionvisible: false,
   /**
    * The user performanceData
    * @property {membersData[]}
@@ -137,6 +201,30 @@ export default Ember.Component.extend({
    * @property {string} changeVisibility action name
    */
   onChangeVisibility: 'changeVisibility',
+  /**
+   * @prop { Object[] } questionProperties - An array made up of question properties
+   *
+   * Each property object will consist of:
+   * - filter: information to use for the corresponding filter checkbox
+   * - label: visual representation of the header
+   * - value: internal header identifier
+   * - visible: should the property be visible or not?
+   * - renderFunction: function to process values of this property for output
+   * - aggregateFunction: if there's an aggregate column, this function will be
+   *   used to aggregate all the values for this property that are in the same row
+   * - aggregateRenderFunction: if there's an aggregate column, this function will
+   *   take the result of the aggregateFunction and process it for output
+   * - sortFunction: sort function for values of this property
+   */
+  questionProperties: null,
+  /**
+   * @prop { String[] } questionPropertiesIds - An array with the ids of all the question properties
+   */
+  questionPropertiesIds: Ember.computed('questionProperties', function() {
+    return this.get('questionProperties').map(function(questionProperty) {
+      return questionProperty.value;
+    });
+  }),
 
   /**
    * Toggle Options
@@ -152,33 +240,101 @@ export default Ember.Component.extend({
       value: false
     })
   ]),
-  getMembers: function(collectionId) {
+  /**
+   * Initialize the question properties array with values -including i18n labels
+   * @return {Object[]}
+   */
+  initQuestionProperties: function() {
+    const component = this;
+
+    return [
+      Ember.Object.create({
+        filter: {
+          label: this.get('i18n').t('reports.gru-table-view.scores').string,
+          disabled: true
+        },
+        label: this.get('i18n').t('reports.gru-table-view.score').string,
+        value: 'correct',
+        visible: true,
+        renderFunction: getAnswerResultIcon,
+        aggregateFunction: correctPercentage,
+        aggregateRenderFunction: getScoreString
+      }),
+      Ember.Object.create({
+        filter: {
+          label: this.get('i18n').t('reports.gru-table-view.study-time').string
+        },
+        label: this.get('i18n').t('reports.gru-table-view.time').string,
+        value: 'timeSpent',
+        renderFunction: formatTime,
+        aggregateFunction: totalTimeSpent
+      }),
+      Ember.Object.create({
+        filter: {
+          label: this.get('i18n').t('reports.gru-table-view.reactions').string
+        },
+        label: this.get('i18n').t('reports.gru-table-view.reaction').string,
+        value: 'reaction',
+        renderFunction: function(value) {
+          const appRootPath = component.get('appRootPath');
+          return getReactionIcon(value, appRootPath);
+        },
+        aggregateFunction: averageReaction
+      })
+    ];
+  },
+  getMembers: function(collectionId, activityDate) {
     const component = this;
     const classId = component.get('classId');
-    let today = new Date();
-    var startDate = `${today.getFullYear()}-${today.getMonth() +
-      1}-${today.getDate() - 2}`;
-
-    component
-      .get('collectionService')
-      .readQuizzesCollection(collectionId, 'assessment', false)
-      .then(function(result) {
-        Ember.Logger.info('colldata---', result);
-        component.set('firstTierHeaders', result.resources);
-      });
-    component
-      .get('collectionService')
-      .readPerformanceData(classId, collectionId, startDate)
-      .then(function(result) {
-        Ember.Logger.info('colldata---', result);
-      });
-
     component
       .get('classService')
       .readClassMembers(classId)
       .then(function(members) {
-        Ember.Logger.info('hello members---', members.get('members'));
         component.set('membersData', members.get('members'));
+        component
+          .get('collectionService')
+          .readQuizzesCollection(collectionId, 'assessment', false)
+          .then(function(result) {
+            component.set('firstTierHeaders', result.resources);
+            component
+              .get('collectionService')
+              .readPerformanceData(classId, collectionId, activityDate)
+              .then(function(result1) {
+                result1.content.forEach(function(item1) {
+                  var memberData = members
+                    .get('members')
+                    .findBy('id', item1.userUid);
+                  if (memberData !== undefined) {
+                    if (memberData.id === item1.userUid) {
+                      result.resources.forEach(function(item2) {
+                        var usageDataQId = item1.usageData.findBy(
+                          'questionId',
+                          item2.id
+                        );
+                        if (
+                          usageDataQId !== undefined &&
+                          usageDataQId.questionId === item2.id
+                        ) {
+                          Ember.set(item2, 'score', usageDataQId.score);
+                          Ember.set(
+                            item2,
+                            'timeSpent',
+                            formatMilliseconds(usageDataQId.timeSpent)
+                          );
+                          Ember.set(item2, 'reaction', usageDataQId.reaction);
+                          Ember.set(
+                            item2,
+                            'questionType',
+                            usageDataQId.questionType
+                          );
+                        }
+                      });
+                      Ember.set(memberData, 'content', result.resources);
+                    }
+                  }
+                });
+              });
+          });
       });
   }
 });
