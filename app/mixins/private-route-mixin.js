@@ -26,8 +26,10 @@ export default Ember.Mixin.create({
 
   beforeModel() {
     const mixin = this;
+    let currentUrl = window.location.href;
     if (mixin.get('session.isAnonymous')) {
-      return mixin.transitionTo('sign-in');
+      const queryParams = { queryParams: { redirectURL: currentUrl } };
+      return mixin.transitionTo('sign-in', queryParams);
     }
     var sessionService = mixin.get('sessionService');
     if (!sessionService.hasTokenExpired()) {
@@ -43,8 +45,10 @@ export default Ember.Mixin.create({
           return sessionService.updateUserData(session.get('userData'));
         },
         function() {
-          const queryParams = { queryParams: { sessionEnds: 'true' } };
-          mixin.transitionTo('sign-in', queryParams);
+          const queryParams = {
+            queryParams: { sessionEnds: 'true', redirectURL: currentUrl }
+          };
+          return mixin.transitionTo('sign-in', queryParams);
         }
       );
   }

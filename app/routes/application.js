@@ -167,7 +167,9 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
     const themeCssUrl = `${appRootPath}${cssUrl}`;
     if (themeCssUrl) {
       Ember.$('head').append(
-        `<link id="theme-style-link" rel="stylesheet" type="text/css" href="${themeCssUrl}">`
+        `<link id="theme-style-link" rel="stylesheet" type="text/css" href="${
+          themeCssUrl
+        }">`
       );
     }
   },
@@ -343,13 +345,18 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
      * @see gru-header.hbs
      */
     signIn: function() {
+      let queryParams = new URLSearchParams(window.location.search);
       const route = this;
-      route.actions.updateUserClasses.call(this).then(
-        // Required to get list of classes after login
-        function() {
-          route.transitionTo('index');
-        }
-      );
+      if (queryParams.has('redirectURL')) {
+        window.location.replace(queryParams.get('redirectURL'));
+      } else {
+        route.actions.updateUserClasses.call(this).then(
+          // Required to get list of classes after login
+          function() {
+            route.transitionTo('index');
+          }
+        );
+      }
     },
 
     /**
