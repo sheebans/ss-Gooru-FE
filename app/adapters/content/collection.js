@@ -10,6 +10,10 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus/v1/collections',
 
+  quizzesCollectionnamespace: '/quizzes/api/v1/collections',
+
+  quizzesPerformancenamespace: '/api/nucleus-insights/v2/dca/class',
+
   copierNamespace: '/api/nucleus/v1/copier/collections',
 
   /**
@@ -45,6 +49,44 @@ export default Ember.Object.extend({
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+  /**
+   * Reads a Collection by id
+   *
+   * @param {string} collectionId
+   * @returns {Promise}
+   */
+  readQuizzesCollection: function(collectionId, type, refresh = false) {
+    const adapter = this;
+    const namespace = adapter.get('quizzesCollectionnamespace');
+    const url = `${namespace}/${collectionId}?type=${type}&refresh=${refresh}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      processData: false,
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+  /**
+   * Reads a Collection by id
+   *
+   * @param {string} collectionId
+   * @returns {Promise}
+   */
+  readPerformanceCollection: function(classId, collectionId, startDate) {
+    const adapter = this;
+    const namespace = adapter.get('quizzesPerformancenamespace');
+    const url = `${namespace}/${classId}/assessment/${collectionId}/performance?startDate=${startDate}&endDate=${startDate}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      processData: false,
       headers: adapter.defineHeaders()
     };
     return Ember.$.ajax(url, options);
