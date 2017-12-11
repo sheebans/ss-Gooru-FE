@@ -39,11 +39,12 @@
       }
     }
     .sub-menu::-webkit-scrollbar {
-      width: 4px;
+      width: 10px;
       border-radius: 3px;
     }
     .sub-menu::-webkit-scrollbar-thumb {
-      background: $gray;
+      background: $gray-light;
+      border: 1px solid $gray-light;
       border-radius: 5px;
     }
   }

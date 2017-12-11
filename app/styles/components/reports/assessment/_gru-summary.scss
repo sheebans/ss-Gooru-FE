@@ -264,8 +264,8 @@
     }
 
     .bubbles {
-      width: 330px;
-      max-width: 330px;
+      width: 340px;
+      max-width: 340px;
       height: 85px;
       max-height: 85px;
       overflow: auto;
@@ -292,12 +292,13 @@
 
     .bubbles::-webkit-scrollbar {
       height: 6px;
-      width: 4px;
+      width: 8px;
     }
 
     .bubbles::-webkit-scrollbar-thumb {
-      border-radius: 3px;
-      background-color: $gray;
+      background: $gray-light;
+      border: 1px solid $gray-light;
+      border-radius: 5px;
     }
   }
 }
