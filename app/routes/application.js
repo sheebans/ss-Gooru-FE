@@ -90,10 +90,7 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
         .signInWithToken(accessToken)
         .then(function() {
           const applicationController = route.controllerFor('application');
-          return Ember.RSVP.all([
-            applicationController.loadUserClasses(),
-            applicationController.setupTenant()
-          ]);
+          return Ember.RSVP.all([applicationController.setupTenant()]);
         });
       return details;
     }
