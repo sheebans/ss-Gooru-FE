@@ -413,7 +413,10 @@ export default Ember.Component.extend({
       }
     }
     component.set('averageHeaderstempAssessment', []);
-    if (component.getStoredUnitIdVal() !== null) {
+    if (
+      component.getStoredUnitIdVal() !== null &&
+      component.getStoredUnitIdVal() !== 'null'
+    ) {
       component.expandByUnit(component.getStoredUnitIdVal());
     }
   },
@@ -452,7 +455,15 @@ export default Ember.Component.extend({
     this._super(...arguments);
     this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
     var width = Ember.$('#clscroll-table').width();
-    Ember.$('#clscroll-content').attr('style', `width:${  width + 15  }px;`);
+    var height = Ember.$(window).height() - 63;
+    if (height > 300) {
+      height = height - 191;
+    }
+    Ember.$('#clscroll-content').attr(
+      'style',
+      `width:${width + 15}px;max-height:${height}px;`
+    );
+    Ember.$('#clscroll-row-headers').attr('style', `height:${height - 2}px;`);
   },
   actions: {
     onScrolledToBottom() {

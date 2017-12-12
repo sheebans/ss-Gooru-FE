@@ -38,19 +38,19 @@
                         <div class="column">
                             <div class="titlenew lsntxtalignment" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{header.title}}}</div>
                           {{#if header.showAssessments}}
-                           <div class="text-newprimary pointer" {{action 'showlessons' index}}>{{t "common.showlessons"}}</div>
+                           <div class="text-newprimary show-label pointer" {{action 'showlessons' index}}>{{t "common.showlessons"}}</div>
                            {{else}}
                            {{#if (eq filterBy 'collection')}}
-                            <div class="text-newprimary pointer" {{action 'showassessments' index}}>{{t "common.showcollections"}}</div>
+                            <div class="text-newprimary show-label pointer" {{action 'showassessments' index}}>{{t "common.showcollections"}}</div>
                             {{else}}
-                            <div class="text-newprimary pointer" {{action 'showassessments' index}}>{{t "common.showassessments"}}</div>
+                            <div class="text-newprimary show-label pointer" {{action 'showassessments' index}}>{{t "common.showassessments"}}</div>
                             {{/if}}
                           {{/if}}
                         </div>
                           </div>  
                 <th id="{{{header.id}}}"  class="header subsubwidthmaxCollapse" scope="col">
    
-                        <div class="text-newprimary pointer" {{action 'collapse' index}}>{{t "common.collapse"}}</div>
+                        <div class="text-newprimary show-label pointer" {{action 'collapse' index}}>{{t "common.collapse"}}</div>
 
                     </th>
            
@@ -116,9 +116,9 @@
                         </div>
                           </div>
                         {{#if header.showSub}}
-                        <div class="text-newprimary" {{action 'collapse' index}}>{{t "common.collapse"}}</div>
+                        <div class="text-newprimary show-label" {{action 'collapse' index}}>{{t "common.collapse"}}</div>
                          {{else}}
-                        <div class="text-newprimary" {{action 'expand' index}}>{{t "common.expand"}}</div>
+                        <div class="text-newprimary show-label" {{action 'expand' index}}>{{t "common.expand"}}</div>
                         {{/if}}
                     </th>
               {{/if}}
