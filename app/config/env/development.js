@@ -68,7 +68,7 @@ export default {
 
   researcher: {
     redirectURL: 'http://research-dev.gooru.org',
-    roleIds: [
+    userIds: [
       '95a744e1-631e-4642-875d-8b07a5e3b421',
       'df956d5f-b7b2-43ae-98a1-c90a12eacaf9'
     ]
