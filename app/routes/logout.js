@@ -9,6 +9,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   session: Ember.inject.service(),
 
   /**
+   * @property {TenantService}
+   */
+  tenantService: Ember.inject.service('api-sdk/tenant'),
+
+  /**
    * Authentication (api-sdk/authentication) service.
    * @property {AuthenticationService} authService
    * @readOnly
@@ -17,12 +22,22 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
   beforeModel: function() {
     this._super(...arguments);
-
-    this.get('session').invalidate();
-    this.get('authenticationService').signOut();
+    const router = this;
+    router.get('authenticationService').signOut();
+    const tenantService = router.get('tenantService');
     const isProd = Env.environment === 'production';
-    if (isProd) {
-      setTimeout('location.replace(Env.marketingSiteUrl);', 0);
-    }
+    tenantService.findTenantFromCurrentSession().then(function(response) {
+      if (response) {
+        let redirectUrl = response.marketingSiteUrl;
+        if (isProd && redirectUrl) {
+          window.location.replace(redirectUrl);
+        }
+      } else {
+        if (isProd) {
+          setTimeout('location.replace(Env.marketingSiteUrl);', 0);
+        }
+      }
+    });
+    router.get('session').invalidate();
   }
 });

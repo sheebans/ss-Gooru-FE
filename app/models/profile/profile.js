@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { TEACHER_ROLES } from 'gooru-web/config/config';
+import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 
 /**
  * Profile model with the user account information
@@ -67,13 +67,7 @@ export default Ember.Object.extend({
   /**
    * @property {string} role - The profile role (teacher, student, etc)
    */
-  role: Ember.computed(function() {
-    const userCategory = this.get('userCategory');
-    if (userCategory && TEACHER_ROLES.contains(userCategory)) {
-      return 'teacher';
-    }
-    return userCategory;
-  }),
+  role: null,
 
   /**
    * @property {date} createdAt - The profile creation date
@@ -213,7 +207,14 @@ export default Ember.Object.extend({
   /**
    * @property {boolean} - Indicates if current user is a researcher
    */
-  isResearcher: Ember.computed.equal('userCategory', 'researcher'),
+  isResearcher: Ember.computed(function() {
+    const userId = this.get('id');
+    let researcher = EndPointsConfig.getResearcher();
+    if (userId && researcher && researcher.userIds.contains(userId)) {
+      return true;
+    }
+    return false;
+  }),
 
   /**
    * @property {boolean} - Indicates if current user is a provider
@@ -265,10 +266,5 @@ export default Ember.Object.extend({
       }
     }
     return properties;
-  },
-
-  /**
-   * @property {string} userCategory - The profile userCategory equalent to role (teacher, student, researcher);
-   */
-  userCategory: null
+  }
 });

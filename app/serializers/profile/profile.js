@@ -130,7 +130,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       gender: payload.gender,
       grades: payload.grade,
       dateOfBirth: payload.birth_date,
-      userCategory: payload.user_category,
+      role: payload.user_category,
       createdAt: payload.created_at,
       lastUpdate: payload.updated_at,
       countryId: payload.country_id,

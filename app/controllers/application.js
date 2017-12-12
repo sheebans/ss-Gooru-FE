@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
-import RGORedirectURL from 'gooru-web/utils/endpoint-config';
+import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 
 export default Ember.Controller.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
@@ -60,7 +60,16 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    * RGO role users redirection url
    * @property {string}
    */
-  researcherURL: RGORedirectURL.getResearcherURL(),
+  researcherURL: Ember.computed(function() {
+    let researcher = EndPointsConfig.getResearcher();
+    if (researcher) {
+      let url = `${researcher.redirectURL}/?access_token=${this.get(
+        'session.token-api3'
+      )}`;
+      return url;
+    }
+    return null;
+  }),
 
   // -------------------------------------------------------------------------
   // Actions
