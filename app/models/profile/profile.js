@@ -210,7 +210,12 @@ export default Ember.Object.extend({
   isResearcher: Ember.computed(function() {
     const userId = this.get('id');
     let researcher = EndPointsConfig.getResearcher();
-    if (userId && researcher && researcher.userIds.contains(userId)) {
+    if (
+      userId &&
+      researcher &&
+      researcher.userIds &&
+      researcher.userIds.contains(userId)
+    ) {
       return true;
     }
     return false;
