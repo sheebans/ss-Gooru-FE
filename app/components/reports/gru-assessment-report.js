@@ -178,11 +178,11 @@ export default Ember.Component.extend({
    * @return {Ember.Array}
    */
   orderedResources: Ember.computed('assessmentResult.resources[]', function() {
-    var resourceResultsOrdered = this.get(
-      'assessmentResult.resources'
-    ).sort(function(a, b) {
-      return Ember.get(a, 'resource.order') - Ember.get(b, 'resource.order');
-    });
+    var resourceResultsOrdered = this.get('assessmentResult.resources').sort(
+      function(a, b) {
+        return Ember.get(a, 'resource.order') - Ember.get(b, 'resource.order');
+      }
+    );
 
     return resourceResultsOrdered;
   })

@@ -13,7 +13,9 @@ export default Ember.Object.extend({
     const lessonId = query.lessonId;
     const collectionId = query.collectionId;
     const collectionType = query.collectionType;
-    const url = `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/lesson/${lessonId}/${collectionType}/${collectionId}/performance`;
+    const url = `${namespace}/class/${classId}/course/${courseId}/unit/${
+      unitId
+    }/lesson/${lessonId}/${collectionType}/${collectionId}/performance`;
     const options = {
       type: 'GET',
       dataType: 'json',
@@ -30,7 +32,9 @@ export default Ember.Object.extend({
     const collectionId = query.collectionId;
     const userId = query.userId;
     const collectionType = query.collectionType;
-    const url = `${namespace}/dca/${collectionType}/${collectionId}/user/${userId}?${includesessionIdParam}&${classId}&${includedateParam}`;
+    const url = `${namespace}/dca/${collectionType}/${collectionId}/user/${
+      userId
+    }?${includesessionIdParam}&${classId}&${includedateParam}`;
     const options = {
       type: 'GET',
       dataType: 'json',

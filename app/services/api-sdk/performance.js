@@ -583,7 +583,7 @@ export default Ember.Service.extend({
    * Gets the class performance summary by student class ids
    * @param studentId
    * @param classIds
-     */
+   */
   findClassPerformanceSummaryByStudentAndClassIds: function(
     studentId,
     classIds
@@ -607,7 +607,7 @@ export default Ember.Service.extend({
    * Gets the class performance summary by class ids
    * This method is used by teachers to get their class summary performance
    * @param classIds
-     */
+   */
   findClassPerformanceSummaryByClassIds: function(classIds) {
     const service = this;
     if (classIds && classIds.length) {
