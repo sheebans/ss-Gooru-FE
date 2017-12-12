@@ -159,6 +159,14 @@
           {{action "selectRowHeader" row.id}}>
           <span style="display: table-cell;">{{row.lastName}} </span><span style="display: table-cell;">,</span><span style="display: table-cell;">{{row.firstName}}</span>
         </th>
+         {{#each row.resultResources as |content|}}
+          <th scope="row">
+            <span class="score answer-undefined" style="display: table-cell;"></span>
+            <span class="time-spent timePadding out-of-scope" style="display: table-cell;"></span>
+            <span class="reaction smileypadding out-of-scope" style="display: table-cell;">
+            </span>
+          </th>
+        {{/each}} 
         {{#each row.content as |content|}}
           <th scope="row">
             {{#if (eq content.score 100)}}

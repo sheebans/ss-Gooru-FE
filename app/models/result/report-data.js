@@ -85,7 +85,7 @@ export default Ember.Object.extend({
    */
   resourceIds: Ember.computed('resources', function() {
     return this.get('resources').map(function(resource) {
-      return resource.get('id');
+      return Ember.get(resource, 'id');
     });
   }),
 
@@ -169,16 +169,18 @@ export default Ember.Object.extend({
 
         resourceResults
           // Filter in case a resource/question has been removed from the collection/assessment
-          .filter(result => resourceIds.indexOf(result.get('resourceId')) > -1)
+          .filter(
+            result => resourceIds.indexOf(Ember.get(result, 'resourceId')) > -1
+          )
           .forEach(function(resourceResult) {
             if (data[userId]) {
-              const questionId = resourceResult.get('resourceId');
+              const questionId = Ember.get(resourceResult, 'resourceId');
               if (data[userId][questionId]) {
                 //if there are several attempts for the same resource the time spent should be added
                 const totalTimeSpent =
-                  resourceResult.get('timeSpent') +
+                  Ember.get(resourceResult, 'timeSpent') +
                   data[userId][questionId].get('timeSpent');
-                resourceResult.set('timeSpent', totalTimeSpent);
+                Ember.set(resourceResult, 'timeSpent', totalTimeSpent);
               }
               data[userId][questionId] = resourceResult;
             }

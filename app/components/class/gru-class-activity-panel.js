@@ -11,6 +11,7 @@ import {
   correctPercentage,
   totalTimeSpent
 } from 'gooru-web/utils/question-result';
+import ReportData from 'gooru-web/models/result/report-data';
 
 /**
  * Class Activity Panel
@@ -40,6 +41,7 @@ export default Ember.Component.extend({
    * @requires service:i18n
    */
   i18n: Ember.inject.service(),
+  assessmentResult: {},
 
   // -------------------------------------------------------------------------
   // Actions
@@ -50,6 +52,18 @@ export default Ember.Component.extend({
      */
     changeVisibility: function(classActivity) {
       this.sendAction('onChangeVisibility', classActivity);
+    },
+    /**
+     * @function actions:selectRowHeader
+     * @param {string} headerId
+     */
+    selectRowHeader: function(studentId) {
+      this.sendAction(
+        'onselectRowHeader',
+        studentId,
+        this.get('reportData'),
+        this.get('collection')
+      );
     },
 
     /**
@@ -138,6 +152,10 @@ export default Ember.Component.extend({
    * @requires service:api-sdk/collection
    */
   collectionService: Ember.inject.service('api-sdk/collection'),
+  /**
+   * @type AnalyticsService
+   */
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
 
   /**
    * @requires service:api-sdk/assessment
@@ -170,6 +188,12 @@ export default Ember.Component.extend({
    */
   timevisible: false,
   /**
+   * @property { ReportData } report data
+   */
+  reportData: [],
+  userDataObj: [],
+  userQuestionDataObj: [],
+  /**
    * @property {boolean}
    */
   reactionvisible: false,
@@ -191,6 +215,14 @@ export default Ember.Component.extend({
    * @property {string} go live action name
    */
   onCollectionclick: '',
+  /**
+   * @property {collection/Collection} collection
+   */
+  collection: null,
+  /**
+     * @prop { Collection } assessment
+     */
+  assessment: null,
 
   /**
    * @property {string} go live action name
@@ -296,10 +328,57 @@ export default Ember.Component.extend({
           .readQuizzesCollection(collectionId, 'assessment', false)
           .then(function(result) {
             component.set('firstTierHeaders', result.resources);
+            members.get('members').forEach(function(item1) {
+              Ember.set(item1, 'resultResources', result.resources);
+            });
             component
               .get('collectionService')
               .readPerformanceData(classId, collectionId, activityDate)
               .then(function(result1) {
+                // var sessionId = '';
+                // result1.content.forEach(function(itemNew, indxresult) {
+                //   sessionId = itemNew.usageData.get(0).sessionId;
+                // });
+
+                const collection1 = result;
+                result.resources.forEach(function(resourceobj) {
+                  Ember.set(resourceobj, 'resourceId', resourceobj.id);
+                });
+                component.set('userDataObj', []);
+                //   members.get('members').forEach(function(memberObj) {
+                //   Ember.Logger.info("sessionId---",sessionId);
+                //   if(sessionId !== "")
+                //   {
+                //   component
+                // .get('analyticsService')
+                // .findResourcesByCollectionforDCA(sessionId,
+                // collectionId,
+                // classId,
+                // memberObj.id,
+                // 'assessment',
+                // activityDate)
+                // .then(function(resultSession) {
+                //   Ember.Logger.info("resultSession---",resultSession);
+                //     });
+
+                //       var tempObj = Ember.Object.create({
+                //         user:memberObj.id,
+                //         resourceResults: resultSession
+                //       });
+                //       component.get('userDataObj').pushObject(tempObj);
+                //   }
+                //    });
+                const reportData1 = ReportData.create({
+                  students: members.get('members'),
+                  resources: result.resources
+                });
+
+                reportData1.merge(component.get('userDataObj'));
+
+                component.set('collection', collection1);
+                component.set('reportData', reportData1);
+                component.set('students', members.get('members'));
+
                 result1.content.forEach(function(item1) {
                   var memberData = members
                     .get('members')
@@ -330,6 +409,7 @@ export default Ember.Component.extend({
                         }
                       });
                       Ember.set(memberData, 'content', result.resources);
+                      Ember.set(memberData, 'resultResources', []);
                     }
                   }
                 });

@@ -201,6 +201,7 @@
       td,
       th {
         border-bottom: 1px solid $dark-200;
+        border-right: 1px solid $dark-200;
       }
       > td {
         border-top: 0px solid $dark-300 !important;
@@ -246,6 +247,7 @@
         &.row-header {
           text-align: left;
           padding: 4px;
+          border-right: 1px solid $dark-200;
 
           > span {
             width: auto;

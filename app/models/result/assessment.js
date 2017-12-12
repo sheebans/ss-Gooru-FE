@@ -333,7 +333,7 @@ export default Ember.Object.extend({
    */
   fixResultsOrder: function() {
     this.get('sortedResourceResults').forEach(function(resourceResult, index) {
-      resourceResult.set('resource.order', index + 1);
+      Ember.set(resourceResult, 'resource.order', index + 1);
     });
   }
 });
