@@ -77,11 +77,10 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
     });
   }),
 
-  beforeModel: function() {
+  beforeModel: function(transition) {
     const route = this;
     let details = null;
-    let queryParams = new URLSearchParams(window.location.search);
-    let accessToken = queryParams.get('access_token');
+    let accessToken = transition.queryParams.access_token;
     if (Env.embedded) {
       return this.beforeModelEmbeddedApplication();
     }
