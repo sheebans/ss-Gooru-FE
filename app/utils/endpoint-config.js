@@ -70,8 +70,8 @@ export function getLanguageSettingdropMenu() {
 /**
  * Get research application url for researcher role users
  */
-export function getResearcherURL() {
+export function getResearcher() {
   //TODO don't use global configuration variable
   const configuration = ConfigurationService.configuration;
-  return configuration ? configuration.get('researcher.redirectURL') : '';
+  return configuration ? configuration.get('researcher') : '';
 }
