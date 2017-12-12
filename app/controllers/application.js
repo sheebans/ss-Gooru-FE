@@ -62,7 +62,7 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    */
   researcherURL: Ember.computed(function() {
     let researcher = EndPointsConfig.getResearcher();
-    if (researcher) {
+    if (researcher && researcher.redirectURL) {
       let url = `${researcher.redirectURL}/?access_token=${this.get(
         'session.token-api3'
       )}`;
