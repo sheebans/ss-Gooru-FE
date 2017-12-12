@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import RGO from 'gooru-web/utils/endpoint-config';
+import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 
 /**
  * Profile model with the user account information
@@ -209,8 +209,8 @@ export default Ember.Object.extend({
    */
   isResearcher: Ember.computed(function() {
     const userId = this.get('id');
-    let researcher = RGO.getResearcher();
-    if (userId && researcher.roleIds.contains(userId)) {
+    let researcher = EndPointsConfig.getResearcher();
+    if (userId && researcher && researcher.roleIds.contains(userId)) {
       return true;
     }
     return false;

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
-import RGO from 'gooru-web/utils/endpoint-config';
+import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 
 export default Ember.Controller.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
@@ -61,11 +61,14 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    * @property {string}
    */
   researcherURL: Ember.computed(function() {
-    let researcher = RGO.getResearcher();
-    let url = `${researcher.redirectURL}/?access_token=${this.get(
-      'session.token-api3'
-    )}`;
-    return url;
+    let researcher = EndPointsConfig.getResearcher();
+    if (researcher) {
+      let url = `${researcher.redirectURL}/?access_token=${this.get(
+        'session.token-api3'
+      )}`;
+      return url;
+    }
+    return null;
   }),
 
   // -------------------------------------------------------------------------
