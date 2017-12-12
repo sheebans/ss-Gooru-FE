@@ -143,6 +143,8 @@ export const ROLES = {
   TEACHER: 'teacher'
 };
 
+export const TEACHER_ROLES = ['researcher'];
+
 export const CORRECT_COLOR = GRADING_SCALE[GRADING_SCALE.length - 1].COLOR; //green-400
 
 export const INCORRECT_COLOR = GRADING_SCALE[0].COLOR; //red-400

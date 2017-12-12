@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { formatDate } from 'gooru-web/utils/utils';
 import ModalMixin from 'gooru-web/mixins/modal';
 import SessionMixin from 'gooru-web/mixins/session';
+import AssessmentResult from 'gooru-web/models/result/assessment';
 
 /**
  * Class activities controller
@@ -83,6 +84,45 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
             controller.set('loadingMore', false);
           });
       }
+    },
+
+    /**
+     * @function actions:selectRowHeader
+     * @param {string} headerId
+     */
+    selectRowHeader: function(studentId, reportData, assessment) {
+      Ember.Logger.debug(
+        `Class assessment report: student with ID ${studentId} was selected`
+      );
+      let resourceResults = reportData.getResultsByStudent(studentId);
+      resourceResults.forEach(function(resourceResult) {
+        let resource = Ember.get(assessment, 'resources').findBy(
+          'id',
+          Ember.get(resourceResult, 'resourceId')
+        );
+        Ember.set(resourceResult, 'resource', resource);
+      });
+
+      let assessmentResult = AssessmentResult.create({
+        totalAttempts: 1,
+        selectedAttempt: 1,
+        resourceResults: resourceResults,
+        collection: assessment,
+        isRealTime: this.get('isRealTime'),
+        showAttempts: this.get('showAttempts')
+      });
+
+      let modalModel = {
+        assessmentResult: assessmentResult
+      };
+      this.actions.showModal.call(
+        this,
+        'reports.gru-assessment-report',
+        modalModel,
+        null,
+        'gru-assessment-report-modal',
+        true
+      );
     },
 
     /**

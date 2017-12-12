@@ -70,7 +70,26 @@ export default Ember.Component.extend({
   /**
    * @property {boolean} Indicates if library has 1 or more rubrics
    */
-  hasRubrics: Ember.computed.gt('content.rubricCount', 0)
+  hasRubrics: Ember.computed.gt('content.rubricCount', 0),
+
+  redirectUrl: Ember.computed(function() {
+    let shortName = this.get('content.shortName');
+    let libraryUrl = `library/${shortName}`;
+    let defaultUrl = `${libraryUrl}/content/courses`;
+    if (this.get('hasCourses')) {
+      return defaultUrl;
+    } else if (this.get('hasCollections')) {
+      return `${libraryUrl}/content/collections`;
+    } else if (this.get('hasAssessments')) {
+      return `${libraryUrl}/content/assessments`;
+    } else if (this.get('hasResources')) {
+      return `${libraryUrl}/content/resources`;
+    } else if (this.get('hasQuestions')) {
+      return `${libraryUrl}/content/questions`;
+    } else {
+      return defaultUrl;
+    }
+  })
 
   // -------------------------------------------------------------------------
   // Methods

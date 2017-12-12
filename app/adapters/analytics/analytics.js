@@ -13,7 +13,28 @@ export default Ember.Object.extend({
     const lessonId = query.lessonId;
     const collectionId = query.collectionId;
     const collectionType = query.collectionType;
-    const url = `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/lesson/${lessonId}/${collectionType}/${collectionId}/performance`;
+    const url = `${namespace}/class/${classId}/course/${courseId}/unit/${
+      unitId
+    }/lesson/${lessonId}/${collectionType}/${collectionId}/performance`;
+    const options = {
+      type: 'GET',
+      dataType: 'json',
+      headers: this.defineHeaders(),
+      data: {}
+    };
+    return Ember.$.ajax(url, options);
+  },
+  queryRecordForDCA: function(query) {
+    const namespace = this.get('namespace');
+    const includesessionIdParam = `sessionId=${query.sessionId}`;
+    const classId = `classId=${query.classId}`;
+    const includedateParam = `date=${query.date}`;
+    const collectionId = query.collectionId;
+    const userId = query.userId;
+    const collectionType = query.collectionType;
+    const url = `${namespace}/dca/${collectionType}/${collectionId}/user/${
+      userId
+    }?${includesessionIdParam}&${classId}&${includedateParam}`;
     const options = {
       type: 'GET',
       dataType: 'json',

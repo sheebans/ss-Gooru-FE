@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 
 /**
  * Profile model with the user account information
@@ -148,8 +149,8 @@ export default Ember.Object.extend({
   }),
 
   /**
-  * @property {String} fullName - The user lastname, firstname
-  */
+   * @property {String} fullName - The user lastname, firstname
+   */
   lastFirstName: Ember.computed('firstName', 'lastName', function() {
     const firstName = this.get('firstName');
     const lastName = this.get('lastName');
@@ -202,6 +203,23 @@ export default Ember.Object.extend({
    * @property {boolean} - Indicates if current user is a teacher
    */
   isTeacher: Ember.computed.equal('role', 'teacher'),
+
+  /**
+   * @property {boolean} - Indicates if current user is a researcher
+   */
+  isResearcher: Ember.computed(function() {
+    const userId = this.get('id');
+    let researcher = EndPointsConfig.getResearcher();
+    if (
+      userId &&
+      researcher &&
+      researcher.userIds &&
+      researcher.userIds.contains(userId)
+    ) {
+      return true;
+    }
+    return false;
+  }),
 
   /**
    * @property {boolean} - Indicates if current user is a provider

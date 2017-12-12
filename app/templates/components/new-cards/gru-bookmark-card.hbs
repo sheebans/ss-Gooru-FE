@@ -22,14 +22,14 @@
     <div class="items-icon">
       {{#if isCourse}}
         {{#if (gt content.unitCount 0)}}
-          <span><i data-toggle="tooltip" data-placement="auto" class="units" title="Units"></i> {{content.unitCount}}</span>
+          <span><i data-toggle="tooltip" data-placement="auto" class="units" title="{{t 'common.unit'}}"></i> {{content.unitCount}}</span>
         {{/if}}
       {{else}}
-        {{#if (gt content.questionCount 0)}}
-          <span><i data-toggle="tooltip" data-placement="auto" class="questions" title="Questions"></i> {{content.questionCount}}</span>
-        {{/if}}
         {{#if (gt content.resourceCount 0)}}
-          <span><i data-toggle="tooltip" data-placement="auto" class="resources" title="Resources"></i> {{content.resourceCount}}</span>
+          <span><i data-toggle="tooltip" data-placement="auto" class="resources" title="{{t 'common.resource'}}"></i> {{content.resourceCount}}</span>
+        {{/if}}
+        {{#if (gt content.questionCount 0)}}
+          <span><i data-toggle="tooltip" data-placement="auto" class="questions" title="{{t 'common.question'}}"></i> {{content.questionCount}}</span>
         {{/if}}
       {{/if}}
     </div>

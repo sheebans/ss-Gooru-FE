@@ -433,7 +433,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * Normalizes multiple profile items information
    * @param { users: [] } payload
    * @returns {ProfileModel[]}
-     */
+   */
   normalizeReadMultipleProfiles: function(payload) {
     const serializer = this;
     let profiles = Ember.A([]);

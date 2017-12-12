@@ -33,65 +33,72 @@ var applicationController = Ember.Object.create({
       })
     ]
   },
+  showArchivedClasses: true,
+
   getLocalStorage: () => ({
     getItem: () => null
   })
 });
 moduleFor('controller:teacher-home', 'Unit | Controller | teacher-home', {});
 test('Sort Archived Classes by Date', function(assert) {
-  let controller = this.subject({
-    applicationController,
-    performanceService
+  Ember.run(() => {
+    let controller = this.subject({
+      applicationController,
+      performanceService
+    });
+    controller.set('showArchivedClasses', true);
+    controller.send('filterByDate');
+    assert.equal(
+      controller.get('sortedArchivedClassrooms')[0].get('title'),
+      'Class Archived 2',
+      'Incorrect first class'
+    );
+    assert.equal(
+      controller.get('sortedArchivedClassrooms')[1].get('title'),
+      'Class Archived 1',
+      'Incorrect last class'
+    );
+    controller.send('filterByDate');
+    assert.equal(
+      controller.get('sortedArchivedClassrooms')[0].get('title'),
+      'Class Archived 1',
+      'Incorrect first class'
+    );
+    assert.equal(
+      controller.get('sortedArchivedClassrooms')[1].get('title'),
+      'Class Archived 2',
+      'Incorrect last class'
+    );
   });
-  controller.send('filterByDate');
-  assert.equal(
-    controller.get('sortedArchivedClassrooms')[0].get('title'),
-    'Class Archived 2',
-    'Incorrect first class'
-  );
-  assert.equal(
-    controller.get('sortedArchivedClassrooms')[1].get('title'),
-    'Class Archived 1',
-    'Incorrect last class'
-  );
-  controller.send('filterByDate');
-  assert.equal(
-    controller.get('sortedArchivedClassrooms')[0].get('title'),
-    'Class Archived 1',
-    'Incorrect first class'
-  );
-  assert.equal(
-    controller.get('sortedArchivedClassrooms')[1].get('title'),
-    'Class Archived 2',
-    'Incorrect last class'
-  );
 });
 
 test('Sort Archived Classes By Title', function(assert) {
-  let controller = this.subject({
-    applicationController,
-    performanceService
+  Ember.run(() => {
+    let controller = this.subject({
+      applicationController,
+      performanceService
+    });
+    controller.send('filterByTitle');
+    assert.equal(
+      controller.get('sortedArchivedClassrooms')[0].get('title'),
+      'Class Archived 1',
+      'Incorrect first class'
+    );
+    assert.equal(
+      controller.get('sortedArchivedClassrooms')[1].get('title'),
+      'Class Archived 2',
+      'Incorrect last class'
+    );
+    controller.send('filterByTitle');
+    assert.equal(
+      controller.get('sortedArchivedClassrooms')[0].get('title'),
+      'Class Archived 2',
+      'Incorrect first class'
+    );
+    assert.equal(
+      controller.get('sortedArchivedClassrooms')[1].get('title'),
+      'Class Archived 1',
+      'Incorrect last class'
+    );
   });
-  controller.send('filterByTitle');
-  assert.equal(
-    controller.get('sortedArchivedClassrooms')[0].get('title'),
-    'Class Archived 1',
-    'Incorrect first class'
-  );
-  assert.equal(
-    controller.get('sortedArchivedClassrooms')[1].get('title'),
-    'Class Archived 2',
-    'Incorrect last class'
-  );
-  controller.send('filterByTitle');
-  assert.equal(
-    controller.get('sortedArchivedClassrooms')[0].get('title'),
-    'Class Archived 2',
-    'Incorrect first class'
-  );
-  assert.equal(
-    controller.get('sortedArchivedClassrooms')[1].get('title'),
-    'Class Archived 1',
-    'Incorrect last class'
-  );
 });

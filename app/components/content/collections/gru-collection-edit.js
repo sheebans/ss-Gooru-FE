@@ -48,6 +48,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
      * Edit Content
      */
     editContent: function() {
+      let component = this;
       var collectionForEditing = this.get('collection').copy();
       collectionForEditing.standards.forEach(function(standardObj) {
         Ember.set(standardObj, 'isRemovable', true);
@@ -65,18 +66,34 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       unitStandards.forEach(function(unitstandardObj) {
         let unitStandardTag = unitstandardObj.standards;
         unitStandardTag.forEach(function(onestandardObj) {
-          onestandardObj.tagAlreadyexist = true;
+          Ember.set(onestandardObj, 'tagAlreadyexist', true);
+          Ember.set(onestandardObj, 'isRemovable', false);
           aggregatedStandards.push(onestandardObj);
           if (selectedStandardCodes.length !== 0) {
             selectedStandardCodes.forEach(function(newstandardObj) {
               if (newstandardObj === onestandardObj.code) {
-                onestandardObj.tagAlreadyexist = false;
+                Ember.set(onestandardObj, 'tagAlreadyexist', false);
+                Ember.set(onestandardObj, 'isRemovable', false);
                 aggregatedStandards.push(onestandardObj);
               }
             });
           }
         });
       });
+      component
+        .get('tempCollection.standards')
+        .forEach(function(suggeststanObj) {
+          component
+            .get('tempCollection.standards')
+            .removeObject(suggeststanObj);
+          let newtaxonomyObj = Ember.Object.create({
+            code: suggeststanObj.get('code'),
+            frameworkCode: suggeststanObj.get('frameworkCode'),
+            isRemovable: true,
+            tagAlreadyexist: false
+          });
+          component.get('tempCollection.standards').addObject(newtaxonomyObj);
+        });
       let result = aggregatedStandards.reduceRight(function(r, a) {
         r.some(function(b) {
           return a.code === b.code;
@@ -385,7 +402,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
           });
           const standards = Ember.A(dataTags);
           standards.pushObjects(notInSubjectStandards.toArray());
-          component.set('tempCollection.standards', standards);
+          component.get('tempCollection.standards').pushObjects(standards);
           component
             .get('tempCollection.standards')
             .forEach(function(suggeststanObj) {
@@ -437,7 +454,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
     component
       .get('tempCollection.aggregatedTag')
       .forEach(function(suggeststanObj) {
-        suggeststanObj.set('tagAlreadyexist', true);
+        Ember.set(suggeststanObj, 'tagAlreadyexist', true);
       });
     component.get('tempCollection.standards').forEach(function(standardObj) {
       var suggestObj = component

@@ -77,9 +77,22 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
     });
   }),
 
-  beforeModel: function() {
+  beforeModel: function(transition) {
+    const route = this;
+    let details = null;
+    let accessToken = transition.queryParams.access_token;
     if (Env.embedded) {
       return this.beforeModelEmbeddedApplication();
+    }
+    if (accessToken) {
+      // this is for google sign in
+      details = this.get('sessionService')
+        .signInWithToken(accessToken)
+        .then(function() {
+          const applicationController = route.controllerFor('application');
+          return Ember.RSVP.all([applicationController.setupTenant()]);
+        });
+      return details;
     }
   },
 
@@ -167,7 +180,9 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
     const themeCssUrl = `${appRootPath}${cssUrl}`;
     if (themeCssUrl) {
       Ember.$('head').append(
-        `<link id="theme-style-link" rel="stylesheet" type="text/css" href="${themeCssUrl}">`
+        `<link id="theme-style-link" rel="stylesheet" type="text/css" href="${
+          themeCssUrl
+        }">`
       );
     }
   },
@@ -343,13 +358,18 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
      * @see gru-header.hbs
      */
     signIn: function() {
+      let queryParams = new URLSearchParams(window.location.search);
       const route = this;
-      route.actions.updateUserClasses.call(this).then(
-        // Required to get list of classes after login
-        function() {
-          route.transitionTo('index');
-        }
-      );
+      if (queryParams.has('redirectURL')) {
+        window.location.replace(queryParams.get('redirectURL'));
+      } else {
+        route.actions.updateUserClasses.call(this).then(
+          // Required to get list of classes after login
+          function() {
+            route.transitionTo('index');
+          }
+        );
+      }
     },
 
     /**

@@ -171,8 +171,6 @@ export default Ember.Service.extend({
     const service = this;
     const analyticsService = service.get('analyticsService');
     const taxonomyService = service.get('taxonomyService');
-    const searchService = service.get('searchService');
-    const courseId = context.courseId;
     return new Ember.RSVP.Promise(function(resolve) {
       analyticsService
         .getStandardsSummary(context.get('sessionId'), context.get('userId'))
@@ -195,27 +193,6 @@ export default Ember.Service.extend({
                   if (taxonomyStandard) {
                     standardSummary.set('description', taxonomyStandard.title);
                   }
-                  const filters = {
-                    courseId: courseId,
-                    taxonomies: [standardSummary.get('id')],
-                    publishStatus: 'unpublished' // TODO this parameter needs to be removed once we go to Production
-                  };
-                  const searchResourcePromise = searchService
-                    .searchResources('*', filters)
-                    .then(function(resources) {
-                      const suggestedResources = resources.map(function(
-                        resource
-                      ) {
-                        return {
-                          resource: resource.toPlayerResource()
-                        };
-                      });
-                      standardSummary.set(
-                        'suggestedResources',
-                        suggestedResources
-                      );
-                    });
-                  promises.push(searchResourcePromise);
                 });
                 Ember.RSVP.all(promises).then(function() {
                   resolve(assessmentResult);
@@ -606,7 +583,7 @@ export default Ember.Service.extend({
    * Gets the class performance summary by student class ids
    * @param studentId
    * @param classIds
-     */
+   */
   findClassPerformanceSummaryByStudentAndClassIds: function(
     studentId,
     classIds
@@ -630,7 +607,7 @@ export default Ember.Service.extend({
    * Gets the class performance summary by class ids
    * This method is used by teachers to get their class summary performance
    * @param classIds
-     */
+   */
   findClassPerformanceSummaryByClassIds: function(classIds) {
     const service = this;
     if (classIds && classIds.length) {

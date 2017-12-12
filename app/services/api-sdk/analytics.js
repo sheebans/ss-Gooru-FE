@@ -46,28 +46,34 @@ export default Ember.Service.extend({
   getCoursePeers: function(classId, courseId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('peerAdapter').getCoursePeers(classId, courseId).then(
-        function(response) {
-          resolve(service.get('peerSerializer').normalizePeers(response));
-        },
-        function(error) {
-          reject(error);
-        }
-      );
+      service
+        .get('peerAdapter')
+        .getCoursePeers(classId, courseId)
+        .then(
+          function(response) {
+            resolve(service.get('peerSerializer').normalizePeers(response));
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
   getUnitPeers: function(classId, courseId, unitId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('peerAdapter').getUnitPeers(classId, courseId, unitId).then(
-        function(response) {
-          resolve(service.get('peerSerializer').normalizePeers(response));
-        },
-        function(error) {
-          reject(error);
-        }
-      );
+      service
+        .get('peerAdapter')
+        .getUnitPeers(classId, courseId, unitId)
+        .then(
+          function(response) {
+            resolve(service.get('peerSerializer').normalizePeers(response));
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -106,6 +112,38 @@ export default Ember.Service.extend({
           unitId: unitId,
           lessonId: lessonId,
           collectionId: collectionId,
+          collectionType: collectionType
+        })
+        .then(
+          function(events) {
+            resolve(
+              service.get('analyticsSerializer').normalizeResponse(events)
+            );
+          },
+          function(error) {
+            reject(error);
+          }
+        );
+    });
+  },
+  findResourcesByCollectionforDCA: function(
+    sessionId,
+    collectionId,
+    classId,
+    userId,
+    collectionType,
+    dateVal
+  ) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('analyticsAdapter')
+        .queryRecordForDCA({
+          sessionId: sessionId,
+          collectionId: collectionId,
+          classId: classId,
+          userId: userId,
+          date: dateVal,
           collectionType: collectionType
         })
         .then(
@@ -166,7 +204,7 @@ export default Ember.Service.extend({
    * @param {string} userId
    * @param {boolean} fetchAll when true load dependencies for current location
    * @returns {Ember.RSVP.Promise.<CurrentLocation>}
-     */
+   */
   getUserCurrentLocation: function(classId, userId, fetchAll = false) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
@@ -193,7 +231,7 @@ export default Ember.Service.extend({
    * Loads the dependencies data for a current location
    * @param {CurrentLocation} currentLocation
    * @returns {Ember.RSVP.Promise.<CurrentLocation>}
-     */
+   */
   loadCurrentLocationData: function(currentLocation) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
@@ -216,37 +254,35 @@ export default Ember.Service.extend({
         }
       }
 
-      Ember.RSVP
-        .hash({
-          course: courseId
-            ? service.get('courseService').fetchById(courseId)
-            : undefined,
-          unit: unitId
-            ? service.get('unitService').fetchById(courseId, unitId)
-            : undefined,
-          lesson: lessonId
-            ? service.get('lessonService').fetchById(courseId, unitId, lessonId)
-            : undefined,
-          collection: collection
-        })
-        .then(
-          function(hash) {
-            currentLocation.set('course', hash.course);
-            currentLocation.set('unit', hash.unit);
-            currentLocation.set('lesson', hash.lesson);
-            currentLocation.set('collection', hash.collection);
-            resolve(currentLocation);
-          },
-          function(error) {
-            //handling server errors
-            const status = error.status;
-            if (status === 404) {
-              resolve();
-            } else {
-              reject(error);
-            }
+      Ember.RSVP.hash({
+        course: courseId
+          ? service.get('courseService').fetchById(courseId)
+          : undefined,
+        unit: unitId
+          ? service.get('unitService').fetchById(courseId, unitId)
+          : undefined,
+        lesson: lessonId
+          ? service.get('lessonService').fetchById(courseId, unitId, lessonId)
+          : undefined,
+        collection: collection
+      }).then(
+        function(hash) {
+          currentLocation.set('course', hash.course);
+          currentLocation.set('unit', hash.unit);
+          currentLocation.set('lesson', hash.lesson);
+          currentLocation.set('collection', hash.collection);
+          resolve(currentLocation);
+        },
+        function(error) {
+          //handling server errors
+          const status = error.status;
+          if (status === 404) {
+            resolve();
+          } else {
+            reject(error);
           }
-        );
+        }
+      );
     });
   },
 

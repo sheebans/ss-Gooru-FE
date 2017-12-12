@@ -166,7 +166,9 @@ export default Ember.Object.extend({
         taxonomyResult[taxonomyKey] = {
           code: taxonomy.get('code'),
           title: taxonomy.get('title'),
-          parent_title: taxonomy.get('parentTitle'),
+          parent_title: taxonomy.hasOwnProperty('parentTitle')
+            ? taxonomy.get('parentTitle')
+            : '',
           description: taxonomy.get('description'),
           framework_code: taxonomy.get('frameworkCode')
         };
@@ -231,7 +233,7 @@ export default Ember.Object.extend({
               id: key,
               code: taxonomy.code,
               title: taxonomy.title,
-              parentTitle: taxonomy.parent_title,
+              parentTitle: taxonomy.parent_title ? taxonomy.parent_title : '',
               description: taxonomy.description ? taxonomy.description : '',
               frameworkCode: taxonomy.framework_code,
               taxonomyLevel: level

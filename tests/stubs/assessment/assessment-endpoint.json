@@ -89,7 +89,7 @@
   {
     "description": "Gets any assessment",
     "request": {
-      "url": "^/api/nucleus/v1/assessments/first-assessment-id$",
+      "url": "^/api/nucleus/v1/assessments/(.+)$",
       "method": "GET",
       "headers": {
         "Authorization": "Token (.+)"
