@@ -161,8 +161,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
     return resourceResults.map(function(resourceResult, index) {
       return Ember.Object.create({
         label: index + 1, //using index here because the resource.order could have gaps
-        status: resourceResult.get('attemptStatus'),
-        value: resourceResult.get('id')
+        status: Ember.get(resourceResult, 'attemptStatus'),
+        value: Ember.get(resourceResult, 'id')
       });
     });
   }

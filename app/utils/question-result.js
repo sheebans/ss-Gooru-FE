@@ -20,21 +20,21 @@ export function stats(questionResults) {
   let reactions = [];
 
   questionResults.forEach(function(item) {
-    let isOE = item.get('questionType') === 'OE';
+    let isOE = Ember.get(item, 'questionType') === 'OE';
 
     if (!isOE) {
-      correct += item.get('correct') ? 1 : 0;
-      incorrect += item.get('incorrect') ? 1 : 0;
+      correct += Ember.get(item, 'correct') ? 1 : 0;
+      incorrect += Ember.get(item, 'incorrect') ? 1 : 0;
     } else {
       total -= 1;
     }
 
-    skipped += item.get('skipped') ? 1 : 0;
-    started += item.get('started') ? 1 : 0;
-    timeSpent += item.get('timeSpent');
+    skipped += Ember.get(item, 'skipped') ? 1 : 0;
+    started += Ember.get(item, 'started') ? 1 : 0;
+    timeSpent += Ember.get(item, 'timeSpent');
 
-    if (item.get('reaction')) {
-      reactions.push(item.get('reaction'));
+    if (Ember.get(item, 'reaction')) {
+      reactions.push(Ember.get(item, 'reaction'));
     }
   });
 

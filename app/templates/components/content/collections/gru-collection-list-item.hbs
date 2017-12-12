@@ -35,7 +35,7 @@
           <span class="btn btn-primary btn-small">{{standard.code}}</span>
         {{/each}}
         {{#if remainingStandards}}
-          <span class="btn btn-default btn-small" {{action 'showStandards' allVisibleStandardsList}}>+{{remainingStandards}}</span>
+          <span class="btn btn-default btn-small">+{{remainingStandards}}</span>
         {{/if}}
       {{else}}
         <span class="out-of-scope">{{t "common.add-standard"}}</span>
