@@ -96,7 +96,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       );
       let resourceResults = reportData.getResultsByStudent(studentId);
       resourceResults.forEach(function(resourceResult) {
-        let resource = Ember.get(assessment, 'resources').findBy(
+        let resource = Ember.get(assessment, 'children').findBy(
           'id',
           Ember.get(resourceResult, 'resourceId')
         );

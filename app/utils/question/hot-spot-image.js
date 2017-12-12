@@ -1,5 +1,6 @@
 import MultipleAnswerUtil from './multiple-answer';
 import AnswerObject from 'gooru-web/utils/question/answer-object';
+import Ember from 'ember';
 /**
  * It contains convenience methods for grading and retrieving useful information
  * for HS Image
@@ -109,7 +110,7 @@ export default MultipleAnswerUtil.extend({
     return !answerObjects || !answerObjects.length
       ? null //if not respond is provided
       : answerObjects.filterBy('skip', false).map(function(answerObject) {
-        return answerObject.get('answerId');
+        return Ember.get(answerObject, 'answerId');
       });
   }
 });

@@ -109,7 +109,7 @@ const FillInTheBlankUtil = QuestionUtil.extend({
     return !answerObjects || !answerObjects.length
       ? null //if not respond is provided
       : answerObjects.map(function(answerObject) {
-        return answerObject.get('text');
+        return Ember.get(answerObject, 'text');
       });
   },
 
