@@ -130,6 +130,28 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Events
+  didInsertElement() {
+    var today = new Date();
+    var dcaDate = new Date(this.get('dcaAddeddate'));
+    if (dcaDate.getFullYear() === 1970) {
+      dcaDate = new Date(this.get('otherAddeddate'));
+    }
+    var dcaDateDate =
+      `${dcaDate.getFullYear()
+      }-${
+        dcaDate.getMonth() + 1
+      }-${
+        dcaDate.getDate()}`;
+    var todayDate =
+      `${today.getFullYear()
+      }-${
+        today.getMonth() + 1
+      }-${
+        today.getDate()}`;
+    if (todayDate === dcaDateDate) {
+      this.set('todayDateStatus', true);
+    }
+  },
 
   didRender: function() {
     this._super(...arguments);
@@ -180,6 +202,10 @@ export default Ember.Component.extend({
    * @property {string}
    */
   dcaAddeddate: Ember.computed.alias('dcadate'),
+  /**
+   * @property {string}
+   */
+  otherAddeddate: Ember.computed.alias('otherdate'),
 
   /**
    * @property {CollectionPerformanceSummary}
@@ -206,6 +232,10 @@ export default Ember.Component.extend({
    * @property {boolean}
    */
   reactionvisible: false,
+  /**
+   * @property {boolean}
+   */
+  todayDateStatus: false,
   /**
    * The user performanceData
    * @property {membersData[]}
