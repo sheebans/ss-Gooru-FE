@@ -219,19 +219,11 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       }
     ]);
 
-    let myClasses =
-      route.modelFor('application').myClasses || //when refreshing the page the variable is accessible at the route
-      route.controllerFor('application').get('myClasses'); //after login the variable is refreshed at the controller
-
+    let myClassessPromise = Ember.RSVP.resolve(route.controllerFor('application').loadUserClasses());
     let firstCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
     let secondCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
     let thirdCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
     let fourthCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
-
-    const myId = route.get('session.userId');
-    const activeClasses = myClasses.getTeacherActiveClasses(myId);
-
-    let archivedClasses = myClasses.getTeacherArchivedClasses();
 
     const firstCourseId = configuration.get(
       'exploreFeaturedCourses.firstCourseId'
@@ -269,14 +261,18 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         firstCourse: firstCoursePromise,
         secondCourse: secondCoursePromise,
         thirdCourse: thirdCoursePromise,
-        fourthCourse: fourthCoursePromise
+        fourthCourse: fourthCoursePromise,
+        myClasses: myClassessPromise
       })
       .then(function(hash) {
         const firstFeaturedCourse = hash.firstCourse;
         const secondFeaturedCourse = hash.secondCourse;
         const thirdFeaturedCourse = hash.thirdCourse;
         const fourthFeaturedCourse = hash.fourthCourse;
-
+        const myClasses = hash.myClasses;
+        const myId = route.get('session.userId');
+        const activeClasses = myClasses.getTeacherActiveClasses(myId);
+        const archivedClasses = myClasses.getTeacherArchivedClasses();
         featuredCourses.push(firstFeaturedCourse);
         featuredCourses.push(secondFeaturedCourse);
         featuredCourses.push(thirdFeaturedCourse);
