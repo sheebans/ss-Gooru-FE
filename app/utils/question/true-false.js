@@ -76,9 +76,9 @@ export default MultipleChoiceUtil.extend({
   toUserAnswer: function(answerObjects) {
     let userAnswer = null;
     if (answerObjects.get('length')) {
-      let answerObject = answerObjects.get('firstObject');
-      let text = answerObject.get('text');
-      let answerId = answerObject.get('answerId');
+      let answerObject = Ember.get(answerObjects, 'firstObject');
+      let text = Ember.get(answerObject, 'text');
+      let answerId = Ember.get(answerObject, 'answerId');
 
       /*
        When answerId = 0, we need to use the text to know the answer selected

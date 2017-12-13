@@ -6,7 +6,6 @@
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 1px;
-    margin-left: 110px;
   }
 
   table {
@@ -145,7 +144,7 @@
     }
     .fixed {
       position: absolute;
-      left: 0;
+      left: 0 !important;
       width: 111px;
     }
     .emotion {
@@ -153,10 +152,8 @@
       margin: 0 auto;
       text-align: center;
     }
-    .top-header >
-      th:nth-child(2) {
-        pointer-events: none;
-
+    .top-header > th:nth-child(2) {
+      pointer-events: none;
     }
   }
 }
