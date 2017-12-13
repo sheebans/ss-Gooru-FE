@@ -33,7 +33,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const tenantService = router.get('tenantService');
     const isProd = Env.environment === 'production';
     let redirectUrl = null;
-    if (!isProd) {
+    if (isProd) {
       tenantService.findTenantFromCurrentSession().then(function(response) {
         if (response) {
           redirectUrl = response.marketingSiteUrl;
