@@ -359,7 +359,7 @@ export default Ember.Component.extend(
             });
             const standards = Ember.A(dataTags);
             standards.pushObjects(notInSubjectStandards.toArray());
-            component.set('tempResource.standards', standards);
+            component.get('tempResource.standards').pushObjects(standards);
           }
         }
       };
