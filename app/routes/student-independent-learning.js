@@ -53,17 +53,13 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
-
-  beforeModel: function() {
+  model: function() {
     let route = this;
+    //Redirect user to currently studying page by default
     let currentPage = getCurrentPage();
     if (currentPage !== 'bookmarks' && currentPage !== 'studying') {
       route.transitionTo('student-independent-learning.learning-base');
     }
-  },
-
-  model: function() {
-    let route = this;
     const configuration = this.get('configurationService.configuration');
     const pagination = {
       offset: 0,
@@ -113,30 +109,32 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     const bookmarksPromise = route
       .get('bookmarkService')
       .fetchBookmarks(pagination, true);
-    return Ember.RSVP.hash({
-      firstCourse: firstCoursePromise,
-      secondCourse: secondCoursePromise,
-      thirdCourse: thirdCoursePromise,
-      fourthCourse: fourthCoursePromise,
-      bookmarks: bookmarksPromise
-    }).then(function(hash) {
-      const firstFeaturedCourse = hash.firstCourse;
-      const secondFeaturedCourse = hash.secondCourse;
-      const thirdFeaturedCourse = hash.thirdCourse;
-      const fourthFeaturedCourse = hash.fourthCourse;
-      const bookmarks = hash.bookmarks;
+    return Ember.RSVP
+      .hash({
+        firstCourse: firstCoursePromise,
+        secondCourse: secondCoursePromise,
+        thirdCourse: thirdCoursePromise,
+        fourthCourse: fourthCoursePromise,
+        bookmarks: bookmarksPromise
+      })
+      .then(function(hash) {
+        const firstFeaturedCourse = hash.firstCourse;
+        const secondFeaturedCourse = hash.secondCourse;
+        const thirdFeaturedCourse = hash.thirdCourse;
+        const fourthFeaturedCourse = hash.fourthCourse;
+        const bookmarks = hash.bookmarks;
 
-      featuredCourses.push(firstFeaturedCourse);
-      featuredCourses.push(secondFeaturedCourse);
-      featuredCourses.push(thirdFeaturedCourse);
-      featuredCourses.push(fourthFeaturedCourse);
+        featuredCourses.push(firstFeaturedCourse);
+        featuredCourses.push(secondFeaturedCourse);
+        featuredCourses.push(thirdFeaturedCourse);
+        featuredCourses.push(fourthFeaturedCourse);
 
-      return {
-        activeClasses,
-        featuredCourses,
-        bookmarks
-      };
-    });
+        return {
+          activeClasses,
+          featuredCourses,
+          bookmarks
+        };
+      });
   },
 
   setupController: function(controller, model) {

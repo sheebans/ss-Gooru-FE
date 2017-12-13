@@ -202,7 +202,7 @@ export default Ember.Service.extend({
    * @param {string} userId
    * @param {boolean} fetchAll when true load dependencies for current location
    * @returns {Ember.RSVP.Promise.<CurrentLocation>}
-     */
+   */
   getUserCurrentLocation: function(classId, userId, fetchAll = false) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
@@ -229,7 +229,7 @@ export default Ember.Service.extend({
    * Loads the dependencies data for a current location
    * @param {CurrentLocation} currentLocation
    * @returns {Ember.RSVP.Promise.<CurrentLocation>}
-     */
+   */
   loadCurrentLocationData: function(currentLocation) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {

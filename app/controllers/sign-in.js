@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  queryParams: ['sessionEnds'],
+  queryParams: ['sessionEnds', 'redirectURL'],
 
   /**
    * @property {Service} Session
@@ -93,11 +93,11 @@ export default Ember.Controller.extend({
       username: null,
       password: null
     });
-
     controller.set('user', user);
-    const url = `${window.location.protocol}//${window.location.host}${
-      Env['google-sign-in'].url
-    }?redirectURL=${window.location.protocol}//${window.location.host}`;
+    const homeURL = `${window.location.protocol}//${window.location.host}`;
+    let redirectURL = controller.get('redirectURL') || homeURL;
+    const url = `${homeURL}${Env['google-sign-in']
+      .url}?redirectURL=${redirectURL}`;
     controller.set('googleSignInUrl', url);
     controller.set('didValidate', false);
   },
@@ -122,6 +122,8 @@ export default Ember.Controller.extend({
    * @property {Boolean} sessionEnds
    */
   sessionEnds: false,
+
+  redirectURL: null,
 
   /**
    * Maintain the state of redirection completed or not

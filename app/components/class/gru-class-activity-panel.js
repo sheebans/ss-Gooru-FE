@@ -229,8 +229,8 @@ export default Ember.Component.extend({
    */
   collection: null,
   /**
-     * @prop { Collection } assessment
-     */
+   * @prop { Collection } assessment
+   */
   assessment: null,
 
   /**

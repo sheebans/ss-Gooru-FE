@@ -6,10 +6,10 @@ import { average, roundFloat } from 'gooru-web/utils/math';
  */
 
 /**
-  * Returns stats for a set of question results
-  * @param {QuestionResult[]} questionResults
-  * @returns {{ total: number, correct: number, incorrect: number, skipped: number, notStarted: number}}
-  */
+ * Returns stats for a set of question results
+ * @param {QuestionResult[]} questionResults
+ * @returns {{ total: number, correct: number, incorrect: number, skipped: number, notStarted: number}}
+ */
 export function stats(questionResults) {
   let total = questionResults.length;
   let correct = 0;

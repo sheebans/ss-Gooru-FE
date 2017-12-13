@@ -152,8 +152,8 @@ export default CollectionEdit.extend({
       this.actions.updateContent.call(this);
     },
     /**
-   * Delete assessment
-   */
+     * Delete assessment
+     */
     deleteItem: function() {
       const myId = this.get('session.userId');
       var model = {
