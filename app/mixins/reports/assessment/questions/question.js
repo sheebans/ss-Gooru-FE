@@ -37,7 +37,7 @@ export default Ember.Mixin.create({
    * @param question
    */
   getQuestionUtil: function(question) {
-    return getQuestionUtil(question.get('questionType')).create({
+    return getQuestionUtil(Ember.get(question, 'questionType')).create({
       question: question
     });
   }

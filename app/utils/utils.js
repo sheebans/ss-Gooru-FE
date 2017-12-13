@@ -222,9 +222,7 @@ export function getGradeRange(score) {
 export function getScoreString(value) {
   if (typeof value === 'number') {
     var gradeColor = getGradeColor(value);
-    return `<span class="score" style="background-color: ${gradeColor}">${
-      value
-    } %</span>`;
+    return `<span class="score" style="background-color: ${gradeColor}">${value} %</span>`;
   }
 
   return '<span class="score answer-undefined"></span>';
@@ -246,9 +244,7 @@ export function getReactionIcon(reactionValue, basePath = '') {
     if (reaction && reaction.value && reaction.unicode) {
       html = `<div class="emotion emotion-${reaction.value}">`;
       html += '  <svg class="svg-sprite">';
-      html += `    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="${
-        basePath
-      }/assets/emoji-one/emoji.svg#${reaction.unicode}"></use>`;
+      html += `    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="${basePath}/assets/emoji-one/emoji.svg#${reaction.unicode}"></use>`;
       html += ' </svg>';
       html += '</div>';
     } else {
@@ -477,9 +473,7 @@ export function replaceMathExpression(text) {
       .find('.source')
       .text();
     if (latex.length > 0) {
-      let mathToSave = `<span class='gru-math-expression'><span class='source' hidden>${
-        latex
-      }</span>$$${latex}$$</span>`;
+      let mathToSave = `<span class='gru-math-expression'><span class='source' hidden>${latex}</span>$$${latex}$$</span>`;
       $(el)
         .empty()
         .append(mathToSave);

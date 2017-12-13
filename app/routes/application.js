@@ -180,9 +180,7 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
     const themeCssUrl = `${appRootPath}${cssUrl}`;
     if (themeCssUrl) {
       Ember.$('head').append(
-        `<link id="theme-style-link" rel="stylesheet" type="text/css" href="${
-          themeCssUrl
-        }">`
+        `<link id="theme-style-link" rel="stylesheet" type="text/css" href="${themeCssUrl}">`
       );
     }
   },

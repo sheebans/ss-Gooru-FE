@@ -129,7 +129,10 @@ export default QuestionUtil.extend({
       let correct = text.indexOf('[') >= 0 && text.indexOf(']') > 0;
       return Ember.Object.create({
         index: index,
-        text: text.replace('[', '').replace(']', '').trim(),
+        text: text
+          .replace('[', '')
+          .replace(']', '')
+          .trim(),
         selected: false,
         correct: correct
       });
@@ -212,8 +215,8 @@ export default QuestionUtil.extend({
       ? null //if not respond is provided
       : answerObjects.map(function(answerObject) {
         return {
-          index: answerObject.get('order') - 1,
-          text: answerObject.get('text')
+          index: Ember.get(answerObject, 'order') - 1,
+          text: Ember.get(answerObject, 'text')
         };
       });
   }

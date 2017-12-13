@@ -75,9 +75,11 @@ export default QuestionUtil.extend({
    * @see '# User Answer' section at class comment
    */
   answerKey: function(answer) {
-    let keys = Ember.A(answer).sortBy('id').map(function(item) {
-      return `${item.id}_${item.selection}`;
-    });
+    let keys = Ember.A(answer)
+      .sortBy('id')
+      .map(function(item) {
+        return `${item.id}_${item.selection}`;
+      });
     return keys.toArray().join();
   },
 
@@ -119,8 +121,8 @@ export default QuestionUtil.extend({
       ? null //if not respond is provided
       : answerObjects.map(function(answerObject) {
         return {
-          id: answerObject.get('answerId'),
-          selection: answerObject.get('text') === 'Yes'
+          id: Ember.get(answerObject, 'answerId'),
+          selection: Ember.get(answerObject, 'text') === 'Yes'
         };
       });
   }

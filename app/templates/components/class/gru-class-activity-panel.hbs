@@ -94,7 +94,7 @@
 
     <tr class="first-tier top-header">
       <th scope="col"
-            class="row-header"
+            class="row-header fixed"
           {{!-- {{action "updateSortCriteria" 0 -1}} --}}
           >
         </th>
@@ -111,7 +111,7 @@
     <tr class="second-tier">
       {{!-- {{#if rowHeadersHeader}} --}}
         <th scope="col"
-            class="row-header"
+            class="row-header fixed"
           {{!-- {{action "updateSortCriteria" 0 -1}} --}}
           >
           <span>
@@ -155,7 +155,7 @@
 
     {{#each membersData as |row|}}
       <tr class="data">
-        <th scope="row" class=""
+        <th scope="row" class="fixed"
           {{action "selectRowHeader" row.id}}>
           <span style="display: table-cell;">{{row.lastName}} </span><span style="display: table-cell;">,</span><span style="display: table-cell;">{{row.firstName}}</span>
         </th>
