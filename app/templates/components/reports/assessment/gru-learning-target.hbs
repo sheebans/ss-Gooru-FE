@@ -3,7 +3,7 @@
     <div class="learning-target-description">
 
       <div class="standard-score">
-        {{#if (gt learningTarget.mastery 0)}}
+        {{#if (gte learningTarget.mastery 0 )}}
           <span class="percentage" style= {{safe-html (concat "color:" (grade-color learningTarget.mastery))}}>{{learningTarget.mastery}}%</span>
         {{else}}
           <div class="performance">
@@ -11,8 +11,7 @@
           </div>
         {{/if}}
       </div>
-
-      {{#if (gt learningTarget.mastery 0)}}
+      {{#if (gte learningTarget.mastery 0)}}
       <div class="standard-tags" style={{safe-html (concat "background-color:" (grade-color learningTarget.mastery))}}>
         <span class="title">{{learningTarget.standard}}</span>
       </div>
