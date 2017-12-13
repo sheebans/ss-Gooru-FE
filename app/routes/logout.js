@@ -20,24 +20,32 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   authenticationService: Ember.inject.service('api-sdk/authentication'),
 
+  defaultMarketingSiteUrl: Ember.computed(function() {
+    return `${
+      window.location.protocol
+    }//${window.location.host}${Env.marketingSiteUrl}`;
+  }),
+
   beforeModel: function() {
     this._super(...arguments);
     const router = this;
     router.get('authenticationService').signOut();
     const tenantService = router.get('tenantService');
     const isProd = Env.environment === 'production';
-    tenantService.findTenantFromCurrentSession().then(function(response) {
-      if (response) {
-        let redirectUrl = response.marketingSiteUrl;
-        if (isProd && redirectUrl) {
-          window.location.replace(redirectUrl);
+    let redirectUrl = null;
+    if (isProd) {
+      tenantService.findTenantFromCurrentSession().then(function(response) {
+        if (response) {
+          redirectUrl = response.marketingSiteUrl;
         }
-      } else {
-        if (isProd) {
-          setTimeout('location.replace(Env.marketingSiteUrl);', 0);
+        if (!redirectUrl) {
+          redirectUrl = router.get('defaultMarketingSiteUrl');
         }
-      }
-    });
-    router.get('session').invalidate();
+        router.get('session').invalidate();
+        window.location.replace(redirectUrl);
+      });
+    } else {
+      router.get('session').invalidate();
+    }
   }
 });
