@@ -112,7 +112,7 @@ export default QuestionUtil.extend({
     return !answerObjects || !answerObjects.length
       ? null //if not respond is provided
       : answerObjects.map(function(answerObject) {
-        return Ember.Logger.info(answerObject, 'answerId');
+        return Ember.get(answerObject, 'answerId');
       });
   }
 });
