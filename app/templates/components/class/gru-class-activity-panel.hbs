@@ -54,7 +54,7 @@
           class="on-air go-live enabled {{if todayDateStatus '' 'out-of-scope'}}">{{t "common.launch-on-air"}}
         </button>
         {{#if collectionPerformanceSummary.score}}
-        <span {{action 'onReportClick' item.id}} class='out-of-scope visibility-panel item-not-visible hidden-xs pointer' data-toggle="tooltip" data-placement="auto">{{gru-icon name='library_books'}}</span>
+        <span {{action 'onReportClick' item.id}} class='visibility-panel item-not-visible hidden-xs pointer' data-toggle="tooltip" data-placement="auto">{{gru-icon name='library_books'}}</span>
       {{/if}}
       {{/if}}
     </div>
@@ -84,8 +84,9 @@
 </ul>
 </div>
 <div class='{{if (and isReportEnabled (eq item.id onCollectionclick)) 'gru-two-tier-header-table' 'out-of-scope'}}'>
-  <div class="table-wrapper">
-  <table>
+  <div class="table-wrapperCol">
+  <div class="column-headers" id="clscroll-column-headers">
+  <table id="header-Table">
     <col>
 
     {{!-- {{#each firstTierHeaders as |header|}} --}}
@@ -94,12 +95,12 @@
 
     <tr class="first-tier top-header">
       <th scope="col"
-            class="row-header fixed"
+            class="row-header fixedCol"
           {{!-- {{action "updateSortCriteria" 0 -1}} --}}
           >
         </th>
       {{!-- {{#if rowHeadersHeader}}
-        <td class="fixed"></td>
+        <td class="fixedCol"></td>
       {{else}} --}}
       {{!-- {{/if}} --}}
 
@@ -111,7 +112,7 @@
     <tr class="second-tier">
       {{!-- {{#if rowHeadersHeader}} --}}
         <th scope="col"
-            class="row-header fixed"
+            class="row-header fixedCol"
           {{!-- {{action "updateSortCriteria" 0 -1}} --}}
           >
           <span>
@@ -152,10 +153,13 @@
         {{!-- {{/each}} --}}
       {{/each}}
     </tr>
+  </table>
+  <div class="table-content style-1" id="clscroll-content">
+    <table id="clscroll-table">
 
     {{#each membersData as |row|}}
       <tr class="data">
-        <th scope="row" class="fixed"
+        <th scope="row" class="fixedCol"
           {{action "selectRowHeader" row.id}}>
           <span style="display: table-cell;">{{row.lastName}} </span><span style="display: table-cell;">,</span><span style="display: table-cell;">{{row.firstName}}</span>
         </th>
@@ -195,6 +199,7 @@
       </tr>
     {{/each}}
   </table>
+  </div>
 </div>
-
+  </div>
 </div>

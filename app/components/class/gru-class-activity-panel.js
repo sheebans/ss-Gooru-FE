@@ -96,9 +96,19 @@ export default Ember.Component.extend({
           chkVal.visible = true;
           if (chkVal.value === 'timeSpent') {
             component.set('timevisible', true);
+            Ember.$('.data th').each(function() {
+              Ember.$(this).css('width', '111px'); // css attribute of your <td> width:15px; i.e.
+            });
           }
+
           if (chkVal.value === 'reaction') {
             component.set('reactionvisible', true);
+            Ember.$('.data th').each(function() {
+              Ember.$(this).width(`${177  }px`); // css attribute of your <td> width:15px; i.e.
+            });
+            Ember.$('.fixedCol').each(function() {
+              Ember.$(this).css('width', '111px'); // css attribute of your <td> width:15px; i.e.
+            });
           }
         }
       }
@@ -108,6 +118,9 @@ export default Ember.Component.extend({
      */
     onReportClick: function(collectionId) {
       var dcaDate = new Date(this.get('dcaAddeddate'));
+      if (dcaDate.getFullYear() === 1970) {
+        dcaDate = new Date(this.get('otherAddeddate'));
+      }
       var activityDate = `${dcaDate.getFullYear()}-${dcaDate.getMonth() +
         1}-${dcaDate.getDate()}`;
       if (this.get('isReportEnabled')) {
@@ -136,26 +149,52 @@ export default Ember.Component.extend({
     if (dcaDate.getFullYear() === 1970) {
       dcaDate = new Date(this.get('otherAddeddate'));
     }
-    var dcaDateDate =
-      `${dcaDate.getFullYear()
-      }-${
-        dcaDate.getMonth() + 1
-      }-${
-        dcaDate.getDate()}`;
-    var todayDate =
-      `${today.getFullYear()
-      }-${
-        today.getMonth() + 1
-      }-${
-        today.getDate()}`;
+    var dcaDateDate = `${dcaDate.getFullYear()}-${dcaDate.getMonth() +
+      1}-${dcaDate.getDate()}`;
+    var todayDate = `${today.getFullYear()}-${today.getMonth() +
+      1}-${today.getDate()}`;
     if (todayDate === dcaDateDate) {
       this.set('todayDateStatus', true);
     }
+    Ember.$('#clscroll-content').scroll(function() {
+      // Ember.$('#clscroll-row-headers').scrollTop(
+      //   Ember.$('#clscroll-content').scrollTop()
+      // );
+      Ember.$('#clscroll-column-headers').scrollLeft(
+        Ember.$('#clscroll-content').scrollLeft()
+      );
+    });
+    Ember.$('#clscroll-column-headers').scroll(function() {
+      Ember.$('#header-Table').attr('style', 'padding-right:15px;');
+      if (Ember.$('#clscroll-column-headers').scrollLeft() === 0) {
+        Ember.$('#header-Table').attr('style', 'padding-right:0px;');
+      }
+      Ember.$('#clscroll-content').scrollLeft(
+        Ember.$('#clscroll-column-headers').scrollLeft()
+      );
+    });
+
+    // Ember.$('#clscroll-row-headers').scroll(function() {
+    //   $('#clscroll-content').scrollTop(
+    //     Ember.$('#clscroll-row-headers').scrollTop()
+    //   );
+    // });
   },
 
   didRender: function() {
     this._super(...arguments);
     this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+    // var width = Ember.$('#clscroll-column-headers').width();
+    // Ember.Logger.info("width--",width);
+    // var height = Ember.$(window).height() - 63;
+    // if (height > 300) {
+    //   height = height - 191;
+    // }
+    //  Ember.Logger.info("wheightth--",height);
+    // Ember.$('#clscroll-table').attr(
+    //   'style',
+    //   `width:${width + 15}px;max-height:${height}px;`
+    // );
   },
 
   // -------------------------------------------------------------------------
@@ -370,6 +409,17 @@ export default Ember.Component.extend({
             members.get('members').forEach(function(item1) {
               Ember.set(item1, 'resultResources', result.resources);
             });
+            var width = Ember.$('#clscroll-column-headers').width();
+            Ember.Logger.info('width--', width);
+            var height = Ember.$(window).height() - 63;
+            if (height > 300) {
+              height = height - 191;
+            }
+            Ember.Logger.info('wheightth--', height);
+            Ember.$('#clscroll-table').attr(
+              'style',
+              `width:${width + 15}px;max-height:${height}px;`
+            );
             component
               .get('collectionService')
               .readPerformanceData(classId, collectionId, activityDate)
