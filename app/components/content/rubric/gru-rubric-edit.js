@@ -474,6 +474,10 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
           const standards = Ember.A(dataTags);
           standards.pushObjects(notInSubjectStandards.toArray());
           component.get('tempRubric.standards').pushObjects(standards);
+          component.set(
+            'tempRubric.standards',
+            component.get('tempRubric.standards').uniqBy('code')
+          );
         }
       }
     };

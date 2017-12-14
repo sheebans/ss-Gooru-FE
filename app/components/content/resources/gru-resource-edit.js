@@ -360,6 +360,10 @@ export default Ember.Component.extend(
             const standards = Ember.A(dataTags);
             standards.pushObjects(notInSubjectStandards.toArray());
             component.get('tempResource.standards').pushObjects(standards);
+            component.set(
+              'tempResource.standards',
+              component.get('tempResource.standards').uniqBy('code')
+            );
           }
         }
       };

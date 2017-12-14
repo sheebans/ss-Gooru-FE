@@ -563,6 +563,10 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
           const standards = Ember.A(dataTags);
           standards.pushObjects(notInSubjectStandards.toArray());
           component.get('tempQuestion.standards').pushObjects(standards);
+          component.set(
+            'tempQuestion.standards',
+            component.get('tempQuestion.standards').uniqBy('code')
+          );
         }
       }
     };
