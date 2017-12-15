@@ -24,10 +24,14 @@ export default Ember.Object.extend({
 
   normalizeUserResult: function(payload) {
     const serializer = this;
+    let usageData = payload.usageData;
+    if (usageData === undefined) {
+      usageData = payload.questions;
+    }
     return UserResourcesResult.create({
       user: payload.userUid,
       isAttemptFinished: !!payload.isCompleteAttempt, // This value is used only by the RealTime dashboard
-      resourceResults: serializer.normalizeResourceResults(payload.usageData)
+      resourceResults: serializer.normalizeResourceResults(usageData)
     });
   },
 
@@ -56,9 +60,10 @@ export default Ember.Object.extend({
 
       let questionResult = QuestionResult.create({
         //Commons fields for real time and student collection performance
-        resourceId: payload.gooruOId,
+        resourceId: payload.questionId,
         reaction: payload.reaction,
         timeSpent: payload.timeSpent,
+        answerObject: payload.answerObject,
         userAnswer: util.toUserAnswer(answerObjects),
 
         //fields only for real time
@@ -67,6 +72,7 @@ export default Ember.Object.extend({
         //fields only for student collection performance
         score: payload.score,
         resourceType: payload.resourceType,
+        questionType: payload.questionType,
         attempts: payload.attempts,
         sessionId: payload.sessionId,
         startedAt: startedAt,

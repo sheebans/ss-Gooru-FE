@@ -85,8 +85,7 @@
 </div>
 <div class='{{if (and isReportEnabled (eq item.id onCollectionclick)) 'gru-two-tier-header-table' 'out-of-scope'}}'>
   <div class="table-wrapperCol">
-  <div class="column-headers" id="clscroll-column-headers">
-  <table id="header-Table">
+  <table>
     <col>
 
     {{!-- {{#each firstTierHeaders as |header|}} --}}
@@ -153,9 +152,6 @@
         {{!-- {{/each}} --}}
       {{/each}}
     </tr>
-  </table>
-  <div class="table-content style-1" id="clscroll-content">
-    <table id="clscroll-table">
 
     {{#each membersData as |row|}}
       <tr class="data">
@@ -199,7 +195,6 @@
       </tr>
     {{/each}}
   </table>
-  </div>
 </div>
-  </div>
+
 </div>

@@ -148,7 +148,9 @@ export default Ember.Service.extend({
         })
         .then(
           function(events) {
-            resolve(events);
+            resolve(
+              service.get('analyticsSerializer').normalizeResponse(events)
+            );
           },
           function(error) {
             reject(error);
