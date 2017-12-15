@@ -2,7 +2,7 @@ import Ember from 'ember';
 import SessionMixin from '../mixins/session';
 import ModalMixin from '../mixins/modal';
 import { KEY_CODES } from 'gooru-web/config/config';
-import LanguageSettingConfig from 'gooru-web/utils/endpoint-config';
+import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 import Env from 'gooru-web/config/environment';
 
 /**
@@ -33,7 +33,10 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
         loc !== 'sp/quizzes' &&
         loc !== 'ar/quizzes'
       ) {
-        arr.addObject({ id: loc, text: i18n.t(loc) });
+        arr.addObject({
+          id: loc,
+          text: i18n.t(loc)
+        });
       }
     });
 
@@ -75,6 +78,16 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
 
     inputValueChange: function() {
       this.set('isTyping', false);
+    },
+
+    navigateToResearchApp: function() {
+      let researcher = EndPointsConfig.getResearcher();
+      if (researcher && researcher.redirectURL) {
+        let url = `${researcher.redirectURL}/?access_token=${this.get(
+          'session.token-api3'
+        )}`;
+        window.open(url);
+      }
     }
   },
 
@@ -82,18 +95,12 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   // Events
 
   didInsertElement: function() {
-    if (LanguageSettingConfig.getLanguageSettingdropMenu() !== undefined) {
-      this.set(
-        'showDropMenu',
-        LanguageSettingConfig.getLanguageSettingdropMenu()
-      );
+    if (EndPointsConfig.getLanguageSettingdropMenu() !== undefined) {
+      this.set('showDropMenu', EndPointsConfig.getLanguageSettingdropMenu());
     }
-    if (LanguageSettingConfig.getLanguageSettingdefaultLang() !== undefined) {
-      this.set(
-        'i18n.locale',
-        LanguageSettingConfig.getLanguageSettingdefaultLang()
-      );
-      if (LanguageSettingConfig.getLanguageSettingdefaultLang() === 'ar') {
+    if (EndPointsConfig.getLanguageSettingdefaultLang() !== undefined) {
+      this.set('i18n.locale', EndPointsConfig.getLanguageSettingdefaultLang());
+      if (EndPointsConfig.getLanguageSettingdefaultLang() === 'ar') {
         const rootElement = Ember.$(Env.rootElement);
         rootElement.addClass('changeDir');
         rootElement.removeClass('changeDirDefault');

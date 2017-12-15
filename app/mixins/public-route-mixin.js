@@ -31,6 +31,9 @@ export default Ember.Mixin.create({
     if (!sessionService.hasTokenExpired()) {
       return Ember.RSVP.resolve(mixin._super(...arguments));
     }
+    if (!mixin.get('session.token-api3')) {
+      return session.authenticateAsAnonymous();
+    }
     return mixin
       .get('authenticationService')
       .checkToken(mixin.get('session.token-api3'))

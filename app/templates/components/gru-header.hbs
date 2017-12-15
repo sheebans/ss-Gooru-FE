@@ -86,7 +86,7 @@
             {{else}}
               {{#if profile.isResearcher}}
                 <li class="navbar-nav-list visible-md visible-lg study-link">
-                  <a target="_blank" href="{{researcherURL}}" >
+                  <a {{action 'navigateToResearchApp' }} >
                     <span>{{t "user.rgo"}}</span>
                   </a>
                 </li>
