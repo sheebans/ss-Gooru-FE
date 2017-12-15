@@ -130,6 +130,17 @@ export default Ember.Object.extend({
     const content = payload.content;
     if (Ember.isArray(content)) {
       result = content.map(function(standard) {
+        //standard score  set -1 if all questions is skipped
+        let skippedQuestioncount = 0;
+        standard.questions.forEach(function(questionsStatus) {
+          if (questionsStatus.answerStatus === 'skipped') {
+            skippedQuestioncount = skippedQuestioncount + 1;
+          }
+        });
+        // minus one (-1) consider as not score
+        if (skippedQuestioncount === standard.questions.length) {
+          standard.score = -1;
+        }
         return LearningTarget.create({
           id: standard.standardsId || standard.learningTargetId,
           standard: standard.displayCode,

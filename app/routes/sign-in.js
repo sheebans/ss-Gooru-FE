@@ -17,15 +17,19 @@ export default Ember.Route.extend(PublicRouteMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
+  model: function(params) {
+    return params;
+  },
 
   /**
    * Set all controller properties used in the template
    * @param controller
    * @param model
    */
-  setupController: function(controller) {
+  setupController: function(controller, model) {
     // remove old notifications
     this.get('notifications').remove();
+    controller.set('redirectURL', model.redirectURL);
     controller.resetProperties();
     this.handleRedirectionBasedOnDomain(controller);
   },

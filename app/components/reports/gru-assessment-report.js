@@ -151,7 +151,7 @@ export default Ember.Component.extend({
       var resourceResultsOrdered = this.get(
         'assessmentResult.nonOpenEndedQuestionResults'
       ).sort(function(a, b) {
-        return a.get('question.order') - b.get('question.order');
+        return Ember.get(a, 'question.order') - Ember.get(b, 'question.order');
       });
 
       return resourceResultsOrdered;
@@ -168,7 +168,7 @@ export default Ember.Component.extend({
       var resourceResultsOrdered = this.get(
         'assessmentResult.openEndedQuestionResults'
       ).sort(function(a, b) {
-        return a.get('question.order') - b.get('question.order');
+        return Ember.get(a, 'question.order') - Ember.get(b, 'question.order');
       });
       return resourceResultsOrdered;
     }
@@ -181,7 +181,7 @@ export default Ember.Component.extend({
     var resourceResultsOrdered = this.get(
       'assessmentResult.resources'
     ).sort(function(a, b) {
-      return a.get('resource.order') - b.get('resource.order');
+      return Ember.get(a, 'resource.order') - Ember.get(b, 'resource.order');
     });
 
     return resourceResultsOrdered;

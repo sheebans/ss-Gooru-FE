@@ -244,7 +244,7 @@ export function getReactionIcon(reactionValue, basePath = '') {
     if (reaction && reaction.value && reaction.unicode) {
       html = `<div class="emotion emotion-${reaction.value}">`;
       html += '  <svg class="svg-sprite">';
-      html += `    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="${basePath}assets/emoji-one/emoji.svg#${reaction.unicode}"></use>`;
+      html += `    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="${basePath}/assets/emoji-one/emoji.svg#${reaction.unicode}"></use>`;
       html += ' </svg>';
       html += '</div>';
     } else {
@@ -904,4 +904,32 @@ export function inferUploadType(filename, uploadTypes) {
  */
 export function validateSquareBracket(text) {
   return !/\[\]/g.test(text) && /(\[[^\]]+\])/g.test(text);
+}
+
+/**
+ * Get current page URL string after last /
+ * @return {String}
+ */
+export function getCurrentPage() {
+  let currentHref = window.location.href;
+  return currentHref.substring(currentHref.lastIndexOf('/') + 1);
+}
+
+/**
+ * Method to get Resource and Question count
+ */
+export function getContentCount(data) {
+  let resourceCount = 0;
+  let questionCount = 0;
+  if (Ember.isArray(data)) {
+    data.map(contentItem => {
+      contentItem.content_format === 'resource'
+        ? resourceCount++
+        : questionCount++;
+    });
+  }
+  return {
+    resourceCount: resourceCount,
+    questionCount: questionCount
+  };
 }

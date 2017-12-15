@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
+import EndPointsConfig from 'gooru-web/utils/endpoint-config';
 
 export default Ember.Controller.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
@@ -54,6 +55,21 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    * @property {Boolean}
    */
   isRedirectionDomainDone: false,
+
+  /**
+   * RGO role users redirection url
+   * @property {string}
+   */
+  researcherURL: Ember.computed(function() {
+    let researcher = EndPointsConfig.getResearcher();
+    if (researcher && researcher.redirectURL) {
+      let url = `${researcher.redirectURL}/?access_token=${this.get(
+        'session.token-api3'
+      )}`;
+      return url;
+    }
+    return null;
+  }),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -146,7 +162,7 @@ export default Ember.Controller.extend(ConfigurationMixin, {
   /**
    * Setups the tenant information
    * @returns {Promise.<Tenant>}
-     */
+   */
   setupTenant: function() {
     const controller = this;
     const tenantService = controller.get('tenantService');

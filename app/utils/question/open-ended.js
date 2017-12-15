@@ -98,8 +98,8 @@ export default QuestionUtil.extend({
   toUserAnswer: function(answerObjects) {
     let userAnswer = null;
     if (answerObjects.get('length')) {
-      let answerObject = answerObjects.get('firstObject');
-      userAnswer = answerObject.get('text');
+      let answerObject = Ember.get(answerObjects, 'firstObject');
+      userAnswer = Ember.get(answerObject, 'text');
     }
 
     return userAnswer;

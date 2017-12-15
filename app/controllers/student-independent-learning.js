@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { getCurrentPage } from 'gooru-web/utils/utils';
 
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
@@ -77,15 +78,13 @@ export default Ember.Controller.extend({
    */
   firstRowLimit: 9,
 
-
   /**
    * The menuItem selected
    * @property {String}
    */
   menuItem: Ember.computed(function() {
-    let currentHref = window.location.href;
-    let currentPage = currentHref.substring(currentHref.lastIndexOf('/') + 1);
-    if (currentPage !== 'bookmarks'){
+    let currentPage = getCurrentPage();
+    if (currentPage !== 'bookmarks') {
       return 'current-study';
     }
     return currentPage;

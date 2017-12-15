@@ -22,6 +22,22 @@ export default Ember.Object.extend({
     };
     return Ember.$.ajax(url, options);
   },
+  queryRecordForDCA: function(query) {
+    const namespace = this.get('namespace');
+    const includesessionIdParam = `sessionId=${query.sessionId}`;
+    const includedateParam = `date=${query.date}`;
+    const collectionId = query.collectionId;
+    const userId = query.userId;
+    const collectionType = query.collectionType;
+    const url = `${namespace}/dca/${collectionType}/${collectionId}/user/${userId}?${includesessionIdParam}&${includedateParam}`;
+    const options = {
+      type: 'GET',
+      dataType: 'json',
+      headers: this.defineHeaders(),
+      data: {}
+    };
+    return Ember.$.ajax(url, options);
+  },
 
   getStandardsSummary: function(sessionId, userId) {
     const namespace = this.get('namespace');

@@ -16,10 +16,14 @@ moduleForAcceptance('Acceptance | Student Independent Learning', {
 });
 
 test('Layout', function(assert) {
-  visit('/student-independent-learning');
+  visit('/student-independent-learning/studying');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-independent-learning');
+    assert.equal(
+      currentURL(),
+      '/student-independent-learning/studying',
+      'Should load currently studying page'
+    );
 
     T.exists(assert, find('header.gru-header'), 'Header component not found');
 
@@ -129,7 +133,7 @@ test('Go to library from featured-courses panel', function(assert) {
   visit('/student-independent-learning');
 
   andThen(function() {
-    assert.equal(currentURL(), '/student-independent-learning');
+    assert.equal(currentURL(), '/student-independent-learning/studying');
     const $featuredCourses = find('.featured-courses');
 
     const $featuredCoursesLink = $featuredCourses.find('a');

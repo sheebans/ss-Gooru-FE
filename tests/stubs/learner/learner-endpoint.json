@@ -7,7 +7,7 @@
         "userId": ".+",
         "contentType": "course",
         "offset": 0,
-        "limit": 20
+        "limit": "(.+)"
       },
       "method": "GET",
       "headers": {
@@ -31,7 +31,7 @@
         "userId": ".+",
         "contentType": "collection",
         "offset": 0,
-        "limit": 20
+        "limit": "(.+)"
       },
       "method": "GET",
       "headers": {
@@ -55,7 +55,7 @@
         "userId": ".+",
         "contentType": "assessment",
         "offset": 0,
-        "limit": 20
+        "limit": "(.+)"
       },
       "method": "GET",
       "headers": {
@@ -97,7 +97,7 @@
         "userId": ".+",
         "contentType": "course",
         "offset": 0,
-        "limit": 20
+        "limit": "(.+)"
       },
       "method": "GET",
       "headers": {
@@ -121,7 +121,7 @@
         "userId": ".+",
         "contentType": "collection",
         "offset": 0,
-        "limit": 20
+        "limit": "(.+)"
       },
       "method": "GET",
       "headers": {
@@ -145,7 +145,7 @@
         "userId": ".+",
         "contentType": "assessment",
         "offset": 0,
-        "limit": 20
+        "limit": "(.+)"
       },
       "method": "GET",
       "headers": {

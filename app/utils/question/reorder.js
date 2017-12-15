@@ -1,4 +1,5 @@
 import QuestionUtil from './question';
+import Ember from 'ember';
 import AnswerObject from 'gooru-web/utils/question/answer-object';
 /**
  * It contains convenience methods for grading and retrieving useful information
@@ -111,7 +112,7 @@ export default QuestionUtil.extend({
     return !answerObjects || !answerObjects.length
       ? null //if not respond is provided
       : answerObjects.map(function(answerObject) {
-        return answerObject.get('answerId');
+        return Ember.get(answerObject, 'answerId');
       });
   }
 });

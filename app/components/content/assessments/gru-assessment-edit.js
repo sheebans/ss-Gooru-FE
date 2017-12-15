@@ -22,6 +22,13 @@ export default CollectionEdit.extend({
    */
   session: Ember.inject.service('session'),
 
+  /**
+   * Collection model as instantiated by the route. This is the model used when not editing
+   * or after any collection changes have been saved.
+   * @property {Collection}
+   */
+  collection: null,
+
   aggregatedTags: Ember.computed('tempCollection.aggregatedTag.[]', function() {
     let aggregatedTags = TaxonomyTag.getTaxonomyTags(
       this.get('tempCollection.aggregatedTag'),
@@ -110,10 +117,7 @@ export default CollectionEdit.extend({
         'tempCollection.standards',
         this.get('tempCollection.standards').uniqBy('code')
       );
-      Ember.Logger.info('ember11---', this.get('tempCollection.aggregatedTag'));
       this.get('tempCollection.aggregatedTag').removeObject(taxonomyTag);
-      Ember.Logger.info('ember---', this.get('tempCollection.aggregatedTag'));
-
       let newtaxonomyObj = Ember.Object.create({
         code: taxonomyTag.get('code'),
         frameworkCode: taxonomyTag.get('frameworkCode'),
@@ -148,8 +152,8 @@ export default CollectionEdit.extend({
       this.actions.updateContent.call(this);
     },
     /**
-   * Delete assessment
-   */
+     * Delete assessment
+     */
     deleteItem: function() {
       const myId = this.get('session.userId');
       var model = {
@@ -192,7 +196,7 @@ export default CollectionEdit.extend({
     component
       .get('tempCollection.aggregatedTag')
       .forEach(function(suggeststanObj) {
-        suggeststanObj.set('tagAlreadyexist', true);
+        Ember.set(suggeststanObj, 'tagAlreadyexist', true);
       });
     component.get('tempCollection.standards').forEach(function(standardObj) {
       var suggestObj = component
@@ -203,44 +207,9 @@ export default CollectionEdit.extend({
       }
     });
   },
-  /**
-     * Initialize variables and get standards data.
-     */
-  initializeVariables: function() {
-    let aggregatedStandards = [];
-    let unitStandards = this.get('tempCollection.children');
-    let selectedStandards = this.get('collection.standards');
-    let selectedStandardCodes = [];
-    selectedStandards.forEach(function(standardObj) {
-      selectedStandardCodes.push(standardObj.code);
-    });
-    unitStandards.forEach(function(unitstandardObj) {
-      let unitStandardTag = unitstandardObj.standards;
-      unitStandardTag.forEach(function(onestandardObj) {
-        onestandardObj.tagAlreadyexist = true;
-        aggregatedStandards.push(onestandardObj);
-        if (selectedStandardCodes.length !== 0) {
-          selectedStandardCodes.forEach(function(newstandardObj) {
-            if (newstandardObj === onestandardObj.code) {
-              onestandardObj.tagAlreadyexist = false;
-              aggregatedStandards.push(onestandardObj);
-            }
-          });
-        }
-      });
-    });
-    let result = aggregatedStandards.reduceRight(function(r, a) {
-      r.some(function(b) {
-        return a.code === b.code;
-      }) || r.push(a);
-      return r;
-    }, []);
-    this.set('tempCollection.aggregatedTag', result);
-  },
 
   init: function() {
     this._super(...arguments);
     this.set('tempCollection', this.get('collection').copy());
-    this.initializeVariables();
   }
 });

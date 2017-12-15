@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import CollectionSerializer from 'gooru-web/serializers/content/collection';
 import CollectionAdapter from 'gooru-web/adapters/content/collection';
+import { getContentCount } from 'gooru-web/utils/utils';
 
 /**
  * @typedef {Object} CollectionService
@@ -84,6 +85,12 @@ export default Ember.Service.extend({
         .get('collectionAdapter')
         .readCollection(collectionId)
         .then(function(responseData) {
+          //get resources and questions count, if it is not available
+          if (typeof responseData.resource_count === 'undefined') {
+            let content = getContentCount(responseData.content);
+            responseData.resource_count = content.resourceCount;
+            responseData.question_count = content.questionCount;
+          }
           let collection = service
             .get('collectionSerializer')
             .normalizeReadCollection(responseData);
@@ -117,6 +124,46 @@ export default Ember.Service.extend({
         .then(function() {
           service.notifyQuizzesCollectionChange(collectionId);
           resolve();
+        }, reject);
+    });
+  },
+
+  /**
+   * Gets a Collection by id
+   * @param {string} collectionId
+   * @param {string} type collection|assessment
+   * @param {boolean} refresh
+   * @returns {Promise.<Collection>}
+   */
+  readQuizzesCollection: function(collectionId, type, refresh = false) {
+    const service = this;
+
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('collectionAdapter')
+        .readQuizzesCollection(collectionId, type, refresh)
+        .then(function(responseData) {
+          resolve(responseData);
+        }, reject);
+    });
+  },
+  /**
+   * Gets a Collection by id
+   * @param {string} collectionId
+   * @param {string} type collection|assessment
+   * @param {boolean} refresh
+   * @returns {Promise.<Collection>}
+   */
+  readPerformanceData: function(classId, collectionId, startDate) {
+    const service = this;
+
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('collectionAdapter')
+        .readPerformanceCollection(classId, collectionId, startDate)
+        .then(function(responseData) {
+          Ember.Logger.info('responseData11---', responseData);
+          resolve(responseData);
         }, reject);
     });
   },

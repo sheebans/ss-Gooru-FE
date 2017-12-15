@@ -1015,6 +1015,7 @@ export default Object.assign(quizzesTranslations, {
     'active-classrooms': 'Active Classrooms',
     'archived-classrooms': 'Archived Classrooms',
     classrooms: 'Classrooms',
+    rgo: 'RGO',
     'create-class': 'Create Classroom',
     hello: 'Hello, {{name}}!',
     'independent-learning': 'Independent Learning',
@@ -1090,11 +1091,15 @@ export default Object.assign(quizzesTranslations, {
   'student-independent-learning': {
     'show-more': 'Show More',
     'show-less': 'Show Less',
-    'no-courses': 'When you start exploring your bookmarked Courses, they will appear here',
-    'no-collections': 'When you start exploring your bookmarked Collections, they will appear here',
-    'no-assessments': 'When you start exploring your bookmarked Assessments, they will appear here',
+    'no-courses':
+      'When you start exploring your bookmarked Courses, they will appear here.',
+    'no-collections':
+      'When you start exploring your bookmarked Collections, they will appear here.',
+    'no-assessments':
+      'When you start exploring your bookmarked Assessments, they will appear here.',
     'no-independent-results': 'Explore the Library to learn something new.',
-    'no-bookmarks': 'No bookmarks available.',
+    'no-bookmarks':
+      'When you start bookmarking Courses, Collections, and Assessments, they will appear here.',
     'add-bookmark': 'Add Bookmark'
   },
   'teacher-landing': {

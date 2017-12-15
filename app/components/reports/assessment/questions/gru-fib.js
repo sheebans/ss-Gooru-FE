@@ -24,7 +24,7 @@ export default Ember.Component.extend(QuestionMixin, {
     let component = this;
     let question = component.get('question');
     let questionUtil = this.getQuestionUtil(question);
-    let questionText = question.get('fibText');
+    let questionText = Ember.get(question, 'fibText');
     let questionTextParts = questionText.split(
       FillInTheBlank.LEGACY_REGEX.text
     );
