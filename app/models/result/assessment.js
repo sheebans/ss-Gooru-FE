@@ -277,9 +277,9 @@ export default Ember.Object.extend({
     resourceResults.forEach(function(resourceResult) {
       let collectionResource = resources.findBy(
         'id',
-        resourceResult.get('resourceId')
+        Ember.get(resourceResult, 'resourceId')
       );
-      resourceResult.set('resource', collectionResource);
+      Ember.set(resourceResult, 'resource', collectionResource);
     });
 
     resources.forEach(function(resource) {
@@ -297,7 +297,7 @@ export default Ember.Object.extend({
           });
         resourceResults.pushObject(result);
       } else {
-        found.set('resource', resource);
+        Ember.set(found, 'resource', resource);
       }
     });
   },
@@ -310,7 +310,7 @@ export default Ember.Object.extend({
   removeExtraResource: function(resources, resourceResults) {
     if (resourceResults.get('length')) {
       var extraResources = resourceResults.filter(function(resource) {
-        let resourceResultId = resource.get('resourceId');
+        let resourceResultId = Ember.get(resource, 'resourceId');
         return !resources.findBy('id', resourceResultId);
       });
 

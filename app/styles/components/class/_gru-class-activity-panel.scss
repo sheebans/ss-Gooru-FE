@@ -136,12 +136,12 @@
 .gru-two-tier-header-table {
   $table-cell-width: 55px;
 
-  .table-wrapper {
+  .table-wrapperCol {
     width: auto;
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 1px;
-    margin-left: 111px !important;
+    margin-left: 115px !important;
   }
   .score {
     border-radius: 4px;
@@ -157,7 +157,7 @@
     background: $white;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.07);
     border-top: 0px solid $dark-300;
-    border-radius: 0 5px 5px 0;
+    border-radius: 0;
     border-collapse: inherit;
 
     th,
@@ -247,6 +247,8 @@
           text-align: left;
           padding: 4px;
           border-right: 1px solid $dark-200;
+          min-width: 111px;
+          max-width: 177px;
 
           > span {
             width: auto;
@@ -279,7 +281,7 @@
       + .data {
         th,
         td {
-          &.fixed {
+          &.fixedCol {
             height: 32px;
           }
         }
@@ -294,7 +296,7 @@
         &:hover {
           cursor: pointer;
         }
-        &.fixed {
+        &.fixedCol {
           background-color: $white;
           border-left: 1px solid $light-300;
         }
@@ -306,7 +308,7 @@
         width: $table-cell-width;
       }
     }
-    .fixed {
+    .fixedCol {
       position: absolute;
       left: 18%;
       width: 111px;
@@ -317,11 +319,13 @@
       text-align: center;
     }
     .timePadding {
-      padding-left: 20px;
+      padding-left: 24.9px;
       vertical-align: middle;
+      padding-right: 0.57458%;
     }
     .smileypadding {
-      padding-left: 32px;
+      padding-left: 29px;
+      padding-right: 25.5px;
     }
     .top-header > th:nth-child(2) {
       pointer-events: none;
