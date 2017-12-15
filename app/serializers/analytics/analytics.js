@@ -57,10 +57,13 @@ export default Ember.Object.extend({
 
     if (payload.resourceType && payload.resourceType === 'question') {
       let util = getQuestionUtil(payload.questionType).create();
-
+      let resId = payload.gooruOId;
+      if (resId === undefined) {
+        resId = payload.questionId;
+      }
       let questionResult = QuestionResult.create({
         //Commons fields for real time and student collection performance
-        resourceId: payload.questionId,
+        resourceId: resId,
         reaction: payload.reaction,
         timeSpent: payload.timeSpent,
         answerObject: payload.answerObject,
