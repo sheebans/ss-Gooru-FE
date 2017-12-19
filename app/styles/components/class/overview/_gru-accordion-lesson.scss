@@ -275,6 +275,10 @@
             width: 50px;
             display: inline-block;
           }
+          .disabled {
+            opacity: 0.5 !important;
+            pointer-events: none;
+          }
           .go-live-cnt {
             width: 25px;
             margin: 0 15px 0 0;
@@ -372,6 +376,10 @@
         }
         .check {
           color: $green-400;
+        }
+        .disabled {
+          opacity: 0.5 !important;
+          pointer-events: none;
         }
         .info {
           float: right;
