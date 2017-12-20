@@ -112,6 +112,7 @@
                       {{#if item.collectionSubType}}
                         <div class="type">{{t 'common.suggestion'}}</div>
                       {{/if}}
+                      {{#if item.isExternalAssessment}} <span> Assessment-External </span> {{/if}}
                     </a>
                     {{#if item.showTrophy}}
                       <span class="trophy"><i></i></span>
@@ -120,16 +121,19 @@
                     {{#if item.performance.noMoreAttempts}}
                       <a class="title disabled" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.no-more-attempts"}}">
                         <div class="ellipsis">{{item.title}}</div>
+                        {{#if item.isExternalAssessment}} <span> Assessment-External </span> {{/if}}
                       </a>
                     {{else}}
                       {{#if isTeacher}}
                         <a class="title disabled" {{action "selectResource" item}}>
-                          <div class="ellipsis">{{item.title}}</div>
+                          <div class="ellipsis">{{item.title}} </div>
+                          {{#if item.isExternalAssessment}} <span > Assessment-External </span> {{/if}}
                         </a>
-                        {{#if item.isExternalAssessment}} <span> Assessment-External </span> {{/if}}
+
                       {{else}}
                         <a class="title disabled" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessment-disabled"}}">
                           <div class="ellipsis">{{item.title}}</div>
+                          {{#if item.isExternalAssessment}} <span > Assessment-External </span> {{/if}}
                         </a>
                       {{/if}}
                     {{/if}}
@@ -165,7 +169,7 @@
                             {{/if}}
                           </div>
                           {{#unless isNUCourse}}
-                            <span class='switch {{if (gt item.questionCount 0) 'actives' 'disabled'}} ' data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assign"}}">
+                            <span class='switch {{if (or item.isExternalAssessment (gt item.questionCount 0)) '' 'disabled'}} ' data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assign"}}">
                               {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}
                             </span>
                           {{/unless}}
@@ -241,7 +245,7 @@
                         {{gru-icon name='check'}}
                       </a>
               {{else}}
-                <a href="#" class="add-to {{if (or (gt item.questionCount 0) (gt item.resourceCount 0)) 'enabled' 'disabled' }}" data-toggle="tooltip" {{action "addToClassActivities" item}} title="{{t 'class.overview.add-to-daily-class-activities'}}">
+                <a href="#" class="add-to {{if (or item.isExternalAssessment (or (gt item.questionCount 0) (gt item.resourceCount 0)) ) 'enabled' 'disabled' }}" data-toggle="tooltip" {{action "addToClassActivities" item}} title="{{t 'class.overview.add-to-daily-class-activities'}}">
                         {{gru-icon name='add'}}
                       </a>
               {{/if}}
