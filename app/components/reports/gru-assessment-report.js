@@ -92,6 +92,7 @@ export default Ember.Component.extend({
   onInit: Ember.on('init', function() {
     if (this.get('model')) {
       this.set('assessmentResult', this.get('model').assessmentResult);
+      this.set('profile', this.get('model').profile);
     }
     this.get('assessmentResult').fixResultsOrder();
   }),
@@ -103,6 +104,10 @@ export default Ember.Component.extend({
    * @property {AssessmentResult} assessment
    */
   assessmentResult: null,
+  /**
+   * @property {Profile} profile
+   */
+  profile: null,
 
   /**
    * @property {boolean} areAnswersHidden - Should answer results be hidden?

@@ -62,12 +62,18 @@ export default Ember.Component.extend({
      * @param {string} headerId
      */
     selectRowHeader: function(studentId) {
-      this.sendAction(
-        'onselectRowHeader',
-        studentId,
-        this.get('reportData'),
-        this.get('collection')
-      );
+      this.getMembersOnSummaryClick(studentId);
+      //   var memberData = this.get('membersData')
+      //                     .findBy('id', studentId);
+      //   if (memberData !== undefined) {
+      //       this.sendAction(
+      //     'onselectRowHeader',
+      //     studentId,
+      //     memberData,
+      //     this.get('reportData'),
+      //     this.get('collection')
+      //   );
+      // }
     },
 
     /**
@@ -122,11 +128,7 @@ export default Ember.Component.extend({
       }
       var activityDate = `${dcaDate.getFullYear()}-${dcaDate.getMonth() +
         1}-${dcaDate.getDate()}`;
-      if (this.get('isReportEnabled')) {
-        this.set('isReportEnabled', false);
-      } else {
-        this.set('isReportEnabled', true);
-      }
+      this.set('activityDateVal', activityDate);
       this.set('questionProperties', this.initQuestionProperties());
       this.set('onCollectionclick', collectionId);
       this.getMembers(collectionId, activityDate);
@@ -155,45 +157,11 @@ export default Ember.Component.extend({
     if (todayDate === dcaDateDate) {
       this.set('todayDateStatus', true);
     }
-    // Ember.$('#clscroll-content').scroll(function() {
-    //   // Ember.$('#clscroll-row-headers').scrollTop(
-    //   //   Ember.$('#clscroll-content').scrollTop()
-    //   // );
-    //   Ember.$('#clscroll-column-headers').scrollLeft(
-    //     Ember.$('#clscroll-content').scrollLeft()
-    //   );
-    // });
-    // Ember.$('#clscroll-column-headers').scroll(function() {
-    //   Ember.$('#header-Table').attr('style', 'padding-right:15px;');
-    //   if (Ember.$('#clscroll-column-headers').scrollLeft() === 0) {
-    //     Ember.$('#header-Table').attr('style', 'padding-right:0px;');
-    //   }
-    //   Ember.$('#clscroll-content').scrollLeft(
-    //     Ember.$('#clscroll-column-headers').scrollLeft()
-    //   );
-    // });
-
-    // Ember.$('#clscroll-row-headers').scroll(function() {
-    //   $('#clscroll-content').scrollTop(
-    //     Ember.$('#clscroll-row-headers').scrollTop()
-    //   );
-    // });
   },
 
   didRender: function() {
     this._super(...arguments);
     this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
-    // var width = Ember.$('#clscroll-column-headers').width();
-    // Ember.Logger.info("width--",width);
-    // var height = Ember.$(window).height() - 63;
-    // if (height > 300) {
-    //   height = height - 191;
-    // }
-    //  Ember.Logger.info("wheightth--",height);
-    // Ember.$('#clscroll-table').attr(
-    //   'style',
-    //   `width:${width + 15}px;max-height:${height}px;`
-    // );
   },
 
   // -------------------------------------------------------------------------
@@ -210,9 +178,10 @@ export default Ember.Component.extend({
 
   classId: null,
   /**
-   * @property {string}
+   * The header titles
+   * @property {members}
    */
-  appRootPath: Ember.computed.alias('configuration.appRootPath'),
+  members: null,
   /**
    * @type {ClassService} Service to retrieve class information
    */
@@ -240,6 +209,10 @@ export default Ember.Component.extend({
    * @property {string}
    */
   dcaAddeddate: Ember.computed.alias('dcadate'),
+  /**
+   * @property {string}
+   */
+  activityDateVal: null,
   /**
    * @property {string}
    */
@@ -355,7 +328,6 @@ export default Ember.Component.extend({
    */
   initQuestionProperties: function() {
     const component = this;
-
     return [
       Ember.Object.create({
         filter: {
@@ -397,221 +369,185 @@ export default Ember.Component.extend({
   getMembers: function(collectionId, activityDate) {
     const component = this;
     const classId = component.get('classId');
-    component
-      .get('classService')
-      .readClassMembers(classId)
-      .then(function(members) {
-        component.set('membersData', members.get('members'));
-        component
-          .get('collectionService')
-          .readQuizzesCollection(collectionId, 'assessment', false)
-          .then(function(result) {
-            component.set('firstTierHeaders', result.resources);
-            // var width = Ember.$('#clscroll-column-headers').width();
-            // Ember.Logger.info('width--', width);
-            // var height = Ember.$(window).height() - 63;
-            // if (height > 300) {
-            //   height = height - 191;
-            // }
-            // Ember.$('#clscroll-table').attr(
-            //   'style',
-            //   `width:${width + 15}px;max-height:${height}px;`
-            // );
-            component
-              .get('collectionService')
-              .readPerformanceData(classId, collectionId, activityDate)
-              .then(function(result1) {
-                var sessionId = '';
-                result1.content.forEach(function(itemNew) {
-                  sessionId = itemNew.usageData.get(0).sessionId;
-                });
-                component
-                  .get('assessmentService')
-                  .readAssessment(collectionId)
-                  .then(function(collection) {
-                    members.get('members').forEach(function(item1) {
-                      Ember.set(item1, 'resultResources', collection.children);
-                    });
-                    component.set('collection', collection);
-                    component.set('collection.children', collection.children);
-                    collection.children.forEach(function(resourceobj) {
-                      Ember.set(resourceobj, 'resourceId', resourceobj.id);
-                      Ember.set(resourceobj, 'questionId', resourceobj.id);
-                      Ember.set(resourceobj, 'answerObject', null);
-                      Ember.set(resourceobj, 'userAnswer', null);
-                      Ember.set(resourceobj, 'resourceType', null);
-                    });
-                    component.set('userDataObj', []);
-                    result1.content.forEach(function(item1) {
-                      var memberData = members
-                        .get('members')
-                        .findBy('id', item1.userUid);
-                      if (memberData !== undefined) {
-                        if (memberData.id === item1.userUid) {
-                          if (sessionId !== '') {
-                            component
-                              .get('analyticsService')
-                              .findResourcesByCollectionforDCA(
-                                sessionId,
-                                collectionId,
-                                classId,
-                                memberData.id,
-                                'assessment',
-                                activityDate
-                              )
-                              .then(function(resultSession) {
-                                Ember.merge(
-                                  memberData,
-                                  'resultResources',
-                                  resultSession[0].resourceResults
-                                );
-                                resultSession[0].resourceResults.forEach(
-                                  function(resource1obj) {
-                                    collection.children.forEach(function(
-                                      resource2obj
-                                    ) {
-                                      if (
-                                        resource2obj.resourceId ===
-                                        resource1obj.resourceId
-                                      ) {
-                                        Ember.set(
-                                          resource2obj,
-                                          'answerObject',
-                                          resource1obj.answerObject
-                                        );
-                                        Ember.set(
-                                          resource2obj,
-                                          'questionId',
-                                          resource1obj.resourceId
-                                        );
-                                        Ember.set(
-                                          resource2obj,
-                                          'userAnswer',
-                                          resource1obj.userAnswer
-                                        );
-                                        Ember.set(
-                                          resource2obj,
-                                          'resourceType',
-                                          resource1obj.resourceType
-                                        );
-                                        Ember.set(
-                                          resource2obj,
-                                          'correct',
-                                          resource1obj.correct
-                                        );
-                                      }
-                                    });
-                                  }
-                                );
-                                const reportData1 = ReportData.create({
-                                  students: members.get('members'),
-                                  resources: collection.children
-                                });
-                                let resourceResultdata =
-                                  resultSession[0].resourceResults;
-                                resourceResultdata.forEach(function(
-                                  resourceResultdataobj
-                                ) {
-                                  if (reportData1.data[memberData.id]) {
-                                    const questionId = Ember.get(
-                                      resourceResultdataobj,
-                                      'resourceId'
-                                    );
-
-                                    if (
-                                      reportData1.data[memberData.id][
-                                        questionId
-                                      ]
-                                    ) {
-                                      //if there are several attempts for the same resource the time spent should be added
-                                      const totalTimeSpent =
-                                        Ember.get(
-                                          resourceResultdataobj,
-                                          'timeSpent'
-                                        ) +
-                                        Ember.get(
-                                          reportData1.data[memberData.id][
-                                            questionId
-                                          ],
-                                          'timeSpent'
-                                        );
-                                      Ember.set(
-                                        resourceResultdataobj,
-                                        'timeSpent',
-                                        totalTimeSpent
-                                      );
-                                      Ember.set(
-                                        resourceResultdataobj,
-                                        'isGraded',
-                                        null
-                                      );
-                                      Ember.set(
-                                        resourceResultdataobj,
-                                        'submittedAnswer',
-                                        null
-                                      );
-                                      Ember.set(
-                                        resourceResultdataobj,
-                                        'questionType',
-                                        resourceResultdataobj.type
-                                      );
-                                    }
-                                    reportData1.data[memberData.id][
-                                      questionId
-                                    ] = resourceResultdataobj;
-                                  }
-                                });
-                                component.set('reportData', reportData1);
-                                component.set(
-                                  'students',
-                                  members.get('members')
-                                );
-
-                                result.resources.forEach(function(item2) {
-                                  var usageDataQId = item1.usageData.findBy(
-                                    'questionId',
-                                    item2.id
-                                  );
-                                  if (
-                                    usageDataQId !== undefined &&
-                                    usageDataQId.questionId === item2.id
-                                  ) {
-                                    Ember.set(
-                                      item2,
-                                      'score',
-                                      usageDataQId.score
-                                    );
-                                    Ember.set(
-                                      item2,
-                                      'timeSpent',
-                                      formatMilliseconds(usageDataQId.timeSpent)
-                                    );
-                                    Ember.set(
-                                      item2,
-                                      'reaction',
-                                      usageDataQId.reaction
-                                    );
-                                    Ember.set(
-                                      item2,
-                                      'questionType',
-                                      usageDataQId.questionType
-                                    );
-                                  }
-                                });
-                                Ember.set(
-                                  memberData,
-                                  'content',
-                                  result.resources
-                                );
-                                Ember.set(memberData, 'resultResources', []);
-                              });
-                          }
-                        }
+    const members = component.get('members');
+    if (component.get('isReportEnabled')) {
+      component.set('isReportEnabled', false);
+    } else {
+      component.set('membersData', members);
+      component
+        .get('collectionService')
+        .readPerformanceData(classId, collectionId, activityDate)
+        .then(function(result1) {
+          component.set('userQuestionDataObj', result1);
+          component
+            .get('assessmentService')
+            .readAssessment(collectionId)
+            .then(function(collection) {
+              component.set('firstTierHeaders', collection.children);
+              members.forEach(function(item1) {
+                Ember.set(item1, 'resultResources', collection.children);
+              });
+              component.set('isReportEnabled', true);
+              component.set('collection', collection);
+              component.set('collection.children', collection.children);
+              component.set('userDataObj', []);
+              result1.content.forEach(function(item1) {
+                var memberData = members.findBy('id', item1.userUid);
+                if (memberData !== undefined) {
+                  if (memberData.id === item1.userUid) {
+                    collection.children.forEach(function(item2) {
+                      var usageDataQId = item1.usageData.findBy(
+                        'questionId',
+                        item2.id
+                      );
+                      if (
+                        usageDataQId !== undefined &&
+                        usageDataQId.questionId === item2.id
+                      ) {
+                        Ember.set(item2, 'score', usageDataQId.score);
+                        Ember.set(
+                          item2,
+                          'timeSpent',
+                          formatMilliseconds(usageDataQId.timeSpent)
+                        );
+                        Ember.set(item2, 'reaction', usageDataQId.reaction);
+                        Ember.set(
+                          item2,
+                          'questionType',
+                          usageDataQId.questionType
+                        );
                       }
                     });
-                  });
+                    Ember.set(memberData, 'content', collection.children);
+                    Ember.set(memberData, 'resultResources', []);
+                  }
+                }
               });
-          });
-      });
+            });
+        });
+    }
+  },
+  getMembersOnSummaryClick: function(studentId) {
+    const component = this;
+    const classId = component.get('classId');
+    const members = component.get('members');
+    const collection = component.get('collection');
+    const contentObj = component.get('userQuestionDataObj');
+    component.set('membersData', members);
+    var sessionId = '';
+    contentObj.content.forEach(function(itemNew) {
+      sessionId = itemNew.usageData.get(0).sessionId;
+    });
+    collection.children.forEach(function(resourceobj) {
+      Ember.set(resourceobj, 'resourceId', resourceobj.id);
+      Ember.set(resourceobj, 'questionId', resourceobj.id);
+      Ember.set(resourceobj, 'answerObject', null);
+      Ember.set(resourceobj, 'userAnswer', null);
+      Ember.set(resourceobj, 'resourceType', null);
+    });
+    component.set('userDataObj', []);
+    contentObj.content.forEach(function(item1) {
+      var memberData = members.findBy('id', item1.userUid);
+      if (memberData !== undefined) {
+        if (memberData.id === item1.userUid) {
+          if (sessionId !== '') {
+            component
+              .get('analyticsService')
+              .findResourcesByCollectionforDCA(
+                sessionId,
+                collection.id,
+                classId,
+                memberData.id,
+                'assessment',
+                component.get('activityDateVal')
+              )
+              .then(function(resultSession) {
+                Ember.merge(
+                  memberData,
+                  'resultResources',
+                  resultSession[0].resourceResults
+                );
+                resultSession[0].resourceResults.forEach(function(
+                  resource1obj
+                ) {
+                  collection.children.forEach(function(resource2obj) {
+                    if (resource2obj.resourceId === resource1obj.resourceId) {
+                      Ember.set(
+                        resource2obj,
+                        'answerObject',
+                        resource1obj.answerObject
+                      );
+                      Ember.set(
+                        resource2obj,
+                        'questionId',
+                        resource1obj.resourceId
+                      );
+                      Ember.set(
+                        resource2obj,
+                        'userAnswer',
+                        resource1obj.userAnswer
+                      );
+                      Ember.set(
+                        resource2obj,
+                        'resourceType',
+                        resource1obj.resourceType
+                      );
+                      Ember.set(resource2obj, 'correct', resource1obj.correct);
+                    }
+                  });
+                });
+                const reportData1 = ReportData.create({
+                  students: members,
+                  resources: collection.children
+                });
+                Ember.Logger.info('reportData1---', reportData1);
+                let resourceResultdata = resultSession[0].resourceResults;
+                resourceResultdata.forEach(function(resourceResultdataobj) {
+                  if (reportData1.data[memberData.id]) {
+                    const questionId = Ember.get(
+                      resourceResultdataobj,
+                      'resourceId'
+                    );
+
+                    if (reportData1.data[memberData.id][questionId]) {
+                      //if there are several attempts for the same resource the time spent should be added
+                      const totalTimeSpent =
+                        Ember.get(resourceResultdataobj, 'timeSpent') +
+                        Ember.get(
+                          reportData1.data[memberData.id][questionId],
+                          'timeSpent'
+                        );
+                      Ember.set(
+                        resourceResultdataobj,
+                        'timeSpent',
+                        totalTimeSpent
+                      );
+                      Ember.set(resourceResultdataobj, 'isGraded', null);
+                      Ember.set(resourceResultdataobj, 'submittedAnswer', null);
+                      Ember.set(
+                        resourceResultdataobj,
+                        'questionType',
+                        resourceResultdataobj.type
+                      );
+                    }
+                    reportData1.data[memberData.id][
+                      questionId
+                    ] = resourceResultdataobj;
+                  }
+                });
+                component.set('reportData', reportData1);
+                component.set('students', members);
+                component.sendAction(
+                  'onselectRowHeader',
+                  studentId,
+                  memberData,
+                  component.get('reportData'),
+                  component.get('collection')
+                );
+              });
+          }
+        }
+      }
+    });
   }
 });

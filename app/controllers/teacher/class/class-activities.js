@@ -90,7 +90,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
      * @function actions:selectRowHeader
      * @param {string} headerId
      */
-    selectRowHeader: function(studentId, reportData, assessment) {
+    selectRowHeader: function(studentId, userObj, reportData, assessment) {
       Ember.Logger.debug(
         `Class assessment report: student with ID ${studentId} was selected`
       );
@@ -113,7 +113,8 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       });
 
       let modalModel = {
-        assessmentResult: assessmentResult
+        assessmentResult: assessmentResult,
+        profile: userObj
       };
       this.actions.showModal.call(
         this,
@@ -161,7 +162,6 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       this.set('showWelcome', false);
     }
   },
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -194,7 +194,16 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * @property {String}
    */
   classId: Ember.computed.alias('classController.class.id'),
-
+  /**
+   * Class id
+   * @property {String}
+   */
+  members: Ember.computed.alias('classController.class.members'),
+  /**
+   * Class id
+   * @property {String}
+   */
+  collection: Ember.computed.alias('classController.class.collection'),
   // -------------------------------------------------------------------------
   // Methods
 
