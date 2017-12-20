@@ -106,7 +106,11 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @return {Boolean}
    */
   imageUrl: Ember.computed('assessmentResult.collection', function() {
-    return this.get('assessmentResult.collection.thumbnailUrl');
+    if (this.get('assessmentResult.collection.thumbnailUrl') !== undefined) {
+      return this.get('assessmentResult.collection.thumbnailUrl');
+    } else {
+      return this.get('assessmentResult.collection.imageUrl');
+    }
   }),
 
   /**

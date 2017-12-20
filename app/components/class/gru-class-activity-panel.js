@@ -386,43 +386,46 @@ export default Ember.Component.extend({
               component.set('firstTierHeaders', collection.children);
               members.forEach(function(item1) {
                 Ember.set(item1, 'resultResources', collection.children);
+                Ember.set(item1, 'content', []);
               });
               component.set('isReportEnabled', true);
               component.set('collection', collection);
               component.set('collection.children', collection.children);
               component.set('userDataObj', []);
-              result1.content.forEach(function(item1) {
-                var memberData = members.findBy('id', item1.userUid);
-                if (memberData !== undefined) {
-                  if (memberData.id === item1.userUid) {
-                    collection.children.forEach(function(item2) {
-                      var usageDataQId = item1.usageData.findBy(
-                        'questionId',
-                        item2.id
-                      );
-                      if (
-                        usageDataQId !== undefined &&
-                        usageDataQId.questionId === item2.id
-                      ) {
-                        Ember.set(item2, 'score', usageDataQId.score);
-                        Ember.set(
-                          item2,
-                          'timeSpent',
-                          formatMilliseconds(usageDataQId.timeSpent)
+              if (result1.content.length > 0) {
+                result1.content.forEach(function(item1) {
+                  var memberData = members.findBy('id', item1.userUid);
+                  if (memberData !== undefined) {
+                    if (memberData.id === item1.userUid) {
+                      collection.children.forEach(function(item2) {
+                        var usageDataQId = item1.usageData.findBy(
+                          'questionId',
+                          item2.id
                         );
-                        Ember.set(item2, 'reaction', usageDataQId.reaction);
-                        Ember.set(
-                          item2,
-                          'questionType',
-                          usageDataQId.questionType
-                        );
-                      }
-                    });
-                    Ember.set(memberData, 'content', collection.children);
-                    Ember.set(memberData, 'resultResources', []);
+                        if (
+                          usageDataQId !== undefined &&
+                          usageDataQId.questionId === item2.id
+                        ) {
+                          Ember.set(item2, 'score', usageDataQId.score);
+                          Ember.set(
+                            item2,
+                            'timeSpent',
+                            formatMilliseconds(usageDataQId.timeSpent)
+                          );
+                          Ember.set(item2, 'reaction', usageDataQId.reaction);
+                          Ember.set(
+                            item2,
+                            'questionType',
+                            usageDataQId.questionType
+                          );
+                        }
+                      });
+                      Ember.set(memberData, 'content', collection.children);
+                      Ember.set(memberData, 'resultResources', []);
+                    }
                   }
-                }
-              });
+                });
+              }
             });
         });
     }
