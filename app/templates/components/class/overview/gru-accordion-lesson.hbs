@@ -112,7 +112,7 @@
                       {{#if item.collectionSubType}}
                         <div class="type">{{t 'common.suggestion'}}</div>
                       {{/if}}
-                      {{#if item.isExternalAssessment}} <span> Assessment-External </span> {{/if}}
+                      {{#if item.isExternalAssessment}} <span> {{t "common.assessment-external"}} </span> {{/if}}
                     </a>
                     {{#if item.showTrophy}}
                       <span class="trophy"><i></i></span>
@@ -121,19 +121,19 @@
                     {{#if item.performance.noMoreAttempts}}
                       <a class="title disabled" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.no-more-attempts"}}">
                         <div class="ellipsis">{{item.title}}</div>
-                        {{#if item.isExternalAssessment}} <span> Assessment-External </span> {{/if}}
+                        {{#if item.isExternalAssessment}} <span> {{t "common.assessment-external"}} </span> {{/if}}
                       </a>
                     {{else}}
                       {{#if isTeacher}}
                         <a class="title disabled" {{action "selectResource" item}}>
                           <div class="ellipsis">{{item.title}} </div>
-                          {{#if item.isExternalAssessment}} <span > Assessment-External </span> {{/if}}
+                          {{#if item.isExternalAssessment}} <span> {{t "common.assessment-external"}} </span> {{/if}}
                         </a>
 
                       {{else}}
                         <a class="title disabled" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessment-disabled"}}">
                           <div class="ellipsis">{{item.title}}</div>
-                          {{#if item.isExternalAssessment}} <span > Assessment-External </span> {{/if}}
+                          {{#if item.isExternalAssessment}} <span> {{t "common.assessment-external"}} </span> {{/if}}
                         </a>
                       {{/if}}
                     {{/if}}
