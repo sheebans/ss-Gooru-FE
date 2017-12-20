@@ -6,7 +6,7 @@ import Course from 'gooru-web/models/content/course';
 import Ember from 'ember';
 
 const courseServiceStub = Ember.Service.extend({
-  fetchById(courseId) {
+  fetchByIdWithOutProfile(courseId) {
     if (courseId) {
       let course = Course.create(Ember.getOwner(this).ownerInjection(), {
         id: 'course-123',

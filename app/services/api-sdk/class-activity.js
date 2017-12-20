@@ -180,54 +180,52 @@ export default Ember.Service.extend({
         .filterBy('collection.isCollection')
         .mapBy('collection.id');
       const performanceService = service.get('performanceService');
-      Ember.RSVP
-        .hash({
-          activityCollectionPerformanceSummaryItems: collectionIds.length
-            ? performanceService.findStudentActivityPerformanceSummaryByIds(
-              userId,
-              classId,
-              collectionIds,
-              'collection',
-              startDate,
-              endDate
-            )
-            : [],
-          activityAssessmentPerformanceSummaryItems: assessmentIds.length
-            ? performanceService.findStudentActivityPerformanceSummaryByIds(
-              userId,
-              classId,
-              assessmentIds,
-              'assessment',
-              startDate,
-              endDate
-            )
-            : []
-        })
-        .then(function(hash) {
-          const activityCollectionPerformanceSummaryItems =
-            hash.activityCollectionPerformanceSummaryItems;
-          const activityAssessmentPerformanceSummaryItems =
-            hash.activityAssessmentPerformanceSummaryItems;
+      Ember.RSVP.hash({
+        activityCollectionPerformanceSummaryItems: collectionIds.length
+          ? performanceService.findStudentActivityPerformanceSummaryByIds(
+            userId,
+            classId,
+            collectionIds,
+            'collection',
+            startDate,
+            endDate
+          )
+          : [],
+        activityAssessmentPerformanceSummaryItems: assessmentIds.length
+          ? performanceService.findStudentActivityPerformanceSummaryByIds(
+            userId,
+            classId,
+            assessmentIds,
+            'assessment',
+            startDate,
+            endDate
+          )
+          : []
+      }).then(function(hash) {
+        const activityCollectionPerformanceSummaryItems =
+          hash.activityCollectionPerformanceSummaryItems;
+        const activityAssessmentPerformanceSummaryItems =
+          hash.activityAssessmentPerformanceSummaryItems;
 
-          classActivities.forEach(function(classActivity) {
-            const collection = classActivity.get('collection');
-            const activityPerformanceSummary = collection.get('isAssessment')
-              ? activityAssessmentPerformanceSummaryItems.findBy(
-                'collectionPerformanceSummary.collectionId',
-                collection.get('id')
-              )
-              : activityCollectionPerformanceSummaryItems.findBy(
-                'collectionPerformanceSummary.collectionId',
-                collection.get('id')
-              );
-            classActivity.set(
-              'activityPerformanceSummary',
-              activityPerformanceSummary
+        classActivities.forEach(function(classActivity) {
+          const collection = classActivity.get('collection');
+          const activityPerformanceSummary = collection.get('isAssessment')
+            ? activityAssessmentPerformanceSummaryItems.findBy(
+              'collectionPerformanceSummary.collectionId',
+              collection.get('id')
+            )
+            : activityCollectionPerformanceSummaryItems.findBy(
+              'collectionPerformanceSummary.collectionId',
+              collection.get('id')
             );
-          });
+          classActivity.set(
+            'activityPerformanceSummary',
+            activityPerformanceSummary
+          );
+        });
 
-          resolve(classActivities);
-        }, reject);
+        resolve(classActivities);
+      }, reject);
     });
   },
 
@@ -254,35 +252,33 @@ export default Ember.Service.extend({
         .filterBy('collection.isCollection')
         .mapBy('collection.id');
       const performanceService = service.get('performanceService');
-      Ember.RSVP
-        .hash({
-          activityCollectionPerformanceSummaryItems: collectionIds.length
-            ? performanceService.findClassActivityPerformanceSummaryByIds(
-              classId,
-              collectionIds,
-              'collection',
-              startDate,
-              endDate
-            )
-            : [],
-          activityAssessmentPerformanceSummaryItems: assessmentIds.length
-            ? performanceService.findClassActivityPerformanceSummaryByIds(
-              classId,
-              assessmentIds,
-              'assessment',
-              startDate,
-              endDate
-            )
-            : []
-        })
-        .then(function(hash) {
-          const activityCollectionPerformanceSummaryItems =
-            hash.activityCollectionPerformanceSummaryItems;
-          const activityAssessmentPerformanceSummaryItems =
-            hash.activityAssessmentPerformanceSummaryItems;
-
-          classActivities.forEach(function(classActivity) {
-            const collection = classActivity.get('collection');
+      Ember.RSVP.hash({
+        activityCollectionPerformanceSummaryItems: collectionIds.length
+          ? performanceService.findClassActivityPerformanceSummaryByIds(
+            classId,
+            collectionIds,
+            'collection',
+            startDate,
+            endDate
+          )
+          : [],
+        activityAssessmentPerformanceSummaryItems: assessmentIds.length
+          ? performanceService.findClassActivityPerformanceSummaryByIds(
+            classId,
+            assessmentIds,
+            'assessment',
+            startDate,
+            endDate
+          )
+          : []
+      }).then(function(hash) {
+        const activityCollectionPerformanceSummaryItems =
+          hash.activityCollectionPerformanceSummaryItems;
+        const activityAssessmentPerformanceSummaryItems =
+          hash.activityAssessmentPerformanceSummaryItems;
+        classActivities.forEach(function(classActivity) {
+          const collection = classActivity.get('collection');
+          if (collection) {
             const activityPerformanceSummary = collection.get('isAssessment')
               ? activityAssessmentPerformanceSummaryItems.findBy(
                 'collectionPerformanceSummary.collectionId',
@@ -296,10 +292,11 @@ export default Ember.Service.extend({
               'activityPerformanceSummary',
               activityPerformanceSummary
             );
-          });
+          }
+        });
 
-          resolve(classActivities);
-        }, reject);
+        resolve(classActivities);
+      }, reject);
     });
   },
 
