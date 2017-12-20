@@ -58,7 +58,7 @@ export default Ember.Component.extend({
     if (courseId) {
       component
         .get('courseService')
-        .fetchById(courseId)
+        .fetchByIdWithOutProfile(courseId)
         .then(function(course) {
           if (!component.isDestroyed) {
             component.set('course', course);
@@ -163,11 +163,13 @@ export default Ember.Component.extend({
   currentLocationTitle: Ember.computed('class.currentLocation', function() {
     const currentLocation = this.get('class.currentLocation');
     return currentLocation
-      ? `${currentLocation.get('collection.title')}, 
-      ${this.get('i18n').t('student-landing.class.unit')
-    .string} ${currentLocation.get('unitIndex') + 1},
-      ${this.get('i18n').t('student-landing.class.lesson')
-    .string} ${currentLocation.get('lessonIndex') + 1}`
+      ? `${currentLocation.get('collection.title')},
+      ${
+  this.get('i18n').t('student-landing.class.unit').string
+} ${currentLocation.get('unitIndex') + 1},
+      ${
+  this.get('i18n').t('student-landing.class.lesson').string
+} ${currentLocation.get('lessonIndex') + 1}`
       : '';
   })
 });
