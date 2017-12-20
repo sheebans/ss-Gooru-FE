@@ -300,8 +300,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @return {Object[]}
    */
   initQuestionProperties: function() {
-    const component = this;
-
     return [
       Ember.Object.create({
         filter: {
@@ -331,8 +329,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
         label: this.get('i18n').t('reports.gru-table-view.reaction').string,
         value: 'reaction',
         renderFunction: function(value) {
-          const appRootPath = component.get('appRootPath');
-          return getReactionIcon(value, appRootPath);
+          return getReactionIcon(value);
         },
         aggregateFunction: averageReaction
       })
