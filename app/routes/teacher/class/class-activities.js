@@ -79,7 +79,9 @@ export default Ember.Route.extend({
     if (activitiesData !== undefined) {
       activitiesData.forEach(function(activitiesObj) {
         let collObj = activitiesObj.collection;
-        Ember.set(collObj, 'isReportEnabled', false);
+        if (collObj !== undefined) {
+          Ember.set(collObj, 'isReportEnabled', false);
+        }
       });
     }
     return activitiesData;
