@@ -204,6 +204,10 @@ export default Ember.Component.extend({
    * @property {Collection/Assessment} item
    */
   item: Ember.computed.alias('classActivity.collection'),
+  /**
+   * @property {Collection/Assessment} prevItem
+   */
+  prevItem: null,
 
   /**
    * @property {string}
@@ -368,10 +372,14 @@ export default Ember.Component.extend({
   },
   getMembers: function(collectionId, activityDate) {
     const component = this;
+    component.sendAction('onReportclick');
     const classId = component.get('classId');
     const members = component.get('members');
+    var itemVal = component.get('item');
+    Ember.set(itemVal, 'isReportEnabled', component.get('isReportEnabled'));
     if (component.get('isReportEnabled')) {
       component.set('isReportEnabled', false);
+      Ember.set(itemVal, 'isReportEnabled', component.get('isReportEnabled'));
     } else {
       component.set('membersData', members);
       component
@@ -389,6 +397,11 @@ export default Ember.Component.extend({
                 Ember.set(item1, 'content', []);
               });
               component.set('isReportEnabled', true);
+              Ember.set(
+                itemVal,
+                'isReportEnabled',
+                component.get('isReportEnabled')
+              );
               component.set('collection', collection);
               component.set('collection.children', collection.children);
               component.set('userDataObj', []);
@@ -503,7 +516,6 @@ export default Ember.Component.extend({
                   students: members,
                   resources: collection.children
                 });
-                Ember.Logger.info('reportData1---', reportData1);
                 let resourceResultdata = resultSession[0].resourceResults;
                 resourceResultdata.forEach(function(resourceResultdataobj) {
                   if (reportData1.data[memberData.id]) {

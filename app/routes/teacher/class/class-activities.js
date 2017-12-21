@@ -65,14 +65,22 @@ export default Ember.Route.extend({
       })
       .then(hash => [
         {
-          classActivities: hash.todayActivities,
+          classActivities: route.setDefaultValues(hash.todayActivities),
           date: formatDate(today, 'MMMM D, YYYY')
         },
         {
-          classActivities: hash.yesterdayActivities,
+          classActivities: route.setDefaultValues(hash.yesterdayActivities),
           date: formatDate(yesterday, 'MMMM D, YYYY')
         }
       ]);
+  },
+
+  setDefaultValues: function(activitiesData) {
+    activitiesData.forEach(function(activitiesObj) {
+      let collObj = activitiesObj.collection;
+      Ember.set(collObj, 'isReportEnabled', false);
+    });
+    return activitiesData;
   },
 
   /**
