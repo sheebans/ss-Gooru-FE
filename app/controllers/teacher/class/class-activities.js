@@ -237,10 +237,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     });
   },
   setDefaultValues: function(activitiesData) {
-    activitiesData.forEach(function(activitiesObj) {
-      let collObj = activitiesObj.collection;
-      Ember.set(collObj, 'isReportEnabled', false);
-    });
+    if (activitiesData !== undefined) {
+      activitiesData.forEach(function(activitiesObj) {
+        let collObj = activitiesObj.collection;
+        Ember.set(collObj, 'isReportEnabled', false);
+      });
+    }
     return activitiesData;
   }
 });
