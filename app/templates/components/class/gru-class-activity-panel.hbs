@@ -71,7 +71,8 @@
     </div>
   </div>
 </div>
-<div class='{{if (and isReportEnabled (eq item.id onCollectionclick)) '' 'out-of-scope'}}'>
+{{#if item.isReportEnabled}}
+<div style="text-align:right;">
 <ul class="filters checkbox-margin">
   {{#each questionProperties as |property index|}}
     <li class="checkbox" style="display: inline;">
@@ -83,8 +84,8 @@
   {{/each}}
 </ul>
 </div>
-<div class='{{if (and isReportEnabled (eq item.id onCollectionclick)) 'gru-two-tier-header-table' 'out-of-scope'}}'>
-  <div class="table-wrapperCol">
+<div class='gru-two-tier-header-table'>
+  <div class="table-wrapperCol style-1">
   <table>
     <col>
 
@@ -196,5 +197,5 @@
     {{/each}}
   </table>
 </div>
-
 </div>
+{{/if}}
