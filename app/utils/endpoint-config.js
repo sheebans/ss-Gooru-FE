@@ -77,7 +77,7 @@ export function getResearcher() {
 }
 
 /**
- * Get marketingSiteUrl to redirect page after  user logout dependign upon the environment
+ * Get marketing site URL to redirect  the page after  user logout depending upon the environment.
  */
 export function getMarketingsiteURL() {
   //TODO don't use global configuration variable
