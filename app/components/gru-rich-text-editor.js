@@ -106,7 +106,7 @@ export default Ember.Component.extend({
     var editor = new wysihtml5.Editor(editorId, {
       toolbar: toolbarId,
       cleanUp: false,
-      parserRules: wysihtml5ParserRules
+      parserRules: true
     });
 
     component.set('editor', editor);
