@@ -141,7 +141,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 1px;
-    margin-left: 114px !important;
+    margin-left: 294px !important;
   }
   .score {
     border-radius: 4px;
@@ -248,7 +248,7 @@
           text-align: left;
           padding: 4px;
           border-right: 1px solid $dark-200;
-          min-width: 115px;
+          min-width: 75px;
           max-width: 177px;
           padding-left: 8px;
 
@@ -317,19 +317,40 @@
       left: 18%;
       width: 115px;
     }
+    .fixedColNew {
+      left: 26% !important;
+      min-width: 180px !important;
+      padding-top: 4px;
+    }
     .emotion {
       display: block;
       margin: 0 auto;
       text-align: center;
     }
     .timePadding {
-      padding-left: 24.9px;
+      padding-left: 16.9px;
       vertical-align: middle;
       padding-right: 0.57458%;
+    }
+    .timePaddingfixed {
+      margin-left: 11px;
+      vertical-align: middle;
+      margin-right: 2px;
+    }
+    .timePaddingfixedmore {
+      margin-left: 12% !important;
     }
     .smileypadding {
       padding-left: 29px;
       padding-right: 25.5px;
+    }
+    .smileypaddingfixed {
+      margin-left: 15px;
+      margin-right: 2px;
+      margin-top: -3px;
+    }
+    .smileypaddingfixedmore {
+      margin-left: 15% !important;
     }
     .top-header > th:nth-child(2) {
       pointer-events: none;
