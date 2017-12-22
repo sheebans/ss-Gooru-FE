@@ -99,6 +99,8 @@
           {{!-- {{action "updateSortCriteria" 0 -1}} --}}
           >
         </th>
+        <th scope="col"
+            class="row-header fixedCol fixedColNew">Total</th>
       {{!-- {{#if rowHeadersHeader}}
         <td class="fixedCol"></td>
       {{else}} --}}
@@ -122,7 +124,35 @@
             {{gru-icon name='arrow_downward'}}
           </span>
         </th>
+
+           <th scope="col"
+              class="row-header fixedCol fixedColNew"
+            {{!-- {{action "updateSortCriteria" firstTierIndex secondTierIndex}} --}}
+            >
+            <span class="table-cell score" style="display: table-cell;">
+              Score
+              {{gru-icon name='swap_vert'}}
+              {{gru-icon name='arrow_upward'}}
+              {{gru-icon name='arrow_downward'}}
+            </span>
+            <span class="table-cell study-time {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">
+              Time
+              {{gru-icon name='swap_vert'}}
+              {{gru-icon name='arrow_upward'}}
+              {{gru-icon name='arrow_downward'}}
+            </span>
+             <span class="table-cell completion {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
+              Reaction
+              {{gru-icon name='swap_vert'}}
+              {{gru-icon name='arrow_upward'}}
+              {{gru-icon name='arrow_downward'}}
+            </span>
+          </th>
+
+     
       {{!-- {{/if}} --}}
+
+      
 
       {{#each firstTierHeaders as |firstTierHeader firstTierIndex|}}
        {{!-- {{#each secondTierHeaders as |secondTierHeader secondTierIndex|}} --}}
@@ -160,8 +190,17 @@
           {{action "selectRowHeader" row.id}}>
           <span style="display: table-cell;">{{row.lastName}} </span><span style="display: table-cell;">,</span><span style="display: table-cell;">{{row.firstName}}</span>
         </th>
+        <th scope="row" class="fixedCol fixedColNew">
+          <div class="box score pull-left" style={{safe-html (concat "background-color:" (grade-color row.avgScore)) }}>
+          {{row.avgScore}}%
+        </div>
+        <span class="time-spent timePaddingfixed pull-left {{if (eq row.avgTime '--') 'timePaddingfixedmore' ''}} {{if timevisible '' 'out-of-scope'}}">{{row.avgTime}}</span>
+           <span class="reaction smileypaddingfixed pull-left {{if (eq row.avgReact '--') 'smileypaddingfixedmore' ''}} {{if reactionvisible '' 'out-of-scope'}}">
+            {{{reaction-icon row.avgReact appRootPath}}}
+            </span>
+        </th>
          {{#each row.resultResources as |content|}}
-          <th scope="row">
+          <th scope="row" style="min-width:75px !important;">
             <span class="score answer-undefined" style="display: table-cell;"></span>
             <span class="time-spent timePadding out-of-scope" style="display: table-cell;"></span>
             <span class="reaction smileypadding out-of-scope" style="display: table-cell;">

@@ -393,6 +393,31 @@ export default Ember.Component.extend({
             .then(function(collection) {
               component.set('firstTierHeaders', collection.children);
               members.forEach(function(item1) {
+                var memberDataobj = result1.content.findBy('userUid', item1.id);
+                if (memberDataobj !== undefined) {
+                  Ember.set(
+                    item1,
+                    'avgScore',
+                    memberDataobj.usageData.get(0).assessment.score
+                  );
+                  Ember.set(
+                    item1,
+                    'avgTime',
+                    formatMilliseconds(
+                      memberDataobj.usageData.get(0).assessment.timeSpent
+                    )
+                  );
+                  Ember.set(
+                    item1,
+                    'avgReact',
+                    memberDataobj.usageData.get(0).assessment.reaction
+                  );
+                } else {
+                  Ember.set(item1, 'avgScore', 0);
+                  Ember.set(item1, 'avgTime', '--');
+                  Ember.set(item1, 'avgReact', '--');
+                }
+
                 Ember.set(item1, 'resultResources', collection.children);
                 Ember.set(item1, 'content', []);
               });
