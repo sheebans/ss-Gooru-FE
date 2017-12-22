@@ -411,10 +411,9 @@ export default Ember.Component.extend({
                   if (memberData !== undefined) {
                     if (memberData.id === item1.userUid) {
                       collection.children.forEach(function(item2) {
-                        var usageDataQId = item1.usageData.findBy(
-                          'questionId',
-                          item2.id
-                        );
+                        var usageDataQId = item1.usageData
+                          .get(0)
+                          .questions.findBy('questionId', item2.id);
                         if (
                           usageDataQId !== undefined &&
                           usageDataQId.questionId === item2.id
@@ -452,7 +451,7 @@ export default Ember.Component.extend({
     component.set('membersData', members);
     var sessionId = '';
     contentObj.content.forEach(function(itemNew) {
-      sessionId = itemNew.usageData.get(0).sessionId;
+      sessionId = itemNew.usageData.get(0).assessment.sessionId;
     });
     collection.children.forEach(function(resourceobj) {
       Ember.set(resourceobj, 'resourceId', resourceobj.id);
