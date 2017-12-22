@@ -209,19 +209,21 @@ export default Ember.Service.extend({
 
         classActivities.forEach(function(classActivity) {
           const collection = classActivity.get('collection');
-          const activityPerformanceSummary = collection.get('isAssessment')
-            ? activityAssessmentPerformanceSummaryItems.findBy(
-              'collectionPerformanceSummary.collectionId',
-              collection.get('id')
-            )
-            : activityCollectionPerformanceSummaryItems.findBy(
-              'collectionPerformanceSummary.collectionId',
-              collection.get('id')
+          if (collection) {
+            const activityPerformanceSummary = collection.get('isAssessment')
+              ? activityAssessmentPerformanceSummaryItems.findBy(
+                'collectionPerformanceSummary.collectionId',
+                collection.get('id')
+              )
+              : activityCollectionPerformanceSummaryItems.findBy(
+                'collectionPerformanceSummary.collectionId',
+                collection.get('id')
+              );
+            classActivity.set(
+              'activityPerformanceSummary',
+              activityPerformanceSummary
             );
-          classActivity.set(
-            'activityPerformanceSummary',
-            activityPerformanceSummary
-          );
+          }
         });
 
         resolve(classActivities);

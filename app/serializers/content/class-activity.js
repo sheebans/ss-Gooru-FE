@@ -98,6 +98,20 @@ export default Ember.Object.extend(ConfigurationMixin, {
       });
     }
 
+    if (contentType === 'assessment-external') {
+      const thumbnailUrl = data.thumbnail
+        ? basePath + data.thumbnail
+        : appRootPath + DEFAULT_IMAGES.COLLECTION;
+
+      content = Collection.create({
+        id: data.content_id,
+        title: data.title,
+        resourceCount: data.resource_count,
+        questionCount: data.question_count,
+        thumbnailUrl: thumbnailUrl
+      });
+    }
+
     //TODO normalize resources and questions
     return content;
   }
