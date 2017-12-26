@@ -9,57 +9,33 @@
     <div class="content-count">
       {{#if item.isAssessment}}
         {{#if item.questionCount}}
-          <span data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span>
-          <span>{{item.questionCount}}</span>
+          <span class="{{if (gt item.resourceCount 0) '' 'hidding'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}} &nbsp;</span>
+          <span class="{{if (gt item.questionCount 0) '' 'hidding'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span> <span class="{{if (gt item.questionCount 0) '' 'hidding'}} ">{{item.questionCount}}</span>
         {{/if}}
       {{else}}
         {{#if (or item.questionCount item.resourceCount)}}
-          {{#if item.resourceCount}}
-            <span data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.resources"}}">{{gru-icon name='local_library'}}</span>
-            <span>{{item.resourceCount}}</span>
-          {{/if}}
-          {{#if item.questionCount}}
-            <span data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span>
-            <span>{{item.questionCount}}</span>
-          {{/if}}
+          <span class="{{if (gt item.resourceCount 0) '' 'hidding'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.resources"}}">{{gru-icon name='local_library'}}</span><span class="{{if (gt item.resourceCount 0) '' 'hidding'}} ">{{item.resourceCount}}</span>
+          <span class="{{if (gt item.questionCount 0) '' 'hidding'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span><span class="{{if (gt item.questionCount 0) '' 'hidding'}} ">{{item.questionCount}}</span>
         {{/if}}
       {{/if}}
     </div>
     <div class="play-btn">
       {{#if visible}}
-        {{#if classActivity.context.courseId}}
-          {{#link-to 'context-player'
-           class.id
-           classActivity.context.courseId
-           classActivity.context.unitId
-           classActivity.context.lessonId
-           item.id
-           (query-params
-             type=item.collectionType
-             role='student'
-             source=source
-             tenantId=session.tenantId
-             partnerId=session.partnerId
-           )
-           tagName="button"
-           class="btn btn-info study-now"}}
-            {{gru-icon name='play_arrow'}}
-          {{/link-to}}
+        {{#if (eq item.collectionType 'assessment-external') }}
+          <button {{action 'externalAssessment' classActivity}} class="btn btn-info study-now ember-view">
+          {{gru-icon name='play_arrow'}}
+        </button>
         {{else}}
-          {{#link-to 'player'
-            item.id
-            (query-params
-             classId=class.id
-             type=item.collectionType
-             role='student'
-             source=source
-             tenantId=session.tenantId
-             partnerId=session.partnerId
-            )
-            tagName="button"
-            class="btn btn-info study-now"}}
+          {{#if classActivity.context.courseId}}
+            {{#link-to 'context-player' class.id classActivity.context.courseId classActivity.context.unitId classActivity.context.lessonId item.id (query-params type=item.collectionType role='student' source=source tenantId=session.tenantId partnerId=session.partnerId
+              ) tagName="button" class="btn btn-info study-now" }}
               {{gru-icon name='play_arrow'}}
-          {{/link-to}}
+            {{/link-to}}
+          {{else}}
+            {{#link-to 'player' item.id (query-params classId=class.id type=item.collectionType role='student' source=source tenantId=session.tenantId partnerId=session.partnerId ) tagName="button" class="btn btn-info study-now" }}
+              {{gru-icon name='play_arrow'}}
+            {{/link-to}}
+          {{/if}}
         {{/if}}
       {{else}}
         {{gru-icon name='play_arrow'}}
@@ -67,7 +43,7 @@
     </div>
     <div class="performance">
       {{#if item.isAssessment}}
-        <span class="score" style={{safe-html (concat "color:" (grade-color (if collectionPerformanceSummary.score collectionPerformanceSummary.score 'NA')))}}>
+        <span class="score" style= {{safe-html (concat "color:" (grade-color (if collectionPerformanceSummary.score collectionPerformanceSummary.score 'NA')))}}>
           {{if collectionPerformanceSummary.score (concat collectionPerformanceSummary.score '%') '--'}}
         </span>
       {{else}}

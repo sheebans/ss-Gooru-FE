@@ -108,7 +108,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
         title: data.title,
         resourceCount: data.resource_count,
         questionCount: data.question_count,
-        thumbnailUrl: thumbnailUrl
+        thumbnailUrl: thumbnailUrl,
+        url: data.url ? data.url : ''
       });
     }
 

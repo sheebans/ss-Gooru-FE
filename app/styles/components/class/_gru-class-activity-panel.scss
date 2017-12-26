@@ -41,8 +41,11 @@
         margin: 10px 10px 0 0;
         color: $light-400;
         float: left;
-        text-align: right;
         width: 38%;
+        .hidding {
+          opacity: 0;
+          margin: -2px;
+        }
         span {
           vertical-align: middle;
           display: inline-block;

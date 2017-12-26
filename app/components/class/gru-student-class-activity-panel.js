@@ -25,7 +25,14 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-  actions: {},
+  actions: {
+    externalAssessment: function(classActivity) {
+      let url = classActivity.collection.get('url');
+      if (url) {
+        window.open(url);
+      }
+    }
+  },
 
   // -------------------------------------------------------------------------
   // Events
