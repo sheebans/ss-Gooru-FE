@@ -133,6 +133,60 @@ export default Ember.Component.extend({
       this.set('onCollectionclick', collectionId);
       this.getMembers(collectionId, activityDate);
     },
+    /**
+     * @function onscoresort
+     */
+    onScoreSortClick: function() {
+      let memData = this.get('membersData');
+      var desorted = this.get('membersData').sort(function(a, b) {
+        return b.get('avgScore') - a.get('avgScore');
+      });
+      if (this.get('sortOrderScore') === -1) {
+        this.set('membersData', []);
+        this.set('membersData', this.scoreSortAsc(memData));
+        this.set('sortOrderScore', 1);
+      } else {
+        this.set('membersData', []);
+        this.set('membersData', desorted);
+        this.set('sortOrderScore', -1);
+      }
+    },
+    /**
+     * @function onscoresort
+     */
+    onTimeSortClick: function() {
+      let memData = this.get('membersData');
+      var desorted = this.get('membersData').sort(function(a, b) {
+        return b.get('othTime') - a.get('othTime');
+      });
+      if (this.get('sortOrderTime') === -1) {
+        this.set('membersData', []);
+        this.set('membersData', this.timeSortAsc(memData));
+        this.set('sortOrderTime', 1);
+      } else {
+        this.set('membersData', []);
+        this.set('membersData', desorted);
+        this.set('sortOrderTime', -1);
+      }
+    },
+    /**
+     * @function onscoresort
+     */
+    onReactionSortClick: function() {
+      let memData = this.get('membersData');
+      var desorted = this.get('membersData').sort(function(a, b) {
+        return b.get('othReact') - a.get('othReact');
+      });
+      if (this.get('sortOrderReact') === -1) {
+        this.set('membersData', []);
+        this.set('membersData', this.reactSortAsc(memData));
+        this.set('sortOrderReact', 1);
+      } else {
+        this.set('membersData', []);
+        this.set('membersData', desorted);
+        this.set('sortOrderReact', -1);
+      }
+    },
 
     /**
      * @function removeClassActivity
@@ -141,7 +195,6 @@ export default Ember.Component.extend({
       this.sendAction('onRemoveClassActivity', classActivity);
     }
   },
-
   // -------------------------------------------------------------------------
   // Events
   didInsertElement() {
@@ -233,6 +286,18 @@ export default Ember.Component.extend({
    * @property {boolean}
    */
   visible: Ember.computed.alias('classActivity.isActive'),
+  /**
+   * @property {string}
+   */
+  sortOrderScore: -1,
+  /**
+   * @property {boolean}
+   */
+  sortOrderTime: -1,
+  /**
+   * @property {boolean}
+   */
+  sortOrderReact: -1,
   /**
    * @property {boolean}
    */
@@ -402,6 +467,11 @@ export default Ember.Component.extend({
                   );
                   Ember.set(
                     item1,
+                    'othTime',
+                    memberDataobj.usageData.get(0).assessment.timeSpent
+                  );
+                  Ember.set(
+                    item1,
                     'avgTime',
                     formatMilliseconds(
                       memberDataobj.usageData.get(0).assessment.timeSpent
@@ -412,8 +482,15 @@ export default Ember.Component.extend({
                     'avgReact',
                     memberDataobj.usageData.get(0).assessment.reaction
                   );
+                  Ember.set(
+                    item1,
+                    'othReact',
+                    memberDataobj.usageData.get(0).assessment.reaction
+                  );
                 } else {
                   Ember.set(item1, 'avgScore', 0);
+                  Ember.set(item1, 'othTime', 0);
+                  Ember.set(item1, 'othReact', 0);
                   Ember.set(item1, 'avgTime', '--');
                   Ember.set(item1, 'avgReact', '--');
                 }
@@ -466,6 +543,24 @@ export default Ember.Component.extend({
             });
         });
     }
+  },
+  scoreSortAsc: function(memData) {
+    let sortdat = memData.sort(function(a, b) {
+      return a.get('avgScore') - b.get('avgScore');
+    });
+    return sortdat;
+  },
+  timeSortAsc: function(memData) {
+    let sortdat = memData.sort(function(a, b) {
+      return a.get('othTime') - b.get('othTime');
+    });
+    return sortdat;
+  },
+  reactSortAsc: function(memData) {
+    let sortdat = memData.sort(function(a, b) {
+      return a.get('othReact') - b.get('othReact');
+    });
+    return sortdat;
   },
   getMembersOnSummaryClick: function(studentId) {
     const component = this;

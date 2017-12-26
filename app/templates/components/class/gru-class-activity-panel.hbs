@@ -85,7 +85,7 @@
 </ul>
 </div>
 <div class='gru-two-tier-header-table'>
-  <div class="table-wrapperCol style-1">
+  <div class="table-wrapperCol style-1 {{if (and timevisible reactionvisible) 'Colall' ''}} {{if (and (not timevisible) (not reactionvisible)) 'ColOnlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'ColOnlyReaction' ''}} {{if (and timevisible (not reactionvisible)) 'ColOnlyTime' ''}}">
   <table>
     <col>
 
@@ -100,7 +100,7 @@
           >
         </th>
         <th scope="col"
-            class="row-header fixedCol fixedColNew">Total</th>
+            class="row-header fixedCol fixedColNew {{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">Total</th>
       {{!-- {{#if rowHeadersHeader}}
         <td class="fixedCol"></td>
       {{else}} --}}
@@ -126,22 +126,22 @@
         </th>
 
            <th scope="col"
-              class="row-header fixedCol fixedColNew"
-            {{!-- {{action "updateSortCriteria" firstTierIndex secondTierIndex}} --}}
+              class="row-header fixedCol fixedColNew {{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}"
+             {{!-- {{action "updateSortCriteria" firstTierIndex}} --}}
             >
-            <span class="table-cell score" style="display: table-cell;">
+            <span class="table-cell score" style="display: table-cell;" {{action "onScoreSortClick"}}>
               Score
               {{gru-icon name='swap_vert'}}
               {{gru-icon name='arrow_upward'}}
               {{gru-icon name='arrow_downward'}}
             </span>
-            <span class="table-cell study-time {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">
+            <span class="table-cell study-time {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;" {{action "onTimeSortClick"}}>
               Time
               {{gru-icon name='swap_vert'}}
               {{gru-icon name='arrow_upward'}}
               {{gru-icon name='arrow_downward'}}
             </span>
-             <span class="table-cell completion {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
+             <span class="table-cell completion {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;" {{action "onReactionSortClick"}}>
               Reaction
               {{gru-icon name='swap_vert'}}
               {{gru-icon name='arrow_upward'}}
@@ -159,21 +159,21 @@
        {{!-- {{#if rowHeadersHeader}} --}}
           <th scope="col"
               class="row-header"
-            {{!-- {{action "updateSortCriteria" firstTierIndex secondTierIndex}} --}}
+            {{!-- {{action "updateSortCriteria" firstTierIndex}} --}}
             >
-            <span class="table-cell score" style="display: table-cell;">
+            <span class="table-cell score" style="display: table-cell;" {{action "onScoreSortClick"}}>
               Score
               {{gru-icon name='swap_vert'}}
               {{gru-icon name='arrow_upward'}}
               {{gru-icon name='arrow_downward'}}
             </span>
-            <span class="table-cell study-time {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">
+            <span class="table-cell study-time {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;" {{action "onTimeSortClick"}}>
               Time
               {{gru-icon name='swap_vert'}}
               {{gru-icon name='arrow_upward'}}
               {{gru-icon name='arrow_downward'}}
             </span>
-             <span class="table-cell completion {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
+             <span class="table-cell completion {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;" {{action "onReactionSortClick"}}>
               Reaction
               {{gru-icon name='swap_vert'}}
               {{gru-icon name='arrow_upward'}}
@@ -190,7 +190,7 @@
           {{action "selectRowHeader" row.id}}>
           <span style="display: table-cell;">{{row.lastName}} </span><span style="display: table-cell;">,</span><span style="display: table-cell;">{{row.firstName}}</span>
         </th>
-        <th scope="row" class="fixedCol fixedColNew">
+        <th scope="row" class="fixedCol fixedColNew {{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">
           <div class="box score pull-left" style={{safe-html (concat "background-color:" (grade-color row.avgScore)) }}>
           {{row.avgScore}}%
         </div>
