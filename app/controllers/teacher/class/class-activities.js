@@ -71,7 +71,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
           .then(function(classActivities) {
             controller.get('classActivities').pushObject(
               Ember.Object.create({
-                classActivities: classActivities,
+                classActivities: controller.setDefaultValues(classActivities),
                 date: formatDate(startDate, 'MMMM, YYYY')
               })
             );
@@ -124,6 +124,23 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         'gru-assessment-report-modal',
         true
       );
+    },
+    /**
+     * @function actions:selectRowHeader
+     * @param {string} headerId
+     */
+    changeStatusValue: function() {
+      let allClassActivities = this.get('classActivities');
+      allClassActivities.forEach(function(activitiesObj) {
+        if (activitiesObj.classActivities !== undefined) {
+          activitiesObj.classActivities.forEach(classObj => {
+            let collObj = classObj.collection;
+            if (collObj !== undefined) {
+              Ember.set(collObj, 'isReportEnabled', false);
+            }
+          });
+        }
+      });
     },
 
     /**
@@ -220,5 +237,16 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       );
       classActivities.classActivities.removeObject(activityToDelete);
     });
+  },
+  setDefaultValues: function(activitiesData) {
+    if (activitiesData !== undefined) {
+      activitiesData.forEach(function(activitiesObj) {
+        let collObj = activitiesObj.collection;
+        if (collObj !== undefined) {
+          Ember.set(collObj, 'isReportEnabled', false);
+        }
+      });
+    }
+    return activitiesData;
   }
 });

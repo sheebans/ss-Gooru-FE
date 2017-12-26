@@ -204,6 +204,10 @@ export default Ember.Component.extend({
    * @property {Collection/Assessment} item
    */
   item: Ember.computed.alias('classActivity.collection'),
+  /**
+   * @property {Collection/Assessment} prevItem
+   */
+  prevItem: null,
 
   /**
    * @property {string}
@@ -368,10 +372,14 @@ export default Ember.Component.extend({
   },
   getMembers: function(collectionId, activityDate) {
     const component = this;
+    component.sendAction('onReportclick');
     const classId = component.get('classId');
     const members = component.get('members');
+    var itemVal = component.get('item');
+    Ember.set(itemVal, 'isReportEnabled', component.get('isReportEnabled'));
     if (component.get('isReportEnabled')) {
       component.set('isReportEnabled', false);
+      Ember.set(itemVal, 'isReportEnabled', component.get('isReportEnabled'));
     } else {
       component.set('membersData', members);
       component
@@ -385,10 +393,40 @@ export default Ember.Component.extend({
             .then(function(collection) {
               component.set('firstTierHeaders', collection.children);
               members.forEach(function(item1) {
+                var memberDataobj = result1.content.findBy('userUid', item1.id);
+                if (memberDataobj !== undefined) {
+                  Ember.set(
+                    item1,
+                    'avgScore',
+                    memberDataobj.usageData.get(0).assessment.score
+                  );
+                  Ember.set(
+                    item1,
+                    'avgTime',
+                    formatMilliseconds(
+                      memberDataobj.usageData.get(0).assessment.timeSpent
+                    )
+                  );
+                  Ember.set(
+                    item1,
+                    'avgReact',
+                    memberDataobj.usageData.get(0).assessment.reaction
+                  );
+                } else {
+                  Ember.set(item1, 'avgScore', 0);
+                  Ember.set(item1, 'avgTime', '--');
+                  Ember.set(item1, 'avgReact', '--');
+                }
+
                 Ember.set(item1, 'resultResources', collection.children);
                 Ember.set(item1, 'content', []);
               });
               component.set('isReportEnabled', true);
+              Ember.set(
+                itemVal,
+                'isReportEnabled',
+                component.get('isReportEnabled')
+              );
               component.set('collection', collection);
               component.set('collection.children', collection.children);
               component.set('userDataObj', []);
@@ -398,10 +436,9 @@ export default Ember.Component.extend({
                   if (memberData !== undefined) {
                     if (memberData.id === item1.userUid) {
                       collection.children.forEach(function(item2) {
-                        var usageDataQId = item1.usageData.findBy(
-                          'questionId',
-                          item2.id
-                        );
+                        var usageDataQId = item1.usageData
+                          .get(0)
+                          .questions.findBy('questionId', item2.id);
                         if (
                           usageDataQId !== undefined &&
                           usageDataQId.questionId === item2.id
@@ -439,7 +476,7 @@ export default Ember.Component.extend({
     component.set('membersData', members);
     var sessionId = '';
     contentObj.content.forEach(function(itemNew) {
-      sessionId = itemNew.usageData.get(0).sessionId;
+      sessionId = itemNew.usageData.get(0).assessment.sessionId;
     });
     collection.children.forEach(function(resourceobj) {
       Ember.set(resourceobj, 'resourceId', resourceobj.id);
@@ -503,7 +540,6 @@ export default Ember.Component.extend({
                   students: members,
                   resources: collection.children
                 });
-                Ember.Logger.info('reportData1---', reportData1);
                 let resourceResultdata = resultSession[0].resourceResults;
                 resourceResultdata.forEach(function(resourceResultdataobj) {
                   if (reportData1.data[memberData.id]) {
