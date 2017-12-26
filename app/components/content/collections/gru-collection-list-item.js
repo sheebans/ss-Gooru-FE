@@ -137,7 +137,11 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
               .get('profileService')
               .readCollections(component.get('session.userId'))
               .then(function(collections) {
-                return { content: builderItem, collections, assessments };
+                return {
+                  content: builderItem,
+                  collections,
+                  assessments
+                };
               });
           })
           .then(model =>
