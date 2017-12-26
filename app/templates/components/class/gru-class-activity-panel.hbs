@@ -11,13 +11,13 @@
     <div class="content-count">
       {{#if item.isAssessment}}
         {{#if item.questionCount}}
-          <span class="{{if (gt item.resourceCount 0) '' 'hidding'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}} &nbsp; &nbsp;</span>
-          <span class="{{if (gt item.questionCount 0) '' 'hidding'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span> <span class="{{if (gt item.questionCount 0) '' 'hidding'}} ">{{item.questionCount}}</span>
+          <span class="{{if (gt item.resourceCount 0) '' 'invisible'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}} &nbsp; &nbsp;</span>
+          <span class="{{if (gt item.questionCount 0) '' 'invisible'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span> <span class="{{if (gt item.questionCount 0) '' 'invisible'}} ">{{item.questionCount}}</span>
         {{/if}}
       {{else}}
         {{#if (or item.questionCount item.resourceCount)}}
-          <span class="{{if (gt item.resourceCount 0) '' 'hidding'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.resources"}}">{{gru-icon name='local_library'}}</span><span class="{{if (gt item.resourceCount 0) '' 'hidding'}} ">{{item.resourceCount}}</span>
-          <span class="{{if (gt item.questionCount 0) '' 'hidding'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span><span class="{{if (gt item.questionCount 0) '' 'hidding'}} ">{{item.questionCount}}</span>
+          <span class="{{if (gt item.resourceCount 0) '' 'invisible'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.resources"}}">{{gru-icon name='local_library'}}</span><span class="{{if (gt item.resourceCount 0) '' 'invisible'}} ">{{item.resourceCount}}</span>
+          <span class="{{if (gt item.questionCount 0) '' 'invisible'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span><span class="{{if (gt item.questionCount 0) '' 'invisible'}} ">{{item.questionCount}}</span>
         {{/if}}
       {{/if}}
     </div>

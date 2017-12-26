@@ -106,8 +106,6 @@ export default Ember.Object.extend(ConfigurationMixin, {
       content = Collection.create({
         id: data.content_id,
         title: data.title,
-        resourceCount: data.resource_count,
-        questionCount: data.question_count,
         thumbnailUrl: thumbnailUrl,
         url: data.url ? data.url : ''
       });
