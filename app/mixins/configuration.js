@@ -27,6 +27,11 @@ export default Ember.Mixin.create({
   appRootPath: Ember.computed.alias('configuration.appRootPath'),
 
   /**
+   * @property {string}
+   */
+  reservedWords: Ember.computed.alias('configuration.reservedWords'),
+
+  /**
    * Returns the local storage
    * @returns {Storage}
    */

@@ -22,12 +22,29 @@ export default Ember.Object.extend({
     const options = {
       type: 'GET'
     };
-    return Ember.RSVP
-      .hashSettled({
-        configuration: Ember.$.ajax(url, options)
-      })
-      .then(function(hash) {
-        return hash.configuration.value;
-      });
+    return Ember.RSVP.hashSettled({
+      configuration: Ember.$.ajax(url, options)
+    }).then(function(hash) {
+      return hash.configuration.value;
+    });
+  },
+
+  /**
+   * Gets reserved keywords
+   * @returns {Promise.<[]>}
+   */
+  reservedKeyWords: function(configBaseUrl) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const basePath = configBaseUrl ? configBaseUrl : '';
+    const url = `${basePath}${namespace}/reserved-words.json`;
+    const options = {
+      type: 'GET'
+    };
+    return Ember.RSVP.hashSettled({
+      reservedWords: Ember.$.ajax(url, options)
+    }).then(function(hash) {
+      return Ember.Object.create({ reservedWords: hash.reservedWords.value });
+    });
   }
 });

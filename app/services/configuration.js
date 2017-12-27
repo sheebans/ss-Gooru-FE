@@ -50,14 +50,17 @@ const ConfigurationService = Ember.Service.extend({
       .get('configurationAdapter')
       .loadConfiguration(hostname, configBaseUrl)
       .then(function(hostnameConfiguration) {
-        //it looks for the specific domain configuration
         if (hostnameConfiguration) {
           service.merge(hostnameConfiguration);
-          /*Ember.Logger.debug(
-            'Custom host configuration found: ',
-            hostnameConfiguration
-          ); */
         }
+        service
+          .get('configurationAdapter')
+          .reservedKeyWords(configBaseUrl)
+          .then(function(reservedWords) {
+            if (reservedWords) {
+              service.merge(reservedWords);
+            }
+          });
         return configuration;
       });
   },

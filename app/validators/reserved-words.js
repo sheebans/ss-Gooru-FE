@@ -1,13 +1,13 @@
 import BaseValidator from 'ember-cp-validations/validators/base';
-import { RESERVED_WORDS } from 'gooru-web/config/config';
+import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import Ember from 'ember';
 
-export default BaseValidator.extend({
+export default BaseValidator.extend(ConfigurationMixin, {
   i18n: Ember.inject.service(),
 
   validate(value) {
     if (value) {
-      let reservedWord = RESERVED_WORDS.find(function(item) {
+      let reservedWord = this.get('reservedWords').find(function(item) {
         return item === value;
       });
       return reservedWord
