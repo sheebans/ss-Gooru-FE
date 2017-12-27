@@ -140,7 +140,18 @@
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 1px;
-    margin-left: 294px !important;
+  }
+  .ColOnlyTime {
+    margin-left: 232px !important;
+  }
+  .ColOnlyReaction {
+    margin-left: 255px !important;
+  }
+  .ColOnlyScore {
+    margin-left: 188px !important;
+  }
+  .Colall {
+    margin-left: 291px !important;
   }
   .score {
     border-radius: 4px;
@@ -316,10 +327,29 @@
       left: 18%;
       width: 115px;
     }
+    .setWidth {
+      width: 115px;
+      min-width: 115px;
+    }
     .fixedColNew {
       left: 26% !important;
-      min-width: 180px !important;
       padding-top: 4px;
+    }
+    .onlyScore {
+      min-width: 75 !important;
+      width: 75px;
+    }
+    .onlyScoreTime {
+      min-width: 115 !important;
+      width: 115px;
+    }
+    .onlyScoreReaction {
+      min-width: 75 !important;
+      width: 138px;
+    }
+    .scoreTimeReaction {
+      min-width: 75 !important;
+      width: 177px;
     }
     .emotion {
       display: block;
