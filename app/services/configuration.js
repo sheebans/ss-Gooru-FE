@@ -55,7 +55,7 @@ const ConfigurationService = Ember.Service.extend({
         }
         service
           .get('configurationAdapter')
-          .reservedKeyWords(configBaseUrl)
+          .reservedWords(configBaseUrl)
           .then(function(reservedWords) {
             if (reservedWords) {
               service.merge(reservedWords);

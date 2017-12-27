@@ -3,18 +3,14 @@ import { test } from 'ember-qunit';
 import moduleForService from 'gooru-web/tests/helpers/module-for-service';
 import FeaturesConfiguration from 'gooru-web/config/env/features';
 
-moduleForService(
-  'service:configuration',
-  'Unit | Service | configuration',
-  {
-    // Specify the other units that are required for this test.
-    // needs: ['serializer:foo']
-  }
-);
+moduleForService('service:configuration', 'Unit | Service | configuration', {
+  // Specify the other units that are required for this test.
+  // needs: ['serializer:foo']
+});
 
 test('loadConfiguration', function(assert) {
   const service = this.subject();
-  assert.expect(5);
+  assert.expect(6);
 
   service.set(
     'configurationAdapter',
@@ -30,6 +26,16 @@ test('loadConfiguration', function(assert) {
           teams: {
             url: 'any'
           }
+        });
+      },
+      reservedWords: function(configBaseUrl) {
+        assert.equal(
+          configBaseUrl,
+          null,
+          'no config url was provided, it should ne null'
+        );
+        return Ember.RSVP.resolve({
+          reservedWords: ['about']
         });
       }
     })
@@ -66,6 +72,9 @@ test('loadConfiguration - default features loaded', function(assert) {
     'configurationAdapter',
     Ember.Object.create({
       loadConfiguration: function() {
+        return Ember.RSVP.resolve({});
+      },
+      reservedWords: function() {
         return Ember.RSVP.resolve({});
       }
     })
@@ -104,7 +113,7 @@ test('loadConfiguration - default features loaded', function(assert) {
 
 test('loadConfiguration with config url', function(assert) {
   const service = this.subject();
-  assert.expect(5);
+  assert.expect(6);
 
   service.set(
     'configurationAdapter',
@@ -116,6 +125,12 @@ test('loadConfiguration with config url', function(assert) {
           teams: {
             url: 'any'
           }
+        });
+      },
+      reservedWords: function(configBaseUrl) {
+        assert.equal(configBaseUrl, 'any-url', 'wrong config url');
+        return Ember.RSVP.resolve({
+          reservedWords: ['about']
         });
       }
     })

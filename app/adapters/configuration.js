@@ -30,10 +30,10 @@ export default Ember.Object.extend({
   },
 
   /**
-   * Gets reserved keywords
+   * Gets reserved words
    * @returns {Promise.<[]>}
    */
-  reservedKeyWords: function(configBaseUrl) {
+  reservedWords: function(configBaseUrl) {
     const adapter = this;
     const namespace = adapter.get('namespace');
     const basePath = configBaseUrl ? configBaseUrl : '';
