@@ -78,44 +78,37 @@
   {{/each}}
 </ul>
 </div>
-<div class='gru-two-tier-header-table'>
+<div class='gru-two-tier-header-table' id="maindatatable">
   <div class="table-wrapperCol style-1 {{if (and timevisible reactionvisible) 'Colall' ''}} {{if (and (not timevisible) (not reactionvisible)) 'ColOnlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'ColOnlyReaction' ''}} {{if (and timevisible (not reactionvisible)) 'ColOnlyTime' ''}}">
-  <table>
+  <table style="table-layout: fixed;">
     <col>
-
-    {{!-- {{#each firstTierHeaders as |header|}} --}}
-      <colgroup span=""></colgroup>
-    {{!-- {{/each}} --}}
 
     <tr class="first-tier top-header">
       <th scope="col"
-            class="row-header fixedCol"
+            class="row-header fixedCol fixedColOld setWidth"
           {{!-- {{action "updateSortCriteria" 0 -1}} --}}
           >
         </th>
-        <th scope="col"
-            class="row-header fixedCol fixedColNew {{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">Total</th>
+        <th scope="col" id="scoreCol"
+            class="row-header fixedCol fixedColNew {{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">Score</th>
       {{!-- {{#if rowHeadersHeader}}
         <td class="fixedCol"></td>
       {{else}} --}}
       {{!-- {{/if}} --}}
 
       {{#each firstTierHeaders as |header|}}
-        <th >Q {{header.order}}</th>
+        <th class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">Q {{header.order}}</th>
       {{/each}}
     </tr>
 
     <tr class="second-tier">
       {{!-- {{#if rowHeadersHeader}} --}}
-        <th scope="col"
-            class="row-header fixedCol"
+        <th scope="col" id="totalCol"
+            class="row-header fixedCol fixedColOld setWidth"
           {{!-- {{action "updateSortCriteria" 0 -1}} --}}
           >
           <span>
             Student
-            {{gru-icon name='swap_vert'}}
-            {{gru-icon name='arrow_upward'}}
-            {{gru-icon name='arrow_downward'}}
           </span>
         </th>
 
@@ -124,19 +117,28 @@
              {{!-- {{action "updateSortCriteria" firstTierIndex}} --}}
             >
             <span class="table-cell score" style="display: table-cell;" {{action "onScoreSortClick"}}>
-              Score
+              <img src="/assets/gooru/tick.png"
+     srcset="/assets/gooru/tick@2x.png 2x,
+             /assets/gooru/tick@3x.png 3x"
+     class="tick">
               {{gru-icon name='swap_vert'}}
               {{gru-icon name='arrow_upward'}}
               {{gru-icon name='arrow_downward'}}
             </span>
-            <span class="table-cell study-time {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;" {{action "onTimeSortClick"}}>
-              Time
+            <span class="table-cell clockpad study-time {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;" {{action "onTimeSortClick"}}>
+              <img src="/assets/gooru/clock.png"
+     srcset="/assets/gooru/clock@2x.png 2x,
+             /assets/gooru/clock@3x.png 3x"
+     class="clock">
               {{gru-icon name='swap_vert'}}
               {{gru-icon name='arrow_upward'}}
               {{gru-icon name='arrow_downward'}}
             </span>
-             <span class="table-cell completion {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;" {{action "onReactionSortClick"}}>
-              Reaction
+             <span class="table-cell reactpad completion {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;" {{action "onReactionSortClick"}}>
+              <img src="/assets/gooru/mood.png"
+     srcset="/assets/gooru/mood@2x.png 2x,
+             /assets/gooru/mood@3x.png 3x"
+     class="mood-copy">
               {{gru-icon name='swap_vert'}}
               {{gru-icon name='arrow_upward'}}
               {{gru-icon name='arrow_downward'}}
@@ -152,23 +154,32 @@
        {{!-- {{#each secondTierHeaders as |secondTierHeader secondTierIndex|}} --}}
        {{!-- {{#if rowHeadersHeader}} --}}
           <th scope="col"
-              class="row-header"
+              class="row-header {{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}" 
             {{!-- {{action "updateSortCriteria" firstTierIndex}} --}}
             >
             <span class="table-cell score" style="display: table-cell;" {{action "onScoreSortClick"}}>
-              Score
+            <img src="/assets/gooru/tick.png"
+                srcset="/assets/gooru/tick@2x.png 2x,
+                        /assets/gooru/tick@3x.png 3x"
+                class="tick">
               {{gru-icon name='swap_vert'}}
               {{gru-icon name='arrow_upward'}}
               {{gru-icon name='arrow_downward'}}
             </span>
-            <span class="table-cell study-time {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;" {{action "onTimeSortClick"}}>
-              Time
+            <span class="table-cell clockpad study-time {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;" {{action "onTimeSortClick"}}>
+              <img src="/assets/gooru/clock.png"
+     srcset="/assets/gooru/clock@2x.png 2x,
+             /assets/gooru/clock@3x.png 3x"
+     class="clock">
               {{gru-icon name='swap_vert'}}
               {{gru-icon name='arrow_upward'}}
               {{gru-icon name='arrow_downward'}}
             </span>
-             <span class="table-cell completion {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;" {{action "onReactionSortClick"}}>
-              Reaction
+             <span class="table-cell reactpad completion {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;" {{action "onReactionSortClick"}}>
+              <img src="/assets/gooru/mood.png"
+     srcset="/assets/gooru/mood@2x.png 2x,
+             /assets/gooru/mood@3x.png 3x"
+     class="mood-copy">
               {{gru-icon name='swap_vert'}}
               {{gru-icon name='arrow_upward'}}
               {{gru-icon name='arrow_downward'}}
@@ -180,47 +191,47 @@
 
     {{#each membersData as |row|}}
       <tr class="data">
-        <th scope="row" class="fixedCol"
+        <th scope="row" class="fixedCol fixedColOld pointer setWidth"
           {{action "selectRowHeader" row.id}}>
-          <span style="display: table-cell;">{{row.lastName}} </span><span style="display: table-cell;">,</span><span style="display: table-cell;">{{row.firstName}}</span>
+          <div class="table-cell pull-left textellip pointer">{{row.lastName}}, {{row.firstName}}</div>
         </th>
         <th scope="row" class="fixedCol fixedColNew {{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">
           <div class="box score pull-left" style={{safe-html (concat "background-color:" (grade-color row.avgScore)) }}>
           {{row.avgScore}}%
         </div>
-        <span class="time-spent timePaddingfixed pull-left {{if (eq row.avgTime '--') 'timePaddingfixedmore' ''}} {{if timevisible '' 'out-of-scope'}}">{{row.avgTime}}</span>
-           <span class="reaction smileypaddingfixed pull-left {{if (eq row.avgReact '--') 'smileypaddingfixedmore' ''}} {{if reactionvisible '' 'out-of-scope'}}">
+        <span style="display: table-cell;" class="time-spent timePaddingfixed pull-left {{if (eq row.avgTime '--') 'timePaddingfixedmore' ''}} {{if timevisible '' 'out-of-scope'}}">{{row.avgTime}}</span>
+           <span style="display: table-cell;" class="reaction smileypaddingfixed pull-right {{if (eq row.avgReact '--') 'smileypaddingfixedmore' ''}} {{if reactionvisible '' 'out-of-scope'}}">
             {{{reaction-icon row.avgReact appRootPath}}}
             </span>
         </th>
          {{#each row.resultResources as |content|}}
-          <th scope="row" style="min-width:75px !important;">
-            <span class="score answer-undefined" style="display: table-cell;"></span>
-            <span class="time-spent timePadding out-of-scope" style="display: table-cell;"></span>
-            <span class="reaction smileypadding out-of-scope" style="display: table-cell;">
+          <th scope="row" style="min-width:75px !important;" class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">
+            <span class="score answer-undefined pull-left" style="display: table-cell;"></span>
+            <span class="time-spent timePadding pull-left out-of-scope" style="display: table-cell;"></span>
+            <span class="reaction smileypadding pull-right out-of-scope" style="display: table-cell;">
             </span>
           </th>
         {{/each}} 
         {{#each row.content as |content|}}
-          <th scope="row">
+          <th scope="row" class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">
             {{#if (eq content.score 100)}}
-            <span data-toggle="tooltip" data-placement="auto" class="" title="" data-original-title="" style="display: table-cell;"><span class="score answer-correct"><i class="gru-icon material-icons">done</i></span></span>
-            <span class="time-spent timePadding {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
-            <span class="reaction smileypadding {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
+            <span data-toggle="tooltip" data-placement="auto" class="pull-left" title="" data-original-title="" style="display: table-cell;"><span class="score answer-correct"><i class="gru-icon material-icons">done</i></span></span>
+            <span class="time-spent timePadding pull-left {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
+            <span class="reaction smileypadding pull-right {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
           {{{reaction-icon content.reaction appRootPath}}}
         </span>
             {{/if}}
              {{#if (eq content.score 0)}}
-            <span data-toggle="tooltip" data-placement="auto" class="" title="" data-original-title="" style="display: table-cell;"><span class="score answer-incorrect"><i class="gru-icon material-icons">clear</i></span></span>
-            <span class="time-spent timePadding {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
-          <span class="reaction smileypadding {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
+            <span data-toggle="tooltip" data-placement="auto" class="pull-left" title="" data-original-title="" style="display: table-cell;"><span class="score answer-incorrect"><i class="gru-icon material-icons">clear</i></span></span>
+            <span class="time-spent timePadding pull-left {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
+          <span class="reaction smileypadding pull-right {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
           {{{reaction-icon content.reaction appRootPath}}}
           </span>
             {{/if}}
             {{#if (or (eq content.score undefined) (eq content.score null))}}
-            <span class="score answer-undefined" style="display: table-cell;"></span>
-            <span class="time-spent timePadding {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
-            <span class="reaction smileypadding {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
+            <span class="score answer-undefined pull-left" style="display: table-cell;"></span>
+            <span class="time-spent timePadding pull-left {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
+            <span class="reaction smileypadding pull-right {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
             {{{reaction-icon content.reaction appRootPath}}}
             </span>
             {{/if}}
