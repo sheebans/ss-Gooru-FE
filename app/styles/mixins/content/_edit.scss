@@ -27,6 +27,40 @@
 .controller.account-settings,
 .content.rubric.preview {
   $aside-padding: 25px;
+  .gru-image {
+    &.picker-error {
+      margin-bottom: 70px;
+    }
+
+    .validation {
+      bottom: -55px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      padding: 5px;
+      object-fit: cover;
+      margin: 0;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .file-picker {
+      width: 210px;
+      height: 185px;
+
+      .file-picker__preview > img {
+        width: 100%;
+        height: 185px;
+        padding: 5px;
+        object-fit: cover;
+        margin: 0;
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+  }
 
   @include flexbox();
 
@@ -182,7 +216,7 @@
 
         label span.required:after,
         span.label.required:after {
-          content: ' *';
+          content: " *";
         }
       }
     }
@@ -213,7 +247,7 @@
   }
 
   .add-prefix:before {
-    content: '+ ';
+    content: "+ ";
   }
 
   article.fixed-header {
