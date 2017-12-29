@@ -1,15 +1,17 @@
 .content.collections.edit {
   .tags {
-    margin: 10px 0px;
+    margin: 10px 0;
   }
 
   .century-skills {
     > label {
       width: 100%;
+
       .choose {
         float: left;
         padding: 4px 16px;
       }
+
       .skills-buttons {
         width: 75%;
         float: left;

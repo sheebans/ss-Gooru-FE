@@ -5,25 +5,25 @@ export default Object.assign(quizzesTranslations, {
   sp: 'Spanish',
   ar: 'Arabic',
   errors: {
-    description: 'الحقل',
+    description: 'هذا الحقل',
     inclusion: '{{description}} غير مدرج في القائمة',
     exclusion: '{{description}} محجوز',
     invalid: '{{description}} غير صالح',
-    confirmation: '{{description}} doesn\\\u0027t match {{on}}',
+    confirmation: '\t{{description}} لا يطابق {{on}}',
     accepted: 'يجب قبول {{description}} ',
-    empty: '{{description}} can\\\u0027t be empty',
-    blank: '{{description}} can\\\u0027t be blank',
+    empty: 'لا يمكن ترك {{description}} خالياً',
+    blank: 'لا يمكن ترك {{description}} فارغاً',
     present: 'يجب أن يكون {{description}} فارغا',
     collection: 'يجب أن يكون {{description}} عبارة عن مجموعة',
-    singular: '{{description}} can\\\u0027t be a collection',
-    tooLong: '{{description}} طويل جدا (الحد الأقصى هو {{max}} حرفا',
-    tooShort: '{{description}} قصير جدا (الحد الأدنى هو {{min}} حرف',
+    singular: 'لا يمكن أن يكون {{description}} مجموعة',
+    tooLong: '{{description}} طويل جدا (الحد الأقصى هو {{max}})) حرفاً',
+    tooShort: '{{description}} قصير جدا (الحد الأدنى هو {{min}}) حرف',
     before: 'يجب أن يكون {{description}} قبل {{before}}',
     after: 'يجب أن يكون {{description}} بعد {{after}}',
     wrongDateFormat: 'يجب أن يكون {{description}} بصيغة {{format}}',
-    wrongLength: '{{description}} هو الطول الخاطئ (يجب أن يكون {{is}} حرفاً)',
+    wrongLength: '{{description}} هو الطول الخاطئ، (يجب أن يكون {{is}} حرف)',
     notANumber: 'يجب أن يكون {{description}} رقما',
-    notAnInteger: 'يجب أن يكون {{description}} عددا صحيحا',
+    notAnInteger: 'يجب أن يكون {{description}} عدداً صحيحاً',
     greaterThan: 'يجب أن يكون {{description}} أكبر من {{gt}}',
     greaterThanOrEqualTo:
       'يجب أن يكون {{description}} أكبر من أو يساوي {{gte}}',
@@ -31,12 +31,12 @@ export default Object.assign(quizzesTranslations, {
     lessThan: 'يجب أن يكون {{description}} أقل من {{lt}}',
     lessThanOrEqualTo: 'يجب أن يكون {{description}} أقل من أو يساوي {{lte}}',
     otherThan: 'يجب أن يختلف {{description}} عن {{value}}',
-    odd: 'يجب أن يكون {{description}} فردياً',
-    even: 'يجب أن يكون {{description}}  زوجياً',
-    positive: 'يجب أن يكون {{description}}  موجباً',
-    date: 'يجب أن يكون {{description}} تاريخا صحيحاً',
-    email: 'يجب أن يكون {{description}} بريدا إلكترونيا صحيحا',
-    phone: 'يجب أن يكون {{description}} رقم هاتف صحيحا',
+    odd: 'يجب أن يكون {{description}} فردي',
+    even: 'يجب أن يكون {{description}}  زوجي',
+    positive: 'يجب أن يكون {{description}}  موجب',
+    date: 'يجب أن يكون {{description}} تاريخ صالح',
+    email: 'يجب أن يكون {{description}} بريد إلكتروني صالح',
+    phone: 'يجب أن يكون {{description}} رقم هاتف صالح',
     url: 'يجب أن يكون {{description}} رابط موقع صحيح'
   },
   common: {
@@ -48,54 +48,53 @@ export default Object.assign(quizzesTranslations, {
     'all-completed': 'تم إنجاز الكل',
     'an-assessment': 'تقييم',
     about: 'حول',
-    'about-you': 'حولي',
-    'about-me': 'About Me',
-    add: 'إضافة',
+    'about-you': 'حولك',
+    'about-me': 'حولي',
+    add: 'ضِف',
     'add-assessment': 'إنشاء تقييم جديد',
-    'add-century-skills': 'إضافة مهارات القرن الحادي والعشرين',
-    'add-collaborator': 'إضافة مشارك',
-    'add-collection': 'إنشاء مجموعة جديدة',
-    'add-collection-item': 'إنشاء مصدر أو سؤال',
-    'add-competency': 'إضافة كفاءة',
-    'add-content-prompt':
-      'You haven\\\u0027t created \u003cspan\u003e{{type}}\u003c/span\u003e yet. Go on, be bold.',
-    'add-course': 'إنشاء مساق جديد\n',
-    'add-domains-to-unit': 'إضافة مجالات إلى الوحدة',
-    'add-url': 'إضافة رابط',
-    'add-from-url': 'إضافة من الرابط',
-    'add-lessons': 'إضافة دروس',
-    'add-new-lesson': 'إنشاء درس جديد',
-    'add-new-unit': 'إنشاء وحدة جديدة',
-    'add-new-resource': 'إنشاء مصدر جديد',
-    'add-new-question': 'إنشاء سؤال جديد',
-    'add-question': 'إنشاء سؤال',
-    'add-question-image': 'إضافة سؤال على شكل صورة',
-    'add-rubric': 'إضافة سلم تقييم جديد',
-    'add-standard': 'إضافة معيار',
-    'add-standards': 'إضافة معايير',
-    'add-standards-to-collection': 'إضافة معايير إلى مجموعة',
-    'add-to': 'إضافة إلى',
-    'add-to-classroom': 'إضافة إلى الصف',
-    'add-to-daily-class': 'إضافة إلى أنشطة الصف اليومية',
+    'add-century-skills': 'ضَف مهارات القرن الحادي والعشرين',
+    'add-collaborator': 'ضِف مشارك',
+    'add-collection': 'أنشئ مجموعة جديدة',
+    'add-collection-item': 'أنشئ مصدر أو سؤال',
+    'add-competency': 'ضِف كفاءة',
+    'add-content-prompt': 'لم تنشئ {{type}} بعد',
+    'add-course': 'أنشئ مساق دراسي جديد\n',
+    'add-domains-to-unit': 'ضِف مجالات إلى الوحدة',
+    'add-url': 'ضِف رابط',
+    'add-from-url': 'ضِف من الرابط',
+    'add-lessons': 'ضِف دروس',
+    'add-new-lesson': 'أنشئ درس جديد',
+    'add-new-unit': 'أنشئ وحدة جديدة',
+    'add-new-resource': 'أنشئ مصدر جديد',
+    'add-new-question': 'أنشئ سؤال جديد',
+    'add-question': 'أنشئ سؤال',
+    'add-question-image': 'ضِف سؤال على شكل صورة',
+    'add-rubric': 'ضِف سلم تقييم جديد',
+    'add-standard': 'ضِف معيار',
+    'add-standards': 'ضِف معايير',
+    'add-standards-to-collection': 'ضِف معايير إلى مجموعة',
+    'add-to': 'ضِف إلى',
+    'add-to-classroom': 'ضِف إلى الصف',
+    'add-to-daily-class': 'ضِف إلى أنشطة الصف اليومية',
     'add-to-collection-success':
-      'You\\\u0027ve added {{contentTitle}} to {{collectionTitle}}. Do you want to edit that {{collectionType}}?',
+      'لقد ضفت {{contentTitle}} إلى {{collectionTitle}}. هل تريد تعديل ال {{collectionType}}؟',
     'add-to-lesson-success':
-      'You\\\u0027ve added {{collectionTitle}} to {{lessonTitle}}. Do you want to edit that {{collectionType}}?',
+      'لقد ضفت {{collectionTitle}} إلى {{contentTitle}}. هل تريد تعديل ال{{collectionType}}؟',
     'add-type-question': 'ما نوع السؤال الذي تريد إضافته؟',
-    'add-type-resource': 'ما هو نوع هذا المصدر؟',
-    'add-units': 'إضافة وحدات',
-    added: 'مضاف',
+    'add-type-resource': 'ما نوع هذا المصدر؟',
+    'add-units': 'ضِف وحدات',
+    added: 'مُضاف',
     'advanced-editing': 'تعديل متقدم',
     announcements: 'الإعلانات',
     anonymous_mode: 'أسلوب تقييم المجهول',
-    answer: 'الإجابة',
-    'answer-correct': 'صحيح',
-    'answer-incorrect': 'خطأ',
+    answer: 'إجابتك',
+    'answer-correct': 'إجابتك صحيحة',
+    'answer-incorrect': 'إجابتك خاطئة',
     'answer-key-was-hidden': 'ملاحظة: قام المعلم بإخفاء مفتاح الإجابة.',
-    approved: 'معتمد',
-    archive: 'أرشيف',
+    approved: 'ُمعتمَد',
+    archive: 'الأأرشيف',
     assessment: 'التقييم',
-    'assessment-disabled': 'You can\\\u0027t attempt this assessment',
+    'assessment-disabled': 'لا يمكنك إجراء هذا التقييم',
     'assessment-external': 'التقييم الخارجي',
     'assessment-pl': {
       zero: 'التقييمات',
@@ -103,11 +102,11 @@ export default Object.assign(quizzesTranslations, {
       other: 'التقييمات'
     },
     'assessment-title': 'عنوان التقييم',
-    assessmentInitial: 'أ',
+    assessmentInitial: 'ت',
     assessments: 'التقييمات',
     assign: 'تعيين',
     'assign-to-class': 'تعيين إلى الصف',
-    'assign-to-course': 'تعيين إلى المساق',
+    'assign-to-course': 'تعيين إلى المساق الدراسي',
     attempt: 'رقم المحاولة',
     audience: 'الجمهور',
     avatarFor: 'صورة رمزية لـ',
@@ -117,18 +116,18 @@ export default Object.assign(quizzesTranslations, {
     'back-to-collection': 'العودة إلى المجموعة',
     'back-to-course-map': 'العودة إلى خريطة المساق الدراسي',
     'back-to-data': 'العودة إلى البيانات',
-    'back-to-report': 'Back to Report',
+    'back-to-report': 'العودة إلى التقرير',
     'best-practices': 'أفضل التمارين',
     beta: 'بيتا',
     'big-ideas': 'أفكار كبيرة',
     biography: 'السيرة الشخصية',
-    bookmark: 'علامة',
-    bookmarks: 'علامات',
+    bookmark: 'إشارة مرجعية',
+    bookmarks: 'إشارات مرجعية',
     'bookmarked-content-success':
       'سيتم إضافة {{contentType}} الذي تم وضع إشارة مرجعية عليه إلى صفحة التعليم المستقل الخاصة بك',
     'bookmarked-success':
       'سيتم إضافة كل المحتوى الذي تم وضع إشارة مرجعية عليه إلى صفحة التعليم المستقل الخاصة بك',
-    builder: 'محرر',
+    builder: 'محرِر',
     cancel: 'إلغاء',
     categories: 'فئات',
     category: 'فئة',
@@ -141,8 +140,8 @@ export default Object.assign(quizzesTranslations, {
     choose: 'اختر',
     'choose-file': 'اختر ملفاً',
     class: 'الصف الدراسي',
-    classScores: 'علامات الصف',
-    'click-unBookmark': 'انقر لإلغاء المؤشر',
+    classScores: 'علامات الصف الدراسي',
+    'click-unBookmark': 'انقر لإزالة المؤشر',
     close: 'إغلاق',
     collection: 'مجموعة',
     'collection-pl': {
@@ -152,7 +151,7 @@ export default Object.assign(quizzesTranslations, {
     },
     'collection-title': 'عنوان المجموعة',
     collections: 'مجموعات',
-    collectionInitial: 'س',
+    collectionInitial: 'م',
     competency: 'كفاءة',
     competencies: 'كفاءات',
     completed: 'تم إنجازه',
@@ -162,10 +161,10 @@ export default Object.assign(quizzesTranslations, {
     'confirm-copy': 'تأكيد ونسخ',
     content: 'محتوى',
     'content-manager': 'مدير المحتوى',
-    contentUnavailable: 'المحتوى غير متوفر',
+    contentUnavailable: 'لا يوجد محتوى',
     'contributed-by': 'ساهم في ذلك',
     copy: 'نسخ',
-    'copy-to': 'نسخ الى',
+    'copy-to': 'نسخ إلى',
     correct: 'صحيح',
     'correct-answer': 'إجابة صحيحة',
     country: 'البلد',
@@ -173,14 +172,14 @@ export default Object.assign(quizzesTranslations, {
     course: 'مساق دراسي',
     'course-title': 'عنوان المساق الدراسي',
     courses: 'المساقات الدراسية',
-    create: 'إنشاء',
-    createClass: 'Create Class',
-    'created-by': 'أنشي من قبل',
+    create: 'أنشئ',
+    createClass: 'أنشئ مساق دراسي',
+    'created-by': 'إعداد',
     'create-rubric': 'إنشاء سلم تقييم جديد',
     'current-attempt': 'الإجراء الحالي',
     delete: 'حذف',
     'delete-instructions': {
-      'links-inaccessible': 'سيتعذر الوصول إلى  جميع الروابط المشاركة',
+      'links-inaccessible': 'سيتعذر الوصول إلى  جميع الروابط المشارَكة',
       'content-inaccessible':
         'سيتعذر وصول محتوى المساق المحذوف إلى الصفوف الدراسية المرتبطة به.'
     },
@@ -196,164 +195,162 @@ export default Object.assign(quizzesTranslations, {
     'drag-drop-suggestions': 'أو ضع اقتراحاتك هنا.',
     'download-report': 'تنزيل  التقرير',
     edit: 'تعديل',
-    showassessments: 'Show Assessments',
-    showcollections: 'Show Collections',
-    showlessons: 'Show Lessons',
-    collapse: 'Collapse',
-    expand: 'Expand',
+    showassessments: 'أظهر التقييمات',
+    showcollections: 'أظهر المجموعات',
+    showlessons: 'أظهر الدروس',
+    collapse: 'انطوى',
+    expand: 'تمدد',
     'edit-assessment': 'تعديل التقييم',
     'edit-collection': 'تعديل المجموعة',
     'edit-course': 'تعديل المساق الدراسي',
     'edit-question': 'تعديل السؤال',
     'edit-resource': 'تعديل المصدر',
-    'edit-rubric': 'Edit Rubric',
+    'edit-rubric': 'تعديل سلم التقييم',
     email_support: 'support@gooru.org',
     emotions: {
-      'emotion-1': 'أحتاج المساعدة',
-      'emotion-2': 'I don\\\u0027t understand',
+      'emotion-1': 'أحتاج للمساعدة',
+      'emotion-2': 'لا أفهم',
       'emotion-3': 'الحيرة',
       'emotion-4': 'أفهم ذلك',
       'emotion-5': 'أستطيع الشرح'
     },
-    'enter-url': 'ادخل رابط',
+    'enter-url': 'أدخِل رابط',
     'enrolled-students': 'الطلاب المسجلين',
     errors: {
-      'join-class-code': 'يرجى إدخال رمز الصف',
+      'join-class-code': 'يرجى إدخال رمز الصف الدراسي',
       'answer-has-no-image': 'يرجى تحميل الإجابة على شكل صورة',
-      'add-username': 'يرجى إدخال اسم مستخدم.',
+      'add-username': 'يرجى إدخال اسم مستخدم',
       'add-course-title': 'يرجى إدخال عنوان المساق الدراسي',
-      'add-question-answer-text': 'يرجى إدخال نص الإجابة المختارة .',
-      'add-question-description': 'يرجى إدخال السؤال.',
-      'add-question-title': 'يرجى إدخال عنوان السؤال.',
-      'assessment-title-presence': 'يرجى إدخال عنوان التقييم.',
+      'add-question-answer-text': 'يرجى إدخال نص الإجابة المختارة',
+      'add-question-description': 'يرجى إدخال السؤال',
+      'add-question-title': 'يرجى إدخال عنوان السؤال',
+      'assessment-title-presence': 'يرجى إدخال عنوان التقييم',
       'can-not-join-class':
-        'تعذر الانضمام إلى الصف الدراسي، يرجى إعادة المحاولة بعد قليل.',
+        'تعذر الانضمام إلى الصف الدراسي، يرجى إعادة المحاولة بعد قليل',
       'assessment-not-added-to':
-        'تعذر إضافة التقييم للدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر إضافة التقييم للدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'assessment-not-copied':
-        'تعذر نسخ التقييم الآن. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر نسخ التقييم الآن. يرجى إعادة المحاولة بعد قليل',
       'assessment-not-created':
-        'تعذر إنشاء التقييم الآن. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر إنشاء التقييم الآن. يرجى إعادة المحاولة بعد قليل',
       'assessment-not-updated':
-        'تعذر تحديث التقييم الآن. يرجى إعادة المحاولة بعد قليل.',
-      'category-title-presence': 'Please enter the category title.',
-      'class-min-score': 'يجب أن يكون الحد الأدنى للعلامة رقماً بين 1 و 100',
+        'تعذر تحديث التقييم الآن. يرجى إعادة المحاولة بعد قليل',
+      'category-title-presence': 'يرجى إدخال عنوان الفئة',
+      'class-min-score': 'يجب أن يكون الحد الأدنى للعلامة بين 1 و 100',
       'class-not-created':
-        'تعذر إنشاء الصف الدراسي الآن. يرجى إعادة المحاولة بعد قليل.',
-      'class-title-presence': 'يرجى تسمية صفك الدراسي.',
+        'تعذر إنشاء الصف الدراسي الآن. يرجى إعادة المحاولة بعد قليل',
+      'class-title-presence': 'يرجى تسمية صفك الدراسي',
       'collection-not-added-to':
-        'يتعذر إضافة المجموعة إلى الدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'يتعذر إضافة المجموعة إلى الدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'collection-not-copied':
-        'تعذر نسخ المجموعة في الوقت الحالي، يرجى إعادة المحاولة بعد قليل.',
+        'تعذر نسخ المجموعة في الوقت الحالي، يرجى إعادة المحاولة بعد قليل',
       'collection-not-created':
-        'تعذر إنشاء المجموعة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر إنشاء المجموعة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'collection-not-updated':
-        'تعذر تحديث المجموعة الآن. يرجى إعادة المحاولة بعد قليل.',
-      'collection-title-presence': 'يرجى إدخال عنوان المجموعة.',
-      'correct-answer-presence': 'يرجى تحديد الإجابة الصحيحة.',
+        'تعذر تحديث المجموعة الآن. يرجى إعادة المحاولة بعد قليل',
+      'collection-title-presence': 'يرجى إدخال عنوان المجموعة',
+      'correct-answer-presence': 'يرجى تحديد الإجابة الصحيحة',
       'course-not-copied':
-        'تعذر نسخ المساق الدراسي في الوقت الحالي، يرجى إعادة المحاولة بعد قليل.',
+        'تعذر نسخ المساق الدراسي في الوقت الحالي، يرجى إعادة المحاولة بعد قليل',
       'course-not-created':
-        'تعذر إنشاء المساق الدراسي في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر إنشاء المساق الدراسي في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'course-not-updated':
-        'تعذر تحديث المساق الدراسي في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
-      'highlight-text-not-selected': 'يرجى تحديد الإجابة الصحيحة.',
-      'highlight-text-wrong-format': 'صيغة السؤال غير صحيحة ',
-      'hotspot-text-max-choices': 'لقد وصلت إلى الحد الأقصى من خيارات الإجابة.',
-      'file-max-size': 'يتم دعم الملفات التي يقل حجمها عن 5 ميغابايت فقط.',
+        'تعذر تحديث المساق الدراسي في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
+      'highlight-text-not-selected': 'يرجى تحديد الإجابة الصحيحة',
+      'highlight-text-wrong-format': 'صيغة السؤال غير صحيحة',
+      'hotspot-text-max-choices': 'لقد وصلت إلى الحد الأقصى من خيارات الإجابة',
+      'file-max-size': 'يتم دعم الملفات التي يقل حجمها عن 5 ميغابايت فقط',
       'file-upload-missing':
         'يرجى اختيار ملف بأي من الامتدادت التالية: {{extensiones}}',
       'getting-next-resource':
-        'There was an error submitting your answer. Please try again.',
+        'حدث خطأ في تثبيت الإجابات، يرجى المحاولة مرة أخرى.',
       'lesson-not-copied':
-        'تعذر نسخ الدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر نسخ الدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'lesson-not-created':
-        'تعذر إنشاء الدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر إنشاء الدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'lesson-not-loaded':
-        'تعذر تحميل الدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
-      'lesson-title-required': 'يرجى إدخال عنوان الدرس.',
-      'password-confirm': 'يرجى التأكد من صحة كلمة المرور.',
-      'password-length': 'يجب أن تكون كلمة المرور بين 5 و 14 حرفاً.',
-      'password-not-match': 'كلمات المرور غير متطابقة.',
-      'password-required': 'يرجى إدخال كلمة المرور.',
-      'password-special-characters':
-        'Please don\\\u0027t use special characters.',
+        'تعذر تحميل الدرس في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
+      'lesson-title-required': 'يرجى إدخال عنوان الدرس',
+      'password-confirm': 'يرجى التأكد من صحة كلمة المرور',
+      'password-length': 'يجب أن تكون كلمة المرور بين 5 و 14 حرفاً',
+      'password-not-match': 'كلمات المرور غير متطابقة',
+      'password-required': 'يرجى إدخال كلمة المرور',
+      'password-special-characters': 'يرجى عدم استخدام رموز خاصة',
       'profile-not-updated':
-        'تعذر تحديث الملف الشخصي في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر تحديث الملف الشخصي في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'question-not-added-to':
-        'تعذر إضافة سؤال إلى {{collectionType}} في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر إضافة سؤال إلى {{collectionType}} في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'question-not-copied':
-        'تعذر نسخ السؤال في الوقت الحالي. يرجى  إعادة المحاولة بعد قليل.',
+        'تعذر نسخ السؤال في الوقت الحالي. يرجى  إعادة المحاولة بعد قليل',
       'question-not-created':
-        'تعذر إنشاء سؤال في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر إنشاء سؤال في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'question-not-updated':
-        'تعذر تحديث السؤال في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر تحديث السؤال في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'reset-password-error':
-        'Uh oh! Something\\’s not right. Unable to reset password. Please try again shortly.',
+        'هناك خطأ ما، لا يمكن إعادة تعيين كلمة المرور. يرجى المحاولة بعد قليل',
       'reset-google-account-exists':
-        'لقد تم إنشاء حسابك لدينا باستخدام حساب جوجل، ولا يمكننا إعادة تعيين كلمة المرور الخاصة به. إذا نسيت كلمة المرور الخاصة بحساب جوجل، يجب عليك إعادة تعيينها عن طريق تطبيقات جوجل.',
+        'لقد تم إنشاء حسابك باستخدام حساب جوجل، ولا يمكننا إعادة تعيين كلمة المرور الخاصة به. إذا نسيت كلمة المرور الخاصة بحساب جوجل، يجب عليك إعادة تعيينها عن طريق تطبيقات جوجل.',
       'resource-description-length':
         'الحد الأقصى لعدد الأحرف في الوصف هو 500 حرف.',
-      'resource-invalid-url': 'رابط غير صحيح.',
-      'resource-missing-title': 'يرجى إدخال عنوان المصدر.',
-      'resource-missing-type': 'يرجى تحديد نوع المصدر.',
-      'resource-missing-url': 'يرجى إدخال رابط صحيح.',
+      'resource-invalid-url': 'رابط غير صالح',
+      'resource-missing-title': 'يرجى إدخال عنوان المصدر',
+      'resource-missing-type': 'يرجى تحديد نوع المصدر',
+      'resource-missing-url': 'يرجى إدخال رابط صالح',
       'resource-not-added-to-collection':
-        'تعذر إضافة المصدر إلى المجموعة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر إضافة المصدر إلى المجموعة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'resource-not-copied':
-        'تعذر نسخ المصدر في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر نسخ المصدر في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'resource-not-created':
-        ' تعذر إنشاء المصدر في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل.',
+        ' تعذر إنشاء المصدر في الوقت الحالي. الرجاء إعادة المحاولة بعد قليل',
       'resource-not-updated':
-        'تعذر تحديث المصدر في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر تحديث المصدر في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'resource-same-host-url':
-        'لا يمكن أن تكون المصادر عبارة عن روابط خاصة بجورو.',
-      'resource-title-length':
-        'الحد الأقصى لعدد الأحرف في العنوان هو 50 حرفاً.',
-      'rubric-title-presence': 'يرجى إدخال عنوان سلم التقييم.',
-      'rubric-url-presence': 'Please enter the rubric URL.',
-      'select-correct-answer': 'يرجى اختيار الإجابة الصحيحة.',
-      'search-collections-length': 'يرجى إدخال 3 أحرف على الأقل.',
+        'لا يمكن أن تكون المصادر عبارة عن روابط خاصة بجورو',
+      'resource-title-length': 'الحد الأقصى لعدد الأحرف في العنوان هو 50 حرفاً',
+      'rubric-title-presence': 'يرجى إدخال عنوان سلم التقييم',
+      'rubric-url-presence': 'يرجى إدخال رابط سلم التقييم',
+      'select-correct-answer': 'يرجى اختيار الإجابة الصحيحة',
+      'search-collections-length': 'يرجى إدخال 3 أحرف على الأقل',
       'sign-in-credentials-not-valid':
-        'Uh oh! Something\\\u0027s not right. Please double check your username and password and try again.',
+        'هناك خطأ ما، يرجة التأكد من اسم المستخدم وكلمة المرور والمحاولة مرة أخرى',
       'sign-in-google-account-exists':
-        'Please use Google signin. We can\\\u0027t reset your password.',
-      'sign-up-error': 'تعذر إنشاء الحساب الآن. يرجى إعادة المحاولة بعد قليل.',
-      'sign-up-first-name': 'يرجى إدخال الاسم الاول.',
-      'sign-up-last-name': 'يرجى إدخال اسم العائلة.',
-      'sign-up-name-length': 'يجب أن يحتوي اسم العائلة على حرفين على الأقل.',
-      'sign-up-name-only-letters': 'يرجى استخدام الأحرف فقط.',
-      'sign-up-valid-email': 'يرجى إدخال  بريد الكتروني صحيح.',
-      'special-characters': 'يرجى عدم  استخدام الرموز أو المسافات.',
+        'يرجى تسجيل الدخول باستخدام جوجل، لا يمكننا إعادة تعيين كلمة المرور',
+      'sign-up-error': 'تعذر إنشاء الحساب الآن. يرجى إعادة المحاولة بعد قليل',
+      'sign-up-first-name': 'يرجى إدخال الاسم الاول',
+      'sign-up-last-name': 'يرجى إدخال اسم العائلة',
+      'sign-up-name-length': 'يجب أن يحتوي اسم العائلة على حرفين على الأقل',
+      'sign-up-name-only-letters': 'يرجى استخدام الأحرف فقط',
+      'sign-up-valid-email': 'يرجى إدخال  بريد الكتروني صحيح',
+      'special-characters': 'يرجى عدم  استخدام الرموز أو المسافات',
       'unit-not-copied':
-        'تعذر نسخ الوحدة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر نسخ الوحدة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'unit-not-created':
-        'تعذر إنشاء الوحدة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
+        'تعذر إنشاء الوحدة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
       'unit-not-loaded':
-        'تعذر تحميل الوحدة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
-      'unit-title-required': 'يرجى إدخال عنوان الوحدة.',
-      'user-email-presence': 'يرجى إدخال بريد إلكتروني صحيح.',
-      'username-length': 'Username must be between 4 and 254 characters.',
+        'تعذر تحميل الوحدة في الوقت الحالي. يرجى إعادة المحاولة بعد قليل',
+      'unit-title-required': 'يرجى إدخال عنوان الوحدة',
+      'user-email-presence': 'يرجى إدخال بريد إلكتروني صالح',
+      'username-length': 'يجب أن يتكون اسم المستخدم من 4 إلى 254 حرفاً. ',
       'forgot-password-gmail':
-        'Please use Google signin. We can\\\u0027t reset your password.'
+        'يرجى تسجيل الدخول باستخدام جوجل، لا يمكننا إعادة تعيين كلمة المرور'
     },
     'essential-questions': 'الأسئلة الأساسية',
-    example: 'example: ',
+    example: 'مثال:',
     exit: 'خروج',
     explanation: 'شرح',
-    explore: 'إستكشاف',
+    explore: 'ابحث',
     false: 'خطأ',
     'featured-courses': 'المساقات الدراسية المميزة',
     'file-name': 'اسم الملف',
     finish: 'إنهاء',
     'first-name': 'الاسم الأول',
-    follow: 'اتبع',
-    followers: 'متابعون',
-    following: 'متابعة',
+    follow: 'متابعة',
+    followers: 'متابِعون',
+    following: 'متابَعون',
     forgotPassword: 'هل نسيت كلمة المرور؟',
     from: 'من',
     'from-my-assessments': 'من تقييماتي',
-    'from-my-collections': 'من \u0027مجموعاتي\u0027',
+    'from-my-collections': 'من مجموعاتي',
     'from-my-questions': 'من أسئلتي',
     'from-my-resources': 'من مصادري',
     'hide-results': 'إخفاء النتائج',
@@ -370,9 +367,9 @@ export default Object.assign(quizzesTranslations, {
     'launch-on-air': 'التقييم المباشر',
     'learning-objectives': 'أهداف التعلم',
     'learning-target': 'معيار جزئي',
-    'learning-target-mobile': 'المعيار الجزئي ضمن المعيارالأساسي.',
+    'learning-target-mobile': 'المعيار الجزئي ضمن المعيارالأساسي',
     lesson: 'درس',
-    lessonInitial: 'ل',
+    lessonInitial: 'د',
     'lesson-title': 'عنوان الدرس',
     lessonObj: {
       zero: 'الدروس',
@@ -402,43 +399,37 @@ export default Object.assign(quizzesTranslations, {
     'new-collection': 'مجموعة جديدة',
     'new-question': 'سؤال جديد',
     'new-question-text': 'أدخل نص السؤال هنا',
-    'new-fib-question-text': 'Enter question with [answer]',
+    'new-fib-question-text': 'أدخل السؤال مع [الإجابة]',
     'new-resource': 'مصدر جديد',
     next: 'التالى',
     no: 'لا',
-    'no-archived': 'لا يوجد لديك أي صفوف دراسية مؤرشفة.',
-    'no-content': 'لا يوجد محتوى.',
+    'no-archived': 'لا يوجد لديك أي صفوف دراسية مؤرشفة',
+    'no-content': 'لا يوجد محتوى',
     'no-content-my-report':
-      'No reports available yet. Once you begin studying, your reports will become available.',
-    'no-assessments-to-display':
-      'No \u003cspan\u003eassessments\u003c/span\u003e to display.',
-    'no-collections-to-display':
-      'No \u003cspan\u003ecollections\u003c/span\u003e to display.',
-    'no-courses-to-display':
-      'No \u003cspan\u003ecourses\u003c/span\u003e to display.',
-    'no-questions-to-display':
-      'No \u003cspan\u003equestions\u003c/span\u003e to display.',
-    'no-resources-to-display':
-      'No \u003cspan\u003eresources\u003c/span\u003e to display.',
-    'no-rubrics-to-display':
-      'No \u003cspan\u003erubrics\u003c/span\u003e to display.',
-    'no-followers': 'You don\\\u0027t have followers yet.',
+      'لا يوجد تقارير، سيكون لديك تقارير عند البدء بالتعلم.',
+    'no-assessments-to-display': 'لا يوجد تقييمات',
+    'no-collections-to-display': 'لا يوجد مجموعات',
+    'no-courses-to-display': 'لا يوجد مساقات دراسية',
+    'no-questions-to-display': 'لا يوجد أسئلة',
+    'no-resources-to-display': 'لا يوجد مصادر',
+    'no-rubrics-to-display': 'لا يوجد سلالم تقييم',
+    'no-followers': 'لا يوجد متابِعون بعد',
     'no-independent-results':
-      'عندما تبدأ البحث عن  {{contentType}} يحتوي على مؤشر، سيظهر هنا.',
+      'عندما تبدأ البحث عن  {{contentType}} يحتوي على إشارة مرجعية، سيظهر هنا.',
     'no-results': 'لم يتمّ العثور على نتائج.',
-    'no-available-results': 'Not available results',
+    'no-available-results': 'لا يوجد نتائج',
     'no-results-message':
-      'Check your spelling. We all make mistakes!\u003cbr/\u003eGo broader and remove some filters.\u003cbr/\u003e Or try searching for a similar word instead.',
-    'no-more-attempts': 'لا مزيد من المحاولات.',
+      'يرجى تفقد الإملاء، هناك خطأ ما.\nابحث في نطاق أوسع واحذف بعض مرشحات البحث.\nأو ابحث عن كلمة مشابهة.',
+    'no-more-attempts': 'لا مزيد من المحاولات',
     'no-dca-student':
-      'Your teacher has not yet assigned any collections or assessments to Daily Class Activities.',
+      'لم يقم معلمك بتعيين أي مجموعات أو تقييمات إلى نشاطات الصف اليومية.',
     'no-dca-teacher':
-      'No current activities. Add Daily Class Activities from the Course Map or My Content.',
-    notScored: 'Unscored',
+      'لا يوجد نشاطات حالية. ضِف نشاطات الصف اليومية من "خريطة المساق الدراسي" أو من "المحتوى الخاص بي"',
+    notScored: 'غير مسَجَّل',
     notStarted: 'لم تبدأ.',
-    'not-added': 'غير مضاف',
+    'not-added': 'غير مُضاف',
     'not-applicable': 'غ/م',
-    'not-following': 'You\\\u0027re not following anyone.',
+    'not-following': 'أنت غير متابع لأي شخص.',
     'not-provided': 'غير مزوَّد',
     'not-specified': 'غير محدد',
     not_started: 'لم تبدأ.',
@@ -454,9 +445,9 @@ export default Object.assign(quizzesTranslations, {
     on: 'تشغيل',
     other: 'أخرى',
     'overall-performance': 'الآداء العام',
-    password: 'كلمة السر',
+    password: 'كلمة المرور',
     pending: 'قيد الانتظار',
-    performance: 'عرض الآداء',
+    performance: 'عرض الأداء',
     'performance-dashboard': 'لوحة التحكم بالأداء',
     play: 'تشغيل',
     please_contact: 'يرجى التواصل',
@@ -470,7 +461,7 @@ export default Object.assign(quizzesTranslations, {
     publisher: 'الناشر',
     question: 'سؤال',
     questions: 'أسئلة',
-    'questions-OE': 'الأسئلة الكتابية الحرة',
+    'questions-OE': 'أسئلة "الجواب الكتابي"',
     'question-pl': {
       zero: 'أسئلة',
       one: 'سؤال',
@@ -492,40 +483,40 @@ export default Object.assign(quizzesTranslations, {
       HT_HL: 'تظليل النص'
     },
     reaction: 'تفاعل',
-    'read-first': '\u003cb\u003eRead this first!\u003c/b\u003e',
+    'read-first': 'اقرأ هذا أولاً',
     remaining: 'بقي {{number}}',
     remix: 'إعادة مزج',
     'remix-assessment': 'إعادة مزج التقييم',
     'remix-assessment-lead': 'أنت على وشك إعادة مزج التقييم.',
     'remix-assessment-success':
-      'You\\\u0027ve remixed an assessment {{assessmentTitle}}. Do you want to edit that assessment?',
+      'تمت إعادة مزج التقييم {{assessmentTitle}}. هل تريد تعديل هذا التقييم؟',
     'remix-collection': 'إعادة مزج المجموعة.',
     'remix-collection-lead': 'أنت على وشك إعادة مزج المجموعة.',
     'remix-collection-success':
-      'You\\\u0027ve remixed a collection {{collectionTitle}}. Do you want to edit that collection?',
+      'لقد قمت بإعادة مزج مجموعة {{collectionTitle}}. هل تريد تعديل هذه المجموعة؟',
     'remix-course': 'إعادة مزج المساق الدراسي.',
     'remix-course-lead': 'أنت على وشك إعادة مزج المساق الدراسي.',
     'remix-course-success':
-      'You\\\u0027ve remixed a course {{courseTitle}}. Do you want to edit that course?',
+      'لقد قمت بإعادة مزج المساق الدراسي {{courseTitle}}. هل تريد تعديل هذا المساق؟',
     'remix-lesson': 'إعادة مزج الدرس',
     'remix-lesson-lead': 'أنت على وشك إعادة مزج هذا الدرس.',
-    'remix-lesson-success': 'You\\\u0027ve remixed a lesson {{lessonTitle}}.',
+    'remix-lesson-success': 'لقد قمت بإعادة مزج درس {{lessonTitle}}.',
     'remix-question': 'إعادة مزج السؤال',
     'remix-question-lead': 'أنت على وشك إعادة مزج السؤال.',
     'remix-question-success':
-      'You\\\u0027ve remixed a question {{questionTitle}}. Do you want to edit that question?',
+      'لقد قمت بإعادة مزج سؤال {{questionTitle}}. هل تريد تعديل هذا السؤال؟',
     'remix-resource': 'إعادة مزج المصدر',
     'remix-resource-lead': 'أنت على وشك إعادة مزج المصدر.',
     'remix-resource-success':
-      'You\\\u0027ve remixed a resource {{resourceTitle}}. Do you want to edit that resource?',
+      'لقد قمت بإعادة مزج مصدر {{resourceTitle}}. هل تريد تعديل هذا المصدر؟',
     'remix-unit': 'إعادة مزج الوحدة',
     'remix-unit-lead': 'أنت على وشك إعادة مزج الوحدة.',
-    'remix-unit-success': 'You\\\u0027ve remixed a unit {{unitTitle}}.',
+    'remix-unit-success': 'لقد قمت بإعادة مزج وحدة {{unitTitle}}.',
     'remixed-by': 'أُعيد مزجه من قبل',
     'remix-warning':
-      'Heads up! There\\’s a lot of awesome content in this course and making a copy will take time. Confirm you want to start the process and in 15 minutes you will find your copy of this course on your \u003cb\u003eProfile.\u003c/b\u003e',
+      'هناك الكثير من المحتوى الرائع في هذا المساق، ونسخه سيستغرق وقتاً، يرجى تأكيد بدء عملية النسخ وفي غضون 15 دقيقة ستكون نسختك على ملفك الشخصي. ',
     remove: 'حذف',
-    report: 'أبلغ عن',
+    report: 'تقرير',
     'report-in-progress': 'جاري إعداد التقرير.',
     'request-to': 'الطلب قيد المراجعة للحصول على شارة.',
     'request-report': 'طلب تقرير',
@@ -535,7 +526,7 @@ export default Object.assign(quizzesTranslations, {
       image: 'صورة',
       text: 'نص',
       video: 'فيديو',
-      interactive: 'تفاعلي\n',
+      interactive: 'تفاعلي',
       webpage: 'صفحة ويب',
       audio: 'تسجيل صوتي',
       question: 'سؤال'
@@ -549,13 +540,13 @@ export default Object.assign(quizzesTranslations, {
     'resource-url': 'رابط المصدر',
     role: 'دور',
     rubric: 'سلم تقييم',
-    'rubric-creation': 'Rubric Creation',
+    'rubric-creation': 'إنشاء سلم التقييم',
     rubrics: 'سلم تقييم',
     'rubric-title': 'عنوان سلم التقييم',
     save: 'حفظ',
     'save-next': 'حفظ والتالي',
-    'save-submit': 'حفظ وإرسال الكل',
-    'save-finish': 'الحفظ والانتهاء',
+    'save-submit': 'حفظ وتثبيت',
+    'save-finish': 'حفظ وانتهاء',
     school: 'مدرسة',
     'school-info': 'معلومات المدرسة',
     score: 'العلامة',
@@ -566,7 +557,7 @@ export default Object.assign(quizzesTranslations, {
     settings: 'إعدادات',
     search: 'بحث',
     'search-placeholder': 'بحث',
-    'search-placeholder-text': 'Search...',
+    'search-placeholder-text': 'بحث...',
     'search-error-message': 'يجب أن تتكون مصطلحات البحث من 3 أحرف على الأقل.',
     'search-400-error-message': 'يرجى  إدخال مصطلح صحيح للبحث',
     'search-competency': 'كفاءة البحث',
@@ -580,30 +571,30 @@ export default Object.assign(quizzesTranslations, {
     'show-results': 'أظهر النتائج',
     signUp: 'إنشاء حساب',
     sortAlphabetical: 'فرز حسب الترتيب أبجدي',
-    sortAverage: 'فرز حسب المتوسط',
+    sortAverage: 'فرز حسب المعدل',
     'sort-most-recently': 'فرز حسب آخر تحديث',
     state: 'الدولة أو المقاطعة',
-    'state-territory': 'State/Territory',
+    'state-territory': 'الدولة/المقاطعة',
     standard: 'معيار',
     standards: 'المعايير',
     study: 'ادرس',
     'study-now': 'ادرس الآن',
     student: 'طالب',
-    'student-id': 'هوية الطالب (لن يتم عرضها على الملف الشخصي)',
+    'student-id': 'هوية الطالب (غير ظاهرة على الملف الشخصي)',
     'studen-id-display':
-      'Student ID (not displayed on Profile, displayed in Anonymous mode)',
+      'هوية الطالب (غير ظاهرة على الملف الشخصي ولكن ظاهرة عند التقييم المجهول)',
     'subject-and-framework': 'الموضوع وإطار العمل',
-    submit: 'إرسال',
-    'submit-all': 'إرسال الكل',
+    submit: 'تثبيت',
+    'submit-all': 'تثبيت',
     submitAll: 'إرسال الكل',
-    'submit-finish': 'Submit and Finish',
+    'submit-finish': 'تثبيت وإنهاء',
     swap: 'إعادة ترتيب',
     suggestion: 'اقتراح',
     suggestions: 'اقتراحات',
     'suggested-resources': 'المصادر المقترحة',
-    support: 'الدعم',
+    support: 'المساعدة',
     'start-tour': 'قم بجولة',
-    'take-me-there': 'خذني هناك',
+    'take-me-there': 'انقلني إلى هناك',
     teach: 'درِّس',
     teacher: 'مدرس',
     timeSpent: 'الوقت المستغرق',
@@ -611,46 +602,44 @@ export default Object.assign(quizzesTranslations, {
     tools: 'أدوات',
     true: 'صحيح',
     type: 'اكتب',
-    unBookmark: 'إلغاء المؤشر ',
-    unexpectedError:
-      'An unexpected error has occurred and has been reported. We\\\u0027re sorry for the inconvenience!',
-    unfollow: 'الغاء المتابعة',
+    unBookmark: 'إشارة مرجعية',
+    unexpectedError: 'حدث خطأ غير متوقع وتم الإبلاغ عنه، نعتذر عن ذلك!',
+    unfollow: 'إلغاء المتابعة',
     unit: 'وحدة',
     'unit-title': 'عنوان الوحدة',
-    unitInitial: 'U',
+    unitInitial: 'و',
     unitObj: {
       zero: 'وحدات',
       one: 'وحدة',
       other: 'وحدات'
     },
-    'untitled-course': 'المساق الأول',
+    'untitled-course': 'المساق الدراسي  الأول',
     'untitled-lesson': 'درس بلا عنوان',
     'untitled-unit': 'وحدة بلا عنوان',
     'update-thumbnail': 'تحديث الصورة المصغرة',
-    'update-photo': 'Update Photo',
+    'update-photo': 'تحديث الصورة',
     upload: 'تحميل',
-    'upload-file': 'تحميل ملف',
+    'upload-file': 'تحميل الملف',
     'upload-thumbnail': 'تحميل الصورة المصغرة',
-    'upload-photo': 'Upload Photo',
-    'remove-photo': 'Remove Photo',
+    'upload-photo': 'تحميل الصورة',
+    'remove-photo': 'حذف الصورة',
     'use-case': 'حالة الاستخدام',
     'valid-extensions': 'امتدادات الملفات الصالحة هي: {{extensions}}',
     verified: 'تم التحقق منه',
     'visibility-tooltip': 'غير مرئي للآخرين',
-    'visibility-available': 'Visible to others',
+    'visibility-available': 'مرئي للآخرين',
     warnings: {
       'on-air-connection-lost':
-        'The Go Live dashboard has lost connection and is retrying automatically. It\\\u0027s tempting, but please don\\\u0027t refresh your screen!',
-      'character-limit': 'You\\\u0027ve reached the character limit.'
+        'فقدت لوحة تحكم "التقييم المباشر" الاتصال، وتتم إعادة المحاولة تلقائيا. يرجى عدم تحديث الشاشة.',
+      'character-limit': 'لقد وصلت إلى الحد الأقصى من عدد الأحرف المسموح به'
     },
     word: 'كلمة',
     yes: 'نعم'
   },
   index: {
-    joinUs:
-      'Join Us to \u003cbr/\u003e Honor the Human Right to \u003cbr/\u003e Education',
+    joinUs: 'انضم الينا في "احترام حق الإنسان في التعيلم"',
     browseContent: {
-      title: 'مرحباً! عن ماذا تبحث؟',
+      title: 'مرحباً بك! عن ماذا تبحث؟',
       description_1: 'أنا أبحث عن',
       description_2: 'مواد التعليم في',
       description_3: 'أو',
@@ -686,21 +675,20 @@ export default Object.assign(quizzesTranslations, {
       find: 'جد',
       remix: 'إعادة مزج',
       share: 'مشاركة',
-      monitor: 'مراقب'
+      monitor: 'راقِب'
     },
     findDescription:
       'تصفح الآلاف من المجموعات من الروضة وحتى الصف 12 التي أعدّها المعلمون  أو ابحث فيما يزيد عن 16 مليون مصدر. ',
-    remixDescription:
-      'Remix collections and customize content to meet your students\\\u0027 needs.',
+    remixDescription: 'أعد مزج المجموعات ونسق المحتوى لتلبية احتياجات طلابك.',
     shareDescription:
       'شارك المجموعات مع طلابك من خلال صفوف جورو. تسجيل الدخول غير مطلوب.',
     monitorDescription:
-      'Measure your students\\\u0027 engagement and progress to intervene in real-time.',
+      'قم بقياس مدى تقدم وتفاعل الطلاب، للتدخل المباشر إذا تطلب الأمر ذلك.',
     freeAndOpen: {
-      title: 'Free and Open.\u003cbr/\u003eAlways.',
+      title: 'مجاني ومتوفر دائماً',
       description:
         'نؤمن بان التعليم حق من حقوق الإنسان. سيقدم موقع جورو للمعلمين والطلاب في جميع انحاء العالم خدمات تعليم مجانية دائمة وبدون إعلانات. ',
-      button: 'تعرف على المزيد عن نهجنا'
+      button: 'تعلم المزيد عن نهجنا'
     }
   },
   class: {
@@ -712,14 +700,14 @@ export default Object.assign(quizzesTranslations, {
       grade: 'مرحلة دراسية',
       description: 'وصف',
       'edit-info': 'تعديل المعلومات',
-      'share-class': 'مشاركة الصف الدراسي',
+      'share-class': 'شارك الصف الدراسي',
       'invite-co-teachers': 'قم بدعوة المعلمين المشاركين',
-      'add-students': 'إضافة الطلاب',
+      'add-students': 'ضِف الطلاب',
       'class-code': 'رمز الصف الدراسي',
       delete: 'حذف الصف الدراسي'
     },
     edit: {
-      'assigned-course': 'المساق الدراسي المعيّن',
+      'assigned-course': 'المساق الدراسي المُعيّن',
       'basic-info': 'معلومات أساسية',
       'class-name': 'اسم الصف الدراسي',
       'class-greetings': 'إعلانات الصف الدراسي',
@@ -733,14 +721,14 @@ export default Object.assign(quizzesTranslations, {
       title: 'خريطة المساق الدراسي',
       locate: 'حدد موقعي',
       'edit-content': 'تعديل المحتوى',
-      'add-to-daily-class-activities': 'إضافة إلى أنشطة الصف اليومية'
+      'add-to-daily-class-activities': 'ضِف إلى أنشطة الصف اليومية'
     },
     analytics: {
       performance: {
         title: 'عرض الأداء',
         'better-experience-message':
           'للحصول على تجربة أفضل مع جورو، قم بعرض التحليل الخاص بالصف الدراسي على الحاسوب المكتبي أو الحاسوب اللوحي.',
-        'no-content': 'لم يبدأ طلابك بدراسة المساق بعد.',
+        'no-content': 'لم يبدأ طلابك بدراسة أي مساق بعد.',
         actions: {
           share: 'مشاركة',
           edit: 'تعديل المحتوى',
@@ -757,7 +745,7 @@ export default Object.assign(quizzesTranslations, {
             'class-average': 'معدل الصف'
           }
         },
-        'grade-items': 'Items to Grade',
+        'grade-items': 'بنود الصف',
         'gru-grade-items': {
           students: {
             zero: '{{count}} الطلاب',
@@ -773,13 +761,13 @@ export default Object.assign(quizzesTranslations, {
     },
     'quick-start': {
       title: 'تعيين محتوى لهذا الصف الدراسي.',
-      'new-course': 'بداية سريعة لمساق دراسي جديد',
+      'new-course': 'ابدأ مساق درسي جديد سريعاً',
       'new-course-desc': 'ابدأ بإنشاء مساق دراسي جديد، أو مجموعة أو تقييم',
       course: 'مساق دراسي جديد',
       'new-collection': 'مجموعة جديدة',
       'new-assessment': 'تقييم جديد',
       'remix-a-sample': 'امزج عينة',
-      'add-existing-course': 'إضافة مساق دراسي من مكتبتك',
+      'add-existing-course': 'ضِف مساق دراسي من مكتبتك',
       'existing-course-desc': 'الطريقة الأسرع لبدء الصف الدراسي',
       'choose-course': 'اختر المساق الدراسي',
       'remix-from-course': 'امزج مساقاً دراسياً مميزاً',
@@ -788,7 +776,7 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   classes: {
-    classesJoined: 'Classrooms I\\\u0027ve Joined',
+    classesJoined: 'الصفوف الدراسية التي انضممت إليها',
     classesTaught: 'الصفوف التي أدرّسها',
     noClassesJoined: 'لم تنضم إلى أي صف دراسي',
     noClassesTaught: 'لم تنشئ أي صف دراسي'
@@ -797,13 +785,13 @@ export default Object.assign(quizzesTranslations, {
     assessments: {
       edit: {
         'best-practices':
-          '\u003cp\u003eAn assessment is a set of scored questions which you and your students can use to monitor understanding and performance.\u003c/p\u003e\u003cp\u003eUse a variety of question types (including several based on the SBAC) in your assessment so students can demonstrate understanding in different ways. We recommend tagging each question to standards, micro-standards, and Webb\\\u0027s Depth of Knowledge.\u003c/p\u003e'
+          'التقييم هو مجموعة من الأسئلة، كل سؤال بعلامة معينة، من خلال الإجابة عليها تستطيع أنت وطلابك تحديد مدى استيعابهم للدرس وتقييم الآداء. \n\nاستخدم أنواع مختلفة من الأسئلة في تقييمك بما في ذلك أسئلة متعددة تابعة لائتلاف تقييم متوازن أذكي(SBAC)، حتى يعبّر الطلاب عن استعيعابهم بطرق  مختلفة. و ننصح بربط الأسئلة بالمعايير والمعايير الجزئية الخاصة بها، ومفهوم عمق المعرفة لنورمان ويب.'
       }
     },
     classes: {
       create: {
         title: 'أنشئ صف دراسي',
-        content: 'تفاعل الطلاب مع المحتوى',
+        content: 'حيث يستطيع الطلاب التفاعل مع المحتوى',
         'class-name-input': 'قم بتسمية صفك الدراسي',
         'condition-prompt': 'كيف سينضم الطلاب إلى صفك الدراسي؟',
         'condition-prompt-code': 'أي شخص لديه رمز الصف الدراسي',
@@ -811,12 +799,12 @@ export default Object.assign(quizzesTranslations, {
         'get-started': 'ابدأ'
       },
       join: {
-        title: 'Join a new Classroom',
+        title: 'انضم إلى صف دراسي جديد',
         content: 'حيث تبدأ الرحلة.',
         'not-now': 'ليس الان',
         'class-code-input': 'أدخل رمز الصف الدراسي',
         'class-not-found':
-          'Classroom not found. Make sure you\\\u0027ve entered the correct classroom code',
+          'لم يتم العثور على الصف الدراسي. تأكد من إدخال رمز الصف الدراسي الصحيح.',
         'invalid-code': 'رمز الصف الدراسي غير صالح.',
         'already-member': 'أنت عضو في هذا الصف  الدراسي بالفعل.',
         'join-class': 'انضم للصف الدراسي',
@@ -826,16 +814,16 @@ export default Object.assign(quizzesTranslations, {
     },
     collections: {
       edit: {
-        'assign-to-course': 'تعيين إلى المساق',
+        'assign-to-course': 'تعيين إلى المساق الدراسي',
         'best-practices':
-          '\u003cp\u003eStudents interact with your content at the collection level. When creating a learning collection, make sure to include learning objectives, and consider using a variety of resource types to expose students to the concepts in multiple ways.\u003c/p\u003e\u003cp\u003eUse the sequencing of the resources to build on concepts. Progression through a collection should flow in a logical manner and take the intended audience from a general to more complex level of understanding if appropriate, or allow adequately for student exploration.\u003c/p\u003e\u003cp\u003eInclude checks for understanding along the way via our Gooru questions or other interactives. We recommend enough resources and/or enough variety of resources to accomplish the objectives in the collection and ensuring that each resource has a role and purpose.\u003c/p\u003e'
+          'يستطيع الطلاب التفاعل مع المحتوى في مرحلة "المجموعة" ، فعند إنشاء مجموعة تعليمية تأكد من احتوائها على أهداف التعلم، مع الأخذ بعين الاعتبار استخدام أنواع متعددة من المصادر لعرض المفاهيم للطلاب وبطرق متعددة.\nاستخدم المصادر بشكل متسلسل لبناء المفاهيم، التقدم في مرحلة " المجموعة" يجب أن يتمّ بشكل منطقي، ويجب أن ينقل الطلاب المستهدفين من مرحلة عامة إلى مرحلة أكثر تعقيداً من الاستيعاب إذا كان ذلك مناسباً، أو أن يسمح باكتشاف مستوى الطلاب بشكل كافٍ.\n\nيمكنك أيضا للتحقق من مدى استيعاب الطلاب من خلال أسئلة جورو أو الوسائل التفاعلية الأخرى. نوصي بما يكفي من المصادر و/ أو تنوّع كاف من المصادر لتحقيق أهداف المجموعة والتأكد من أن كل مصدر له دور وهدف معين.'
       }
     },
     courses: {
       edit: {
         'assign-to-class': 'تعيين إلى الصف',
         'best-practices':
-          '\u003cp\u003eA course is a folder that allows you to organize your learning content into units and lessons. When creating a course consider the essential questions you are addressing, the learning objectives, and organization of your content.\u003c/p\u003e\u003cp\u003eYou can piece the lessons together to create a diverse experience for your student population (for example, you could sequence your units chronologically, by topic, or by standard).\u003c/p\u003e',
+          'المساق الدراسي هو ملف يسمح لك بتنظيم المحتوى التعليمي الخاص بك على شكل وحدات ودروس. عند إنشاء مساق دراسي يجب أن تأخذ بعين الاعتبار الأسئلة الأساسية وأهداف التعلم وتنظيم المحتوى الخاص بك.\n\nتستطيع  تجميع الدروس معاً لإنشاء تجربة مختلفة لطلابك (مثال: يمكنك ترتيب الوحدات حسب التسلسل الزمني أو الموضوع أو المعيار)',
         information: {
           'course-title': 'عنوان المساق الدراسي',
           description: 'وصف'
@@ -846,26 +834,26 @@ export default Object.assign(quizzesTranslations, {
       edit: {
         'add-to': 'إضافة إلى',
         'best-practices':
-          '\u003cp\u003eA question is a resource that requires an answer from the student, and we offer a variety of question types to support the kinds of questions your students will see on SBAC, PARCC and other assessments.\u003c/p\u003e\u003cp\u003eConsider alternating the kinds of questions you use to offer students exposure to these question types and to provide multiple formats for demonstrating knowledge.\u003c/p\u003e\u003cp\u003eTag your questions to standards, micro-standards, and Webb\\\u0027s Depth of Knowledge. You can see how your students are interacting with questions through the teacher dashboard.\u003c/p\u003e',
+          'السؤال هو مصدر يتطلب الإجابة عليه من قبل الطالب، ونحن نقدم أنواعاُ مختلفة من الأسئلة لدعم طبيعة تلك التي سيراها طلابك على ائتلاف تقييم متوازن أذكي (SBAC) و الشراكة من أجل تقييم الجاهزية للكلية والوظائف(PARCC)  والتقييمات الأخرى. \n\nيجب أن تأخذ بعين الاعتبار تنويع طريقة اختيارك لطبيعة الأسئلة من حين لآخر، حتى تُعرّض الطلاب لأنواع مختلفة من االأسئلة، إضافة إلى تزويدهم بصيغ متعددة لكي يتمكنوا من اظهار استيعابهم بطرق مختلفة.\n\nاربط الأسئلة بالمعايير والمعايير الجزئية الخاصة بها، وبمفهوم عمق المعرفة لنورمان ويب، حتى تتمكن من رؤية مدى تفاعل طلابك مع الأسئلة من خلال لوحة التحكم الخاصة بك.',
         information: {
           'question-title': 'عنوان السؤال',
           'question-type': 'نوع السؤال'
         },
         builder: {
-          'add-answer-choice': '+ إضافة خيار سؤال',
-          'add-hint': 'إضافة تلميحات',
-          'add-explanation': 'إضافة شرح',
+          'add-answer-choice': '+ ضِف خيار سؤال',
+          'add-hint': 'ضِف تلميحات',
+          'add-explanation': 'ضِف شرح',
           answer: 'إجابة',
           'answer-instructions': {
-            FIB: 'أضف ما يصل إلى 5 ملحوظات وشرح للإجابة.',
+            FIB: 'ضِف ما يصل إلى 5 ملحوظات وشرح للإجابة.',
             HS_IMG:
               'يمكنك إضافة ما يصل إلى 10 إجابات على شكل صورة واختيار إجابة صحيحة واحدة أو أكثر.',
             HS_TXT:
               'يمكنك إضافة ما يصل إلى 10 إجابات على شكل خيارات واختيار إجابة صحيحة واحدة أو أكثر.',
             HT_HL_ST:
-              'عند كتابة السؤال، استخدم الأقواس للإشارة إلى الجمل المهمة. بحيث يحتوي زوج الأقواس الواحد على جملة واحدة فقط تنتهي بنقطة. مثال: بنى الخنزير الأول الصغير منزله من القش. (هاجم الذئب السيء الكبير المنزل من الأسفل.) بنى الخنزير الثاني بيته من الخشب. الحد الأقصى للأحرف: 5000',
+              'عند كتابة السؤال، استخدم الأقواس للإشارة إلى الجمل المظللة. بحيث يحتوي زوج الأقواس الواحد على جملة واحدة فقط تنتهي بنقطة. مثال: بنى الخنزير الأول الصغير منزله من القش. (هاجم الذئب السيء الكبير المنزل من الأسفل.) بنى الخنزير الثاني بيته من الخشب. الحد الأقصى للأحرف: 5000',
             HT_HL_WD:
-              'عند كتابة السؤال، استخدم الأقواس للإشارة إلى الكلمات المهمة. بحيث يحتوي زوج الأقواس الواحد على كلمة واحدة فقط. مثال: هاجم الذئب الشرير (الكبير) المنزل من (الأسفل). الحد الأقصى للأحرف: 5000',
+              'عند كتابة السؤال، استخدم الأقواس للإشارة إلى الكلمات المظللة. بحيث يحتوي زوج الأقواس الواحد على كلمة واحدة فقط. مثال: هاجم الذئب الشرير (الكبير) المنزل من (الأسفل). الحد الأقصى للأحرف: 5000',
             HT_RO:
               'يمكنك إضافة ما يصل إلى 10 إجابات بالترتيب الصحيح. حيث أن الترتيب سيكون عشوائيا لدى الطلاب.',
             MA:
@@ -888,165 +876,152 @@ export default Object.assign(quizzesTranslations, {
             'T/F': 'اكتب سؤالك.'
           },
           'submission-format': {
-            title: 'Student Submission Format',
+            title: 'نموذج تقديم الطالب',
             'answer-type': {
-              'text-box': 'Text Box'
+              'text-box': 'مربع النص'
             }
           },
           'feedback-grading': {
-            title: 'Feedback and Grading',
-            'from-existing-rubric': 'From Existing Rubric',
-            scoring: 'مجموع العلامات',
-            'maximum-points': 'Maximum Points',
-            increment: 'Increment',
-            'rubric-error': 'Please add a Rubric'
+            title: 'التغذية الراجعة و العلامة',
+            'from-existing-rubric': 'من سلم التقييم الحالي',
+            scoring: 'العلامة',
+            'maximum-points': 'الحد الأعلى لعدد النقاط',
+            increment: 'الحد الأدنى لعدد النقاط',
+            'rubric-error': 'يرجا إضافة سلم تقييم'
           }
         }
       }
     },
     modals: {
       'delete-bookmark': {
-        confirmation: 'هل تريد حذف المؤشر عن الـ {{type}}؟',
+        confirmation: 'هل تريد حذف االإشارة المرجعية عن الـ {{type}}؟',
         'delete-error':
-          'تعذر حذف المؤشر عن هذا الـ {{type}} الآن. يرجى إعادة المحاولة بعد قليل.'
+          'تعذر حذف الإشارة المرجعية عن هذا الـ {{type}} الآن. يرجى إعادة المحاولة بعد قليل.'
       },
       'remove-class-activity': {
         confirmation:
-          'Are you sure you want to remove this {{type}} from your Daily Class Activities?',
-        'delete-error':
-          'Oops! Unable to remove this {{type}} right now. Please try again shortly.'
+          'هل أنت متأكد من حذف هذا {{type}} من قائمة نشاطات الصف اليومية؟ ',
+        'delete-error': 'تعذر حذف هذا {{type}} الآن، يرجى المحاولة بعد قليل.'
       },
       'delete-class': {
-        legend: 'You\\\u0027re about to delete your classroom',
-        'student-access':
-          'Students won\\\u0027t be able to access the classroom',
+        legend: 'أنت على وشك حذف صفك الدراسي',
+        'student-access': 'لن يتمكن الطلاب من الولوج للصف الدراسي',
         'student-data-deleted': 'سيتم حذف جميع بيانات الطالب.'
       },
       'archive-class': {
-        title: 'Archive classroom',
-        legend: 'You are about to archive your classroom',
-        'links-not-accessible': 'All shared links will be inaccessible',
-        'students-no-access':
-          'Students will not be able to access the classroom',
+        title: 'قم بأرشفة الصف الدراسي',
+        legend: 'أنت على وشك أرشفة الصف الداسي ',
+        'links-not-accessible': 'سيتعذر الوصل إلى جميع الروابط المشاركة',
+        'students-no-access': 'لن يتمكن الطلاب من ولوج الصف الدراسي',
         'not-add-students':
-          'You will not be able to add more students to the class',
-        confirmation: 'Are you sure you want to archive?'
+          'لن تتمكن من إضافة المزيد من الطلاب إلى الصف الدراسي',
+        confirmation: 'هل أنت متأكد من أرشفة '
       },
       'delete-content': {
         legend: 'أنت على وشك حذف',
-        'content-legend':
-          '\u003cspan\u003e{{type}}\u003c/span\u003e {{index}} - {{title}} from {{parentName}}',
+        'content-legend': '{{title}} - {{index}} {{type}} من {{parentName}}',
         'content-legend-header': '{{title}} من {{parentName}}',
-        'delete-warning': 'سيتم حذف جميع المحتويات الموجودة في {{type}}',
+        'delete-warning': 'سيتم حذف جميع المحتويات الموجودة في هذا {{type}}',
         'delete-error':
           'تعذر حذف {{type}} في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
         confirmation:
           'هل تريد المتابعة؟ يرجى كتابة "حذف" أدناه وانقر على "حذف".'
       },
       'delete-resource': {
-        legend:
-          'Confirm you want to permanently delete \u003cb\u003e{{title}}\u003c/b\u003e',
-        'delete-warning': 'سيتم حذف جميع المحتويات الموجودة في {{type}}',
+        legend: 'يرجى تأكيد حذف {{title}} بشكل نهائي.',
+        'delete-warning': 'سيتم حذف جميع المحتويات الموجودة في هذا {{type}}',
         'delete-error':
           'تعذر حذف {{type}} في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
         confirmation: 'هل تريد المتابعة؟ يرجى النقر على \u0027حذف نهائي\u0027.',
         'first-check': 'هذا حذف نهائي ولا يمكن التراجع عنه.',
         'second-check':
-          'سيتم حذف نُسخ من هذا المصدر، في مجموعاتك ومجموعات أي مستخدم في منظمتك.'
+          'سيتم حذف جميع نسخ هذا المصدر في مجموعاتك ومجموعات أي مستخدم في منظمتك.'
       },
       'delete-rubric': {
-        legend:
-          'Confirm you want to permanently delete \u003cb\u003e{{title}}\u003c/b\u003e',
-        'delete-warning': 'All content in this Rubric will be deleted',
-        'delete-error':
-          'Oops! Unable to delete Rubric right now. Please try again shortly.',
+        legend: 'يرجى تأكيد حذف {{title}} بشكل نهائي.',
+        'delete-warning': 'سيتم حذف المحتوى من سلم التقييم هذا',
+        'delete-error': 'يتعذر حذف سلم التقييم الآن، يرجى المحاولة بعد قليل. ',
         confirmation: 'هل تريد المتابعة؟ يرجى النقر على \u0027حذف نهائي\u0027.',
         'first-check': 'هذا حذف نهائي ولا يمكن التراجع عنه.'
       },
       'remove-content': {
-        legend:
-          'You are about to remove \u003cb\u003e{{title}}\u003c/b\u003e from \u003cb\u003e{{parentName}}\u003c/b\u003e',
+        legend: 'أنت على وجد حذف {{title}} من {{parentName}}',
         'remove-error':
           'يتعذر حذف {{type}} في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
         confirmation:
-          'هل تريد المتابعة؟ يرجى كتابة "حذف" أدناه وانقر على "حذف".'
+          'هل تريد المتابعة؟ يرجى كتابة "حذف" أدناه والنقر على "حذف".'
       },
       'remove-student': {
-        title: 'حذف الطلاب وبياناتهم.',
+        title: 'حذف الطالب وبياناته',
         legend:
-          'أنت على وشك حذف{{studentName}} من هذا الفصل الدراسي وحذف جميع بياناتهم.',
+          'أنت على وشك حذف{{studentName}} من هذا الفصل الدراسي وحذف جميع بياناته.',
         'data-inaccessible':
-          'سيتم حذف جميع البيانات الخاصة بهم ولا يمكن الوصول إليها من قبل أيٍ منكم.',
+          'سيتم حذف جميع البيانات الخاصة به  ولا يمكن الوصول إليها من قبل أيٍ منكم.',
         'classroom-access':
-          'لن يتمكنوا من الوصول إلى الصفوف الدراسية أو المحتوى.',
-        'data-lost':
-          'في حالة إعادة الانضمام إلى الصف الدراسي، ستفقد جميع البيانات السابقة.',
+          'لن يتمكن من الوصول إلى الصفوف الدراسية أو المحتوى.',
+        'data-lost': 'في حال انضمامه مرة أخرى، سيفقد جميع البيانات السابقة.',
         'remove-error':
           'تعذر حذف هذا الطالب في الوقت الحالي. يرجى إعادة المحاولة بعد قليل.',
         confirmation:
           'هل تريد المتابعة؟ يرجى كتابة "حذف" أدناه وانقر على "حذف".'
       },
       'quick-remove-content': {
-        legend:
-          'Confirm you want to remove \u003cb\u003e{{title}}\u003c/b\u003e from \u003cb\u003e{{parentName}}\u003c/b\u003e.'
+        legend: 'يرجى تأكيد حذف {{title}} من {{parentName}}.'
       },
       'quick-delete-content': {
-        legend:
-          'Confirm you want to permanently delete \u003cb\u003e{{title}}\u003c/b\u003e from \u003cb\u003e{{parentName}}\u003c/b\u003e.',
+        legend: 'يرجى تأكيد حذف {{title}} من {{parentName}} بشكل نهائي.',
         delete: 'حذف نهائي'
       }
     },
     resources: {
       edit: {
         'best-practices':
-          '\u003cp\u003eResources are multimedia content in a variety of formats such as videos, interactives, websites, images, Google docs, and more. Get creative and use your own resources or get “resourceful” and search our ample supply in Gooru.\u003c/p\u003e\u003cp\u003eUse a variety of resource types to engage your students and include narration so you can help guide your students through the resource.\u003c/p\u003e\u003cp\u003eWe recommend tagging each question to standards, micro-standards and 21st century skills. You can see how your students are interacting with resources through the teacher dashboard.\u003c/p\u003e',
-        'placeholder-message':
-          'Add a resource to \u003cspan\u003epreview it here.\u003c/span\u003e',
-        'not-implemented':
-          'Resource format preview \u003cspan\u003enot implemented yet.\u003c/span\u003e',
+          ' المصادر عبارة عن وسائط متعددة بصيغ مختلفة كالفيديوهات، والمحتوى التفاعلي والمواقع الإلكترونية وصور ومستندات جوجل وغيرها. كن مبدعاً واستخدم مصادرك الخاصة  أو ابحث بدهاء في مخزون جورو الوافر من المصادر.\n\nاستخدم المصادر بصيغها المتنوعة  لجذب انتباه طلابك إضافة للشرح الكلامي لإرشادهم أثناء استخدام المصدر. \n\nكما ننصح بربط كل سؤال بالمعايير الخاصة به أو المعايير الجزئية، و مهارات القرن الواحد والعشرين. يمكنك مراقبة تفاعل الطلاب مع المصادر من خلال لوحة التحكم الخاصة بك.',
+        'placeholder-message': 'ضِف المصدر لمعاينته هنا.',
+        'not-implemented': 'لم تتم معاينة المصدر بعد',
         information: {
-          'im-publisher': 'I\\\u0027m the publisher',
-          'select-a-license': 'يرجى تحديد رخصة'
+          'im-publisher': 'أنا الناشر',
+          'select-a-license': 'يرجى اختيار  رخصة'
         }
       }
     }
   },
   user: {
-    'active-classrooms': 'الصفوف الدراسية المفعّلة.',
+    'active-classrooms': 'الصفوف الدراسية النشِطة',
     'archived-classrooms': 'الصفوف الدراسية المؤرشفة',
     classrooms: 'الصفوف الدراسية',
-    'create-class': 'إنشاء صوف دراسية',
+    'create-class': 'أنشئ صفاً دراسياً',
     hello: 'مرحباً، {{name}}!',
     'independent-learning': 'التعليم المستقل',
     'join-class': 'انضم للصف الدراسي',
     'joined-classes': {
-      zero: 'You\\\u0027re currently enrolled in {{count}} classrooms',
-      one: 'You\\\u0027re currently enrolled in 1 classroom',
-      other: 'You\\\u0027re currently enrolled in {{count}} classrooms'
+      zero: 'أنت مسجِل حالياً في {{count}} صف دراسي',
+      one: 'أنت مسجِل حالياً في صف دراسي واحد',
+      other: 'أنت مسجِل حالياً في {{count}} صف دراسي'
     },
     'my-current-classes': 'صفوفي الدراسية الحالية',
     'manage-goals': 'إدارة الأهداف',
     'my-classes': 'صفوفي الدراسية',
     'teaching-classes': {
-      zero: 'You\\\u0027re currently teaching {{count}} classrooms',
-      one: 'You\\\u0027re currently teaching 1 classroom',
-      other: 'You\\\u0027re currently teaching {{count}} classrooms'
+      zero: 'أنت تٌعلِّم حالياً {{count}} صف دراسي',
+      one: 'أنت تٌعلِّم حالياً عصف دراسي واحد',
+      other: 'أنت تٌعلِّم حالياً {{count}} صف دراسي'
     }
   },
   'student-landing': {
     announcement: 'إعلان',
-    'browse-featured-courses': 'تصفح مساقاتنا الدراسية المميزة.',
-    'browse-our': 'Browse our',
-    'class-code': 'رمز الصف.',
+    'browse-featured-courses': 'تصفح مساقاتنا الدراسية المميزة',
+    'browse-our': 'تصفح',
+    'class-code': 'رمز الصف',
     'featured-courses': 'المساقات الدراسية المميزة',
     class: {
       'assigned-course': 'المساق الدراسي المعيّن',
       'back-to': 'العودة إلى الصفوف الدراسية',
-      'no-course': 'This classroom does not have a related course.',
-      'no-course-assigned': 'No Course Assigned',
+      'no-course': 'لا يوجد مساقات دراسية في هذا الصف.',
+      'no-course-assigned': 'لم يتم تعييم مساق دراسي',
       'back-to-independent': 'العودة إلى التعليم المستقل.',
-      report: 'أبلغ عن',
-      performance: 'آداء',
+      report: 'تقرير',
+      performance: 'أداء',
       'course-map': 'خريطة المساق الدراسي',
       unit: 'وحدة',
       lesson: 'درس',
@@ -1058,15 +1033,15 @@ export default Object.assign(quizzesTranslations, {
     },
     course: {
       'to-report': 'ملخص الاستخدام',
-      'total-time-spent': 'إجمالي الوقت المستغرق.'
+      'total-time-spent': 'إجمالي الوقت المستغرق'
     },
     'current-activity': 'النشاط الحالي',
-    'resume-current-activity': 'Resume Current Activity',
-    'not-available': '-NA-',
-    'join-classroom': 'Join your teacher\\\u0027s classroom to start learning',
-    learn: 'تعلم مع صف دراسي خاص بجورو.',
+    'resume-current-activity': 'لخِّص النشاط الحالي',
+    'not-available': 'غير متوفر',
+    'join-classroom': 'انضم لصف معلمك الدراسي لبدء التعلم',
+    learn: 'تعلم مع صف جورو الدراسي',
     'my-performance': {
-      activity: 'نشاط',
+      activity: 'نشِط ',
       activities: {
         study: 'ادرس'
       },
@@ -1074,86 +1049,86 @@ export default Object.assign(quizzesTranslations, {
       collections: 'مجموعات',
       filter: 'مُرشِح',
       'primary-text':
-        'اختر الأشياء التي تريد تحليلها وسنقوم بإنشاء تقرير خاص بالأداء.',
+        'قم باختيار الأشياء التي تريد تحليلها، وسنقوم بإنشاء تقرير خاص بالأداء.',
       subject: 'موضوع',
-      title: 'حلل أدائك.',
+      title: 'حلل أدائك',
       'time-period': 'فترة زمنية',
       'update-report': 'تحديث التقرير'
     },
     'my-study': 'دراستي',
     'no-classrooms':
-      'You have not yet joined any classrooms. Click on “Join \u003c/br\u003e Classroom” to add your teacher\\’s class. You can also search for \u003c/br\u003e a featured course under the Library tab.',
-    'no-content-classrooms':
-      'This classroom currently has no content available',
-    welcome: 'مرحبا بكم في جورو.'
+      'لم تنضم إلى أي صف دراسي بعد . انقر على "انضم للصف" لإضافة الصف الخاص بمعلمك. بإمكانك أن تبحث عن الصفوف الدراسية المميزة تحت علامة تبويب "المكتبة".',
+    'no-content-classrooms': 'لا يوجد محتوى في هذا الصف حالياً',
+    welcome: 'مرحبا بكم في جورو'
   },
   'student-independent-learning': {
-    'show-more': 'Show More',
-    'show-less': 'Show Less',
+    'show-more': 'أظهر المزيد',
+    'show-less': 'أظهر القليل',
     'no-courses':
-      'When you start exploring your bookmarked Courses, they will appear here.',
+      'ستظهر لك المساقات الدراسية التي تم وضع إشارات مرجعية عليها عندما تبحث عنها هنا. ',
     'no-collections':
-      'When you start exploring your bookmarked Collections, they will appear here.',
+      'ستظهر لك المجموعات التي تم وضع إشارات مرجعية عليها عندما تبحث عنها هنا. ',
     'no-assessments':
-      'When you start exploring your bookmarked Assessments, they will appear here.',
-    'no-independent-results': 'Explore the Library to learn something new.',
+      'ستظهر لك التقييمات التي تم وضع إشارات مرجعية عليها عندما تبحث عنها هنا. ',
+    'no-independent-results': 'ابحث عن "المكتبة" لتعلم أشياء جديدة.',
     'no-bookmarks':
-      'When you start bookmarking Courses, Collections, and Assessments, they will appear here.',
-    'add-bookmark': 'Add Bookmark'
+      'ستظهر المساقات الدراسية والمجموعات والتقييمات عندما يتم وضع إشارات مرجعية عليها هنا. ',
+    'add-bookmark': 'ضِف إشارة مرجعية'
   },
   'teacher-landing': {
     'latest-announcement': 'أحدث إعلان',
     'latest-assessment': 'أحدث تقييم',
-    'create-classroom': 'أنشئ صفا دراسيا ثم عين المحتوى ثم قم بدعوة طلابك.',
+    'create-classroom': 'أنشئ صفاً دراسياً ثم عين المحتوى ثم قم بدعوة طلابك.',
     class: {
       'back-to': 'العودة إلى الصفوف الدراسية',
-      'back-to-archived': 'Back to Archived Classrooms',
+      'back-to-archived': 'العودة للصفوف الدراسية المؤرشفة ',
       'class-management': 'إدارة الصف الدراسي. ',
       'class-management-tab': {
         actions: 'أفعال',
-        'assessment-min-score': 'علامة التقييم الدنيا للجوائز.',
+        'assessment-min-score':
+          'تقييم الحد الأدنى من النقاط للحصول على الجوائز',
         'assigned-course': 'المساق الدراسي المعيّن',
-        archive: 'أرشيف',
+        archive: 'الأأرشيف',
         'archive-class': 'قم بأرشفة الصف.',
         'archive-classroom': 'Archive Classroom',
-        'attend-class-with-code': 'حضور الصف مع رمزك الخاص.',
-        'class-information': 'معلومات الصف.',
+        'attend-class-with-code': 'احضر الصف مع رمزك الخاص.',
+        'class-information': 'معلومات الصف',
         'class-name': 'اسم الصف الدراسي',
-        'class-code': 'رمز الصف.',
-        'click-to-copy-class-code': 'انقر لنسخ رمز الصف.',
-        'course-information': 'معلومات المساق الدراسي.',
+        'class-code': 'رمز الصف',
+        'click-to-copy-class-code': 'انقر لنسخ رمز الصف',
+        'course-information': 'معلومات المساق الدراسي',
         delete: 'حذف',
-        'delete-class': 'حذف الصف.',
+        'delete-class': 'حذف الصف',
         'download-roster': 'تنزيل القائمة',
         edit: 'تعديل',
-        'email-address': 'عنوان البريد الإلكتروني.',
+        'email-address': 'عنوان البريد الإلكتروني',
         'first-name': 'الاسم الأول',
-        'import-roster': 'إدخال القائمة',
+        'import-roster': 'استيراد القائمة',
         'last-name': 'اسم العائلة',
         message: 'رسالة',
-        performance: 'آداء',
+        performance: 'أداء',
         students: 'الطلاب',
         'student-name': 'اسم الطالب',
         'student-id': 'هوية الطالب',
         teachers: 'المعلمون',
-        'view-report': 'عرض التقرير.',
+        'view-report': 'عرض التقرير',
         'students-null':
-          'Share the Class Code with students to have them join your Classroom.'
+          'شارك رمز الصف مع الطلاب ليتمكنوا من الانضمام لصفك الدراسي.'
       },
       'class-activities': 'أنشطة الصف اليومية',
-      'back-to-class-activities': 'Back to Daily Class Activities',
+      'back-to-class-activities': 'العودة إلى نشاطات الصف اليومية',
       'class-activities-tab': {
-        today: 'اليوم',
-        'add-from-course-map': 'Add from Course Map',
-        'add-from-my-content': 'Add from My Content',
+        today: 'اليوم،',
+        'add-from-course-map': 'ضِف من خريطة المساق الدراسي',
+        'add-from-my-content': 'ضِف من المحتوى الخاص بي',
         'welcome-dca':
-          'Welcome to your Daily Class Activities where you can assign collections and assessments for students to complete today. Please note: any reports generated will only be available today for the most recent attempt.'
+          'أهلاً بك في نشاطات صفك اليومية، هنا يمكنك تعيين مجموعات وتقييمات لطلابك لإكمالها اليوم. \nملاحظة: أي تقارير يتم إنشاءها ستكون متوفرة اليوم حتى آخر محاولة. '
       },
-      'click-to-copy': 'انقر لنسخ رمز الصف.',
+      'click-to-copy': 'انقر لنسخ رمز الصف',
       'course-map': 'خريطة المساق الدراسي',
       management: 'إدارة القوائم',
-      report: 'أبلغ عن',
-      performance: 'آداء',
+      report: 'تقرير',
+      performance: 'أداء',
       'performance-tab': {
         assessments: 'التقييمات',
         collections: 'مجموعات'
@@ -1161,73 +1136,72 @@ export default Object.assign(quizzesTranslations, {
       'view-more': 'عرض المزيد'
     },
     'no-classrooms':
-      'You have not yet created any classrooms. Click on “Create Classroom” or search \u003c/br\u003e for a featured course under the Library tab.',
-    'no-course':
-      'You have not assigned a course to this \u003c/br\u003e classroom yet.',
-    teach: 'درس في صفوف جورو الدراسية.',
+      'لم تنشئ صفوف دراسية بعد، اضغط على "أنشئ صف دراسي"، أو ابحث عن المساقات الدراسية المميزة تحت علامة التبويب "المكتبة " ',
+    'no-course': 'لم تُعيِّن مساق دراسي لهذا الصف بعد.',
+    teach: 'درِّس في صفوف جورو الدراسية.',
     'welcome-course-map':
-      'This is your Course Map where you can view course content, turn assessments on or off and launch assessments in real-time. You can also view overall class performance and completion. For a detailed view of class performance, visit your classroom\\\u0027s Report tab.'
+      'في خريطة المساق الدراسي، يمكنك عرض محتوى المساق، وتشغيل التقيماات أو إيقافها، و إطلاق التقييمات في الوقت الحالي. كما يمكنك مشاهدة '
   },
   goals: {
     manage: {
       title: 'أهدافي!',
-      'add-goal': 'أضف هدف',
+      'add-goal': 'ضِف هدف',
       'goal-label': 'هدف',
       'start-date-label': 'تاريخ البدء',
       'end-date-label': 'تاريخ الانتهاء',
       'type-label': 'نوع الهدف',
       'status-label': 'الحالة',
       not_started: 'لم تبدأ.',
-      activated: 'مفعَّل',
+      activated: 'مُفعَّل',
       completed: 'تم إنجازه',
       dropped: 'مهمل',
       'reflection-label': 'انعكاس',
       save: 'حفظ',
       update: 'تحديث',
       'goals-not-found':
-        'You have not set any goals yet. You can add a goal by clicking \\"Add Goal\\" button above.'
+        'لم تحدد أي أهداف بعد. يمكنك إضافة هدف بالنقر على \\"Add Goal\\" أعلاه. '
     },
     create: {
-      'error-add-title': 'الرجاء إدخال الهدف',
-      'error-length-title': 'الحد الأقصى من الأحرف لكتابة الهدف 200 حرف.',
-      'error-add-start-date': 'الرجاء إدخال تاريخ البدء.',
-      'error-add-end-date': 'الرجاء إدخال تاريخ الانتهاء.',
+      'error-add-title': 'يرجى إدخال الهدف',
+      'error-length-title': 'الحد الأقصى من الأحرف لكتابة الهدف 200 حرف',
+      'error-add-start-date': 'يرجى إدخال تاريخ البدء',
+      'error-add-end-date': 'يرجى إدخال تاريخ الانتهاء',
       'error-greater-end-date':
-        'يجب أن يكون تاريخ الانتهاء أحدث من تاريخ البدء.',
-      'error-add-status': 'يرجى تحديد حالة الهدف.',
+        'يجب أن يكون تاريخ الانتهاء أحدث من تاريخ البدء',
+      'error-add-status': 'يرجى تحديد حالة الهدف',
       'error-length-reflection':
-        'الحد الأقصى من الأحرف لكتابة انعكاس الهدف 2000 حرف.',
-      'created-success-msg': 'You\\\u0027ve created the goal {{goalTitle}}'
+        'الحد الأقصى من الأحرف لكتابة مدى تأثير الهدف 2000 حرف',
+      'created-success-msg': 'تم إنشاء الهدف '
     },
     delete: {
-      'deleted-success-msg': 'You\\\u0027ve deleted the goal'
+      'deleted-success-msg': 'تم حذف الهدف '
     },
     update: {
-      'updated-success-msg': 'You\\\u0027ve updated the goal'
+      'updated-success-msg': 'تم تحديث الهدف'
     }
   },
   'gru-add-to': {
     'add-assessment-to-lesson': 'أضف من تقييماتي.',
-    'add-assessment-to-lesson-lead': 'اختر تقييما لإضافته إلى هذا الدرس.',
+    'add-assessment-to-lesson-lead': 'اختر تقييماً لإضافته إلى هذا الدرس.',
     'add-collection-to-lesson': 'أضف من مجموعاتي.',
     'add-collection-to-lesson-lead': 'اختر مجموعة لإضافتها لهذا الدرس.',
-    'add-to-collection': 'أضف إلى المجموعة',
+    'add-to-collection': 'ضِف إلى المجموعة',
     'add-to-collection-lead': 'اختر مجموعة تريد إضافة {{contentTitle}} لها.',
-    'add-to-existing-classroom': 'أضف إلى الصف الدراسي الحالي.',
+    'add-to-existing-classroom': 'ضِف إلى الصف الدراسي الحالي.',
     'add-to-existing-classroom-lead': 'اختر صفاً دراسياً تريد اضافته إلى ',
-    'add-to-assessment': 'أضف إلى التقييم أو المجموعة.',
+    'add-to-assessment': 'ضِف إلى التقييم أو المجموعة.',
     'add-to-assessment-lead': 'اختر تقييما تريد إضافة {{contentTitle}} إليه.',
     'assessments-info':
-      'The assessments listed here \u003cb\u003edo not\u003c/b\u003e belong to another lesson or course',
+      'التقييمات المدرجة هنا لا تنتمي إلى درس أو مساق دراسي آخر.',
     'collections-info':
-      'The collections listed here \u003cb\u003edo not\u003c/b\u003e belong to another lesson or course'
+      'المجموعات المدرجة هنا لا تنتمي إلى درس أو مساق دراسي آخر. '
   },
   'gru-add-rubric-to-question': {
-    title: 'Add from my Rubrics',
-    lead: 'Select a rubric to add to this question.',
+    title: 'ضِف من سلم التقييم الخاص بي',
+    lead: 'اختر سلم تقييم لإضافته لهذا السؤال',
     'no-rubrics':
-      'You have not yet created any rubrics that can be attached to this Free Response Question. You can create rubrics under My Content which can be accessed from your profile.',
-    'go-to-content': 'Go to My Content'
+      'لم تنشئ أي سلم تقييم لإرفاقه مع سؤال "الإجابة الكتابية". يمكنك إنشاء سلم تقييم تحت علامة تبويب "المحتوى الخاص بي" التي يمكن الولوج إليها من خلال ملفك الشخصي. ',
+    'go-to-content': 'اذهب إلى "المحتوى الخاص بي"'
   },
   'gru-assessment-confirmation': {
     title: 'أنت على وشك بدء تقييم...',
@@ -1247,29 +1221,29 @@ export default Object.assign(quizzesTranslations, {
     start: 'ابدأ'
   },
   'gru-submit-confirmation': {
-    title: 'إنهاء الاختبار وإرسال الأجوبة.',
+    title: 'إنهاء الاختبار وتثبيت.',
     description:
       'أنت على وشك إنهاء هذا الاختبار وإرسال جميع الأجوبة. أي سؤال لم تتم الإجابة عليه يعتبر جواباً خاطئاً. ',
     cancel: 'إلغاء',
     confirm: 'إنهاء الاختبار.',
-    'finish-description': 'انقر على "إنهاء الاختبار" لإرسال إجاباتك.'
+    'finish-description': 'انقر على "إنهاء الاختبار" لتثبيت إجاباتك.'
   },
   'gru-quick-course-search': {
-    'add-from-course': 'إضافة من المساق الحالي',
+    'add-from-course': 'ضِف من المساق الحالي',
     'view-featured-courses': 'عرض المساقات الدراسية المميزة',
     assign: 'تعيين'
   },
   'gru-share-pop-over': {
     copy: 'نسخ',
-    'ios-tooltip': 'انقر مطولاً للنسخ. ',
-    'multiarch-tooltip': 'اضغط على "Ctrl + C" للنسخ.',
+    'ios-tooltip': 'انقر مطولاً للنسخ!',
+    'multiarch-tooltip': 'اضغط على "Ctrl + C" للنسخ!',
     'safari-osx-tooltip': 'اضغط على "Ctrl + C" للنسخ.',
-    'share-course': 'شارك المساق الدراسي مع رابط.',
-    'share-question': 'شارك سؤالك مع رابط.',
-    'share-resource': 'مشاركة المصدر مع رابط.',
-    'share-assessment': 'شارك التقييم الخاص بك مع رابط.',
-    'share-rubric': 'Share your rubric with link',
-    'share-collection': 'شارك مجموعتك مع رابط.'
+    'share-course': 'شارك المساق الدراسي مع إرفاق رابط',
+    'share-question': 'شارك سؤالك مع إرفاق رابطو',
+    'share-resource': 'شارك المصدر مع إرفاق رابط.',
+    'share-assessment': 'شارك التقييم الخاص بك مع إرفاق رابط',
+    'share-rubric': 'شارك سلم التقييم مع إرفاق رابط',
+    'share-collection': 'شارك مجموعتك مع إرفاق رابك'
   },
   'gru-category-panel': {
     teacher: {
@@ -1280,9 +1254,9 @@ export default Object.assign(quizzesTranslations, {
     },
     student: {
       title: 'للطلاب',
-      body: 'اكتشف الاهتمامات وابنِ وراقب التقدم من خلال مواد التعليم. ',
-      cta: 'دخول',
-      'text-placeholder': 'أدخل رمز الصف الدراسي'
+      body: 'ابتحث عن الاهتمامات وابنِ وراقب التقدم من خلال مواد التعليم. ',
+      cta: 'أدخِل',
+      'text-placeholder': 'أدخِل رمز الصف الدراسي'
     },
     district: {
       title: 'للمقاطعات',
@@ -1294,7 +1268,7 @@ export default Object.assign(quizzesTranslations, {
       title: 'للشركاء',
       body:
         'تعاون مع شركائنا في المهمة لرفع نسبة التأثير الجماعي على بيئة التعليم. ',
-      cta: 'اعرف المزيد'
+      cta: 'تعلم المزيد'
     }
   },
   'class.gru-class-navigation': {
@@ -1303,63 +1277,63 @@ export default Object.assign(quizzesTranslations, {
     greetings: 'الإعلانات',
     overview: 'خريطة المساق الدراسي',
     analytics: 'البيانات',
-    teams: 'فِرق',
+    teams: 'فِرَق',
     information: 'معلومات الصف االدراسي'
   },
   'class.gru-class-statistics': {
     title: 'إحصاءات الصف',
-    'on-average': 'في المتوسط',
-    performance: 'آداء',
+    'on-average': 'في المعدل',
+    performance: 'أداء',
     completion: 'إنجاز',
     'time-spent': 'الوقت المستغرق',
     'no-performance': '-'
   },
   'gru-user-registration': {
-    joinTitle: 'الانضمام إلى مجتمع جورو!',
+    joinTitle: 'انضم إلى مجتمع جورو!',
     joinDescription:
-      'ابحث وامزج، وشارك أفضل مصادر التعليم من الروضة وحتى الصف 12 المجانية. ',
-    googleButton: 'أنشئ حسابك عن طريق جوجل.',
-    whyGoogle: 'لماذا أنشئ حسابا عن طريق جوجل؟',
+      'جِد وامزج، وشارك أفضل مصادر التعليم المجانية من الروضة وحتى الصف 12. ',
+    googleButton: 'أنشئ حسابك باستخدام جوجل.',
+    whyGoogle: 'لماذا أنشئ حساباً باستخدام جوجل؟',
     descriptionWhyGoogle:
-      'It\\\u0027s fast and easy. Use your existing Google account to sign in without a password.',
+      'إنشاء حسابك باستخدام جوجل سيكون أسهل وأسرع ولن تحتاج إلى كلمة مرور جديدة. ',
     or: 'أو',
-    noGoogleAccount: 'Don\\\u0027t have a Google account?',
+    noGoogleAccount: 'لا يوجد لديك حساب جوجل؟ ',
     signUpEmail: 'أنشئ حساباً باستخدام بريدك الإلكتروني.',
     haveAccount: 'هل لديك حساب بالفعل؟',
     clickLogIn: 'انقر هنا لتسجيل الدخول.'
   },
   'gru-welcome-message': {
-    title: 'Welcome to Gooru\\’s Learning Navigator!',
+    title: 'مرحباً بكم في متصفح جورو التعليمي!',
     'text-temporary-one':
-      'As you move throughout the Learning Navigator, we are happy to support your journey. Look for the Take a Tour icon ',
-    'text-temporary-two': ' for guided tours on how to use our features.',
+      'يسعدنا مساعدتك خلال رحلتك في متصفح جورو التعليمي، ابحث عن أيقونة  "قم بجولة" ',
+    'text-temporary-two': 'للجولات الإرشادية حول كيفية استخدام مميزاتنا. ',
     'text-one':
-      'عندما تتنقل في جميع أنحاء المتصفح التعليمي، يسعدنا مساعدتك في رحلتك بالطرق التالية: ',
+      'يسعدنا مساعدتك خلال رحلتك في متصفح جورو التعليمي بالطرق التالية: ',
     'text-two': {
       subtitle: 'قم بجولة',
       text: 'توفير جولات إرشادية عن كيفية استخدام ميزاتنا.  '
     },
     'text-three': {
       subtitle: 'المساعدة',
-      text: 'أسئلة إضافية في متناول يديك. '
+      text: 'يمكنك الحصول على المساعدة في حال وجود أي أسئلة إضافية.'
     },
     'text-four': {
       subtitle: 'جديد',
-      text: 'تحديد ميزات جديدة لتجربتها. '
+      text: 'يمكنك تحديد ميزات جديدة لتجربتها. '
     },
-    'text-five': 'إذا أردت العودة إلى الصفحة الرئيسية، ببساطة انقر على',
-    'dont-show-again': 'Don\\\u0027t show again'
+    'text-five': 'إذا أردت العودة إلى صفحتك الرئيسية، ببساطة انقر على',
+    'dont-show-again': 'لا تُظهِر مرة أخرى'
   },
   'sign-up': {
     'step-1-title': 'مرحباً!',
-    'step-1-description': 'We\\’re glad you\\’ve decided to join us.',
+    'step-1-description': 'نحن سعداء بانضمامك إلينا.',
     'step-child-title': 'ليس بهذه السرعة!',
     'step-child-subtitle': 'لا يمكننا إكمال عملية التسجيل.',
     'step-child-description-1': 'لم يتمكن جورو من إنشاء حسابك بسبب ',
-    'step-child-age-requirements': 'البنود و الشروط',
+    'step-child-age-requirements': 'الأحكام والشروط',
     'step-child-description-2': 'استمر في التعلم، نراك في سنوات قادمة. ',
     'step-2-title': 'معلومات أساسية.',
-    'step-2-description': 'You\\’re not basic, but this info is.',
+    'step-2-description': 'أنت لست أساسياً، لكن هذه المعلومة أساسية.',
     'log-in': 'تسجيل الدخول',
     'log-in-description': 'إذا كان لديك حساب مسبقاً.',
     'google-button': 'أنشئ حسابك عن طريق جوجل.',
@@ -1386,18 +1360,18 @@ export default Object.assign(quizzesTranslations, {
       'error-message': 'يرجى إدخال تاريخ الميلاد.'
     },
     email: 'البريد الإلكتروني',
-    password: 'كلمة السر',
+    password: 'كلمة المرور',
     rePassword: 'تأكيد كلمة المرور.',
     state: 'الدولة أو المقاطعة',
     district: 'المقاطعة',
-    'error-username-taken': 'هذا الاسم مستخدم من قبل شخص آخر, جرّب اسماً آخر.',
+    'error-username-taken': 'هذا الاسم مُستخدم، يرجى المحاولة مرة أخرى\n',
     'error-email-taken':
-      'هذا البريد الاكتروني مستخدم من قبل شخص آخر, جرّب بريداً آخر.',
-    'error-role-message': 'اختر دورا. ',
-    'error-country-message': 'اختر بلدك.',
+      'هذا البريد الإلكتروني مُستخدم، يرجى المحاولة مرة أخ\nرى',
+    'error-role-message': 'يرجى اختيار  دوراً. \n',
+    'error-country-message': 'يرجى اختيار بلدك.',
     'error-state-message': 'يرجى تحديد الولاية أو الإقليم.',
     'error-district-message':
-      'Please select your district/charter from the list or provide it in \\"Other\\".'
+      'يرجى اختيار المقاطعة من القائمة أو قم بتزويدنا بها في "أخرى" '
   },
   'gru-user-sign-up-cancel': {
     title: 'مغادرة التسجيل؟',
@@ -1408,16 +1382,16 @@ export default Object.assign(quizzesTranslations, {
   },
   login: {
     title: 'أهلاً بعودتك!',
-    description: 'التعليم قريب جداً.',
+    description: 'التعلم بين يديك.',
     'title-session-ends': 'انتهت صلاحية الفصل الدراسي.',
     'description-session-ends': 'يرجى تسجيل الدخول.',
-    gooruAccountTitle: 'تسجيل الدخول إلى حساب جورو الخاص بك.',
+    gooruAccountTitle: 'تسجيل الدخول إلى حسابك في جورو.',
     googleButton: 'تسجيل الدخول باستخدام جوجل.',
     or: 'أو',
     haveAccount: 'هل لديك حساب؟',
     signUpHere: 'أنشئ حسابك هنا!',
     forgotPassword: 'نسيت كلمة المرور؟ ',
-    password: 'كلمة السر',
+    password: 'كلمة المرور',
     usernameOrEmail: 'اسم المستخدم أو البريد الالكتروني',
     'log-in': 'تسجيل الدخول'
   },
@@ -1425,15 +1399,15 @@ export default Object.assign(quizzesTranslations, {
     description: 'يحدث لنا جميعاُ.',
     usernameOrEmail: 'يرجى إدخال بريدك الإلكتروني.',
     'footer-google-description-1':
-      'Try logging in again by pressing \u003ca href=\u0027/sign-in\u0027\u003e\\\u0027Sign In with Google.\\\u0027\u003c/a\u003e',
+      'حاول تسجيل الدخول مرة أخرى بالضغط على \\\u0027تسجيل الدخول باستخدام جوجل\\\u0027',
     'footer-description-1':
       'ستصلك رسالة إلكترونية تتضمن رابطاً لإعادة تعيين كلمة المرور.',
     'footer-description-2': 'إذا كان لديك أي أسئلة، يرجى التواصل معنا. ',
     mail: 'support@gooru.org',
-    'error-email-not-exists': 'Sorry, we don\\\u0027t recognize this email.',
+    'error-email-not-exists': 'نعتذر، هذا البريد الاكتروني غير مُعرَّف',
     secondStepTitle: 'تفقّد بريدك الالكتروني.',
     'secondStepDescription-1':
-      'We\\\u0027ve sent you an email with a link to reset your password.',
+      'لقد أرسلنا لك رسالة إلكترونية تتضمن رابطاً لإعادة تعيين كلمة المرور. ',
     'secondStepDescription-2': 'إذا كان لديك أي أسئلة، يرجى الاتصال'
   },
   'reset-password': {
@@ -1443,7 +1417,7 @@ export default Object.assign(quizzesTranslations, {
   },
   footer: {
     footerDescription:
-      'نلتزم في جورو بالحفاظ على منصة المصادر المفتوحة ومحتوى المجموعات الناشئة CC0. ',
+      'يلتزم موقع جورو بالإبقاء على منصته التعليمية مفتوحة المصادر، وإتاحتها لبناء محتوى يحمل رخصة المشاع الإبداعي(CC0) ',
     company: 'الشركة',
     community: 'المجتمع',
     legal: 'قانوني',
@@ -1456,19 +1430,19 @@ export default Object.assign(quizzesTranslations, {
     partners: 'الشركاء',
     coaches: 'المدربون',
     events: 'الأحداث',
-    terms: 'البنود',
+    terms: 'الأحكام',
     privacy: 'الخصوصية',
     Copyright: 'حقوق النشر'
   },
   'grade-dropdown': {
     placeholder: 'المراحل الدراسية',
-    prompt: 'اختر مرحلة دراسية',
+    prompt: 'اختر المرحلة الدراسية',
     'pre-k': 'تعليم ما قبل الروضة',
     elementary: 'المرحلة الابتدائية',
     'middle-school': 'المرحلة المتوسطة',
     'high-school': 'المدرسة الثانوية',
     'higher-ed': 'التعليم العالي',
-    k: 'روضة',
+    k: 'الروضة',
     first: '1',
     second: '2',
     third: '3',
@@ -1486,7 +1460,7 @@ export default Object.assign(quizzesTranslations, {
     placeholder: 'تصفح حسب المعيار'
   },
   'subject-dropdown': {
-    placeholder: 'الموضوع أو المواضيع',
+    placeholder: 'الموضوع (المواضيع)',
     prompt: 'اختر موضوعاً'
   },
   'search-filter': {
@@ -1503,13 +1477,13 @@ export default Object.assign(quizzesTranslations, {
       TOF: 'صح أم خطأ',
       MA: 'إجابات متعددة',
       HS_TXT: 'اختيار متعدد - نص',
-      HSTXT: 'Multiple Select Text',
+      HSTXT: 'اختيارأكثر من نص ',
       HS_IMG: 'متعددة حدد - صورة',
-      HSIMG: 'Multiple Select Image',
+      HSIMG: 'اختيار أكثر من صورة',
       HT_RO: 'سحب وإفلات',
-      'HT\u0026RO': 'Drag \u0026 Drop Order',
-      HT_HL: 'نص مهم',
-      'H-THL': 'Hot-Text Highlight',
+      'HT\u0026RO': 'ترتيب المسك والإفلات',
+      HT_HL: 'نص مظلل',
+      'H-THL': 'نص مظلل',
       OE: 'إجابة كتابية'
     },
     author: {
@@ -1519,7 +1493,7 @@ export default Object.assign(quizzesTranslations, {
   resource: {
     video: 'فيديو',
     webpage: 'صفحة ويب',
-    interactive: 'تفاعلي\n',
+    interactive: 'تفاعلي',
     question: 'سؤال',
     image: 'صورة',
     text: 'نص',
@@ -1536,47 +1510,42 @@ export default Object.assign(quizzesTranslations, {
     'search-results-for': 'نتائج البحث عن'
   },
   'gru-image-picker': {
-    chooseFile: 'اختر ملف.',
+    chooseFile: 'اختر ملف...',
     instruction: 'حمل صورة من حاسوبك.',
     restriction:
-      'يجب أن تكون الصورة بصيغة  JPG أو GIF أو PNG وحجمها أقل من 5 MB.',
+      'يجب أن تكون الصورة بصيغة  JPG أو GIF أو PNG وحجمها أقل من 5 ميغابايت.',
     submit: 'استخدم الصورة'
   },
   'gru-fib': {
     instructions:
-      'Please type your answer(s) in the blank(s) provided, and click \\"{{action}}\\".'
+      'يرجى كتابة إجابتك في الفراغ المناسب، ثم الضغط على \\"{{action}}\\".'
   },
   'gru-hs-image': {
-    instructions:
-      'Please select the correct image(s), and click \\"{{action}}\\".'
+    instructions: 'يرجى اختيار الصورة الصحيحة، ثم الضغط على \\"{{action}}\\".'
   },
   'gru-hs-text': {
-    instructions:
-      'Please select the correct answer(s), and click \\"{{action}}\\".'
+    instructions: 'يرجى اختيار الإجابة الصحيحة، ثم الضغط على \\"{{action}}\\".'
   },
   'gru-hot-text': {
-    instructions:
-      'Please select the correct answer, and click \\"{{action}}\\".'
+    instructions: 'يرجى اختيارالإجابة الصحيحة، ثم الضغط على \\"{{action}}\\".'
   },
   'gru-login-prompt': {
     title: 'مرحباً بكم في جورو!',
     instructions: 'يجب تسجيل الدخول لإكمال هذا الإجراء.',
     'existing-user': 'هل لديك حساب بالفعل؟',
-    'new-user': 'جديد هنا؟',
+    'new-user': 'هل أنت جديد هنا؟',
     'not-now': 'ليس الان',
     'sign-in': 'تسجيل الدخول'
   },
   'gru-multiple-answer': {
-    instructions:
-      'Please select the correct answer, and click \\"{{action}}\\".'
+    instructions: 'يرجى اختيارالإجابة الصحيحة، ثم الضغط على \\"{{action}}\\".'
   },
   'gru-multiple-choice': {
-    instructions:
-      'Please select the correct answer, and click \\"{{action}}\\".'
+    instructions: 'يرجى اختيارالإجابة الصحيحة، ثم الضغط على \\"{{action}}\\".'
   },
   'gru-open-ended': {
     instructions:
-      'Please type your answer in the field below, and click the \\"{{action}}\\" button to save your response when you\\\u0027re done.',
+      'يرجى كتابة إجابتك في الحقل أدناه، ثم الضغط على \\"{{action}}\\". لحفظها عند الانتهاء.',
     characterLimit: 'الحد الأقصى من الأحرف.'
   },
   'gru-question-viewer': {
@@ -1584,31 +1553,29 @@ export default Object.assign(quizzesTranslations, {
     question: 'سؤال'
   },
   'gru-true-false': {
-    instructions:
-      'Please select the correct answer, and click \\"{{action}}\\".',
+    instructions: 'يرجى اختيارالإجابة الصحيحة، ثم الضغط على \\"{{action}}\\".',
     true: 'صحيح',
     false: 'خطأ'
   },
   'gru-reorder': {
     instructions:
-      'Please reorder the answers in correct order, and click \\"{{action}}\\".'
+      'يرجى إعادة ترتيب الإجابات بشكل صحيح، ثم النقر على \\"{{action}}\\".'
   },
   player: {
     'gru-navigation': {
-      'view-report': 'عرض التقرير.'
+      'view-report': 'عرض التقرير'
     },
     'gru-navigator': {
       'see-usage-report': 'شاهد تقرير الاستخدام.'
     },
     'gru-viewer': {
       'not-iframe-url': {
-        header_1: 'لا يمكن عرض هذا المصدر باستخدام جورو.',
-        header_external_assessment_1:
-          'This assessment cannot be viewed within Gooru.',
-        header_2: 'انقر على الزر أدناه لفتح المصدر في صفحة تبويب جديدة.',
+        header_1: 'لا يمكن عرض هذا المصدر في جورو.',
+        header_external_assessment_1: 'لا يمكن عرض هذا التقييم باستخدام جورو.',
+        header_2: 'لا يمكن عرض هذا المصدر في جورو.',
         'view-resource': 'عرض المصدر',
-        https_external: 'This link cannot be viewed within Gooru.',
-        https_new_tab: 'Click the link below to open it in a new tab.',
+        https_external: 'لا يمكن عرض هذا الرابط في جورو.',
+        https_new_tab: 'انقر على الرابط أدناه لفتحه في صفحة تبويب جديدة.',
         footer_1: 'لماذا أرى هذه الصفحة الفارغة؟',
         footer_2: 'المصادر المضافة في جورو تأتي من آلاف الناشرين الذين',
         footer_3:
@@ -1618,38 +1585,38 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   'grading-player': {
-    answer: 'Submitted Work',
+    answer: 'العمل المُقدَّم',
     'back-to': 'عودة',
-    'current-response': 'Current Response',
-    'full-rubric': 'Full Rubric',
-    grading: 'Grading',
-    level: 'مستوى',
-    roster: 'Roster',
+    'current-response': 'الإجابة الحالية',
+    'full-rubric': 'سلم تقييم كامل',
+    grading: 'العلامة',
+    level: 'المستوى',
+    roster: 'قائمة',
     rubric: 'سلم تقييم',
-    'submitted-time': 'Submitted Time',
-    points: 'Points',
-    prompt: 'Task Prompt',
-    'overall-comment': 'Overall Comment',
-    'overall-lead': 'تلخيص ملاحظاتك على المقال ككل.',
+    'submitted-time': 'الوقت المحدد',
+    points: 'النقاط',
+    prompt: 'مهمة فورية',
+    'overall-comment': 'التعليق العام',
+    'overall-lead': 'لخِّص ملاحظاتك على المقال ككل.',
     'time-spent': 'الوقت المستغرق',
-    'total-score': 'Total Score',
+    'total-score': 'العلامة الكاملة',
     'student-roster': {
-      title: 'Students List',
-      lead: 'Have answered this question'
+      title: 'لائحة الطالب',
+      lead: 'لقد أجبت على هذا السؤال '
     },
     'rubric-panel': {
-      previous: 'Previous Student',
-      next: 'Next Student',
-      'total-score': 'Total Score',
-      points: '({{total}}pts)'
+      previous: 'الطالب السابق',
+      next: 'الطالب التالي',
+      'total-score': 'العلامة الكاملة',
+      points: '({{total}} نقطة)'
     }
   },
   profile: {
     'gru-navigation': {
       about: 'حول',
-      'about-me': 'About Me',
+      'about-me': 'حولي',
       content: 'محتوى',
-      followers: 'متابعون',
+      followers: 'متابِعون',
       library: 'المكتبة',
       'my-content': 'المحتوى الخاص بي'
     },
@@ -1659,7 +1626,7 @@ export default Object.assign(quizzesTranslations, {
   },
   'gru-data-picker': {
     score: 'العلامة',
-    report: 'أبلغ عن',
+    report: 'تقرير',
     completion: 'إنجاز',
     timeSpent: 'الوقت',
     'time-spent': 'الوقت المستغرق',
@@ -1674,21 +1641,21 @@ export default Object.assign(quizzesTranslations, {
     'time-spent': 'الوقت الكلي',
     reaction: 'تفاعل',
     attempts: 'محاولات',
-    redo: 'قم ذلك مرة أخرى',
+    redo: 'إعادة',
     resume: 'ملخص',
     study: 'ادرس الآن',
-    'view-report': 'عرض التقرير.',
+    'view-report': 'عرض التقرير',
     'not-applicable': 'غ/م',
     'not-started': 'لم تبدأ بعد'
   },
   'gru-performance': {
-    'no-content': 'لا يوجد محتوى.'
+    'no-content': 'لا يوجد محتوى'
   },
   'gru-performance-metrics': {
     assessment: 'التقييم',
     collection: 'مجموعة',
     completion: 'إنجاز',
-    report: 'أبلغ عن',
+    report: 'تقرير',
     student: 'طالب',
     score: 'العلامة',
     'study-time': 'الوقت المستغرق'
@@ -1697,7 +1664,7 @@ export default Object.assign(quizzesTranslations, {
     assessment: 'التقييم',
     student: 'طالب',
     score: 'العلامة',
-    report: 'أبلغ عن',
+    report: 'تقرير',
     completion: 'إنجاز',
     'time-spent': 'الوقت'
   },
@@ -1708,7 +1675,7 @@ export default Object.assign(quizzesTranslations, {
     'gru-summary': {
       'total-time-spent': 'إجمالي الوقت المستغرق.'
     },
-    'hidden-report': 'لقد قام معلمك بإخفاء ملخص التقرير لهذا التقييم '
+    'hidden-report': 'لقد قام معلمك بإخفاء ملخص التقرير لهذا التقييم. '
   },
   cards: {
     'gru-class-card': {
@@ -1784,18 +1751,18 @@ export default Object.assign(quizzesTranslations, {
       skipped: 'تم التخطي عنه'
     },
     'gru-profile-card': {
-      followers: 'متابعون',
-      following: 'متابعة'
+      followers: 'متابِعون',
+      following: 'متابَعون'
     },
     'gru-user-network-card': {
-      follow: 'اتبع'
+      follow: 'متابعة'
     }
   },
   'reports.gru-table-view': {
     'first-tier-header-prefix': 'س',
     student: 'طالب',
     reaction: 'تفاعل',
-    reactions: 'ردود فعل',
+    reactions: 'ردود الفعل',
     score: 'العلامة',
     scores: 'علامات',
     'study-time': 'وقت الدراسة',
@@ -1809,14 +1776,14 @@ export default Object.assign(quizzesTranslations, {
   home: {
     'no-classes-found': {
       'create-class': {
-        title: 'درس في صفوف جورو الدراسية.',
-        description: 'أنشئئ صف دراسي، عيِّن محتوى، وقم بدعوة الطلاب',
-        'button-text': 'إنشاء صوف دراسية'
+        title: 'درِّس في صفوف جورو الدراسية.',
+        description: 'أنشئئ صف دراسي، عيِّن محتوى، ثم قم بدعوة الطلاب',
+        'button-text': 'أنشئ صفاً دراسياً'
       },
       'join-class': {
-        title: 'تعلم مع صف دراسي خاص بجورو.',
-        description: 'Join your teacher\\’s classroom to start learning.',
-        'button-text': 'أدخل رمز الصف الدراسي'
+        title: 'تعلم مع صف جورو الدراسي',
+        description: 'انضم  إلى صف معلمك الدراسي، لتبدأ التعلم.',
+        'button-text': 'أدخِل رمز الصف الدراسي'
       },
       'featured-courses': {
         title: 'المساقات الدراسية المميزة',
@@ -1840,13 +1807,12 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   validations: {
-    unsavedChanges:
-      'Your changes haven\\\u0027t been saved yet. Would you like to leave this page?'
+    unsavedChanges: 'لم يتم حفظ التغييرات بعد، هل تريد مغادرة هذه الصفحة؟ '
   },
   featured: {
     'featured-title': 'المساقات الدراسية المميزة',
     'featured-description':
-      'Featured courses are curated by innovative teachers, vetted and reviewed by content experts, and implemented in classrooms with students. Discover, remix, and customize courses to personalize learning and increase student engagement! \u003ca href=\u0027http://about.gooru.org/courses\u0027 target=\u0027_blank\u0027\u003eLearn more\u003c/a\u003e about the development of these courses.'
+      'يتم تنظيم المساقات الدراسية المميزة من قبل معلمين مبتكِرين، وفحصها ومراجعتها من قِبل خبراء في المحتوى التعليمي. كما يتم تطبيقها في الصفوف الدراسية مع الطلاب. \nاكتشف وامزج ونسّق المساقات التعليمية لتخصيص التعليم ورفع مستوى تفاعل الطلاب مع هذه المساقات. اضغط هنا لمعرفة المزيد عن تطوير هذه المساقات.'
   },
   'taxonomy.modals': {
     'gru-domain-picker': {
@@ -1862,14 +1828,14 @@ export default Object.assign(quizzesTranslations, {
       browseSelectorText: 'ما هي المعايير التي سيتم تغطيتها؟',
       browseCompetencySelectorText: 'ما هي الكفاءات التي سيتم تغطيتها؟',
       selectedText: {
-        zero: 'تم تحديد {{count}} معايير',
-        one: 'تم تحديد {{count}} معيار ',
-        other: 'تم تحديد {{count}} معايير'
+        zero: 'تم اختيار {{count}} معايير',
+        one: 'تم اختيار {{count}} معيار ',
+        other: 'تم اختيار {{count}} معايير'
       },
       selectedCompetencyText: {
-        zero: 'تم تحديد {{count}} كفاءات',
-        one: 'تم تحديد {{count}} كفاءة',
-        other: 'تم تحديد {{count}} كفاءات'
+        zero: 'تم اختيار {{count}} كفاءات',
+        one: 'تم اختيار {{count}} كفاءة',
+        other: 'تم اختيار {{count}} كفاءات'
       },
       shortcutText: 'تم ربط الوحدة بـ'
     }
@@ -1878,7 +1844,7 @@ export default Object.assign(quizzesTranslations, {
     title: 'إعدادت الحساب',
     'account-info': 'معلومات الحساب',
     'private-info': 'معلومات خاصة',
-    'email-address': 'عنوان البريد الإلكتروني.',
+    'email-address': 'عنوان البريد الإلكتروني',
     gender: 'الجنس',
     birthday: 'تاريخ الميلاد'
   },
@@ -1892,7 +1858,7 @@ export default Object.assign(quizzesTranslations, {
     'expressions-panel': {
       tabs: {
         calculus: 'الحساب',
-        'greek-letters': 'حروف يونانية',
+        'greek-letters': 'أحرف يونانية',
         layout: 'تصميم',
         relation: 'علاقة',
         'set-theory': 'نظرية المجموعات',
@@ -1910,7 +1876,7 @@ export default Object.assign(quizzesTranslations, {
     attempts: 'محاولات',
     'attempts-unlimited': 'غير محدود',
     backwards: 'يمكن للطلاب العودة للخلف وتغيير الاجابات',
-    feedback: 'یرى الطلاب ما إذا کانت إجاباتهم صحیحة أو غیر صحیحة',
+    feedback: 'یرى الطلاب ما إذا کانت إجاباتهم صحیحة أو خاطئة',
     'feedback-immediate': 'لكل سؤال وفي النهاية',
     'feedback-never': 'أبداً',
     'feedback-summary': 'في النهاية',
@@ -1922,19 +1888,18 @@ export default Object.assign(quizzesTranslations, {
   'gru-icon-popover': {
     'settings-visibility-title': 'اجعل المحتوى الخاص بك مرئياً',
     'settings-visibility-content':
-      'هذا الإعداد يجعل المحتوى الخاص بك مرئياً عبر الملف الشخصي للمستخدم. إذا كنت ترغب في مشاركة المساقات والمجموعات والتقييمات والمصادر و/ أو الأسئلة التي تنشئها مع الزملاء، نقترح عليك تفعيل هذه الميزة.'
+      'هذا يجعل المحتوى الخاص بك مرئياً في ملفك الشخصي. إذا كنت ترغب في مشاركة المساقات والمجموعات والتقييمات والمصادر و/ أو الأسئلة التي تنشئها مع الزملاء، نقترح عليك تفعيل هذه الميزة.'
   },
   'gru-take-tour': {
-    text: 'Tour',
+    text: 'جولة',
     'teacher-home': {
       stepOne: {
         title: 'قم بجولة',
-        description:
-          'Welcome to Take a Tour and your homepage! Now let\\’s get started!'
+        description: 'أهلاً بك في "قم بجولة" وفي صفحتك الرئيسية، لنبدأ الآن!'
       },
       stepTwo: {
-        title: 'Logo',
-        description: 'Clicking on the logo returns you to your homepage.'
+        title: 'شِعار',
+        description: 'ستعود إلى صفحتك الرئيسية بالنقر على الشِعار. '
       },
       stepThree: {
         title: 'شريط البحث',
@@ -1942,11 +1907,11 @@ export default Object.assign(quizzesTranslations, {
       },
       stepFour: {
         title: 'الصفوف الدراسية',
-        description: 'Return to your homepage.'
+        description: 'العودة إلى صفحتك الرئيسية.'
       },
       stepFive: {
         title: 'مدير المحتوى',
-        description: 'Quick link to create and access your content.'
+        description: 'رابط لإنشاء المحتوى والولوج إليه بشكل سريع. '
       },
       stepSix: {
         title: 'المكتبة',
@@ -1955,65 +1920,65 @@ export default Object.assign(quizzesTranslations, {
       stepSeven: {
         title: 'ملفك الشخصي',
         description:
-          'Access and update your content, user profile, and settings.'
+          'يمكنك ولوج وتحديث المحتوى الخاص بك وملفك الشخصي والإعدادات.'
       },
       stepEight: {
-        title: 'الدعم',
-        description: 'Access the support center or logout.'
+        title: 'المساعدة',
+        description: 'الذهاب إلى مركز الدعم أو تسجيل الخروج. '
       },
       stepNine: {
         title: 'الصفوف الدراسية',
-        description: 'View a list of classes you are currently teaching.'
+        description: 'عرض قائمة الصفوف التي تُدرسها. '
       },
       stepTen: {
-        title: 'Archived Classes',
-        description: 'View a list of classes you taught in the past.'
+        title: 'الصفوف الدراسية المؤرشفة.',
+        description: 'عرض قائمة الصفوف التي درَّستها في الماضي.'
       },
       stepEleven: {
-        title: 'إنشاء صوف دراسية',
+        title: 'أنشئ صفاً دراسياً',
         description:
-          'Name your classroom and click the button to create a new classroom.'
+          'قم بتسمية صفك الدراسي واضغط على الزر لإنشاء صف دراسي جديد. '
       }
     },
     'student-home': {
       stepOne: {
         title: 'قم بجولة',
         description:
-          'Welcome to Take a Tour and your homepage! Let\\’s walk through the features available to you on your homepage.'
+          'أهلا بك في "قم بجولة" وفي صفحتك الرئيسية، لنشاهد الميزات المتوفرة لك في صفحتك الرئيسية. '
       },
       stepFeaturedCourses: {
         title: 'المساقات الدراسية المميزة',
         description:
-          'Browse the featured courses in the Learning Navigator\\’s content catalog for topics that interest you.'
+          'تصفح المساقات الدراسية المميزة في المواضيع التي تهمك في فهرس المحتوى الخاص بمتصفح التعليم.'
       },
       stepTwo: {
-        title: 'Logo',
-        description: 'Clicking on the logo returns you to your homepage.'
+        title: 'شِعار',
+        description: 'ستعود إلى صفحتك الرئيسية بالنقر على الشِعار. '
       },
       stepThree: {
         title: 'شريط البحث',
-        description: 'Search our content catalog for topics that interest you.'
+        description: 'ابحث عن  المواضيع التي تهمك في فهرس المحتوى.'
       },
       stepFour: {
         title: 'دراستي',
-        description: 'Returns to your homepage.'
+        description: 'العودة إلى صفحتك الرئيسية.'
       },
       stepFive: {
         title: 'المكتبة',
         description:
-          'Browse the Learning Navigator\\’s featured courses and partner libraries for topics that interest you.'
+          'تصفح المساقات الدراسية المميزة في متصفح التعليم وفي مكتبات الشركاء لإيجاد عدد من المواضيع التي تهمك.'
       },
       stepSix: {
-        title: 'آداء',
-        description: 'اطلع على ملخص لأدائك في المساقات التي سجلت فيها.'
+        title: 'أداء',
+        description: 'اطلع على ملخص أدائك في المساقات التي سجلت فيها.'
       },
       stepSeven: {
         title: 'ملفك الشخصي',
-        description: 'Access and update your content and user profile.'
+        description: 'يمكنك تحديث وولوج المحتوى الخاص بك وملفك الشخصي'
       },
       stepEight: {
-        title: 'الدعم',
-        description: 'Access the support center or logout.'
+        title: 'المساعدة',
+        description: 'الذهاب إلى مركز الدعم أو تسجيل الخروج. '
       },
       stepNine: {
         title: 'الإعلانات',
@@ -2022,37 +1987,38 @@ export default Object.assign(quizzesTranslations, {
       },
       stepTen: {
         title: 'الصفوف الدراسية',
-        description: 'See all the classrooms in which you are enrolled.'
+        description: 'شاهد جميع الصفوف الدراسية التي سجلت بها. '
       },
       stepEleven: {
         title: 'التعليم المستقل',
         description:
-          'Explore the topics you have bookmarked and that you want to learn more about.'
+          'ابحث عن المواضيع التي وضعت عليها إشارة مرجعية والتي تريد أن تتعلمها. '
       },
       stepTwelve: {
         title: 'انضم للصف الدراسي',
-        description: 'Enter the classroom code to join a classroom.'
+        description: 'أدخِل رمز الصف الدراسي للانضمام إليه.'
       },
       stepThirteen: {
         title: 'انتهيت!',
         description:
-          'Now go ahead and click on a course you have enrolled in, join a classroom, or search for content that is of interest to you.'
+          'والآن اضغط على مساق دراسي سجلت به، انضم للصف الدراسي، أو ابحث عن المحتوى الذي يهمك. '
       }
     },
     'student-performance': {
       stepOne: {
         title: 'أهلا بك!',
         description:
-          'مرحبا بكم في لوحة الأداء الخاصة بك. يمكنك استعراض أداءك في جميع الصفوف والمساقات الدراسية.'
+          'مرحبا بكم في لوحة الأداء الخاصة بك. يمكنك استعراض أدائك في جميع الصفوف والمساقات الدراسية.'
       },
       stepTwo: {
-        title: 'علامة تبويب المرشِّح',
+        title: 'علامة تبويب تفصيل البيانات',
         description:
-          'انقر على السهم لترشيح أدائك حسب النشاط والفترة الزمنية والموضوع والمساق الدراسي.'
+          'انقر على السهم لتفصيل البيانات الخاصة بأدائك حسب النشاط والفترة الزمنية والموضوع والمساق الدراسي.'
       },
       stepThree: {
         title: 'تحديث التقرير',
-        description: 'بعد تحديد المرشِّحات، انقر على "تحديث" لعرض النتائج.'
+        description:
+          'بعد تحديد المرشِّحات، انقر على "تحديث التقرير" لعرض النتائج.'
       },
       stepFour: {
         title: 'تنزيل أو طباعة',
@@ -2067,17 +2033,15 @@ export default Object.assign(quizzesTranslations, {
       stepOne: {
         title: 'أهلا بك!',
         description:
-          'Welcome to your classroom. Here you will find your daily class activities, course map, and performance data. Let\\’s get started!'
+          'أهلا بك في صفك الدراسي، هنا ستجد نشاطات صفك اليومية وخريطة المساق الدراسي وبيانات الأداء. لنبدأ الآن'
       },
       stepTopBar: {
-        title: 'Course, Performance, Completion',
-        description:
-          'See a summary of your course and overall performance so far.'
+        title: 'المساق الدراسي، الأداء، الإكمال',
+        description: 'شاهد ملخص عن المساق الدراسي والأداء العام حتى الآن. '
       },
       stepTwo: {
         title: 'أنشطة الصف اليومية',
-        description:
-          'Access and study today\\’s activities assigned by your teacher.'
+        description: 'يمكنك ولوج ودراسة النشاطات المعينة من قَبل معلمك اليوم . '
       },
       stepThree: {
         title: 'خريطة المساق الدراسي',
@@ -2086,77 +2050,74 @@ export default Object.assign(quizzesTranslations, {
       },
       stepFour: {
         title: 'تقريري',
-        description: 'Review your overall class performance.'
+        description: 'عاين أداء سصفك الدراسي العام.'
       },
       stepFive: {
         title: 'انتهيت!',
         description:
-          'Start studying the course by clicking on the Course Map or Daily Activities.'
+          'ابدأ بدراة المساق الدراسي بالنقر على "خريطة المساق الدراسي" أو "النشاطات اليومية"'
       }
     },
     'teacher-class': {
       stepOne: {
         title: 'أهلا بك!',
         description:
-          'Welcome to your classroom. Here you will we be able to view and assign your daily class activities, course map, update class information and review student performance data. Let\\’s get started!'
+          'أهلاً بك في صفك الدراسي، هنك يمكنك مشاهدة وتعيين نشاطات صفك اليومية وخريطة المساق وتحديث معلومات الصف ومشاهدة بيانات أداء الطلاب. لنبدأ الآن!'
       },
       stepTopBar: {
-        title: 'Course, Performance, Completion',
-        description:
-          'See a summary of your course and overall student performance so far.'
+        title: 'المساق الدراسي، الأداء، الإكمال',
+        description: 'شاهد ملخص عن المساق الدراسي والأداء العام حتى الآن. '
       },
       stepTwo: {
         title: 'أنشطة الصف اليومية',
-        description: 'View and assign today\\’s activities to your students.'
+        description: 'شاهد و عيِّن نشاطات اليوم لطلابك. '
       },
       stepThree: {
         title: 'خريطة المساق الدراسي',
         description:
-          'View or edit the units, lessons, collections or assessments assigned in the course.'
+          'شاهد و عدِّل الوحدات و الدروس والمجموعات و التقييمات المُعيَّنة في هذا المساق.'
       },
       stepFour: {
         title: 'تقريري',
         description:
-          'View the summary of how your students are performing in the course and access their reports.'
+          'يمكنك مشاهدة ملخص عن آداء طلابك في المساق وولوج تقاريرهم. '
       },
       stepClassManagement: {
         title: 'إدارة الصف الدراسي. ',
-        description:
-          'Assign or update your class information and students enrolled in the class.'
+        description: 'عيِّن أو حدّث معلومات الصف والطلاب المسجلين فيه. '
       },
       stepFive: {
         title: 'انتهيت!',
-        description: 'Now go ahead and share the classroom with your students.'
+        description: 'ولآن شارك الصف الدراسي مع طلابك.'
       }
     },
     'study-player': {
       stepOne: {
         title: 'أهلا بك!',
         description:
-          'This is your study player. Let\\’s walk through the features available to you.'
+          'هذا هو مشغل الدراسة الخاص بك، لنلق نظرة على الميزات المتوفرة لك. '
       },
       stepTwo: {
         title: 'خريطة المساق الدراسي',
-        description:
-          'Click on the icon at any time to return to your Course Map.'
+        description: 'انقر على الأيقونة في أي وقت للعودة إلى خريطة المساق.'
       },
       stepThree: {
-        title: 'Course Name',
-        description: 'Indicates the course you are working on.'
+        title: 'اسم المساق الدراسي',
+        description: 'يشير إلى المساق الذي تعمل عليه.'
       },
       stepFour: {
         title: 'اقتراحات',
         description:
-          'Additional resources you may want to explore based on what you are currently studying.'
+          'المصادر الإضافية التي من الممكن أن ترغب بالبحث عنها بناءً على ما تدرسه'
       },
       stepFive: {
         title: 'إنجاز',
         nuTitle: 'كفاءات',
-        description: 'Indicates how much of the course you have completed.'
+        description: 'تشير إلى قدَر تقدمك في المساق. '
       },
       stepSix: {
-        title: 'آداء',
-        description: 'Indicates how you are performing in the course.'
+        title: 'أداء',
+        description: 'تشير إلى أدتئك في المساق'
       },
       stepSeven: {
         title: 'تفاعل مع المصدر.',
@@ -2169,65 +2130,65 @@ export default Object.assign(quizzesTranslations, {
       stepNine: {
         title: 'العودة إلى المجموعة',
         description:
-          'Click on the icon at any time to return to your Collection or Assessment.'
+          'انقر على الأيقونة في أي وقت للعودة إلى المجموعة أو التقييم.'
       }
     },
     library: {
       stepOne: {
         title: 'أهلا بك!',
-        description: 'Welcome to Libraries in the Learning Navigator.'
+        description: 'أهلا بك في مكتبات متصفح التعلم. '
       },
       stepTwo: {
         title: 'المساقات الدراسية المميزة',
         description:
-          'Explore courses developed and implemented in classrooms by educators.'
+          'ابحث في المساقات الدراسية التي طورها وطبقعا المعلمون سابقاً في صفوفهم الدراسية.'
       },
       stepThree: {
-        title: 'Other Libraries',
-        description: 'Explore content developed by Gooru\\’s partners.'
+        title: 'مكتبات أخرى',
+        description: 'ابحث في المحتوى الذي طوره شركاه جورو. '
       },
       stepFour: {
         title: 'معاينة',
-        description: 'Preview the course to see if it is of interest to you.'
+        description: 'عاين المساق لمعرفة إذا ما كان مهم بالنسبة لك أم لا.'
       },
       stepFive: {
         title: 'مشاركة',
-        description: 'Share this course with others.'
+        description: 'شارك هذا المساق مع الآخرين.'
       },
       stepSix: {
-        title: 'علامة',
-        description: 'Bookmark this course to review it later.'
+        title: 'إشارة مرجعية',
+        description: 'قم بوضع إشارة مرجعية على هذا المساق لمعاينته لاحقاً.'
       }
     },
     profile: {
       stepOne: {
         title: 'أهلا بك!',
         description:
-          'Welcome to your Profile. Here you can access your content, personal information and followers.'
+          'أهلاً بك في ملفك الشخصي، هنا يمكنك الولوج للمحتوى الخاص بك ومعلوماتك الشخصية و المتابعين.'
       },
       stepTwo: {
         title: 'المحتوى الخاص بي',
-        description: 'Create new content and view the content you have remixed.'
+        description: 'أنشئ محتوى جديد، وشاهد المحتوى الذي قمت بإعادة مزجه.'
       },
       stepThree: {
-        title: 'About Me',
+        title: 'حولي',
         description:
-          'Update your personal information, school information and your profile picture.'
+          'حدِّث معلوماتك الشخصية ومعلومات المدرسة و الصورة الشخصية. '
       },
       stepFour: {
-        title: 'Goals',
+        title: 'الأهداف',
         description:
-          'Set and track goals to help you achieve your learning milestones.'
+          'ضَع و تعقب الأهداف لمساعدتك في تحقيق أهداف التعلم الخاصة بك. '
       },
       stepFive: {
-        title: 'متابعون',
+        title: 'متابِعون',
         description:
-          'If you like someone\\’s content, you can follow them. You can also view who is following you.'
+          'إذا أعجبك محتوى إحدى المساقات الدراسية، يمكنك متابعة الأشخاص الذين قاموا ببنائه. كما يمكنك مشاهدة المتابعين. '
       },
       stepSix: {
-        title: 'Badges',
+        title: 'شارات',
         description:
-          'Review the badges you have received. You receive a badge if you complete a benchmark assessment assigned by your teacher.'
+          'شاهد الشارات التي حصلت عليها، ستحصل على شارة في حال إكمال تقييم معياري تم تعيينه من قِبل معلمك.'
       }
     }
   },
@@ -2236,12 +2197,12 @@ export default Object.assign(quizzesTranslations, {
       stepOne: {
         title: 'التنقل والعلامات',
         description:
-          'يحدد هذا الإعداد الكيفية التي ينتقل من خلالها الطلاب في تقييم معيّن  ويبين ما إذا كانت إجاباتهم صحيحة أو خاطئة. هذا الإعداد لا يظهر لهم مفتاح الإجابة.'
+          'يحدد هذا الإعداد كيفية انتقال الطلاب خلال تقييم معيّن ويبين ما إذا كانت إجاباتهم صحيحة أم خاطئة. هذا الإعداد لا يُظهر لهم مفتاح الإجابة.'
       },
       stepTwo: {
         title: 'مفتاح الإجابة  وعدد المحاولات.',
         description:
-          'يتيح هذا الاإعداد إظهار مفتاح الإجابة  ويحدد عدد المحاولات التي يملكها الطلاب في التقييم.'
+          'يتيح هذا الإعداد إظهار مفتاح الإجابة  ويحدد عدد المحاولات التي يملكها الطلاب في التقييم.'
       }
     },
     overview: {
@@ -2251,7 +2212,7 @@ export default Object.assign(quizzesTranslations, {
           'تتيح خريطة المساق الدراسي للطلاب الوصول إلى جميع التقييمات والمجموعات التي تعيّنها لهم.'
       },
       stepTwo: {
-        title: 'رمز الصف.',
+        title: 'رمز الصف',
         description:
           'لكل صف تقوم بإنشائه رمز خاص. ستعطي هذا الرمز للطلاب عندما يصبح صفك الدراسي جاهز لانضمامهم ووصولهم إلى المحتوى الخاص بك.'
       },
@@ -2273,14 +2234,14 @@ export default Object.assign(quizzesTranslations, {
       stepSix: {
         title: 'رصد التقدم المحرز في الوقت الحقيقي!',
         description:
-          'Use the real-time dashboard to monitor class progress on an assessment in real-time.\u003cbr\u003e\u003cbr\u003eClick on the \\"Go Live\\" icon found to the left of every assessment to launch a real-time assessment for students. \u003cbr\u003e\u003cbr\u003e\u003ci class=\\"real-time-icon\\"\u003e'
+          'استخدم لوحة تحكم "الوقت الحقيقي" لرصد تقدم الصف المحرز على التقييم في نفس وقت عمله.\nانقر على أيقونة \u0027التقييم المباشر\u0027 -الموجودة إلى يسار كل تقييم- لبدء تقييم الطلاب في نفس وقت عملهم'
       }
     },
     'quick-start': {
       stepOne: {
         title: 'التنقل بين الصفوف الدراسية',
         description:
-          'This is a view of a newly created classroom. To get back to a classroom at any time, click on \\"Classrooms\\" and use the drop down menu to select the classroom you wish to enter.'
+          'هذا هو شكل الصف الدراسي الذي تم إنشاؤه حديثا. للرجوع إلى الصف الدراسي في أي وقت، انقر على \u0027الصفوف الدراسية\u0027 واستخدم القائمة المنسدلة لتحديد الصفوف الدراسية التي ترغب في دخولها.'
       },
       stepTwo: {
         title: 'البدء؟ أنشئ تقييم!',
@@ -2301,7 +2262,7 @@ export default Object.assign(quizzesTranslations, {
       stepThree: {
         title: 'حدد طريقة عرض',
         description:
-          'Select \\"title view\\" or \\"list view\\" to see options for displaying data.'
+          'اختر\u0027عرض العنوان\u0027 أو \u0027عرض القائمة\u0027 للاطلاع على خيارات عرض البيانات.'
       },
       stepFour: {
         title: 'متوسط العلامات',
@@ -2317,7 +2278,7 @@ export default Object.assign(quizzesTranslations, {
   'gru-course-play': {
     'hide-unit-details': 'إخفاء بيانات الوحدة الوصفية',
     'view-unit-details': 'عرض بيانات الوحدة الوصفية',
-    performance: 'آداء'
+    performance: 'أداء'
   },
   'gru-century-skills': {
     legends: {
@@ -2337,39 +2298,37 @@ export default Object.assign(quizzesTranslations, {
   'gru-rubric-edit': {
     'upload-rubric': 'تحميل سلم تقييم',
     copy: {
-      'success-message':
-        'You\\\u0027ve copied rubric {{title}}. Do you want to edit that Rubric?'
+      'success-message': 'لقد نسخت سلم التقييم {{title}}. هل تريد تعديله؟ '
     }
   },
   'gru-rubric-creation': {
     url: 'رابط',
-    'upload-file': 'تحميل ملف',
-    'add-category': 'إضافة فئة جديدة',
+    'upload-file': 'تحميل الملف',
+    'add-category': 'ضِف فئة جديدة',
     'gru-preview-url': {
-      preview: 'أضف سلم تقييم أعلاه وعاينه هنا.'
+      preview: 'ضِف سلم تقييم أعلاه وعاينه هنا.'
     },
     'overall-narrative': 'تغذية راجعة كلامية.',
     'feedback-guidance': 'دليل التغذية الراجعة',
     'required-feedback': 'التغذية الراجعة مطلوبة',
-    'feedback-guidance-placeholder': 'تلخيص ملاحظاتك على المقال ككل.',
+    'feedback-guidance-placeholder': 'لخِّص ملاحظاتك على المقال ككل.',
     'gru-category': {
-      'category-title': 'استثناء: عند معاينة هذه الفئة، انتبه لهذف الكاتب. ',
-      'category-feedback':
-        'ex. As you are reviewing this category, pay careful attention to the author\\’s purpose.',
+      'category-title': 'عوان الفئة',
+      'category-feedback': 'عند معاينة هذه الفئة، انتبه لهذف الكاتب. ',
       'gru-scoring-levels': {
-        '0': 'example: Exceeding Proficiency',
-        '1': 'example: Meeting Proficiency',
-        '2': 'example: Approaching Proficiency',
-        '3': 'example: Beginning Proficiency',
-        '4': 'example: No Evidence of Proficiency',
+        '0': 'مثال: تخطى الاحترافية',
+        '1': 'مثال: محترف',
+        '2': 'مثال: قريب من الاحترافية',
+        '3': 'مثال: مبتدئ',
+        '4': 'مثال: غير محترف',
         best: 'أفضل',
-        levels: 'مستوى',
+        levels: 'المستوى',
         'new-level': 'إضافة مستوى جديد',
-        scoring: 'مجموع العلامات',
+        scoring: 'العلامة',
         worst: 'أسوأ',
-        'name-error': 'Please enter the level title.',
-        'score-error': 'Please enter the score value.',
-        'no-levels-error': 'Please set a value for at least one level.'
+        'name-error': 'يرجى إدخال عنوان المستوى',
+        'score-error': 'يرجى إدخال قيمة العلامة',
+        'no-levels-error': 'يرجى وضع قيمة لمستوى واحد على الأقل.'
       }
     }
   },
@@ -2414,14 +2373,13 @@ export default Object.assign(quizzesTranslations, {
     'partner-libraries': 'مكتبات الشركاء'
   },
   'gru-study-header': {
-    'lesson-legend': 'تمت إضافتك على الدرس',
+    'lesson-legend': 'تمت إضافتك إلى الدرس',
     'resource-legend': 'أنت تتحقق من المصدر',
     'resources-collection-report': 'تقرير استخدام المجموعة',
     'resources-assessment-report': 'ملخص تقرير التقييم',
-    'check-summary': 'تحقق من ملخق التقرير',
+    'check-summary': 'تحقق من ملخص التقرير',
     'check-usage': 'تحقق من تقرير الاستخدام',
-    'no-suggestions':
-      'We\\\u0027re working on the best suggestions to support your learning',
+    'no-suggestions': 'نحن نعمل على أفضل الاقتراحات لدعم عملية التعليم',
     resource: {
       zero: 'مصدر',
       one: 'مصدر',
@@ -2445,25 +2403,24 @@ export default Object.assign(quizzesTranslations, {
     'post-test-lead':
       'الاختبار التالي هو اختبار بعد الانتهاء من الدرس، ويفضل الخضوع له لتقييم مدى استيعاب الطالب للمفهوم الذي تم طرحه أثناء شرح الدرس، ولن يؤثرهذا الاختبار على علامة الآداء. ',
     'backfill-lead':
-      'بناءً على إجاباتك في الامتحان المسبق للدرس، ينصح بمراجعة مواد إضافية قبل البدء بالدرس، فمراجعة إحدى المواد المساندة يساعد الطالب في تعلم مادة جديدة. ',
+      'بناءً على إجاباتك في الامتحان المسبق للدرس، يُنصح بمراجعة مواد إضافية قبل البدء بالدرس، فمراجعة إحدى المواد المساندة يساعد الطالب في تعلم مادة جديدة. ',
     'benchmark-lead':
-      'You\\’re now ready to demonstrate your understanding by taking a benchmark assessment. You will earn a badge for successfully completing the benchmark. The benchmark will not affect your course performance score.',
+      'أنت على استعداد لإظهار مدى استيعابك من خلال الخضوع للتقييم معياري. سيتم منحك شارة في حال إكمال هذا التقييم بنجاح، لن يؤثر هذا التقييم على علامة الآداء. ',
     'resource-lead':
       'بناءً على آدائك في هذا المساق، سيعزز المصدر التالي اسيعابك له. ',
     no: 'لا، شكرا',
-    'no-suggestions': 'Here\\\u0027s a summary of your performance.',
+    'no-suggestions': 'هذا ملخص لآدائك',
     take: 'خذ {{type}}',
     'take-backfill-pretest': 'ادرس المجموعات المقترحة',
     'take-resource': 'ادرس المصدر',
     'end-of-course': 'لقد وصلت إلى نهاية المساق الدراسي.'
   },
   'student-open-ended-summary': {
-    'overall-comment': 'Overall Comment',
-    'overall-score': 'Overall score',
-    prompt: 'Question Prompt'
+    'overall-comment': 'التعليق العام',
+    'overall-score': 'العلامة العامة',
+    prompt: 'سؤال فوري'
   },
   'gru-performance-chart': {
-    'teacher-tooltip':
-      'of your students have completed all the assessments in this lesson'
+    'teacher-tooltip': 'من طلابك أكمل كل التقييمات في هذا الدرس.'
   }
 });

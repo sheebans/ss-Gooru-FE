@@ -119,7 +119,9 @@
 
   .content {
     width: 100%;
-
+    .tag-caption {
+      width: 120px !important;
+    }
     .standards-list {
       margin: 20px;
       .gru-taxonomy-tag-list {
