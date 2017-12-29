@@ -57,7 +57,17 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       const year = controller.get('year');
       const month = controller.get('month');
       const startDate = new Date(year, month, 1);
-      const endDate = new Date(year, month + 1, 0);
+      let endDate = new Date(year, month + 1, 0);
+      var today = new Date();
+      if (
+        today.getFullYear() === endDate.getFullYear() &&
+        today.getMonth() + 1 === endDate.getMonth() + 1
+      ) {
+        if (endDate.getDate() > today.getDate()) {
+          endDate = new Date(year, month, today.getDate() - 2);
+        }
+      }
+
       if (!this.get('loadingMore')) {
         this.set('loadingMore', true);
         controller

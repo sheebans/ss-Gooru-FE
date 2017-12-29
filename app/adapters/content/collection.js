@@ -78,10 +78,18 @@ export default Ember.Object.extend({
    * @param {string} collectionId
    * @returns {Promise}
    */
-  readPerformanceCollection: function(classId, collectionId, startDate) {
+  readPerformanceCollection: function(
+    classId,
+    collectionId,
+    startDate,
+    collectionType
+  ) {
     const adapter = this;
     const namespace = adapter.get('quizzesPerformancenamespace');
-    const url = `${namespace}/${classId}/assessment/${collectionId}/performance?startDate=${startDate}&endDate=${startDate}`;
+    let url = `${namespace}/${classId}/${collectionType}/${collectionId}/performance?startDate=${startDate}&endDate=${startDate}`;
+    if (collectionType === 'collection') {
+      url = `${namespace}/${classId}/${collectionType}/${collectionId}/performance?date=${startDate}`;
+    }
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',

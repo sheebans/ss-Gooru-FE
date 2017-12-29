@@ -154,13 +154,27 @@ export default Ember.Service.extend({
    * @param {boolean} refresh
    * @returns {Promise.<Collection>}
    */
-  readPerformanceData: function(classId, collectionId, startDate) {
+  readPerformanceData: function(
+    classId,
+    collectionId,
+    startDate,
+    assessmentType
+  ) {
     const service = this;
+    let collectionType = 'assessment';
+    if (!assessmentType) {
+      collectionType = 'collection';
+    }
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service
         .get('collectionAdapter')
-        .readPerformanceCollection(classId, collectionId, startDate)
+        .readPerformanceCollection(
+          classId,
+          collectionId,
+          startDate,
+          collectionType
+        )
         .then(function(responseData) {
           Ember.Logger.info('responseData11---', responseData);
           resolve(responseData);

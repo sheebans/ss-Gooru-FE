@@ -6,6 +6,7 @@
     {{#link-to 'player' item.id (query-params type=item.collectionType role='teacher') class="title"}}
         <div class="ellipsis">{{item.title}}</div>
     {{/link-to}}
+    <div>{{activityDateStr}}</div>
   </div>
   <div class="info pull-right">
     <div class="content-count">
@@ -47,9 +48,9 @@
           title="{{t "common.launch-on-air"}}"
           class="on-air go-live enabled {{if todayDateStatus '' 'out-of-scope'}}">{{t "common.launch-on-air"}}
         </button>
-        {{#if collectionPerformanceSummary.score}}
-        <span {{action 'onReportClick' item.id}} class='visibility-panel item-not-visible hidden-xs pointer' data-toggle="tooltip" data-placement="auto">{{gru-icon name='library_books'}}</span>
       {{/if}}
+      {{#if (or collectionPerformanceSummary.score collectionPerformanceSummary.timeSpent)}}
+        <span {{action 'onReportClick' item.id item.isAssessment}} class='visibility-panel item-not-visible hidden-xs pointer' data-toggle="tooltip" data-placement="auto">{{gru-icon name='library_books'}}</span>
       {{/if}}
     </div>
     <div class="performance">
@@ -192,7 +193,7 @@
     {{#each membersData as |row|}}
       <tr class="data">
         <th scope="row" class="fixedCol fixedColOld pointer setWidth"
-          {{action "selectRowHeader" row.id}}>
+          {{action "selectRowHeader" row.id item.isAssessment}}>
           <div class="table-cell pull-left textellip pointer">{{row.lastName}}, {{row.firstName}}</div>
         </th>
         <th scope="row" class="fixedCol fixedColNew {{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">

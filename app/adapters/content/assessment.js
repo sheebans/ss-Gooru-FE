@@ -9,6 +9,7 @@ export default Ember.Object.extend({
   session: Ember.inject.service('session'),
 
   namespace: '/api/nucleus/v1/assessments',
+  namespaceCollection: '/api/nucleus/v1/collections',
 
   copierNamespace: '/api/nucleus/v1/copier/assessments',
 
@@ -39,9 +40,12 @@ export default Ember.Object.extend({
    * @param {string} assessmentId
    * @returns {Promise}
    */
-  readAssessment: function(assessmentId) {
+  readAssessment: function(assessmentId, assessmentType) {
     const adapter = this;
-    const namespace = adapter.get('namespace');
+    let namespace = adapter.get('namespace');
+    if (!assessmentType) {
+      namespace = adapter.get('namespaceCollection');
+    }
     const url = `${namespace}/${assessmentId}`;
     const options = {
       type: 'GET',

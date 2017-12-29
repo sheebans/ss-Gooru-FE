@@ -38,7 +38,7 @@
 
     .info {
       height: 60px;
-      width: 28%;
+      width: 33%;
       .content-count {
         font-size: $font-navigator;
         margin: 10px 10px 0 0;
@@ -72,7 +72,11 @@
         border-right: 1px solid $light-100;
         display: inline-block;
         height: 60px;
-        width: 60px;
+        width: 90px;
+        .reporticon {
+          margin-top: 21%;
+          margin-right: 8px;
+        }
         .btn.study-now {
           background-color: $white;
           font-size: $font-size-h6;

@@ -68,12 +68,12 @@ export default Ember.Service.extend({
    * @param {string} assessmentId
    * @returns {Promise}
    */
-  readAssessment: function(assessmentId) {
+  readAssessment: function(assessmentId, assessmentType) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service
         .get('assessmentAdapter')
-        .readAssessment(assessmentId)
+        .readAssessment(assessmentId, assessmentType)
         .then(function(responseData) {
           resolve(
             service
