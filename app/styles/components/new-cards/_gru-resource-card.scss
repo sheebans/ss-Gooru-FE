@@ -226,6 +226,11 @@
       .gru-taxonomy-tag-list {
         .gru-taxonomy-tag {
           background-color: $light-300;
+          .conent {
+            span {
+              width: 120px;
+            }
+          }
         }
       }
     }
