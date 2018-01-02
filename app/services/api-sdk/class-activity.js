@@ -101,7 +101,6 @@ export default Ember.Service.extend({
         .get('classActivityAdapter')
         .findClassActivities(classId, contentType, startDate, endDate)
         .then(function(payload) {
-          Ember.Logger.info('payload33---', payload);
           const classActivities = service
             .get('classActivitySerializer')
             .normalizeFindClassActivities(payload);
@@ -140,7 +139,6 @@ export default Ember.Service.extend({
         .get('classActivityAdapter')
         .findClassActivities(classId, contentType, startDate, endDate)
         .then(function(payload) {
-          Ember.Logger.info('payload22---', payload);
           const classActivities = service
             .get('classActivitySerializer')
             .normalizeFindClassActivities(payload);
@@ -154,35 +152,6 @@ export default Ember.Service.extend({
             )
             .then(resolve, reject);
         });
-    });
-  },
-
-  /**
-   * Gets all class activity for the authorized user (student|teacher)
-   *
-   * @param {string} userId
-   * @param {string} classId
-   * @param {string} contentType collection|assessment|resource|question
-   * @param {Date} startDate optional start date, default is now
-   * @param {Date} endDate optional end date, default is now
-   * @returns {Promise.<ClassActivity[]>}
-   */
-  getStudentClassActivities: function(
-    userId,
-    classId,
-    contentType = undefined,
-    startDate = new Date(),
-    endDate = new Date()
-  ) {
-    const service = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      service
-        .get('classActivityAdapter')
-        .findClassActivities(classId, contentType, startDate, endDate)
-        .then(function(responseData) {
-          Ember.Logger.info('responseData11---', responseData);
-          resolve(responseData);
-        }, reject);
     });
   },
 
@@ -240,10 +209,7 @@ export default Ember.Service.extend({
           const activityAssessmentPerformanceSummaryItems =
             hash.activityAssessmentPerformanceSummaryItems;
 
-          Ember.Logger.info('classActivities--', classActivities);
-
           classActivities.forEach(function(classActivity) {
-            Ember.Logger.info('classActivity--', classActivity);
             const collection = classActivity.get('collection');
             if (collection) {
               const activityPerformanceSummary = collection.get('isAssessment')
