@@ -37,6 +37,7 @@ export default Ember.Object.extend({
       classId: data.classId,
       timeSpent: data.timeSpent,
       score: data.scoreInPercentage,
+      sessionId: data.lastSessionId,
       totalCompleted: data.completedCount,
       total:
         data.totalCount ||

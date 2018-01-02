@@ -27,6 +27,9 @@ export default Ember.Object.extend({
     let usageData = payload.usageData;
     if (usageData === undefined) {
       usageData = payload.questions;
+      if (usageData === undefined) {
+        usageData = payload.resources;
+      }
     }
     return UserResourcesResult.create({
       user: payload.userUid,
@@ -45,18 +48,23 @@ export default Ember.Object.extend({
   },
 
   normalizeResourceResult: function(payload) {
+    let qtype = payload.questionType;
+    if (qtype === 'unknown') {
+      qtype = payload.resourceType;
+    }
     let answerObjects = this.normalizeAnswerObjects(
       payload.answerObject,
-      payload.questionType
+      qtype
     );
+
     let eventTime = payload.eventTime ? toLocal(payload.eventTime) : null;
     let startedAt = payload.startTime
       ? toLocal(payload.startTime)
       : toLocal(new Date().getTime());
     let submittedAt = payload.endTime ? toLocal(payload.endTime) : startedAt;
 
-    if (payload.resourceType && payload.resourceType === 'question') {
-      let util = getQuestionUtil(payload.questionType).create();
+    if (payload.resourceType === 'question') {
+      let util = getQuestionUtil(qtype).create();
       let resId = payload.gooruOId;
       if (resId === undefined) {
         resId = payload.questionId;
@@ -75,7 +83,7 @@ export default Ember.Object.extend({
         //fields only for student collection performance
         score: payload.score,
         resourceType: payload.resourceType,
-        questionType: payload.questionType,
+        questionType: qtype,
         attempts: payload.attempts,
         sessionId: payload.sessionId,
         startedAt: startedAt,
@@ -86,6 +94,7 @@ export default Ember.Object.extend({
       questionResult.submittedAnswer = !!questionResult.userAnswer;
       return questionResult;
     } else {
+      Ember.Logger.info('iam here---', qtype);
       return ResourceResult.create({
         //Commons fields for real time and student collection performance
         resourceId: payload.gooruOId,

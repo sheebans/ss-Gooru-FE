@@ -285,6 +285,7 @@ export default Ember.Object.extend({
   getStudentsByQuestionAndUserAnswer: function(question, answer) {
     const reportData = this.get('data');
     const questionId = question.get('id');
+    Ember.Logger.info('iaminreportdata----', question);
     const util = getQuestionUtil(question.get('questionType')).create({
       question: question
     });

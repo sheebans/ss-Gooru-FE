@@ -113,6 +113,7 @@ export default ResourceResult.extend({
    */
   toJSON: function() {
     let question = this.get('question');
+    Ember.Logger.info('questiontype----', question);
     let questionType = question.get('questionType');
     let util = getQuestionUtil(questionType).create({
       question: question

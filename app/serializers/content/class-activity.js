@@ -21,6 +21,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @returns {Goal[]}
    */
   normalizeFindClassActivities: function(payload) {
+    Ember.Logger.info('payload11--', payload);
     const serializer = this;
     if (
       payload &&
@@ -41,6 +42,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @return {Goal}
    */
   normalizeClassActivity: function(data) {
+    Ember.Logger.info('data--', data);
     const serializer = this;
     const content = serializer.normalizeClassActivityContent(data);
     return ClassActivity.create(Ember.getOwner(this).ownerInjection(), {
