@@ -134,7 +134,7 @@ export default Ember.Component.extend({
     if (collection.collectionType === 'assessment') {
       component
         .get('assessmentService')
-        .readAssessment(collection.id, collection.collectionType)
+        .readAssessmentDCA(collection.id, collection.collectionType)
         .then(function(collection1) {
           component.set('membersData', members);
           collection1.children.forEach(function(resourceobj) {
@@ -260,7 +260,7 @@ export default Ember.Component.extend({
     } else {
       component
         .get('collectionService')
-        .readCollection(collection.id, collection.collectionType)
+        .readCollection(collection.id)
         .then(function(collection1) {
           component.set('membersData', members);
           collection1.children.forEach(function(resourceobj) {

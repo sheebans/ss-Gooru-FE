@@ -68,7 +68,6 @@ export default DS.JSONAPISerializer.extend({
       attributes: {
         type: serializer.getObjectType(result),
         score: result.scoreInPercentage,
-        sessionId: result.lastSessionId,
         completionDone: result.completedCount,
         completionTotal: result.totalCount,
         timeSpent: result.timeSpent,

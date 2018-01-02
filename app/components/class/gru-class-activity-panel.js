@@ -485,7 +485,7 @@ export default Ember.Component.extend({
       component.set('membersData', members);
       component
         .get('collectionService')
-        .readPerformanceData(
+        .readPerformanceDataDCA(
           classId,
           collectionId,
           activityDate,
@@ -496,7 +496,7 @@ export default Ember.Component.extend({
           if (assessmentType) {
             component
               .get('assessmentService')
-              .readAssessment(collectionId, assessmentType)
+              .readAssessmentDCA(collectionId, assessmentType)
               .then(function(collection) {
                 component.set('firstTierHeaders', collection.children);
                 members.forEach(function(item1) {
