@@ -121,7 +121,6 @@ export default Ember.Component.extend({
     const component = this;
     const reportData = component.get('reportData');
     const question = component.get('question');
-    Ember.Logger.info('question--', question);
     const questionUtil = getQuestionUtil(question.get('questionType')).create({
       question: question
     });
@@ -132,7 +131,6 @@ export default Ember.Component.extend({
     const answersData = Ember.A([]);
     distribution.forEach(function(answerDistribution) {
       let userAnswer = answerDistribution.get('answer');
-      Ember.Logger.info('userAnswer232---', question);
       let students = reportData.getStudentsByQuestionAndUserAnswer(
         question,
         userAnswer

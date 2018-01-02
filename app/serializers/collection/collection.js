@@ -23,7 +23,6 @@ export default DS.JSONAPISerializer.extend({
    */
   normalizeReadCollection: function(payload) {
     const serializer = this;
-    Ember.Logger.info('iam here--', payload);
     var collectionModel = {
       data: serializer.normalizeCollectionData(payload),
       included: []
@@ -71,7 +70,6 @@ export default DS.JSONAPISerializer.extend({
   },
 
   normalizeCollectionData: function(payload) {
-    Ember.Logger.info('iam here');
     return {
       type: 'collection/collection',
       id: payload.gooruOid,

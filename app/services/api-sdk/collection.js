@@ -162,7 +162,6 @@ export default Ember.Service.extend({
         .get('collectionAdapter')
         .readPerformanceCollection(classId, collectionId, startDate)
         .then(function(responseData) {
-          Ember.Logger.info('responseData11---', responseData);
           resolve(responseData);
         }, reject);
     });
@@ -195,7 +194,6 @@ export default Ember.Service.extend({
           collectionType
         )
         .then(function(responseData) {
-          Ember.Logger.info('responseData11---', responseData);
           resolve(responseData);
         }, reject);
     });

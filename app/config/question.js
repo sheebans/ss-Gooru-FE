@@ -114,7 +114,6 @@ export const QUESTION_CONFIG = {
  * @param {string} propertyPath a valid property path inside the question config object
  */
 export function getQuestionConfig(questionType, propertyPath) {
-  Ember.Logger.info('questionType--', questionType);
   let config = QUESTION_CONFIG[questionType];
   if (!config) {
     Ember.Logger.error(

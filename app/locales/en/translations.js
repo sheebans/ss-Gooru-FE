@@ -167,6 +167,9 @@ export default Object.assign(quizzesTranslations, {
     content: 'Content',
     'content-manager': 'Content Manager',
     contentUnavailable: 'Content not available',
+    contentUnavailabletoday:
+      'No current activities. Add Daily Class Activities from the Course Map or My Content.',
+    contentUnavailableyesterday: 'No activities were added.',
     'contributed-by': 'Contributed by',
     copy: 'Copy',
     'copy-to': 'Copy To',
