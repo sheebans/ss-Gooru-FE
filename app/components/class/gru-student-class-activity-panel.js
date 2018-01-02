@@ -126,7 +126,6 @@ export default Ember.Component.extend({
     const component = this;
     studentId = component.get('session.userId');
     const classId = component.get('class.id');
-    Ember.Logger.info('mem---', collection);
     var members = component.get('members');
     var dcaDate = new Date(component.get('classActivity.date'));
     var activityDate = `${dcaDate.getFullYear()}-${dcaDate.getMonth() +
@@ -165,7 +164,6 @@ export default Ember.Component.extend({
                   activityDate
                 )
                 .then(function(resultSession) {
-                  Ember.Logger.info('resultSession--', resultSession);
                   if (resultSession !== undefined && resultSession.length > 0) {
                     resultSession[0].resourceResults.forEach(function(
                       resource1obj
@@ -296,7 +294,6 @@ export default Ember.Component.extend({
                   activityDate
                 )
                 .then(function(resultSession) {
-                  Ember.Logger.info('resultSession--', resultSession);
                   if (resultSession !== undefined && resultSession.length > 0) {
                     resultSession[0].resourceResults.forEach(function(
                       resource1obj
