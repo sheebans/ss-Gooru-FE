@@ -69,6 +69,9 @@ export default Ember.Object.extend({
       if (resId === undefined) {
         resId = payload.questionId;
       }
+      if (resId === undefined) {
+        resId = payload.resourceId;
+      }
       let questionResult = QuestionResult.create({
         //Commons fields for real time and student collection performance
         resourceId: resId,
@@ -94,16 +97,20 @@ export default Ember.Object.extend({
       questionResult.submittedAnswer = !!questionResult.userAnswer;
       return questionResult;
     } else {
-      Ember.Logger.info('iam here---', qtype);
+      var resourceIdVal = payload.gooruOId;
+      if (resourceIdVal === undefined) {
+        resourceIdVal = payload.resourceId;
+      }
       return ResourceResult.create({
         //Commons fields for real time and student collection performance
-        resourceId: payload.gooruOId,
+        resourceId: resourceIdVal,
         reaction: payload.reaction,
         timeSpent: payload.timeSpent,
 
         //fields only for student collection performance
         score: payload.score,
         resourceType: payload.resourceType,
+        format: payload.format,
         attempts: payload.attempts,
         sessionId: payload.sessionId,
         startedAt: startedAt,
