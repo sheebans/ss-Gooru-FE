@@ -6,7 +6,9 @@
     {{#link-to 'player' item.id (query-params type=item.collectionType role='teacher') class="title"}}
         <div class="ellipsis">{{item.title}}</div>
     {{/link-to}}
+    {{!-- {{#if (and (not (eq index 0)))}}
     <div>{{activityDateStr}}</div>
+    {{/if}} --}}
   </div>
   <div class="info pull-right">
     <div class="content-count">
@@ -98,7 +100,11 @@
       {{!-- {{/if}} --}}
 
       {{#each firstTierHeaders as |header|}}
-        <th class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">Q {{header.order}}</th>
+      {{#if (eq header.resourceType 'resource')}}
+      <th class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">R {{header.order}}</th>
+      {{else}}
+      <th class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">Q {{header.order}}</th>
+      {{/if}}
       {{/each}}
     </tr>
 
