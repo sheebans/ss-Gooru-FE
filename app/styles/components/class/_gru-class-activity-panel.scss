@@ -7,6 +7,10 @@
   + .panel {
     margin-top: 1px;
   }
+  .overidemarginleft {
+    margin-left: 0px !important;
+    width: 100% !important;
+  }
   .panel-heading {
     border-bottom: $light-200 1px solid;
     border-radius: 0;
@@ -189,6 +193,9 @@
     }
     .answer-undefined {
       background-color: $light-100;
+    }
+    .answer-extended_text {
+      background-color: #0072bc;
     }
     .first-tier,
     .second-tier {

@@ -6,7 +6,9 @@
     {{#link-to 'player' item.id (query-params type=item.collectionType role='teacher') class="title"}}
         <div class="ellipsis">{{item.title}}</div>
     {{/link-to}}
+    {{!-- {{#if (and (not (eq index 0)))}}
     <div>{{activityDateStr}}</div>
+    {{/if}} --}}
   </div>
   <div class="info pull-right">
     <div class="content-count">
@@ -79,7 +81,7 @@
   {{/each}}
 </ul>
 </div>
-<div class='gru-two-tier-header-table' id="maindatatable">
+<div class='gru-two-tier-header-table overidemarginleft' id="maindatatable">
   <div class="table-wrapperCol style-1 {{if (and timevisible reactionvisible) 'Colall' ''}} {{if (and (not timevisible) (not reactionvisible)) 'ColOnlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'ColOnlyReaction' ''}} {{if (and timevisible (not reactionvisible)) 'ColOnlyTime' ''}}">
   <table style="table-layout: fixed;">
     <col>
@@ -98,7 +100,11 @@
       {{!-- {{/if}} --}}
 
       {{#each firstTierHeaders as |header|}}
-        <th class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">Q {{header.order}}</th>
+      {{#if (eq header.resourceType 'resource')}}
+      <th class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">R {{header.order}}</th>
+      {{else}}
+      <th class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">Q {{header.order}}</th>
+      {{/if}}
       {{/each}}
     </tr>
 
@@ -223,7 +229,11 @@
         </span>
             {{/if}}
              {{#if (eq content.score 0)}}
+             {{#if (eq content.questionType 'OE')}}
+             <span data-toggle="tooltip" data-placement="auto" class="pull-left" title="" data-original-title="" style="display: table-cell;"><span class="score answer-extended_text"></span></span>
+            {{else}}
             <span data-toggle="tooltip" data-placement="auto" class="pull-left" title="" data-original-title="" style="display: table-cell;"><span class="score answer-incorrect"><i class="gru-icon material-icons">clear</i></span></span>
+             {{/if}}
             <span class="time-spent timePadding pull-left {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
           <span class="reaction smileypadding pull-right {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
           {{{reaction-icon content.reaction appRootPath}}}
@@ -233,8 +243,8 @@
             <span class="score answer-undefined pull-left" style="display: table-cell;"></span>
             <span class="time-spent timePadding pull-left {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
             <span class="reaction smileypadding pull-right {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
-            {{{reaction-icon content.reaction appRootPath}}}
-            </span>
+          {{{reaction-icon content.reaction appRootPath}}}
+          </span>
             {{/if}}
           </th>
         {{/each}} 
