@@ -131,6 +131,12 @@ export default StudentCollection.extend({
   mapLocation: null,
 
   /**
+   * Current class  assessment minScore
+   * @property {integer}
+   */
+  minScore: null,
+
+  /**
    * @property {boolean}
    */
   hasPreTestSuggestions: Ember.computed.alias(
