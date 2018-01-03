@@ -16,7 +16,7 @@
   oeQuestionCount=orderedOpenEndedQuestions.length
   }}
 
-{{#if areAnswersHidden}}
+{{#if (and (not isTeacher) areAnswersHidden)}}
   <div class="hidden-report">
     <span>{{t "gru-assessment-report.hidden-report"}}</span>
   </div>

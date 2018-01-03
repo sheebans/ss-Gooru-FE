@@ -15,7 +15,7 @@
     {{/unless}}
   </div>
   {{#if isTeacher}}
-    <div class="score-change-container">
+    <div class="score-change-container hidden">
       {{#if isChangeScoreEnabled}}
         <button type="button" class="btn btn-primary confirm" {{action 'onChangeScoreConfirm'}}>Confirm</button>
         <button type="button" class="btn btn-info cancel" {{action 'onChangeScoreNotConfirm'}}>Cancel</button>
