@@ -493,6 +493,7 @@ export default Ember.Component.extend({
         )
         .then(function(result1) {
           component.set('userQuestionDataObj', result1);
+          let questionDataObj = [];
           if (assessmentType) {
             component
               .get('assessmentService')
@@ -567,6 +568,7 @@ export default Ember.Component.extend({
               .then(function(collection) {
                 component.set('firstTierHeaders', collection.children);
                 members.forEach(function(item1) {
+                  questionDataObj = [];
                   var memberDataobj = result1.content.findBy(
                     'userUid',
                     item1.id
@@ -576,19 +578,20 @@ export default Ember.Component.extend({
                       let objData = memberDataobj.usageData
                         .get(0)
                         .questions.findBy('resourceId', qobj.id);
+                      Ember.Logger.info('objData--', objData);
                       if (objData !== undefined) {
                         Ember.set(
                           objData,
                           'timeSpent',
                           formatMilliseconds(objData.timeSpent)
                         );
+                        if (qobj.resourceType === 'resource') {
+                          Ember.set(objData, 'score', null);
+                        }
+                        questionDataObj.pushObject(objData);
                       }
                     });
-                    Ember.set(
-                      item1,
-                      'content',
-                      memberDataobj.usageData.get(0).questions
-                    );
+                    Ember.set(item1, 'content', questionDataObj);
                     Ember.set(item1, 'resultResources', []);
                     let collObj = memberDataobj.usageData.get(0).assessment;
                     if (collObj === undefined) {
