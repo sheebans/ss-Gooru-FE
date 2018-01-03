@@ -14,6 +14,16 @@
       {{/if}}
     {{/unless}}
   </div>
+  {{#if isTeacher}}
+    <div class="score-change-container">
+      {{#if isChangeScoreEnabled}}
+        <button type="button" class="btn btn-primary confirm" {{action 'onChangeScoreConfirm'}}>Confirm</button>
+        <button type="button" class="btn btn-info cancel" {{action 'onChangeScoreNotConfirm'}}>Cancel</button>
+      {{else}}
+        <button type="button" class="btn btn-primary change-score" {{action 'onChangeScore'}}>Change Score</button>
+      {{/if}}
+    </div>
+  {{/if}}
   <table class="hidden-xs">
     <thead>
       <tr>
@@ -72,14 +82,19 @@
           </td>
           {{#unless result.question.isOpenEnded}}
             <td class="question-score {{if showPerformance 'visible' 'hide'}}">
-              {{#if (and result.started  result.skipped)}}
-                  <span class="skipped">
+              {{#if (and result.started result.skipped)}}
+                <span class="skipped">
                       {{gru-icon name='ic_block'}}
                   </span>
               {{else}}
-                  <span class="{{if result.started (if result.correct 'correct' 'incorrect') 'not-started'}}">
+                <span class="{{if result.started (if result.correct 'correct' 'incorrect') 'not-started'}}">
                       {{#if result.started}}
-                             <i class="icon"> </i>
+                            {{#if (and isTeacher isChangeScoreEnabled)}}
+                                {{gru-status-switch  onOptionSwitch='changeQuestionScore' isChecked=result.correct}}
+                              {{else}}
+                                <i class="icon"> </i>
+                            {{/if}}
+
                        {{else}}
                             {{gru-icon name='radio_button_checked'}}
                      {{/if}}
