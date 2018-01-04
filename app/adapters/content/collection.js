@@ -91,6 +91,33 @@ export default Ember.Object.extend({
     };
     return Ember.$.ajax(url, options);
   },
+  /**
+   * Reads a Collection by id
+   *
+   * @param {string} collectionId
+   * @returns {Promise}
+   */
+  readPerformanceCollectionDCA: function(
+    classId,
+    collectionId,
+    startDate,
+    collectionType
+  ) {
+    const adapter = this;
+    const namespace = adapter.get('quizzesPerformancenamespace');
+    let url = `${namespace}/${classId}/${collectionType}/${collectionId}/performance?startDate=${startDate}&endDate=${startDate}`;
+    if (collectionType === 'collection') {
+      url = `${namespace}/${classId}/${collectionType}/${collectionId}/performance?date=${startDate}`;
+    }
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      processData: false,
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
 
   /**
    * Update a Collection

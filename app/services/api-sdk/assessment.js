@@ -83,6 +83,26 @@ export default Ember.Service.extend({
         }, reject);
     });
   },
+  /**
+   * Gets an Assessment by id
+   * @param {string} assessmentId
+   * @returns {Promise}
+   */
+  readAssessmentDCA: function(assessmentId, assessmentType) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('assessmentAdapter')
+        .readAssessmentDCA(assessmentId, assessmentType)
+        .then(function(responseData) {
+          resolve(
+            service
+              .get('assessmentSerializer')
+              .normalizeReadAssessment(responseData)
+          );
+        }, reject);
+    });
+  },
 
   /**
    * Gets an External Assessment by id

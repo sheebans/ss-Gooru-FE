@@ -10,6 +10,8 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus/v1/assessments',
 
+  collectionNamespace: '/api/nucleus/v1/collections',
+
   copierNamespace: '/api/nucleus/v1/copier/assessments',
 
   externalNamespace: '/api/nucleus/v1/assessments-external',
@@ -42,6 +44,26 @@ export default Ember.Object.extend({
   readAssessment: function(assessmentId) {
     const adapter = this;
     const namespace = adapter.get('namespace');
+    const url = `${namespace}/${assessmentId}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+  /**
+   * Reads an Assessment by id
+   *
+   * @param {string} assessmentId
+   * @returns {Promise}
+   */
+  readAssessmentDCA: function(assessmentId, assessmentType) {
+    const adapter = this;
+    let namespace = adapter.get('namespace');
+    if (!assessmentType) {
+      namespace = adapter.get('collectionNamespace');
+    }
     const url = `${namespace}/${assessmentId}`;
     const options = {
       type: 'GET',

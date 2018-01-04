@@ -22,6 +22,22 @@ export default Ember.Component.extend(ConfigurationMixin, {
      */
     viewOEReport: function(questionId) {
       this.sendAction('onViewOEReport', questionId);
+    },
+
+    onChangeScore: function() {
+      this.set('isChangeScoreEnabled', true);
+    },
+
+    onChangeScoreConfirm: function() {
+      this.set('isChangeScoreEnabled', false);
+    },
+
+    onChangeScoreNotConfirm: function() {
+      this.set('isChangeScoreEnabled', false);
+    },
+
+    changeQuestionScore: function() {
+      // TO-DO
     }
   },
   // -------------------------------------------------------------------------
@@ -31,6 +47,11 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * @requires service:i18n
    */
   i18n: Ember.inject.service(),
+
+  /**
+   * @requires service:session
+   */
+  session: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -76,5 +97,11 @@ export default Ember.Component.extend(ConfigurationMixin, {
    */
   isOpenEnded: Ember.computed('viewMode', function() {
     return this.get('viewMode') === 'open-ended';
-  })
+  }),
+
+  /**
+   * Indicates change score button got enabled.
+   * @property {boolean}
+   */
+  isChangeScoreEnabled: false
 });

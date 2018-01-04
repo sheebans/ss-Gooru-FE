@@ -16,7 +16,7 @@
   oeQuestionCount=orderedOpenEndedQuestions.length
   }}
 
-{{#if areAnswersHidden}}
+{{#if (and (not isTeacher) areAnswersHidden)}}
   <div class="hidden-report">
     <span>{{t "gru-assessment-report.hidden-report"}}</span>
   </div>
@@ -31,7 +31,8 @@
     {{reports.assessment.gru-questions
       isAnswerKeyHidden=isAnswerKeyHidden
       results=orderedQuestions
-      showReactionBar=showReactionBar}}
+      showReactionBar=showReactionBar
+     isTeacher=isTeacher}}
   {{/if}}
   {{#if orderedOpenEndedQuestions.length}}
     {{reports.assessment.gru-questions
@@ -40,6 +41,7 @@
       viewMode='open-ended'
       showReactionBar=showReactionBar
       onViewOEReport='viewOEReport'
+      isTeacher=isTeacher
     }}
   {{/if}}
   {{#if orderedResources.length}}

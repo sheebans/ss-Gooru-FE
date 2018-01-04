@@ -24,7 +24,10 @@ export default Ember.Object.extend({
   },
   queryRecordForDCA: function(query) {
     const namespace = this.get('namespace');
-    const includesessionIdParam = `sessionId=${query.sessionId}`;
+    let includesessionIdParam = `sessionId=${query.sessionId}`;
+    if (query.sessionId === 'NA') {
+      includesessionIdParam = `classId=${query.classId}`;
+    }
     const includedateParam = `date=${query.date}`;
     const collectionId = query.collectionId;
     const userId = query.userId;

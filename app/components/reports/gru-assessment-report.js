@@ -94,7 +94,7 @@ export default Ember.Component.extend({
       this.set('assessmentResult', this.get('model').assessmentResult);
       this.set('profile', this.get('model').profile);
     }
-    this.get('assessmentResult').fixResultsOrder();
+    //this.get('assessmentResult').fixResultsOrder();
   }),
 
   // -------------------------------------------------------------------------

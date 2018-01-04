@@ -40,7 +40,11 @@
               onselectRowHeader='selectRowHeader'
             }}
           {{else}}
-            <li class="no-content">{{t "common.contentUnavailable"}}</li>
+          {{#if (eq index 0)}}
+            <li class="no-content no-contentfont">{{t "common.contentUnavailabletoday"}}</li>
+             {{else}}
+            <li class="no-content no-contentfont">{{t "common.contentUnavailableyesterday"}}</li>
+            {{/if}}
           {{/each}}
         </ol>
       </div>

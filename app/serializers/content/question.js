@@ -184,6 +184,7 @@ export default Ember.Object.extend({
         title: questionData.title,
         narration: questionData.narration,
         type: format,
+        resourceType: questionData.content_format,
         thumbnail: questionData.thumbnail
           ? basePath + questionData.thumbnail
           : null,

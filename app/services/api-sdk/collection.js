@@ -162,7 +162,38 @@ export default Ember.Service.extend({
         .get('collectionAdapter')
         .readPerformanceCollection(classId, collectionId, startDate)
         .then(function(responseData) {
-          Ember.Logger.info('responseData11---', responseData);
+          resolve(responseData);
+        }, reject);
+    });
+  },
+  /**
+   * Gets a Collection by id
+   * @param {string} collectionId
+   * @param {string} type collection|assessment
+   * @param {boolean} refresh
+   * @returns {Promise.<Collection>}
+   */
+  readPerformanceDataDCA: function(
+    classId,
+    collectionId,
+    startDate,
+    assessmentType
+  ) {
+    const service = this;
+    let collectionType = 'assessment';
+    if (!assessmentType) {
+      collectionType = 'collection';
+    }
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('collectionAdapter')
+        .readPerformanceCollectionDCA(
+          classId,
+          collectionId,
+          startDate,
+          collectionType
+        )
+        .then(function(responseData) {
           resolve(responseData);
         }, reject);
     });

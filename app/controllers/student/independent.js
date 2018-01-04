@@ -9,9 +9,9 @@ export default Ember.Controller.extend({
   // Actions
   actions: {
     /**
-    * Collapses the header section
-    * @param {boolean} state
-    */
+     * Collapses the header section
+     * @param {boolean} state
+     */
     toggleHeader: function(state) {
       var $panels = $('.header .panel');
       if (state) {
@@ -60,13 +60,18 @@ export default Ember.Controller.extend({
   menuItem: null,
 
   /**
-  * Percentage value for the score chart
-  * @property {Boolean}
-  */
+   * Percentage value for the score chart
+   * @property {Boolean}
+   */
   percentageToShow: Ember.computed('performance.scoreInPercentage', function() {
     const score = this.get('performance.scoreInPercentage');
     return score || score === 0 ? `${score}%` : '--';
   }),
+
+  /**
+   * @property {boolean} Indicates if course has 1 or more units
+   */
+  hasUnits: Ember.computed.gt('course.unitCount', 0),
 
   // -------------------------------------------------------------------------
   // Methods

@@ -39,6 +39,7 @@ export default Ember.Object.extend({
       attempts: data.attempts,
       views: data.views,
       score: data.scoreInPercentage,
+      sessionId: data.lastSessionId,
       status: data.status
     });
   }
