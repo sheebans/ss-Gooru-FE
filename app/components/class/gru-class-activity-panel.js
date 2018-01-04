@@ -80,6 +80,18 @@ export default Ember.Component.extend({
       //   );
       // }
     },
+    /**
+     * @function actions:selectFirstTierColHeader
+     * @param {string} headerId
+     */
+    selectFirstTierColHeader: function(headerId) {
+      this.sendAction(
+        'onSelectFirstTierHeader',
+        headerId,
+        this.get('collection'),
+        this.get('membersData')
+      );
+    },
 
     /**
      * @function goLive
@@ -506,6 +518,7 @@ export default Ember.Component.extend({
                     item1.id
                   );
                   if (memberDataobj !== undefined) {
+                    questionDataObj = [];
                     collection.children.forEach(function(qobj) {
                       let objData = memberDataobj.usageData
                         .get(0)
@@ -516,17 +529,18 @@ export default Ember.Component.extend({
                           'timeSpent',
                           formatMilliseconds(objData.timeSpent)
                         );
+                        if (objData.timeSpent === 0) {
+                          Ember.set(objData, 'score', null);
+                        }
+                        if (objData.questionType === 'OE') {
+                          Ember.set(objData, 'score', 0);
+                        }
+                        questionDataObj.pushObject(objData);
                       } else {
-                        memberDataobj.usageData
-                          .get(0)
-                          .questions.pushObject(qobj);
+                        questionDataObj.pushObject(qobj);
                       }
                     });
-                    Ember.set(
-                      item1,
-                      'content',
-                      memberDataobj.usageData.get(0).questions
-                    );
+                    Ember.set(item1, 'content', questionDataObj);
                     Ember.set(item1, 'resultResources', []);
                     let collObj = memberDataobj.usageData.get(0).assessment;
                     if (collObj === undefined) {
