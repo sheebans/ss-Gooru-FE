@@ -48,6 +48,9 @@
   {{/if}}
 
   <div class="summary-reset">
+    {{#if enableConfetti }}
+      {{gru-confetti}}
+    {{/if}}
     {{reports.qz-student-report attemptData=attemptData profile=profile}}
   </div>
   {{player.gru-player-summary-footer isDone=isDone classId=classId parents="next" collection=collection}}

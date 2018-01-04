@@ -53,7 +53,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         lessonId: controller.get('lessonId'),
         unitId: controller.get('unitId'),
         contextId,
-        source: controller.get('source')
+        source: controller.get('source'),
+        minScore: controller.get('minScore')
       };
       if (classId) {
         queryParams.classId = classId;
@@ -115,61 +116,59 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
           route.transitionTo('study-player-external');
         }
 
-        return Ember.RSVP
-          .hash({
-            //loading breadcrumb information and navigation info
-            course: route.get('courseService').fetchById(courseId),
-            unit: route.get('unitService').fetchById(courseId, unitId),
-            lesson: route
-              .get('lessonService')
-              .fetchById(courseId, unitId, lessonId)
-          })
-          .then(function(hash) {
-            //setting query params using the map location
-            params.collectionId =
-              mapLocation.get('context.itemId') ||
-              mapLocation.get('context.collectionId');
-            params.classId =
-              params.classId || mapLocation.get('context.classId');
-            params.unitId = params.unitId || mapLocation.get('context.unitId');
-            params.lessonId =
-              params.lessonId || mapLocation.get('context.lessonId');
-            params.pathId = params.pathId || mapLocation.get('context.pathId');
-            params.collectionSubType =
-              params.subtype || mapLocation.get('context.collectionSubType');
+        return Ember.RSVP.hash({
+          //loading breadcrumb information and navigation info
+          course: route.get('courseService').fetchById(courseId),
+          unit: route.get('unitService').fetchById(courseId, unitId),
+          lesson: route
+            .get('lessonService')
+            .fetchById(courseId, unitId, lessonId)
+        }).then(function(hash) {
+          //setting query params using the map location
+          params.collectionId =
+            mapLocation.get('context.itemId') ||
+            mapLocation.get('context.collectionId');
+          params.classId = params.classId || mapLocation.get('context.classId');
+          params.unitId = params.unitId || mapLocation.get('context.unitId');
+          params.lessonId =
+            params.lessonId || mapLocation.get('context.lessonId');
+          params.pathId = params.pathId || mapLocation.get('context.pathId');
+          params.collectionSubType =
+            params.subtype || mapLocation.get('context.collectionSubType');
 
-            // Set the correct unit sequence number
-            hash.course.children.find((child, index) => {
-              let found = false;
-              if (child.get('id') === hash.unit.get('id')) {
-                found = true;
-                hash.unit.set('sequence', index + 1);
-              }
-              return found;
-            });
+          // Set the correct unit sequence number
+          hash.course.children.find((child, index) => {
+            let found = false;
+            if (child.get('id') === hash.unit.get('id')) {
+              found = true;
+              hash.unit.set('sequence', index + 1);
+            }
+            return found;
+          });
 
-            // Set the correct lesson sequence number
-            hash.unit.children.find((child, index) => {
-              let found = false;
-              if (child.get('id') === hash.lesson.get('id')) {
-                found = true;
-                hash.lesson.set('sequence', index + 1);
-              }
-              return found;
-            });
+          // Set the correct lesson sequence number
+          hash.unit.children.find((child, index) => {
+            let found = false;
+            if (child.get('id') === hash.lesson.get('id')) {
+              found = true;
+              hash.lesson.set('sequence', index + 1);
+            }
+            return found;
+          });
 
-            //loads the player model if it has no suggestions
-            return route.playerModel(params).then(function(model) {
-              return Object.assign(model, {
-                course: hash.course,
-                unit: hash.unit,
-                lesson: hash.lesson,
-                mapLocation,
-                collectionId: params.collectionId,
-                type: params.type
-              });
+          //loads the player model if it has no suggestions
+          return route.playerModel(params).then(function(model) {
+            return Object.assign(model, {
+              course: hash.course,
+              unit: hash.unit,
+              lesson: hash.lesson,
+              mapLocation,
+              collectionId: params.collectionId,
+              type: params.type,
+              minScore: params.minScore
             });
           });
+        });
       });
   },
 
@@ -191,7 +190,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       lessonId: mapLocation.get('context.lessonId'),
       collectionId: model.collectionId,
       courseId: mapLocation.get('context.courseId'),
-      type: model.type
+      type: model.type,
+      minScore: model.minScore
     });
   },
 
@@ -199,7 +199,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
    * Gets the map location for the study player based on parameters
    * @param params
    * @returns {*}
-     */
+   */
   getMapLocation: function(params) {
     const route = this;
     const classId = params.classId;

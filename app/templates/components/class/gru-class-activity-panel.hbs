@@ -152,10 +152,10 @@
             </span>
           </th>
 
-     
+
       {{!-- {{/if}} --}}
 
-      
+
 
       {{#each firstTierHeaders as |firstTierHeader firstTierIndex|}}
        {{!-- {{#each secondTierHeaders as |secondTierHeader secondTierIndex|}} --}}
@@ -218,7 +218,7 @@
             <span class="reaction smileypadding pull-right out-of-scope" style="display: table-cell;">
             </span>
           </th>
-        {{/each}} 
+        {{/each}}
         {{#each row.content as |content|}}
           <th scope="row" class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">
             {{#if (eq content.score 100)}}
@@ -247,7 +247,7 @@
           </span>
             {{/if}}
           </th>
-        {{/each}} 
+        {{/each}}
       </tr>
     {{/each}}
   </table>

@@ -23,7 +23,8 @@ export default PlayerController.extend({
     'lessonId',
     'collectionId',
     'source',
-    'pathId'
+    'pathId',
+    'minScore'
   ],
 
   // -------------------------------------------------------------------------
@@ -112,6 +113,12 @@ export default PlayerController.extend({
    * @property {string}
    */
   pathId: null,
+
+  /**
+   * student test report shows confetti badge.
+   * @property {integer}
+   */
+  minScore: null,
 
   /**
    * Indicates if it should show the back button
