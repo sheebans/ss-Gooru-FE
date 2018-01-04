@@ -532,6 +532,9 @@ export default Ember.Component.extend({
                         if (objData.timeSpent === 0) {
                           Ember.set(objData, 'score', null);
                         }
+                        if (objData.questionType === 'OE') {
+                          Ember.set(objData, 'score', 0);
+                        }
                         questionDataObj.pushObject(objData);
                       } else {
                         questionDataObj.pushObject(qobj);
