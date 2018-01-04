@@ -240,7 +240,12 @@
           </span>
             {{/if}}
             {{#if (or (eq content.score undefined) (eq content.score null))}}
+            {{#if (and (eq content.resourceType 'resource') content.timeSpent)}}
+            <span class="score answer-extended_text pull-left" style="display: table-cell;"></span>
+            {{else}}
             <span class="score answer-undefined pull-left" style="display: table-cell;"></span>
+            {{/if}}
+            
             <span class="time-spent timePadding pull-left {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
             <span class="reaction smileypadding pull-right {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
           {{{reaction-icon content.reaction appRootPath}}}
