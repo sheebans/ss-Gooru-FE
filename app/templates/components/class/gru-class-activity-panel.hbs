@@ -8,7 +8,7 @@
     {{/link-to}}
      {{#if (and (not (eq index 0)))}}
     <div>{{activityDateStr}}</div>
-    {{/if}} 
+    {{/if}}
   </div>
   <div class="info pull-right">
     <div class="content-count">
@@ -161,7 +161,7 @@
        {{!-- {{#each secondTierHeaders as |secondTierHeader secondTierIndex|}} --}}
        {{!-- {{#if rowHeadersHeader}} --}}
           <th scope="col"
-              class="row-header {{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}" 
+              class="row-header {{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}"
             {{!-- {{action "updateSortCriteria" firstTierIndex}} --}}
             >
             <span class="table-cell score" style="display: table-cell;" {{action "onScoreSortClick"}}>
@@ -245,7 +245,7 @@
             {{else}}
             <span class="score answer-undefined pull-left" style="display: table-cell;"></span>
             {{/if}}
-            
+
             <span class="time-spent timePadding pull-left {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
             <span class="reaction smileypadding pull-right {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
           {{{reaction-icon content.reaction appRootPath}}}

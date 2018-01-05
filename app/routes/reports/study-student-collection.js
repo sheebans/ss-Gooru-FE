@@ -96,6 +96,7 @@ export default StudentCollection.extend({
       profile: model.profile,
       minScore: model.minScore
     });
+    controller.confettiSetup();
   },
 
   deactivate: function() {

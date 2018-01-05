@@ -56,6 +56,9 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
+    /**
+     * @function externalAssessment open new tab from DCA
+     */
     externalAssessment: function(classActivity) {
       let url = classActivity.collection.get('url');
       if (url) {
@@ -120,7 +123,9 @@ export default Ember.Component.extend({
 
   didRender: function() {
     this._super(...arguments);
-    this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+    this.$('[data-toggle="tooltip"]').tooltip({
+      trigger: 'hover'
+    });
   },
   getMembersOnSummaryClick: function(studentId, collection) {
     const component = this;
