@@ -4,7 +4,7 @@
       <h4>{{if isOpenEnded (t "common.questions-OE") (t "common.questions")}}</h4>
     </div>
     {{#unless isOpenEnded}}
-      {{#if (and not isTeacher isAnswerKeyHidden)}}
+      {{#if (and (not isTeacher) isAnswerKeyHidden)}}
         <em>{{t "common.answer-key-was-hidden"}}</em>
       {{else}}
         <div class="btn-group summary-report-btn" role="group">
@@ -14,7 +14,7 @@
       {{/if}}
     {{/unless}}
   </div>
-  {{#if (and (not isOpenEnded)  isTeacher)}}
+  {{#if (and (not isOpenEnded)  isTeacher hasAnsweredQuestions)}}
     <div class="score-change-container">
       {{#if isChangeScoreEnabled}}
         <button type="button" class="btn btn-primary confirm" {{action 'onChangeScoreConfirm'}}>Confirm</button>
