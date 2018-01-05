@@ -4,7 +4,7 @@
       <h4>{{if isOpenEnded (t "common.questions-OE") (t "common.questions")}}</h4>
     </div>
     {{#unless isOpenEnded}}
-      {{#if isAnswerKeyHidden}}
+      {{#if (and (not isTeacher) isAnswerKeyHidden)}}
         <em>{{t "common.answer-key-was-hidden"}}</em>
       {{else}}
         <div class="btn-group summary-report-btn" role="group">
@@ -14,6 +14,16 @@
       {{/if}}
     {{/unless}}
   </div>
+  {{#if (and (not isOpenEnded)  isTeacher hasAnsweredQuestions)}}
+    <div class="score-change-container">
+      {{#if isChangeScoreEnabled}}
+        <button type="button" class="btn btn-primary confirm" {{action 'onChangeScoreConfirm'}}>Confirm</button>
+        <button type="button" class="btn btn-info cancel" {{action 'onChangeScoreNotConfirm'}}>Cancel</button>
+      {{else}}
+        <button type="button" class="btn btn-primary change-score" {{action 'onChangeScore'}}>Change Score</button>
+      {{/if}}
+    </div>
+  {{/if}}
   <table class="hidden-xs">
     <thead>
       <tr>
@@ -44,7 +54,7 @@
             {{t "common.report"}}
           </th>
         {{/if}}
-        {{#unless isAnswerKeyHidden}}
+        {{#unless (and (not isTeacher) isAnswerKeyHidden)}}
           <th class="header correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
             {{t "common.correct-answer"}}
           </th>
@@ -72,14 +82,19 @@
           </td>
           {{#unless result.question.isOpenEnded}}
             <td class="question-score {{if showPerformance 'visible' 'hide'}}">
-              {{#if (and result.started  result.skipped)}}
-                  <span class="skipped">
+              {{#if (and result.started result.skipped)}}
+                <span class="skipped">
                       {{gru-icon name='ic_block'}}
                   </span>
               {{else}}
-                  <span class="{{if result.started (if result.correct 'correct' 'incorrect') 'not-started'}}">
+                <span class="{{if result.started (if result.correct 'correct' 'incorrect') 'not-started'}}">
                       {{#if result.started}}
-                             <i class="icon"> </i>
+                            {{#if (and isTeacher isChangeScoreEnabled)}}
+                                {{gru-status-switch  onOptionSwitch='changeQuestionScore' isChecked=result.correct item=result}}
+                              {{else}}
+                                <i class="icon"> </i>
+                            {{/if}}
+
                        {{else}}
                             {{gru-icon name='radio_button_checked'}}
                      {{/if}}
@@ -104,7 +119,7 @@
               {{/if}}
             </td>
           {{/if}}
-          {{#unless isAnswerKeyHidden}}
+          {{#unless (and (not isTeacher) isAnswerKeyHidden)}}
             <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
               {{{component (question-config result.question.questionType 'component.answer') question=result.question showCorrect=true}}}
             </td>

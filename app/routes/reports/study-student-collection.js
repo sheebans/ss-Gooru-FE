@@ -58,7 +58,8 @@ export default StudentCollection.extend({
           lesson: route
             .get('lessonService')
             .fetchById(courseId, unitId, lessonId),
-          mapLocation: navigateMapService.getStoredNext()
+          mapLocation: navigateMapService.getStoredNext(),
+          minScore: params.minScore
         });
       })
       .then(function(hash) {
@@ -92,7 +93,8 @@ export default StudentCollection.extend({
       unit: model.unit,
       lesson: model.lesson,
       mapLocation: model.mapLocation,
-      profile: model.profile
+      profile: model.profile,
+      minScore: model.minScore
     });
   },
 

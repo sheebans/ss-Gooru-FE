@@ -76,6 +76,14 @@ export default Ember.Component.extend({
      */
     viewOEReport: function(questionId) {
       this.sendAction('onViewOEReport', questionId);
+    },
+
+    /**
+     * When update the question score
+     * @param data {JSON}
+     */
+    onUpdateQuestionScore: function(data) {
+      this.sendAction('onUpdateQuestionScore', data);
     }
   },
 
@@ -153,9 +161,15 @@ export default Ember.Component.extend({
   orderedQuestions: Ember.computed(
     'assessmentResult.nonOpenEndedQuestionResults.[]',
     function() {
-      var resourceResultsOrdered = this.get(
+      let resourceResultsOrdered = this.get(
         'assessmentResult.nonOpenEndedQuestionResults'
-      ).sort(function(a, b) {
+      );
+      let correctAnswers = resourceResultsOrdered.findBy('correct', true);
+      let inCorrectAnswers = resourceResultsOrdered.findBy('correct', false);
+      if (correctAnswers || inCorrectAnswers) {
+        this.set('hasAnsweredQuestions', true);
+      }
+      resourceResultsOrdered.sort(function(a, b) {
         return Ember.get(a, 'question.order') - Ember.get(b, 'question.order');
       });
 
@@ -190,5 +204,17 @@ export default Ember.Component.extend({
     });
 
     return resourceResultsOrdered;
-  })
+  }),
+
+  /**
+   * Indicates the visibility of change score button
+   * @property {Boolean}
+   */
+  isChangeScoreEnabled: false,
+
+  /**
+   * check question list  has answered items
+   * @type {Boolean}
+   */
+  hasAnsweredQuestions: false
 });

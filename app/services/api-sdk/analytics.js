@@ -253,35 +253,37 @@ export default Ember.Service.extend({
             .readAssessment(collectionId);
         }
       }
-      Ember.RSVP.hash({
-        course: courseId
-          ? service.get('courseService').fetchByIdWithOutProfile(courseId)
-          : undefined,
-        unit: unitId
-          ? service.get('unitService').fetchById(courseId, unitId)
-          : undefined,
-        lesson: lessonId
-          ? service.get('lessonService').fetchById(courseId, unitId, lessonId)
-          : undefined,
-        collection: collection
-      }).then(
-        function(hash) {
-          currentLocation.set('course', hash.course);
-          currentLocation.set('unit', hash.unit);
-          currentLocation.set('lesson', hash.lesson);
-          currentLocation.set('collection', hash.collection);
-          resolve(currentLocation);
-        },
-        function(error) {
-          //handling server errors
-          const status = error.status;
-          if (status === 404) {
-            resolve();
-          } else {
-            reject(error);
+      Ember.RSVP
+        .hash({
+          course: courseId
+            ? service.get('courseService').fetchByIdWithOutProfile(courseId)
+            : undefined,
+          unit: unitId
+            ? service.get('unitService').fetchById(courseId, unitId)
+            : undefined,
+          lesson: lessonId
+            ? service.get('lessonService').fetchById(courseId, unitId, lessonId)
+            : undefined,
+          collection: collection
+        })
+        .then(
+          function(hash) {
+            currentLocation.set('course', hash.course);
+            currentLocation.set('unit', hash.unit);
+            currentLocation.set('lesson', hash.lesson);
+            currentLocation.set('collection', hash.collection);
+            resolve(currentLocation);
+          },
+          function(error) {
+            //handling server errors
+            const status = error.status;
+            if (status === 404) {
+              resolve();
+            } else {
+              reject(error);
+            }
           }
-        }
-      );
+        );
     });
   },
 
@@ -303,6 +305,23 @@ export default Ember.Service.extend({
             reject(error);
           }
         );
+    });
+  },
+
+  /**
+   * Update score of questions in an Assessment/Collection
+   * @param {string} RawData of questions score update for assessment or collection.
+   * @returns {Promise.<boolean>}
+   */
+  updateQuestionScore: function(data) {
+    var service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('analyticsAdapter')
+        .updateQuestionScore(data)
+        .then(function() {
+          return resolve(true);
+        }, reject);
     });
   }
 });

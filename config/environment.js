@@ -37,9 +37,9 @@ module.exports = function(environment) {
     },
 
     marketingSiteUrl: '/welcome',
-    supportSiteUrl: 'http://support.gooru.org',
-    toolkitSiteUrl: 'http://about.gooru.org/toolkit',
-    termsConditionsUrl: 'http://about.gooru.org/terms-and-conditions'
+    supportSiteUrl: '/support',
+    toolkitSiteUrl: '/about/toolkit',
+    termsConditionsUrl: '/about/terms-and-conditions'
   };
 
   ENV.embedded = isEmbedded;

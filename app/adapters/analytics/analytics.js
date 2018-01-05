@@ -56,6 +56,25 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * Update score of questions in an Assessment/Collection
+   * @param {string} RawData of questions score update for assessment or collection.
+   * @returns {Promise}
+   */
+  updateQuestionScore: function(data) {
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders(),
+      data: JSON.stringify(data)
+    };
+    const namespace = this.get('namespace');
+    const url = `${namespace}/event/update`;
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       Authorization: `Token ${this.get('session.token-api3')}`

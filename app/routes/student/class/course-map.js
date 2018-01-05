@@ -49,6 +49,7 @@ export default Ember.Route.extend({
       const currentClass = route.modelFor('student.class').class;
       const classId = currentClass.get('id');
       const courseId = currentClass.get('courseId');
+      item.set('minScore', currentClass.get('minScore'));
 
       if (type === 'lesson') {
         route.startLessonStudyPlayer(classId, courseId, unitId, lessonId);
@@ -116,7 +117,7 @@ export default Ember.Route.extend({
    * @param {string} unitId
    * @param {string} lessonId
    * @param {Collection} collection
-     */
+   */
   startCollectionStudyPlayer: function(
     classId,
     courseId,
@@ -130,6 +131,7 @@ export default Ember.Route.extend({
     let collectionId = collection.get('id');
     let collectionType = collection.get('collectionType');
     let collectionSubType = collection.get('collectionSubType');
+    let minScore = collection.get('minScore');
     let pathId = collection.get('pathId') || 0;
     let queryParams = {
       classId,
@@ -140,7 +142,8 @@ export default Ember.Route.extend({
       source,
       type: collectionType,
       subtype: collectionSubType,
-      pathId
+      pathId,
+      minScore
     };
 
     let suggestionPromise = null;
@@ -170,7 +173,6 @@ export default Ember.Route.extend({
           classId
         );
     }
-
     suggestionPromise.then(() =>
       route.transitionTo('study-player', courseId, { queryParams })
     );
@@ -182,7 +184,7 @@ export default Ember.Route.extend({
    * @param {string} courseId
    * @param {string} unitId
    * @param {string} lessonId
-     */
+   */
   startLessonStudyPlayer: function(classId, courseId, unitId, lessonId) {
     const route = this;
     const role = ROLES.STUDENT;
@@ -205,7 +207,7 @@ export default Ember.Route.extend({
    * Resumes or start the course study player
    * @param {string} classId
    * @param {string} courseId
-     */
+   */
   continueCourseStudyPlayer: function(classId, courseId) {
     const route = this;
     const queryParams = {
