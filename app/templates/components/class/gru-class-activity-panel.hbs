@@ -82,9 +82,10 @@
 </ul>
 </div>
 <div class='gru-two-tier-header-table overidemarginleft' id="maindatatable">
-  <div class="table-wrapperCol style-1 {{if (and timevisible reactionvisible) 'Colall' ''}} {{if (and (not timevisible) (not reactionvisible)) 'ColOnlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'ColOnlyReaction' ''}} {{if (and timevisible (not reactionvisible)) 'ColOnlyTime' ''}}">
-  <table style="table-layout: fixed;">
-    <col>
+  <div>
+   <div class="column-headers" id="clscroll-column-headers">
+    <table id="header-Table">
+
 
     <tr class="first-tier top-header">
       <th scope="col"
@@ -195,14 +196,18 @@
         {{!-- {{/each}} --}}
       {{/each}}
     </tr>
+   </table>
+</div>
+<div class="row-headers" id="clscroll-row-headers">
+    <table>
 
     {{#each membersData as |row|}}
       <tr class="data">
-        <td scope="row" class="fixedCol fixedColOld pointer setWidth"
+        <td scope="row" class="pointer setWidth"
           {{action "selectRowHeader" row.id item.isAssessment}}>
           <div class="table-cell pull-left textellip pointer">{{row.lastName}}, {{row.firstName}}</div>
         </td>
-        <td scope="row" class="fixedCol fixedColNew {{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">
+        <td scope="row" class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">
           <div class="box score pull-left" style={{safe-html (concat "background-color:" (grade-color row.avgScore)) }}>
           {{row.avgScore}}%
         </div>
@@ -211,16 +216,24 @@
             {{{reaction-icon row.avgReact appRootPath}}}
             </span>
         </td>
-         {{#each row.resultResources as |content|}}
-          <td scope="row" style="min-width:75px !important;" class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">
+        </tr>
+    {{/each}}
+    </table>
+</div>
+<div class="table-wrapperCol style-1" id="clscroll-content">
+    <table id="clscroll-table">
+          {{#each membersData as |row|}}
+      <tr class="data">
+        {{#each row.resultResources as |content index|}}
+          <td class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">
             <span class="score answer-undefined pull-left" style="display: table-cell;"></span>
             <span class="time-spent timePadding pull-left out-of-scope" style="display: table-cell;"></span>
             <span class="reaction smileypadding pull-right out-of-scope" style="display: table-cell;">
             </span>
           </td>
-        {{/each}} 
+        {{/each}}
         {{#each row.content as |content|}}
-          <td scope="row" class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">
+          <td class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">
             {{#if (eq content.score 100)}}
             <span data-toggle="tooltip" data-placement="auto" class="pull-left" title="" data-original-title="" style="display: table-cell;"><span class="score answer-correct"><i class="gru-icon material-icons">done</i></span></span>
             <span class="time-spent timePadding pull-left {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
@@ -255,7 +268,8 @@
         {{/each}} 
       </tr>
     {{/each}}
-  </table>
+    </table>
+</div>
 </div>
 </div>
 {{/if}}
