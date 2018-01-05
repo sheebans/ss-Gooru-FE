@@ -26,7 +26,7 @@ test('viewMore', function(assert) {
     year: 2020,
     month: 10,
     classActivityService: {
-      findClassActivities: () => {
+      findClassActivitiesDCA: () => {
         return Ember.RSVP.resolve(activities);
       }
     }
@@ -87,7 +87,7 @@ test('removeClassActivity', function(assert) {
         assert.ok(activityId, 'classActivity-id', 'Incorrect Activity Id');
         return Ember.RSVP.resolve(true);
       },
-      findClassActivities: () => {
+      findClassActivitiesDCA: () => {
         return Ember.RSVP.resolve(activities);
       }
     })
