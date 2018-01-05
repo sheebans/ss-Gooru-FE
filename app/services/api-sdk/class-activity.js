@@ -284,23 +284,56 @@ export default Ember.Service.extend({
             hash.activityAssessmentPerformanceSummaryItems;
           classActivities.forEach(function(classActivity) {
             const collection = classActivity.get('collection');
+
             if (collection) {
-              const activityPerformanceSummary = collection.get('isAssessment')
-                ? activityAssessmentPerformanceSummaryItems.findBy(
-                  'collectionPerformanceSummary.collectionId',
-                  collection.get('id')
-                )
-                : activityCollectionPerformanceSummaryItems.findBy(
-                  'collectionPerformanceSummary.collectionId',
-                  collection.get('id')
-                );
+              let activityPerformanceSummary = null;
+              if (collection.get('isAssessment')) {
+                activityAssessmentPerformanceSummaryItems.forEach(function(
+                  performance
+                ) {
+                  var effectiveDate = new Date(classActivity.date);
+                  var endDate = new Date(performance.date);
+                  if (
+                    effectiveDate.getDay() === endDate.getDay() &&
+                    effectiveDate.getMonth() === endDate.getMonth() &&
+                    effectiveDate.getFullYear() === endDate.getFullYear()
+                  ) {
+                    if (
+                      performance.get(
+                        'collectionPerformanceSummary.collectionId'
+                      ) === collection.get('id')
+                    ) {
+                      activityPerformanceSummary = performance;
+                    }
+                  }
+                });
+              } else {
+                activityCollectionPerformanceSummaryItems.forEach(function(
+                  performance
+                ) {
+                  var effectiveDate = new Date(classActivity.date);
+                  var endDate = new Date(performance.date);
+                  if (
+                    effectiveDate.getDay() === endDate.getDay() &&
+                    effectiveDate.getMonth() === endDate.getMonth() &&
+                    effectiveDate.getFullYear() === endDate.getFullYear()
+                  ) {
+                    if (
+                      performance.get(
+                        'collectionPerformanceSummary.collectionId'
+                      ) === collection.get('id')
+                    ) {
+                      activityPerformanceSummary = performance;
+                    }
+                  }
+                });
+              }
               classActivity.set(
                 'activityPerformanceSummary',
                 activityPerformanceSummary
               );
             }
           });
-
           resolve(classActivities);
         }, reject);
     });
