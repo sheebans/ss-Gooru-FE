@@ -73,7 +73,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         this.set('loadingMore', true);
         controller
           .get('classActivityService')
-          .findClassActivities(
+          .findClassActivitiesDCA(
             currentClass.get('id'),
             undefined,
             startDate,
