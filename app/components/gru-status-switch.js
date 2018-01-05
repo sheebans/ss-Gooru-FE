@@ -32,10 +32,7 @@ export default Ember.Component.extend({
     $toggle.bootstrapToggle();
     $toggle.change(function() {
       const checked = $toggle.prop('checked');
-      if (checked !== component.get('isChecked')) {
-        component.set('isChecked', checked);
-        component.sendAction('onOptionSwitch', checked, component.get('item'));
-      }
+      component.sendAction('onOptionSwitch', checked, component.get('item'));
     });
     this.changeStatus(this.get('isChecked'));
   },

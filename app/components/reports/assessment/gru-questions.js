@@ -11,7 +11,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * @function actions:selectPerformanceOption
      */
     selectPerformanceOption: function(showPerformance) {
-      if (!this.get('isAnswerKeyHidden')) {
+      if (this.get('isTeacher') || !this.get('isAnswerKeyHidden')) {
         this.set('showPerformance', showPerformance);
       }
     },
@@ -24,20 +24,54 @@ export default Ember.Component.extend(ConfigurationMixin, {
       this.sendAction('onViewOEReport', questionId);
     },
 
+    /**
+     * Action get triggered when change score button  clicked
+     */
     onChangeScore: function() {
+      this.get('listOfQuestions').clear();
       this.set('isChangeScoreEnabled', true);
     },
 
+    /**
+     * Action get triggered when change score confirm button clicked
+     */
     onChangeScoreConfirm: function() {
-      this.set('isChangeScoreEnabled', false);
+      let questionScoreUpdateData = this.get('listOfQuestions');
+      if (questionScoreUpdateData.length > 0) {
+        this.sendAction('onUpdateQuestionScore', questionScoreUpdateData);
+      } else {
+        this.set('isChangeScoreEnabled', false);
+      }
     },
 
+    /**
+     * Action get triggered when change score was cancelled
+     */
     onChangeScoreNotConfirm: function() {
+      this.get('listOfQuestions').clear();
       this.set('isChangeScoreEnabled', false);
     },
 
-    changeQuestionScore: function() {
-      // TO-DO
+    /**
+     * It will maintain the list of questions  which need to be update the score.
+     * @param  {Boolean} status
+     * @param  {Object} item   Question Ember object
+     */
+    changeQuestionScore: function(status, item) {
+      let listOfQuestions = this.get('listOfQuestions');
+      let question = listOfQuestions.findBy('resource_id', item.resourceId);
+      if (question) {
+        question.set(
+          'resource_attempt_status',
+          status ? 'correct' : 'incorrect'
+        );
+      } else {
+        question = Ember.Object.create({
+          resource_id: item.resourceId,
+          resource_attempt_status: status ? 'correct' : 'incorrect'
+        });
+        listOfQuestions.pushObject(question);
+      }
     }
   },
   // -------------------------------------------------------------------------
@@ -103,5 +137,11 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Indicates change score button got enabled.
    * @property {boolean}
    */
-  isChangeScoreEnabled: false
+  isChangeScoreEnabled: false,
+
+  /**
+   * Update question score list
+   * @return {Array} list of question scores need to be update.
+   */
+  listOfQuestions: Ember.A()
 });

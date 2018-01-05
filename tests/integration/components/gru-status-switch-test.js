@@ -14,22 +14,13 @@ moduleForComponent(
 );
 
 test('Switch', function(assert) {
-  assert.expect(3);
+  assert.expect(1);
 
-  this.render(hbs`{{gru-status-switch  onOptionSwitch='parentAction'}}`);
+  this.render(hbs`{{gru-status-switch}}`);
 
   const $component = this.$(); //component dom element
   const $switchComponent = $component.find('.gru-status-switch');
-  var counter = 0;
 
-  this.on('parentAction', function(option) {
-    if (counter === 0) {
-      assert.equal(true, option);
-    } else {
-      assert.equal(false, option);
-    }
-    counter += 1;
-  });
   let $disabled = $switchComponent.find('input').prop('disabled');
   assert.equal($disabled, false, 'Switch should not be disabled');
   $switchComponent
