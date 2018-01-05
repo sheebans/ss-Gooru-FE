@@ -7,6 +7,12 @@
   + .panel {
     margin-top: 1px;
   }
+  .metrics-table-wrapper {
+    width: auto;
+    overflow-x: hidden;
+    padding-bottom: 1px;
+    overflow-y: hidden;
+  }
   .overidemarginleft {
     margin-left: 0px !important;
     width: 100% !important;
@@ -309,10 +315,17 @@
         }
       }
       td {
-        border-width: 0 0 1px 0;
-        border-color: $gray-lighter;
-        border-style: solid;
-        width: $table-cell-width;
+        border-left: 1px solid #eeeeee;
+        border-bottom: 1px solid $gray-lighter;
+        font-weight: normal;
+        padding-left: 8px;
+        cursor: default;
+        &.fixedCol {
+          background-color: $white;
+          border-left: 1px solid $light-300;
+          border-right: 1px solid $light-300;
+          display: table-column;
+        }
       }
     }
     .fixedCol {
@@ -330,7 +343,7 @@
     }
     .onlyScore {
       min-width: 75 !important;
-      width: 75px;
+      width: 75px !important;
     }
     .textellip {
       display: table-cell;
@@ -342,20 +355,21 @@
     }
     .onlyScoreTime {
       min-width: 115 !important;
-      width: 115px;
+      width: 115px !important;
     }
     .onlyScoreReaction {
       min-width: 75 !important;
-      width: 138px;
+      width: 138px !important;
     }
     .scoreTimeReaction {
       min-width: 75 !important;
-      width: 177px;
+      width: 177px !important;
     }
     .emotion {
       display: block;
       margin: 0 auto;
       text-align: center;
+      cursor: default;
     }
     .mood-copy {
       width: 15px;
