@@ -76,6 +76,14 @@ export default Ember.Component.extend({
      */
     viewOEReport: function(questionId) {
       this.sendAction('onViewOEReport', questionId);
+    },
+
+    /**
+     * When update the question score
+     * @param data {JSON}
+     */
+    onUpdateQuestionScore: function(data) {
+      this.sendAction('onUpdateQuestionScore', data);
     }
   },
 
@@ -183,12 +191,18 @@ export default Ember.Component.extend({
    * @return {Ember.Array}
    */
   orderedResources: Ember.computed('assessmentResult.resources[]', function() {
-    var resourceResultsOrdered = this.get(
-      'assessmentResult.resources'
-    ).sort(function(a, b) {
-      return Ember.get(a, 'resource.order') - Ember.get(b, 'resource.order');
-    });
+    var resourceResultsOrdered = this.get('assessmentResult.resources').sort(
+      function(a, b) {
+        return Ember.get(a, 'resource.order') - Ember.get(b, 'resource.order');
+      }
+    );
 
     return resourceResultsOrdered;
-  })
+  }),
+
+  /**
+   * Indicates the visibility of change score button
+   * @property {Boolean}
+   */
+  isChangeScoreEnabled: false
 });

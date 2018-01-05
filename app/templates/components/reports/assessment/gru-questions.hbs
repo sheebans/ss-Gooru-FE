@@ -4,7 +4,7 @@
       <h4>{{if isOpenEnded (t "common.questions-OE") (t "common.questions")}}</h4>
     </div>
     {{#unless isOpenEnded}}
-      {{#if isAnswerKeyHidden}}
+      {{#if (and not isTeacher isAnswerKeyHidden)}}
         <em>{{t "common.answer-key-was-hidden"}}</em>
       {{else}}
         <div class="btn-group summary-report-btn" role="group">
@@ -14,8 +14,8 @@
       {{/if}}
     {{/unless}}
   </div>
-  {{#if isTeacher}}
-    <div class="score-change-container hidden">
+  {{#if (and (not isOpenEnded)  isTeacher)}}
+    <div class="score-change-container">
       {{#if isChangeScoreEnabled}}
         <button type="button" class="btn btn-primary confirm" {{action 'onChangeScoreConfirm'}}>Confirm</button>
         <button type="button" class="btn btn-info cancel" {{action 'onChangeScoreNotConfirm'}}>Cancel</button>
@@ -90,7 +90,7 @@
                 <span class="{{if result.started (if result.correct 'correct' 'incorrect') 'not-started'}}">
                       {{#if result.started}}
                             {{#if (and isTeacher isChangeScoreEnabled)}}
-                                {{gru-status-switch  onOptionSwitch='changeQuestionScore' isChecked=result.correct}}
+                                {{gru-status-switch  onOptionSwitch='changeQuestionScore' isChecked=result.correct item=result}}
                               {{else}}
                                 <i class="icon"> </i>
                             {{/if}}
