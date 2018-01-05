@@ -17,7 +17,6 @@
     {{#if (and (not (eq index 0)))}}
       <div>{{activityDateStr}}</div>
     {{/if}}
-
   </div>
   <div class="info pull-right">
     <div class="content-count">
@@ -50,7 +49,7 @@
           {{gru-icon name='assignment_turned_in'}}
         </span>
       {{/if}}
-      {{#if (and item.isAssessment (not-eq item.collectionType 'assessment-external'))}}
+      {{#if  (and item.isAssessment (not-eq item.collectionType 'assessment-external'))}}
         <button {{action 'goLive' item.id}} data-toggle="tooltip" data-html="true" data-placement="bottom" title="{{t "common.launch-on-air"}}" class="on-air go-live enabled {{if todayDateStatus '' 'out-of-scope'}}">{{t "common.launch-on-air"}}
         </button>
       {{/if}}
@@ -207,7 +206,7 @@
                 <span class="score answer-undefined pull-left" style="display: table-cell;"></span>
                 <span class="time-spent timePadding pull-left out-of-scope" style="display: table-cell;"></span>
                 <span class="reaction smileypadding pull-right out-of-scope" style="display: table-cell;">
-                </span>
+            </span>
               </th>
             {{/each}}
             {{#each row.content as |content|}}
@@ -216,8 +215,8 @@
                   <span data-toggle="tooltip" data-placement="auto" class="pull-left" title="" data-original-title="" style="display: table-cell;"><span class="score answer-correct"><i class="gru-icon material-icons">done</i></span></span>
                   <span class="time-spent timePadding pull-left {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
                   <span class="reaction smileypadding pull-right {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
-                    {{{reaction-icon content.reaction appRootPath}}}
-                  </span>
+          {{{reaction-icon content.reaction appRootPath}}}
+        </span>
                 {{/if}}
                 {{#if (eq content.score 0)}}
                   {{#if (eq content.questionType 'OE')}}
@@ -227,20 +226,20 @@
                   {{/if}}
                   <span class="time-spent timePadding pull-left {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
                   <span class="reaction smileypadding pull-right {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
-                    {{{reaction-icon content.reaction appRootPath}}}
-                  </span>
-                {{/if}}
-                {{#if (or (eq content.score undefined) (eq content.score null))}}
-                  {{#if (and (eq content.resourceType 'resource') content.timeSpent)}}
-                    <span class="score answer-extended_text pull-left" style="display: table-cell;"></span>
-                  {{else}}
-                    <span class="score answer-undefined pull-left" style="display: table-cell;"></span>
-                  {{/if}}
+          {{{reaction-icon content.reaction appRootPath}}}
+          </span>
+            {{/if}}
+            {{#if (or (eq content.score undefined) (eq content.score null))}}
+            {{#if (and (eq content.resourceType 'resource') content.timeSpent)}}
+            <span class="score answer-extended_text pull-left" style="display: table-cell;"></span>
+            {{else}}
+            <span class="score answer-undefined pull-left" style="display: table-cell;"></span>
+            {{/if}}
 
-                  <span class="time-spent timePadding pull-left {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
-                  <span class="reaction smileypadding pull-right {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
-                    {{{reaction-icon content.reaction appRootPath}}}
-                  </span>
+            <span class="time-spent timePadding pull-left {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">{{content.timeSpent}}</span>
+            <span class="reaction smileypadding pull-right {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
+          {{{reaction-icon content.reaction appRootPath}}}
+          </span>
                 {{/if}}
               </th>
             {{/each}}
