@@ -32,7 +32,11 @@
       isAnswerKeyHidden=isAnswerKeyHidden
       results=orderedQuestions
       showReactionBar=showReactionBar
-     isTeacher=isTeacher}}
+      isTeacher=isTeacher
+      onUpdateQuestionScore='onUpdateQuestionScore'
+      isChangeScoreEnabled=isChangeScoreEnabled
+      hasAnsweredQuestions=hasAnsweredQuestions
+    }}
   {{/if}}
   {{#if orderedOpenEndedQuestions.length}}
     {{reports.assessment.gru-questions

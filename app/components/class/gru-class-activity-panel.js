@@ -80,6 +80,18 @@ export default Ember.Component.extend({
       //   );
       // }
     },
+    /**
+     * @function actions:selectFirstTierColHeader
+     * @param {string} headerId
+     */
+    selectFirstTierColHeader: function(headerId) {
+      this.sendAction(
+        'onSelectFirstTierHeader',
+        headerId,
+        this.get('collection'),
+        this.get('membersData')
+      );
+    },
 
     /**
      * @function goLive
@@ -212,22 +224,17 @@ export default Ember.Component.extend({
   didInsertElement() {
     var today = new Date();
     var dcaDate = new Date(this.get('dcaAddeddate'));
-    if (dcaDate.getFullYear() === 1970) {
+    if (dcaDate.getFullYear() === 1969) {
       dcaDate = new Date(this.get('otherAddeddate'));
     }
-    var dcaDateDate = `${dcaDate.getFullYear()}-${dcaDate.getMonth() +
-      1}-${dcaDate.getDate()}`;
     var todayDate = `${today.getFullYear()}-${today.getMonth() +
       1}-${today.getDate()}`;
     var sdayDate = `${today.getFullYear()}-${today.getMonth() +
       1}-${today.getDate() - 1}`;
-    if (todayDate === dcaDateDate) {
-      this.set('todayDateStatus', true);
-    }
     var activityDate = `${dcaDate.getFullYear()}-${dcaDate.getMonth() +
       1}-${dcaDate.getDate()}`;
     this.set('activityDateVal', activityDate);
-    if (todayDate !== dcaDateDate && sdayDate !== dcaDateDate) {
+    if (todayDate !== activityDate && sdayDate !== activityDate) {
       var dateValstr = new Date(activityDate);
       this.set('activityDateStr', formatDate(dateValstr, 'DD MMMM, YYYY'));
     } else {
@@ -522,6 +529,7 @@ export default Ember.Component.extend({
                     item1.id
                   );
                   if (memberDataobj !== undefined) {
+                    questionDataObj = [];
                     collection.children.forEach(function(qobj) {
                       let objData = memberDataobj.usageData
                         .get(0)
@@ -532,17 +540,18 @@ export default Ember.Component.extend({
                           'timeSpent',
                           formatMilliseconds(objData.timeSpent)
                         );
+                        if (objData.timeSpent === 0) {
+                          Ember.set(objData, 'score', null);
+                        }
+                        if (objData.questionType === 'OE') {
+                          Ember.set(objData, 'score', 0);
+                        }
+                        questionDataObj.pushObject(objData);
                       } else {
-                        memberDataobj.usageData
-                          .get(0)
-                          .questions.pushObject(qobj);
+                        questionDataObj.pushObject(qobj);
                       }
                     });
-                    Ember.set(
-                      item1,
-                      'content',
-                      memberDataobj.usageData.get(0).questions
-                    );
+                    Ember.set(item1, 'content', questionDataObj);
                     Ember.set(item1, 'resultResources', []);
                     let collObj = memberDataobj.usageData.get(0).assessment;
                     if (collObj === undefined) {

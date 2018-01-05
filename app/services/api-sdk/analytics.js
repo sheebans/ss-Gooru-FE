@@ -304,5 +304,22 @@ export default Ember.Service.extend({
           }
         );
     });
+  },
+
+  /**
+   * Update score of questions in an Assessment/Collection
+   * @param {string} RawData of questions score update for assessment or collection.
+   * @returns {Promise.<boolean>}
+   */
+  updateQuestionScore: function(data) {
+    var service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('analyticsAdapter')
+        .updateQuestionScore(data)
+        .then(function() {
+          return resolve(true);
+        }, reject);
+    });
   }
 });

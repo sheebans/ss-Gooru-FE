@@ -3,6 +3,7 @@ import { formatDate } from 'gooru-web/utils/utils';
 import ModalMixin from 'gooru-web/mixins/modal';
 import SessionMixin from 'gooru-web/mixins/session';
 import AssessmentResult from 'gooru-web/models/result/assessment';
+import ReportData from 'gooru-web/models/result/report-data';
 
 /**
  * Class activities controller
@@ -72,7 +73,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         this.set('loadingMore', true);
         controller
           .get('classActivityService')
-          .findClassActivities(
+          .findClassActivitiesDCA(
             currentClass.get('id'),
             undefined,
             startDate,
@@ -94,6 +95,37 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
             controller.set('loadingMore', false);
           });
       }
+    },
+    /**
+     * When showing the question details
+     * @param {string} questionId
+     */
+    viewQuestionDetail: function(questionId, collectionData, members) {
+      Ember.Logger.debug(
+        `Class assessment report: question with ID ${questionId} was selected`
+      );
+
+      const reportData1 = ReportData.create({
+        students: members,
+        resources: collectionData.children
+      });
+      Ember.Logger.info('reportData--', reportData1);
+      let question = collectionData.children.findBy('id', questionId);
+      let modalModel = {
+        anonymous: this.get('anonymous'),
+        assessment: collectionData,
+        students: members,
+        selectedQuestion: question,
+        reportData: reportData1
+      };
+      this.actions.showModal.call(
+        this,
+        'reports.class-assessment.gru-questions-detail',
+        modalModel,
+        null,
+        'gru-questions-detail-modal',
+        true
+      );
     },
 
     /**

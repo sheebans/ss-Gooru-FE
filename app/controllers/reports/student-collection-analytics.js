@@ -24,16 +24,28 @@ export default Ember.Controller.extend(ConfigurationMixin, {
   ],
   // -------------------------------------------------------------------------
   // Dependencies
+
   /**
    * @property {Ember.Service} Service to retrieve an assessment result
    */
   performanceService: Ember.inject.service('api-sdk/performance'),
+
+  /**
+   * @property {Ember.Service} Service to update analytics report.
+   */
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
     selectAttempt: function(attempt) {
       const session = this.get('completedSessions')[attempt - 1];
+      this.set('isChangeScoreEnabled', false);
       this.loadSession(session);
+    },
+
+    onUpdateQuestionScore: function(data) {
+      this.updateQuestionScore(data);
     }
   },
 
@@ -154,6 +166,12 @@ export default Ember.Controller.extend(ConfigurationMixin, {
     'features.collections.player.showBackLink'
   ),
 
+  /**
+   * Indicates the visibility of change score button
+   * @property {Boolean}
+   */
+  isChangeScoreEnabled: false,
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -201,5 +219,44 @@ export default Ember.Controller.extend(ConfigurationMixin, {
     this.set('userId', undefined);
     this.set('role', undefined);
     this.set('backUrl', undefined);
+    this.set('isChangeScoreEnabled', false);
+  },
+
+  updateQuestionScore: function(questionScoreUpdateData) {
+    let controller = this;
+    const context = controller.get('context');
+    let data = controller.buildQuestionScoreUpdatePayLoad(
+      questionScoreUpdateData
+    );
+    controller
+      .get('analyticsService')
+      .updateQuestionScore(data)
+      .then(() => {
+        let completeSession = controller.get('completedSessions');
+        let session = completeSession.findBy(
+          'sessionId',
+          context.get('sessionId')
+        );
+        controller
+          .loadSession(session)
+          .then(() => controller.set('isChangeScoreEnabled', false));
+      });
+  },
+
+  buildQuestionScoreUpdatePayLoad: function(questionScoreUpdateData) {
+    let controller = this;
+    let context = controller.get('context');
+    let updateData = Ember.Object.create({
+      student_id: context.get('userId'),
+      session_id: context.get('sessionId'),
+      unit_id: context.get('unitId'),
+      collection_id: context.get('collectionId'),
+      class_id: context.get('classId'),
+      collection_type: context.get('collectionType'),
+      lesson_id: context.get('lessonId'),
+      course_id: context.get('courseId'),
+      resources: questionScoreUpdateData
+    });
+    return updateData;
   }
 });
