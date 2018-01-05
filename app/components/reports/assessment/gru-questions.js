@@ -11,7 +11,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * @function actions:selectPerformanceOption
      */
     selectPerformanceOption: function(showPerformance) {
-      if (!this.get('isAnswerKeyHidden')) {
+      if (this.get('isTeacher') || !this.get('isAnswerKeyHidden')) {
         this.set('showPerformance', showPerformance);
       }
     },

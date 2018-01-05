@@ -54,7 +54,7 @@
             {{t "common.report"}}
           </th>
         {{/if}}
-        {{#unless isAnswerKeyHidden}}
+        {{#unless (and (not isTeacher) isAnswerKeyHidden)}}
           <th class="header correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
             {{t "common.correct-answer"}}
           </th>
@@ -119,7 +119,7 @@
               {{/if}}
             </td>
           {{/if}}
-          {{#unless isAnswerKeyHidden}}
+          {{#unless (and (not isTeacher) isAnswerKeyHidden)}}
             <td class="correct-answer top-left {{if showPerformance 'hide' 'visible'}}">
               {{{component (question-config result.question.questionType 'component.answer') question=result.question showCorrect=true}}}
             </td>
