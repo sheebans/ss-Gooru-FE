@@ -28,11 +28,11 @@ export default StudentCollection.extend({
         type === 'assessment' &&
         minScore &&
         minScore <= averageScore) ||
-      (role === 'student' && type === 'assessment' && averageScore >= 40)
+      (role === 'student' && type === 'assessment' && averageScore >= 80)
     ) {
       Ember.run.later(function() {
         controller.set('enableConfetti', false);
-      }, 5500);
+      }, 5400);
       controller.set('enableConfetti', true);
     }
   },
