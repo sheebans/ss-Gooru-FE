@@ -3,12 +3,19 @@
     <img src="{{item.thumbnailUrl}}" />
   </div>
   <div class="title-container pull-left">
-    {{#link-to 'player' item.id (query-params type=item.collectionType role='teacher') class="title"}}
-        <div class="ellipsis">{{item.title}}</div>
-    {{/link-to}}
-     {{#if (and (not (eq index 0)))}}
-    <div>{{activityDateStr}}</div>
-    {{/if}}
+    {{#if (eq item.collectionType 'assessment-external')}}
+     <a {{action 'externalAssessment' item }} class="title">
+       <div class="ellipsis">{{item.title}}</div>
+       <span> {{t "common.assessment-external"}} </span>
+     </a>
+   {{else}}
+     {{#link-to 'player' item.id (query-params type=item.collectionType role='teacher' ) class="title" }}
+       <div class="ellipsis">{{item.title}}</div>
+     {{/link-to}}
+   {{/if}}
+   {{#if (and (not (eq index 0)))}}
+     <div>{{activityDateStr}}</div>
+   {{/if}}
   </div>
   <div class="info pull-right">
     <div class="content-count">
@@ -44,7 +51,7 @@
           {{gru-icon name='assignment_turned_in'}}
         </span>
       {{/if}}
-      {{#if (eq item.collectionType 'assessment')}}
+      {{#if (and (eq item.collectionType 'assessment') (not-eq item.collectionType 'assessment-external'))}}
         <button {{action 'goLive' item.id}}
           data-toggle="tooltip" data-html="true" data-placement="bottom"
           title="{{t "common.launch-on-air"}}"
@@ -153,10 +160,10 @@
             </span>
           </th>
 
-     
+
       {{!-- {{/if}} --}}
 
-      
+
 
       {{#each firstTierHeaders as |firstTierHeader firstTierIndex|}}
        {{!-- {{#each secondTierHeaders as |secondTierHeader secondTierIndex|}} --}}
@@ -265,7 +272,7 @@
           </span>
             {{/if}}
           </td>
-        {{/each}} 
+        {{/each}}
       </tr>
     {{/each}}
     </table>
