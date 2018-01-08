@@ -71,7 +71,7 @@ export default Ember.Object.extend({
       data: JSON.stringify(data)
     };
     const namespace = this.get('namespace');
-    const url = `${namespace}/event/update`;
+    const url = `${namespace}/score`;
     return Ember.$.ajax(url, options);
   },
 
