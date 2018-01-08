@@ -14,7 +14,7 @@
       {{/if}}
     {{/unless}}
   </div>
-  {{#if (and (not isOpenEnded)  isTeacher hasAnsweredQuestions)}}
+  {{#if (and (not isOpenEnded)  isTeacher hasAnsweredQuestions showChangeScore)}}
     <div class="score-change-container">
       {{#if isChangeScoreEnabled}}
         <button type="button" class="btn btn-primary confirm" {{action 'onChangeScoreConfirm'}}>Confirm</button>
@@ -89,7 +89,7 @@
               {{else}}
                 <span class="{{if result.started (if result.correct 'correct' 'incorrect') 'not-started'}}">
                       {{#if result.started}}
-                            {{#if (and isTeacher isChangeScoreEnabled)}}
+                            {{#if (and isTeacher isChangeScoreEnabled showChangeScore)}}
                                 {{gru-status-switch  onOptionSwitch='changeQuestionScore' isChecked=result.correct item=result}}
                               {{else}}
                                 <i class="icon"> </i>

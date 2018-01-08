@@ -207,6 +207,16 @@ export default Ember.Component.extend({
      */
     removeClassActivity: function(classActivity) {
       this.sendAction('onRemoveClassActivity', classActivity);
+    },
+
+    /**
+     * @function externalAssessment open new tab from DCA
+     */
+    externalAssessment: function(classActivity) {
+      let url = classActivity.get('url');
+      if (url) {
+        window.open(url);
+      }
     }
   },
   // -------------------------------------------------------------------------
@@ -239,7 +249,9 @@ export default Ember.Component.extend({
 
   didRender: function() {
     this._super(...arguments);
-    this.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+    this.$('[data-toggle="tooltip"]').tooltip({
+      trigger: 'hover'
+    });
     var width = Ember.$('#maindatatable').offset();
     if (width !== undefined) {
       Ember.$('.Colall').css({

@@ -55,32 +55,6 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    */
   source: null,
 
-  /**
-   * confettiTruth  for all statisfactions
-   * @property {boolean} source
-   */
-  enableConfetti: Ember.computed(function() {
-    let controller = this;
-    let averageScore = this.get('attemptData.averageScore');
-    let minScore = this.get('minScore');
-    let role = this.get('role');
-    let type = this.get('type');
-    if (
-      (role === 'student' &&
-        type === 'assessment' &&
-        minScore &&
-        minScore <= averageScore) ||
-      (role === 'student' && type === 'assessment' && averageScore >= 40)
-    ) {
-      Ember.run.later(function() {
-        controller.set('enableConfetti', false);
-      }, 4000);
-      return true;
-    }
-
-    return false;
-  }),
-
   // -------------------------------------------------------------------------
   // Observers
 
