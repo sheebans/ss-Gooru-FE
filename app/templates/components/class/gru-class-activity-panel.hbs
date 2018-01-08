@@ -12,7 +12,7 @@
   </div>
   <div class="info pull-right">
     <div class="content-count">
-      {{#if item.isAssessment}}
+      {{#if (eq item.collectionType 'assessment')}}
       {{#if item.questionCount}}
         <span class="{{if (gt item.resourceCount 0) '' 'invisible'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}} &nbsp; &nbsp;</span>
         <span class="{{if (gt item.questionCount 0) '' 'invisible'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span> <span class="{{if (gt item.questionCount 0) '' 'invisible'}} question-count ">{{item.questionCount}}</span>
@@ -44,7 +44,7 @@
           {{gru-icon name='assignment_turned_in'}}
         </span>
       {{/if}}
-      {{#if item.isAssessment}}
+      {{#if (eq item.collectionType 'assessment')}}
         <button {{action 'goLive' item.id}}
           data-toggle="tooltip" data-html="true" data-placement="bottom"
           title="{{t "common.launch-on-air"}}"
@@ -52,11 +52,11 @@
         </button>
       {{/if}}
       {{#if (or collectionPerformanceSummary.score collectionPerformanceSummary.timeSpent)}}
-        <span {{action 'onReportClick' item.id item.isAssessment}} class='visibility-panel item-not-visible hidden-xs pointer' data-toggle="tooltip" data-placement="auto">{{gru-icon name='library_books'}}</span>
+        <span {{action 'onReportClick' item.id (eq item.collectionType 'assessment')}} class='visibility-panel item-not-visible hidden-xs pointer' data-toggle="tooltip" data-placement="auto">{{gru-icon name='library_books'}}</span>
       {{/if}}
     </div>
     <div class="performance">
-      {{#if item.isAssessment}}
+      {{#if (eq item.collectionType 'assessment')}}
         <span class="score" style={{safe-html (concat "color:" (grade-color (if collectionPerformanceSummary.score collectionPerformanceSummary.score 'NA')))}}>
           {{if collectionPerformanceSummary.score (concat collectionPerformanceSummary.score '%') '--'}}
         </span>
@@ -204,7 +204,7 @@
     {{#each membersData as |row|}}
       <tr class="data">
         <td scope="row" class="pointer setWidth"
-          {{action "selectRowHeader" row.id item.isAssessment}}>
+          {{action "selectRowHeader" row.id (eq item.collectionType 'assessment')}}>
           <div class="table-cell pull-left textellip pointer">{{row.lastName}}, {{row.firstName}}</div>
         </td>
         <td scope="row" class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">

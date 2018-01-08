@@ -217,6 +217,8 @@ export default Ember.Component.extend({
     if (dcaDate.getFullYear() === 1969) {
       dcaDate = new Date(this.get('otherAddeddate'));
     }
+    var dcaDateDate = `${dcaDate.getFullYear()}-${dcaDate.getMonth() +
+      1}-${dcaDate.getDate()}`;
     var todayDate = `${today.getFullYear()}-${today.getMonth() +
       1}-${today.getDate()}`;
     var sdayDate = `${today.getFullYear()}-${today.getMonth() +
@@ -224,6 +226,9 @@ export default Ember.Component.extend({
     var activityDate = `${dcaDate.getFullYear()}-${dcaDate.getMonth() +
       1}-${dcaDate.getDate()}`;
     this.set('activityDateVal', activityDate);
+    if (todayDate === dcaDateDate) {
+      this.set('todayDateStatus', true);
+    }
     if (todayDate !== activityDate && sdayDate !== activityDate) {
       var dateValstr = new Date(activityDate);
       this.set('activityDateStr', formatDate(dateValstr, 'DD MMMM, YYYY'));
