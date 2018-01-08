@@ -51,12 +51,14 @@
           {{gru-icon name='assignment_turned_in'}}
         </span>
       {{/if}}
+      {{#if (eq index 0)}}
       {{#if (and (eq item.collectionType 'assessment') (not-eq item.collectionType 'assessment-external'))}}
         <button {{action 'goLive' item.id}}
           data-toggle="tooltip" data-html="true" data-placement="bottom"
           title="{{t "common.launch-on-air"}}"
-          class="on-air go-live enabled {{if todayDateStatus '' 'out-of-scope'}}">{{t "common.launch-on-air"}}
+          class="on-air go-live enabled">{{t "common.launch-on-air"}}
         </button>
+      {{/if}}
       {{/if}}
       {{#if (or collectionPerformanceSummary.score collectionPerformanceSummary.timeSpent)}}
         <span {{action 'onReportClick' item.id (eq item.collectionType 'assessment')}} class='visibility-panel item-not-visible hidden-xs pointer' data-toggle="tooltip" data-placement="auto">{{gru-icon name='library_books'}}</span>
