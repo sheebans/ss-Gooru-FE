@@ -4,6 +4,7 @@
   </div>
   <div class="title-container pull-left">
     <div class="title ellipsis">{{item.title}}</div>
+     {{#if (eq item.collectionType 'assessment-external')}}<span> {{t "common.assessment-external"}} </span> {{/if}}
   </div>
   <div class="info pull-right">
     <div class="content-count">
