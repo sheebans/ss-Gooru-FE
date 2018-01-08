@@ -39,6 +39,11 @@ export default Ember.Controller.extend(ConfigurationMixin, {
   // Actions
   actions: {
     selectAttempt: function(attempt) {
+      if (attempt === this.get('lastAttempt')) {
+        this.set('showChangeScore', true);
+      } else {
+        this.set('showChangeScore', false);
+      }
       const session = this.get('completedSessions')[attempt - 1];
       this.set('isChangeScoreEnabled', false);
       this.loadSession(session);
@@ -171,6 +176,20 @@ export default Ember.Controller.extend(ConfigurationMixin, {
    * @property {Boolean}
    */
   isChangeScoreEnabled: false,
+
+  /**
+   * Indicates whether change score button need to show or not
+   * @type {Boolean}
+   */
+  showChangeScore: true,
+
+  /**
+   * last attempt value
+   * @return {Boolean}
+   */
+  lastAttempt: Ember.computed('completedSessions', function() {
+    return this.get('completedSessions').length;
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
