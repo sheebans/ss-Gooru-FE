@@ -227,6 +227,8 @@ export default Ember.Component.extend({
     if (dcaDate.getFullYear() === 1969) {
       dcaDate = new Date(this.get('otherAddeddate'));
     }
+    var dcaDateDate = `${dcaDate.getFullYear()}-${dcaDate.getMonth() +
+      1}-${dcaDate.getDate()}`;
     var todayDate = `${today.getFullYear()}-${today.getMonth() +
       1}-${today.getDate()}`;
     var sdayDate = `${today.getFullYear()}-${today.getMonth() +
@@ -234,6 +236,9 @@ export default Ember.Component.extend({
     var activityDate = `${dcaDate.getFullYear()}-${dcaDate.getMonth() +
       1}-${dcaDate.getDate()}`;
     this.set('activityDateVal', activityDate);
+    if (todayDate === dcaDateDate) {
+      this.set('todayDateStatus', true);
+    }
     if (todayDate !== activityDate && sdayDate !== activityDate) {
       var dateValstr = new Date(activityDate);
       this.set('activityDateStr', formatDate(dateValstr, 'DD MMMM, YYYY'));
@@ -249,14 +254,6 @@ export default Ember.Component.extend({
     });
     var width = Ember.$('#maindatatable').offset();
     if (width !== undefined) {
-      Ember.$('.fixedCol').css({
-        left: width.left
-      });
-      var targetcol = Ember.$('.fixedCol');
-      var result = targetcol.position().left + targetcol.width();
-      Ember.$('.fixedColNew').css({
-        left: result
-      });
       Ember.$('.Colall').css({
         'margin-left': `${177 + 99}px`
       });
@@ -270,6 +267,39 @@ export default Ember.Component.extend({
         'margin-left': `${115 + 123}px`
       });
     }
+    var width1 = Ember.$('#clscroll-table').width();
+    var height = Ember.$(window).height() - 63;
+    if (height > 300) {
+      height = height - 191;
+    }
+    Ember.$('#clscroll-content').attr(
+      'style',
+      `max-width:${width1 + 15}px;max-height:${height}px;overflow:auto`
+    );
+    Ember.$('#clscroll-row-headers').attr('style', `height:${height - 2}px;`);
+
+    Ember.$('#clscroll-content').scroll(function() {
+      Ember.$('#clscroll-row-headers').scrollTop(
+        Ember.$('#clscroll-content').scrollTop()
+      );
+      Ember.$('#clscroll-column-headers').scrollLeft(
+        Ember.$('#clscroll-content').scrollLeft()
+      );
+    });
+    Ember.$('#clscroll-column-headers').scroll(function() {
+      Ember.$('#header-Table').attr('style', 'padding-right:15px;');
+      if (Ember.$('#clscroll-column-headers').scrollLeft() === 0) {
+        Ember.$('#header-Table').attr('style', 'padding-right:0px;');
+      }
+      Ember.$('#clscroll-content').scrollLeft(
+        Ember.$('#clscroll-column-headers').scrollLeft()
+      );
+    });
+    Ember.$('#clscroll-row-headers').scroll(function() {
+      $('#clscroll-content').scrollTop(
+        Ember.$('#clscroll-row-headers').scrollTop()
+      );
+    });
   },
 
   // -------------------------------------------------------------------------

@@ -493,7 +493,9 @@ test('it renders for collection with questions', function(assert) {
   );
 });
 
-test('it renders for collection with only resources and open ended questions', function(assert) {
+test('it renders for collection with only resources and open ended questions', function(
+  assert
+) {
   const date = new Date(2010, 1, 20);
   date.setSeconds(10);
   date.setMinutes(15);
