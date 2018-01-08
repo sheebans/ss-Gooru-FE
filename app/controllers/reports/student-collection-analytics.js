@@ -275,7 +275,8 @@ export default Ember.Controller.extend(ConfigurationMixin, {
       collection_type: context.get('collectionType'),
       lesson_id: context.get('lessonId'),
       course_id: context.get('courseId'),
-      resources: questionScoreUpdateData
+      resources: questionScoreUpdateData,
+      content_source: 'coursemap' // TO-DO Have to replace actual content source, right now default set as coursemap
     });
     return updateData;
   }
