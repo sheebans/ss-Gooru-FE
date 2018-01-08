@@ -239,6 +239,7 @@ export default Ember.Controller.extend(ConfigurationMixin, {
     this.set('role', undefined);
     this.set('backUrl', undefined);
     this.set('isChangeScoreEnabled', false);
+    this.set('showChangeScore', true);
   },
 
   updateQuestionScore: function(questionScoreUpdateData) {
