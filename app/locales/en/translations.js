@@ -1147,7 +1147,9 @@ export default Object.assign(quizzesTranslations, {
       'class-activities': 'Daily Class Activities',
       'back-to-class-activities': 'Back to Daily Class Activities',
       'class-activities-tab': {
-        today: 'Today, ',
+        today: 'Today: ',
+        yesterday: 'Yesterday: ',
+        month: 'Month: ',
         'add-from-course-map': 'Add from Course Map',
         'add-from-my-content': 'Add from My Content',
         'welcome-dca':

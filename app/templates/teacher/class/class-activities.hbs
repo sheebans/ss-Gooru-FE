@@ -17,7 +17,11 @@
                {{#if (eq index 0)}}
                   {{t "teacher-landing.class.class-activities-tab.today"}}{{activities.date}}
                {{else}}
-                  {{activities.date}}
+                      {{#if (eq index 1)}}
+                      {{t "teacher-landing.class.class-activities-tab.yesterday"}}{{activities.date}}
+                      {{else}}
+                      {{t "teacher-landing.class.class-activities-tab.month"}}{{activities.date}}
+                      {{/if}}
                {{/if}}
              </span>
           </a>
