@@ -645,7 +645,8 @@ export default Object.assign(quizzesTranslations, {
       'character-limit': 'You\'ve reached the character limit.'
     },
     word: 'Word',
-    yes: 'Yes'
+    yes: 'Yes',
+    'change-score': 'Change Score'
   },
 
   /*
