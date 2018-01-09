@@ -17,10 +17,10 @@
   {{#if (and (not isOpenEnded)  isTeacher hasAnsweredQuestions showChangeScore isAssessment showPerformance)}}
     <div class="score-change-container">
       {{#if isChangeScoreEnabled}}
-        <button type="button" class="btn btn-info cancel" {{action 'onChangeScoreNotConfirm'}}>Cancel</button>
-        <button type="button" class="btn btn-primary confirm" {{action 'onChangeScoreConfirm'}}>Confirm</button>
+        <button type="button" class="btn btn-info cancel" {{action 'onChangeScoreNotConfirm'}}>{{t 'common.cancel'}}</button>
+        <button type="button" class="btn btn-primary confirm" {{action 'onChangeScoreConfirm'}}>{{t 'common.confirm'}}</button>
       {{else}}
-        <button type="button" class="btn btn-primary change-score" {{action 'onChangeScore'}}>Change Score</button>
+        <button type="button" class="btn btn-primary change-score" {{action 'onChangeScore'}}>{{t 'common.change-score'}}</button>
       {{/if}}
     </div>
   {{/if}}
