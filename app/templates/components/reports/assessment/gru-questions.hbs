@@ -72,10 +72,14 @@
               {{gru-math-text text=(if result.question.isFIB result.question.fibText result.question.text)}}
               {{#if result.question.hasMedia}}
                 <img class="img-responsive" src="{{result.question.mediaUrl}}" />
+                {{else}}
+                {{#if result.question.thumbnail}}
+                <img class="img-responsive" src="{{result.question.thumbnail}}" />
+                {{/if}}
               {{/if}}
             </div>
           </td>
-          <td class="question-answer top-left">
+          <td class="question-answer top-left" id="{{result.answered}}">
             {{#if result.answered}}
               {{{component (question-config result.question.questionType 'component.answer') question=result.question userAnswer=result.userAnswer}}}
             {{/if}}

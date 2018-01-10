@@ -2,19 +2,19 @@
   <div class="icon-container pull-left">
     <img src="{{item.thumbnailUrl}}" />
   </div>
-  <div class="title-container pull-left">
+  <div class="title-container pull-left {{if (and (not (eq index 0)) (eq item.collectionType 'assessment-external')) 'title-containerOverride' ''}}">
     {{#if (eq item.collectionType 'assessment-external')}}
      <a {{action 'externalAssessment' item }} class="title">
        <div class="ellipsis">{{item.title}}</div>
        <span> {{t "common.assessment-external"}} </span>
      </a>
-   {{else}}
+    {{else}}
      {{#link-to 'player' item.id (query-params type=item.collectionType role='teacher' ) class="title" }}
        <div class="ellipsis">{{item.title}}</div>
      {{/link-to}}
-   {{/if}}
+   {{/if}} 
    {{#if (and (not (eq index 0)))}}
-     <div>{{activityDateStr}}</div>
+     <div class="dateMargin">{{activityDateStr}}</div>
    {{/if}}
   </div>
   <div class="info pull-right">
