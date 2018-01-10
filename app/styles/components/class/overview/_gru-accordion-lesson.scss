@@ -386,6 +386,14 @@
         .info {
           float: right;
           height: inherit;
+          .share {
+            width: 18px;
+            height: 15px;
+            object-fit: contain;
+          }
+          .onshareenabled {
+            padding-right: 32px;
+          }
           .content-count {
             font-size: $font-navigator;
             margin: 0;

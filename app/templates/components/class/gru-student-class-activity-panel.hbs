@@ -4,7 +4,6 @@
   </div>
   <div class="title-container pull-left">
     <div class="title ellipsis">{{item.title}}</div>
-     {{#if (eq item.collectionType 'assessment-external')}}<span> {{t "common.assessment-external"}} </span> {{/if}}
   </div>
   <div class="info pull-right">
     <div class="content-count">
@@ -19,6 +18,12 @@
           <span class="{{if (gt item.questionCount 0) '' 'invisible'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span><span class="{{if (gt item.questionCount 0) '' 'invisible'}} ">{{item.questionCount}}</span>
         {{/if}}
       {{/if}}
+       {{#if (eq item.collectionType 'assessment-external')}}
+      <img src="/assets/gooru/share.png"
+     srcset="/assets/gooru/share@2x.png 2x,
+             /assets/gooru/share@3x.png 3x"
+     class="share">
+     {{/if}}
     </div>
     <div class="play-btn">
       {{#if visible}}
