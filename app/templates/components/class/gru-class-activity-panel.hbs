@@ -108,7 +108,7 @@
           >
         </th>
         <th scope="col" id="scoreCol"
-            class="row-header fixedCol fixedColNew {{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">Score</th>
+            class="row-header fixedCol fixedColNew">Score</th>
       {{!-- {{#if rowHeadersHeader}}
         <td class="fixedCol"></td>
       {{else}} --}}
@@ -138,7 +138,7 @@
         </th>
 
            <th scope="col"
-              class="row-header fixedCol fixedColNew {{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}"
+              class="row-header fixedCol fixedColNew"
              {{!-- {{action "updateSortCriteria" firstTierIndex}} --}}
             >
             <div class="table-cell score" style="display: table-cell;">
@@ -224,13 +224,14 @@
 <div class="row-headers" id="clscroll-row-headers">
     <table>
 
-    {{#each membersData as |row|}}
+    {{#each membersData as |row rowIndex|}}
       <tr class="data">
         <td scope="row" class="pointer setWidth"
           {{action "selectRowHeader" row.id (eq item.collectionType 'assessment')}}>
           <div class="table-cell pull-left textellip pointer">{{row.lastName}}, {{row.firstName}}</div>
         </td>
-        <td scope="row" class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">
+      {{#if (eq rowIndex 0)}}
+        <td scope="row" style="width:177px;">
           <div class="box score pull-left" style={{safe-html (concat "background-color:" (grade-color row.avgScore)) }}>
           {{row.avgScore}}%
         </div>
@@ -239,6 +240,17 @@
             {{{reaction-icon row.avgReact appRootPath}}}
             </span>
         </td>
+         {{else}}
+         <td scope="row" class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">
+          <div class="box score pull-left" style={{safe-html (concat "background-color:" (grade-color row.avgScore)) }}>
+          {{row.avgScore}}%
+        </div>
+        <span style="display: table-cell;" class="time-spent timePaddingfixed pull-left {{if (eq row.avgTime '--') 'timePaddingfixedmore' ''}} {{if timevisible '' 'out-of-scope'}}">{{row.avgTime}}</span>
+           <span style="display: table-cell;" class="reaction smileypaddingfixed pull-right {{if (eq row.avgReact '--') 'smileypaddingfixedmore' ''}} {{if reactionvisible '' 'out-of-scope'}}">
+            {{{reaction-icon row.avgReact appRootPath}}}
+            </span>
+        </td>
+         {{/if}}
         </tr>
     {{/each}}
     </table>
