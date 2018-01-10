@@ -213,6 +213,44 @@ export default Ember.Component.extend({
     /**
      * @function onscoresort
      */
+    onNameSortClick: function() {
+      let memData = this.get('membersData');
+      let strArr = Ember.A([]);
+      let memArr = Ember.A([]);
+      if (this.get('sortOrderName') === -1) {
+        memData.forEach(function(item1) {
+          strArr.pushObject(item1.lastName);
+        });
+        strArr.sort().forEach(function(item2) {
+          memData.forEach(function(item1) {
+            if (item2 === item1.lastName) {
+              memArr.pushObject(item1);
+            }
+          });
+        });
+        this.set('membersData', Ember.A([]));
+        this.set('membersData', memArr);
+        this.set('sortOrderName', 1);
+      } else {
+        memData.forEach(function(item1) {
+          strArr.pushObject(item1.lastName);
+        });
+        Ember.Logger.info('reverse--', strArr.reverse());
+        strArr.reverse().forEach(function(item2) {
+          memData.forEach(function(item1) {
+            if (item2 === item1.lastName) {
+              memArr.pushObject(item1);
+            }
+          });
+        });
+        this.set('membersData', Ember.A([]));
+        this.set('membersData', memArr);
+        this.set('sortOrderName', -1);
+      }
+    },
+    /**
+     * @function onscoresort
+     */
     onTimeSortClick: function() {
       let memData = this.get('membersData');
       var desorted = this.get('membersData').sort(function(a, b) {
@@ -424,6 +462,10 @@ export default Ember.Component.extend({
    * @property {string}
    */
   sortOrderScore: -1,
+  /**
+   * @property {string}
+   */
+  sortOrderName: -1,
   /**
    * @property {boolean}
    */

@@ -135,6 +135,7 @@
         .score {
           font-size: $font-size-large;
           line-height: $font-size-large;
+          cursor: default;
         }
         .time-spent {
           font-size: $font-size-base;
@@ -175,6 +176,7 @@
     height: 25px;
     display: block;
     color: #fff;
+    cursor: default;
   }
 
   table {
@@ -275,6 +277,7 @@
           min-width: 75px;
           max-width: 177px;
           padding-left: 8px;
+          cursor: default;
 
           > span {
             width: auto;
@@ -406,9 +409,11 @@
     .clockpad {
       padding-left: 18px;
       padding-right: 12px;
+      cursor: default;
     }
     .reactpad {
       padding-left: 12px;
+      cursor: default;
     }
     .timePadding {
       padding-left: 10.9px;
