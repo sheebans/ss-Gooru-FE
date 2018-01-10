@@ -39,6 +39,12 @@
     .info {
       height: 60px;
       width: 33%;
+      .share {
+        width: 18px;
+        height: 15px;
+        object-fit: contain;
+        margin-left: 44%;
+      }
       .content-count {
         font-size: $font-navigator;
         margin: 10px 10px 0 0;

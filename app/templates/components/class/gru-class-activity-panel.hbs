@@ -2,11 +2,10 @@
   <div class="icon-container pull-left">
     <img src="{{item.thumbnailUrl}}" />
   </div>
-  <div class="title-container pull-left {{if (and (not (eq index 0)) (eq item.collectionType 'assessment-external')) 'title-containerOverride' ''}}">
+  <div class="title-container pull-left">
     {{#if (eq item.collectionType 'assessment-external')}}
      <a {{action 'externalAssessment' item }} class="title">
        <div class="ellipsis">{{item.title}}</div>
-       <span> {{t "common.assessment-external"}} </span>
      </a>
     {{else}}
      {{#link-to 'player' item.id (query-params type=item.collectionType role='teacher' ) class="title" }}
@@ -14,7 +13,7 @@
      {{/link-to}}
    {{/if}} 
    {{#if (and (not (eq index 0)))}}
-     <div class="{{if (eq item.collectionType 'assessment-external') 'dateMargin' ''}}">{{activityDateStr}}</div>
+     <div>{{activityDateStr}}</div>
    {{/if}}
   </div>
   <div class="info pull-right">
@@ -30,6 +29,12 @@
         <span class="{{if (gt item.questionCount 0) '' 'invisible'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span><span class="{{if (gt item.questionCount 0) '' 'invisible'}} question-count ">{{item.questionCount}}</span>
       {{/if}}
       {{/if}}
+      {{#if (eq item.collectionType 'assessment-external')}}
+      <img src="/assets/gooru/share.png"
+     srcset="/assets/gooru/share@2x.png 2x,
+             /assets/gooru/share@3x.png 3x"
+     class="share">
+     {{/if}}
     </div>
     <div class="actions-container">
       <button title="{{t 'common.remove'}}" class="btn no-bgd remove-item" {{action 'removeClassActivity' classActivity}} data-toggle="tooltip" data-placement="auto">{{gru-icon name="remove_circle"}}</button>
