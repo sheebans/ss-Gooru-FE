@@ -149,8 +149,8 @@ export default QuestionUtil.extend({
       answers = question.get('answers');
 
     var items = Ember.A();
-    if (question.get('hasAnswers')) {
-      const answer = answers.get('firstObject'),
+    if (answers.length > 0) {
+      const answer = answers.get(0),
         text = util.transformText(answer.get('text'));
 
       if (question.get('isHotTextHighlightWord')) {
