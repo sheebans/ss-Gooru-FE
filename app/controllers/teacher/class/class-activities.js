@@ -83,7 +83,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
             controller.get('classActivities').pushObject(
               Ember.Object.create({
                 classActivities: controller.setDefaultValues(classActivities),
-                date: formatDate(startDate, 'MMMM, YYYY')
+                date: formatDate(startDate, 'MMMM YYYY')
               })
             );
             if (month - 1 >= 0) {
