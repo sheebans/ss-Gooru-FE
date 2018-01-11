@@ -186,7 +186,7 @@ export default Ember.Object.extend({
       data: {
         q: term || '*',
         start: 1,
-        length: 50,
+        length: 70,
         'flt.courseType': 'featured'
       }
     };
