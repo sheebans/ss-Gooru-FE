@@ -216,6 +216,7 @@ export default Ember.Component.extend({
     onNameSortClick: function() {
       let memData = this.get('membersData');
       let strArr = Ember.A([]);
+      let strArr1 = Ember.A([]);
       let memArr = Ember.A([]);
       if (this.get('sortOrderName') === -1) {
         memData.forEach(function(item1) {
@@ -233,10 +234,10 @@ export default Ember.Component.extend({
         this.set('sortOrderName', 1);
       } else {
         memData.forEach(function(item1) {
-          strArr.pushObject(item1.lastName);
+          strArr1.pushObject(item1.lastName);
         });
         Ember.Logger.info('reverse--', strArr.reverse());
-        strArr.reverse().forEach(function(item2) {
+        strArr1.reverse().forEach(function(item2) {
           memData.forEach(function(item1) {
             if (item2 === item1.lastName) {
               memArr.pushObject(item1);
