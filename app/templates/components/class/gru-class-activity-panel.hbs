@@ -115,7 +115,7 @@
       {{!-- {{/if}} --}}
 
       {{#each firstTierHeaders as |header|}}
-      {{#if (eq header.resourceType 'resource')}}
+      {{#if (eq header.content_format 'resource')}}
       <th class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">R {{header.order}}</th>
       {{else}}
       <th class="{{if (and timevisible reactionvisible) 'scoreTimeReaction' ''}} {{if (and (not timevisible) (not reactionvisible)) 'onlyScore' ''}} {{if (and (not timevisible) reactionvisible) 'onlyScoreReaction' ''}} {{if (and timevisible (not reactionvisible)) 'onlyScoreTime' ''}}">Q {{header.order}}</th>
@@ -288,7 +288,7 @@
           </span>
             {{/if}}
             {{#if (or (eq content.score undefined) (eq content.score null))}}
-            {{#if (and (eq content.resourceType 'resource') content.timeSpent)}}
+            {{#if (and (eq content.content_format 'resource') content.timeSpent)}}
             <span class="score answer-extended_text pull-left" style="display: table-cell;"></span>
             {{else}}
             <span class="score answer-undefined pull-left" style="display: table-cell;"></span>
