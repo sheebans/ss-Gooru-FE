@@ -2,13 +2,9 @@ import Ember from 'ember';
 import { test } from 'ember-qunit';
 import moduleForAdapter from 'gooru-web/tests/helpers/module-for-adapter';
 
-moduleForAdapter(
-  'adapter:search/search',
-  'Unit | Adapter | search/search',
-  {
-    // needs: []
-  }
-);
+moduleForAdapter('adapter:search/search', 'Unit | Adapter | search/search', {
+  // needs: []
+});
 
 test('searchCollections', function(assert) {
   const adapter = this.subject();
@@ -283,9 +279,7 @@ test('searchResources for all resource types', function(assert) {
     });
 });
 
-test('searchResources for all resource types- resetting pagination', function(
-  assert
-) {
+test('searchResources for all resource types- resetting pagination', function(assert) {
   const adapter = this.subject();
   adapter.set(
     'session',
@@ -569,7 +563,7 @@ test('searchFeaturedCourses', function(assert) {
       function(request) {
         assert.equal(request.queryParams.q, 'any-term', 'Wrong term');
         assert.equal(request.queryParams.start, 1, 'Wrong default start');
-        assert.equal(request.queryParams.length, 50, 'Wrong default length');
+        assert.equal(request.queryParams.length, 70, 'Wrong default length');
         assert.equal(
           request.queryParams['flt.courseType'],
           'featured',

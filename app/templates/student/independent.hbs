@@ -1,29 +1,48 @@
 <div class="student-independent-container">
   <div class="header clearfix">
     <div class="go-back-container">
-      {{#link-to 'student-independent-learning.learning-base' class="back-to"}}
-        {{gru-icon name='arrow_back'}}
-        {{t 'student-landing.class.back-to-independent'}}
+      {{#link-to 'student-independent-learning.learning-base' class="back-to" }}
+        {{gru-icon name='arrow_back'}} {{t 'student-landing.class.back-to-independent'}}
       {{/link-to}}
     </div>
-    <h1>{{course.title}}</h1>
-    <div class="panel panel-default panel-primary">
-      <div class="panel-heading">{{t 'common.overall-performance'}}</div>
+    <div class="panel panel-default panel-primary course-information">
       <div class="panel-body">
-        <div class="graphics">
-          <div class="graphic performance">
-            {{charts.gru-bubble-chart
-              content=percentageToShow
-              color=(grade-color performance.scoreInPercentage)}}
-            <span class="legend">{{t 'teacher-landing.class.performance'}}</span>
+        <div class="course-image pull-left">
+          {{#if course.thumbnailUrl}}
+            <img src="{{course.thumbnailUrl}}" />
+          {{else}}
+            <div class="no-course-image"></div>
+          {{/if}}
+        </div>
+        <div class="course-name pull-left">
+          {{{truncate text=course.title maxLength=50}}}
+        </div>
+        <div class="counts-container pull-left">
+          <div class="count">
+            {{#if hasUnits}}
+              {{gru-icon tooltipTitle='common.unit' name="format_align_center"}}
+              <span>{{course.unitCount}}</span>
+            {{/if}}
           </div>
-          <div class="graphic completed">
-            {{charts.gru-radial-chart
-              value=performance.completedCount
-              minValue=0
-              maxValue=performance.totalCount}}
-            <span class="legend">{{t "common.completion"}}</span>
-          </div>
+        </div>
+        <div class="teacher-profile pull-left">
+          {{#if course.owner}}
+            <div class="title pull-left">
+              {{t (if course.sameOwnerAndCreator "common.created-by" "common.remixed-by")}}
+            </div>
+            {{#link-to 'profile.content.courses' course.owner.id class="pointer pull-left profile-container" tagName="div" }}
+              <img class="img-responsive pull-left" src="{{course.owner.avatarUrl}}">
+              <span class="owner">{{course.owner.displayName}}</span>
+            {{/link-to}}
+          {{/if}}
+        </div>
+        <div class="taxonomy-standards pull-left">
+          {{#if course.tags.length}}
+            {{taxonomy.gru-taxonomy-tag-list tags=course.tags tagsVisible=1 isInCard=true hasTooltips=false}}
+          {{/if}}
+        </div>
+        <div class="performance-container pull-right">
+          {{charts/gru-performance-chart performanceSummary=performance routeToGo="student.independent.performance"}}
         </div>
       </div>
     </div>

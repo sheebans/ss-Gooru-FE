@@ -39,8 +39,9 @@ export default Ember.Route.extend(PublicRouteMixin, {
    */
   handleRedirectionBasedOnDomain: function(controller) {
     let domain = window.location.hostname;
+    let redirectURL = this.get('controller').get('redirectURL');
     this.get('authenticationService')
-      .domainBasedRedirection(domain)
+      .domainBasedRedirection(domain, redirectURL)
       .then(function(data) {
         if (data && data.statusCode === 303) {
           window.location.href = data.redirectUrl;

@@ -49,16 +49,36 @@
     }
   }
 
+  .score-change-container {
+    width: 36%;
+    float: right;
+    margin-top: 15px;
+    .change-score {
+      padding: 4px 16px 4px 16px;
+      border-radius: 5px;
+    }
+    .confirm {
+      padding: 4px 16px 4px 16px;
+      border-radius: 5px;
+      margin-left: 25px;
+    }
+
+    .cancel {
+      padding: 4px 9px 4px 9px;
+      border-radius: 5px;
+    }
+  }
+
   table {
     width: 100%;
     background: $white;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    padding: 20px 0 40px;
+    padding: 0px 0 40px;
     display: block;
     clear: both;
     @media (min-width: $screen-md) {
-      padding: 20px 15px 40px;
+      padding: 0px 15px 40px;
     }
 
     th {

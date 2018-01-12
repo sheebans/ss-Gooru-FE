@@ -61,37 +61,40 @@ export default Ember.Component.extend(ModalMixin, {
       Ember.Logger.debug(
         `Class assessment report: student with ID ${studentId} was selected`
       );
+      let userObj = this.get('students').findBy('id', studentId);
+      if (userObj !== undefined) {
+        let reportData = this.get('reportData');
+        let assessment = this.get('assessment');
+        let resourceResults = reportData.getResultsByStudent(studentId);
+        resourceResults.forEach(function(resourceResult) {
+          let resource = assessment
+            .get('resources')
+            .findBy('id', resourceResult.get('resourceId'));
+          resourceResult.set('resource', resource);
+        });
 
-      let reportData = this.get('reportData');
-      let assessment = this.get('assessment');
-      let resourceResults = reportData.getResultsByStudent(studentId);
-      resourceResults.forEach(function(resourceResult) {
-        let resource = assessment
-          .get('resources')
-          .findBy('id', resourceResult.get('resourceId'));
-        resourceResult.set('resource', resource);
-      });
+        let assessmentResult = AssessmentResult.create({
+          totalAttempts: 1,
+          selectedAttempt: 1,
+          resourceResults: resourceResults,
+          collection: assessment,
+          isRealTime: this.get('isRealTime'),
+          showAttempts: this.get('showAttempts')
+        });
 
-      let assessmentResult = AssessmentResult.create({
-        totalAttempts: 1,
-        selectedAttempt: 1,
-        resourceResults: resourceResults,
-        collection: assessment,
-        isRealTime: this.get('isRealTime'),
-        showAttempts: this.get('showAttempts')
-      });
-
-      let modalModel = {
-        assessmentResult: assessmentResult
-      };
-      this.actions.showModal.call(
-        this,
-        'reports.gru-assessment-report',
-        modalModel,
-        null,
-        'gru-assessment-report-modal',
-        true
-      );
+        let modalModel = {
+          assessmentResult: assessmentResult,
+          profile: userObj
+        };
+        this.actions.showModal.call(
+          this,
+          'reports.gru-assessment-report',
+          modalModel,
+          null,
+          'gru-assessment-report-modal',
+          true
+        );
+      }
     }
   },
 

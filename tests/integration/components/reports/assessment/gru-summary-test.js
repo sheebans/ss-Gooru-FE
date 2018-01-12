@@ -115,6 +115,7 @@ test('it renders for assessment', function(assert) {
   );
 
   var $overviewContainer = $component.find('.summary-container .overview');
+  var $reactionContainer = $component.find('.summary-container .reactions');
   assert.ok($overviewContainer.length, 'Overview container is missing');
   assert.ok($overviewContainer.find('h5').length, 'Header element is missing');
   assert.equal(
@@ -166,9 +167,11 @@ test('it renders for assessment', function(assert) {
   );
 
   // Reaction
-  $overviewSection = $overviewContainer.find('.information .reaction');
+
+  var $reactionSection = $reactionContainer.find('.reaction');
+
   assert.ok(
-    $overviewSection.find('.emotion').hasClass('emotion-2'),
+    $reactionSection.find('.emotion').hasClass('emotion-2'),
     'Emotion icon should have the class \'emotion-2\''
   );
 
@@ -443,6 +446,7 @@ test('it renders for collection with questions', function(assert) {
   );
 
   var $overviewContainer = $component.find('.summary-container .overview');
+  var $reactionContainer = $component.find('.summary-container .reactions');
   assert.ok($overviewContainer.length, 'Overview container is missing');
   assert.ok($overviewContainer.find('h5').length, 'Header element is missing');
   assert.equal(
@@ -473,9 +477,10 @@ test('it renders for collection with questions', function(assert) {
   );
 
   // Reaction
-  $overviewSection = $overviewContainer.find('.information .reaction');
+  var $reactionSection = $reactionContainer.find('.reaction');
+
   assert.ok(
-    $overviewSection.find('.emotion').hasClass('emotion-2'),
+    $reactionSection.find('.emotion').hasClass('emotion-2'),
     'Emotion icon should have the class \'emotion-2\''
   );
 

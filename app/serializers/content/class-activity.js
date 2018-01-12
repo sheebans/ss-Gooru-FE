@@ -80,6 +80,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
         title: data.title,
         resourceCount: data.resource_count,
         questionCount: data.question_count,
+        collectionType: data.content_type,
         thumbnailUrl: thumbnailUrl
       });
     }
@@ -94,7 +95,22 @@ export default Ember.Object.extend(ConfigurationMixin, {
         title: data.title,
         resourceCount: data.resource_count,
         questionCount: data.question_count,
+        collectionType: data.content_type,
         thumbnailUrl: thumbnailUrl
+      });
+    }
+
+    if (contentType === 'assessment-external') {
+      const thumbnailUrl = data.thumbnail
+        ? basePath + data.thumbnail
+        : appRootPath + DEFAULT_IMAGES.ASSESSMENT;
+
+      content = Collection.create({
+        id: data.content_id,
+        title: data.title,
+        thumbnailUrl: thumbnailUrl,
+        collectionType: data.content_type,
+        url: data.url ? data.url : ''
       });
     }
 

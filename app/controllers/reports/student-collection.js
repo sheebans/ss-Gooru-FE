@@ -19,7 +19,8 @@ export default Ember.Controller.extend(ConfigurationMixin, {
     'type',
     'role',
     'contextId',
-    'source'
+    'source',
+    'minScore'
   ],
   // -------------------------------------------------------------------------
   // Dependencies

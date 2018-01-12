@@ -141,14 +141,16 @@ export default Ember.Service.extend({
    * Find the domain name have any directions for authentication.
    * @param logged in bowser session domain name.
    */
-  domainBasedRedirection: function(domain) {
+  domainBasedRedirection: function(domain, redirectURL = null) {
     const service = this;
+    let data = { domain: domain };
+    if (redirectURL) {
+      data.context_url = redirectURL;
+    }
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service
         .get('authenticationAdapter')
-        .domainBasedRedirection({
-          domain: domain
-        })
+        .domainBasedRedirection(data)
         .then(function(response) {
           resolve(
             service

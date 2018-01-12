@@ -167,6 +167,9 @@ export default Object.assign(quizzesTranslations, {
     content: 'Content',
     'content-manager': 'Content Manager',
     contentUnavailable: 'Content not available',
+    contentUnavailabletoday:
+      'No current activities. Add Daily Class Activities from the Course Map or My Content.',
+    contentUnavailableyesterday: 'No activities were added.',
     'contributed-by': 'Contributed by',
     copy: 'Copy',
     'copy-to': 'Copy To',
@@ -642,7 +645,8 @@ export default Object.assign(quizzesTranslations, {
       'character-limit': 'You\'ve reached the character limit.'
     },
     word: 'Word',
-    yes: 'Yes'
+    yes: 'Yes',
+    'change-score': 'Change Score'
   },
 
   /*
@@ -1144,7 +1148,9 @@ export default Object.assign(quizzesTranslations, {
       'class-activities': 'Daily Class Activities',
       'back-to-class-activities': 'Back to Daily Class Activities',
       'class-activities-tab': {
-        today: 'Today, ',
+        today: 'Today: ',
+        yesterday: 'Yesterday: ',
+        month: 'Month: ',
         'add-from-course-map': 'Add from Course Map',
         'add-from-my-content': 'Add from My Content',
         'welcome-dca':

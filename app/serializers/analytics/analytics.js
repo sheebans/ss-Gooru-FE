@@ -24,10 +24,17 @@ export default Ember.Object.extend({
 
   normalizeUserResult: function(payload) {
     const serializer = this;
+    let usageData = payload.usageData;
+    if (usageData === undefined) {
+      usageData = payload.questions;
+      if (usageData === undefined) {
+        usageData = payload.resources;
+      }
+    }
     return UserResourcesResult.create({
       user: payload.userUid,
       isAttemptFinished: !!payload.isCompleteAttempt, // This value is used only by the RealTime dashboard
-      resourceResults: serializer.normalizeResourceResults(payload.usageData)
+      resourceResults: serializer.normalizeResourceResults(usageData)
     });
   },
 
@@ -41,24 +48,36 @@ export default Ember.Object.extend({
   },
 
   normalizeResourceResult: function(payload) {
+    let qtype = payload.questionType;
+    if (qtype === 'unknown') {
+      qtype = payload.resourceType;
+    }
     let answerObjects = this.normalizeAnswerObjects(
       payload.answerObject,
-      payload.questionType
+      qtype
     );
+
     let eventTime = payload.eventTime ? toLocal(payload.eventTime) : null;
     let startedAt = payload.startTime
       ? toLocal(payload.startTime)
       : toLocal(new Date().getTime());
     let submittedAt = payload.endTime ? toLocal(payload.endTime) : startedAt;
 
-    if (payload.resourceType && payload.resourceType === 'question') {
-      let util = getQuestionUtil(payload.questionType).create();
-
+    if (payload.resourceType === 'question') {
+      let util = getQuestionUtil(qtype).create();
+      let resId = payload.gooruOId;
+      if (resId === undefined) {
+        resId = payload.questionId;
+      }
+      if (resId === undefined) {
+        resId = payload.resourceId;
+      }
       let questionResult = QuestionResult.create({
         //Commons fields for real time and student collection performance
-        resourceId: payload.gooruOId,
+        resourceId: resId,
         reaction: payload.reaction,
         timeSpent: payload.timeSpent,
+        answerObject: payload.answerObject,
         userAnswer: util.toUserAnswer(answerObjects),
 
         //fields only for real time
@@ -67,6 +86,7 @@ export default Ember.Object.extend({
         //fields only for student collection performance
         score: payload.score,
         resourceType: payload.resourceType,
+        questionType: qtype,
         attempts: payload.attempts,
         sessionId: payload.sessionId,
         startedAt: startedAt,
@@ -77,15 +97,20 @@ export default Ember.Object.extend({
       questionResult.submittedAnswer = !!questionResult.userAnswer;
       return questionResult;
     } else {
+      var resourceIdVal = payload.gooruOId;
+      if (resourceIdVal === undefined) {
+        resourceIdVal = payload.resourceId;
+      }
       return ResourceResult.create({
         //Commons fields for real time and student collection performance
-        resourceId: payload.gooruOId,
+        resourceId: resourceIdVal,
         reaction: payload.reaction,
         timeSpent: payload.timeSpent,
 
         //fields only for student collection performance
         score: payload.score,
         resourceType: payload.resourceType,
+        format: payload.format,
         attempts: payload.attempts,
         sessionId: payload.sessionId,
         startedAt: startedAt,

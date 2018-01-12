@@ -148,7 +148,9 @@ export default Ember.Service.extend({
         })
         .then(
           function(events) {
-            resolve(events);
+            resolve(
+              service.get('analyticsSerializer').normalizeResponse(events)
+            );
           },
           function(error) {
             reject(error);
@@ -251,11 +253,10 @@ export default Ember.Service.extend({
             .readAssessment(collectionId);
         }
       }
-
       Ember.RSVP
         .hash({
           course: courseId
-            ? service.get('courseService').fetchById(courseId)
+            ? service.get('courseService').fetchByIdWithOutProfile(courseId)
             : undefined,
           unit: unitId
             ? service.get('unitService').fetchById(courseId, unitId)
@@ -304,6 +305,23 @@ export default Ember.Service.extend({
             reject(error);
           }
         );
+    });
+  },
+
+  /**
+   * Update score of questions in an Assessment/Collection
+   * @param {string} RawData of questions score update for assessment or collection.
+   * @returns {Promise.<boolean>}
+   */
+  updateQuestionScore: function(data) {
+    var service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('analyticsAdapter')
+        .updateQuestionScore(data)
+        .then(function() {
+          return resolve(true);
+        }, reject);
     });
   }
 });

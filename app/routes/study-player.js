@@ -53,7 +53,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         lessonId: controller.get('lessonId'),
         unitId: controller.get('unitId'),
         contextId,
-        source: controller.get('source')
+        source: controller.get('source'),
+        minScore: controller.get('minScore')
       };
       if (classId) {
         queryParams.classId = classId;
@@ -166,7 +167,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
                 lesson: hash.lesson,
                 mapLocation,
                 collectionId: params.collectionId,
-                type: params.type
+                type: params.type,
+                minScore: params.minScore
               });
             });
           });
@@ -191,7 +193,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       lessonId: mapLocation.get('context.lessonId'),
       collectionId: model.collectionId,
       courseId: mapLocation.get('context.courseId'),
-      type: model.type
+      type: model.type,
+      minScore: model.minScore
     });
   },
 
@@ -199,7 +202,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
    * Gets the map location for the study player based on parameters
    * @param params
    * @returns {*}
-     */
+   */
   getMapLocation: function(params) {
     const route = this;
     const classId = params.classId;

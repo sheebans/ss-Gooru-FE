@@ -14,6 +14,29 @@ import {
  */
 
 export default StudentCollection.extend({
+  /**
+   * Confetti Initialize once Component Initialize
+   */
+  confettiSetup() {
+    let controller = this;
+    let averageScore = controller.get('attemptData.averageScore');
+    let minScore = controller.get('minScore');
+    let role = controller.get('role');
+    let type = controller.get('type');
+    if (
+      (role === 'student' &&
+        type === 'assessment' &&
+        minScore &&
+        minScore <= averageScore) ||
+      (role === 'student' && type === 'assessment' && averageScore >= 80)
+    ) {
+      Ember.run.later(function() {
+        controller.set('enableConfetti', false);
+      }, 5400);
+      controller.set('enableConfetti', true);
+    }
+  },
+
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -131,6 +154,12 @@ export default StudentCollection.extend({
   mapLocation: null,
 
   /**
+   * Current class  assessment minScore
+   * @property {integer}
+   */
+  minScore: null,
+
+  /**
    * @property {boolean}
    */
   hasPreTestSuggestions: Ember.computed.alias(
@@ -198,6 +227,12 @@ export default StudentCollection.extend({
    * @property {String} It decide to show the back to course map or not.
    */
   showBackToCourseMap: true,
+
+  /**
+   * confettiTruth  for all statisfactions
+   * @property {boolean} source
+   */
+  enableConfetti: false,
 
   /**
    * @property {String} It decide to show the back to collection or not.

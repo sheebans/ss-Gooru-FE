@@ -1,11 +1,19 @@
 .gru-two-tier-header-table {
   $table-cell-width: 55px;
+  width: 89%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 1px;
+  margin-left: 111px;
+  display: inline-block;
 
   .table-wrapper {
     width: auto;
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 1px;
+    margin-left: 111px;
+    display: inline-block;
   }
 
   table {
@@ -46,11 +54,6 @@
         height: 47px !important;
         @-moz-document url-prefix() {
           top: 78px;
-        }
-      }
-      th {
-        &:hover {
-          cursor: pointer;
         }
       }
     }

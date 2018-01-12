@@ -75,3 +75,12 @@ export function getResearcher() {
   const configuration = ConfigurationService.configuration;
   return configuration ? configuration.get('researcher') : '';
 }
+
+/**
+ * Get marketing site URL to redirect  the page after  user logout depending upon the environment.
+ */
+export function getMarketingsiteURL() {
+  //TODO don't use global configuration variable
+  const configuration = ConfigurationService.configuration;
+  return configuration ? configuration.get('marketingSiteUrl') : '';
+}

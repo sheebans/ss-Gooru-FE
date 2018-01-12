@@ -26,6 +26,11 @@
     font-size: $font-size-lead;
     text-align: center;
   }
+  .no-contentfont {
+    width: 100% !important;
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+  }
   .no-content-image {
     background-image: url(gooru/no-dca-student.png);
     background-position: center;

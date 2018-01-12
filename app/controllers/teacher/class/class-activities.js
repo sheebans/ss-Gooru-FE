@@ -3,6 +3,7 @@ import { formatDate } from 'gooru-web/utils/utils';
 import ModalMixin from 'gooru-web/mixins/modal';
 import SessionMixin from 'gooru-web/mixins/session';
 import AssessmentResult from 'gooru-web/models/result/assessment';
+import ReportData from 'gooru-web/models/result/report-data';
 
 /**
  * Class activities controller
@@ -57,12 +58,22 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       const year = controller.get('year');
       const month = controller.get('month');
       const startDate = new Date(year, month, 1);
-      const endDate = new Date(year, month + 1, 0);
+      let endDate = new Date(year, month + 1, 0);
+      var today = new Date();
+      if (
+        today.getFullYear() === endDate.getFullYear() &&
+        today.getMonth() + 1 === endDate.getMonth() + 1
+      ) {
+        if (endDate.getDate() > today.getDate()) {
+          endDate = new Date(year, month, today.getDate() - 2);
+        }
+      }
+
       if (!this.get('loadingMore')) {
         this.set('loadingMore', true);
         controller
           .get('classActivityService')
-          .findClassActivities(
+          .findClassActivitiesDCA(
             currentClass.get('id'),
             undefined,
             startDate,
@@ -71,8 +82,8 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
           .then(function(classActivities) {
             controller.get('classActivities').pushObject(
               Ember.Object.create({
-                classActivities: classActivities,
-                date: formatDate(startDate, 'MMMM, YYYY')
+                classActivities: controller.setDefaultValues(classActivities),
+                date: formatDate(startDate, 'MMMM YYYY')
               })
             );
             if (month - 1 >= 0) {
@@ -85,12 +96,43 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
           });
       }
     },
+    /**
+     * When showing the question details
+     * @param {string} questionId
+     */
+    viewQuestionDetail: function(questionId, collectionData, members) {
+      Ember.Logger.debug(
+        `Class assessment report: question with ID ${questionId} was selected`
+      );
+
+      const reportData1 = ReportData.create({
+        students: members,
+        resources: collectionData.children
+      });
+      Ember.Logger.info('reportData--', reportData1);
+      let question = collectionData.children.findBy('id', questionId);
+      let modalModel = {
+        anonymous: this.get('anonymous'),
+        assessment: collectionData,
+        students: members,
+        selectedQuestion: question,
+        reportData: reportData1
+      };
+      this.actions.showModal.call(
+        this,
+        'reports.class-assessment.gru-questions-detail',
+        modalModel,
+        null,
+        'gru-questions-detail-modal',
+        true
+      );
+    },
 
     /**
      * @function actions:selectRowHeader
      * @param {string} headerId
      */
-    selectRowHeader: function(studentId, reportData, assessment) {
+    selectRowHeader: function(studentId, userObj, reportData, assessment) {
       Ember.Logger.debug(
         `Class assessment report: student with ID ${studentId} was selected`
       );
@@ -113,7 +155,8 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       });
 
       let modalModel = {
-        assessmentResult: assessmentResult
+        assessmentResult: assessmentResult,
+        profile: userObj
       };
       this.actions.showModal.call(
         this,
@@ -123,6 +166,23 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         'gru-assessment-report-modal',
         true
       );
+    },
+    /**
+     * @function actions:selectRowHeader
+     * @param {string} headerId
+     */
+    changeStatusValue: function() {
+      let allClassActivities = this.get('classActivities');
+      allClassActivities.forEach(function(activitiesObj) {
+        if (activitiesObj.classActivities !== undefined) {
+          activitiesObj.classActivities.forEach(classObj => {
+            let collObj = classObj.collection;
+            if (collObj !== undefined) {
+              Ember.set(collObj, 'isReportEnabled', false);
+            }
+          });
+        }
+      });
     },
 
     /**
@@ -161,7 +221,6 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       this.set('showWelcome', false);
     }
   },
-
   // -------------------------------------------------------------------------
   // Properties
 
@@ -194,7 +253,16 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * @property {String}
    */
   classId: Ember.computed.alias('classController.class.id'),
-
+  /**
+   * Class id
+   * @property {String}
+   */
+  members: Ember.computed.alias('classController.class.members'),
+  /**
+   * Class id
+   * @property {String}
+   */
+  collection: Ember.computed.alias('classController.class.collection'),
   // -------------------------------------------------------------------------
   // Methods
 
@@ -211,5 +279,16 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       );
       classActivities.classActivities.removeObject(activityToDelete);
     });
+  },
+  setDefaultValues: function(activitiesData) {
+    if (activitiesData !== undefined) {
+      activitiesData.forEach(function(activitiesObj) {
+        let collObj = activitiesObj.collection;
+        if (collObj !== undefined) {
+          Ember.set(collObj, 'isReportEnabled', false);
+        }
+      });
+    }
+    return activitiesData;
   }
 });

@@ -137,7 +137,11 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
               .get('profileService')
               .readCollections(component.get('session.userId'))
               .then(function(collections) {
-                return { content: builderItem, collections, assessments };
+                return {
+                  content: builderItem,
+                  collections,
+                  assessments
+                };
               });
           })
           .then(model =>
@@ -169,8 +173,8 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
     },
 
     /**
-    * Route to edit with correct query params.
-    */
+     * Route to edit with correct query params.
+     */
     edit: function(item) {
       const component = this;
       const route =
@@ -238,7 +242,6 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
       let component = this;
       var editedModel = this.get('tempModel');
       const collection = component.get('collection');
-
       editedModel.validate().then(function({ model, validations }) {
         if (validations.get('isValid')) {
           if (builderItem.get('format') === 'question') {
@@ -498,8 +501,8 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
    */
   collection: null,
   /**
-  * @property {Boolean} isCollection - is this a listing for a collection or for an assessment
-  */
+   * @property {Boolean} isCollection - is this a listing for a collection or for an assessment
+   */
   isCollection: null,
 
   /**
@@ -644,17 +647,17 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
           promiseArray = editedQuestion
             .get('answers')
             .map(component.getAnswerSaveImagePromise.bind(component));
-          answersPromise = Ember.RSVP.Promise
-            .all(promiseArray)
-            .then(function(values) {
-              for (var i = 0; i < editedQuestion.get('answers').length; i++) {
-                editedQuestion.get('answers')[i].set('text', values[i]);
-              }
-              answersForValidate = editedQuestion.get('answers');
-              return Ember.RSVP.Promise.all(
-                answersForValidate.map(component.getAnswerValidatePromise)
-              );
-            });
+          answersPromise = Ember.RSVP.Promise.all(promiseArray).then(function(
+            values
+          ) {
+            for (var i = 0; i < editedQuestion.get('answers').length; i++) {
+              editedQuestion.get('answers')[i].set('text', values[i]);
+            }
+            answersForValidate = editedQuestion.get('answers');
+            return Ember.RSVP.Promise.all(
+              answersForValidate.map(component.getAnswerValidatePromise)
+            );
+          });
         } else {
           promiseArray = answersForValidate.map(
             component.getAnswerValidatePromise
@@ -866,8 +869,8 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
   },
 
   /**
-  * scroll to first editor of the page, when it has several editor answers
-  */
+   * scroll to first editor of the page, when it has several editor answers
+   */
   scrollToFirstEditor: function() {
     var component = this;
     Ember.run.later(function() {

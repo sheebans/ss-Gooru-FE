@@ -24,7 +24,10 @@ export default Ember.Object.extend({
   },
   queryRecordForDCA: function(query) {
     const namespace = this.get('namespace');
-    const includesessionIdParam = `sessionId=${query.sessionId}`;
+    let includesessionIdParam = `sessionId=${query.sessionId}`;
+    if (query.sessionId === 'NA') {
+      includesessionIdParam = `classId=${query.classId}`;
+    }
     const includedateParam = `date=${query.date}`;
     const collectionId = query.collectionId;
     const userId = query.userId;
@@ -50,6 +53,25 @@ export default Ember.Object.extend({
         userUid: userId
       }
     };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Update score of questions in an Assessment/Collection
+   * @param {string} RawData of questions score update for assessment or collection.
+   * @returns {Promise}
+   */
+  updateQuestionScore: function(data) {
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders(),
+      data: JSON.stringify(data)
+    };
+    const namespace = this.get('namespace');
+    const url = `${namespace}/score`;
     return Ember.$.ajax(url, options);
   },
 

@@ -101,6 +101,17 @@ export default Ember.Component.extend(ConfigurationMixin, {
       this.get('assessmentResult.collection.collectionType') === 'assessment'
     );
   }),
+  /**
+   * Indicates the type of collection.
+   * @return {Boolean}
+   */
+  imageUrl: Ember.computed('assessmentResult.collection', function() {
+    if (this.get('assessmentResult.collection.thumbnailUrl') !== undefined) {
+      return this.get('assessmentResult.collection.thumbnailUrl');
+    } else {
+      return this.get('assessmentResult.collection.imageUrl');
+    }
+  }),
 
   /**
    * It has the total number of  question count.
