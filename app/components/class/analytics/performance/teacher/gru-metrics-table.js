@@ -371,6 +371,10 @@ export default Ember.Component.extend({
    * @prop { Number } defaultSortOrder - Default sort order for values in columns (1 = ascending; -1 = descending)
    */
   defaultSortOrder: 1,
+  defaultSortOrderScore: 1,
+  defaultSortOrderStudent: 1,
+  defaultSortOrderTime: 1,
+  defaultSortOrderCompletion: 1,
 
   /**
    * metric sent by the sort function
@@ -473,22 +477,97 @@ export default Ember.Component.extend({
       }
     },
     sortChange: function(metric) {
+      const component = this;
       var metricsIndex = metric.get('index');
-      var sortCriteria = this.get('sortCriteria');
-      var newSortCriteria = {
-        metricsIndex: metricsIndex
-      };
 
-      this.set('sortByMetric', metric.get('value'));
-
-      if (sortCriteria.metricsIndex === metricsIndex) {
-        // Reverse the sort order if the same column has been selected
-        newSortCriteria.order = sortCriteria.order * -1;
-        this.set('sortCriteria', newSortCriteria);
-      } else {
-        newSortCriteria.order = this.get('defaultSortOrder');
-        this.set('sortCriteria', newSortCriteria);
+      component.set('sortByMetric', metric.get('value'));
+      let sortedData = component.get('performanceData');
+      //alphabeticalStringSort
+      if (metricsIndex === -1) {
+        if (component.get('defaultSortOrderStudent') === 1) {
+          component.set('defaultSortOrderStudent', -1);
+          sortedData.sort(function(a, b) {
+            return alphabeticalStringSort(a.user, b.user) * 1;
+          });
+        } else {
+          component.set('defaultSortOrderStudent', 1);
+          sortedData.sort(function(a, b) {
+            return alphabeticalStringSort(a.user, b.user) * -1;
+          });
+        }
+      } else if (metricsIndex >= 0) {
+        let sortByMetric = component.get('sortByMetric');
+        if (sortByMetric === 'score') {
+          if (component.get('defaultSortOrderScore') === 1) {
+            sortedData.sort(function(a, b) {
+              component.set('defaultSortOrderScore', -1);
+              return (
+                numberSort(
+                  a.performanceData[0].score,
+                  b.performanceData[0].score
+                ) * 1
+              );
+            });
+          } else if (component.get('defaultSortOrderScore') === -1) {
+            sortedData.sort(function(a, b) {
+              component.set('defaultSortOrderScore', 1);
+              return (
+                numberSort(
+                  a.performanceData[0].score,
+                  b.performanceData[0].score
+                ) * -1
+              );
+            });
+          }
+        } else if (sortByMetric === 'completion') {
+          if (component.get('defaultSortOrderCompletion') === 1) {
+            sortedData.sort(function(a, b) {
+              component.set('defaultSortOrderCompletion', -1);
+              return (
+                numberSort(
+                  a.performanceData[0].completionDone,
+                  b.performanceData[0].completionDone
+                ) * 1
+              );
+            });
+          } else if (component.get('defaultSortOrderCompletion') === -1) {
+            sortedData.sort(function(a, b) {
+              component.set('defaultSortOrderCompletion', 1);
+              return (
+                numberSort(
+                  a.performanceData[0].completionDone,
+                  b.performanceData[0].completionDone
+                ) * -1
+              );
+            });
+          }
+        } else {
+          if (component.get('defaultSortOrderTime') === 1) {
+            sortedData.sort(function(a, b) {
+              component.set('defaultSortOrderTime', -1);
+              return (
+                numberSort(
+                  a.performanceData[0].studyTime,
+                  b.performanceData[0].studyTime
+                ) * 1
+              );
+            });
+          } else if (component.get('defaultSortOrderTime') === -1) {
+            sortedData.sort(function(a, b) {
+              component.set('defaultSortOrderTime', 1);
+              return (
+                numberSort(
+                  a.performanceData[0].studyTime,
+                  b.performanceData[0].studyTime
+                ) * -1
+              );
+            });
+          }
+        }
       }
+
+      component.set('performanceData', []);
+      component.set('performanceData', sortedData);
     },
     showassessments(index) {
       var temp = this.get('headers').objectAt(index);
@@ -670,20 +749,19 @@ export default Ember.Component.extend({
                 { collectionType: filterBy }
               )
               .then(function(classPerformanceData) {
-                const performanceData = createDataMatrix(
+                const performanceData2 = createDataMatrix(
                   lessons,
                   classPerformanceData,
                   'unit'
                 );
-                component.set('lessonperformanceDataMatrix', performanceData);
+                component.set('lessonperformanceDataMatrix', performanceData2);
                 const lessonperformanceData = Ember.computed(
                   'lessonperformanceDataMatrix.length',
                   'sortCriteria',
                   function() {
-                    const performanceData = this.get(
+                    const performanceData3 = this.get(
                       'lessonperformanceDataMatrix'
-                    ).slice(1);
-                    const sortCriteria = this.get('sortCriteria');
+                    );
                     var tempInx = unitIndex + 1;
                     var lessnDataArr = component
                       .get('lessonperformanceDataMatrix')
@@ -704,47 +782,8 @@ export default Ember.Component.extend({
                             .performanceData.insertAt(tempInx + indx, item);
                         }
                       });
-                    if (sortCriteria) {
-                      let metricsIndex = sortCriteria.metricsIndex;
-                      let sortedData = performanceData;
-                      if (metricsIndex === -1) {
-                        sortedData.sort(function(a, b) {
-                          return (
-                            alphabeticalStringSort(a.user, b.user) *
-                            sortCriteria.order
-                          );
-                        });
-                      } else if (metricsIndex >= 0) {
-                        let sortByMetric = this.get('sortByMetric');
-                        sortedData.sort(function(a, b) {
-                          if (sortByMetric === 'score') {
-                            return (
-                              numberSort(
-                                a.performanceData[0].score,
-                                b.performanceData[0].score
-                              ) * sortCriteria.order
-                            );
-                          } else if (sortByMetric === 'completion') {
-                            return (
-                              numberSort(
-                                a.performanceData[0].completionDone,
-                                b.performanceData[0].completionDone
-                              ) * sortCriteria.order
-                            );
-                          } else {
-                            return (
-                              numberSort(
-                                a.performanceData[0].studyTime,
-                                b.performanceData[0].studyTime
-                              ) * sortCriteria.order
-                            );
-                          }
-                        });
-                      }
-                      return sortedData;
-                    } else {
-                      return performanceData;
-                    }
+                    component.set('lessonperformanceData', performanceData3);
+                    return performanceData3;
                   }
                 );
                 component.set('lessonperformanceData', lessonperformanceData);
@@ -1188,54 +1227,13 @@ export default Ember.Component.extend({
                       .objectAt(0)
                       .performanceData.slice(1)
                   });
-
                   component
                     .get('averageHeaderstempAssessment')
                     .pushObject(lessonPerformanceObj);
-                  const sortCriteria = this.get('sortCriteria');
-                  if (sortCriteria) {
-                    let metricsIndex = sortCriteria.metricsIndex;
-                    let sortedData = performanceData;
-                    if (metricsIndex === -1) {
-                      sortedData.sort(function(a, b) {
-                        return (
-                          alphabeticalStringSort(a.user, b.user) *
-                          sortCriteria.order
-                        );
-                      });
-                    } else if (metricsIndex >= 0) {
-                      let sortByMetric = this.get('sortByMetric');
-                      sortedData.sort(function(a, b) {
-                        if (sortByMetric === 'score') {
-                          return (
-                            numberSort(
-                              a.performanceData[0].score,
-                              b.performanceData[0].score
-                            ) * sortCriteria.order
-                          );
-                        } else if (sortByMetric === 'completion') {
-                          return (
-                            numberSort(
-                              a.performanceData[0].completionDone,
-                              b.performanceData[0].completionDone
-                            ) * sortCriteria.order
-                          );
-                        } else {
-                          return (
-                            numberSort(
-                              a.performanceData[0].studyTime,
-                              b.performanceData[0].studyTime
-                            ) * sortCriteria.order
-                          );
-                        }
-                      });
-                    }
-                    return sortedData;
-                  } else {
-                    return performanceData;
-                  }
+                  return performanceData;
                 }
               );
+
               component.set(
                 'assessmentperformanceData',
                 assessmentperformanceData
