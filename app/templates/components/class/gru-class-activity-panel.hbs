@@ -186,34 +186,25 @@
             {{!-- {{action "updateSortCriteria" firstTierIndex}} --}}
             >
             <div class="table-cell score" style="display: table-cell;">
-            <span style="cursor:pointer;" {{action "onScoreSortClick"}}>
+            <span>
             <img src="/assets/gooru/tick.png"
                 srcset="/assets/gooru/tick@2x.png 2x,
                         /assets/gooru/tick@3x.png 3x"
                 class="tick">
-              {{gru-icon name='swap_vert'}}
-              {{gru-icon name='arrow_upward'}}
-              {{gru-icon name='arrow_downward'}}
             </span></div>
             <div class="table-cell clockpad study-time {{if timevisible '' 'out-of-scope'}}" style="display: table-cell;">
-            <span style="cursor:pointer;" {{action "onTimeSortClick"}}>
+            <span>
               <img src="/assets/gooru/clock.png"
      srcset="/assets/gooru/clock@2x.png 2x,
              /assets/gooru/clock@3x.png 3x"
      class="clock">
-              {{gru-icon name='swap_vert'}}
-              {{gru-icon name='arrow_upward'}}
-              {{gru-icon name='arrow_downward'}}
             </span></div>
             <div class="table-cell reactpad completion pull-right {{if reactionvisible '' 'out-of-scope'}}" style="display: table-cell;">
-             <span style="cursor:pointer;" {{action "onReactionSortClick"}}>
+             <span>
               <img src="/assets/gooru/mood.png"
      srcset="/assets/gooru/mood@2x.png 2x,
              /assets/gooru/mood@3x.png 3x"
      class="mood-copy">
-              {{gru-icon name='swap_vert'}}
-              {{gru-icon name='arrow_upward'}}
-              {{gru-icon name='arrow_downward'}}
             </span></div>
           </th>
         {{!-- {{/each}} --}}
