@@ -4,15 +4,15 @@
 export default {
   appRootPath: '/', //default is root
   endpoint: {
-    url: 'http://nile-qa.gooru.org',
-    secureUrl: 'https://nile-qa.gooru.org',
+    url: 'http://nile-dev.gooru.org',
+    secureUrl: 'https://nile-dev.gooru.org',
     tenantUrl: 'http://s3-us-west-1.amazonaws.com/nile-tenants/dev'
   },
 
   realTime: {
-    webServiceUrl: 'http://nile-qa.gooru.org',
+    webServiceUrl: 'http://nile-dev.gooru.org',
     webServiceUri: '/nucleus/realtime',
-    webSocketUrl: 'https://rt.nile-qa.gooru.org',
+    webSocketUrl: 'https://rt.nile-dev.gooru.org',
     webSocketUri: '/ws/realtime'
   },
 
@@ -41,15 +41,15 @@ export default {
 
   'quizzes-addon': {
     endpoint: {
-      url: 'http://nile-qa.gooru.org',
-      secureUrl: 'https://nile-qa.gooru.org',
-      providerUrl: 'http://nile-qa.gooru.org'
+      url: 'http://nile-dev.gooru.org',
+      secureUrl: 'https://nile-dev.gooru.org',
+      providerUrl: 'http://nile-dev.gooru.org'
     },
 
     realTime: {
-      webServiceUrl: 'https://nile-qa.gooru.org',
+      webServiceUrl: 'https://nile-dev.gooru.org',
       webServiceUri: '/',
-      webSocketUrl: 'https://nile-qa.gooru.org',
+      webSocketUrl: 'https://nile-dev.gooru.org',
       webSocketUri: '/ws/quizzes-realtime'
     }
   },
@@ -67,7 +67,7 @@ export default {
   },
 
   researcher: {
-    redirectURL: 'http://local-admin-dataview.gooru.org',
+    redirectURL: 'http://research-dev.gooru.org',
     userIds: [
       '95a744e1-631e-4642-875d-8b07a5e3b421',
       'df956d5f-b7b2-43ae-98a1-c90a12eacaf9'
