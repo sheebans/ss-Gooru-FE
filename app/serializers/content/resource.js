@@ -115,7 +115,7 @@ export default Ember.Object.extend({
         title: resourceData.title,
         url: resourceData.url,
         format: format,
-        resourceType: resourceData.content_format,
+        content_format: resourceData.content_format,
         description: resourceData.description,
         narration: resourceData.narration,
         publishStatus: resourceData.publish_status,

@@ -12,6 +12,9 @@
         opacity: 0.6;
       }
     }
+    .justLabels {
+      cursor: default !important;
+    }
     .metric-sub-header {
       .gru-icon {
         font-size: 13px;
@@ -30,8 +33,12 @@
     .morepaddingleft {
       padding-left: 75px;
     }
+    .reportpad {
+      padding-left: 8px;
+      padding-top: 1px;
+    }
     .newreportPadding {
-      padding-left: 10px;
+      padding-left: 12px;
     }
     .reportPadding {
       padding-left: 79px;
