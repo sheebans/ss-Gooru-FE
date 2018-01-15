@@ -711,7 +711,7 @@ export default Ember.Component.extend({
                     'timeSpent',
                     formatMilliseconds(objData.timeSpent)
                   );
-                  if (qobj.resourceType === 'resource') {
+                  if (qobj.content_format === 'resource') {
                     Ember.set(objData, 'score', null);
                   }
                   questionDataObj.pushObject(objData);
@@ -778,7 +778,7 @@ export default Ember.Component.extend({
       Ember.set(resourceobj, 'questionId', resourceobj.id);
       Ember.set(resourceobj, 'answerObject', null);
       Ember.set(resourceobj, 'userAnswer', null);
-      Ember.set(resourceobj, 'resourceType', null);
+      Ember.set(resourceobj, 'content_format', null);
     });
     component.set('userDataObj', []);
     contentObj.content.forEach(function(item1) {
@@ -834,7 +834,7 @@ export default Ember.Component.extend({
                           );
                           Ember.set(
                             resource2obj,
-                            'resourceType',
+                            'content_format',
                             resource1obj.resourceType
                           );
                           Ember.set(

@@ -231,13 +231,6 @@ test('When view by assessment and collection option is selected for course level
         1,
         'The table should have one filter'
       );
-      assert.equal(
-        $metricsTable.find(
-          '.sub-header.hidden-xs .gru-metrics-sub-header:eq(2) .metrics-sub-header .time-spent'
-        ).length,
-        1,
-        'The table should filter by study time'
-      );
     });
   });
 });
@@ -318,13 +311,6 @@ test('When view by assessment and collection option is selected for unit level',
         1,
         'The table should have one filter'
       );
-      assert.equal(
-        $metricsTable.find(
-          '.sub-header.hidden-xs .gru-metrics-sub-header:eq(2) .metrics-sub-header .time-spent'
-        ).length,
-        1,
-        'The table should filter by study time'
-      );
     });
   });
 });
@@ -404,13 +390,6 @@ test('When view by assessment and collection option is selected for lesson level
         ).length,
         2,
         'The table should have one filter'
-      );
-      assert.equal(
-        $metricsTable.find(
-          '.sub-header.hidden-xs .gru-metrics-sub-header:eq(1) .metrics-sub-header .time-spent'
-        ).length,
-        1,
-        'The table should filter by study time'
       );
       assert.equal(
         $metricsTable.find(

@@ -129,26 +129,26 @@
         </tr>
        <tr class="sub-header hidden-xs">
         <th class="fix padBottom">
-            {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' showStudyTime=showStudyTime showReport=false showReportTime=showReportTime metrics=averageMetrics}}
+            {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' showStudyTime=showStudyTime showReport=false showReportTime=showReportTime showsort=true metrics=averageMetrics}}
           </th>
           <th class="widthmaxi fix2 padBottom">
-            {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' showStudyTime=showStudyTime showReport=false showReportTime=showReportTime dataPickerOptions=dataPickerOptions}}
+            {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' showStudyTime=showStudyTime showReport=false showReportTime=showReportTime showsort=true dataPickerOptions=dataPickerOptions}}
           </th>
           {{#each headers as |header|}}
           {{#if (or header.showSub (not expandedUnit))}}
             <th class="widthmaxi">
-              {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions showStudyTime=showStudyTime showReportTime=showReportTime showReport=false}}
+              {{class.analytics.performance.teacher.gru-metrics-sub-header dataPickerOptions=dataPickerOptions showStudyTime=showStudyTime showReportTime=showReportTime showsort=false showReport=false}}
             </th>
               {{#each header.subColumns as |subHeader|}}
                {{#if header.showSubSub}}
               {{#each subHeader.subsubColumns as |subsubHeader index|}}
               <th class="widthmaxi">
-                {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions showStudyTime=showStudyTime showReportTime=showReportTime showReport=true}}
+                {{class.analytics.performance.teacher.gru-metrics-sub-header dataPickerOptions=dataPickerOptions showStudyTime=showStudyTime showReportTime=showReportTime showsort=false showReport=true}}
               </th>
               {{/each}}
                {{else}}
               <th class="widthmaxi">
-                {{class.analytics.performance.teacher.gru-metrics-sub-header onSortChange='sortChange' dataPickerOptions=dataPickerOptions showStudyTime=showStudyTime showReportTime=showReportTime showReport=false}}
+                {{class.analytics.performance.teacher.gru-metrics-sub-header dataPickerOptions=dataPickerOptions showStudyTime=showStudyTime showReportTime=showReportTime showsort=false showReport=false}}
               </th>
                {{/if}}
             {{/each}}
