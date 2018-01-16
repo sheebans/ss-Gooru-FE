@@ -37,7 +37,7 @@ module.exports = function(environment) {
     },
 
     marketingSiteUrl: '/welcome',
-    supportSiteUrl: '/support',
+    supportSiteUrl: 'http://support.gooru.org',
     toolkitSiteUrl: '/about/toolkit',
     termsConditionsUrl: '/about/terms-and-conditions'
   };
