@@ -70,7 +70,7 @@ export default Ember.Component.extend({
             type === 'edit'
               ? component.set('isLoadingMoreDetails', true)
               : component.set('isLoadingCreate', true);
-            let resourceId;
+            let resourceId, copiedResourceId;
             component.$('.resource-new button.add-btn').prop('disabled', true);
             component
               .handleResourceUpload(resource)
@@ -85,6 +85,7 @@ export default Ember.Component.extend({
                         .get('resourceService')
                         .copyResource(resourceId)
                         .then(function(copyResourceId) {
+                          copiedResourceId = copyResourceId;
                           return component
                             .get('collectionService')
                             .addResource(
@@ -99,7 +100,7 @@ export default Ember.Component.extend({
                   .then(
                     function() {
                       if (type === 'edit') {
-                        component.onNewResource(resourceId);
+                        component.onNewResource(copiedResourceId);
                       } else {
                         component.get('router').router.refresh();
                         component.set('isLoadingCreate', false);
