@@ -247,6 +247,9 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
           if (builderItem.get('format') === 'question') {
             component.saveQuestion();
           } else {
+            if (editedModel.narration === '') {
+              Ember.set(editedModel, 'narration', null);
+            }
             component
               .get('resourceService')
               .updateResource(editedModel.id, editedModel, collection)
@@ -647,17 +650,17 @@ export default Ember.Component.extend(BuilderMixin, ModalMixin, {
           promiseArray = editedQuestion
             .get('answers')
             .map(component.getAnswerSaveImagePromise.bind(component));
-          answersPromise = Ember.RSVP.Promise.all(promiseArray).then(function(
-            values
-          ) {
-            for (var i = 0; i < editedQuestion.get('answers').length; i++) {
-              editedQuestion.get('answers')[i].set('text', values[i]);
-            }
-            answersForValidate = editedQuestion.get('answers');
-            return Ember.RSVP.Promise.all(
-              answersForValidate.map(component.getAnswerValidatePromise)
-            );
-          });
+          answersPromise = Ember.RSVP.Promise
+            .all(promiseArray)
+            .then(function(values) {
+              for (var i = 0; i < editedQuestion.get('answers').length; i++) {
+                editedQuestion.get('answers')[i].set('text', values[i]);
+              }
+              answersForValidate = editedQuestion.get('answers');
+              return Ember.RSVP.Promise.all(
+                answersForValidate.map(component.getAnswerValidatePromise)
+              );
+            });
         } else {
           promiseArray = answersForValidate.map(
             component.getAnswerValidatePromise
