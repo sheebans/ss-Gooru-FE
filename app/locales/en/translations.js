@@ -2,8 +2,8 @@ import quizzesTranslations from './quizzes/translations';
 
 export default Object.assign(quizzesTranslations, {
   en: 'English',
-  sp: 'Spanish',
-  ar: 'Arabic',
+  sp: 'Español',
+  ar: 'عربى',
   errors: {
     description: 'This field',
     inclusion: '{{description}} is not included in the list',
@@ -452,6 +452,7 @@ export default Object.assign(quizzesTranslations, {
     },
     of: 'of',
     off: 'OFF',
+    offline: 'Offline',
     on: 'ON',
     other: 'Other',
     'overall-performance': 'Overall Performance',
