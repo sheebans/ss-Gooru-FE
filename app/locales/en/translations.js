@@ -185,6 +185,7 @@ export default Object.assign(quizzesTranslations, {
     'created-by': 'Created by',
     'create-rubric': 'Create New Rubric',
     'current-attempt': 'Current Attempt',
+    'currently-studying': 'Currently Studying',
     delete: 'Delete',
     'delete-instructions': {
       'links-inaccessible': 'All share links will be inaccessible',
@@ -452,7 +453,6 @@ export default Object.assign(quizzesTranslations, {
     },
     of: 'of',
     off: 'OFF',
-    offline: 'Offline',
     on: 'ON',
     other: 'Other',
     'overall-performance': 'Overall Performance',
@@ -460,6 +460,7 @@ export default Object.assign(quizzesTranslations, {
     pending: 'Pending',
     performance: 'Show Performance',
     'performance-dashboard': 'Performance Dashboard',
+    'personal-information': 'Personal Information',
     play: 'Play',
     please_contact: 'Please contact',
     'post-message': 'Post Message',
