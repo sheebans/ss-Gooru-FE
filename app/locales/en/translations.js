@@ -2,8 +2,8 @@ import quizzesTranslations from './quizzes/translations';
 
 export default Object.assign(quizzesTranslations, {
   en: 'English',
-  sp: 'Spanish',
-  ar: 'Arabic',
+  sp: 'Español',
+  ar: 'عربى',
   errors: {
     description: 'This field',
     inclusion: '{{description}} is not included in the list',
@@ -185,6 +185,7 @@ export default Object.assign(quizzesTranslations, {
     'created-by': 'Created by',
     'create-rubric': 'Create New Rubric',
     'current-attempt': 'Current Attempt',
+    'currently-studying': 'Currently Studying',
     delete: 'Delete',
     'delete-instructions': {
       'links-inaccessible': 'All share links will be inaccessible',
@@ -459,6 +460,7 @@ export default Object.assign(quizzesTranslations, {
     pending: 'Pending',
     performance: 'Show Performance',
     'performance-dashboard': 'Performance Dashboard',
+    'personal-information': 'Personal Information',
     play: 'Play',
     please_contact: 'Please contact',
     'post-message': 'Post Message',
