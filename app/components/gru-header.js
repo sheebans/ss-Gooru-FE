@@ -86,7 +86,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
         let url = `${researcher.redirectURL}/?access_token=${this.get(
           'session.token-api3'
         )}`;
-        window.open(url);
+        window.open(url, '_self');
       }
     }
   },
