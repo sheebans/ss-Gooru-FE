@@ -59,10 +59,12 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
         const rootElement = Ember.$(Env.rootElement);
         rootElement.addClass('changeDir');
         rootElement.removeClass('changeDirDefault');
+        $('.menu-navbar').css('float', 'left');
       } else {
         const rootElement = Ember.$(Env.rootElement);
         rootElement.removeClass('changeDir');
         rootElement.addClass('changeDirDefault');
+        $('.menu-navbar').css('float', 'right');
       }
     },
 

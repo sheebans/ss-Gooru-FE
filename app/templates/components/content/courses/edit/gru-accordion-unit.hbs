@@ -76,13 +76,13 @@
       {{else}}
         {{#if isLoaded}}
           {{#if totalSavedItems}}
-            <span><b>{{totalSavedItems}}</b> {{t "common.lessonObj" count=totalSavedItems}}</span>
+            <span dir="ltr"><b>{{totalSavedItems}}</b> {{t "common.lessonObj" count=totalSavedItems}}</span>
           {{else}}
             <span>{{t "common.add-lessons"}}</span>
           {{/if}}
         {{else}}
           {{#if unit.lessonCount}}
-            <span><b>{{unit.lessonCount}}</b> {{t "common.lessonObj" count=unit.lessonCount}}</span>
+            <span dir="ltr"><b>{{unit.lessonCount}}</b> {{t "common.lessonObj" count=unit.lessonCount}}</span>
           {{else}}
             <span>{{t "common.add-lessons"}}</span>
           {{/if}}
