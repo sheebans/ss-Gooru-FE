@@ -18,7 +18,11 @@ export default PerformanceSerializer.extend({
    */
   normalizeQueryRecordResponse: function(store, primaryModelClass, payload) {
     const serializer = this;
-    const hasResults = payload.content.length > 0;
+    let lenVal = 0;
+    if (payload.content !== undefined) {
+      lenVal = payload.content.length;
+    }
+    const hasResults = lenVal > 0;
     var model = {
       data: {
         id: Utils.generateUUID(),
