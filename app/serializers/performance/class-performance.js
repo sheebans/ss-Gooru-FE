@@ -32,6 +32,9 @@ export default PerformanceSerializer.extend({
     if (hasResults) {
       const results = payload.content;
       Ember.$.each(results, function(index, result) {
+        if (result.userUid === undefined) {
+          result.userUid = result.userId;
+        }
         model.data.relationships.studentPerformanceData.data.push(
           serializer.normalizeStudentPerformanceId(result.userUid)
         );
