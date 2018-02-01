@@ -979,7 +979,7 @@ export default Ember.Component.extend({
                         lessons.length,
                         classPerformanceData
                       );
-                    }, 500 * lessonIndex);
+                    }, 10 * lessonIndex);
                   });
                 });
             }
@@ -1450,9 +1450,9 @@ export default Ember.Component.extend({
         var array1 = [];
         var array2 = [];
         var arrayComplete = [];
-        var timerConst = 2000;
+        var timerConst = 500;
         if (lessonLen > 3) {
-          timerConst = 500 * lessonLen;
+          timerConst = 100 * lessonLen;
         }
         var tempVal = 0;
         if (lessonIndex === 0) {
