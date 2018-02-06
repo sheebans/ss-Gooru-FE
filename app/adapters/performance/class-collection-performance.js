@@ -18,12 +18,17 @@ export default ApplicationAdapter.extend({
     const courseId = query.courseId;
     const unitId = query.unitId;
     const lessonId = query.lessonId;
+    const type = query.collectionType;
 
     delete query.classId;
     delete query.courseId;
     delete query.unitId;
     delete query.lessonId;
 
-    return `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/lesson/${lessonId}/performance`;
+    if (type === 'collection') {
+      return `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/lesson/${lessonId}/performance`;
+    } else {
+      return `${namespace}/study/assessment/performance?courseId=${courseId}&classId=${classId}&unitId=${unitId}`;
+    }
   }
 });

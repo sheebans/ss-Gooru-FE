@@ -18,7 +18,11 @@ export default PerformanceSerializer.extend({
    */
   normalizeQueryRecordResponse: function(store, primaryModelClass, payload) {
     const serializer = this;
-    const hasResults = payload.content.length > 0;
+    let lenVal = 0;
+    if (payload.content !== undefined) {
+      lenVal = payload.content.length;
+    }
+    const hasResults = lenVal > 0;
     var model = {
       data: {
         id: Utils.generateUUID(),
@@ -32,6 +36,9 @@ export default PerformanceSerializer.extend({
     if (hasResults) {
       const results = payload.content;
       Ember.$.each(results, function(index, result) {
+        if (result.userUid === undefined) {
+          result.userUid = result.userId;
+        }
         model.data.relationships.studentPerformanceData.data.push(
           serializer.normalizeStudentPerformanceId(result.userUid)
         );
