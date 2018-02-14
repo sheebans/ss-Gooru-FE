@@ -46,23 +46,27 @@ test('normalizeCollectionPerformanceSummary', function(assert) {
 test('normalizeAllCollectionPerformanceSummary', function(assert) {
   const serializer = this.subject();
   const data = {
-    usageData: [
+    content: [
       {
-        collectionId: '8c256e4a-4b37-423c-82b6-82fd8a128af2',
-        timeSpent: 123456,
-        scoreInPercentage: 20,
-        attempts: 10,
-        status: 'complete'
-      },
-      {
-        collectionId: '18943604-108f-4b68-b4b1-b1b40ba6ba22',
-        timeSpent: 428342,
-        scoreInPercentage: 50,
-        attempts: 10,
-        status: 'complete'
+        usageData: [
+          {
+            collectionId: '8c256e4a-4b37-423c-82b6-82fd8a128af2',
+            timeSpent: 123456,
+            scoreInPercentage: 20,
+            attempts: 10,
+            status: 'complete'
+          },
+          {
+            collectionId: '18943604-108f-4b68-b4b1-b1b40ba6ba22',
+            timeSpent: 428342,
+            scoreInPercentage: 50,
+            attempts: 10,
+            status: 'complete'
+          }
+        ],
+        userId: '95a744e1-631e-4642-875d-8b07a5e3b421'
       }
-    ],
-    userId: '95a744e1-631e-4642-875d-8b07a5e3b421'
+    ]
   };
   const items = serializer.normalizeAllCollectionPerformanceSummary(data);
   assert.equal(items.length, 2, 'Wrong number of items');
