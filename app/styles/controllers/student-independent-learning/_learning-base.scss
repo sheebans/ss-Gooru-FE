@@ -26,12 +26,16 @@
 }
 
 .independent-content {
-  .courses, .collections, .assessments {
+  .courses,
+  .collections,
+  .assessments {
     margin-top: 25px;
     border-radius: 4px;
     box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.07);
     padding: 0;
-    .course-content, .collection-content, .assessment-content {
+    .course-content,
+    .collection-content,
+    .assessment-content {
       background-color: $white;
       .title {
         border-bottom: solid 1px $light-200;
@@ -44,7 +48,7 @@
           margin-left: 15px;
         }
         .show-more {
-          float: right;
+          float: $menu-float-dir;
           margin-right: 15px;
           color: $sky-400;
           font-size: 13px;

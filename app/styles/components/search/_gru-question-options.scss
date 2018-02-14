@@ -75,7 +75,7 @@
               }
               &.text {
                 line-height: 14px;
-                text-align: left;
+                text-align: $tab-float-dir;
                 white-space: pre-wrap;
                 @media (max-width: $screen-xs-max) {
                   display: block;

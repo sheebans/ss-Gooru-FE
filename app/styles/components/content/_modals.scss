@@ -27,7 +27,7 @@
       font-size: $font-size-large;
       line-height: 1;
       margin-left: 5px;
-      text-align: left;
+      text-align: $tab-float-dir;
     }
   }
 
@@ -43,7 +43,7 @@
 
         span.required {
           &:after {
-            content: ' *';
+            content: " *";
           }
         }
 
@@ -85,7 +85,7 @@
           border-radius: 4px;
           width: 184px;
           height: 96px;
-          float: left;
+          float: $tab-float-dir;
           margin: 0 10px 40px 10px;
           cursor: pointer;
 
@@ -201,7 +201,7 @@
     }
 
     .actions {
-      text-align: right;
+      text-align: $menu-float-dir;
       margin-top: 70px;
 
       button {

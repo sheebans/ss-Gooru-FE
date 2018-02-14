@@ -1,8 +1,8 @@
 .student.course-map {
   .actions {
     display: inline-block;
-    text-align: right;
-    float: right;
+    text-align: $menu-float-dir;
+    float: $menu-float-dir;
     font-size: $font-size-base;
     margin: -23px 0 0;
     height: 24px;

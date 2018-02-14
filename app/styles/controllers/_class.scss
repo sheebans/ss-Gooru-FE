@@ -40,7 +40,7 @@
         overflow-y: auto;
 
         .message-row-container-inner {
-          float: left;
+          float: $tab-float-dir;
           width: 100%;
           padding-top: 15px;
         }
@@ -48,7 +48,7 @@
         .message-block {
           color: #fff;
           margin: 10px 0px 10px 0px;
-          float: left;
+          float: $tab-float-dir;
           width: 100%;
 
           .user-pic {
@@ -61,11 +61,11 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: 36px 36px;
-            float: left;
+            float: $tab-float-dir;
           }
 
           .message-content {
-            float: left;
+            float: $tab-float-dir;
             width: 75%;
             width: -moz-calc(100% - 70px);
             width: -webkit-calc(100% - 70px);
@@ -75,7 +75,7 @@
 
             .user-full-name {
               margin: -4px 0px 1px 0px;
-              float: left;
+              float: $tab-float-dir;
               width: 75%;
               width: -moz-calc(100% - 34px);
               width: -webkit-calc(100% - 34px);
@@ -84,7 +84,7 @@
               font-weight: 600;
             }
             .message {
-              float: left;
+              float: $tab-float-dir;
               width: 90%;
               margin: -6px 0px 0px 0px;
               a {
@@ -92,7 +92,7 @@
               }
             }
             .messageTeacher {
-              float: left;
+              float: $tab-float-dir;
               width: 90%;
               margin: -6px 0px 0px 0px;
               a {
@@ -115,7 +115,7 @@
             .message-content {
               .fa-remove {
                 color: rgba(255, 255, 255, 1);
-                background-color: rgba(255, 255, 255, .4);
+                background-color: rgba(255, 255, 255, 0.4);
               }
             }
           }
@@ -123,7 +123,7 @@
       }
 
       .channel-chat-message-form {
-        float: left;
+        float: $tab-float-dir;
         width: 100%;
         background: #fff;
         position: relative;
@@ -132,7 +132,7 @@
           border-bottom: solid 1px #e8e8e8;
 
           .button-container {
-            float: left;
+            float: $tab-float-dir;
             width: 40px;
             display: inline-block;
 
@@ -178,7 +178,7 @@
             }
           }
           .input-container {
-            float: left;
+            float: $tab-float-dir;
             width: -moz-calc(100% - 95px);
             width: -webkit-calc(100% - 95px);
             width: -o-calc(100% - 95px);

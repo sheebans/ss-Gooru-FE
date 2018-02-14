@@ -86,7 +86,7 @@
       }
 
       button.toggle {
-        float: right;
+        float: $menu-float-dir;
         color: $white;
         border: 0 none;
         background-color: $dark-400;
@@ -102,8 +102,8 @@
          * it's below sm breakpoint so it must not be a problem
          */
         @media (min-width: 600px) {
-          float: right;
-          text-align: left;
+          float: $menu-float-dir;
+          text-align: $tab-float-dir;
           margin-top: 5px;
         }
 
@@ -174,7 +174,7 @@
         padding: 40px 0 20px;
 
         .detail {
-          float: right;
+          float: $menu-float-dir;
 
           > span:last-of-type {
             display: inline-block;
@@ -274,7 +274,7 @@
   #privateInformation {
     > .header {
       .actions {
-        float: right;
+        float: $menu-float-dir;
       }
     }
 
@@ -282,7 +282,7 @@
       @include flexbox();
 
       .gru-image {
-        float: left;
+        float: $tab-float-dir;
         margin-right: 20px;
       }
 
@@ -325,7 +325,7 @@
               display: block;
               font-size: 100%;
               font-weight: normal;
-              text-align: left;
+              text-align: $tab-float-dir;
             }
 
             .btn-empty {

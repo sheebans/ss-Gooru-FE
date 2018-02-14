@@ -19,7 +19,7 @@
       .panel {
         .cca-description {
           .remixed-by {
-            float: left;
+            float: $tab-float-dir;
 
             .owner {
               max-width: 75px;
@@ -28,7 +28,7 @@
 
           .publish-icon {
             width: 20px;
-            float: right;
+            float: $menu-float-dir;
           }
         }
 

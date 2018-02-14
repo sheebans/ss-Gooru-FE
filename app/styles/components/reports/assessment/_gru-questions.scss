@@ -1,11 +1,11 @@
 .reports.assessment.gru-questions .summary-report-questions {
   .questions-header {
-    text-align: right;
+    text-align: $menu-float-dir;
     margin-right: 75px;
     margin-top: 10px;
 
     .title {
-      float: left;
+      float: $tab-float-dir;
       margin: 0 20px 10px 0;
 
       h4 {
@@ -51,7 +51,7 @@
 
   .score-change-container {
     width: 36%;
-    float: right;
+    float: $menu-float-dir;
     margin-top: 15px;
     .change-score {
       padding: 4px 16px 4px 16px;
@@ -188,7 +188,7 @@
     }
 
     .top-left {
-      text-align: left;
+      text-align: $tab-float-dir;
       vertical-align: top;
       padding: 10px 15px;
     }

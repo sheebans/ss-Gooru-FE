@@ -170,7 +170,7 @@
               width: 209px;
               height: 35px;
               font-weight: bold;
-              text-align: left;
+              text-align: $tab-float-dir;
               $line-height: 1.5;
               $lines-to-show: 2;
               @include ellipsis($font-size: 13px, $line-height: $line-height, $lines-to-show: 2);
@@ -233,7 +233,7 @@
             width: 260px;
             height: 75px;
             object-fit: contain;
-            text-align: left;
+            text-align: $tab-float-dir;
             color: $gray;
             .truncate {
               $line-height: 1.5;
@@ -245,7 +245,7 @@
           .cca-icon-btn {
             cursor: auto;
             .units-icon {
-              float: left;
+              float: $tab-float-dir;
               margin-top: 5px;
               i {
                 background: url("gooru/images/units-gray.svg");

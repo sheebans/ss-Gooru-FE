@@ -47,7 +47,7 @@
         padding: 0 17px;
 
         li {
-          opacity: .6;
+          opacity: 0.6;
         }
       }
     }
@@ -58,7 +58,7 @@
       }
 
       i {
-        float: right;
+        float: $menu-float-dir;
       }
     }
 
@@ -67,7 +67,7 @@
 
       p {
         line-height: 18px;
-        opacity: .6;
+        opacity: 0.6;
         overflow: hidden;
         width: 100%;
       }
@@ -106,7 +106,7 @@
     }
 
     .selected {
-      background-color: rgba(255, 255, 255, .1);
+      background-color: rgba(255, 255, 255, 0.1);
     }
   }
 
@@ -121,7 +121,7 @@
       @include justify-content(space-between);
       @include align-items(center);
       @include align-content(center);
-      border: 1px solid rgba(255, 255, 255, .17);
+      border: 1px solid rgba(255, 255, 255, 0.17);
       height: 60px;
       padding: 0;
       width: 100%;
@@ -192,7 +192,7 @@
           padding: 0;
 
           i {
-            opacity: .5;
+            opacity: 0.5;
           }
         }
       }
@@ -201,7 +201,7 @@
         @include flexbox;
         @include justify-content(center);
         @include align-content(center);
-        background-color: rgba(0, 0, 0, .15);
+        background-color: rgba(0, 0, 0, 0.15);
         margin-left: 15px;
 
         &.open {
@@ -220,7 +220,7 @@
 
             &:first-child {
               margin: 0 5px;
-              opacity: .5;
+              opacity: 0.5;
             }
           }
         }
@@ -230,9 +230,9 @@
           @include flex-direction(column);
           @include align-items(center);
           @include align-content(center);
-          -webkit-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-          -moz-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-          -o-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+          -webkit-transition: all 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          -moz-transition: all 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          -o-transition: all 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
           background: #0050a2; /* Old browsers */
           background: -moz-linear-gradient(left, $blue-500 0%, $blue-400 100%);
           background: -webkit-linear-gradient(
@@ -241,15 +241,14 @@
             $blue-400 100%
           );
           background: linear-gradient(-90deg, $blue-500 0%, $blue-400 100%);
-          box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, .50);
+          box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
           height: 100vh;
           left: initial;
           position: fixed;
           right: -55%;
           top: 0;
-          transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+          transition: all 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
           width: 55%;
-
           > li {
             @include flexbox;
             @include justify-content(space-between);
@@ -259,7 +258,6 @@
             height: 60px;
             padding: 30px;
             width: 100%;
-
             &.close {
               @include flexbox;
               @include flex-direction(row-reverse);
@@ -267,27 +265,23 @@
               margin-bottom: 10px;
               padding-right: 10px;
             }
-
             .close {
               > * {
                 cursor: pointer;
               }
             }
-
             &.selected {
-              background-color: rgba(255, 255, 255, .1);
+              background-color: rgba(255, 255, 255, 0.1);
             }
 
             h6 {
               color: $white;
               padding: 0;
             }
-
             button {
               border: 0;
               box-shadow: none;
               padding: 0;
-
               i {
                 color: $white;
                 font-size: $font-size-h3;
@@ -297,12 +291,10 @@
         }
       }
     }
-
     .description {
       color: $white;
       padding: 20px 25px;
     }
-
     .class-details {
       @include flexbox;
       @include justify-content(space-between);
@@ -311,11 +303,9 @@
       height: 36px;
       padding: 0 20px;
       width: 100%;
-
       @media (max-width: $screen-xs-max) {
         padding: 5px;
       }
-
       > div {
         @include flexbox;
         @include align-items(center);

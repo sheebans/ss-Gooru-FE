@@ -18,7 +18,7 @@
     margin: 0 0 20px 0;
     .radios-container {
       @include flexbox;
-      float: left;
+      float: $tab-float-dir;
       .radio-button {
         height: 25px;
         margin: 0 20px 0 0;
@@ -28,7 +28,7 @@
       }
     }
     .btn-primary {
-      float: right;
+      float: $menu-float-dir;
       padding: 6px 10px 6px 8px;
     }
   }
@@ -38,19 +38,19 @@
       margin: 0 0 10px 0;
     }
     .data-picker {
-      float: right;
+      float: $menu-float-dir;
       height: 28px;
       ul.list-inline {
         .checkbox {
           display: initial;
           margin: 0 15px 0 0;
           input {
-            float: left;
+            float: $tab-float-dir;
             margin: 6px 2px 0 0;
           }
           label {
             color: $gray-base;
-            float: left;
+            float: $tab-float-dir;
             font-size: 14px;
             font-weight: bold;
           }
@@ -64,7 +64,7 @@
   .info {
     margin: 0;
     .teacher-breadcrumb {
-      float: left;
+      float: $tab-float-dir;
       padding: 0;
       width: 100%;
       @media (min-width: $screen-md) {
@@ -80,7 +80,7 @@
       }
     }
     .grading-scale {
-      float: right;
+      float: $menu-float-dir;
       margin: 20px 0 0 0;
     }
   }
@@ -143,7 +143,7 @@
   }
   .label-text-font {
     color: #000;
-    float: left;
+    float: $tab-float-dir;
     font-size: 14px;
     font-weight: bold;
     margin-top: -2px;

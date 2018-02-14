@@ -38,7 +38,7 @@
           }
           &:first-child {
             padding: 5px 17px;
-            text-align: left;
+            text-align: $tab-float-dir;
           }
           &.score {
             width: 33px;

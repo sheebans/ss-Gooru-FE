@@ -11,7 +11,7 @@
       }
       .actions {
         @media (max-width: $screen-xs-max) {
-          float: right;
+          float: $menu-float-dir;
           margin: 0;
         }
       }

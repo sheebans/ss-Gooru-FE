@@ -63,6 +63,7 @@
     "ember-i18n-cp-validations": "2.8.0",
     "ember-responsive": "2.0.5",
     "ember-simple-auth": "^1.1.0",
+    "ember-theme-changer": "0.1.0",
     "ember-truth-helpers": "1.2.0",
     "emberfire": "2.0.5",
     "eslint": "^4.3.0",

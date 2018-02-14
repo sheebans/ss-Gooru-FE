@@ -43,7 +43,7 @@
             width: 100%;
             height: 56px;
             padding: 5px;
-            text-align: left;
+            text-align: $tab-float-dir;
             border-color: $gray-lighter;
             outline: none;
             background-color: $white;
@@ -55,7 +55,7 @@
             }
           }
           .actions {
-            text-align: right;
+            text-align: $menu-float-dir;
             padding: 15px 5px 5px 5px;
             display: block;
             .btn {

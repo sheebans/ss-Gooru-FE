@@ -13,7 +13,7 @@
         width: 353px;
       }
       @media (min-width: $screen-md-min) {
-        float: right;
+        float: $menu-float-dir;
         width: 400px;
       }
       @media (min-width: $screen-lg-min) {

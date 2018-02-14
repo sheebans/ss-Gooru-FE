@@ -4,7 +4,7 @@
   width: 100%;
 
   .legend {
-    float: left;
+    float: $tab-float-dir;
     line-height: $emotion-icon-size;
     margin-right: 20px;
   }
@@ -39,7 +39,7 @@
     }
   }
   @media (min-width: $screen-sm) {
-    text-align: left;
+    text-align: $tab-float-dir;
   }
   @media (min-width: $screen-md) {
     padding: 0;

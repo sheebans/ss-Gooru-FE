@@ -19,7 +19,7 @@
   border-top: 1px solid $gray-light;
   border-bottom: 1px solid $gray-light;
   > div {
-    float: left;
+    float: $tab-float-dir;
     height: 100%;
     display: block;
     &.collapse {
@@ -70,7 +70,7 @@
           }
         }
         .reflection {
-          margin: 10px 0 0 10PX;
+          margin: 10px 0 0 10px;
           min-height: 50px;
           height: 190px;
           overflow-y: auto;
@@ -84,8 +84,8 @@
         height: 25px;
         .expand-collapse {
           width: 50%;
-          text-align: right;
-          float: left;
+          text-align: $menu-float-dir;
+          float: $tab-float-dir;
           height: inherit;
           i {
             cursor: pointer;
@@ -93,7 +93,7 @@
           }
         }
         .actions {
-          float: right;
+          float: $menu-float-dir;
           button {
             background-color: $white;
             padding: 0;

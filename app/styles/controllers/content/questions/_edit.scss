@@ -57,7 +57,7 @@
     .header,
     .footer {
       .actions {
-        float: right;
+        float: $menu-float-dir;
       }
     }
     .footer {
@@ -74,7 +74,7 @@
           display: inline-block;
         }
         .advanced-button {
-          float: right;
+          float: $menu-float-dir;
           span {
             color: $light-500;
           }

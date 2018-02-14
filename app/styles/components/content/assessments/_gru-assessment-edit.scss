@@ -7,12 +7,12 @@
     > label {
       width: 100%;
       .choose {
-        float: left;
+        float: $tab-float-dir;
         padding: 4px 16px;
       }
       .skills-buttons {
         width: 75%;
-        float: left;
+        float: $tab-float-dir;
         margin: 0 0 0 5px;
         @media (min-width: $screen-sm-min) {
           width: 78%;

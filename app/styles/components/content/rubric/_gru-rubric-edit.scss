@@ -116,7 +116,7 @@
     > .content {
       @include flexbox;
       .gru-image {
-        float: left;
+        float: $tab-float-dir;
         margin-right: 20px;
       }
       .panel.information {

@@ -84,7 +84,7 @@
         }
 
         &.row-header {
-          text-align: left;
+          text-align: $tab-float-dir;
           padding: 4px;
 
           > span {

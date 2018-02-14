@@ -48,12 +48,12 @@
       font-size: 14px;
       height: 50px;
       p {
-        float: left;
+        float: $tab-float-dir;
         margin: 0;
         .logo {
-          background: url('gooru/images/gooru-logo.svg') no-repeat;
+          background: url("gooru/images/gooru-logo.svg") no-repeat;
           background-size: contain;
-          float: right;
+          float: $menu-float-dir;
           height: 38px;
           margin: 2px 0 0 6px;
           width: 110px;
@@ -63,10 +63,10 @@
     .actions {
       margin: 25px 0 0;
       input[type="checkbox"] {
-        float: left;
+        float: $tab-float-dir;
       }
       label {
-        float: left;
+        float: $tab-float-dir;
         padding: 0 0 0 2px;
       }
     }

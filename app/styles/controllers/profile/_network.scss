@@ -44,7 +44,7 @@
     text-align: center;
     @media (min-width: $screen-sm) {
       padding: 0 0 0 30px;
-      text-align: left;
+      text-align: $tab-float-dir;
     }
     > .followers,
     > .followings {
@@ -55,7 +55,7 @@
   }
 
   .card {
-    float: left;
+    float: $tab-float-dir;
     margin: 0 20px 10px 20px;
     @media (min-width: $screen-sm) {
       margin: 0 20px 10px 0;

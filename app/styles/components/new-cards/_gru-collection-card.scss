@@ -28,15 +28,19 @@
       position: relative;
 
       .new-cards.gru-collection-card .panel .panel-heading:after {
-           display: block;
-           position: absolute;
-           z-index: 9;
-           background-image: linear-gradient(to bottom,rgba(255,255,255,0) 0,#000 100%);
-           margin-top: 67px;
-           height: 61%;
-           width: 100%;
-           content: "";
-     }
+        display: block;
+        position: absolute;
+        z-index: 9;
+        background-image: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0) 0,
+          #000 100%
+        );
+        margin-top: 67px;
+        height: 61%;
+        width: 100%;
+        content: "";
+      }
 
       .image {
         display: inline-block;
@@ -80,7 +84,7 @@
       }
       .publish-icon {
         display: inline-block;
-        float: right;
+        float: $menu-float-dir;
         vertical-align: top;
         margin-top: 2px;
         background: url("gooru/badge-01.png");

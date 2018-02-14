@@ -3,7 +3,7 @@
   border-top: 1px solid $gray-light;
   border-bottom: 1px solid $gray-light;
   > div {
-    float: left;
+    float: $tab-float-dir;
     height: 100%;
     &.collapse-action {
       background-color: $blue-400;
@@ -18,7 +18,7 @@
       }
       .icon {
         height: 355px;
-        float: left;
+        float: $tab-float-dir;
         width: 10%;
         color: $gray-light;
         @media (min-width: $screen-xs) {
@@ -26,7 +26,7 @@
         }
       }
       .form-group {
-        float: left;
+        float: $tab-float-dir;
         margin-bottom: 10px;
         position: relative;
         width: 90%;
@@ -59,7 +59,7 @@
         }
       }
       .form-actions {
-        float: right;
+        float: $menu-float-dir;
         margin-top: 10px;
         button {
           color: $white;

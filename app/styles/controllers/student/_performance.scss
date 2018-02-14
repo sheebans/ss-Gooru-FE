@@ -11,24 +11,24 @@
     .panel-header {
       height: 115px;
       h1 {
-        float: left;
+        float: $tab-float-dir;
         font-size: $font-size-h4;
         margin: 2px 0 0 0;
         width: auto;
       }
       button {
-        float: right;
+        float: $menu-float-dir;
         padding: 6px 10px 6px 8px;
         &.download {
           @media (max-width: $screen-xs) {
-            float: left;
+            float: $tab-float-dir;
             display: block;
             margin: 10px 0;
           }
         }
       }
       p {
-        float: left;
+        float: $tab-float-dir;
         font-size: 18px;
         margin: 15px 0 0 0;
         line-height: 20px;
@@ -44,7 +44,7 @@
       .radios-container {
         @include flexbox;
         @include align-items(end);
-        input[type=radio] {
+        input[type="radio"] {
           height: 25px;
           margin-left: 20px;
         }
@@ -56,7 +56,7 @@
         }
       }
       .performance-scale {
-        float: right;
+        float: $menu-float-dir;
         margin: 5px 0 0 0;
       }
     }

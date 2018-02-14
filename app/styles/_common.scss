@@ -261,7 +261,7 @@ span.validation.warning {
   .standards {
     display: table-cell;
     float: none;
-    text-align: right;
+    text-align: $menu-float-dir;
     vertical-align: middle;
   }
 }
@@ -546,11 +546,11 @@ label {
 }
 
 .right {
-  float: right;
+  float: $menu-float-dir;
 }
 
 .left {
-  float: left;
+  float: $tab-float-dir;
 }
 
 .border-between > [class*="col-"]:before {

@@ -52,7 +52,7 @@
         .panel {
           border-radius: 4px;
           cursor: default;
-          float: left;
+          float: $tab-float-dir;
           height: 120px;
           text-align: center;
           width: 160px;
@@ -154,7 +154,7 @@
           margin-top: 10px;
           .setting {
             @include flexbox;
-            float: left;
+            float: $tab-float-dir;
             width: 25%;
             .title {
               margin: 0 15px 0 0;

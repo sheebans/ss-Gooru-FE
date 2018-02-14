@@ -1,5 +1,5 @@
 .quick-start {
-  float: left;
+  float: $tab-float-dir;
   width: 100%;
 
   .header {
@@ -29,7 +29,7 @@
 }
 .quick-start-channel {
   margin: 30px;
-  float: right;
+  float: $menu-float-dir;
   width: 30%;
   .header {
     border-bottom: solid 2px $light-200;

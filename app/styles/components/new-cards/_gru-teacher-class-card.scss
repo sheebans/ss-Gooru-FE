@@ -1,7 +1,7 @@
 .new-cards.gru-teacher-class-cards {
   width: 300px;
   height: 300px;
-  float: left;
+  float: $tab-float-dir;
   margin: 0 10px 30px;
 
   .panel {
@@ -190,13 +190,14 @@
             height: 33px;
             display: block;
             border-bottom: 1px solid $light-300;
-            text-align: left;
+            text-align: $tab-float-dir;
             padding: 5px 0 0 10px;
             list-style: none;
 
             a {
               font-size: $font-size-base;
               color: $dark-400;
+              margin-right: 10px;
             }
 
             &:last-child {
@@ -205,7 +206,7 @@
             }
 
             .icon-class-activities {
-              float: left;
+              float: $tab-float-dir;
               margin: 7px 15px 0 0;
 
               i {
@@ -218,7 +219,7 @@
             }
 
             .icon-course-map {
-              float: left;
+              float: $tab-float-dir;
               margin: 7px 10px 0 0;
 
               i {
@@ -231,7 +232,7 @@
             }
 
             .icon-performance {
-              float: left;
+              float: $tab-float-dir;
               margin: 4px 11px 0 0;
 
               i {
@@ -416,6 +417,6 @@
 }
 
 .gru-new-class-card {
-  float: left;
+  float: $tab-float-dir;
   margin: 0 10px 30px;
 }

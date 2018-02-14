@@ -31,7 +31,7 @@
         }
       }
       .actions {
-        text-align: right;
+        text-align: $menu-float-dir;
       }
     }
 
@@ -76,7 +76,7 @@
         }
 
         .gru-user-icons {
-          text-align: left;
+          text-align: $tab-float-dir;
 
           .item {
             margin-right: 10px;
@@ -130,7 +130,7 @@
       }
 
       &.gru-user-icons {
-        text-align: left;
+        text-align: $tab-float-dir;
         ul {
           text-align: center;
         }
@@ -176,7 +176,7 @@
           > span {
             display: block;
             line-height: 3.5;
-            text-align: right;
+            text-align: $menu-float-dir;
 
             @media (min-width: $screen-lg) {
               display: inline;
@@ -245,7 +245,7 @@
             margin-bottom: 0;
 
             .detail {
-              float: right;
+              float: $menu-float-dir;
 
               > span {
                 line-height: 3.5;

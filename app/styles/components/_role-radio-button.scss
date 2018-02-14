@@ -1,7 +1,7 @@
 .roleOption {
   text-align: center;
   width: 25%;
-  float: left;
+  float: $tab-float-dir;
 }
 
 .roleLabel {
@@ -12,7 +12,7 @@
 .roleRadioButton {
   margin: 4px 0 0;
   line-height: normal;
-  margin-right: .5ex !important;
+  margin-right: 0.5ex !important;
 }
 
 .teacherRoleImage {

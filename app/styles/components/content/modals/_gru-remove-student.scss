@@ -2,9 +2,9 @@
   @extend .content.modals.gru-delete-class;
 
   @media (max-width: $screen-xs-max) {
-    input[type=checkbox] {
+    input[type="checkbox"] {
       @include scale(2);
-      float: left;
+      float: $tab-float-dir;
     }
     label {
       margin-bottom: 30px;
@@ -12,7 +12,7 @@
         line-height: 1;
         display: block;
         margin-left: 30px;
-        text-align: left;
+        text-align: $tab-float-dir;
       }
     }
   }

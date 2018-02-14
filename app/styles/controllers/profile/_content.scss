@@ -115,7 +115,7 @@
           border-bottom: 0;
         }
         a {
-          text-align: left;
+          text-align: $tab-float-dir;
           padding: 10px;
 
           i {
@@ -231,7 +231,7 @@
       }
       .search-icon {
         color: $gray-light;
-        float: left;
+        float: $tab-float-dir;
         padding-left: 6px;
         line-height: 68px;
         i {
@@ -271,7 +271,7 @@
   .filter-date-asc {
     padding-top: 25px;
     bottom: 0px !important;
-    float: right;
+    float: $menu-float-dir;
 
     button.filter-date,
     button.filter-asc {

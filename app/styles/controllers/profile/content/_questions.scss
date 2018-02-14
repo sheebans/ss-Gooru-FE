@@ -6,7 +6,7 @@
     @include justify-content(left);
     .card {
       margin-bottom: 2em;
-      float: left;
+      float: $tab-float-dir;
       .gru-resource-card {
         .panel-heading {
           .resource-info {

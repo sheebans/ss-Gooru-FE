@@ -50,7 +50,7 @@
       height: 260px;
       .description {
         height: 60px;
-        text-align: left;
+        text-align: $tab-float-dir;
         width: 270px;
         object-fit: contain;
         color: $gray-dove;

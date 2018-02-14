@@ -72,7 +72,7 @@
             width: 100%;
             height: 100%;
             .google-button-icon {
-              float: left;
+              float: $tab-float-dir;
               background-color: $white;
               border-radius: 1px;
               padding: 15px;
@@ -168,7 +168,7 @@
               }
             }
             .birth-months {
-              float: left;
+              float: $tab-float-dir;
               margin-right: 11%;
               width: 25%;
               margin-top: 8px;
@@ -181,7 +181,7 @@
               }
             }
             .birth-days {
-              float: left;
+              float: $tab-float-dir;
               margin-right: 11%;
               width: 25%;
               margin-top: 8px;
@@ -194,7 +194,7 @@
               }
             }
             .birth-years {
-              float: left;
+              float: $tab-float-dir;
               width: 25%;
               margin-top: 8px;
               span {

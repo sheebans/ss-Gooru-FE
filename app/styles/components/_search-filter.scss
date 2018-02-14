@@ -95,7 +95,7 @@
   .standards {
     display: table-cell;
     float: none;
-    text-align: right;
+    text-align: $menu-float-dir;
     vertical-align: middle;
   }
 }

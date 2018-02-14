@@ -68,7 +68,7 @@
         font-size: $font-navigator;
         margin: 10px 10px 0 0;
         color: $light-400;
-        float: left;
+        float: $tab-float-dir;
         width: 38%;
         span {
           vertical-align: middle;
@@ -92,12 +92,12 @@
         }
       }
       .actions-container {
-        float: left;
+        float: $tab-float-dir;
         padding: 8px 0 0;
         width: 36%;
         button.no-bgd {
           background-color: transparent;
-          float: right;
+          float: $menu-float-dir;
           font-size: $font-size-h5;
           padding: 0;
           i {
@@ -106,14 +106,14 @@
         }
         .visibility-panel {
           margin: 10px 8px 0 0;
-          float: right;
+          float: $menu-float-dir;
           &.item-visible {
             color: $green-500;
           }
         }
         button.on-air {
           $on-air-icon: 25px;
-          float: right;
+          float: $menu-float-dir;
           margin: 10px 8px 0 0;
           width: $on-air-icon;
           height: $on-air-icon;
@@ -277,7 +277,7 @@
         }
 
         &.row-header {
-          text-align: left;
+          text-align: $tab-float-dir;
           padding: 4px;
           border-right: 1px solid $dark-200;
           min-width: 75px;

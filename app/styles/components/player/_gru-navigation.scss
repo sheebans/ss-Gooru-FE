@@ -1,7 +1,7 @@
 .player .gru-navigation {
   // temporary for GG-92
   height: $player-navigation-height;
-  float: right;
+  float: $menu-float-dir;
   width: 100%;
   z-index: 10;
   @media (min-width: $screen-md) {
@@ -66,7 +66,7 @@
       }
 
       .indicators {
-        text-align: right;
+        text-align: $menu-float-dir;
         width: 16px;
         display: inline-flex;
         span {

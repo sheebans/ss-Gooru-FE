@@ -31,7 +31,7 @@
     }
     .chat,
     .show-arrow {
-      float: right;
+      float: $menu-float-dir;
     }
     .gru-icon {
       &.chat {

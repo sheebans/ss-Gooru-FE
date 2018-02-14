@@ -1,7 +1,7 @@
 .gru-bookmark-card {
   height: 100px;
   width: 88px;
-  float: left;
+  float: $tab-float-dir;
   margin: 20px 20px 0 0;
   .panel.bookmark {
     border-radius: 5px;

@@ -14,7 +14,7 @@
       list-style: none;
 
       > li {
-        float: left;
+        float: $tab-float-dir;
         width: $class-container-xs;
 
         > div {
