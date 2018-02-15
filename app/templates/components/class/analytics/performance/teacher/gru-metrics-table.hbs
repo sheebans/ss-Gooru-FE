@@ -109,7 +109,7 @@
          
              {{else}}
                {{#if (not expandedUnit)}}
-                <th id="{{{header.id}}}"  class="header pointer" scope="col">
+                <th id="{{{header.id}}}"  class="header {{if header.hideExpand '' 'pointer'}}" scope="col">
                     <div class="header-title">
                         <div class="column">
                             <div class="title lsntxtalignment" title="{{header.title}}" data-toggle="tooltip" data-placement="auto">{{{truncate text=header.title maxLength=23 suffix=true}}}</div>
@@ -118,7 +118,7 @@
                         {{#if header.showSub}}
                         <div class="text-newprimary show-label" {{action 'collapse' index}}>{{t "common.collapse"}}</div>
                          {{else}}
-                        <div class="text-newprimary show-label" {{action 'expand' index}}>{{t "common.expand"}}</div>
+                        <div class="text-newprimary show-label {{if header.hideExpand 'out-of-scope' ''}}" {{action 'expand' index}}>{{t "common.expand"}}</div>
                         {{/if}}
                     </th>
               {{/if}}
