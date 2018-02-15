@@ -116,8 +116,8 @@
           }
         }
         .class-code {
-          border-left: $border-right-side;
-          border-right: $border-left-side;
+          border-left: $border-right-side $light-200;
+          border-right: $border-left-side $light-200;
           height: 60px;
           padding: 14px 5px 6px;
           text-align: $menu-float-dir;

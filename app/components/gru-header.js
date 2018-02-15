@@ -227,31 +227,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
    */
   supportSiteUrl: Ember.computed(function() {
     return Env.supportSiteUrl;
-  }),
+  })
 
   // -------------------------------------------------------------------------
-  // Methods
-  cssAdjustmentForRTL: function() {
-    $('.menu-navbar').css('float', 'left');
-    $('.nav-tabs li')
-      .css('float', 'right')
-      .css('margin-left', '15px')
-      .css('margin-left', '0px');
-    $('.greetings .title').css('float', 'right');
-    $('.panel-body .links ul li div').css('float', 'right');
-    $('.panel-body .links ul li').css('text-align', 'right');
-    $('.panel-body .links ul li a').css('margin-right', '10px');
-  },
-
-  cssAdjustmentForLTR: function() {
-    $('.menu-navbar').css('float', 'right');
-    $('.nav-tabs li')
-      .css('float', 'left')
-      .css('margin-left', '0px')
-      .css('margin-left', '15px');
-    $('.greetings .title').css('float', 'left');
-    $('.panel-body .links ul li div').css('float', 'left');
-    $('.panel-body .links ul li').css('text-align', 'left');
-    $('.panel-body .links ul li a').css('margin-right', '10px');
-  }
 });
