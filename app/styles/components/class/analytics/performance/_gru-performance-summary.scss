@@ -90,7 +90,7 @@ ul.gru-performance-summary {
         margin-left: 10px;
       }
       .radial-progress {
-        float: left;
+        float: $tab-float-dir;
         width: $performance-circle-size;
         height: $performance-circle-size;
         background-color: $performance-circle-background-color;

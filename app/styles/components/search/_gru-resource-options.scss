@@ -97,7 +97,7 @@ $bg-icon-size: 20px 18px;
         }
         li {
           margin: 0 29px 0 0;
-          text-align: left;
+          text-align: $tab-float-dir;
           width: 118px;
           @media (max-width: $screen-xs-max) {
             margin: 0 5px;
@@ -126,7 +126,7 @@ $bg-icon-size: 20px 18px;
               }
               &.text {
                 line-height: 14px;
-                text-align: left;
+                text-align: $tab-float-dir;
                 @media (max-width: $screen-xs-max) {
                   display: block;
                   font-size: 12px;

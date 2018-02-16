@@ -36,7 +36,7 @@
         box-shadow: none;
 
         .info {
-          float: left !important;
+          float: $tab-float-dir !important;
           margin-top: 10px;
         }
 
@@ -44,7 +44,7 @@
           display: inherit;
           width: 40px;
           padding: 10px 0;
-          float: right;
+          float: $menu-float-dir;
 
           a {
             color: $breadcrumb-color;

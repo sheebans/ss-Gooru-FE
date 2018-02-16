@@ -79,7 +79,7 @@
       z-index: 9999;
     }
     .textAlignment {
-      text-align: left;
+      text-align: $tab-float-dir;
       margin-left: 15px;
     }
     .subsubwidthmaxCollapseUnit {
@@ -87,7 +87,7 @@
       min-width: 160px;
     }
     .show-label {
-      text-align: left;
+      text-align: $tab-float-dir;
       padding-left: 7px;
     }
     .selectedUnitcolor {
@@ -100,12 +100,12 @@
       color: black;
     }
     .scoreMargin {
-      float: left;
+      float: $tab-float-dir;
       margin-left: 85px;
       margin-top: -23px;
     }
     .newscoreMargin {
-      float: right;
+      float: $menu-float-dir;
       margin-left: -115px;
       margin-right: 46px;
     }
@@ -334,7 +334,7 @@
       width: 175px !important;
     }
     .lsntxtalignment {
-      text-align: left;
+      text-align: $tab-float-dir;
       padding-left: 7px;
     }
     .unttxtalignment {

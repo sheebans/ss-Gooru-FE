@@ -4,7 +4,7 @@
   background-color: $gray;
 
   .imgLogo {
-    background: url('gooru/footer-logo.png') no-repeat 0 0;
+    background: url("gooru/footer-logo.png") no-repeat 0 0;
     background-size: contain;
     height: 56px;
     width: 163px;
@@ -38,18 +38,18 @@
   }
   .facebook {
     background-position: -451px -24px;
-    float: left;
+    float: $tab-float-dir;
   }
   .twitter {
     background-position: -357px -24px;
-    float: left;
+    float: $tab-float-dir;
   }
   .youtube {
     background-position: -406px -24px;
-    float: left;
+    float: $tab-float-dir;
   }
   .google {
     background-position: -500px -24px;
-    float: left;
+    float: $tab-float-dir;
   }
 }

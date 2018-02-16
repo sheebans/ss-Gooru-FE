@@ -10,7 +10,7 @@
       border-right: 2px solid $light-200;
       margin-right: 15px;
       padding-right: 15px;
-      float: left;
+      float: $tab-float-dir;
       &:last-child {
         border: 0;
       }

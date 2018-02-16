@@ -23,7 +23,7 @@
     .featured-description {
       width: 100%;
       margin-bottom: 0;
-      text-align: left;
+      text-align: $tab-float-dir;
     }
 
     .library-cards {
@@ -185,7 +185,7 @@
             width: 209px;
             height: 35px;
             font-weight: bold;
-            text-align: left;
+            text-align: $tab-float-dir;
             $line-height: 1.5;
             $lines-to-show: 2;
             @include ellipsis($font-size: 13px, $line-height: $line-height, $lines-to-show: 2);
@@ -237,7 +237,7 @@
           width: 260px;
           height: 75px;
           object-fit: contain;
-          text-align: left;
+          text-align: $tab-float-dir;
           color: $gray;
 
           .truncate {
@@ -251,7 +251,7 @@
           cursor: auto;
 
           .units-icon {
-            float: left;
+            float: $tab-float-dir;
             margin-top: 5px;
 
             i {
@@ -268,7 +268,7 @@
           }
 
           .visibility {
-            float: right;
+            float: $menu-float-dir;
 
             .cca-eye-icon {
               margin-top: 2px;
@@ -278,7 +278,7 @@
 
         .publish-icon {
           width: 30px;
-          float: right;
+          float: $menu-float-dir;
 
           .badge-icon {
             margin-top: 5px;
@@ -292,7 +292,7 @@
 
         .visible_false {
           color: #eee;
-          float: right;
+          float: $menu-float-dir;
         }
       }
 

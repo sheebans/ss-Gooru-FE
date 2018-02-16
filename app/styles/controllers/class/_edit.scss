@@ -38,7 +38,7 @@
   }
   .class-details {
     background-color: $dark-400;
-    @include box-shadow(0px 2px 5px 0px rgba(0,0,0,0.10));
+    @include box-shadow(0px 2px 5px 0px rgba(0,0,0,0.1));
     * {
       color: $light-200;
     }
@@ -59,7 +59,7 @@
         text-align: center;
         @media (max-width: $screen-xs-max) {
           /* only for phone */
-          text-align: right;
+          text-align: $menu-float-dir;
           margin: 0 0 24px 0;
         }
         a.cancel {

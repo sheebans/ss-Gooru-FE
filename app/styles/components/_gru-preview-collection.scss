@@ -201,7 +201,7 @@
         }
         .gru-preview-taxonomy-tag-list {
           width: 20%;
-          text-align: right;
+          text-align: $menu-float-dir;
           .gru-taxonomy-tag {
             max-width: 80px;
             .tag-caption {

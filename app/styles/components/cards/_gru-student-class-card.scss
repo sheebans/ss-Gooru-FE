@@ -131,7 +131,7 @@
             height: 33px;
             display: block;
             border-bottom: 1px solid $light-300;
-            text-align: left;
+            text-align: $tab-float-dir;
             padding: 5px 0 0 12px;
             list-style: none;
             a {

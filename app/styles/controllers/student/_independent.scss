@@ -22,7 +22,7 @@
       margin: 0 0 5px 0;
     }
     .panel.course-information {
-      float: left;
+      float: $tab-float-dir;
       margin: 10px 0 0;
       width: 100%;
       .panel-body {
@@ -116,7 +116,7 @@
           border-left: 1px solid $light-200;
           height: 60px;
           padding: 14px 0 6px;
-          text-align: right;
+          text-align: $menu-float-dir;
           width: 7%;
           div {
             line-height: 1;

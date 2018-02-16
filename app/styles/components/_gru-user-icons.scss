@@ -1,7 +1,7 @@
 .gru-user-icons {
   $modal-height: 270px;
   $tooltip-width: 290px;
-  text-align: right;
+  text-align: $menu-float-dir;
   margin: 0 5px 0 0;
   @media (min-width: $screen-lg-min) {
     margin: 0 15px 0 0;
@@ -39,7 +39,7 @@
   }
 
   .modal {
-    text-align: left;
+    text-align: $tab-float-dir;
 
     .item {
       margin: 6px 4px;

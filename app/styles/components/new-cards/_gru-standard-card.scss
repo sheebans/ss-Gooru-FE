@@ -47,7 +47,7 @@
       }
       .publish-icon {
         display: inline-block;
-        float: right;
+        float: $menu-float-dir;
         vertical-align: top;
         margin-top: 2px;
         background: url("gooru/badge-01.png");
@@ -123,7 +123,7 @@
 
       .badge-icon {
         display: inline-block;
-        float: right;
+        float: $menu-float-dir;
         vertical-align: top;
         margin-top: 6px;
         background: url("gooru/badge-01.png");

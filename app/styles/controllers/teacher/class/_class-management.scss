@@ -7,6 +7,7 @@
     background-color: $white;
     .class-information {
       height: 60px;
+      float: $tab-float-dir;
       .class-name {
         > span {
           font-size: 11px;
@@ -32,11 +33,13 @@
     }
     .course-information {
       height: 60px;
-      display: flex;
+      display: block;
       .actions {
-        margin-left: 283px;
+        // margin-left: 283px;
+        float: $menu-float-dir;
         margin-top: 18px;
-        .delete-btn, .archive-btn {
+        .delete-btn,
+        .archive-btn {
           cursor: pointer;
         }
         .archive-btn {
@@ -67,7 +70,8 @@
     table {
       width: 100%;
       margin-bottom: 0;
-      thead, tbody {
+      thead,
+      tbody {
         display: block;
       }
       .table-header {
@@ -109,7 +113,7 @@
         tr:nth-child(even) {
           background-color: $white;
         }
-        .student{
+        .student {
           height: 36px;
           td.border-right {
             width: 218px;
@@ -170,7 +174,7 @@
   }
   .no-students {
     .student-null {
-      background: url('gooru/images/student-null.png') no-repeat;
+      background: url("gooru/images/student-null.png") no-repeat;
       height: 250px;
       width: 250px;
       background-size: 216px 216px;

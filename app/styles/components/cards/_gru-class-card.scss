@@ -1,7 +1,7 @@
 .cards.gru-class-card {
   width: 300px;
   height: 300px;
-  float: left;
+  float: $tab-float-dir;
   margin: 0 13px 30px;
 
   .panel {
@@ -137,7 +137,7 @@
             height: 33px;
             display: block;
             border-bottom: 1px solid $light-300;
-            text-align: left;
+            text-align: $tab-float-dir;
             padding: 5px 0 0 10px;
             list-style: none;
 
@@ -335,6 +335,6 @@
 }
 
 .gru-class-card {
-  float: left;
+  float: $tab-float-dir;
   margin: 0 10px 30px;
 }

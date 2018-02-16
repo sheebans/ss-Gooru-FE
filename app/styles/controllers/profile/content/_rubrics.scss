@@ -6,7 +6,7 @@
     @include justify-content(left);
 
     .card {
-      float: left;
+      float: $tab-float-dir;
       margin-bottom: 2em;
     }
   }

@@ -21,21 +21,21 @@
     </div>
     <div class="panel panel-default panel-primary classroom-information">
       <div class="panel-body">
-        <div class="course-image pull-left">
+        <div class="course-image">
           {{#if course.thumbnailUrl}}
             <img src="{{course.thumbnailUrl}}" />
           {{else}}
             <div class="no-course-image"></div>
           {{/if}}
         </div>
-        <div class="course-name pull-left">
+        <div class="course-name">
           {{#if course.title}}
             {{{truncate text=course.title maxLength=50}}}
           {{else}}
             {{t 'student-landing.class.no-course'}}
           {{/if}}
         </div>
-        <div class="counts-container pull-left">
+        <div class="counts-container">
           <div class="count">
             {{#if hasUnits}}
               {{gru-icon tooltipTitle='common.unit' name="format_align_center"}}
@@ -49,7 +49,7 @@
             {{/if}}
           </div>
         </div>
-        <div class="teacher-profile pull-left">
+        <div class="teacher-profile">
           {{#if class.owner}}
             <img class="img-responsive" src="{{class.owner.avatarUrl}}">
             <span class="owner-name">
@@ -61,19 +61,19 @@
             </span>
           {{/if}}
         </div>
-        <div class="taxonomy-standards pull-left">
+        <div class="taxonomy-standards">
           {{#if course.tags.length}}
             {{taxonomy.gru-taxonomy-tag-list tags=course.tags tagsVisible=1 isInCard=true hasTooltips=false}}
           {{/if}}
         </div>
-        <div class="class-code pull-left">
+        <div class="class-code">
           <div class="title">{{t 'student-landing.class-code'}}</div>
           <div class="code">{{class.code}}</div>
         </div>
-        <div class="copy-code pull-left">
+        <div class="copy-code">
           {{gru-copy-value value=class.code tooltipCode="teacher-landing.class.click-to-copy"}}
         </div>
-        <div class="performance-container pull-right">
+        <div class="performance-container">
           {{charts/gru-performance-chart performanceSummary=class.performanceSummary routeToGo="teacher.class.performance"}}
         </div>
       </div>

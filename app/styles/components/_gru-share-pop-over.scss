@@ -11,9 +11,9 @@
 
   .share-actions {
     input {
-      &[type='text'] {
+      &[type="text"] {
         background-color: $light-200;
-        float: left;
+        float: $tab-float-dir;
         height: 34px;
         margin-right: 10px;
         width: 240px;

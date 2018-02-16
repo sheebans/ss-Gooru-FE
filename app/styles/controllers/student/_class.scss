@@ -30,7 +30,7 @@
       }
     }
     .panel.classroom-information {
-      float: left;
+      float: $tab-float-dir;
       margin: 10px 0 0;
       width: 100%;
       .panel-body {
@@ -79,14 +79,14 @@
           img {
             border-radius: 50px;
             display: inline-block;
-            float: left;
+            float: $tab-float-dir;
             height: 40px;
             margin: 10px 10px 10px 0;
             width: 43px;
           }
           .owner-name {
             display: inline-block !important;
-            float: left;
+            float: $tab-float-dir;
             line-height: 1.4;
             margin: 10px 0 0;
             width: 65%;
@@ -110,10 +110,11 @@
           }
         }
         .class-code {
-          border-left: 1px solid $light-200;
+          border-left: $border-right-side;
+          border-right: $border-left-side;
           height: 60px;
           padding: 14px 0 6px;
-          text-align: right;
+          text-align: $menu-float-dir;
           width: 7%;
           div {
             line-height: 1;

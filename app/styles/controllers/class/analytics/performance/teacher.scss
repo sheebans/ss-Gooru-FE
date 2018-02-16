@@ -4,14 +4,14 @@
   }
 
   .row {
-    > [class*='col-']:first-child {
+    > [class*="col-"]:first-child {
       padding-left: 56px;
       margin: 0 0 10px 0;
       @media (max-width: $screen-xs-max) {
         padding-left: 15px;
       }
     }
-    > [class*='col-']:last-child {
+    > [class*="col-"]:last-child {
       padding-left: 56px;
       @media (max-width: $screen-xs-max) {
         padding-left: 15px;
@@ -32,7 +32,7 @@
     .teacher-actions {
       .gru-actions-bar {
         @media (min-width: $screen-sm) {
-          text-align: right;
+          text-align: $menu-float-dir;
         }
         .drop-menu {
           @media (max-width: $screen-xs-max) {
@@ -53,7 +53,7 @@
     display: table;
     padding: 0;
     .data-picker {
-      float: left;
+      float: $tab-float-dir;
       padding-left: 56px;
       height: 50px;
       @media (max-width: $screen-xs-max) {
@@ -68,19 +68,19 @@
     .performance-scale {
       height: 50px;
       display: table;
-      float: right;
+      float: $menu-float-dir;
       @media (max-width: $screen-xs-max) {
         padding-left: 15px;
         margin: 10px 0 0 0;
-        float: left;
+        float: $tab-float-dir;
       }
       .scale-indicator {
         vertical-align: middle;
         display: table-cell;
         .grading-scale {
-          float: right;
+          float: $menu-float-dir;
           @media (max-width: $screen-xs-max) {
-            float: left;
+            float: $tab-float-dir;
           }
         }
       }

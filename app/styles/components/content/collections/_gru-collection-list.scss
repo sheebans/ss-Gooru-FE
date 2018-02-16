@@ -33,7 +33,7 @@
               .panel {
                 border-radius: 4px;
                 cursor: default;
-                float: left;
+                float: $tab-float-dir;
                 height: 120px;
                 text-align: center;
                 width: 160px;
@@ -126,7 +126,7 @@
                 margin-top: 10px;
                 .setting {
                   @include flexbox;
-                  float: left;
+                  float: $tab-float-dir;
                   width: 25%;
                   .title {
                     margin: 0 15px 0 0;
@@ -156,7 +156,7 @@
               display: inline-block;
             }
             .advanced-button {
-              float: right;
+              float: $menu-float-dir;
             }
             .instructions {
               display: block;
@@ -209,7 +209,7 @@
             }
           }
           .actions {
-            float: right;
+            float: $menu-float-dir;
             clear: both;
           }
         }
@@ -352,7 +352,7 @@
       }
 
       .detail {
-        float: right;
+        float: $menu-float-dir;
 
         > span {
           vertical-align: middle;

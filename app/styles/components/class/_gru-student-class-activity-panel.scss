@@ -49,7 +49,7 @@
         font-size: $font-navigator;
         margin: 10px 10px 0 0;
         color: $light-400;
-        float: left;
+        float: $tab-float-dir;
         width: 42%;
         span {
           vertical-align: middle;

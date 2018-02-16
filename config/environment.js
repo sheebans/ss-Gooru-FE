@@ -16,6 +16,10 @@ module.exports = function(environment) {
       databaseURL: 'https://nile-2d108.firebaseio.com',
       storageBucket: 'nile-2d108.appspot.com'
     },
+    theme: {
+      themes: ['goorultr', 'goorurtl'], // MANDATORY
+      defaultTheme: 'goorultr' // OPTIONAL
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

@@ -3,7 +3,7 @@
   .content {
     height: 530px;
     .column {
-      float: left;
+      float: $tab-float-dir;
       width: 290px;
       height: 530px;
       border-radius: 3px;
@@ -29,7 +29,7 @@
           @include flexbox;
           .categories {
             width: 55px;
-            text-align: right;
+            text-align: $menu-float-dir;
             padding: 5px;
             span.circle {
               margin: 0 -1px;
@@ -37,7 +37,7 @@
           }
           .title {
             width: 205px;
-            float: left;
+            float: $tab-float-dir;
             padding: 5px;
             border: 1px solid $white;
             &.selected {
