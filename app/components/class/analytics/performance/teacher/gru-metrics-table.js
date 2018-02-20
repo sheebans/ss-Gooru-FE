@@ -402,6 +402,11 @@ export default Ember.Component.extend({
       if (!orginalTitle.startsWith('U')) {
         item.set('title', `U${index + 1}: ${orginalTitle}`);
       }
+      if (item.get('lessonCount') === 0) {
+        Ember.set(item, 'hideExpand', true);
+      } else {
+        Ember.set(item, 'hideExpand', false);
+      }
       Ember.set(item, 'showSub', false);
       component.set('expandedUnit', false);
       Ember.set(item, 'showSubSub', false);
@@ -1450,10 +1455,7 @@ export default Ember.Component.extend({
         var array1 = [];
         var array2 = [];
         var arrayComplete = [];
-        var timerConst = 500;
-        if (lessonLen > 3) {
-          timerConst = 100 * lessonLen;
-        }
+        var timerConst = 1000;
         var tempVal = 0;
         if (lessonIndex === 0) {
           component.set('averageHeaderstempAssessment', []);
