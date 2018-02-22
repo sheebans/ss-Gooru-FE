@@ -322,6 +322,7 @@
             @include flex-basis(95%);
             padding: 0 0 0 20px;
             .form-inline {
+              display: flex;
               width: 90%;
             }
             .form-group {
