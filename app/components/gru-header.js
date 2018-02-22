@@ -61,11 +61,13 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
         rootElement.addClass('changeDir');
         rootElement.removeClass('changeDirDefault');
         this.get('themeChanger').set('theme', 'goorurtl');
+        Env.APP.isRTL = true;
       } else {
         const rootElement = Ember.$(Env.rootElement);
         rootElement.removeClass('changeDir');
         rootElement.addClass('changeDirDefault');
         this.get('themeChanger').set('theme', 'goorultr');
+        Env.APP.isRTL = false;
       }
     },
 

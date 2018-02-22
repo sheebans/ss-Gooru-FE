@@ -106,7 +106,9 @@
         padding: 0;
         .sign-up-form,
         .sign-up-finish-form {
-          .form-left,
+          .form-left {
+            float: $tab-float-dir;
+          }
           .form-right {
             padding: 0 55px 0 55px;
           }

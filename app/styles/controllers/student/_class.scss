@@ -26,7 +26,7 @@
         font-size: $font-size-lead;
         font-weight: 300;
         display: inline-block;
-        margin: 0 0 0 200px;
+        margin: 0 200px 0 200px;
       }
     }
     .panel.classroom-information {
@@ -37,9 +37,11 @@
         padding: 0;
         height: 60px;
         .course-image {
-          border-right: 1px solid $light-300;
+          border-right: $border-right-side $light-300;
+          border-left: $border-left-side $light-300;
           height: 60px;
           width: 90px;
+          float: $tab-float-dir !important;
           img {
             height: 100%;
             width: 89px;
@@ -53,12 +55,14 @@
         }
         .course-name {
           line-height: 1.4;
-          margin: 10px 0 0 10px;
+          margin: 10px 10px 0 10px;
           width: 25%;
+          float: $tab-float-dir !important;
         }
         .counts-container {
           padding: 6px 0 0;
           width: 6%;
+          float: $tab-float-dir !important;
           .count {
             height: 20px;
             margin: 2px 0 0;
@@ -76,6 +80,7 @@
         .teacher-profile {
           margin: 0 0 0 20px;
           width: 16%;
+          float: $tab-float-dir !important;
           img {
             border-radius: 50px;
             display: inline-block;
@@ -97,6 +102,7 @@
           margin: 0 0 0 20px;
           padding: 12px 0 0;
           width: 18%;
+          float: $tab-float-dir !important;
           .taxonomy.gru-taxonomy-tag {
             background-color: $light-300;
             border: none;
@@ -116,6 +122,7 @@
           padding: 14px 0 6px;
           text-align: $menu-float-dir;
           width: 7%;
+          float: $tab-float-dir !important;
           div {
             line-height: 1;
             text-transform: uppercase;
@@ -135,6 +142,7 @@
         }
         .performance-container {
           width: 11%;
+          float: $menu-float-dir !important;
           .percentage {
             margin: 12px 0;
             font-size: $font-size-h3;

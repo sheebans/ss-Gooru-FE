@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import User from 'gooru-web/models/forgot-password';
+import Env from 'gooru-web/config/environment';
 
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
@@ -140,5 +141,9 @@ export default Ember.Controller.extend({
       const message = this.get('user.validations.attrs.email.error.message');
       return !valid && message && message.indexOf('Google') >= 0;
     }
-  )
+  ),
+
+  isRTL: Ember.computed('Env.APP.isRTL', function() {
+    return Env.APP.isRTL;
+  })
 });
