@@ -49,6 +49,7 @@
             font-weight: bold;
             color: $white;
             margin-left: 8px;
+            margin-right: 8px;
           }
           .title {
             border-bottom: none;
@@ -67,6 +68,7 @@
               color: $white;
               font-size: 13px;
               margin-left: 8px;
+              margin-right: 8px;
               font-weight: bold;
             }
           }
@@ -149,7 +151,7 @@
             background-size: 52px 36px;
           }
           i {
-            margin: 12px 0 0 8px;
+            margin: 12px 8px 0 8px;
             width: 51px;
             height: 39px;
             object-fit: contain;
@@ -157,7 +159,7 @@
           }
         }
         .performance {
-          width: calc(100% - 59px);
+          width: 100%;
           text-align: center;
           .percentage {
             font-size: 25px;
@@ -165,6 +167,7 @@
             color: $white;
             &.course {
               margin-left: 58px;
+              margin-right: 58px;
             }
           }
           .performance-text {
@@ -177,6 +180,7 @@
           .completion-bar {
             .gru-x-bar-chart {
               margin-left: 9px;
+              margin-right: 9px;
               height: 7px;
               width: 141px;
             }
@@ -222,11 +226,14 @@
         width: calc(100% - 162px);
         border-bottom-right-radius: 4px;
         box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.5);
+        text-align: center;
         .report {
           margin-top: 12px;
           cursor: pointer;
+          text-align: center;
           .usage-report {
             margin-left: 16px;
+            margin-right: 16px;
             border-radius: 3px;
             display: block;
             width: 25px;

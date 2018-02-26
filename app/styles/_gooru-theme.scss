@@ -10,7 +10,7 @@
 
 .navbar {
   border: none;
-  @include box-shadow(0 0 2px rgba(0,0,0,.3));
+  @include box-shadow(0 0 2px rgba(0,0,0,0.3));
 
   &-brand {
     font-size: 24px;
@@ -18,8 +18,8 @@
 
   &-inverse {
     .navbar-form {
-      input[type=text],
-      input[type=password] {
+      input[type="text"],
+      input[type="password"] {
         color: #fff;
         @include box-shadow(inset 0 -1px 0 $navbar-inverse-link-color);
         @include placeholder($navbar-inverse-link-color);
@@ -127,7 +127,7 @@
 
   &-vertical {
     .btn {
-      @include box-shadow(0 0 1px rgba(0,0,0,.4));
+      @include box-shadow(0 0 1px rgba(0,0,0,0.4));
     }
     > .btn + .btn,
     > .btn + .btn-group,
@@ -142,7 +142,7 @@
 
 body {
   -webkit-font-smoothing: antialiased;
-  letter-spacing: .1px;
+  letter-spacing: 0.1px;
 }
 
 p {
@@ -157,7 +157,7 @@ button {
 input,
 button {
   -webkit-font-smoothing: antialiased;
-  letter-spacing: .1px;
+  letter-spacing: 0.1px;
 }
 
 a {
@@ -181,22 +181,21 @@ label {
 }
 
 input[disabled],
-textarea[disabled]
-select[disabled] {
+textarea[disabled] select[disabled] {
   cursor: not-allowed !important;
 }
 
 textarea,
 textarea.form-control,
 input.form-control,
-input[type=text],
-input[type=password],
-input[type=email],
-input[type=number],
-[type=text].form-control,
-[type=password].form-control,
-[type=email].form-control,
-[type=tel].form-control,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+[type="text"].form-control,
+[type="password"].form-control,
+[type="email"].form-control,
+[type="tel"].form-control,
 [contenteditable].form-control {
   padding: 0;
   border: none;
@@ -235,7 +234,7 @@ select.form-control {
   appearance: none;
   padding-left: 0;
   padding-right: 0\9; // remove padding for < ie9 since default arrow can't be removed
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAJ1BMVEVmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmaP/QSjAAAADHRSTlMAAgMJC0uWpKa6wMxMdjkoAAAANUlEQVR4AeXJyQEAERAAsNl7Hf3X6xt0QL6JpZWq30pdvdadme+0PMdzvHm8YThHcT1H7K0BtOMDniZhWOgAAAAASUVORK5CYII=);
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAJ1BMVEVmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmaP/QSjAAAADHRSTlMAAgMJC0uWpKa6wMxMdjkoAAAANUlEQVR4AeXJyQEAERAAsNl7Hf3X6xt0QL6JpZWq30pdvdadme+0pmdzvhm8ythhct1h7k0btomdnizhwogaaaaasuvork5cyii=);
   background-size: 13px;
   background-repeat: no-repeat;
   background-position: right center;
@@ -259,7 +258,7 @@ select.form-control {
 
   &:focus {
     @include box-shadow(inset 0 -2px 0 $brand-primary);
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAJ1BMVEUhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISF8S9ewAAAADHRSTlMAAgMJC0uWpKa6wMxMdjkoAAAANUlEQVR4AeXJyQEAERAAsNl7Hf3X6xt0QL6JpZWq30pdvdadme+0PMdzvHm8YThHcT1H7K0BtOMDniZhWOgAAAAASUVORK5CYII=);
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAJ1BMVEUhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISF8S9ewAAAADHRSTlMAAgMJC0uWpKa6wMxMdjkoAAAANUlEQVR4AeXJyQEAERAAsNl7Hf3X6xt0QL6JpZWq30pdvdadme+0pmdzvhm8ythhct1h7k0btomdnizhwogaaaaasuvork5cyii=);
   }
 
   &[multiple] {
@@ -280,12 +279,12 @@ input[type="checkbox"] + label {
 .checkbox,
 .checkbox-inline {
   label {
-    padding-left: 25px;
+    padding-left: 5px;
   }
 
   input[type="radio"],
   input[type="checkbox"] {
-    margin-left: -25px;
+    margin-left: 0px;
   }
 }
 
@@ -408,12 +407,12 @@ input[type="checkbox"],
 }
 
 .has-warning {
-  input:not([type=checkbox]),
+  input:not([type="checkbox"]),
   .form-control,
   input.form-control[readonly],
-  input[type=text][readonly],
-  [type=text].form-control[readonly],
-  input:not([type=checkbox]):focus,
+  input[type="text"][readonly],
+  [type="text"].form-control[readonly],
+  input:not([type="checkbox"]):focus,
   .form-control:focus {
     border-bottom: none;
     @include box-shadow(inset 0 -2px 0 $brand-warning);
@@ -421,12 +420,12 @@ input[type="checkbox"],
 }
 
 .has-error {
-  input:not([type=checkbox]),
+  input:not([type="checkbox"]),
   .form-control,
   input.form-control[readonly],
-  input[type=text][readonly],
-  [type=text].form-control[readonly],
-  input:not([type=checkbox]):focus,
+  input[type="text"][readonly],
+  [type="text"].form-control[readonly],
+  input:not([type="checkbox"]):focus,
   .form-control:focus {
     border-bottom: none;
     @include box-shadow(inset 0 -2px 0 $brand-danger);
@@ -434,12 +433,12 @@ input[type="checkbox"],
 }
 
 .has-success {
-  input:not([type=checkbox]),
+  input:not([type="checkbox"]),
   .form-control,
   input.form-control[readonly],
-  input[type=text][readonly],
-  [type=text].form-control[readonly],
-  input:not([type=checkbox]):focus,
+  input[type="text"][readonly],
+  [type="text"].form-control[readonly],
+  input:not([type="checkbox"]):focus,
   .form-control:focus {
     border-bottom: none;
     @include box-shadow(inset 0 -2px 0 $brand-success);
@@ -527,7 +526,7 @@ input[type="checkbox"],
 .dropdown-menu {
   margin-top: 0;
   border: none;
-  @include box-shadow(0 1px 4px rgba(0,0,0,.3));
+  @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
 }
 
 // Indicators =================================================================
@@ -632,7 +631,7 @@ input[type="checkbox"],
 .panel {
   border: none;
   border-radius: 2px;
-  @include box-shadow(0 1px 4px rgba(0,0,0,.3));
+  @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
 
   &-heading {
     border-bottom: none;
@@ -645,7 +644,7 @@ input[type="checkbox"],
 
 .popover {
   border: none;
-  @include box-shadow(0 1px 4px rgba(0,0,0,.3));
+  @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
 }
 
 .carousel {
@@ -663,7 +662,7 @@ input[type="checkbox"],
 
 // Text emphasis =====================================================================
 
-@include text-emphasis-variant('.text-danger', $pink-400);
+@include text-emphasis-variant(".text-danger", $pink-400);
 
 .lead {
   font-size: 19.5px;

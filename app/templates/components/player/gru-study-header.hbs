@@ -1,7 +1,7 @@
 <div class="header-panel row">
   <div class="col-xs-3 course-info">
     {{#if showBackToCourseMap}}
-      <div class="course-map pull-left" {{action 'redirectCourseMap'}} data-toggle="tooltip" data-placement="bottom" title="{{t 'common.back-to-course-map'}}">
+      <div class="course-map" {{action 'redirectCourseMap'}} data-toggle="tooltip" data-placement="bottom" title="{{t 'common.back-to-course-map'}}">
         <div class="nav-icon-container">
           {{gru-icon name="sort"}}
         </div>
@@ -9,25 +9,25 @@
     {{/if}}
     {{#if showBackToCollection}}
       {{#if collectionUrl}}
-        <div class="back-to-collection pull-left" {{action 'backToCollection'}} data-toggle="tooltip" data-placement="bottom" title="{{if collection.isCollection (t 'common.back-to-collection') (t 'common.back-to-assessment') }}">
+        <div class="back-to-collection" {{action 'backToCollection'}} data-toggle="tooltip" data-placement="bottom" title="{{if collection.isCollection (t 'common.back-to-collection') (t 'common.back-to-assessment') }}">
           <div class="nav-icon-container">
             {{gru-icon name='ic_close'}}
           </div>
         </div>
       {{else}}
-        <div class="course-map pull-left" {{action 'redirectCourseMap'}} data-toggle="tooltip" data-placement="bottom" title="{{t 'common.back-to-course-map'}}">
+        <div class="course-map" {{action 'redirectCourseMap'}} data-toggle="tooltip" data-placement="bottom" title="{{t 'common.back-to-course-map'}}">
           <div class="nav-icon-container">
             {{gru-icon name="sort"}}
           </div>
         </div>
       {{/if}}
     {{/if}}
-    <div class="pull-left content-title">
+    <div class="content-title">
       <p class="title">{{courseTitle}}</p>
     </div>
   </div>
   <div class="col-xs-9 suggest-performance">
-    <div class="suggest-player pull-left">
+    <div class="suggest-player">
     {{#if hasSuggestedResources}}
         <div class="slider-container carousel slide multi-item-carousel" id="theCarousel">
           <div class="slider-inner-container carousel-inner">
@@ -55,8 +55,8 @@
         </div>
       {{/if}}
     </div>
-    <div class="performance-completion-take-tour-info pull-left">
-      <div class="completion pull-left">
+    <div class="performance-completion-take-tour-info">
+      <div class="completion">
         {{#if isNUCourse}}
           {{#if courseCompetencyCompletion}}
             <span class="score">{{courseCompetencyCompletion.completedCount}}/{{courseCompetencyCompletion.totalCount}}</span>
@@ -73,7 +73,7 @@
           <span class="label">{{t 'common.completion'}}</span>
         {{/if}}
       </div>
-      <div class="performance pull-left" style="background-color:{{if performanceSummary (grade-color performanceSummary.score) defaultBarColor}}">
+      <div class="performance" style="background-color:{{if performanceSummary (grade-color performanceSummary.score) defaultBarColor}}">
         <span class="score">
             {{#if performanceSummary}}
               {{#if performanceSummary.score}}
@@ -87,7 +87,7 @@
           </span>
         <span class="label">{{t 'teacher-landing.class.performance'}} </span>
       </div>
-      <div class="take-a-tour pull-left">
+      <div class="take-a-tour">
         {{gru-take-tour steps=steps containerClass='study-player-tour'}}
       </div>
     </div>
