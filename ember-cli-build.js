@@ -31,7 +31,8 @@ module.exports = function(defaults) {
       useLintTree: false
     },
     fingerprint: {
-      exclude: ['themes', 'application-widget.js'] //excluding files
+      exclude: ['themes', 'application-widget.js'], //excluding files
+      generateAssetMap: true
     },
     babel: {
       includePolyfill: true
