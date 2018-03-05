@@ -25,7 +25,7 @@
     </div>
     <div class="row">
     {{#unless (and isAtCollectionLevel reportData)}}
-         <div class="filters filters-container">
+         <div class="filters filters-container pull-left">
             <div class="radios-container widthradiobtns">
               <div class="classrooms-reports">
                 <div id="assessment-content-type" class="{{if filteredByAssessment 'selectedButton' 'radioNormalButton'}} pull-left pointer" {{action "selectFilterBy" "assessment" preventDefault=false}}><div for="assessment-content-type" class="{{if filteredByAssessment 'selectedButtonType' 'normalButtonType'}}">{{t 'teacher-landing.class.performance-tab.assessments'}}</div></div>
@@ -34,7 +34,7 @@
             </div>
         </div>
     {{/unless}}
-     <div class="options">
+     <div class="options pull-left">
       {{#unless (and isAtCollectionLevel reportData)}}
         <div class="data-picker">
           {{#if filteredByAssessment}}
