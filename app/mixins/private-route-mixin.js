@@ -27,10 +27,6 @@ export default Ember.Mixin.create({
   beforeModel() {
     const mixin = this;
     let currentUrl = window.location.href;
-    if (mixin.get('session.isAnonymous')) {
-      const queryParams = { queryParams: { redirectURL: currentUrl } };
-      return mixin.transitionTo('sign-in', queryParams);
-    }
     var sessionService = mixin.get('sessionService');
     if (!sessionService.hasTokenExpired()) {
       return Ember.RSVP.resolve(mixin._super(...arguments));
