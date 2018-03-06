@@ -89,6 +89,7 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
           let newtaxonomyObj = Ember.Object.create({
             code: suggeststanObj.get('code'),
             frameworkCode: suggeststanObj.get('frameworkCode'),
+            id: suggeststanObj.get('id'),
             isRemovable: true,
             tagAlreadyexist: false
           });
