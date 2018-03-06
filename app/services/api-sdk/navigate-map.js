@@ -66,17 +66,22 @@ export default Ember.Service.extend({
     const service = this;
     const mapSerializer = service.get('serializer');
     const serializedMap = mapSerializer.serializeMapContext(mapContext);
-    return service.get('adapter').next(serializedMap).then(payload => {
-      this.getLocalStorage().setItem(
-        this.generateKey(),
-        JSON.stringify(payload)
-      );
-      return MapLocation.create({
-        context: mapSerializer.normalizeMapContext(payload.context),
-        suggestions: mapSerializer.normalizeMapSuggestions(payload.suggestions),
-        hasContent: payload.content && !!Object.keys(payload.content).length
+    return service
+      .get('adapter')
+      .next(serializedMap)
+      .then(payload => {
+        this.getLocalStorage().setItem(
+          this.generateKey(),
+          JSON.stringify(payload)
+        );
+        return MapLocation.create({
+          context: mapSerializer.normalizeMapContext(payload.context),
+          suggestions: mapSerializer.normalizeMapSuggestions(
+            payload.suggestions
+          ),
+          hasContent: payload.content && !!Object.keys(payload.content).length
+        });
       });
-    });
   },
 
   /**
@@ -252,12 +257,12 @@ export default Ember.Service.extend({
    * @returns {Promise.<MapLocation>}
    */
   getStoredNext: function() {
-    const mapSerializer = this.get('serializer');
-    const storedResponse = this.getLocalStorage().getItem(this.generateKey());
-    let parsedResponse = { context: {} };
-    if (storedResponse) {
-      parsedResponse = JSON.parse(storedResponse);
-    }
+    let service = this;
+    const mapSerializer = service.get('serializer');
+    const storedResponse = service
+      .getLocalStorage()
+      .getItem(service.generateKey());
+    let parsedResponse = JSON.parse(storedResponse);
     let hasContent =
       parsedResponse.content && !!Object.keys(parsedResponse.content).length;
     return Ember.RSVP.resolve(
@@ -289,5 +294,66 @@ export default Ember.Service.extend({
    */
   getLocalStorage: function() {
     return window.localStorage;
+  },
+
+  /**
+   * Gets the map location for the study player based on parameters
+   * @param params
+   * @returns {*}
+   */
+  getMapLocation: function(params) {
+    const classId = params.classId;
+    const courseId = params.courseId;
+    const unitId = params.unitId;
+    const lessonId = params.lessonId;
+    const collectionType = params.type;
+    const collectionId = params.collectionId;
+    const pathId = params.pathId;
+    const collectionSubType = params.subtype;
+
+    const continueCourse = !unitId;
+    const startLesson = lessonId && !collectionId;
+
+    const navigateMapService = this;
+
+    let mapLocationPromise = null;
+    const storedResponse = navigateMapService
+      .getLocalStorage()
+      .getItem(navigateMapService.generateKey());
+    if (storedResponse) {
+      mapLocationPromise = navigateMapService.getStoredNext();
+    } else if (continueCourse) {
+      mapLocationPromise = navigateMapService
+        .getCurrentMapContext(courseId, classId)
+        .then(mapContext => navigateMapService.next(mapContext, false));
+    } else if (startLesson) {
+      mapLocationPromise = navigateMapService.startLesson(
+        courseId,
+        unitId,
+        lessonId,
+        classId
+      );
+    } else if (collectionSubType) {
+      mapLocationPromise = navigateMapService.startSuggestion(
+        courseId,
+        unitId,
+        lessonId,
+        collectionId,
+        collectionType,
+        collectionSubType,
+        pathId,
+        classId
+      );
+    } else {
+      mapLocationPromise = navigateMapService.startCollection(
+        courseId,
+        unitId,
+        lessonId,
+        collectionId,
+        collectionType,
+        classId
+      );
+    }
+    return mapLocationPromise;
   }
 });
