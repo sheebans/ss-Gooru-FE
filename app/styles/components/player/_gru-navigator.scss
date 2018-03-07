@@ -78,7 +78,7 @@
     .bgd-line {
       display: block;
       position: absolute;
-      content: '';
+      content: "";
       top: 10px;
       left: 24px;
       width: 5px;
@@ -251,21 +251,18 @@
         color: $white;
       }
     }
-
     &.disabled li {
       cursor: default;
     }
   }
-
   .submit-all {
     text-align: center;
     margin: 0 0 20px 0;
   }
-
   .see-usage-report {
     cursor: pointer;
     i {
-      float: right;
+      float: $menu-float-dir;
     }
   }
 }

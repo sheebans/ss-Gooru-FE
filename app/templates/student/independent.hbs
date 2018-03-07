@@ -7,17 +7,17 @@
     </div>
     <div class="panel panel-default panel-primary course-information">
       <div class="panel-body">
-        <div class="course-image pull-left">
+        <div class="course-image">
           {{#if course.thumbnailUrl}}
             <img src="{{course.thumbnailUrl}}" />
           {{else}}
             <div class="no-course-image"></div>
           {{/if}}
         </div>
-        <div class="course-name pull-left">
+        <div class="course-name">
           {{{truncate text=course.title maxLength=50}}}
         </div>
-        <div class="counts-container pull-left">
+        <div class="counts-container">
           <div class="count">
             {{#if hasUnits}}
               {{gru-icon tooltipTitle='common.unit' name="format_align_center"}}
@@ -25,7 +25,7 @@
             {{/if}}
           </div>
         </div>
-        <div class="teacher-profile pull-left">
+        <div class="teacher-profile">
           {{#if course.owner}}
             <div class="title pull-left">
               {{t (if course.sameOwnerAndCreator "common.created-by" "common.remixed-by")}}
@@ -36,7 +36,7 @@
             {{/link-to}}
           {{/if}}
         </div>
-        <div class="taxonomy-standards pull-left">
+        <div class="taxonomy-standards">
           {{#if course.tags.length}}
             {{taxonomy.gru-taxonomy-tag-list tags=course.tags tagsVisible=1 isInCard=true hasTooltips=false}}
           {{/if}}

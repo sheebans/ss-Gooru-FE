@@ -14,9 +14,10 @@
         .title {
           height: inherit;
           .prefix {
-            border-right: solid 1px $light-300;
-            margin: 0 20px 0 0;
-            padding: 5px 20px 0 0;
+            border-right: $border-right-side $light-300;
+            border-left: $border-left-side $light-300;
+            margin: 0 10px 0 10px;
+            padding: 5px 10px 0 10px;
             color: $gray-base;
             font-weight: bold;
             height: inherit;

@@ -23,7 +23,7 @@
   .student-independent {
     .student-left-panel {
       max-width: 965px;
-      float: left;
+      float: $tab-float-dir;
       .greetings {
         span {
           color: $gray;
@@ -200,7 +200,7 @@
           overflow-y: auto;
         }
         .add-bookmark {
-          float: left;
+          float: $tab-float-dir;
           border: 1px dashed $light-500;
           padding: 20px;
           border-radius: 6px;
@@ -228,7 +228,7 @@
             top: 145px;
           }
           i {
-            float: left;
+            float: $tab-float-dir;
             clear: left;
             display: inline-block;
             -webkit-transform: scale(2, 1);
@@ -287,7 +287,7 @@
         }
       }
       .show-more {
-        float: right;
+        float: $menu-float-dir;
         margin-right: 15px;
         color: $sky-400;
         font-size: 13px;
@@ -326,7 +326,7 @@
   .no-bookmarks {
     text-align: center;
     .explore-img {
-      background: url('gooru/images/independent-learning-null.png') no-repeat;
+      background: url("gooru/images/independent-learning-null.png") no-repeat;
       height: 250px;
       width: 250px;
       background-size: 216px 216px;

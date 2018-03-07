@@ -34,7 +34,7 @@
           display: inline-block;
         }
         div {
-          float: right;
+          float: $menu-float-dir;
           display: none;
           i {
             color: $blue-400;

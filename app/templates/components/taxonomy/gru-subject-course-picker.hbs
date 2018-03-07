@@ -10,7 +10,7 @@
     {{#each courses as |subjectCourse|}}
       <li>
         <label class="checkbox-inline">
-          <input type="checkbox" checked={{contains subjectCourse.id selectedTaxonomyIds}} {{action 'selectSubjectCourse' subjectCourse on='change'}}> {{subjectCourse.title}}
+          <input type="checkbox" style="padding-left:30px" checked={{contains subjectCourse.id selectedTaxonomyIds}} {{action 'selectSubjectCourse' subjectCourse on='change'}}> {{subjectCourse.title}}
         </label>
       </li>
     {{/each}}

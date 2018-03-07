@@ -97,7 +97,7 @@
 
           .panel-footer {
             margin: 0;
-            text-align: left;
+            text-align: $tab-float-dir;
             .buttons {
               padding: 10px;
               width: 40px;
@@ -130,14 +130,14 @@
       width: 100%;
 
       .choose {
-        float: left;
+        float: $tab-float-dir;
         padding: 4px 16px;
       }
 
       .skills-buttons {
         width: inherit;
         margin: 5px 0 0;
-        float: left;
+        float: $tab-float-dir;
       }
     }
   }

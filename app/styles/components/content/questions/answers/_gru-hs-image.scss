@@ -8,7 +8,7 @@
   }
 
   .hs-container {
-    float: left;
+    float: $tab-float-dir;
     margin-right: 25px;
     margin-bottom: 30px;
     .panel {
@@ -69,7 +69,7 @@
   }
   .add-answer {
     margin-top: 12px;
-    float: left;
+    float: $tab-float-dir;
     a {
       cursor: pointer;
       width: 100%;

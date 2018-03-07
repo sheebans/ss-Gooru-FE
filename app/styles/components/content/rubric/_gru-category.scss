@@ -3,7 +3,7 @@
 
   .required {
     &:after {
-      content: ' *';
+      content: " *";
     }
   }
 
@@ -95,7 +95,7 @@
   }
 
   .detail {
-    float: right;
+    float: $menu-float-dir;
     &.btn {
       margin: 0;
       font-size: $font-size-small;

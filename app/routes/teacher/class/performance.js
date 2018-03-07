@@ -79,10 +79,14 @@ export default Ember.Route.extend({
     navigateToReport: function(performance, userPerformance) {
       if (!performance.get('isAverage')) {
         const route = this;
+        var typeVal = route.get('controller.filterBy');
+        if (typeVal === undefined) {
+          typeVal = 'assessment';
+        }
         const queryParams = {
           collectionId: performance.get('id'),
           userId: userPerformance.get('userId'),
-          type: performance.get('collectionType'),
+          type: typeVal,
           role: 'teacher',
           classId: route.get('controller.class.id'),
           unitId: performance.get('unitId'),

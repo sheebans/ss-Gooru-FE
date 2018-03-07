@@ -5,7 +5,7 @@
     padding: 0 56px;
     text-align: center;
     @media (min-width: $screen-sm) {
-      text-align: left;
+      text-align: $tab-float-dir;
     }
     @media (max-width: $screen-sm) {
       padding: 0 15px;
@@ -19,7 +19,7 @@
         text-align: center;
 
         &.active {
-          text-align: left;
+          text-align: $tab-float-dir;
           a span {
             font-weight: bolder;
           }
@@ -40,7 +40,7 @@
           span {
             color: #000000;
             font-weight: normal;
-            opacity: .6;
+            opacity: 0.6;
           }
         }
       }
@@ -53,7 +53,7 @@
     }
     .gru-actions-bar {
       @media (min-width: $screen-sm) {
-        text-align: right;
+        text-align: $menu-float-dir;
       }
     }
   }

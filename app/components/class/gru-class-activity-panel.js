@@ -159,7 +159,7 @@ export default Ember.Component.extend({
               collectionObj = collection;
               members.forEach(function(item1) {
                 Ember.set(item1, 'resultResources', collection.children);
-                Ember.set(item1, 'avgScore', 0);
+                Ember.set(item1, 'avgScore', '');
                 Ember.set(item1, 'avgTime', '--');
                 Ember.set(item1, 'avgReact', '--');
               });
@@ -178,7 +178,7 @@ export default Ember.Component.extend({
               collectionObj = collection;
               members.forEach(function(item1) {
                 Ember.set(item1, 'resultResources', collection.children);
-                Ember.set(item1, 'avgScore', 0);
+                Ember.set(item1, 'avgScore', '');
                 Ember.set(item1, 'avgTime', '--');
                 Ember.set(item1, 'avgReact', '--');
               });
@@ -676,7 +676,7 @@ export default Ember.Component.extend({
               Ember.set(item1, 'avgReact', collObj.reaction);
               Ember.set(item1, 'othReact', collObj.reaction);
             } else {
-              Ember.set(item1, 'avgScore', 0);
+              Ember.set(item1, 'avgScore', '');
               Ember.set(item1, 'othTime', 0);
               Ember.set(item1, 'othReact', 0);
               Ember.set(item1, 'avgTime', '--');
@@ -733,7 +733,7 @@ export default Ember.Component.extend({
               Ember.set(item1, 'avgReact', collObj.reaction);
               Ember.set(item1, 'othReact', collObj.reaction);
             } else {
-              Ember.set(item1, 'avgScore', 0);
+              Ember.set(item1, 'avgScore', '');
               Ember.set(item1, 'othTime', 0);
               Ember.set(item1, 'othReact', 0);
               Ember.set(item1, 'avgTime', '--');

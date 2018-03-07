@@ -33,7 +33,7 @@
     @media (min-width: $screen-sm) {
       margin-left: 16px;
       width: 47%;
-      float: left;
+      float: $tab-float-dir;
     }
     .hints,
     .explanation {
@@ -59,7 +59,7 @@
       text-align: center;
       .save {
         @media (min-width: $screen-sm) {
-          float: right;
+          float: $menu-float-dir;
         }
       }
     }
@@ -67,7 +67,7 @@
     @media (min-width: $screen-sm) {
       margin-left: 20px;
       width: 48%;
-      float: left;
+      float: $tab-float-dir;
     }
     .panel-body {
       padding: 20px;
@@ -83,7 +83,7 @@
   .feedback-content {
     display: inline-block;
     @media (min-width: $screen-sm) {
-      float: left;
+      float: $tab-float-dir;
     }
     svg {
       height: inherit;
@@ -92,7 +92,7 @@
     .feedback-emotion {
       height: 50px;
       width: 50px;
-      float: left;
+      float: $tab-float-dir;
     }
     .correct {
       margin-top: -14px;

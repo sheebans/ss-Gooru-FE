@@ -16,7 +16,7 @@
       margin: 0;
       padding: 0 15px 0 0;
       overflow: hidden;
-      float: left;
+      float: $tab-float-dir;
       border-right: 1px solid $gray-lighter;
 
       > li {
@@ -73,7 +73,7 @@
           font-size: inherit;
 
           > li {
-            float: left;
+            float: $tab-float-dir;
             display: block;
             box-shadow: none;
             border-radius: inherit;
@@ -94,7 +94,7 @@
             }
           }
           .completion {
-            float: right;
+            float: $menu-float-dir;
           }
         }
       }

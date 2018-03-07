@@ -20,7 +20,7 @@
   }
   .student-landing {
     .student-left-panel {
-      float: left;
+      float: $tab-float-dir;
       .greetings {
         span {
           color: $gray;
@@ -55,9 +55,11 @@
     .nav-tabs {
       @media (min-width: $screen-sm) {
         box-shadow: inset 0 -1px 0 $gray-light;
+        padding-right: 0px;
       }
       li {
         margin-right: 15px;
+        float: $tab-float-dir;
         a {
           padding: 10px 0 3px;
         }
@@ -117,7 +119,7 @@
   }
   .gru-student-class-card,
   .gru-join-class-card {
-    float: left;
+    float: $tab-float-dir;
     margin: 0 10px 30px;
   }
 }

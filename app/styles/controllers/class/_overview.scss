@@ -63,7 +63,7 @@
       @include inline-flex;
 
       .icon {
-        background: url('gooru/images/gray-trophy.svg');
+        background: url("gooru/images/gray-trophy.svg");
         background-size: 24px 24px;
         display: inline-block;
         height: 24px;
@@ -115,7 +115,7 @@
     }
 
     .gru-user-icons {
-      float: right;
+      float: $menu-float-dir;
 
       &.visible-xs {
         margin-top: 8px;
@@ -200,7 +200,7 @@
           padding: 15px 20px;
           margin: 30px 0 20px 0;
           background-color: $white;
-          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.10);
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
           border-radius: 5px;
 
           > .gru-completion-chart {
@@ -264,7 +264,7 @@
               width: $on-air-icon;
               height: $on-air-icon;
               vertical-align: middle;
-              background-image: url('gooru/images/on-air-icon.svg');
+              background-image: url("gooru/images/on-air-icon.svg");
               background-size: $on-air-icon $on-air-icon;
               @include text-hide();
               cursor: pointer;
@@ -343,7 +343,7 @@
                   height: $on-air-icon;
                   vertical-align: middle;
                   margin-left: 15px;
-                  background-image: url('gooru/images/on-air-icon.svg');
+                  background-image: url("gooru/images/on-air-icon.svg");
                   background-size: $on-air-icon $on-air-icon;
                   @include text-hide();
                 }

@@ -386,6 +386,9 @@ export default Ember.Component.extend(
       var editedResource = component.get('tempResource');
       editedResource.validate().then(function({ validations }) {
         if (validations.get('isValid')) {
+          if (editedResource.description === '') {
+            Ember.set(editedResource, 'description', null);
+          }
           component
             .get('resourceService')
             .updateResource(

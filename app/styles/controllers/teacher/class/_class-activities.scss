@@ -19,6 +19,7 @@
       display: inline-block;
       font-size: $font-size-units-icon;
       font-weight: bold;
+      float: $menu-float-dir;
       a {
         color: $dark-100;
       }
@@ -54,7 +55,7 @@
   .buttons-container {
     font-size: $font-size-lead;
     line-height: $font-size-lead;
-    text-align: right;
+    text-align: $menu-float-dir;
     margin-top: 15px;
     button {
       margin-left: 15px;

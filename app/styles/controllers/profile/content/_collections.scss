@@ -87,7 +87,7 @@
             min-height: 45px;
           }
           .truncate {
-            text-align: left;
+            text-align: $tab-float-dir;
             $line-height: 1.5;
             $lines-to-show: 3;
             @include ellipsis($font-size: 10px, $line-height: $line-height, $lines-to-show: 3, $excerpt-bg: $white);
@@ -97,7 +97,7 @@
         .cca-icon-btn {
           width: 56px;
           .resource-icon {
-            float: left;
+            float: $tab-float-dir;
 
             i {
               background: url("gooru/images/collections_resource_icon.svg");
@@ -109,7 +109,7 @@
           }
 
           .resource-text {
-            float: left;
+            float: $tab-float-dir;
             text-align: center;
             line-height: 14px;
             width: 20px;
@@ -120,7 +120,7 @@
         .cca-second-icon-btn {
           width: 80px;
           .question-icon {
-            float: left;
+            float: $tab-float-dir;
 
             i {
               background: url("gooru/images/collection-question-gray.svg");
@@ -131,7 +131,7 @@
           }
 
           .unit-text {
-            float: left;
+            float: $tab-float-dir;
             text-align: center;
             line-height: 13px;
             margin-left: 2px;
@@ -140,11 +140,11 @@
         }
         .visible_true {
           width: 20px;
-          float: right;
+          float: $menu-float-dir;
         }
         .publish-icon {
           width: 30px;
-          float: right;
+          float: $menu-float-dir;
           .badge-icon {
             margin-top: 0px;
             margin-right: 9px;
@@ -157,7 +157,7 @@
             width: 13px;
             margin-top: -3px;
             font-size: 21px;
-            float: right;
+            float: $menu-float-dir;
           }
         }
       }
@@ -165,7 +165,7 @@
         height: 25px;
         .visible_false {
           color: #eee;
-          float: right;
+          float: $menu-float-dir;
         }
       }
 

@@ -2,8 +2,8 @@ import quizzesTranslations from './quizzes/translations';
 
 export default Object.assign(quizzesTranslations, {
   en: 'English',
-  sp: 'Spanish',
-  ar: 'Arabic',
+  sp: 'Español',
+  ar: 'عربى',
   errors: {
     tooShort:
       '{{description}} es demasiado corta (el mínimo es {{min}} caracteres)',

@@ -100,7 +100,8 @@
         .prefix {
           padding: 5px 5px 5px 0;
           margin: 0 5px;
-          border-right: 1px solid $dark-100;
+          border-right: $border-right-side $dark-100;
+          border-left: $border-left-side $dark-100;
           color: $gray-base;
           min-width: 50px;
         }

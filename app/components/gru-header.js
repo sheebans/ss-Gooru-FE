@@ -17,6 +17,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
   i18n: Ember.inject.service(),
+  //themeChanger: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -59,10 +60,14 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
         const rootElement = Ember.$(Env.rootElement);
         rootElement.addClass('changeDir');
         rootElement.removeClass('changeDirDefault');
+        //this.get('themeChanger').set('theme', 'goorurtl');
+        Env.APP.isRTL = true;
       } else {
         const rootElement = Ember.$(Env.rootElement);
         rootElement.removeClass('changeDir');
         rootElement.addClass('changeDirDefault');
+        //this.get('themeChanger').set('theme', 'goorultr');
+        Env.APP.isRTL = false;
       }
     },
 
@@ -86,7 +91,7 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
         let url = `${researcher.redirectURL}/?access_token=${this.get(
           'session.token-api3'
         )}`;
-        window.open(url);
+        window.open(url, '_self');
       }
     }
   },
@@ -227,5 +232,4 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
   })
 
   // -------------------------------------------------------------------------
-  // Methods
 });

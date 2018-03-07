@@ -15,12 +15,18 @@ export default Ember.Object.extend({
    */
   normalizeAllCollectionPerformanceSummary: function(payload) {
     const serializer = this;
-    if (payload && Ember.isArray(payload.usageData)) {
-      return payload.usageData.map(function(collectionPerformanceSummary) {
-        return serializer.normalizeCollectionPerformanceSummary(
+    if (payload.content && payload.content.length > 0) {
+      if (Ember.isArray(payload.content[0].usageData)) {
+        return payload.content[0].usageData.map(function(
           collectionPerformanceSummary
-        );
-      });
+        ) {
+          return serializer.normalizeCollectionPerformanceSummary(
+            collectionPerformanceSummary
+          );
+        });
+      } else {
+        return [];
+      }
     } else {
       return [];
     }

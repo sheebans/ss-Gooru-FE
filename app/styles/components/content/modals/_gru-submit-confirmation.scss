@@ -4,7 +4,7 @@
   .modal-header {
     background-color: $green-400;
     display: block;
-    text-align: left;
+    text-align: $tab-float-dir;
   }
 
   .modal-title {
@@ -26,7 +26,7 @@
       margin-top: 35px;
 
       > * {
-        float: left;
+        float: $tab-float-dir;
       }
 
       p {
@@ -49,7 +49,7 @@
 
     .actions {
       margin-top: 70px;
-      text-align: right;
+      text-align: $menu-float-dir;
     }
   }
 }

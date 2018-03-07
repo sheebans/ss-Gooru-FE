@@ -53,7 +53,7 @@
           > span {
             display: block;
             line-height: 1.4;
-            text-align: right;
+            text-align: $menu-float-dir;
 
             @media (min-width: $screen-lg) {
               display: inline;
@@ -127,7 +127,7 @@
             }
 
             .detail {
-              float: right;
+              float: $menu-float-dir;
 
               > span {
                 vertical-align: middle;
@@ -208,7 +208,7 @@
 
             > .actions {
               width: 180px;
-              text-align: right;
+              text-align: $menu-float-dir;
               padding-top: 5px;
             }
           }
@@ -322,7 +322,7 @@
             .dropdown {
               &.open > .dropdown-toggle {
                 z-index: $zindex-dropdown + 1;
-                @include box-shadow(0 -4px 4px rgba(0,0,0,.2));
+                @include box-shadow(0 -4px 4px rgba(0,0,0,0.2));
                 border-bottom-left-radius: 0;
                 border-bottom-right-radius: 0;
                 position: relative;

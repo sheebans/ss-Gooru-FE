@@ -14,7 +14,7 @@
       .course-map {
         width: 75px;
         height: 64px;
-        float: left;
+        float: $tab-float-dir;
         border-right: 2px solid #e3e5ea;
         cursor: pointer;
         .nav-icon-container {
@@ -27,7 +27,7 @@
       .back-to-collection {
         width: 75px;
         height: 64px;
-        float: left;
+        float: $tab-float-dir;
         border-right: 2px solid #e3e5ea;
         cursor: pointer;
         .nav-icon-container {
@@ -122,13 +122,13 @@
         .resource-icon {
           display: inline-block;
           margin-right: 10px;
-          float: left;
+          float: $tab-float-dir;
           position: relative;
           @include translateY(-50%);
           top: 50%;
         }
         .suggest-resource-title {
-          float: left;
+          float: $tab-float-dir;
           width: calc(100% - 55px);
           height: 64px;
           .title {
