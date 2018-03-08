@@ -218,9 +218,7 @@ test('Layout for Accessibility', function(assert) {
   });
 });
 
-test('it shows error messages if the all fields are left blank', function(
-  assert
-) {
+test('it shows error messages if the all fields are left blank', function(assert) {
   visit('/sign-up');
 
   andThen(function() {
@@ -302,9 +300,7 @@ test('it shows error messages if the all fields are left blank', function(
   });
 });
 
-test('it shows an error message if the first name field is left blank', function(
-  assert
-) {
+test('it shows an error message if the first name field is left blank', function(assert) {
   visit('/sign-up');
 
   andThen(function() {
@@ -334,9 +330,7 @@ test('it shows an error message if the first name field is left blank', function
   });
 });
 
-test('it shows an error message if the last name field has less than 2 characters', function(
-  assert
-) {
+test('it shows an error message if the last name field has less than 2 characters', function(assert) {
   visit('/sign-up');
 
   andThen(function() {
@@ -366,9 +360,7 @@ test('it shows an error message if the last name field has less than 2 character
   });
 });
 
-test('it shows an error message if the email has incorrect format', function(
-  assert
-) {
+test('it shows an error message if the email has incorrect format', function(assert) {
   visit('/sign-up');
 
   andThen(function() {
@@ -399,9 +391,7 @@ test('it shows an error message if the email has incorrect format', function(
   });
 });
 
-test('it shows an error message if the password and rePassword fields do not match', function(
-  assert
-) {
+test('it shows an error message if the password and rePassword fields do not match', function(assert) {
   visit('/sign-up');
 
   andThen(function() {
@@ -432,9 +422,7 @@ test('it shows an error message if the password and rePassword fields do not mat
   });
 });
 
-test('it shows an error message if the first name field has blanks', function(
-  assert
-) {
+test('it shows an error message if the first name field has blanks', function(assert) {
   visit('/sign-up');
 
   andThen(function() {
@@ -464,9 +452,7 @@ test('it shows an error message if the first name field has blanks', function(
   });
 });
 
-test('it shows an error message if the last name field has invalid characters', function(
-  assert
-) {
+test('it shows an error message if the last name field has invalid characters', function(assert) {
   visit('/sign-up');
 
   andThen(function() {
@@ -496,9 +482,7 @@ test('it shows an error message if the last name field has invalid characters', 
   });
 });
 
-test('it shows an error message if the username has reserved words', function(
-  assert
-) {
+test('it shows an error message if the username has reserved words', function(assert) {
   visit('/sign-up');
 
   andThen(function() {
@@ -529,9 +513,7 @@ test('it shows an error message if the username has reserved words', function(
   });
 });
 
-test('it finishes the sign up correctly and can navigate to home without issues', function(
-  assert
-) {
+test('it finishes the sign up correctly and can navigate to home without issues', function(assert) {
   visit('/sign-up');
   andThen(function() {
     assert.equal(currentURL(), '/sign-up');
@@ -572,9 +554,9 @@ test('it finishes the sign up correctly and can navigate to home without issues'
 
     andThen(function() {
       assert.equal(currentURL(), '/sign-up-finish');
-      visit('/home');
+      visit('/teacher-home');
       andThen(function() {
-        assert.equal(currentURL(), '/home');
+        assert.equal(currentURL(), '/teacher-home');
       });
     });
   });
