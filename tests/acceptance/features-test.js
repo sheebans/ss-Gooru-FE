@@ -16,18 +16,16 @@ moduleForAcceptance('Acceptance | features', {
 });
 
 test('Verifying header.enable feature default value', function(assert) {
-  visit('/home');
+  visit('/student-home');
   andThen(function() {
-    assert.equal(currentURL(), '/home');
+    assert.equal(currentURL(), '/student-home');
 
     const $gruHeader = find('.gru-header');
     T.exists(assert, $gruHeader, 'Missing header');
   });
 });
 
-test('Verifying collections.player.reactions feature default value', function(
-  assert
-) {
+test('Verifying collections.player.reactions feature default value', function(assert) {
   visit('/player/all-resource-types-collection-id?type=collection');
 
   andThen(function() {
