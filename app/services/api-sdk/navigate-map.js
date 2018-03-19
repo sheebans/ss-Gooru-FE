@@ -317,12 +317,7 @@ export default Ember.Service.extend({
     const navigateMapService = this;
 
     let mapLocationPromise = null;
-    const storedResponse = navigateMapService
-      .getLocalStorage()
-      .getItem(navigateMapService.generateKey());
-    if (storedResponse) {
-      mapLocationPromise = navigateMapService.getStoredNext();
-    } else if (continueCourse) {
+    if (continueCourse) {
       mapLocationPromise = navigateMapService
         .getCurrentMapContext(courseId, classId)
         .then(mapContext => navigateMapService.next(mapContext, false));
