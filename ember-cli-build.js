@@ -34,7 +34,8 @@ module.exports = function(defaults) {
       exclude: ['themes', 'application-widget.js'] //excluding files
     },
     babel: {
-      includePolyfill: true
+      includePolyfill: true,
+      compact: true
     }
   });
 
