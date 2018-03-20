@@ -317,7 +317,29 @@ export default Ember.Service.extend({
     const navigateMapService = this;
 
     let mapLocationPromise = null;
-    if (continueCourse) {
+    const storedResponse = navigateMapService
+      .getLocalStorage()
+      .getItem(navigateMapService.generateKey());
+    if (storedResponse) {
+      let parsedResponse = JSON.parse(storedResponse);
+      let currentItemId = parsedResponse.context.current_item_id;
+      if (
+        collectionId != null &&
+        currentItemId != null &&
+        currentItemId !== collectionId
+      ) {
+        mapLocationPromise = navigateMapService.startCollection(
+          courseId,
+          unitId,
+          lessonId,
+          collectionId,
+          collectionType,
+          classId
+        );
+      } else {
+        mapLocationPromise = navigateMapService.getStoredNext();
+      }
+    } else if (continueCourse) {
       mapLocationPromise = navigateMapService
         .getCurrentMapContext(courseId, classId)
         .then(mapContext => navigateMapService.next(mapContext, false));
