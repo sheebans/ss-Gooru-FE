@@ -46,7 +46,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const route = this;
     return route
       .get('navigateMapService')
-      .getStoredNext()
+      .getMapLocation(params)
       .then(function(mapLocation) {
         const courseId = mapLocation.get('context.courseId');
         const unitId = mapLocation.get('context.unitId');
