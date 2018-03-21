@@ -47,6 +47,11 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
    */
   errorService: Ember.inject.service('api-sdk/error'),
 
+  /**
+   * @property {NavigateMapService}
+   */
+  navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -79,6 +84,14 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
 
   beforeModel: function(transition) {
     const route = this;
+
+    // Below logic is used to clear the left over state of study player,
+    // in order to avoid the conflict.
+    let navigateMapService = route.get('navigateMapService');
+    navigateMapService
+      .getLocalStorage()
+      .removeItem(navigateMapService.generateKey());
+
     let details = null;
     let accessToken = transition.queryParams.access_token;
     if (Env.embedded) {

@@ -3,6 +3,7 @@ import NavigateMapSerializer from 'gooru-web/serializers/map/navigate-map';
 import NavigateMapAdapter from 'gooru-web/adapters/map/navigate-map';
 import MapContext from 'gooru-web/models/map/map-context';
 import MapLocation from 'gooru-web/models/map/map-location';
+import Utils from 'gooru-web/utils/utils';
 import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
 /**
@@ -310,7 +311,8 @@ export default Ember.Service.extend({
     const collectionId = params.collectionId;
     const pathId = params.pathId;
     const collectionSubType = params.subtype;
-
+    const collectionUrl = params.collectionUrl;
+    const resourceId = params.resourceId;
     const continueCourse = !unitId;
     const startLesson = lessonId && !collectionId;
 
@@ -321,24 +323,7 @@ export default Ember.Service.extend({
       .getLocalStorage()
       .getItem(navigateMapService.generateKey());
     if (storedResponse) {
-      let parsedResponse = JSON.parse(storedResponse);
-      let currentItemId = parsedResponse.context.current_item_id;
-      if (
-        collectionId != null &&
-        currentItemId != null &&
-        currentItemId !== collectionId
-      ) {
-        mapLocationPromise = navigateMapService.startCollection(
-          courseId,
-          unitId,
-          lessonId,
-          collectionId,
-          collectionType,
-          classId
-        );
-      } else {
-        mapLocationPromise = navigateMapService.getStoredNext();
-      }
+      mapLocationPromise = navigateMapService.getStoredNext();
     } else if (continueCourse) {
       mapLocationPromise = navigateMapService
         .getCurrentMapContext(courseId, classId)
@@ -359,6 +344,18 @@ export default Ember.Service.extend({
         collectionType,
         collectionSubType,
         pathId,
+        classId
+      );
+    } else if (collectionUrl && resourceId) {
+      const ctxUnitId = Utils.getParameterByName('unitId', collectionUrl);
+      const ctxLessonId = Utils.getParameterByName('lessonId', collectionUrl);
+      const ctxCollectionType = Utils.getParameterByName('type', collectionUrl);
+      mapLocationPromise = navigateMapService.startCollection(
+        courseId,
+        ctxUnitId,
+        ctxLessonId,
+        collectionId,
+        ctxCollectionType,
         classId
       );
     } else {
