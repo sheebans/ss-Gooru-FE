@@ -356,9 +356,12 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
      * @see gru-header.hbs
      */
     signIn: function() {
-      let queryParams = new URLSearchParams(window.location.search);
+      let queryParams;
+      if (typeof URLSearchParams == 'function') {
+        queryParams = new URLSearchParams(window.location.search);
+      }
       const route = this;
-      if (queryParams.has('redirectURL')) {
+      if (queryParams && queryParams.has('redirectURL')) {
         window.location.replace(queryParams.get('redirectURL'));
       } else {
         route.actions.updateUserClasses.call(this).then(
