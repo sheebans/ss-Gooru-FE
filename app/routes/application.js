@@ -85,6 +85,8 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
   beforeModel: function(transition) {
     const route = this;
 
+    // Below logic is used to clear the left over state of study player,
+    // in order to avoid the conflict.
     let navigateMapService = route.get('navigateMapService');
     navigateMapService
       .getLocalStorage()
