@@ -523,11 +523,11 @@ export default Ember.Component.extend({
     showassessments(index) {
       var unitheader = this.get('headers').objectAt(index);
       this.set('isLoading', true);
-      this.expandLesson(unitheader.get('id'), index);
       Ember.set(unitheader, 'showSub', true);
       this.set('expandedUnit', true);
       Ember.set(unitheader, 'showSubSub', true);
       Ember.set(unitheader, 'showAssessments', true);
+      this.expandLesson(unitheader.get('id'), index);
     },
     showlessons(index) {
       var lessonatheaderindex = this.get('headers').objectAt(index);
@@ -806,7 +806,6 @@ export default Ember.Component.extend({
           inxArr.pushObject(indx);
         }
       });
-    /* dead code  */
     inxArr.forEach(function(item, indx) {
       //'This is used only in collape flow'
 
@@ -879,6 +878,7 @@ export default Ember.Component.extend({
     Ember.set(unitheader, 'colspanval', 1);
     component.set('assessment1performanceData', []);
     component.set('averageHeadersAssessment', []);
+    component.set('averageHeaderstempAssessment', []);
     component.set('boolFlag', false);
 
     if (filterBy === 'collection') {
@@ -944,7 +944,6 @@ export default Ember.Component.extend({
                 lessonassements
               );
 
-              //console.log(`totallessonsofunit : ${totallessonsofunit}: lessonIndex: ${lessonIndex}`);
               if (totallessonsofunit === lessonIndex) {
                 component.showAverageRow(unitId, unitIndex);
               }
@@ -1412,11 +1411,11 @@ export default Ember.Component.extend({
       component.set('averageHeadersAssessment', []);
     }
     var countCols = 0;
-    var tempVal = 0;
+    var lessonassementcount = 0;
 
     lesson.get('children').forEach(function(assessmentObj) {
       if (assessmentObj.format === filterBy) {
-        tempVal = tempVal + 1;
+        lessonassementcount = lessonassementcount + 1;
         countCols = countCols + 1;
         var emberObject = Ember.Object.create({
           id: assessmentObj.id,
@@ -1425,18 +1424,24 @@ export default Ember.Component.extend({
         });
         var orginalTitle = assessmentObj.get('title');
         if (filterBy === 'assessment') {
-          assessmentObj.set('title', `A${tempVal}: ${orginalTitle}`);
+          assessmentObj.set(
+            'title',
+            `A${lessonassementcount}: ${orginalTitle}`
+          );
         } else {
-          assessmentObj.set('title', `C${tempVal}: ${orginalTitle}`);
+          assessmentObj.set(
+            'title',
+            `C${lessonassementcount}: ${orginalTitle}`
+          );
         }
         unitlessonObj.get('subsubColumns').pushObject(assessmentObj);
         component.get('averageHeadersAssessment').pushObject(emberObject);
       }
     });
 
-    if (tempVal === 0) {
+    if (lessonassementcount === 0) {
       countCols = countCols + 1;
-      var tempassessmentObj = Ember.Object.create({
+      let tempassessmentObj = Ember.Object.create({
         format: filterBy,
         id: 'NoObject',
         collectionType: filterBy,
@@ -1551,7 +1556,7 @@ export default Ember.Component.extend({
                       colcount = colcount + 1;
                     }
                   });
-                  if (tempVal === 0) {
+                  if (lessonassementcount === 0) {
                     assessmentsStr = `${`${assessmentsStr}NoObject`},`;
                     var emberObject = Ember.Object.create({
                       id: 'NoObject',
@@ -1568,7 +1573,7 @@ export default Ember.Component.extend({
                   for (var j = 0; j < assessmentperformanceData.length; j++) {
                     if (
                       assessmentperformanceData[j] !== undefined &&
-                      tempVal !== 0
+                      lessonassementcount !== 0
                     ) {
                       if (
                         assessmentsStr.indexOf(
@@ -1746,10 +1751,11 @@ export default Ember.Component.extend({
     ) {
       // component.createAverageRow(unitIndex, filterBy, assesmentCountCols); //Older logic
       // Check and remove previous values if need be or filter might be needed here
-      component.get('averageHeadersAssessment').forEach(avg => {
-        component.get('averageHeaders').performanceData.push(avg);
-      });
     }
+
+    component.get('averageHeadersAssessment').forEach(avg => {
+      component.get('averageHeaders').performanceData.push(avg);
+    });
   },
   // Older code not used
   createAverageRow: function(unitIndex, filterBy, assesmentCountCols) {
