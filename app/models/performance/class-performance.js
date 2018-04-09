@@ -164,13 +164,19 @@ export default DS.Model.extend({
   ) {
     var avgValue = -1;
     if (studentPerformanceData && studentPerformanceData.length > 0) {
-      const counter = studentPerformanceData.length;
-      const sumValue = this.calculateSumByItem(
-        itemId,
-        fieldName,
-        studentPerformanceData,
-        false
-      );
+      let counter = 0;
+      var sumValue = 0;
+      if (studentPerformanceData && studentPerformanceData.length > 0) {
+        studentPerformanceData.forEach(function(studentPerformance) {
+          if (studentPerformance.get(fieldName) !== null) {
+            let studentScore = studentPerformance.get(fieldName);
+            if (studentScore !== undefined && !isNaN(studentScore)) {
+              sumValue += studentScore;
+              counter += 1;
+            }
+          }
+        });
+      }
       if (sumValue !== null) {
         avgValue = sumValue / counter;
         if (doRoundValue) {
