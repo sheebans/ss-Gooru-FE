@@ -84,7 +84,7 @@
     }
     .subsubwidthmaxCollapseUnit {
       max-width: 160px;
-      min-width: 160px;
+      min-width: 161px;
     }
     .show-label {
       text-align: $tab-float-dir;
@@ -116,19 +116,20 @@
       border: 0 !important;
       padding: 0 !important;
     }
+
     .subsubwidthmaxCollapse {
-      min-width: 160px !important;
+      min-width: 162px !important;
       width: 160px;
     }
     .text-newprimary {
       color: #00bfff;
     }
     .subsubwidthmax {
-      width: 160px;
+      min-width: 161px;
       max-width: 160px;
     }
     .subsubwidthmax1 {
-      width: 160px;
+      min-width: 161.3px;
     }
     tr:nth-child(even) {
       background-color: #f2f2f2;
