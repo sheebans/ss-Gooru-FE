@@ -58,6 +58,7 @@ $box-shadow: 1px -1px;
 @import "controllers/profile/edit";
 @import "controllers/profile/courses";
 @import "controllers/profile/network";
+@import "controllers/profile/proficiency";
 @import "controllers/reports/collection";
 @import "controllers/reports/student-collection";
 @import "controllers/reports/student-collection-analytics";
@@ -179,6 +180,8 @@ $box-shadow: 1px -1px;
 @import "components/class/overview/gru-accordion-course";
 @import "components/class/overview/gru-accordion-unit";
 @import "components/class/overview/gru-accordion-lesson";
+
+@import "components/profile/gru-navigation-tabs";
 
 @import "components/content/assessments/gru-assessment-edit";
 @import "components/content/gru-audience";
@@ -330,6 +333,10 @@ $box-shadow: 1px -1px;
 @import "components/century-skills/gru-century-skill-tag";
 
 @import "components/validation/gru-input";
+
+@import "components/proficiency/proficiency-matrix";
+@import "components/proficiency/subject-item-list";
+@import "components/proficiency/proficiency-course-matrix";
 
 @import "routes/student/class/performance";
 @import "routes/content/rubric/preview";

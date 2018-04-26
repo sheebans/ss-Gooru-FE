@@ -596,6 +596,7 @@ export default Object.assign(quizzesTranslations, {
     'studen-id-display':
       'Student ID (not displayed on Profile, displayed in Anonymous mode)',
     'subject-and-framework': 'Subject and Framework',
+    subject: 'Subject',
     submit: 'Submit',
     'submit-all': 'Submit all',
     submitAll: 'Submit All',
@@ -1682,10 +1683,16 @@ export default Object.assign(quizzesTranslations, {
       content: 'Content',
       followers: 'Followers',
       library: 'Library',
-      'my-content': 'My Content'
+      'my-content': 'My Content',
+      following: 'Following',
+      proficiency: 'Proficiency'
     },
     edit: {
       'select-district': 'Select a district...'
+    },
+    proficiency: {
+      'is-empty':
+        'No data available yet. Once you begin studying, your data will become available.'
     }
   },
 

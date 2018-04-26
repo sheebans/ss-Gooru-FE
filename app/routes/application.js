@@ -47,6 +47,11 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
    */
   errorService: Ember.inject.service('api-sdk/error'),
 
+  /**
+   * @property {NavigateMapService}
+   */
+  navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -79,6 +84,14 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
 
   beforeModel: function(transition) {
     const route = this;
+
+    // Below logic is used to clear the left over state of study player,
+    // in order to avoid the conflict.
+    let navigateMapService = route.get('navigateMapService');
+    navigateMapService
+      .getLocalStorage()
+      .removeItem(navigateMapService.generateKey());
+
     let details = null;
     let accessToken = transition.queryParams.access_token;
     if (Env.embedded) {
@@ -145,7 +158,12 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
       controller.set('profile', model.profile);
     }
     let pathname = window.location.pathname;
-    if (pathname === '/sign-in' || pathname === '/sign-up') {
+    let query = window.location.search;
+    if (
+      this.get('session.isAnonymous') &&
+      query.indexOf('access_token') < 0 &&
+      pathname !== '/logout'
+    ) {
       this.handleRedirectionBasedOnDomain(controller);
     } else {
       controller.set('isRedirectionDomainDone', true);
@@ -162,7 +180,9 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
       ? route.get('configuration.themeId')
       : themeId;
     if (themeId) {
-      const theme = GruTheme.create({ id: themeId });
+      const theme = GruTheme.create({
+        id: themeId
+      });
       route.setupThemeStyles(theme);
     }
   },
@@ -336,8 +356,9 @@ export default Ember.Route.extend(PublicRouteMixin, ConfigurationMixin, {
    */
   handleRedirectionBasedOnDomain: function(controller) {
     let domain = window.location.hostname;
+    let redirectURL = window.location.href;
     this.get('authenticationService')
-      .domainBasedRedirection(domain)
+      .domainBasedRedirection(domain, redirectURL)
       .then(function(data) {
         if (data && data.statusCode === 303) {
           window.location.href = data.redirectUrl;

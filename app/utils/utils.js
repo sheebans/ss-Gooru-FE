@@ -247,7 +247,9 @@ export function getReactionIcon(reactionValue, basePath) {
     if (reaction && reaction.value && reaction.unicode) {
       html = `<div class="emotion emotion-${reaction.value}">`;
       html += '  <svg class="svg-sprite">';
-      html += `    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="${basePath}assets/emoji-one/emoji.svg#${reaction.unicode}"></use>`;
+      html += `    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="${basePath}assets/emoji-one/emoji.svg#${
+        reaction.unicode
+      }"></use>`;
       html += ' </svg>';
       html += '</div>';
     } else {
@@ -935,4 +937,25 @@ export function getContentCount(data) {
     resourceCount: resourceCount,
     questionCount: questionCount
   };
+}
+
+/**
+ * It is used to read the params from browser url path
+ * @param  {String} name Name of the parameter
+ * @param  {String} url  URL String which needs to be parse and get value.
+ */
+export function getParameterByName(name, url) {
+  if (!url) {
+    url = window.location.href;
+  }
+  name = name.replace(/[[]]/g, '\\$&');
+  var regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`),
+    results = regex.exec(url);
+  if (!results) {
+    return null;
+  }
+  if (!results[2]) {
+    return '';
+  }
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }

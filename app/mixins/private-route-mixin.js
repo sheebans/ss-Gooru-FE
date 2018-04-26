@@ -28,7 +28,11 @@ export default Ember.Mixin.create({
     const mixin = this;
     let currentUrl = window.location.href;
     if (mixin.get('session.isAnonymous')) {
-      const queryParams = { queryParams: { redirectURL: currentUrl } };
+      const queryParams = {
+        queryParams: {
+          redirectURL: currentUrl
+        }
+      };
       return mixin.transitionTo('sign-in', queryParams);
     }
     var sessionService = mixin.get('sessionService');
@@ -46,7 +50,10 @@ export default Ember.Mixin.create({
         },
         function() {
           const queryParams = {
-            queryParams: { sessionEnds: 'true', redirectURL: currentUrl }
+            queryParams: {
+              sessionEnds: 'true',
+              redirectURL: currentUrl
+            }
           };
           return mixin.transitionTo('sign-in', queryParams);
         }

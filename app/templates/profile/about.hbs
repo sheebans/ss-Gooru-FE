@@ -1,13 +1,10 @@
 <div class="controller about view view-profile">
   <h4>
     {{#if isMyProfile}}
-      {{t "common.about-me"}}
+      <!-- <span class="edit-text">{{t "common.edit"}} </span> -->
       <div class="about-edit" title="Edit" data-toggle="tooltip">
         {{#link-to "profile.edit" tagName="a" class='hidden-xs'}}{{gru-icon name="mode_edit"}}{{/link-to}}
       </div>
-      <!-- {{#link-to "profile.edit" tagName="button" class='btn btn-info hidden-xs'}}{{t "common.edit"}}{{/link-to}} -->
-    {{else}}
-      {{t "common.about"}}
     {{/if}}
   </h4>
   <div class="about-container row">
