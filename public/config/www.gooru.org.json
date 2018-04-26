@@ -15,8 +15,8 @@
   },
   "quizzes-addon": {
     "endpoint" : {
-      "url": "/quizzes",
-      "secureUrl": "/quizzes",
+      "url": "",
+      "secureUrl": "",
       "providerUrl": ""
     },
 

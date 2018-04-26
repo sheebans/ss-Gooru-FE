@@ -26,6 +26,7 @@
       margin: 10px 0 0;
       width: 100%;
       .panel-body {
+        display: flex;
         padding: 0;
         height: 60px;
         .course-image {
@@ -136,6 +137,8 @@
           }
         }
         .performance-container {
+          right: 26px;
+          position: absolute;
           width: 11%;
           .percentage {
             margin: 12px 0;

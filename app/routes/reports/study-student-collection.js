@@ -58,7 +58,7 @@ export default StudentCollection.extend({
           lesson: route
             .get('lessonService')
             .fetchById(courseId, unitId, lessonId),
-          mapLocation: navigateMapService.getStoredNext(),
+          mapLocation: navigateMapService.getMapLocation(params),
           minScore: params.minScore
         });
       })

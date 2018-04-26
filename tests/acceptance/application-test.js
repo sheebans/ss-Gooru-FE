@@ -163,14 +163,9 @@ test('Trying the google sign in url', function(assert) {
       'Tenant theme component should be loaded'
     );
     assert.equal(currentURL(), '/sign-up-finish');
-    visit('/home');
+    visit('/teacher-home');
     andThen(function() {
-      const $userContainer = find('.controller.home');
-      T.exists(assert, $userContainer, 'Missing user container');
-      assert.ok(
-        $userContainer.find('.gru-class-card').length > 1,
-        'Missing classes'
-      );
+      assert.equal(currentURL(), '/teacher-home');
     });
   });
 });

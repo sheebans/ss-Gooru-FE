@@ -46,7 +46,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const route = this;
     return route
       .get('navigateMapService')
-      .getStoredNext()
+      .getMapLocation(params)
       .then(function(mapLocation) {
         const courseId = mapLocation.get('context.courseId');
         const unitId = mapLocation.get('context.unitId');
@@ -55,62 +55,59 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           mapLocation.get('context.itemId') ||
           mapLocation.get('context.collectionId');
 
-        return Ember.RSVP
-          .hash({
-            //loading breadcrumb information and navigation info
-            course: route.get('courseService').fetchById(courseId),
-            unit: route.get('unitService').fetchById(courseId, unitId),
-            lesson: route
-              .get('lessonService')
-              .fetchById(courseId, unitId, lessonId),
-            collection: route
-              .get('assessmentService')
-              .readExternalAssessment(params.collectionId)
-          })
-          .then(function(hash) {
-            //setting query params using the map location
+        return Ember.RSVP.hash({
+          //loading breadcrumb information and navigation info
+          course: route.get('courseService').fetchById(courseId),
+          unit: route.get('unitService').fetchById(courseId, unitId),
+          lesson: route
+            .get('lessonService')
+            .fetchById(courseId, unitId, lessonId),
+          collection: route
+            .get('assessmentService')
+            .readExternalAssessment(params.collectionId)
+        }).then(function(hash) {
+          //setting query params using the map location
 
-            params.type =
-              mapLocation.get('context.itemType') ||
-              mapLocation.get('context.collectionType');
-            params.classId =
-              params.classId || mapLocation.get('context.classId');
-            params.unitId = params.unitId || mapLocation.get('context.unitId');
-            params.lessonId =
-              params.lessonId || mapLocation.get('context.lessonId');
-            params.pathId = params.pathId || mapLocation.get('context.pathId');
-            params.collectionSubType =
-              params.subtype || mapLocation.get('context.collectionSubType');
+          params.type =
+            mapLocation.get('context.itemType') ||
+            mapLocation.get('context.collectionType');
+          params.classId = params.classId || mapLocation.get('context.classId');
+          params.unitId = params.unitId || mapLocation.get('context.unitId');
+          params.lessonId =
+            params.lessonId || mapLocation.get('context.lessonId');
+          params.pathId = params.pathId || mapLocation.get('context.pathId');
+          params.collectionSubType =
+            params.subtype || mapLocation.get('context.collectionSubType');
 
-            // Set the correct unit sequence number
-            hash.course.children.find((child, index) => {
-              let found = false;
-              if (child.get('id') === hash.unit.get('id')) {
-                found = true;
-                hash.unit.set('sequence', index + 1);
-              }
-              return found;
-            });
-
-            // Set the correct lesson sequence number
-            hash.unit.children.find((child, index) => {
-              let found = false;
-              if (child.get('id') === hash.lesson.get('id')) {
-                found = true;
-                hash.lesson.set('sequence', index + 1);
-              }
-              return found;
-            });
-            return Ember.RSVP.hash({
-              course: hash.course,
-              unit: hash.unit,
-              lesson: hash.lesson,
-              collection: hash.collection,
-              mapLocation,
-              collectionId: params.collectionId,
-              type: params.type
-            });
+          // Set the correct unit sequence number
+          hash.course.children.find((child, index) => {
+            let found = false;
+            if (child.get('id') === hash.unit.get('id')) {
+              found = true;
+              hash.unit.set('sequence', index + 1);
+            }
+            return found;
           });
+
+          // Set the correct lesson sequence number
+          hash.unit.children.find((child, index) => {
+            let found = false;
+            if (child.get('id') === hash.lesson.get('id')) {
+              found = true;
+              hash.lesson.set('sequence', index + 1);
+            }
+            return found;
+          });
+          return Ember.RSVP.hash({
+            course: hash.course,
+            unit: hash.unit,
+            lesson: hash.lesson,
+            collection: hash.collection,
+            mapLocation,
+            collectionId: params.collectionId,
+            type: params.type
+          });
+        });
       });
   },
 
@@ -135,63 +132,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       type: model.type,
       content: mapLocation.content
     });
-  },
-
-  /**
-   * Gets the map location for the study player based on parameters
-   * @param params
-   * @returns {*}
-   */
-  getMapLocation: function(params) {
-    const route = this;
-    const classId = params.classId;
-    const courseId = params.courseId;
-    const unitId = params.unitId;
-    const lessonId = params.lessonId;
-    const collectionType = params.type;
-    const collectionId = params.collectionId;
-    const pathId = params.pathId;
-    const collectionSubType = params.subtype;
-
-    const continueCourse = !unitId;
-    const startLesson = lessonId && !collectionId;
-
-    const navigateMapService = route.get('navigateMapService');
-
-    let mapLocationPromise = null;
-    if (continueCourse) {
-      mapLocationPromise = navigateMapService
-        .getCurrentMapContext(courseId, classId)
-        .then(mapContext => navigateMapService.next(mapContext, false));
-    } else if (startLesson) {
-      mapLocationPromise = navigateMapService.startLesson(
-        courseId,
-        unitId,
-        lessonId,
-        classId
-      );
-    } else if (collectionSubType) {
-      mapLocationPromise = navigateMapService.startSuggestion(
-        courseId,
-        unitId,
-        lessonId,
-        collectionId,
-        collectionType,
-        collectionSubType,
-        pathId,
-        classId
-      );
-    } else {
-      mapLocationPromise = navigateMapService.startCollection(
-        courseId,
-        unitId,
-        lessonId,
-        collectionId,
-        collectionType,
-        classId
-      );
-    }
-    return mapLocationPromise;
   },
 
   deactivate: function() {
