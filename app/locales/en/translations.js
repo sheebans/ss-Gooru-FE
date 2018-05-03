@@ -596,6 +596,7 @@ export default Object.assign(quizzesTranslations, {
     'studen-id-display':
       'Student ID (not displayed on Profile, displayed in Anonymous mode)',
     'subject-and-framework': 'Subject and Framework',
+    subject: 'Subject',
     submit: 'Submit',
     'submit-all': 'Submit all',
     submitAll: 'Submit All',
