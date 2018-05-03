@@ -1,228 +1,10 @@
 .controller.profile {
   min-height: 100%;
-  .navigation {
-    height: auto;
-
-    * {
-      color: $gray;
-    }
-    .profile-info {
-      padding: 15px 0 7px;
-      text-align: center;
-
-      > .actions {
-        margin: 28px 0;
-        position: relative;
-
-        button {
-          border: 1px solid $white;
-          font-size: 15px;
-          width: 70%;
-
-          &:active {
-            background: none;
-          }
-        }
-      }
-    }
-
-    .profile-menu {
-      li {
-        @include flexbox;
-        @include justify-content(space-between);
-        @include align-items(center);
-        @include align-content(flex-start);
-        border: none;
-        cursor: pointer;
-        color: $white;
-        padding: 7px 32px;
-        h6 {
-          color: $gray;
-        }
-        &.selected {
-          background-color: $gray-sharper;
-        }
-        .gru-icon {
-          color: $gray-icon;
-          height: 24px;
-          &.content {
-            width: 24px;
-            background: url(/assets/gooru/images/icon-content-light.svg)
-              no-repeat center center;
-          }
-          &.network {
-            width: 24px;
-            background: url(/assets/gooru/images/icon-network-light.svg)
-              no-repeat center center;
-          }
-        }
-        &.introjs-showElement {
-          h6 {
-            color: $dark-400;
-          }
-        }
-      }
-    }
-    .xs-design {
-      @include flexbox();
-      @include flex-direction(column);
-      @include align-items(center);
-      @include align-content(center);
-      .profile-bar {
-        @include flexbox();
-        @include flex-direction(row-reverse);
-        @include justify-content(space-between);
-        @include align-items(center);
-        @include align-content(center);
-        width: 100%;
-        height: 60px;
-        padding: 0;
-        border: 1px solid rgba(255, 255, 255, 0.17);
-        .navigation-active {
-          @include flexbox();
-          height: 100%;
-          z-index: 100;
-        }
-        h4 {
-          margin: 0 20px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        .drop-menu {
-          @include flexbox();
-          @include justify-content(center);
-          @include align-items(center);
-          @include align-content(center);
-          background-color: rgba(0, 0, 0, 0.15);
-          margin-left: 15px;
-          &.open ul {
-            right: 0;
-          }
-          .btn {
-            height: 22px;
-            padding: 0;
-            margin: 0 15px;
-            i {
-              font-size: 24px;
-              &:first-child {
-                opacity: 0.5;
-                margin: 0 5px;
-              }
-            }
-          }
-          ul {
-            width: 55%;
-            height: 100vh;
-            position: fixed;
-            left: initial;
-            top: 0;
-            right: -55%;
-            @include gradient-horizontal($blue-400, $blue-500, 0%, 100%);
-            @include box-shadow(inset 0px 1px 3px 0px rgba(0,0,0,0.5));
-            @include flexbox();
-            @include flex-direction(column);
-            @include align-items(center);
-            @include align-content(center);
-            @include transition(all 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94));
-            > li {
-              width: 100%;
-              @include flexbox();
-              @include justify-content(space-between);
-              @include align-items(center);
-              @include align-content(center);
-              padding: 30px;
-              height: 60px;
-              cursor: pointer;
-              &.close {
-                @include flex-direction(row-reverse);
-                padding-right: 10px;
-                margin-bottom: 10px;
-                cursor: default;
-                > * {
-                  cursor: pointer;
-                }
-              }
-              &.selected {
-                background-color: rgba(255, 255, 255, 0.1);
-              }
-              h6 {
-                color: white;
-                padding: 0;
-              }
-              button {
-                border: none;
-                padding: 0;
-                box-shadow: none;
-                i {
-                  font-size: $font-size-h3;
-                  color: white;
-                }
-              }
-              .gru-icon {
-                color: $blue-100;
-                height: 24px;
-                &.content {
-                  width: 24px;
-                  background: url(/assets/gooru/images/icon-content-light.svg)
-                    no-repeat center center;
-                }
-                &.network {
-                  width: 24px;
-                  background: url(/assets/gooru/images/icon-network-light.svg)
-                    no-repeat center center;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    @media (max-width: $screen-sm-max) {
-      .profile-info {
-        padding: 0;
-        margin-top: -60px;
-        height: 60px;
-        > .actions {
-          margin: -56px 95px 0 0;
-          height: 60px;
-          text-align: center;
-          float: $menu-float-dir;
-          padding: 10px;
-          button {
-            width: auto;
-            padding-left: 30px;
-            padding-right: 30px;
-          }
-        }
-      }
-    }
-
-    @media (max-width: $screen-xs-max) {
-      .profile-info {
-        padding-top: 1px;
-        height: auto;
-        > .actions {
-          margin: 0;
-          height: auto;
-          float: none;
-          button {
-            width: auto;
-            min-width: 50%;
-            max-width: 55%;
-            padding-left: 16px;
-            padding-right: 16px;
-          }
-        }
-      }
-    }
-  }
   > .content {
     height: 100%;
     max-width: 1017px;
-    margin: auto;
-    margin-top: 0px;
+    margin: 25px auto auto;
+
     .panel.add-content {
       border-radius: 5px;
       width: 90%;
@@ -236,14 +18,69 @@
           margin-top: 20px;
           font-size: $font-size-large;
         }
+
         button {
           padding-left: 20px;
           padding-right: 20px;
           font-size: 14px;
         }
+
         .gru-icon.explore {
           font-size: 150px;
           opacity: 0.1;
+        }
+      }
+    }
+
+    .gru-navigation-tabs {
+      display: inline-block;
+      width: 100%;
+    }
+
+    .user-profile-box {
+      background-color: $white;
+      box-shadow: 0 0 5px 4px rgba(0, 0, 0, 0.15), 0 0 2px 0 rgba(0, 0, 0, 0.12);
+      height: 50px;
+      border-radius: 4px;
+
+      .user-profile-back-arrow {
+        width: 40px;
+        cursor: pointer;
+        margin-left: 20px;
+        height: 50px;
+
+        i {
+          margin-left: -74px;
+          margin-top: 14px;
+        }
+      }
+    }
+
+    .user-profile-info {
+      margin: 0 auto;
+      display: table;
+      margin-top: -55px;
+
+      .profile {
+        .img-container {
+          width: 60px;
+          height: 60px;
+          overflow: hidden;
+          border-radius: 30px;
+          margin-left: 15px;
+          margin-right: 15px;
+          cursor: pointer;
+        }
+
+        .username {
+          max-width: 170px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: block;
+          margin-top: 18px;
+          font-size: 15px;
+          text-transform: uppercase;
+          color: gray;
         }
       }
     }
