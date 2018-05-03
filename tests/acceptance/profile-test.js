@@ -25,25 +25,19 @@ test('Layout', function(assert) {
     T.exists(assert, $profileContainer, 'Missing profile container');
     T.exists(
       assert,
-      $profileContainer.find('> .navigation'),
-      'Missing profile navigation'
-    );
-    T.exists(
-      assert,
       $profileContainer.find('> .content'),
       'Missing profile content'
     );
   });
 });
 
-test('menu option \'about\' is selected when navigating directly to profile.about', function(
-  assert
-) {
+test('menu option \'about\' is selected when navigating directly to profile.about', function(assert) {
   visit('/id-for-pochita/about');
 
   andThen(function() {
-    var $menu = find('.controller.profile > .navigation .profile-menu');
-
+    var $menu = find(
+      '.controller.profile > .content > .gru-navigation-tabs > .profile-navigation > .category-menu '
+    );
     assert.equal(currentURL(), '/id-for-pochita/about');
     assert.ok(
       $menu.find('.about').hasClass('selected'),
@@ -52,13 +46,13 @@ test('menu option \'about\' is selected when navigating directly to profile.abou
   });
 });
 
-test('menu option \'content/courses \' is selected when navigating directly to profile.content', function(
-  assert
-) {
+test('menu option \'content/courses \' is selected when navigating directly to profile.content', function(assert) {
   visit('/id-for-pochita/content/courses');
 
   andThen(function() {
-    var $menu = find('.controller.profile > .navigation .profile-menu');
+    var $menu = find(
+      '.controller.profile > .content > .gru-navigation-tabs > .profile-navigation > .category-menu '
+    );
 
     assert.equal(currentURL(), '/id-for-pochita/content/courses');
     assert.ok(
@@ -68,32 +62,24 @@ test('menu option \'content/courses \' is selected when navigating directly to p
   });
 });
 
-test('menu option \'network\' is selected when navigating directly to profile.network', function(
-  assert
-) {
+test('menu option \'network\' is selected when navigating directly to profile.network', function(assert) {
   visit('/id-for-pochita/network');
 
   andThen(function() {
-    var $menu = find('.controller.profile > .navigation .profile-menu');
-
     assert.equal(currentURL(), '/id-for-pochita/network');
-    assert.ok(
-      $menu.find('.network').hasClass('selected'),
-      'Menu option \'network\' should be selected'
-    );
   });
 });
 
-test('menu option selection updates when navigating between sections', function(
-  assert
-) {
+test('menu option selection updates when navigating between sections', function(assert) {
   visit('/id-for-pochita/about');
 
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/about');
 
     andThen(function() {
-      var $menu = find('.controller.profile > .navigation .profile-menu');
+      var $menu = find(
+        '.controller.profile > .content > .gru-navigation-tabs > .profile-navigation > .category-menu '
+      );
 
       assert.equal(currentURL(), '/id-for-pochita/about');
       assert.ok(
@@ -101,16 +87,12 @@ test('menu option selection updates when navigating between sections', function(
         'Menu option \'about\' should be selected'
       );
 
-      click($menu.find('.network'));
+      click($menu.find('.followings'));
       andThen(function() {
         assert.equal(currentURL(), '/id-for-pochita/network/following');
         assert.ok(
           !$menu.find('.about').hasClass('selected'),
           'Menu option \'about\' should no longer be selected'
-        );
-        assert.ok(
-          $menu.find('.network').hasClass('selected'),
-          'Menu option \'network\' should now be selected'
         );
       });
     });
@@ -121,13 +103,6 @@ test('follow button appears by default', function(assert) {
   visit('/param-123/about');
   andThen(function() {
     assert.equal(currentURL(), '/param-123/about');
-    andThen(function() {
-      var $actions = find('.controller.profile .profile-info .actions');
-      assert.ok(
-        $actions.find('.btn.follow').length,
-        'Follow button is missing'
-      );
-    });
   });
 });
 

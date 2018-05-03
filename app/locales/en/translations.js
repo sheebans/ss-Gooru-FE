@@ -1682,7 +1682,8 @@ export default Object.assign(quizzesTranslations, {
       content: 'Content',
       followers: 'Followers',
       library: 'Library',
-      'my-content': 'My Content'
+      'my-content': 'My Content',
+      following: 'Following'
     },
     edit: {
       'select-district': 'Select a district...'
