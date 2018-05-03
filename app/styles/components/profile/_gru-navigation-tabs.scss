@@ -76,31 +76,22 @@
           border-bottom: 4px solid $gray-darker;
         }
 
-        li.profile-menu-item.about.selected {
+        li.selected {
           border-bottom: 4px solid $gray-shaft;
         }
 
-        li.profile-menu-item.proficiency.selected {
-          border-bottom: 4px solid $gray-shaft;
+        li.profile-menu-item > a > span {
+          padding: 15px;
         }
 
-        li.profile-menu-item.content.selected {
-          border-bottom: 4px solid $gray-shaft;
+        li.followings > a > span {
+          padding: 15px;
         }
 
-        li.profile-menu-item {
-          .btn {
-            span {
-              padding: 15px;
-            }
-          }
-        }
-
-        li.followings {
-          .btn {
-            span {
-              padding: 15px;
-            }
+        li.selected {
+          > a > span {
+            color: $gray-shaft;
+            opacity: 1;
           }
         }
       }
