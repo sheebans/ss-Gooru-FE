@@ -1,4 +1,4 @@
-import { moduleFor, test } from 'ember-qunit';
+import { moduleFor } from 'ember-qunit';
 
 moduleFor(
   'controller:profile/proficiency',
@@ -8,9 +8,3 @@ moduleFor(
     // needs: ['controller:foo']
   }
 );
-
-// Replace this with your real tests.
-test('it exists', function(assert) {
-  let controller = this.subject();
-  assert.ok(controller);
-});
