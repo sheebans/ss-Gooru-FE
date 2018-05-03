@@ -1,0 +1,22 @@
+<div class="user-proficiency">
+  <div class="panel left-panel">
+    <div class="panel-header">
+      <div class="title">
+        {{selectedSubject.title}}
+      </div>
+    </div>
+    <div class="panel-body matrix">
+      {{proficiency.proficiency-matrix userId=userId subject=selectedSubject}}
+    </div>
+  </div>
+  <div class="panel right-panel">
+    <div class="panel-header">
+      <div class="title">
+        {{t 'common.subject'}}
+      </div>
+    </div>
+    <div class="panel-body">
+      {{proficiency.subject-item-list taxonomySubjects=taxonomySubjects selectedItem=selectedSubject onSelectItem="onSelectItem"}}
+    </div>
+  </div>
+</div>

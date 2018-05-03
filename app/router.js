@@ -117,8 +117,8 @@ Router.map(function() {
   this.route('student-home');
 
   this.route('student-independent-learning', function() {
-    this.route('learning-base', {path: '/studying'});
-    this.route('student-bookmarks', {path: '/bookmarks'});
+    this.route('learning-base', { path: '/studying' });
+    this.route('student-bookmarks', { path: '/bookmarks' });
   });
 
   this.route('student', function() {
@@ -190,6 +190,8 @@ Router.map(function() {
       this.route('following');
       this.route('followers');
     });
+
+    this.route('proficiency');
   });
   /**
    * IMPORTANT! the profile route should be the last one at this file, so we can handle the app urls
