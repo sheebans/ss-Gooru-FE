@@ -8,11 +8,11 @@
       </div>
       <div class="user-profile-info">
         <div class="profile">
-          <span class="username pull-left">{{user.firstName}}</span>
-          <div class="img-container pull-left" {{action 'onClickProfileInfo'}}>
-            <img class="img-responsive" src="{{user.thumbnail}}">
+          <span class="username pull-left">{{profile.firstName}}</span>
+          <div class="img-container pull-left">
+            <img class="img-responsive" src="{{profile.avatarUrl}}">
           </div>
-          <span class="username pull-left">{{user.lastName}}</span>
+          <span class="username pull-left">{{profile.lastName}}</span>
         </div>
       </div>
     </div>

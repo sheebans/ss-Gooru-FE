@@ -273,5 +273,34 @@
         }
       }
     }
+
+    .user-profile-info {
+      margin: 0 auto;
+      display: table;
+      margin-top: -55px;
+
+      .profile {
+        .img-container {
+          width: 60px;
+          height: 60px;
+          overflow: hidden;
+          border-radius: 30px;
+          margin-left: 15px;
+          margin-right: 15px;
+          cursor: pointer;
+        }
+
+        .username {
+          max-width: 170px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: block;
+          margin-top: 18px;
+          font-size: 15px;
+          text-transform: uppercase;
+          color: gray;
+        }
+      }
+    }
   }
 }
