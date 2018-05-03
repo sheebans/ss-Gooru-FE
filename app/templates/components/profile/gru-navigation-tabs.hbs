@@ -11,11 +11,13 @@
           {{/if}}
         </a>
       </li>
-      <li class="profile-menu-item proficiency" {{action 'selectItem' 'proficiency'}}>
-        <a href='{{view.href}}' class="btn btn-category">
+      {{#if (eq profile.role 'student')}}
+        <li class="profile-menu-item proficiency" {{action 'selectItem' 'proficiency'}}>
+          <a href='{{view.href}}' class="btn btn-category">
             <span>{{t "profile.gru-navigation.proficiency"}}</span>
         </a>
-      </li>
+        </li>
+      {{/if}}
       {{#if isMyProfile}}
         <li class="profile-menu-item content" {{action 'selectItem' 'content'}}>
           <a href='{{view.href}}' class="btn btn-category">
