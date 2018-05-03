@@ -59,6 +59,14 @@ export default Ember.Component.extend({
 
   selectedMenuItem: null,
 
+  /**
+   * @property {boolean} roles is student or not for proficiency tabs view
+   */
+  isStudent: Ember.computed(function() {
+    let component = this;
+    return component.get('profile').get('role') === 'student';
+  }),
+
   // -------------------------------------------------------------------------
   // Observers
   /**
