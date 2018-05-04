@@ -1,5 +1,5 @@
 .controller.about {
-  padding: 55px 20px 10px;
+  padding: 0 20px 10px;
 
   h4 {
     margin-top: 10;
@@ -95,6 +95,8 @@
 
       img {
         border-radius: 50%;
+        width: 59px;
+        height: 59px;
         @media (min-width: $screen-sm-min) {
           width: 100%;
         }
