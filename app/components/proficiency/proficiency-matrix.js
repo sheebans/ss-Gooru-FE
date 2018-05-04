@@ -170,6 +170,13 @@ export default Ember.Component.extend({
    */
   skylineContainer: null,
 
+  /**
+   * @type {Boolean}
+   * Property to show/hide skyline
+   * TODO enabled by default will to handle in future implementation
+   */
+  isSkylineEnabled: true,
+
   // -------------------------------------------------------------------------
   // Events
 
