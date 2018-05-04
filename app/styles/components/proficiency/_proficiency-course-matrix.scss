@@ -26,7 +26,7 @@
 
     .courses {
       width: 220px;
-      border-right: 1px solid #ccc;
+      border-right: 1px solid $gray-80;
 
       ul {
         padding: 0;
@@ -65,7 +65,7 @@
       display: inline-block;
       text-align: center;
       font-size: 25px;
-      color: #b2abab;
+      color: $light-400;
     }
 
     .matrix-container::-webkit-scrollbar {
@@ -85,7 +85,7 @@
       position: relative;
 
       .competency {
-        stroke: #fbfbfb;
+        stroke: $snow-gray;
         stroke-width: 1;
         shape-rendering: crispedges;
       }
