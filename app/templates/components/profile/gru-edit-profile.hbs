@@ -1,6 +1,5 @@
 <div class="controller about edit edit-profile">
-    <h4>
-      {{t "common.about-me"}}
+    <h4 class="edit-view">
         <div class="action-buttons pull-right">
           {{#link-to "profile.about" tagName="button" class='btn btn-basic cancel'}}{{t "common.cancel"}}{{/link-to}}
             <button type="submit" class='btn btn-primary save' {{action "updateProfile"}}>{{t "common.save"}}</button>

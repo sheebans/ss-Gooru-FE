@@ -3,12 +3,12 @@
     @include flexbox;
     @include align-items(center);
     @include justify-content(space-between);
-    height: 50px;
+    height: 56px;
+    padding: 0;
     width: 100%;
 
     .category-menu {
       border-bottom: 2px solid $gray-light;
-      // margin-left: 15px;
       @media (min-width: $screen-sm-min) {
         ul {
           margin-left: 0;
