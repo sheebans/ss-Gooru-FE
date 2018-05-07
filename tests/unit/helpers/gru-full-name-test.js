@@ -5,6 +5,9 @@ module('Unit | Helper | gru full name');
 
 // Replace this with your real tests.
 test('it works', function(assert) {
-  let result = gruFullName([42]);
+  let nameobj = {};
+  nameobj.firstName = 'tfirst';
+  nameobj.lastName = 'tlast';
+  let result = gruFullName(nameobj);
   assert.ok(result);
 });
