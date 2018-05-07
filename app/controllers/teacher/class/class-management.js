@@ -134,6 +134,22 @@ export default Ember.Controller.extend(ModalMixin, {
         false
       );
     },
+
+    profileStudent: function(student) {
+      let studentId = student.get('id');
+      this.transitionToRoute(`/${studentId}/about`);
+    },
+
+    proficiencyStudent: function(student) {
+      let studentId = student.get('id');
+      this.transitionToRoute(`/${studentId}/proficiency`);
+    },
+
+    pathwayStudent: function(student) {
+      let studentId = student.get('id');
+      this.transitionToRoute(`/${studentId}/pathway`);
+    },
+
     /**
      *
      * Triggered when a edit save score option is selected
