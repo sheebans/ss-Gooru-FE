@@ -18,27 +18,25 @@
         </a>
         </li>
       {{/if}}
-      {{#if isMyProfile}}
-        <li class="profile-menu-item content" {{action 'selectItem' 'content'}}>
-          <a href='{{view.href}}' class="btn btn-category">
+      <li class="profile-menu-item content" {{action 'selectItem' 'content'}}>
+        <a href='{{view.href}}' class="btn btn-category">
           {{#if isMyProfile}}
             <span>{{t "profile.gru-navigation.my-content"}}</span>
           {{else}}
             <span>{{t "profile.gru-navigation.content"}}</span>
           {{/if}}
         </a>
-        </li>
-        {{#link-to "profile.network.following" tagName="li" class='followings' }}
-          <a href='{{view.href}}' class="btn btn-category">
+      </li>
+      {{#link-to "profile.network.following" tagName="li" class='followings' }}
+        <a href='{{view.href}}' class="btn btn-category">
           <span>{{t "common.following"}}</span>
         </a>
-        {{/link-to}}
-        {{#link-to "profile.network.followers" tagName="li" class='followers' }}
-          <a href='{{view.href}}' class="btn btn-category">
+      {{/link-to}}
+      {{#link-to "profile.network.followers" tagName="li" class='followers' }}
+        <a href='{{view.href}}' class="btn btn-category">
           <span>{{t "common.followers"}}</span>
         </a>
-        {{/link-to}}
-      {{/if}}
+      {{/link-to}}
     </ul>
   </div>
 </div>
