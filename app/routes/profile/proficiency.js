@@ -1,6 +1,12 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  queryParams: {
+    classId: {
+      refreshModel: true
+    }
+  },
+
   beforeModel(transition) {
     let route = this;
     let userId = transition.params
@@ -9,14 +15,16 @@ export default Ember.Route.extend({
     route.set('userId', userId);
   },
 
-  model() {
+  model(params) {
     let route = this;
     return {
-      userId: route.get('userId')
+      userId: route.get('userId'),
+      classId: params.classId
     };
   },
 
   setupController(controller, model) {
     controller.set('userId', model.userId);
+    controller.set('classId', model.classId);
   }
 });

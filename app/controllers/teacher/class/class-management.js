@@ -141,8 +141,10 @@ export default Ember.Controller.extend(ModalMixin, {
     },
 
     proficiencyStudent: function(student) {
+      let controller = this;
       let studentId = student.get('id');
-      this.transitionToRoute(`/${studentId}/proficiency`);
+      let classId = controller.get('class.id');
+      this.transitionToRoute(`/${studentId}/proficiency/?classId=${classId}`);
     },
 
     pathwayStudent: function(student) {

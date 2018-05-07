@@ -9,6 +9,11 @@ export default Ember.Controller.extend({
   profileService: Ember.inject.service('api-sdk/profile'),
 
   sessionService: Ember.inject.service('api-sdk/session'),
+
+  /**
+   * Inject proficiency controller to get class id
+   */
+  proficiencyController: Ember.inject.controller('profile/proficiency'),
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -43,6 +48,20 @@ export default Ember.Controller.extend({
                 });
             });
         }
+      }
+    },
+
+    /**
+     * Action triggered when the user click back button
+     * Redirect the user into class management page
+     */
+    onClickBackButton() {
+      let controller = this;
+      let classId = controller.get('proficiencyController.classId');
+      if (classId) {
+        controller.transitionToRoute(
+          `/teacher/class/${classId}/class-management`
+        );
       }
     }
   },

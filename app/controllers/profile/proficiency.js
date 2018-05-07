@@ -60,6 +60,14 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Properties
 
+  queryParams: ['classId'],
+
+  /**
+   * @type {String}
+   * User selected class id
+   */
+  classId: null,
+
   /**
    * @property {String}
    * Property to store user selected category level
