@@ -110,6 +110,12 @@ export default Ember.Component.extend({
     return length > 0;
   }),
 
+  /**
+   * @type {Boolean}
+   * Property used to determine whether user has competency or not
+   */
+  isCompetenciesNull: false,
+
   // -------------------------------------------------------------------------
   // Events
 
@@ -144,14 +150,18 @@ export default Ember.Component.extend({
       .append('rect')
       .attr('x', d => (d.xAxisSeq - 1) * cellWidth)
       .attr('y', d => (d.yAxisSeq - 1) * cellWidth)
-      .attr('class', 'competency')
+      .attr('class', d => {
+        return d.isEmpty ? 'no-competency' : 'competency';
+      })
       .attr('width', cellWidth)
       .attr('height', cellWidth)
-      .style('fill', '#EAEAEA')
+      .style('fill', '#FFF')
       .transition()
       .duration(1000)
       .style('fill', d => {
-        return colorsBasedOnStatus.get(d.status.toString());
+        return d.isEmpty
+          ? '#FFF'
+          : colorsBasedOnStatus.get(d.status.toString());
       })
       .style('cursor', 'default');
     cards.exit().remove();
@@ -172,6 +182,7 @@ export default Ember.Component.extend({
       })
       .then(({ competencyMatrixs, competencyMatrixCoordinates }) => {
         component.set('isLoading', false);
+        component.set('isCompetenciesNull', !(competencyMatrixs.length > 0));
         let resultSet = component.parseCompetencyData(
           competencyMatrixs,
           competencyMatrixCoordinates
@@ -185,10 +196,7 @@ export default Ember.Component.extend({
     competencyMatrixCoordinates
   ) {
     let component = this;
-    let courses = competencyMatrixCoordinates
-      .get('courses')
-      .toArray()
-      .reverse();
+    let courses = competencyMatrixCoordinates.get('courses').toArray();
     let taxonomyCourses = Ember.A();
     let currentYaxis = 1;
     let resultSet = Ember.A();
@@ -199,7 +207,6 @@ export default Ember.Component.extend({
         ? competencyMatrix.get('competencies')
         : [];
       if (competencyMatrix && competencies.length > 0) {
-        taxonomyCourses.pushObject(courseData);
         let competencyData = Ember.A();
         competencies.forEach(competency => {
           let competencyCode = competency.get('competencyCode');
@@ -218,7 +225,6 @@ export default Ember.Component.extend({
               data.set('status', status);
             });
           }
-
           competencyData.pushObject(data);
         });
 
@@ -226,11 +232,23 @@ export default Ember.Component.extend({
         competencyData.forEach(data => {
           data.set('xAxisSeq', cellIndex);
           data.set('yAxisSeq', currentYaxis);
+          data.set('isEmpty', false);
           resultSet.pushObject(data);
           cellIndex++;
         });
         currentYaxis = currentYaxis + 2;
+      } else {
+        let firstElementPos = 1;
+        let competencyData = Ember.Object.create({
+          xAxisSeq: firstElementPos,
+          yAxisSeq: currentYaxis,
+          isEmpty: true,
+          courseCode: courseCode
+        });
+        currentYaxis += 2;
+        resultSet.pushObject(competencyData);
       }
+      taxonomyCourses.pushObject(courseData);
     });
     component.set('taxonomyCourses', taxonomyCourses);
     return resultSet;
