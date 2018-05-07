@@ -26,6 +26,14 @@ export default Ember.Controller.extend({
     onSelectItem(item) {
       let controller = this;
       controller.set('selectedSubject', item);
+    },
+
+    /**
+     * Action triggered when the use toggle matrix view
+     */
+    onToggleView(item) {
+      let controller = this;
+      controller.set('selectedMatrixView', item);
     }
   },
 
@@ -74,5 +82,11 @@ export default Ember.Controller.extend({
    * @property {String}
    * Property to store userId of the student
    */
-  userId: null
+  userId: null,
+
+  /**
+   * @type {String}
+   * Property to store user selected matrix view
+   */
+  selectedMatrixView: 'domain'
 });

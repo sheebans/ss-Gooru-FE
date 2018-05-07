@@ -79,7 +79,7 @@
       display: inline-block;
       text-align: center;
       font-size: 25px;
-      color: $gray-light;
+      color: $light-400;
     }
 
     .matrix-chart-container::-webkit-scrollbar {
@@ -108,7 +108,7 @@
         stroke-width: 1;
         shape-rendering: crispedges;
         stroke-opacity: 0.4;
-        cursor: pointer;
+        cursor: default;
 
         &.competency-more-cells {
           cursor: default;

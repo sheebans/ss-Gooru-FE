@@ -1689,6 +1689,10 @@ export default Object.assign(quizzesTranslations, {
     },
     edit: {
       'select-district': 'Select a district...'
+    },
+    proficiency: {
+      'is-empty':
+        'No data available yet. Once you begin studying, your data will become available.'
     }
   },
 

@@ -4,9 +4,23 @@
       <div class="title">
         {{selectedSubject.title}}
       </div>
+      <div class="actions">
+        <div class="toggle-view">
+          <span class="domain {{if (eq selectedMatrixView 'domain') 'active'}}" {{action "onToggleView" 'domain'}}>Domain</span>
+          <span class="course {{if (eq selectedMatrixView 'course') 'active'}}" {{action "onToggleView" 'course'}}>Course</span>
+        </div>
+      </div>
     </div>
     <div class="panel-body matrix">
-      {{proficiency.proficiency-matrix userId=userId subject=selectedSubject}}
+      {{#if (eq selectedMatrixView 'domain')}}
+        <div class="domain">
+          {{proficiency.proficiency-matrix userId=userId subject=selectedSubject}}
+        </div>
+      {{else}}
+        <div class="course">
+          {{proficiency.proficiency-course-matrix userId=userId subject=selectedSubject}}
+        </div>
+      {{/if}}
     </div>
   </div>
   <div class="panel right-panel">
