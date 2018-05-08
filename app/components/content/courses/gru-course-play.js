@@ -41,11 +41,19 @@ export default Ember.Component.extend(ModalMixin, {
      */
     setLocation: function(unitId, lessonId = undefined) {
       this.sendAction('onLocationChange', unitId, lessonId);
+    },
+
+    onCloseWindow() {
+      window.close();
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
+  didRender() {
+    var component = this;
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+  },
 
   // -------------------------------------------------------------------------
   // Properties

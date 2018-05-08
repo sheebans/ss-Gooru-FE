@@ -29,11 +29,19 @@ export default Ember.Component.extend(ProtocolMixin, {
      */
     goBack: function() {
       window.history.go(-1);
+    },
+
+    onCloseWindow() {
+      window.close();
     }
   },
 
   // -------------------------------------------------------------------------
   // Events
+  didRender() {
+    var component = this;
+    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+  },
 
   didInsertElement: function() {
     this.calculateResourceContentHeight();

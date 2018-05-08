@@ -10,6 +10,16 @@
       }
     }
     > header {
+      .close-icon {
+        width: 55px;
+        float: left;
+        padding: 0;
+        cursor: pointer;
+        i {
+          color: $white;
+          font-size: 37px;
+        }
+      }
       padding: 20px 20px 8px 70px;
       position: fixed;
       width: 100%;
