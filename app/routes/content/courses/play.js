@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import BuilderItem from 'gooru-web/models/content/builder/item';
+import { PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
   queryParams: {
@@ -36,7 +37,9 @@ export default Ember.Route.extend({
     var route = this;
     var createdUsersProfile = [];
     var remixedUsersProfile = [];
-    var isRGOsource = params.source ? params.source === 'rgo' : false;
+    var isRGOsource = params.source
+      ? params.source === PLAYER_EVENT_SOURCE.RGO
+      : false;
     return route
       .get('courseService')
       .fetchById(params.courseId)

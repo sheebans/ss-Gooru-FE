@@ -249,7 +249,8 @@ export const RUBRIC_OFF_OPTIONS = {
 export const PLAYER_EVENT_SOURCE = {
   COURSE_MAP: 'coursemap',
   DAILY_CLASS: 'dailyclassactivity',
-  INDEPENDENT_ACTIVITY: 'ILActivity'
+  INDEPENDENT_ACTIVITY: 'ILActivity',
+  RGO: 'rgo'
 };
 
 export const NU_COURSE_VERSION = '3.0-nu';
