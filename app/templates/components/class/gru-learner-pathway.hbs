@@ -1,0 +1,22 @@
+<ol class="accordion-course" role="tablist" aria-multiselectable="true">
+  {{#if isLoading}}
+    {{three-bounce-spinner}}
+  {{else}}
+
+    {{#each items as |item index|}}
+      {{class.learner.gru-learner-accordion-unit
+        currentClass=currentClass
+        currentCourse=currentCourse
+        classMembers=classMembers
+        model=item
+        index=index
+        isTeacher=isTeacher
+        isNUCourse=isNUCourse
+        toggleLocation=toggleLocation}}
+
+    {{else}}
+      <li>{{t "common.contentUnavailable"}}</li>
+    {{/each}}
+
+  {{/if}}
+</ol>
