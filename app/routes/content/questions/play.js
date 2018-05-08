@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
   queryParams: {
@@ -28,7 +29,9 @@ export default Ember.Route.extend({
 
   model: function(params) {
     var route = this;
-    var isRGOsource = params.source ? params.source === 'rgo' : false;
+    var isRGOsource = params.source
+      ? params.source === PLAYER_EVENT_SOURCE.RGO
+      : false;
     var question = this.get('questionService')
       .readQuestion(params.questionId)
       .then(function(question) {
