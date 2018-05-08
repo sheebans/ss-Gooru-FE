@@ -177,6 +177,25 @@ export default Ember.Controller.extend(ModalMixin, {
      */
     updateClass: function() {
       this.saveClass();
+    },
+
+    /**
+     * Triggered from a co-teacher card of class mgt
+     */
+    removeCoteacher: function(coteacher) {
+      var classCollaboratorsRef = this.get('collaborators');
+      let classCollaborators = classCollaboratorsRef.copy();
+      classCollaborators.reduce((acc, ccb, index, ccArr) => {
+        if (ccb.id === coteacher.id) {
+          ccArr.removeAt(index);
+        }
+      });
+      let classCollaboratorArr = classCollaborators.map(ccb => ccb.id);
+      this.get('classService')
+        .removeCoTeacherFromClass(this.get('class.id'), classCollaboratorArr)
+        .then(() => {
+          classCollaboratorsRef = classCollaborators;
+        });
     }
   },
 
@@ -189,6 +208,8 @@ export default Ember.Controller.extend(ModalMixin, {
    * @property {Class}
    */
   class: Ember.computed.alias('classController.class'),
+
+  collaborators: Ember.computed.alias('classController.class.collaborators'),
 
   /**
    * @property {Course}

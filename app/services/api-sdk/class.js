@@ -35,14 +35,17 @@ export default Ember.Service.extend({
   archiveClass: function(classId) {
     var service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').archiveClass(classId).then(
-        function() {
-          resolve(classId);
-        },
-        function(error) {
-          reject(error);
-        }
-      );
+      service
+        .get('classAdapter')
+        .archiveClass(classId)
+        .then(
+          function() {
+            resolve(classId);
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -114,7 +117,10 @@ export default Ember.Service.extend({
   deleteClass: function(classId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').deleteClass(classId).then(resolve, reject);
+      service
+        .get('classAdapter')
+        .deleteClass(classId)
+        .then(resolve, reject);
     });
   },
   /**
@@ -142,23 +148,26 @@ export default Ember.Service.extend({
   joinClass: function(code) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').joinClass(code).then(
-        function(responseData, textStatus, request) {
-          let classId = request.getResponseHeader('location');
-          resolve(classId);
-        },
-        function(error) {
-          //handling server errors
-          const status = error.status;
-          if (status === 400) {
-            reject({ status: status, code: 'restricted' });
-          } else if (status === 404) {
-            reject({ status: status, code: 'not-found' });
-          } else {
-            reject(error);
+      service
+        .get('classAdapter')
+        .joinClass(code)
+        .then(
+          function(responseData, textStatus, request) {
+            let classId = request.getResponseHeader('location');
+            resolve(classId);
+          },
+          function(error) {
+            //handling server errors
+            const status = error.status;
+            if (status === 400) {
+              reject({ status: status, code: 'restricted' });
+            } else if (status === 404) {
+              reject({ status: status, code: 'not-found' });
+            } else {
+              reject(error);
+            }
           }
-        }
-      );
+        );
     });
   },
 
@@ -170,42 +179,48 @@ export default Ember.Service.extend({
   findMyClasses: function(profile) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').getMyClasses().then(
-        function(response) {
-          var classesModel = service
-            .get('classSerializer')
-            .normalizeClasses(response);
-          if (profile) {
-            Ember.$.each(classesModel.get('classes'), function(index, aClass) {
-              //when it has no owner we asume is the provided profile
-              if (!aClass.get('owner')) {
-                aClass.set('owner', profile);
+      service
+        .get('classAdapter')
+        .getMyClasses()
+        .then(
+          function(response) {
+            var classesModel = service
+              .get('classSerializer')
+              .normalizeClasses(response);
+            if (profile) {
+              Ember.$.each(classesModel.get('classes'), function(
+                index,
+                aClass
+              ) {
+                //when it has no owner we asume is the provided profile
+                if (!aClass.get('owner')) {
+                  aClass.set('owner', profile);
+                }
+              });
+              if (profile.get('isTeacher')) {
+                classesModel.set(
+                  'classes',
+                  service.sortClasses(
+                    classesModel.get('classes'),
+                    classesModel.get('ownerList')
+                  )
+                );
+              } else {
+                classesModel.set(
+                  'classes',
+                  service.sortClasses(
+                    classesModel.get('classes'),
+                    classesModel.get('memberList')
+                  )
+                );
               }
-            });
-            if (profile.get('isTeacher')) {
-              classesModel.set(
-                'classes',
-                service.sortClasses(
-                  classesModel.get('classes'),
-                  classesModel.get('ownerList')
-                )
-              );
-            } else {
-              classesModel.set(
-                'classes',
-                service.sortClasses(
-                  classesModel.get('classes'),
-                  classesModel.get('memberList')
-                )
-              );
             }
+            resolve(classesModel);
+          },
+          function(error) {
+            reject(error);
           }
-          resolve(classesModel);
-        },
-        function(error) {
-          reject(error);
-        }
-      );
+        );
     });
   },
 
@@ -217,16 +232,19 @@ export default Ember.Service.extend({
   readClassInfo: function(classId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').readClassInfo(classId).then(
-        function(response) {
-          resolve(
-            service.get('classSerializer').normalizeReadClassInfo(response)
-          );
-        },
-        function(error) {
-          reject(error);
-        }
-      );
+      service
+        .get('classAdapter')
+        .readClassInfo(classId)
+        .then(
+          function(response) {
+            resolve(
+              service.get('classSerializer').normalizeReadClassInfo(response)
+            );
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -238,16 +256,19 @@ export default Ember.Service.extend({
   readClassMembers: function(classId) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      service.get('classAdapter').readClassMembers(classId).then(
-        function(response) {
-          resolve(
-            service.get('classSerializer').normalizeReadClassMembers(response)
-          );
-        },
-        function(error) {
-          reject(error);
-        }
-      );
+      service
+        .get('classAdapter')
+        .readClassMembers(classId)
+        .then(
+          function(response) {
+            resolve(
+              service.get('classSerializer').normalizeReadClassMembers(response)
+            );
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   },
 
@@ -446,6 +467,22 @@ export default Ember.Service.extend({
   sortClasses: function(classes, orderArray) {
     return classes.sort(function(class1, class2) {
       return orderArray.indexOf(class1.id) - orderArray.indexOf(class2.id);
+    });
+  },
+
+  /**
+   * Remove co-teacher From Class
+   * @param classId
+   * @param userId the user id to delete
+   * @returns {Promise}
+   */
+  removeCoTeacherFromClass: function(classId, collaborator) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('classAdapter')
+        .removeCoTeacherFromClass(classId, collaborator)
+        .then(resolve, reject);
     });
   }
 });

@@ -285,7 +285,7 @@
 
         .teacherprofileimg {
           width: 50%;
-          height: 42%;
+          height: 39.5%;
           border-radius: 50%;
           margin-left: auto;
           margin-right: auto;
@@ -379,6 +379,18 @@
               font-size: 15px;
             }
           }
+        }
+      }
+      // Special  behavior for single card
+      .teacher-card-shape:only-child {
+        margin-left: auto;
+        margin-right: auto;
+        .teachername {
+          margin-top: auto;
+          height: 33%;
+        }
+        .owner {
+          margin-top: auto;
         }
       }
     }

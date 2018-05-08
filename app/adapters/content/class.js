@@ -275,5 +275,28 @@ export default Ember.Object.extend({
     return {
       Authorization: `Token ${this.get('session.token-api3')}`
     };
+  },
+
+  /**
+   * Remove co-teacher From Class
+   * @param classId
+   * @param userId the user id to delete
+   * @returns {Promise}
+   */
+  removeCoTeacherFromClass: function(classId, collaborator) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/${classId}/collaborators`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({
+        collaborator: collaborator
+      })
+    };
+    return Ember.$.ajax(url, options);
   }
 });

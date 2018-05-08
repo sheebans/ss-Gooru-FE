@@ -66,7 +66,7 @@
                      {{gru-icon name='account_circle' }}
                   </span>
                   <div class='t-ver-line'></div>
-                  <span data-toggle="tooltip" title='Remove' class='account-circle' {{action 'removeStudent' coteacher}}>
+                  <span data-toggle="tooltip" title='Remove' class='account-circle' {{action 'removeCoteacher' coteacher}}>
                      {{gru-icon name='remove_circle' }}
                   </span>
                   <div class='profile-lbl'>Profile</div>
@@ -89,14 +89,14 @@
                 <span></span>
             </th>
             <th>
-              <div class='sortable last-name datacolumn' {{action 'sortStudents' 'lastName'}}>
-                <span>{{t "teacher-landing.class.class-management-tab.last-name"}}</span>
+              <div class='sortable first-name datacolumn' {{action 'sortStudents' 'firstName'}}>
+                <span>{{t "teacher-landing.class.class-management-tab.first-name"}}</span>
                 {{gru-icon name='swap_vert'}}
               </div>
             </th>
             <th>
-              <div class='sortable first-name datacolumn' {{action 'sortStudents' 'firstName'}}>
-                <span>{{t "teacher-landing.class.class-management-tab.first-name"}}</span>
+              <div class='sortable last-name datacolumn' {{action 'sortStudents' 'lastName'}}>
+                <span>{{t "teacher-landing.class.class-management-tab.last-name"}}</span>
                 {{gru-icon name='swap_vert'}}
               </div>
             </th>
@@ -132,13 +132,13 @@
           {{#each sortedMembers as |student|}}
             <tr class="student">
               <td class= 'student'>
-                <span class='Shape' data-toggle="tooltip" title='Pathway' {{action 'pathwayStudent' student}}>
+                <span class='Shape' data-toggle="tooltip" title='Profile' {{action 'profileStudent' student}}>
                   <img src={{student.avatarUrl}} class='miniprofile'>
                 </span>
               </td>
 
-              <td class="last-name datacolumn"><span>{{student.lastName}}</span></td>
               <td class="first-name datacolumn"><span>{{student.firstName}}</span></td>
+              <td class="last-name datacolumn"><span>{{student.lastName}}</span></td>
               <td class="student-id datacolumn"><span>{{student.studentId}}</span></td>
               <td class="student-actions">
                 <span class= 'Shape' data-toggle="tooltip" title= 'Proficiency' {{action
@@ -154,7 +154,7 @@
               </td>
               <td class="student-actions">
                 <span class='Shape' data-toggle="tooltip" title='Pathway' {{action
-                  'profileStudent' student}}>
+                  'pathwayStudent' student}}>
                  {{gru-icon name='arrow_forward'}}
                 </span>
               </td>
