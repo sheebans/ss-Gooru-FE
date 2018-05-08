@@ -1,9 +1,16 @@
 <header>
     <div class="header-content">
+      {{#if (not isRGOsource)}}
         <button type="button" class="btn-back" {{action "goBack"}}>
           {{gru-icon name="keyboard_arrow_left"}}  {{t 'common.back'}}
         </button>
+      {{/if}}
         <div class="heading">
+          {{#if isRGOsource}}
+            <div class="close-icon" {{action "onCloseWindow"}} title="Close" data-toggle="tooltip" data-placement="bottom">
+              {{gru-icon name="clear"}}
+            </div>
+          {{/if}}
             <div class="information">
                 <h1 title="{{{question.title}}}">{{{question.title}}}</h1>
                 <div class="details">

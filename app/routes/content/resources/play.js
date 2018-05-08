@@ -1,6 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  queryParams: {
+    source: {
+      refreshModel: true
+    }
+  },
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -28,7 +33,7 @@ export default Ember.Route.extend({
 
   model: function(params) {
     var route = this;
-
+    var isRGOsource = params.source ? params.source === 'rgo' : false;
     var resource = this.get('resourceService')
       .readResource(params.resourceId)
       .then(function(resource) {
@@ -42,11 +47,13 @@ export default Ember.Route.extend({
       });
 
     return Ember.RSVP.hash({
-      resource: resource
+      resource: resource,
+      isRGOsource: isRGOsource
     });
   },
 
   setupController(controller, model) {
     controller.set('resource', model.resource);
+    controller.set('isRGOsource', model.isRGOsource);
   }
 });
