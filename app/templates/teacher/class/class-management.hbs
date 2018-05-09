@@ -66,7 +66,7 @@
                      {{gru-icon name='account_circle' }}
                   </span>
                   <div class='t-ver-line'></div>
-                  <span data-toggle="tooltip" title='Remove' class='account-circle' {{action 'removeStudent' coteacher}}>
+                  <span data-toggle="tooltip" title='Remove' class='account-circle' {{action 'removeCoteacher' coteacher}}>
                      {{gru-icon name='remove_circle' }}
                   </span>
                   <div class='profile-lbl'>Profile</div>
@@ -132,7 +132,7 @@
           {{#each sortedMembers as |student|}}
             <tr class="student">
               <td class= 'student'>
-                <span class='Shape' data-toggle="tooltip" title='Pathway' {{action 'pathwayStudent' student}}>
+                <span class='Shape' data-toggle="tooltip" title='Profile' {{action 'profileStudent' student}}>
                   <img src={{student.avatarUrl}} class='miniprofile'>
                 </span>
               </td>
@@ -154,7 +154,7 @@
               </td>
               <td class="student-actions">
                 <span class='Shape' data-toggle="tooltip" title='Pathway' {{action
-                  'profileStudent' student}}>
+                  'pathwayStudent' student}}>
                  {{gru-icon name='arrow_forward'}}
                 </span>
               </td>
