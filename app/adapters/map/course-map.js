@@ -38,6 +38,25 @@ export default ApplicationAdapter.extend({
   },
 
   /**
+   * Gets the Course in for for course map
+   * @param {string} courseId - course the lesson belongs to
+   * @param {string} classId - unit the lesson belongs to
+   * @returns {Promise}
+   */
+  getCourseInfo: function(classId, courseId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${courseId}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.get('headers'),
+      data: { classId }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
    * Creates a New Path based on the Context data.
    * @param {MapContext} context - is the context where the suggestion was presented
    * @param {MapSuggestion} suggestion - the suggestion. The suggested path
@@ -65,7 +84,7 @@ export default ApplicationAdapter.extend({
         //same as the current context
         //TODO: we need more clarification about when to use these values, for now are not needed
         //      'target_course_id': context.get('courseId'),
-        //      'target_unit_id': context.get('unitId'),
+        //      'target_unit_id': context.get('unitId'),adapters/map/course-map
         //      'target_lesson_id': context.get('lessonId'),
         //suggestion information
         target_content_type: suggestion.get('type'),
@@ -81,11 +100,14 @@ export default ApplicationAdapter.extend({
       })
     };
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      Ember.$
-        .ajax(url, options)
-        .then(function(responseData, textStatus, request) {
-          resolve(request.getResponseHeader('location'));
-        }, reject);
+      Ember.$.ajax(url, options).then(function(
+        responseData,
+        textStatus,
+        request
+      ) {
+        resolve(request.getResponseHeader('location'));
+      },
+      reject);
     });
   }
 });

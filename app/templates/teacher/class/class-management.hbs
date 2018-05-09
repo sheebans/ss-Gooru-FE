@@ -41,14 +41,14 @@
       </div>
     </div>
   </div>
-  <div class="teacherinfo" > 
-      <span class="teacher-title">Teachers</span>  
+  <div class="teacherinfo" >
+      <span class="teacher-title">Teachers</span>
       <div class='line-sep-hr'></div>
       <div class="teachercard">
         <div class="teacher-card-shape">
               <img src={{class.owner.avatarUrl}}  class="teacherprofileimg">
             <span class='owner'>Owner</span>
-            <span class='teachername'>{{class.owner.firstName}} {{class.owner.lastName}}</span>          
+            <span class='teachername'>{{class.owner.firstName}} {{class.owner.lastName}}</span>
         </div>
 
            {{#each class.collaborators as |coteacher|}}
@@ -59,7 +59,7 @@
 
             {{!-- <span class='teachername'>{{coteacher.firstName}} {{coteacher.lastName}}</span> --}}
             <div class="teacherexinfocontainer">
-                <div class='t-top-line'></div> 
+                <div class='t-top-line'></div>
                 {{!-- straignt line  --}}
               <div class="teacherexinfo">
                   <span data-toggle="tooltip" title='Profile' class='material-icons Shape posabs'{{action 'profileStudent' coteacher}}>
@@ -72,12 +72,12 @@
                   <div class='profile-lbl'>Profile</div>
                   <div class='remove-lbl'>Remove</div>
               </div>
-            </div> 
+            </div>
             {{!-- container --}}
           </div>
           {{/each}}
       </div>
-  </div> 
+  </div>
   {{#if sortedMembers}}
 
     <span  class="student-title"> Students</span>

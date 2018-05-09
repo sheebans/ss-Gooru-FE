@@ -3,7 +3,14 @@ import LessonSerializer from 'gooru-web/serializers/content/lesson';
 import CollectionSerializer from 'gooru-web/serializers/content/collection';
 import AssessmentSerializer from 'gooru-web/serializers/content/assessment';
 import AlternatePathSerializer from 'gooru-web/serializers/content/alternate-path';
-import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
+import CourseModel from 'gooru-web/models/content/course';
+import UnitSerializer from 'gooru-web/serializers/content/unit';
+import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
+import {
+  DEFAULT_IMAGES,
+  ASSESSMENT_SUB_TYPES,
+  TAXONOMY_LEVELS
+} from 'gooru-web/config/config';
 
 /**
  * Serializer to support the Course Map operations
@@ -11,6 +18,8 @@ import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
  * @typedef {Object} CourseMapSerializer
  */
 export default Ember.Object.extend({
+  session: Ember.inject.service('session'),
+
   /**
    * @property {LessonSerializer} lessonSerializer
    */
@@ -43,6 +52,14 @@ export default Ember.Object.extend({
     this.set(
       'alternatePathSerializer',
       AlternatePathSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'unitSerializer',
+      UnitSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'taxonomySerializer',
+      TaxonomySerializer.create(Ember.getOwner(this).ownerInjection())
     );
   },
 
@@ -102,6 +119,62 @@ export default Ember.Object.extend({
       .get('children')
       .push(...alternatePathsMap[ASSESSMENT_SUB_TYPES.BENCHMARK]);
     return lesson;
+  },
+
+  /**
+   * Normalize a Course response
+   *
+   * @param payload - The endpoint response in JSON format
+   * @param {[]} owners owner details
+   * @returns {Content/Course} Course Model
+   */
+  normalizeCourseInfo: function(payload, owners) {
+    const serializer = this;
+    payload = payload.course_path;
+    const basePath = serializer.get('session.cdnUrls.content');
+    const appRootPath = this.get('appRootPath'); //configuration appRootPath
+    const thumbnailUrl = payload.thumbnail
+      ? basePath + payload.thumbnail
+      : appRootPath + DEFAULT_IMAGES.COURSE;
+    const owner = owners ? owners.findBy('id', payload.owner_id) : null;
+    const metadata = payload.metadata || {};
+
+    return CourseModel.create(Ember.getOwner(serializer).ownerInjection(), {
+      id: payload.id,
+      collaborator: payload.collaborator ? payload.collaborator : [],
+      creatorId: payload.creator_id,
+      originalCourseId: payload.original_course_id,
+      originalCreatorId: payload.original_creator_id,
+      children: serializer
+        .get('unitSerializer')
+        .normalizeUnits(payload.unit_summary),
+      description: payload.description,
+      isPublished:
+        payload.publish_status && payload.publish_status === 'published',
+      isVisibleOnProfile:
+        typeof payload.visible_on_profile !== 'undefined'
+          ? payload.visible_on_profile
+          : true,
+      owner: owner ? owner : null,
+      ownerId: payload.owner_id,
+      subject: payload.subject_bucket,
+      taxonomy: serializer
+        .get('taxonomySerializer')
+        .normalizeTaxonomyObject(payload.taxonomy, TAXONOMY_LEVELS.COURSE),
+      thumbnailUrl: thumbnailUrl,
+      title: payload.title,
+      unitCount: payload.unit_count
+        ? payload.unit_count
+        : payload.unit_summary ? payload.unit_summary.length : 0,
+      metadata: metadata,
+      audience:
+        metadata.audience && metadata.audience.length > 0
+          ? metadata.audience
+          : [],
+      useCase: payload.use_case,
+      version: payload.version
+      // TODO More properties will be added here...
+    });
   },
 
   /**

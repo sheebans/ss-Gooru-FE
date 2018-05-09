@@ -1,0 +1,165 @@
+.gru-learner-pathway {
+  padding: 20px 0 0;
+  width: 135%;
+  margin-left: -100px;
+
+  ol.accordion-course {
+    background-color: $white;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
+    list-style-type: none;
+    padding-left: 0;
+
+    .user-course-info {
+      width: 100%;
+      display: inline-block;
+      height: 130px;
+      border-bottom: 1px solid #dfe3e6;
+
+      .user-profile-info {
+        margin: 0 auto;
+
+        .profile {
+          padding: 8px;
+
+          .img-container {
+            width: 110px;
+            height: 110px;
+            overflow: hidden;
+            border-radius: 50px;
+            margin-left: 15px;
+            margin-right: 15px;
+          }
+        }
+      }
+
+      .class-performance {
+        width: 85%;
+
+        .trophy {
+          text-transform: capitalize;
+          font-size: 16px;
+          display: inherit;
+          font-weight: 400;
+        }
+
+        .student-name {
+          text-transform: capitalize;
+          font-size: 14px;
+          display: inherit;
+          font-weight: 600;
+        }
+      }
+
+      .close {
+        display: grid;
+        width: 10%;
+        margin-top: -55px;
+
+        .clear-button {
+          font-size: 30px;
+          color: #cbd2d7;
+          margin-left: 21px;
+        }
+
+        .text {
+          text-transform: uppercase;
+          font-size: 15px;
+          font-weight: 400;
+          text-align: center;
+        }
+      }
+
+      .performance {
+        width: 65%;
+        display: inherit;
+
+        .progress {
+          height: 12px;
+        }
+
+        .student {
+          width: 100%;
+
+          .student-performance {
+            width: 92%;
+            float: left;
+
+            .progress {
+              background-color: transparent;
+              position: initial;
+              margin-bottom: 6px;
+            }
+          }
+
+          .score-text {
+            font-size: 12px;
+          }
+        }
+
+        .class {
+          width: 100%;
+          display: flex;
+          height: 10px;
+
+          .class-performance {
+            width: 92%;
+            float: left;
+
+            .progress {
+              background-color: transparent;
+              position: initial;
+              margin-bottom: 0;
+            }
+          }
+
+          .score-text {
+            font-size: 12px;
+          }
+        }
+
+        .class-average {
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+
+  .panel {
+    background-color: transparent;
+    border: 0 none;
+    border-radius: 0;
+    box-shadow: none;
+    height: 67px;
+  }
+
+  .panel-heading {
+    position: relative;
+
+    .panel-title {
+      > a {
+        display: inline-block;
+        max-width: 54%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        @media (min-width: $screen-sm) {
+          max-width: 95%;
+        }
+
+        &.disabled {
+          font-style: italic;
+          color: $dark-100;
+        }
+      }
+    }
+  }
+
+  .gru-user-icons {
+    &.visible-xs {
+      margin-top: 8px;
+    }
+  }
+}
