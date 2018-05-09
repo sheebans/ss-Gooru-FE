@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import AccordionMixin from '../../mixins/gru-accordion';
+import { getBarGradeColor } from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend(AccordionMixin, {
   // -------------------------------------------------------------------------
@@ -8,6 +9,11 @@ export default Ember.Component.extend(AccordionMixin, {
    * @type {ClassService} Service to retrieve class information
    */
   classService: Ember.inject.service('api-sdk/class'),
+
+  /**
+   * @type {ProfileService} Service to retrieve profile information
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
 
   /**
    * @type {PerformanceService} Service to retrieve class performance summary
@@ -40,6 +46,49 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   isLoading: false,
 
+  /**
+   * calculate  the class average score as a width
+   * @property {string}
+   */
+  classAverage: Ember.computed('classPerformance', function() {
+    let component = this;
+    let score = component.get('classPerformance.score');
+    return Ember.String.htmlSafe(`width: ${score}%;`);
+  }),
+
+  /**
+   * calculate  the class average by student performance score as a width
+   * @property {string}
+   */
+  studentAverage: Ember.computed('studentPerformance', function() {
+    let component = this;
+    let score = component.get('studentPerformance.score');
+    return Ember.String.htmlSafe(`width: ${score}%;`);
+  }),
+
+  /**
+   * @property {String} barColor
+   * Computed property to know the color of the small bar
+   */
+  studentColorStyle: Ember.computed('studentPerformance', function() {
+    let score = this.get('studentPerformance.score');
+    this.set('studentColor', getBarGradeColor(score));
+    return Ember.String.htmlSafe(
+      `background-color: ${getBarGradeColor(score)};`
+    );
+  }),
+  /**
+   * @property {String} barColor
+   * Computed property to know the color of the small bar
+   */
+  classColorStyle: Ember.computed('classPerformance', function() {
+    let score = this.get('classPerformance.score');
+    this.set('classColor', getBarGradeColor(score));
+    return Ember.String.htmlSafe(
+      `background-color: ${getBarGradeColor(score)};`
+    );
+  }),
+
   item: Ember.computed(function() {
     return this.get('model');
   }),
@@ -53,14 +102,38 @@ export default Ember.Component.extend(AccordionMixin, {
     component.set('isLoading', true);
     let classId = component.get('model.classId');
     let courseId = component.get('model.courseId');
+    let studentId = component.get('model.userId');
     component.set('currentClass', component.get('model'));
-    component
+    const coursePromise = component
       .get('courseMapService')
-      .getCourseInfo(classId, courseId)
-      .then(function(course) {
-        component.set('items', course.get('children'));
-        component.set('isLoading', false);
-      });
+      .getCourseInfo(classId, courseId);
+
+    const classPerfomance = component
+      .get('performanceService')
+      .findClassPerformanceSummaryByClassIds([classId]);
+
+    const studentProfile = component
+      .get('profileService')
+      .readUserProfile(studentId);
+
+    const performanceSummaryPromise = component
+      .get('performanceService')
+      .findClassPerformanceSummaryByStudentAndClassIds(studentId, [classId]);
+
+    return Ember.RSVP.hash({
+      classPerfomance: classPerfomance,
+      course: coursePromise,
+      classPerformanceSummaryItems: performanceSummaryPromise,
+      profile: studentProfile
+    }).then(function(hash) {
+      let course = hash.course;
+      component.set('items', course.get('children'));
+      component.set('classPerformance', hash.classPerfomance[0]);
+      component.set('studentPerformance', hash.classPerformanceSummaryItems[0]);
+      component.set('course', hash.course);
+      component.set('profile', hash.profile);
+      component.set('isLoading', false);
+    });
   },
 
   // -------------------------------------------------------------------------
@@ -68,23 +141,6 @@ export default Ember.Component.extend(AccordionMixin, {
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-    /**
-     * @function goLive
-     */
-    goLive: function(collectionId) {
-      this.sendAction('onGoLive', collectionId);
-    },
-
-    /**
-     * Launch an assessment on-air
-     *
-     * @function actions:launchOnAir
-     */
-    launchOnAir: function(collectionId) {
-      // Send the action so that it bubbles up to the route
-      this.sendAction('onLaunchOnAir', collectionId);
-    },
-
     /**
      * @function actions:selectItem
      * @param {string} collection - collection or assessment
@@ -95,33 +151,11 @@ export default Ember.Component.extend(AccordionMixin, {
       this.sendAction('onSelectResource', unitId, lessonId, collection);
     },
 
-    /**
-     * @function studyNow
-     * @param {string} type - collection or assessment
-     * @param {string} lessonId - lesson id
-     * @param {string} unitId - lesson id
-     * @param {string} item - collection, assessment, lesson or resource
-     * @see components/class/overview/gru-accordion-lesson
-     */
-    studyNow: function(type, unitId, lessonId, item) {
-      this.sendAction('onStudyNow', type, unitId, lessonId, item);
-    },
-    /**
-     * Trigger the 'onLocationUpdate' event handler
-     *
-     * @function actions:updateLocation
-     * @param {string} newLocation - String of the form 'unitId[+lessonId[+resourceId]]'
-     */
-    updateLocation: function(newLocation) {
-      if (this.get('onLocationUpdate')) {
-        this.get('onLocationUpdate')(newLocation);
-      }
-    },
-    /**
-     * Trigger action to update content visibility list
-     */
-    updateContentVisibility: function(contentId, visible) {
-      this.sendAction('onUpdateContentVisibility', contentId, visible);
+    close() {
+      let component = this;
+      component.triggerAction({
+        action: 'closeModal'
+      });
     }
   }
 });
