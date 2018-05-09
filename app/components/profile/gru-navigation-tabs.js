@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { getRoutePathFirstOccurrence } from 'gooru-web/utils/utils';
+import { PROFILE_NAV_MENU_ITEMS } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -42,9 +43,12 @@ export default Ember.Component.extend({
    * DidInsertElement ember event
    */
   didInsertElement: function() {
+    let component = this;
     let firstOccurancePath = getRoutePathFirstOccurrence();
-    var item = firstOccurancePath || this.get('selectedMenuItem');
-    this.highlightMenuItem(item);
+    var item = PROFILE_NAV_MENU_ITEMS.includes(firstOccurancePath)
+      ? firstOccurancePath
+      : component.get('selectedMenuItem');
+    component.highlightMenuItem(item);
   },
 
   // -------------------------------------------------------------------------
