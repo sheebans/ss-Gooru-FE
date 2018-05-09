@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { getRoutePathFirstOccurrence } from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -41,7 +42,8 @@ export default Ember.Component.extend({
    * DidInsertElement ember event
    */
   didInsertElement: function() {
-    var item = this.get('selectedMenuItem');
+    let firstOccurancePath = getRoutePathFirstOccurrence();
+    var item = firstOccurancePath || this.get('selectedMenuItem');
     this.highlightMenuItem(item);
   },
 
@@ -62,7 +64,7 @@ export default Ember.Component.extend({
   /**
    * @property {boolean} roles is student or not for proficiency tabs view
    */
-  isStudent: Ember.computed(function() {
+  isStudent: Ember.computed('profile', function() {
     let component = this;
     return component.get('profile').get('role') === 'student';
   }),
