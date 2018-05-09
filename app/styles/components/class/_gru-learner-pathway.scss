@@ -1,12 +1,11 @@
 .gru-learner-pathway {
-  padding: 20px 0 0;
+  padding: 10px 0 0;
   width: 135%;
   margin-left: -100px;
 
   ol.accordion-course {
     background-color: $white;
     border-radius: 4px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
     list-style-type: none;
     padding-left: 0;
 
@@ -76,6 +75,9 @@
 
         .progress {
           height: 12px;
+          .progress-bar:last-child:before {
+            height: auto;
+          }
         }
 
         .student {
