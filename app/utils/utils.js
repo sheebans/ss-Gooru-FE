@@ -247,9 +247,7 @@ export function getReactionIcon(reactionValue, basePath) {
     if (reaction && reaction.value && reaction.unicode) {
       html = `<div class="emotion emotion-${reaction.value}">`;
       html += '  <svg class="svg-sprite">';
-      html += `    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="${basePath}assets/emoji-one/emoji.svg#${
-        reaction.unicode
-      }"></use>`;
+      html += `    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="${basePath}assets/emoji-one/emoji.svg#${reaction.unicode}"></use>`;
       html += ' </svg>';
       html += '</div>';
     } else {
@@ -958,4 +956,13 @@ export function getParameterByName(name, url) {
     return '';
   }
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+/**
+ * Find the route path first occurrence
+ * @return {String}
+ */
+export function getRoutePathFirstOccurrence() {
+  let currentLocationPath = window.location.pathname;
+  return currentLocationPath.split('/')[2];
 }
