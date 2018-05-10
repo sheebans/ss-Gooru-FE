@@ -1,5 +1,5 @@
 {{#if model.isReadonly}}
-  <div class="content">
+  <div class="content standard-tag">
     {{#if model.data}}
     <b class="tag-label">{{model.data.label}}</b>
      <span class="tag-caption">{{model.data.caption}}</span>
@@ -7,7 +7,7 @@
     <b class="tag-label">{{model.code}}</b>
      <span class="tag-caption">{{model.frameworkCode}}</span>
     {{/if}}
-   
+
   </div>
 
   {{#if hasTooltip}}
