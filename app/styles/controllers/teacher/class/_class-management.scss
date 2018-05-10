@@ -265,7 +265,9 @@
       width: 956px;
       height: 1px;
       border: solid 0.5px $gray-base;
-      margin-top: 5px;
+      margin-top: 0.1%;
+      margin-bottom: 1.5%;
+      border-bottom: none;
     }
     .teachercard {
       display: flex;
@@ -281,7 +283,7 @@
         flex-flow: column;
         justify-items: center;
         margin-right: 1.5%;
-        margin-top: 1.5%;
+        margin-bottom: 1.5%;
 
         .teacherprofileimg {
           width: 50%;
@@ -314,17 +316,10 @@
         .teacherexinfocontainer {
           flex: 1;
           flex-flow: row;
-          margin-top: 10px;
-          .t-top-line {
-            width: 179px;
-            height: 1px;
-            border: solid 0.5px $gray-base;
-            margin-left: auto;
-            margin-right: auto;
-          }
+          margin-top: 7.5%;
 
           .teacherexinfo {
-            display: inline;
+            display: flex;
             position: relative;
 
             .posabs {
@@ -333,6 +328,14 @@
               left: 56px;
             }
 
+            .t-top-line {
+              width: 179px;
+              height: 1px;
+              border: solid 0.5px $gray-base;
+              margin-left: auto;
+              margin-right: auto;
+              border-bottom: none;
+            }
             .t-ver-line {
               @extend .posabs;
               width: 1px;
@@ -340,6 +343,7 @@
               border: solid 0.5px $gray-base;
               left: 111px;
               top: 0px;
+              border-left: none;
             }
 
             .Shape {
