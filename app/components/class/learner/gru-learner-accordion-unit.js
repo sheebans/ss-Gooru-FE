@@ -2,6 +2,8 @@ import Ember from 'ember';
 import AccordionMixin from 'gooru-web/mixins/gru-accordion';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
 
+import { getBarGradeColor } from 'gooru-web/utils/utils';
+
 // Whenever the observer 'parsedLocationChanged' is running, this flag is set so
 // clicking on the units should not update the location
 
@@ -173,6 +175,56 @@ export default Ember.Component.extend(AccordionMixin, {
       let unitId = parsedLocation[0];
       this.updateAccordionById(unitId);
     }
+  }),
+
+  /**
+   * @property {Text} score text
+   * Computed property for the performance score text to be displayed
+   */
+  scoreText: Ember.computed('model.performance', function() {
+    let performanceSummary = this.get('model.performance');
+    let scorePercentage = performanceSummary
+      ? performanceSummary.scoreInPercentage
+      : null;
+    return scorePercentage >= 0 && scorePercentage !== null
+      ? `${scorePercentage}%`
+      : '--';
+  }),
+
+  /**
+   * @property {Text} score text
+   * Computed property for the performance score text to be displayed
+   */
+  scoreVal: Ember.computed('model.performance', function() {
+    let performanceSummary = this.get('model.performance');
+    let scorePercentage = performanceSummary
+      ? performanceSummary.scoreInPercentage
+      : null;
+    return scorePercentage >= 0 && scorePercentage !== null
+      ? `${scorePercentage}`
+      : '--';
+  }),
+
+  /**
+   * @property {String} widthStyle
+   * Computed property to know the width of the bar
+   */
+  widthStyle: Ember.computed('model.performance', function() {
+    let score = this.get('model.performance');
+    let percentage = score ? score.scoreInPercentage : 0;
+    return Ember.String.htmlSafe(`width: ${percentage}%;`);
+  }),
+
+  /**
+   * @property {String} barColor
+   * Computed property to know the color of the small bar
+   */
+  colorStyle: Ember.computed('model.performance', function() {
+    let score = this.get('model.performance');
+    let scorePercentage = score ? score.scoreInPercentage : 0;
+    return Ember.String.htmlSafe(
+      `background-color: ${getBarGradeColor(scorePercentage)};`
+    );
   }),
 
   // -------------------------------------------------------------------------

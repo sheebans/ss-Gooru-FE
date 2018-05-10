@@ -120,13 +120,36 @@ export default Ember.Component.extend(AccordionMixin, {
       .get('performanceService')
       .findClassPerformanceSummaryByStudentAndClassIds(studentId, [classId]);
 
+    const collectionType = {
+      collectionType: 'assessment'
+    };
+
+    const studentUnitPerformance = component
+      .get('courseMapService')
+      .findClassPerformanceByStudentIdUnitLevel(
+        classId,
+        courseId,
+        studentId,
+        collectionType
+      );
+
     return Ember.RSVP.hash({
       classPerfomance: classPerfomance,
       course: coursePromise,
       classPerformanceSummaryItems: performanceSummaryPromise,
-      profile: studentProfile
+      profile: studentProfile,
+      studentUnitPerformance: studentUnitPerformance
     }).then(function(hash) {
+      let unitsPerformance = hash.studentUnitPerformance[0];
+      let unitUsageData = unitsPerformance.usageData;
       let course = hash.course;
+      course.get('children').map(units => {
+        let id = units.get('id');
+        let data = unitUsageData.findBy('unitId', id);
+        if (data) {
+          units.set('performance', data);
+        }
+      });
       component.set('items', course.get('children'));
       component.set('classPerformance', hash.classPerfomance[0]);
       component.set('studentPerformance', hash.classPerformanceSummaryItems[0]);
@@ -136,8 +159,6 @@ export default Ember.Component.extend(AccordionMixin, {
     });
   },
 
-  // -------------------------------------------------------------------------
-  // Actions
   // -------------------------------------------------------------------------
   // Actions
   actions: {

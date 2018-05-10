@@ -17,6 +17,8 @@ export default ApplicationAdapter.extend({
    */
   namespace: '/api/nucleus/v2/course-map',
 
+  insightsNamespace: '/api/nucleus-insights/v2',
+
   /**
    * Gets the lesson infor for course map
    * @param {string} courseId - course the lesson belongs to
@@ -32,7 +34,39 @@ export default ApplicationAdapter.extend({
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: adapter.get('headers'),
-      data: { classId }
+      data: {
+        classId
+      }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Gets the students performance  by unit leve for course map
+   * @param {string} courseId - course
+   * @param {string} classId - classId
+   * @param {string} userId - userId to search for
+   * @returns {Promise}
+   */
+  findClassPerformanceByStudentIdUnitLevel: function(
+    classId,
+    courseId,
+    studentId,
+    option = {
+      collectionType: 'assessment'
+    }
+  ) {
+    const adapter = this;
+    const namespace = adapter.get('insightsNamespace');
+    const url = `${namespace}/class/${classId}/course/${courseId}/performance`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.get('headers'),
+      data: {
+        collectionType: option.collectionType,
+        userUid: studentId
+      }
     };
     return Ember.$.ajax(url, options);
   },
@@ -51,7 +85,9 @@ export default ApplicationAdapter.extend({
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: adapter.get('headers'),
-      data: { classId }
+      data: {
+        classId
+      }
     };
     return Ember.$.ajax(url, options);
   },

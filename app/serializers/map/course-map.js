@@ -178,6 +178,15 @@ export default Ember.Object.extend({
   },
 
   /**
+   * Get normalizeClassPerformanceByStudentId
+   * @returns {Promise.<[]>}
+   */
+  normalizeClassPerformanceByStudentId: function(response) {
+    response = Ember.A(response.content);
+    return response;
+  },
+
+  /**
    * Normalize the alternate paths for a lesson
    * @param data - The alternate paths in JSON format
    * @returns {Collection[]} alternate paths list

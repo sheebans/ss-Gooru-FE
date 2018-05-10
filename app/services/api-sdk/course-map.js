@@ -74,6 +74,40 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Gets the course infor for teacher class management -> course map
+   * @param {string} classId - course the belongs to
+   * @param {string} courseId - unit the belongs to
+   * @returns {Promise}
+   */
+  findClassPerformanceByStudentIdUnitLevel: function(
+    classId,
+    courseId,
+    students,
+    options = { collectionType: 'assessment' }
+  ) {
+    const service = this;
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      service
+        .get('courseMapAdapter')
+        .findClassPerformanceByStudentIdUnitLevel(
+          classId,
+          courseId,
+          students,
+          options
+        )
+        .then(
+          response =>
+            resolve(
+              service
+                .get('courseMapSerializer')
+                .normalizeClassPerformanceByStudentId(response)
+            ),
+          reject
+        );
+    });
+  },
+
+  /**
    * Creates a New Path based on the Context data.
    * @param {MapContext} context - is the context where the suggestion was presented
    * @param {MapSuggestion} suggestion - the suggestion. The suggested path
