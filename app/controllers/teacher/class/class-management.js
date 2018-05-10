@@ -147,9 +147,15 @@ export default Ember.Controller.extend(ModalMixin, {
       this.transitionToRoute(`/${studentId}/proficiency/?classId=${classId}`);
     },
 
-    pathwayStudent: function(student) {
-      let studentId = student.get('id');
-      this.transitionToRoute(`/${studentId}/pathway`);
+    pathwayStudent(student) {
+      let controller = this;
+      let userId = student.get('id');
+      let userClassModel = {
+        userId: userId,
+        classId: controller.get('class.id'),
+        courseId: controller.get('class.courseId')
+      };
+      this.send('showModal', 'class.gru-learner-pathway', userClassModel);
     },
 
     /**
@@ -158,7 +164,6 @@ export default Ember.Controller.extend(ModalMixin, {
      */
     saveScore: function() {
       let controller = this;
-
       controller.set('editingScore', false);
       controller.saveClass();
     },

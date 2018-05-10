@@ -17,6 +17,8 @@ export default ApplicationAdapter.extend({
    */
   namespace: '/api/nucleus/v2/course-map',
 
+  insightsNamespace: '/api/nucleus-insights/v2',
+
   /**
    * Gets the lesson infor for course map
    * @param {string} courseId - course the lesson belongs to
@@ -32,7 +34,60 @@ export default ApplicationAdapter.extend({
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: adapter.get('headers'),
-      data: { classId }
+      data: {
+        classId
+      }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Gets the students performance  by unit leve for course map
+   * @param {string} courseId - course
+   * @param {string} classId - classId
+   * @param {string} userId - userId to search for
+   * @returns {Promise}
+   */
+  findClassPerformanceByStudentIdUnitLevel: function(
+    classId,
+    courseId,
+    studentId,
+    option = {
+      collectionType: 'assessment'
+    }
+  ) {
+    const adapter = this;
+    const namespace = adapter.get('insightsNamespace');
+    const url = `${namespace}/class/${classId}/course/${courseId}/performance`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.get('headers'),
+      data: {
+        collectionType: option.collectionType,
+        userUid: studentId
+      }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * Gets the Course in for for course map
+   * @param {string} courseId - course the lesson belongs to
+   * @param {string} classId - unit the lesson belongs to
+   * @returns {Promise}
+   */
+  getCourseInfo: function(classId, courseId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/${courseId}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.get('headers'),
+      data: {
+        classId
+      }
     };
     return Ember.$.ajax(url, options);
   },
@@ -65,7 +120,7 @@ export default ApplicationAdapter.extend({
         //same as the current context
         //TODO: we need more clarification about when to use these values, for now are not needed
         //      'target_course_id': context.get('courseId'),
-        //      'target_unit_id': context.get('unitId'),
+        //      'target_unit_id': context.get('unitId'),adapters/map/course-map
         //      'target_lesson_id': context.get('lessonId'),
         //suggestion information
         target_content_type: suggestion.get('type'),
@@ -81,11 +136,14 @@ export default ApplicationAdapter.extend({
       })
     };
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      Ember.$
-        .ajax(url, options)
-        .then(function(responseData, textStatus, request) {
-          resolve(request.getResponseHeader('location'));
-        }, reject);
+      Ember.$.ajax(url, options).then(function(
+        responseData,
+        textStatus,
+        request
+      ) {
+        resolve(request.getResponseHeader('location'));
+      },
+      reject);
     });
   }
 });
