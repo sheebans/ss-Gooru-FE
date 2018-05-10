@@ -9,7 +9,13 @@ export default Ember.Route.extend({
   model: function(params) {
     const selectedOptionTypes = params.selectedOptionTypes;
     const taxonomies = this.paramsFor('search').taxonomies;
-    const term = this.paramsFor('search').term;
+    const term =
+      !this.paramsFor('search').term &&
+      this.currentModel &&
+      this.currentModel.term
+        ? this.currentModel.term
+        : this.paramsFor('search').term;
+
     const options = {
       formats: selectedOptionTypes,
       taxonomies: taxonomies
@@ -20,17 +26,21 @@ export default Ember.Route.extend({
       options,
       true
     );
-    return Ember.RSVP
-      .hash({
-        term: term,
-        questions: questionResults,
-        selectedOptionTypes: selectedOptionTypes
-      })
-      .catch(function(err) {
-        if (err.status === 400) {
-          return { msg: 'Recovered from rejected promise', error: err };
-        }
-      });
+    return Ember.RSVP.hash({
+      term: term,
+      questions: questionResults,
+      selectedOptionTypes: selectedOptionTypes
+    }).catch(function(err) {
+      if (err.status === 400) {
+        return { msg: 'Recovered from rejected promise', error: err };
+      }
+    });
+  },
+  /**
+   * setting up the queryParams term in trasit controller
+   */
+  afterModel: function(model, transition) {
+    transition.queryParams.term = transition.queryParams.term || model.term;
   },
 
   /**
