@@ -39,8 +39,9 @@
         <span class="class-average">class average</span>
       </div>
     </div>
-    {{#each items as |item index|}}
-      {{class.learner.gru-learner-accordion-unit
+    <div class="unit-body">
+      {{#each items as |item index|}}
+        {{class.learner.gru-learner-accordion-unit
         currentClass=currentClass
         currentCourse=currentCourse
         classMembers=classMembers
@@ -52,7 +53,8 @@
 
   {{else}}
     <li>{{t "common.contentUnavailable"}}</li>
-    {{/each}}
+      {{/each}}
+    </div>
 
   {{/if}}
 </ol>

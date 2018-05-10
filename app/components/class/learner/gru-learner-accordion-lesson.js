@@ -471,7 +471,6 @@ export default Ember.Component.extend(AccordionMixin, {
         let performance = assessments.concat(collection);
         const promises = collections.map(function(collection) {
           const collectionId = collection.get('id');
-          const isAssessment = collection.get('format') === 'assessment';
           const isResource =
             collection.get('format') !== 'assessment' &&
             collection.get('format') !== 'assessment-external' &&
@@ -520,33 +519,6 @@ export default Ember.Component.extend(AccordionMixin, {
               component.get('isStudent') &&
               !collection.get('collectionSubType');
             collection.set('showTrophy', showTrophy);
-
-            const attempts = collectionPerformanceData.get('attempts');
-
-            if (isAssessment) {
-              return component
-                .get('assessmentService')
-                .readAssessment(collectionId)
-                .then(function(assessment) {
-                  const attemptsSettings = assessment.get('attempts');
-                  if (attemptsSettings) {
-                    const noMoreAttempts =
-                      attempts &&
-                      attemptsSettings > 0 &&
-                      attempts >= attemptsSettings;
-                    collectionPerformanceData.set(
-                      'noMoreAttempts',
-                      noMoreAttempts
-                    );
-                    collectionPerformanceData.set(
-                      'isDisabled',
-                      !assessment.get('classroom_play_enabled')
-                    );
-                  }
-                });
-            } else {
-              return Ember.RSVP.resolve(true);
-            }
           }
         });
         Ember.RSVP.all(promises).then(resolve, reject);

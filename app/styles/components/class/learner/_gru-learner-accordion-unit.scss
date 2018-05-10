@@ -4,7 +4,6 @@
   list-style-type: none;
 
   .unit {
-    // padding: 0 0 10px 20px;
     display: flex;
 
     > .panel-title {
@@ -39,7 +38,7 @@
     + .collapse {
       &.in {
         background-color: $light-300;
-        padding: 30px 20px;
+        padding: 13px 15px;
       }
 
       > .panel-body {
