@@ -191,7 +191,7 @@ export default Ember.Controller.extend(ModalMixin, {
         if (ccb.id === coteacher.id) {
           ccArr.removeAt(index);
         }
-      });
+      }, 0);
       let classCollaboratorArr = classCollaborators.map(ccb => ccb.id);
       this.get('classService')
         .removeCoTeacherFromClass(this.get('class.id'), classCollaboratorArr)
