@@ -90,6 +90,15 @@ export default Ember.Component.extend(AccordionMixin, {
         ? `${this.get('model.id')}+${lessonId}`
         : this.get('model.id');
       this.get('onLocationUpdate')(newLocation);
+    },
+
+    /**
+     * Trigger the report actions with params (unitId, lessonId, collectionId, type)
+     *
+     * @function actions:collectionReport
+     */
+    collectionReport(params) {
+      this.sendAction('collectionReport', params);
     }
   },
 

@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="class-performance">
-        <span class="trophy"> assessment with  </span>
+        <!-- <span class="trophy"> assessment with  </span> -->
         <span class="student-name"> {{profile.firstName}} {{profile.lastName}} </span>
       </div>
       <div class="close">
@@ -39,22 +39,51 @@
         <span class="class-average">class average</span>
       </div>
     </div>
-    <div class="unit-body">
-      {{#each items as |item index|}}
-        {{class.learner.gru-learner-accordion-unit
+
+
+    {{#if courseView}}
+      <div class="unit-body">
+        {{#each items as |item index|}}
+          {{class.learner.gru-learner-accordion-unit
         currentClass=currentClass
         currentCourse=currentCourse
         classMembers=classMembers
+        collectionReport="collectionReport"
         model=item
         index=index
         isTeacher=isTeacher
         isNUCourse=isNUCourse
         toggleLocation=toggleLocation}}
 
-  {{else}}
-    <li>{{t "common.contentUnavailable"}}</li>
-      {{/each}}
-    </div>
-
+    {{else}}
+      <li>{{t "common.contentUnavailable"}}</li>
+        {{/each}}
+      </div>
+    {{else}}
+      <div class="report-data">
+        {{#if isReportLoading}}
+          {{three-bounce-spinner}}
+        {{else}}
+          {{#if assessmentResult}}
+            {{reports.gru-assessment-report
+         areAnswersHidden=areAnswersHidden
+         isAnswerKeyHidden=isAnswerKeyHidden
+         assessmentResult=assessmentResult
+         onSelectAttempt='selectAttempt'
+         onViewOEReport='viewOEReport'
+         isPathway=true
+         profile=profile
+         isTeacher=isTeacher
+         onUpdateQuestionScore='onUpdateQuestionScore'
+         isChangeScoreEnabled=isChangeScoreEnabled
+         showChangeScore=showChangeScore
+         isAssessment=isAssessment
+       }}
+          {{else}}
+            {{t 'common.no-available-results'}}
+          {{/if}}
+        {{/if}}
+      </div>
+    {{/if}}
   {{/if}}
 </ol>
