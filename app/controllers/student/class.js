@@ -65,12 +65,6 @@ export default Ember.Controller.extend({
   contentVisibility: null,
 
   /**
-   * Check it's nu course version or not
-   * @property {Boolean}
-   */
-  isNUCourse: null,
-
-  /**
    * @property {boolean} Indicates if course has 1 or more units
    */
   hasUnits: Ember.computed.gt('course.unitCount', 0),

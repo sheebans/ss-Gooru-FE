@@ -280,12 +280,6 @@ export default Ember.Component.extend(AccordionMixin, {
   isResourceSelected: false,
 
   /**
-   * Check it's nu course version or not
-   * @type {Boolean}
-   */
-  isNUCourse: false,
-
-  /**
    * Indicates if it is from daily class activities
    * @property {Boolean}
    */

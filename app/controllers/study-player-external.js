@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { ROLES, NU_COURSE_VERSION } from 'gooru-web/config/config';
+import { ROLES } from 'gooru-web/config/config';
 
 /**
  * Study Player External Controller
@@ -105,12 +105,6 @@ export default Ember.Controller.extend({
   courseVersion: Ember.computed.alias('course.version'),
 
   /**
-   * Check it's nu course version or not
-   * @type {Boolean}
-   */
-  isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
-
-  /**
    * @property {String} It decide to show the back to collection or not.
    */
   showBackToCollection: false,
@@ -160,13 +154,9 @@ export default Ember.Controller.extend({
       {
         elementSelector:
           '.header-panel .performance-completion-take-tour-info .completion',
-        title: controller.get('isNUCourse')
-          ? controller
-            .get('i18n')
-            .t('gru-take-tour.study-player.stepFive.nuTitle')
-          : controller
-            .get('i18n')
-            .t('gru-take-tour.study-player.stepFive.title'),
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFive.title'),
         description: controller
           .get('i18n')
           .t('gru-take-tour.study-player.stepFive.description')

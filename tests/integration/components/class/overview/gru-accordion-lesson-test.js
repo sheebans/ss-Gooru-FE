@@ -561,7 +561,6 @@ test('Non visible switch - NU Course', function(assert) {
                     showLocation=false
                     items=items
                     isTeacher=true
-                    isNUCourse=true
                     currentResource=currentResource
                     isLessonSelected=isLessonSelected
                     onSelectLesson=(action 'selectLesson')
