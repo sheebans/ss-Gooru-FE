@@ -1,8 +1,10 @@
 <div class="gru-assessment-summary">
-  <div class="reports-owner">
-    <span> {{profile.firstName}} {{profile.lastName}}</span>
-  </div>
-{{reports.assessment.gru-summary
+  {{#if (not isPathway)}}
+    <div class="reports-owner">
+      <span> {{profile.firstName}} {{profile.lastName}}</span>
+    </div>
+  {{/if}}
+  {{reports.assessment.gru-summary
   assessmentResult=assessmentResult
   areQuestionLinksHidden=areAnswersHidden
   onSelectAttempt='selectAttempt'
@@ -16,19 +18,19 @@
   oeQuestionCount=orderedOpenEndedQuestions.length
   }}
 
-{{#if (and (not isTeacher) areAnswersHidden)}}
-  <div class="hidden-report">
-    <span>{{t "gru-assessment-report.hidden-report"}}</span>
-  </div>
-{{else}}
-  {{#if assessmentResult.hasMastery}}
-    {{reports.assessment.gru-mastery
+  {{#if (and (not isTeacher) areAnswersHidden)}}
+    <div class="hidden-report">
+      <span>{{t "gru-assessment-report.hidden-report"}}</span>
+    </div>
+  {{else}}
+    {{#if assessmentResult.hasMastery}}
+      {{reports.assessment.gru-mastery
     learningTargets=assessmentResult.mastery
     assessmentResult=assessmentResult
     onBubbleSelect='bubbleSelect'}}
-  {{/if}}
-  {{#if orderedQuestions.length}}
-    {{reports.assessment.gru-questions
+    {{/if}}
+    {{#if orderedQuestions.length}}
+      {{reports.assessment.gru-questions
       isAnswerKeyHidden=isAnswerKeyHidden
       results=orderedQuestions
       showReactionBar=showReactionBar
@@ -39,9 +41,9 @@
       showChangeScore=showChangeScore
       isAssessment=isAssessment
     }}
-  {{/if}}
-  {{#if orderedOpenEndedQuestions.length}}
-    {{reports.assessment.gru-questions
+    {{/if}}
+    {{#if orderedOpenEndedQuestions.length}}
+      {{reports.assessment.gru-questions
       isAnswerKeyHidden=isAnswerKeyHidden
       results=orderedOpenEndedQuestions
       viewMode='open-ended'
@@ -49,11 +51,11 @@
       onViewOEReport='viewOEReport'
       isTeacher=isTeacher
     }}
-  {{/if}}
-  {{#if orderedResources.length}}
-    {{reports.assessment.gru-resources
+    {{/if}}
+    {{#if orderedResources.length}}
+      {{reports.assessment.gru-resources
       results=orderedResources
       showReactionBar=showReactionBar}}
+    {{/if}}
   {{/if}}
-{{/if}}
 </div>

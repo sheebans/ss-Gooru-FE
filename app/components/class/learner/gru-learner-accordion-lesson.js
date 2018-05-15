@@ -95,6 +95,33 @@ export default Ember.Component.extend(AccordionMixin, {
     selectLesson: function(lessonId) {
       this.set('isResourceSelected', false);
       this.loadData(lessonId);
+    },
+
+    /**
+     * Load the report data for this collection / assessment
+     * @function actions:CollectionReport
+     * @returns {undefined}
+     */
+    studentReport: function(collection) {
+      let component = this;
+      let currentClass = component.get('currentClass');
+      let userId = currentClass.userId;
+      let classId = currentClass.classId;
+      let courseId = currentClass.courseId;
+      let unitId = component.get('unitId');
+      let lessonId = component.get('model.id');
+      let collectionId = collection.get('id');
+      let type = collection.get('format');
+      let params = {
+        userId: userId,
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId,
+        lessonId: lessonId,
+        collectionId: collectionId,
+        type: type
+      };
+      this.sendAction('collectionReport', params);
     }
   },
 
