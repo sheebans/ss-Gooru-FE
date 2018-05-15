@@ -139,6 +139,7 @@ export default Ember.Controller.extend(ModalMixin, {
       let controller = this;
       let studentId = student.get('id');
       let classId = controller.get('class.id');
+      localStorage.setItem('classId', classId);
       this.transitionToRoute(`/${studentId}/about?classId=${classId}`);
     },
 

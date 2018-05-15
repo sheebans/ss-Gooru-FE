@@ -63,6 +63,14 @@
         {{#if isReportLoading}}
           {{three-bounce-spinner}}
         {{else}}
+          <div class="col-sm-12 navigation">
+            <button {{action 'goBack'}} class="btn btn-info back">
+            <span>
+              {{gru-icon name='keyboard_arrow_left'}}
+                {{t 'common.back'}}
+            </span>
+          </button>
+          </div>
           {{#if assessmentResult}}
             {{reports.gru-assessment-report
          areAnswersHidden=areAnswersHidden

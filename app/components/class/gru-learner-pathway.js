@@ -242,6 +242,11 @@ export default Ember.Component.extend(AccordionMixin, {
       component.triggerAction({
         action: 'closeModal'
       });
+    },
+
+    goBack() {
+      let component = this;
+      component.set('courseView', true);
     }
   },
 
@@ -251,6 +256,7 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   getStundentCollectionReport(params) {
     let component = this;
+    component.set('courseView', false);
     component.set('isReportLoading', true);
     const context = component.getContext(params);
     const type = params.type || 'collection';
@@ -324,7 +330,6 @@ export default Ember.Component.extend(AccordionMixin, {
       assessmentResult.set('submittedAt', toLocal(session.eventTime));
     }
     component.set('assessmentResult', assessmentResult);
-    component.set('courseView', false);
     component.set('isReportLoading', false);
   },
 
