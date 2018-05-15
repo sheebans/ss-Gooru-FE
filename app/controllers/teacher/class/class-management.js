@@ -139,8 +139,8 @@ export default Ember.Controller.extend(ModalMixin, {
       let controller = this;
       let studentId = student.get('id');
       let classId = controller.get('class.id');
-      this.transitionToRoute(`/${studentId}/about`);
       localStorage.setItem('classId', classId);
+      this.transitionToRoute(`/${studentId}/about?classId=${classId}`);
     },
 
     proficiencyStudent: function(student) {
@@ -199,7 +199,7 @@ export default Ember.Controller.extend(ModalMixin, {
         if (ccb.id === coteacher.id) {
           ccArr.removeAt(index);
         }
-      });
+      }, 0);
       let classCollaboratorArr = classCollaborators.map(ccb => ccb.id);
       this.get('classService')
         .removeCoTeacherFromClass(this.get('class.id'), classCollaboratorArr)

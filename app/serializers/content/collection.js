@@ -115,7 +115,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
       : appRootPath + DEFAULT_IMAGES.COLLECTION;
     const metadata = payload.metadata || {};
     return CollectionModel.create(Ember.getOwner(this).ownerInjection(), {
-      id: payload.target_collection_id || payload.id,
+      id:
+        payload.target_collection_id ||
+        payload.suggested_content_id ||
+        payload.id,
       pathId: payload.id,
       title: payload.title,
       learningObjectives: payload.learning_objective,
@@ -131,18 +134,29 @@ export default Ember.Object.extend(ConfigurationMixin, {
       standards: serializer
         .get('taxonomySerializer')
         .normalizeTaxonomyObject(payload.taxonomy),
-      courseId: payload.target_course_id || payload.course_id,
-      unitId: payload.target_unit_id || payload.unit_id,
-      lessonId: payload.target_lesson_id || payload.lesson_id,
+      courseId:
+        payload.target_course_id ||
+        payload.suggested_course_id ||
+        payload.course_id,
+      unitId:
+        payload.target_unit_id || payload.suggested_unit_id || payload.unit_id,
+      lessonId:
+        payload.target_lesson_id ||
+        payload.suggested_lesson_id ||
+        payload.lesson_id,
       creatorId: payload.creator_id,
       ownerId: payload.owner_id,
-      collectionSubType: payload.target_content_subtype,
+      collectionSubType:
+        payload.target_content_subtype || payload.suggested_content_subtype,
       metadata,
       centurySkills:
         metadata['21_century_skills'] && metadata['21_century_skills'].length
           ? metadata['21_century_skills']
           : [],
-      format: payload.format || payload.target_content_type
+      format:
+        payload.format ||
+        payload.target_content_type ||
+        payload.suggested_content_type
     });
   },
 

@@ -49,15 +49,16 @@
             <li class="panel resource {{if (eq activeElement item.id) 'study-active'}}">
               <div class="panel-heading">
                 <div class="panel-title {{item.format}}">
-                  <div class="icon-container">
-                    {{gru-icon name='star'}}
-                  </div>
                   <div class="icon-container resource-icon-type">
-                    <span class="icon"></span>
+                    <span class="icon"><i class="{{item.contentSubFormat}}"></i></span>
                   </div>
-                  <a class="title" {{action "selectResource" item}}>
+                  <a class="title {{item.source}}" {{action "selectResource" item}}>
                     <div class="ellipsis">{{item.title}}</div>
-                    <div class="type">{{t (concat 'resource.' item.format)}}</div>
+                    {{#if (eq item.source 'system_suggestions')}}
+                      {{gru-icon name="explore"}}
+                    {{else if (eq item.source 'teacher_suggestions')}}
+                      <i class="teacher_suggestions icon"></i>
+                    {{/if}}
                   </a>
                 </div>
                 {{#unless isFromDCA}}
@@ -69,7 +70,7 @@
                         </button>
                       </div>
                     {{else}}
-                      <span class="time-spent">
+                      <span class="performance">
                         {{#if item.performance.timeSpent}}
                           {{format-time item.performance.timeSpent}}
                         {{else}}
@@ -82,7 +83,7 @@
               </div>
             </li>
           {{else}}
-            <li class="panel {{if item.isAssessment 'assessment' 'collection'}}
+            <li class="panel  {{if item.isAssessment 'assessment' 'collection'}}
               {{if item.isSubmitted 'submitted'}}
               {{if (and (eq currentResource item.id) showLocation) 'selected'}}
               {{if item.visible 'item-enabled' 'item-disabled'}}
@@ -107,10 +108,12 @@
                     {{/if}}
                   </div>
                   {{#if item.visible}}
-                    <a class="title" {{action "selectResource" item}}>
+                    <a class="title {{item.source}}" {{action "selectResource" item}}>
                       <div class="ellipsis">{{item.title}}</div>
-                      {{#if item.collectionSubType}}
-                        <div class="type">{{t 'common.suggestion'}}</div>
+                      {{#if (eq item.source 'system_suggestions')}}
+                        {{gru-icon name="explore"}}
+                      {{else if (eq item.source 'teacher_suggestions')}}
+                        <i class="teacher_suggestions icon"></i>
                       {{/if}}
                     </a>
                     {{#if item.showTrophy}}

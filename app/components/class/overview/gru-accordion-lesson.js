@@ -435,7 +435,7 @@ export default Ember.Component.extend(AccordionMixin, {
       .hash({
         lesson: component
           .get('courseMapService')
-          .getLessonInfo(classId, courseId, unitId, lessonId),
+          .getLessonInfo(classId, courseId, unitId, lessonId, isTeacher),
         peers: peersPromise
       })
       .then(({ lesson, peers }) => {
@@ -497,6 +497,10 @@ export default Ember.Component.extend(AccordionMixin, {
         }
       });
   },
+
+  /**
+   * @function loadTeacherData
+   */
   loadTeacherData: function(
     classId,
     courseId,
@@ -740,6 +744,9 @@ export default Ember.Component.extend(AccordionMixin, {
     });
   },
 
+  /**
+   * @function loadLearnerData
+   */
   loadLearnerData: function(
     courseId,
     unitId,
