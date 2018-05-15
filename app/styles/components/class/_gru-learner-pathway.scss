@@ -1,7 +1,8 @@
 .gru-learner-pathway {
   padding: 10px 0 0;
-  width: 135%;
-  margin-left: -100px;
+  width: 145%;
+  margin-left: -135px;
+  margin-top: -25px;
 
   ol.accordion-course {
     background-color: $white;
@@ -132,7 +133,7 @@
   }
 
   .unit-body {
-    max-height: 470px;
+    max-height: 545px;
     overflow-y: auto;
   }
 
@@ -150,8 +151,47 @@
   .report-data {
     padding: 0;
     width: 100%;
-    max-height: 470px;
+    max-height: 545px;
     overflow-y: auto;
+
+    .navigation {
+      margin-top: 5px;
+    }
+
+    .gru-assessment-report {
+      .gru-assessment-summary {
+        .gru-summary {
+          .summary-container {
+            pointer-events: none;
+          }
+        }
+
+        .gru-mastery {
+          .standard-root {
+            .gru-learning-target {
+              .learning-target {
+                .header-content {
+                  .learning-target-description {
+                    .description {
+                      width: 300px;
+
+                      .desc-align {
+                        width: 290px;
+                        position: inherit;
+                      }
+                    }
+
+                    .question {
+                      padding: 0 1px 0 10px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   .report-data::-webkit-scrollbar {
