@@ -301,7 +301,6 @@ export default Ember.Component.extend(AccordionMixin, {
         return performanceService
           .findAssessmentResultByCollectionAndStudent(context, loadStandards)
           .then(function(assessmentResult) {
-            // component.set('assessmentResult', assessmentResult);
             component.setAssessmentResult(assessmentResult);
           });
       } else {
@@ -310,8 +309,6 @@ export default Ember.Component.extend(AccordionMixin, {
           .fetchCollectionPerformance(context, loadStandards)
           .then(function(assessmentResult) {
             component.setAssessmentResult(assessmentResult);
-
-            // component.set('assessmentResult', assessmentResult);
           });
       }
     });
