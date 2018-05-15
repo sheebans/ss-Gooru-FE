@@ -68,56 +68,24 @@ export default Ember.Object.extend({
    * @param data - The endpoint response in JSON format
    * @returns {Object} lesson and alternate paths
    */
-  normalizeLessonInfo: function(data) {
+  normalizeLessonInfo: function(data, isTeacher) {
     var serializer = this;
-    let alternatePaths = this.normalizeAlternatePaths(data.alternate_paths);
     let lesson = this.get('lessonSerializer').normalizeLesson(data.course_path);
-    let alternatePathsMap = alternatePaths.reduce(
-      (mapping, path) => {
-        var subType =
-          path.get('collectionSubType') || path.get('targetContentType');
-        if (subType) {
-          mapping[subType].push(path);
-        }
-        return mapping;
-      },
-      {
-        [ASSESSMENT_SUB_TYPES.BACKFILL]: [],
-        [ASSESSMENT_SUB_TYPES.BENCHMARK]: [],
-        [ASSESSMENT_SUB_TYPES.PRE_TEST]: [],
-        [ASSESSMENT_SUB_TYPES.POST_TEST]: [],
-        [ASSESSMENT_SUB_TYPES.RESOURCE]: []
-      }
-    );
-
-    alternatePathsMap[ASSESSMENT_SUB_TYPES.RESOURCE].forEach(function(
-      resourceData
-    ) {
-      var assessmentId = resourceData.contextCollectionId;
-      var lessonChildren = lesson.get('children');
-      if (assessmentId) {
-        var assessmentIndex = lessonChildren.findIndex(
-          child => child.id === assessmentId
+    let lessonChildren = lesson.get('children');
+    if (!isTeacher) {
+      let suggestedPaths = serializer.normalizeAlternatePathContent(
+        data.alternate_paths
+      );
+      suggestedPaths.map(suggestedPath => {
+        let ctxCollectionIndex = lessonChildren.findIndex(
+          child => child.id === suggestedPath.assessmentId
         );
-        var resource = serializer
-          .get('alternatePathSerializer')
-          .normalizeReadResource(resourceData);
-        lessonChildren.splice(assessmentIndex + 1, 0, resource);
-      }
-    });
-
-    lesson
-      .get('children')
-      .unshift(...alternatePathsMap[ASSESSMENT_SUB_TYPES.BACKFILL]);
-    lesson
-      .get('children')
-      .unshift(...alternatePathsMap[ASSESSMENT_SUB_TYPES.PRE_TEST]);
-    lesson
-      .get('children')
-      .push(...alternatePathsMap[ASSESSMENT_SUB_TYPES.POST_TEST]);
-    lesson
-      .get('children')
-      .push(...alternatePathsMap[ASSESSMENT_SUB_TYPES.BENCHMARK]);
+        if (ctxCollectionIndex) {
+          //Add suggested content, next to the context collection
+          lessonChildren.splice(ctxCollectionIndex + 1, 0, suggestedPath);
+        }
+      });
+    }
     return lesson;
   },
 
@@ -215,5 +183,65 @@ export default Ember.Object.extend({
         }
       })
       : [];
+  },
+
+  /**
+   * @function normalizeAlternatePathContent
+   * @param alternatePaths alternate_path object
+   * Method to normalized suggested alternate path from the payload
+   */
+  normalizeAlternatePathContent(alternatePaths) {
+    let serializer = this;
+    let alternatePathContents = Ember.A([]);
+    if (alternatePaths) {
+      let systemSuggestions = alternatePaths.system_suggestions || null;
+      let teacherSuggestions = alternatePaths.teacher_suggestions || null;
+      let source = '';
+      if (systemSuggestions) {
+        source = 'system_suggestions';
+        systemSuggestions.map(suggestedContent => {
+          alternatePathContents.push(
+            serializer.serializeCategorizedSuggestedContent(
+              suggestedContent,
+              source
+            )
+          );
+        });
+      }
+      if (teacherSuggestions) {
+        source = 'teacher_suggestions';
+        teacherSuggestions.map(suggestedContent => {
+          alternatePathContents.push(
+            serializer.serializeCategorizedSuggestedContent(
+              suggestedContent,
+              source
+            )
+          );
+        });
+      }
+    }
+    return alternatePathContents;
+  },
+
+  /**
+   * @function serializeCategorizedSuggestedContent
+   * Method to serialize suggested content based on the content type
+   */
+  serializeCategorizedSuggestedContent(content, source) {
+    let serializedData = [];
+    const serializer = this;
+    const alternatePathSerializer = serializer.get('alternatePathSerializer');
+    if (content.suggested_content_type === 'resource') {
+      serializedData = alternatePathSerializer.normalizeSuggestedResource(
+        content,
+        source
+      );
+    } else {
+      serializedData = alternatePathSerializer.normalizeSuggestedCollection(
+        content,
+        source
+      );
+    }
+    return serializedData;
   }
 });

@@ -131,7 +131,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
     let normalizedAssessment = AssessmentModel.create(
       Ember.getOwner(this).ownerInjection(),
       {
-        id: assessmentData.target_collection_id || assessmentData.id,
+        id:
+          assessmentData.target_collection_id ||
+          assessmentData.suggested_content_id ||
+          assessmentData.id,
         pathId: assessmentData.id,
         title: assessmentData.title,
         learningObjectives: assessmentData.learning_objective,
@@ -152,7 +155,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
         standards: serializer
           .get('taxonomySerializer')
           .normalizeTaxonomyObject(assessmentData.taxonomy),
-        format: assessmentData.format || assessmentData.target_content_type,
+        format:
+          assessmentData.format ||
+          assessmentData.target_content_type ||
+          assessmentData.suggested_content_type,
         url: assessmentData.url,
         ownerId: assessmentData.owner_id,
         metadata: metadata,
@@ -164,10 +170,21 @@ export default Ember.Object.extend(ConfigurationMixin, {
           metadata.depth_of_knowledge && metadata.depth_of_knowledge.length > 0
             ? metadata.depth_of_knowledge
             : [],
-        courseId: assessmentData.target_course_id || assessmentData.course_id,
-        unitId: assessmentData.target_unit_id || assessmentData.unit_id,
-        lessonId: assessmentData.target_lesson_id || assessmentData.lesson_id,
-        collectionSubType: assessmentData.target_content_subtype,
+        courseId:
+          assessmentData.target_course_id ||
+          assessmentData.suggested_course_id ||
+          assessmentData.course_id,
+        unitId:
+          assessmentData.target_unit_id ||
+          assessmentData.suggested_unit_id ||
+          assessmentData.unit_id,
+        lessonId:
+          assessmentData.target_lesson_id ||
+          assessmentData.suggested_lesson_id ||
+          assessmentData.lesson_id,
+        collectionSubType:
+          assessmentData.target_content_subtype ||
+          assessmentData.suggested_content_subtype,
         attempts: settings.attempts_allowed || -1,
         bidirectional: settings.bidirectional_play || false,
         showFeedback: settings.show_feedback || ASSESSMENT_SHOW_VALUES.SUMMARY,

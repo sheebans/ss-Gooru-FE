@@ -59,6 +59,9 @@
           height: inherit;
           display: inline-block;
         }
+        &.suggestion {
+          color: orange;
+        }
       }
       span {
         font-size: 16px;
@@ -182,58 +185,46 @@
             background-color: $sky-50;
             height: 67px;
             .panel-title {
+              display: flex;
               width: 80%;
               .resource-icon-type {
-                padding: 0 0 0 15px;
+                padding-left: 32px;
               }
-              &.webpage {
-                .icon {
-                  background: url("gooru/images/website-resource-green.svg")
-                    no-repeat;
-                  width: 30px;
+              .icon {
+                line-height: 67px;
+                i {
+                  width: 36px;
                   height: 30px;
                   background-size: 30px;
+                  background: no-repeat;
                   display: inline-block;
                   vertical-align: middle;
+                }
+              }
+              .icon {
+                .website_resource {
+                  background-image: url("gooru/images/website-resource-green.svg");
                 }
               }
 
-              &.video {
-                .icon {
-                  background: url(gooru/images/video-resource-green.svg)
-                    no-repeat;
-                  width: 30px;
-                  height: 30px;
-                  background-size: 30px;
-                  display: inline-block;
-                  vertical-align: middle;
+              .icon {
+                .video_resource {
+                  background-image: url("gooru/images/video-resource-green.svg");
                 }
               }
-              &.interactive {
-                .icon {
-                  background: url("gooru/images/interactive-resource-green.svg")
-                    no-repeat;
-                  width: 30px;
-                  height: 30px;
-                  background-size: 30px;
-                  display: inline-block;
-                  vertical-align: middle;
+              .icon {
+                .interactive_resource {
+                  background-image: url("gooru/images/interactive-resource-green.svg");
                 }
               }
-              &.image {
-                .icon {
-                  background: url("gooru/images/image-resource-green.svg")
-                    no-repeat;
-                  width: 30px;
-                  height: 30px;
-                  background-size: 30px;
-                  display: inline-block;
-                  vertical-align: middle;
+              .icon {
+                .image_resource {
+                  background-image: url("gooru/images/image-resource-green.svg");
                 }
               }
 
-              &.text {
-                .icon {
+              .icon {
+                .text_resource {
                   background: url("gooru/images/text-resource-green.svg")
                     no-repeat;
                   width: 30px;
@@ -243,19 +234,28 @@
                   vertical-align: middle;
                 }
               }
-              &.audio {
-                .icon {
-                  background: url("gooru/images/audio-resource-green.svg")
-                    no-repeat;
-                  width: 30px;
-                  height: 30px;
-                  background-size: 30px;
-                  display: inline-block;
-                  vertical-align: middle;
+              .icon {
+                .audio-resource {
+                  background-image: url("gooru/images/audio-resource-green.svg");
                 }
               }
               .title {
-                padding-left: 5px;
+                padding-left: 10px;
+                line-height: 67px;
+                i {
+                  font-size: 28px;
+                  margin: 20px 0 0 5px;
+                  &.teacher_suggestions {
+                    background-image: url("gooru/images/account-cirlce-orange.svg");
+                    width: 28px;
+                    height: 28px;
+                    background-size: 28px;
+                  }
+                }
+                &.teacher_suggestions,
+                &.system_suggestions {
+                  color: $orange-400;
+                }
               }
             }
           }
@@ -358,6 +358,21 @@
               color: $light-500;
               font-size: $font-navigator;
               padding: 5px 0 0 0;
+            }
+            i {
+              font-size: 28px;
+              margin-left: 5px;
+              &.teacher_suggestions {
+                background-image: url("gooru/images/account-cirlce-orange.svg");
+                width: 28px;
+                height: 28px;
+                background-size: 28px;
+              }
+            }
+            &.system_suggestions,
+            &.teacher_suggestions {
+              display: inline-flex;
+              color: $orange-400;
             }
           }
           .typeCollection {

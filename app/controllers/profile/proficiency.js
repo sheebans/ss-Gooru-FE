@@ -9,6 +9,8 @@ export default Ember.Controller.extend({
    */
   taxonomyService: Ember.inject.service('taxonomy'),
 
+  parentController: Ember.inject.controller('profile'),
+
   // -------------------------------------------------------------------------
   // Events
 
