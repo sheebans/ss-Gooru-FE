@@ -25,6 +25,6 @@ export default Ember.Route.extend({
 
   setupController(controller, model) {
     controller.set('userId', model.userId);
-    controller.set('classId', model.classId);
+    controller.set('parentController.classId', model.classId);
   }
 });
