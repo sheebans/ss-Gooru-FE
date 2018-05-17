@@ -17,7 +17,7 @@ export default Ember.Object.extend({
   getUserCompetencies(user, activeDuration = '3m') {
     const adapter = this;
     const namespace = adapter.get('namespace');
-    const url = `${namespace}/v1/user/competency`;
+    const url = `${namespace}/v2/user/competency`;
     const options = {
       type: 'GET',
       headers: adapter.defineHeaders(),
@@ -69,7 +69,7 @@ export default Ember.Object.extend({
   getCompetencyMatrixCoordinates(subject) {
     const adapter = this;
     const namespace = adapter.get('namespace');
-    const url = `${namespace}/v1/tx/competency/matrix/coordinates`;
+    const url = `${namespace}/v2/tx/competency/matrix/coordinates`;
     const options = {
       type: 'GET',
       headers: adapter.defineHeaders(),
@@ -94,7 +94,7 @@ export default Ember.Object.extend({
   getCompetencyMatrixCourse(user, subject) {
     const adapter = this;
     const namespace = adapter.get('namespace');
-    const url = `${namespace}/v1/tx/competency/matrix/course`;
+    const url = `${namespace}/v2/tx/competency/matrix/course`;
     const options = {
       type: 'GET',
       headers: adapter.defineHeaders(),
@@ -120,7 +120,7 @@ export default Ember.Object.extend({
   getCompetencyMatrixDomain(user, subject) {
     const adapter = this;
     const namespace = adapter.get('namespace');
-    const url = `${namespace}/v1/tx/competency/matrix/domain`;
+    const url = `${namespace}/v2/tx/competency/matrix/domain`;
     const options = {
       type: 'GET',
       headers: adapter.defineHeaders(),
@@ -146,7 +146,7 @@ export default Ember.Object.extend({
   getCompetencyMatrix(user, subject) {
     const adapter = this;
     const namespace = adapter.get('namespace');
-    const url = `${namespace}/v1/tx/competency/matrix`;
+    const url = `${namespace}/v2/tx/competency/matrix`;
     const options = {
       type: 'GET',
       headers: adapter.defineHeaders(),
