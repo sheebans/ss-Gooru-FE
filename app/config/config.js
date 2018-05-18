@@ -84,7 +84,9 @@ export const ASSESSMENT_SUB_TYPES = {
   POST_TEST: 'post-test',
   BACKFILL: 'backfill',
   BENCHMARK: 'benchmark',
-  RESOURCE: 'resource'
+  RESOURCE: 'resource',
+  SIGNATURE_ASSESSMENT: 'signature_assessment',
+  SIGNATURE_COLLECTION: 'signature_collection'
 };
 
 export const KEY_CODES = {

@@ -2489,6 +2489,12 @@ export default Object.assign(quizzesTranslations, {
     'backfill-header': 'Suggested Collection (Optional)',
     'benchmark-header': 'Benchmark-Test (Optional)',
     'resource-header': 'Suggested Resource (Optional)',
+    'signature_collection-header': 'Suggested Collection (Optional)',
+    'signature_collection-lead':
+      'Based on your performance on this course, the following resource may enhance your understanding.',
+    'signature_assessment-header': 'Suggested Assesment (Optional)',
+    'signature_assessment-lead':
+      'Based on your performance on this course, the following assesment may enhance your understanding.',
     'pre-test-lead':
       'A pre-test is suggested to measure your current understanding of the concepts in this lesson. The pre-test can help prepare you for the content in the lesson. The pre-test will not affect your course performance score.',
     'post-test-lead':
@@ -2502,6 +2508,8 @@ export default Object.assign(quizzesTranslations, {
     no: 'No, thanks',
     'no-suggestions': 'Here\'s a summary of your performance.',
     take: 'Take {{type}}',
+    'take-signature-collection': 'Study Suggested Collection',
+    'take-signature-assessment': 'Study Suggested Assessment',
     'take-backfill-pretest': 'Study Suggested Collection',
     'take-resource': 'Study Resource',
     'end-of-course': 'You have reached the end of the course.'

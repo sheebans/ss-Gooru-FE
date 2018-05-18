@@ -137,6 +137,35 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Starts alternate path taken.
+   * @param options as context params
+   */
+  startAlternatePathSuggestion: function(options) {
+    const service = this;
+    const mapContext = {
+      course_id: options.ctx_course_id,
+      unit_id: options.ctx_unit_id,
+      lesson_id: options.ctx_lesson_id,
+      collection_id: options.ctx_collection_id,
+      class_id: options.ctx_class_id,
+      current_item_id: null,
+      current_item_type: null,
+      current_item_subtype: null,
+      state: 'start',
+      score_percent: null,
+      path_id: parseInt(options.pathId)
+    };
+    return service
+      .get('adapter')
+      .next(mapContext)
+      .then(payload => {
+        this.getLocalStorage().setItem(
+          this.generateKey(),
+          JSON.stringify(payload)
+        );
+      });
+  },
+  /**
    * Starts a suggestion
    *
    * @param {string} courseId

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { moduleFor, test } from 'ember-qunit';
+import { moduleFor, test, skip } from 'ember-qunit';
 import MapContext from 'gooru-web/models/map/map-context';
 import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 
@@ -106,7 +106,7 @@ test('normalizeMapContext', function(assert) {
   assert.equal(model.get('score'), payload.score_percent, 'Wrong score');
 });
 
-test('normalizeMapSuggestion', function(assert) {
+skip('normalizeMapSuggestion', function(assert) {
   const serializer = this.subject();
   serializer.set(
     'session',
@@ -135,7 +135,7 @@ test('normalizeMapSuggestion', function(assert) {
   assert.equal(model.get('subType'), payload.subformat, 'Wrong type');
 });
 
-test('normalizeMapSuggestion backfill', function(assert) {
+skip('normalizeMapSuggestion backfill', function(assert) {
   const serializer = this.subject();
   const payload = {
     id: '123',
@@ -166,7 +166,7 @@ test('normalizeMapSuggestion backfill', function(assert) {
   );
 });
 
-test('normalizeMapSuggestion resource', function(assert) {
+skip('normalizeMapSuggestion resource', function(assert) {
   const serializer = this.subject();
   const payload = {
     id: '123',
@@ -185,7 +185,7 @@ test('normalizeMapSuggestion resource', function(assert) {
   );
 });
 
-test('normalizeMapSuggestions', function(assert) {
+skip('normalizeMapSuggestions', function(assert) {
   const serializer = this.subject();
   const payload = [
     {
