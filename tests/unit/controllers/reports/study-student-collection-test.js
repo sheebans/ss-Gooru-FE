@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { moduleFor, test } from 'ember-qunit';
+import { moduleFor } from 'ember-qunit';
 import { skip } from 'qunit';
 
 moduleFor(
@@ -9,7 +9,7 @@ moduleFor(
     integration: false
   }
 );
-test('next with content', function(assert) {
+skip('next with content', function(assert) {
   assert.expect(4);
   let done = assert.async();
   let mapLocation = Ember.Object.create({
@@ -37,7 +37,7 @@ test('next with content', function(assert) {
   controller.send('next');
 });
 
-test('next without content', function(assert) {
+skip('next without content', function(assert) {
   assert.expect(5);
   let done = assert.async();
   let mapLocation = Ember.Object.create({
