@@ -295,6 +295,7 @@
             vertical-align: bottom;
           }
           .score {
+            cursor: pointer;
             margin: 5px 0 10px 0;
             + i {
               display: none;
@@ -309,6 +310,7 @@
           }
 
           a.score {
+            cursor: pointer;
             padding: 0;
           }
         }
@@ -489,6 +491,7 @@
               vertical-align: middle;
             }
             .score {
+              cursor: pointer;
               font-size: $font-size-large;
               line-height: $font-size-large;
             }
@@ -500,6 +503,7 @@
             .time-spent {
               font-size: $font-size-base;
               color: $light-450;
+              cursor: pointer;
             }
             .not-started {
               color: $light-300;

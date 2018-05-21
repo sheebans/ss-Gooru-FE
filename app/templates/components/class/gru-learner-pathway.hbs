@@ -6,44 +6,89 @@
       <div class="user-profile-info">
         <div class="profile">
           <div class="img-container pull-left">
-            <img class="img-responsive" src="{{course.thumbnailUrl}}">
+            <img class="img-responsive" src="{{if courseView course.thumbnailUrl assessmentResult.collection.thumbnailUrl}}">
           </div>
         </div>
       </div>
-      <div class="class-performance">
-        <span class="student-name"> {{profile.firstName}} {{profile.lastName}} </span>
-      </div>
-      <div class="close">
-        <a {{action 'close'}} data-dismiss="modal" class="material-icons clear-button">clear</a>
-        <span class="text"> Close </span>
-      </div>
-      <div class="performance">
-        <div class="student">
-          <div class="student-performance">
-            <div class="progress">
-              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="{{studentColorStyle}} {{studentAverage}}"></div>
-            </div>
-          </div>
-          <span class="score-text" style="color: {{studentColor}}"> {{studentPerformance.score}} % </span>
-        </div>
+      {{#if (not courseView)}}
+        <span class="assessment-name"> {{assessmentResult.collection.title}} </span>
 
-        <div class="class">
-          <div class="class-performance">
-            <div class="progress">
-              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="{{classColorStyle}} {{classAverage}}"> </div>
-            </div>
-          </div>
-          <span class="score-text" style="color: {{classColor}}"> {{classPerformance.score}} % </span>
-        </div>
-        <span class="class-average">class average</span>
+        <div class="information">
+          {{#if collections.isAssessment}}
+            <span class="attempt">
+              {{#if showAttempts}}
+                  <span class="title">{{t "common.attempt"}}</span>
+            <span class="attempt-selector">
+                    <span class="dropdown current-attempt">
+                    <button class="btn btn-default dropdown-toggle" type="button"
+                        data-toggle="dropdown">{{selectedAttempt}}<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              {{#each attempts as |attempt|}}
+                <li><a {{action 'selectAttempt' attempt.value}}>{{attempt.label}}</a></li>
+              {{/each}}
+            </ul>
+            </span>
+            <span>{{t "common.of"}}</span>
+            <span class="total-attempts">{{assessmentResult.totalAttempts}}</span>
+            </span>
+          {{else}}
+            {{#if isRealTime}}
+              <span class="title current">{{t "common.current-attempt"}}</span>
+            {{else}}
+              <span class="title latest">{{t "common.latest-attempt"}}</span>
+            {{/if}}
+          {{/if}}
+          </span>
+      {{/if}}
+      {{#if assessmentResult.submittedAt}}
+        <span class="date">
+            {{gru-icon name='event'}}<span>{{format-date assessmentResult.submittedAt 'h:mm a MMM. Do, YYYY'}}</span>
+        </span>
+      {{/if}}
+      <span class="time">
+            {{gru-icon name='av_timer'}}<span>{{format-time assessmentResult.totalTimeSpent}}</span>
+      </span>
       </div>
-    </div>
+  {{/if}}
+  <div class="class-performance">
+    <span class="student-name"> {{profile.firstName}} {{profile.lastName}} </span>
+  </div>
+  <div class="close">
+    <a {{action 'close'}} data-dismiss="modal" class="material-icons clear-button">clear</a>
+    <span class="text"> Close </span>
+  </div>
 
-
+  <div class="performance">
     {{#if courseView}}
-      <div class="unit-body">
-        {{#each items as |item index|}}
-          {{class.learner.gru-learner-accordion-unit
+      <div class="student">
+        <div class="student-performance">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="{{studentColorStyle}} {{studentAverage}}"></div>
+          </div>
+        </div>
+        <span class="score-text" style="color: {{studentColor}}"> {{studentPerformance.score}} % </span>
+      </div>
+    {{else}}
+      <div class="class">
+        <div class="class-performance">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="{{collectionColorStyle}} {{collectionAverage}}"> </div>
+          </div>
+        </div>
+        <span class="score-text" style="color: {{classColor}}"> {{assessmentResult.score}} % </span>
+      </div>
+      <!-- <span class="class-average">class average</span> -->
+    {{/if}}
+
+
+  </div>
+  </div>
+
+
+  {{#if courseView}}
+    <div class="unit-body">
+      {{#each items as |item index|}}
+        {{class.learner.gru-learner-accordion-unit
         currentClass=currentClass
         currentCourse=currentCourse
         classMembers=classMembers
@@ -54,15 +99,16 @@
         isNUCourse=isNUCourse
         toggleLocation=toggleLocation}}
 
-    {{else}}
-      <li>{{t "common.contentUnavailable"}}</li>
-        {{/each}}
-      </div>
-    {{else}}
-      <div class="report-data">
-        {{#if isReportLoading}}
-          {{three-bounce-spinner}}
-        {{else}}
+  {{else}}
+    <li>{{t "common.contentUnavailable"}}</li>
+      {{/each}}
+    </div>
+  {{else}}
+    <div class="report-data">
+      {{#if isReportLoading}}
+        {{three-bounce-spinner}}
+      {{else}}
+        {{#if (not ownReport)}}
           <div class="col-sm-12 navigation">
             <button {{action 'goBack'}} class="btn btn-info back">
             <span>
@@ -71,8 +117,9 @@
             </span>
           </button>
           </div>
-          {{#if assessmentResult}}
-            {{reports.gru-assessment-report
+        {{/if}}
+        {{#if assessmentResult}}
+          {{reports.gru-assessment-report
          areAnswersHidden=areAnswersHidden
          isAnswerKeyHidden=isAnswerKeyHidden
          assessmentResult=assessmentResult
@@ -86,11 +133,11 @@
          showChangeScore=showChangeScore
          isAssessment=isAssessment
        }}
-          {{else}}
-            {{t 'common.no-available-results'}}
-          {{/if}}
+        {{else}}
+          {{t 'common.no-available-results'}}
         {{/if}}
-      </div>
-    {{/if}}
+      {{/if}}
+    </div>
+  {{/if}}
   {{/if}}
 </ol>

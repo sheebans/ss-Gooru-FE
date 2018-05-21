@@ -8,7 +8,9 @@ export default Ember.Mixin.create({
     model: null,
     target: null,
     activeChannel: null,
-    'component-class': null
+    'component-class': null,
+    backdrop: null,
+    keyboard: null
   }),
 
   actions: {
@@ -17,7 +19,9 @@ export default Ember.Mixin.create({
       componentModel,
       activeChannel,
       componentClass,
-      showHeader
+      showHeader,
+      backdrop,
+      keyboard
     ) {
       this.get('modal').setProperties({
         isVisible: true,
@@ -25,7 +29,9 @@ export default Ember.Mixin.create({
         name: componentName,
         model: componentModel,
         activeChannel: activeChannel,
-        'component-class': componentClass
+        'component-class': componentClass,
+        backdrop: backdrop,
+        keyboard: keyboard
       });
     }
   },
@@ -47,7 +53,9 @@ export default Ember.Mixin.create({
       context.$().on('keyup', '.modal-body', function(e) {
         var keyCode = event.keyCode ? event.keyCode : event.which;
         if (keyCode === 13) {
-          $(e.target).blur().focus();
+          $(e.target)
+            .blur()
+            .focus();
         }
       });
     }

@@ -87,9 +87,10 @@ export default Ember.Component.extend(AccordionMixin, {
   courseView: true,
 
   /**
-   * @property {Collection}
+   * own report or  teacher report page  diffrentiate
+   * @property {Boolean}
    */
-  collection: null,
+  ownReport: false,
 
   /**
    * @property {AssessmentResult}
@@ -102,13 +103,25 @@ export default Ember.Component.extend(AccordionMixin, {
   completedSessions: [],
 
   /**
-   * calculate  the class average score as a width
-   * @property {string}
+   * @property {collections[]}
    */
-  classAverage: Ember.computed('classPerformance', function() {
+  collections: Ember.computed('assessmentResult', function() {
     let component = this;
-    let score = component.get('classPerformance.score');
-    return Ember.String.htmlSafe(`width: ${score}%;`);
+    if (component.get('assessmentResult')) {
+      return component.get('assessmentResult.collection');
+    }
+  }),
+
+  /**
+   * @property {boolean}showAttempts
+   */
+  showAttempts: false,
+
+  /**
+   * @property {[]}
+   */
+  attempts: Ember.computed('assessmentResult.totalAttempts', function() {
+    return this.getAttemptList();
   }),
 
   /**
@@ -132,12 +145,23 @@ export default Ember.Component.extend(AccordionMixin, {
       `background-color: ${getBarGradeColor(score)};`
     );
   }),
+
+  /**
+   * calculate  the class average score as a width
+   * @property {string}
+   */
+  collectionAverage: Ember.computed('assessmentResult', function() {
+    let component = this;
+    let score = component.get('assessmentResult.score');
+    return Ember.String.htmlSafe(`width: ${score}%;`);
+  }),
+
   /**
    * @property {String} barColor
    * Computed property to know the color of the small bar
    */
-  classColorStyle: Ember.computed('classPerformance', function() {
-    let score = this.get('classPerformance.score');
+  collectionColorStyle: Ember.computed('assessmentResult', function() {
+    let score = this.get('assessmentResult.score');
     this.set('classColor', getBarGradeColor(score));
     return Ember.String.htmlSafe(
       `background-color: ${getBarGradeColor(score)};`
@@ -155,7 +179,68 @@ export default Ember.Component.extend(AccordionMixin, {
     let component = this;
     component._super(...arguments);
     component.set('isLoading', true);
-    component.set('courseView', true);
+    let pathway = component.get('model.pathway');
+    if (pathway) {
+      component.set('courseView', true);
+      this.getStudentCourseMap();
+    } else {
+      let model = component.get('model');
+      component.set('courseView', false);
+      component.set('ownReport', true);
+      let params = {
+        userId: model.userId,
+        classId: model.classId,
+        courseId: model.courseId,
+        unitId: model.unitId,
+        lessonId: model.lessonId,
+        collectionId: model.collectionId,
+        type: model.type
+      };
+      this.getStundentCollectionReport(params);
+    }
+  },
+
+  // -------------------------------------------------------------------------
+  // Actions
+  actions: {
+    /**
+     * @function actions:selectItem
+     * @param {string} collection - collection or assessment
+     * @see module:app/components/class/overview/gru-accordion-lesson
+     */
+    selectResource: function(unitId, lessonId, collection) {
+      // Send the action so that it bubbles up to the component
+      this.sendAction('onSelectResource', unitId, lessonId, collection);
+    },
+
+    collectionReport(params) {
+      let component = this;
+      component.set('isAssessment', params.type === 'assessment');
+      component.set('isCollection', params.type === 'collection');
+      component.set('areAnswersHidden', false);
+      component.set('isAnswerKeyHidden', false);
+      this.getStundentCollectionReport(params);
+    },
+
+    close() {
+      let component = this;
+      component.triggerAction({
+        action: 'closeModal'
+      });
+    },
+
+    goBack() {
+      let component = this;
+      component.set('courseView', true);
+    }
+  },
+
+  /**
+   * @function  get class course map performance by student
+   * @param {objects} class & course  - class and courseId..
+   */
+  getStudentCourseMap() {
+    let component = this;
     let classId = component.get('model.classId');
     let courseId = component.get('model.courseId');
     let studentId = component.get('model.userId');
@@ -215,47 +300,13 @@ export default Ember.Component.extend(AccordionMixin, {
     });
   },
 
-  // -------------------------------------------------------------------------
-  // Actions
-  actions: {
-    /**
-     * @function actions:selectItem
-     * @param {string} collection - collection or assessment
-     * @see module:app/components/class/overview/gru-accordion-lesson
-     */
-    selectResource: function(unitId, lessonId, collection) {
-      // Send the action so that it bubbles up to the component
-      this.sendAction('onSelectResource', unitId, lessonId, collection);
-    },
-
-    collectionReport(params) {
-      let component = this;
-      component.set('isAssessment', params.type === 'assessment');
-      component.set('isCollection', params.type === 'collection');
-      component.set('areAnswersHidden', false);
-      component.set('isAnswerKeyHidden', false);
-      this.getStundentCollectionReport(params);
-    },
-
-    close() {
-      let component = this;
-      component.triggerAction({
-        action: 'closeModal'
-      });
-    },
-
-    goBack() {
-      let component = this;
-      component.set('courseView', true);
-    }
-  },
-
   /**
    * @function  get collection summary report by student
    * @param {objects} collections - collection or assessment Ids..
    */
   getStundentCollectionReport(params) {
     let component = this;
+    component.set('currentClass', component.get('model'));
     component.set('courseView', false);
     component.set('isReportLoading', true);
     const context = component.getContext(params);
@@ -331,6 +382,25 @@ export default Ember.Component.extend(AccordionMixin, {
     }
     component.set('assessmentResult', assessmentResult);
     component.set('isReportLoading', false);
+    component.set('isLoading', false);
+  },
+
+  /**
+   * Get the attempts list
+   * @param params
+   * @returns {Context}
+   */
+  getAttemptList: function() {
+    var attempts = [];
+    var totalAttempts = this.get('assessmentResult.totalAttempts');
+
+    for (; totalAttempts > 0; totalAttempts--) {
+      attempts.push({
+        label: totalAttempts,
+        value: totalAttempts
+      });
+    }
+    return attempts;
   },
 
   /**

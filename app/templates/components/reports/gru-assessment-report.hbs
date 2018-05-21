@@ -3,8 +3,8 @@
     <div class="reports-owner">
       <span> {{profile.firstName}} {{profile.lastName}}</span>
     </div>
-  {{/if}}
-  {{reports.assessment.gru-summary
+
+    {{reports.assessment.gru-summary
   assessmentResult=assessmentResult
   areQuestionLinksHidden=areAnswersHidden
   onSelectAttempt='selectAttempt'
@@ -17,6 +17,7 @@
   resourceCount=orderedResources.length
   oeQuestionCount=orderedOpenEndedQuestions.length
   }}
+  {{/if}}
 
   {{#if (and (not isTeacher) areAnswersHidden)}}
     <div class="hidden-report">
