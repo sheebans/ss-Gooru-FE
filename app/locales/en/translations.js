@@ -741,7 +741,12 @@ export default Object.assign(quizzesTranslations, {
       title: 'Course Map',
       locate: 'Locate Me',
       'edit-content': 'Edit Content',
-      'add-to-daily-class-activities': 'Add to Daily Class Activities'
+      'add-to-daily-class-activities': 'Add to Daily Class Activities',
+      'course-map': {
+        'rescope-toggle': 'Show Complete Course Map',
+        'rescope-info':
+          'This course has been personalized specifically for you from the Math Foundation course. To see the original course, enable this feature.'
+      }
     },
     analytics: {
       performance: {

@@ -79,9 +79,13 @@ export default Ember.Component.extend(AccordionMixin, {
 
   classNames: ['gru-accordion-lesson', 'panel', 'panel-default'],
 
-  classNameBindings: ['isExpanded:expanded'],
+  classNameBindings: ['isExpanded:expanded', 'curComponentId'],
 
   tagName: 'li',
+
+  curComponentId: Ember.computed(function() {
+    return `l-${this.get('model.id')}`;
+  }),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -223,6 +227,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
   didRender: function() {
     this.$('[data-toggle="tooltip"]').tooltip();
+    this.sendAction('onSelectItem');
   },
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {

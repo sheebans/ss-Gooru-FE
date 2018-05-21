@@ -10,6 +10,11 @@ export default Ember.Controller.extend({
 
   studentClassController: Ember.inject.controller('student.class'),
 
+  /**
+   * Rescope Service to perform rescope data operations
+   */
+  rescopeService: Ember.inject.service('api-sdk/rescope'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -50,6 +55,34 @@ export default Ember.Controller.extend({
       this.set('location', location);
       this.set('showLocation', true);
       this.set('toggleLocation', !this.get('toggleLocation'));
+    },
+
+    /**
+     * Action triggered when the user toggle between complete course-map / rescope
+     */
+    onToggleRescope() {
+      let controller = this;
+      let skippedContents = controller.get('skippedContents');
+      let isContentAvailable = controller.get('isContentAvailable');
+      if (skippedContents && isContentAvailable) {
+        controller.toggleSkippedContents(skippedContents);
+      } else {
+        controller.set('isChecked', true);
+      }
+    },
+
+    /**
+     * Action triggered when the user click an accordion item
+     */
+    onSelectItem() {
+      let controller = this;
+      if (controller.get('isRescopedClass')) {
+        let skippedContents = controller.get('skippedContents');
+        let isContentAvailable = controller.get('isContentAvailable');
+        if (skippedContents && isContentAvailable) {
+          controller.toggleSkippedContents(skippedContents);
+        }
+      }
     }
   },
 
@@ -107,11 +140,154 @@ export default Ember.Controller.extend({
     } else {
       return this.get('location') || '';
     }
-  })
+  }),
+
+  /**
+   * @type {JSON}
+   * Property to store list of skipped rescope content
+   */
+  skippedContents: null,
+
+  /**
+   * @type {Boolean}
+   * Property to toggle checkbox visibility
+   */
+  isChecked: false,
+
+  /**
+   * @type {Boolean}
+   * Property to check whether a class is rescoped
+   */
+  isRescopedClass: Ember.computed('class', function() {
+    let controller = this;
+    const currentClass = controller.get('class');
+    let setting = currentClass.get('setting');
+    return setting ? setting.rescope : false;
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
 
+  /**
+   * Observer current class
+   */
+  observeCurrentClass: Ember.observer('currentClass', function() {
+    let controller = this;
+    //Initially load rescope data
+    if (controller.get('isRescopedClass')) {
+      controller.getSkippedContents().then(function(skippedContents) {
+        let isContentAvailable = controller.isSkippedContentsEmpty(
+          skippedContents
+        );
+        controller.set('isContentAvailable', isContentAvailable);
+        if (skippedContents && isContentAvailable) {
+          controller.toggleSkippedContents(skippedContents);
+          controller.set('isChecked', false);
+        } else {
+          controller.set('isChecked', true);
+        }
+      });
+    }
+  }),
+
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * @function getSkippedContents
+   * Method to get skipped contents
+   */
+  getSkippedContents() {
+    let controller = this;
+    let currentClass = controller.get('currentClass');
+    let filter = {
+      classId: currentClass.get('id'),
+      courseId: currentClass.get('courseId')
+    };
+    let skippedContentsPromise = Ember.RSVP.resolve(
+      controller.get('rescopeService').getSkippedContents(filter)
+    );
+    return Ember.RSVP
+      .hash({
+        skippedContents: skippedContentsPromise
+      })
+      .then(function(hash) {
+        controller.set('skippedContents', hash.skippedContents);
+        return hash.skippedContents;
+      })
+      .catch(function() {
+        controller.set('skippedContents', null);
+      });
+  },
+
+  /**
+   * @function getFormattedContentsByType
+   * Method to get formatted content type
+   */
+  getFormattedContentsByType(contents, types) {
+    let controller = this;
+    let formattedContents = Ember.A([]);
+    types.map(type => {
+      let flag = type.charAt(0);
+      formattedContents = formattedContents.concat(
+        controller.parseSkippedContents(contents[`${type}`], flag)
+      );
+    });
+    return formattedContents;
+  },
+
+  /**
+   * @function toggleSkippedContents
+   * Method to toggle skippedContents
+   */
+  toggleSkippedContents(skippedContents) {
+    let controller = this;
+    let contentTypes = Object.keys(skippedContents);
+    let formattedContents = controller.getFormattedContentsByType(
+      skippedContents,
+      contentTypes
+    );
+    controller.toggleContentVisibility(formattedContents);
+  },
+
+  /**
+   * @function parseSkippedContents
+   * Method to parse fetched rescoped contents
+   */
+  parseSkippedContents(contentIds, flag) {
+    let parsedContentIds = Ember.A([]);
+    contentIds.map(id => {
+      parsedContentIds.push(`.${flag}-${id}`);
+    });
+    return parsedContentIds;
+  },
+
+  /**
+   * @function toggleContentVisibility
+   * Method to toggle content visibility
+   */
+  toggleContentVisibility(contentClassnames) {
+    let controller = this;
+    let isChecked = controller.get('isChecked');
+    const $contentComponent = Ember.$(contentClassnames.join());
+    if (isChecked) {
+      $contentComponent.show().addClass('rescoped-content');
+    } else {
+      $contentComponent.hide();
+    }
+  },
+
+  /**
+   * @function isSkippedContentsEmpty
+   * Method to toggle rescoped content visibility
+   */
+  isSkippedContentsEmpty(skippedContents) {
+    let keys = Object.keys(skippedContents);
+    let isContentAvailable = false;
+    keys.some(key => {
+      isContentAvailable = skippedContents[`${key}`].length > 0;
+      return isContentAvailable;
+    });
+    return isContentAvailable;
+  }
 });
