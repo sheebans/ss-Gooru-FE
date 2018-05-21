@@ -23,7 +23,6 @@ export default ApplicationAdapter.extend({
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/skipped`;
-    // const url = `http://localhost:4200/stub/rescope.json`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
