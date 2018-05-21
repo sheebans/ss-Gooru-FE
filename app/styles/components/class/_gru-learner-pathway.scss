@@ -34,6 +34,68 @@
         }
       }
 
+      .assessment-name {
+        font-size: 16px;
+      }
+
+      .information {
+        margin: 0;
+        height: 30px;
+        font-size: $font-size-h6;
+        display: table;
+
+        i {
+          vertical-align: middle;
+          margin: 0 5px 0 0;
+        }
+
+        span {
+          font-size: 13px;
+        }
+
+        .attempt {
+          margin: 0 3px 0 0;
+
+          .attempt-selector {
+            display: inline-block;
+
+            .current-attempt {
+              display: inline-block;
+
+              button {
+                line-height: 1;
+
+                .caret {
+                  margin-left: 10px;
+                }
+                color: $gray;
+              }
+            }
+          }
+        }
+
+        .date {
+          margin: 0 2px 0 0;
+        }
+
+        .time {
+          margin: 0 5px 0 0;
+        }
+
+        .attempt,
+        .date,
+        .reaction,
+        .time {
+          @media (max-width: $screen-xs) {
+            display: block;
+            margin: 0 0 10px;
+          }
+          @media (max-width: $screen-md) {
+            margin: 0 10px 0 0;
+          }
+        }
+      }
+
       .class-performance {
         width: 85%;
 
@@ -55,7 +117,7 @@
       .close {
         display: grid;
         width: 10%;
-        margin-top: -45px;
+        margin-top: -85px;
 
         .clear-button {
           font-size: 30px;
@@ -99,6 +161,9 @@
 
           .score-text {
             font-size: 12px;
+            margin-top: -4px;
+            margin-left: 3px;
+            width: 55px;
           }
         }
 
@@ -120,6 +185,9 @@
 
           .score-text {
             font-size: 12px;
+            margin-top: -4px;
+            margin-left: 3px;
+            width: 55px;
           }
         }
 
@@ -160,6 +228,7 @@
 
     .gru-assessment-report {
       .gru-assessment-summary {
+        display: inline-block;
         .gru-summary {
           .summary-container {
             pointer-events: none;

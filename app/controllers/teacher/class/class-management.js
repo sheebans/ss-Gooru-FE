@@ -156,9 +156,19 @@ export default Ember.Controller.extend(ModalMixin, {
       let userClassModel = {
         userId: userId,
         classId: controller.get('class.id'),
-        courseId: controller.get('class.courseId')
+        courseId: controller.get('class.courseId'),
+        pathway: true
       };
-      this.send('showModal', 'class.gru-learner-pathway', userClassModel);
+      this.send(
+        'showModal',
+        'class.gru-learner-pathway',
+        userClassModel,
+        null,
+        null,
+        null,
+        'static',
+        false
+      );
     },
 
     /**
