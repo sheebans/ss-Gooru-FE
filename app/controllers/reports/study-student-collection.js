@@ -407,25 +407,20 @@ export default StudentCollection.extend({
   playNextContent: function() {
     const navigateMapService = this.get('navigateMapService');
     const context = this.get('mapLocation.context');
-    navigateMapService
-      .getStoredNext()
-      .then(
-        mapLocation =>
-          mapLocation.get('hasContent') || this.get('hasPreTestSuggestions')
-            ? Ember.RSVP.resolve(mapLocation)
-            : navigateMapService.next(context)
-      )
-      .then(mapLocation => {
-        let status = (mapLocation.get('context.status') || '').toLowerCase();
-        if (status === 'done') {
-          this.setProperties({
-            isDone: true,
-            hasAnySuggestion: false
-          });
-        } else {
-          this.toPlayer();
-        }
-      });
+    navigateMapService.next(context).then(mapLocation => {
+      let status = (mapLocation.get('context.status') || '').toLowerCase();
+      if (status !== 'done') {
+        this.toPlayer();
+      } else {
+        this.set('mapLocation.context.status', 'done');
+        this.set('hasBackFillSuggestions', false);
+        this.set('hasPostTestSuggestions', false);
+        this.set('hasResourceSuggestions', false);
+        this.set('hasBenchmarkSuggestions', false);
+        this.set('hasSignatureCollectionSuggestions', false);
+        this.set('hasSignatureCollectionSuggestions', false);
+      }
+    });
   },
 
   playSuggestedContent: function(suggestion) {
@@ -436,7 +431,7 @@ export default StudentCollection.extend({
       .then(mapstoredloc => {
         let mapContext = mapstoredloc.get('context');
         var mapcontextloc = mapstoredloc.get('context');
-        mapContext.ctx_user_id = this.get('session.userId'); //'f83059c8-07d4-43f4-9c0a-86c47e540d5c'; // astud5
+        mapContext.ctx_user_id = this.get('session.userId');
         mapContext.ctx_class_id = mapContext.classId;
         mapContext.ctx_course_id = mapContext.courseId;
         mapContext.ctx_lesson_id = mapContext.lessonId;
