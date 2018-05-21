@@ -7,6 +7,18 @@
       </button>
     </div>
 
+    {{#if isRescopedClass}}
+      <div class="rescope-toggle">
+        <div class="action">
+          <span>{{t 'class.overview.course-map.rescope-toggle'}}</span>
+          {{gru-toggle-button isChecked=isChecked onToggleButton="onToggleRescope"}}
+        </div>
+        <div class="info">
+          <span>{{t 'class.overview.course-map.rescope-info'}}</span>
+        </div>
+      </div>
+    {{/if}}
+
     {{class.overview.gru-accordion-course
     currentClass=class
     classMembers=classMembers
@@ -19,7 +31,8 @@
     contentVisibility=contentVisibility
     showLocation=showLocation
     isTeacher=false
-    toggleLocation=toggleLocation}}
+    toggleLocation=toggleLocation
+    onSelectItem="onSelectItem"}}
   </div>
 {{else}}
   <div class="no-content">{{t 'student-landing.no-content-classrooms'}}</div>

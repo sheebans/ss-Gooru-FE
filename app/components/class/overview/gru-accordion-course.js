@@ -103,6 +103,10 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     updateContentVisibility: function(contentId, visible) {
       this.sendAction('onUpdateContentVisibility', contentId, visible);
+    },
+
+    onSelectItem() {
+      this.sendAction('onSelectItem');
     }
   },
 
