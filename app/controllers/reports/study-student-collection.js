@@ -1,9 +1,6 @@
 import Ember from 'ember';
 import StudentCollection from 'gooru-web/controllers/reports/student-collection';
-import {
-  ASSESSMENT_SUB_TYPES,
-  ROLES
-} from 'gooru-web/config/config';
+import { ASSESSMENT_SUB_TYPES, ROLES } from 'gooru-web/config/config';
 
 /**
  *
@@ -63,9 +60,8 @@ export default StudentCollection.extend({
      * Action triggered for the next button
      */
     next: function() {
-      this.playNextContent();
+      this.checknPlayNext();
     },
-
     /**
      * If the user want to continue playing the post-test suggestion
      */
@@ -393,23 +389,39 @@ export default StudentCollection.extend({
     }
   },
 
+  /**
+   * Removing dependency on local storage and  bypassing next call when dont have a suggestion
+   */
+  checknPlayNext: function() {
+    if (this.get('hasAnySuggestion')) {
+      this.playNextContent();
+    } else {
+      const context = this.get('mapLocation.context'); //Already having contex
+      this.playGivenContent(context);
+    }
+  },
+
   playNextContent: function() {
     const navigateMapService = this.get('navigateMapService');
     const context = this.get('mapLocation.context');
-    navigateMapService.next(context).then(mapLocation => {
-      let status = (mapLocation.get('context.status') || '').toLowerCase();
-      if (status !== 'done') {
-        this.toPlayer();
-      } else {
-        this.set('mapLocation.context.status', 'done');
-        this.set('hasBackFillSuggestions', false);
-        this.set('hasPostTestSuggestions', false);
-        this.set('hasResourceSuggestions', false);
-        this.set('hasBenchmarkSuggestions', false);
-        this.set('hasSignatureCollectionSuggestions', false);
-        this.set('hasSignatureCollectionSuggestions', false);
-      }
-    });
+    navigateMapService
+      .next(context)
+      .then(nextContext => this.playGivenContent(nextContext));
+  },
+
+  playGivenContent: function(mapLocation) {
+    let status = (mapLocation.get('context.status') || '').toLowerCase();
+    if (status !== 'done') {
+      this.toPlayer();
+    } else {
+      this.set('mapLocation.context.status', 'done');
+      this.set('hasBackFillSuggestions', false);
+      this.set('hasPostTestSuggestions', false);
+      this.set('hasResourceSuggestions', false);
+      this.set('hasBenchmarkSuggestions', false);
+      this.set('hasSignatureCollectionSuggestions', false);
+      this.set('hasSignatureCollectionSuggestions', false);
+    }
   },
 
   playSuggestedContent: function(suggestion) {
