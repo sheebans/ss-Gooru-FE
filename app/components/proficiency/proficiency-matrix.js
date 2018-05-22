@@ -121,12 +121,7 @@ export default Ember.Component.extend({
    */
   onChangeResetToggle: Ember.observer('isExpandChartEnabled', function() {
     let component = this;
-    let isExpandChartEnabled = component.get('isExpandChartEnabled');
-    if (isExpandChartEnabled) {
-      component.expandChartColumnHeight();
-    } else {
-      component.reduceChartHeight();
-    }
+    component.toggleChartSize();
   }),
 
   /**
@@ -249,6 +244,7 @@ export default Ember.Component.extend({
       });
     cards.exit().remove();
     component.reduceChartHeight();
+    component.toggleChartSize();
   },
 
   loadDataBySubject(subjectId) {
@@ -532,5 +528,19 @@ export default Ember.Component.extend({
         .attr('fill', '#fff')
         .attr('class', `skyline ${className}`);
     });
+  },
+
+  /**
+   * @function toggleChartSize
+   * Method to toggle chart size between expanded and collapsed
+   */
+  toggleChartSize() {
+    let component = this;
+    let isExpandChartEnabled = component.get('isExpandChartEnabled');
+    if (isExpandChartEnabled) {
+      component.expandChartColumnHeight();
+    } else {
+      component.reduceChartHeight();
+    }
   }
 });
