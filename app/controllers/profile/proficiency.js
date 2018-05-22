@@ -36,6 +36,11 @@ export default Ember.Controller.extend({
     onToggleView(item) {
       let controller = this;
       controller.set('selectedMatrixView', item);
+    },
+
+    onToggleChart(isChecked) {
+      let controller = this;
+      controller.set('isExpandChartEnabled', isChecked);
     }
   },
 
@@ -98,5 +103,7 @@ export default Ember.Controller.extend({
    * @type {String}
    * Property to store user selected matrix view
    */
-  selectedMatrixView: 'domain'
+  selectedMatrixView: 'domain',
+
+  isExpandChartEnabled: false
 });

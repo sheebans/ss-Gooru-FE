@@ -117,6 +117,19 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * Trigger whenever reset chart view mode toggle state got changed.
+   */
+  onChangeResetToggle: Ember.observer('isExpandChartEnabled', function() {
+    let component = this;
+    let isExpandChartEnabled = component.get('isExpandChartEnabled');
+    if (isExpandChartEnabled) {
+      component.expandChartColumnHeight();
+    } else {
+      component.reduceChartHeight();
+    }
+  }),
+
+  /**
    * Maintains the pull out state.
    * @type {Boolean}
    */

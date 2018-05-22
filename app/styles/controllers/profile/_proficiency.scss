@@ -14,10 +14,28 @@
     border-bottom: solid 1px $light-400;
     height: 55px;
     .title {
-      width: 77%;
+      width: 52%;
       color: $gray-29;
       text-transform: capitalize;
       line-height: 55px;
+      &.course {
+        width: 77%;
+      }
+    }
+    .toggle-chart-view {
+      width: 24%;
+      display: flex;
+      line-height: 55px;
+
+      .text {
+        width: 56%;
+        font-size: 16px;
+        color: $gray-29;
+      }
+      .gru-toggle-button {
+        margin-top: 22px;
+        margin-left: 8px;
+      }
     }
     .actions {
       .toggle-view {

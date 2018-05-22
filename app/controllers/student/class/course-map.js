@@ -189,9 +189,9 @@ export default Ember.Controller.extend({
     //Initially load rescope data
     if (controller.get('isRescopedClass')) {
       controller.getSkippedContents().then(function(skippedContents) {
-        let isContentAvailable = controller.isSkippedContentsEmpty(
-          skippedContents
-        );
+        let isContentAvailable = skippedContents
+          ? controller.isSkippedContentsEmpty(skippedContents)
+          : false;
         controller.set('isContentAvailable', isContentAvailable);
         if (skippedContents && isContentAvailable) {
           controller.toggleSkippedContents(skippedContents);
