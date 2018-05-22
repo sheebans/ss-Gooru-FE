@@ -2,8 +2,7 @@ import Ember from 'ember';
 import StudentCollection from 'gooru-web/controllers/reports/student-collection';
 import {
   ASSESSMENT_SUB_TYPES,
-  ROLES,
-  NU_COURSE_VERSION
+  ROLES
 } from 'gooru-web/config/config';
 
 /**
@@ -290,12 +289,6 @@ export default StudentCollection.extend({
   courseVersion: Ember.computed.alias('course.version'),
 
   /**
-   * Check it's nu course version or not
-   * @type {Boolean}
-   */
-  isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
-
-  /**
    * Steps for Take a Tour functionality
    * @return {Array}
    */
@@ -340,13 +333,9 @@ export default StudentCollection.extend({
       {
         elementSelector:
           '.header-panel .performance-completion-take-tour-info .completion',
-        title: controller.get('isNUCourse')
-          ? controller
-            .get('i18n')
-            .t('gru-take-tour.study-player.stepFive.nuTitle')
-          : controller
-            .get('i18n')
-            .t('gru-take-tour.study-player.stepFive.title'),
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFive.title'),
         description: controller
           .get('i18n')
           .t('gru-take-tour.study-player.stepFive.description')

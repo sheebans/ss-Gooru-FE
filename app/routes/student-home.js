@@ -3,7 +3,6 @@ import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import {
   ROLES,
-  NU_COURSE_VERSION,
   PLAYER_EVENT_SOURCE
 } from 'gooru-web/config/config';
 
@@ -320,11 +319,8 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       .then(function(hash) {
         const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
         const classesLocation = hash.classesLocation;
-        const nuCourseIds = Ember.A();
         activeClasses.forEach(function(activeClass) {
           const classId = activeClass.get('id');
-          const courseVersion = activeClass.get('courseVersion');
-          const courseId = activeClass.get('courseId');
           activeClass.set(
             'currentLocation',
             classesLocation.findBy('classId', classId)
@@ -333,36 +329,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
             'performanceSummary',
             classPerformanceSummaryItems.findBy('classId', classId)
           );
-          if (courseId != null && courseVersion === NU_COURSE_VERSION) {
-            nuCourseIds.addObject(courseId);
-            activeClass.set('isNUCourse', true);
-          } else {
-            activeClass.set('isNUCourse', false);
-          }
         });
-        if (nuCourseIds.length > 0) {
-          Ember.RSVP
-            .hash({
-              coursesCompetencyCompletion: route
-                .get('performanceService')
-                .findCourseCompetencyCompletionByCourseIds(myId, nuCourseIds)
-            })
-            .then(({ coursesCompetencyCompletion }) => {
-              activeClasses.forEach(function(activeClass) {
-                const courseId = activeClass.get('courseId');
-                const courseCompetencyCompletion = coursesCompetencyCompletion.findBy(
-                  'courseId',
-                  courseId
-                );
-                if (courseCompetencyCompletion) {
-                  activeClass.set(
-                    'courseCompetencyCompletion',
-                    courseCompetencyCompletion
-                  );
-                }
-              });
-            });
-        }
       });
   },
 

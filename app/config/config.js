@@ -255,8 +255,6 @@ export const PLAYER_EVENT_SOURCE = {
   RGO: 'rgo'
 };
 
-export const NU_COURSE_VERSION = '3.0-nu';
-
 export const PROFILE_NAV_MENU_ITEMS = [
   'about',
   'content',
