@@ -19,6 +19,7 @@ export default ApplicationAdapter.extend({
 
   insightsNamespace: '/api/nucleus-insights/v2',
 
+  navigateNextNameSpace: '/api/navigate-map/v1',
   /**
    * Gets the lesson infor for course map
    * @param {string} courseId - course the lesson belongs to
@@ -133,6 +134,45 @@ export default ApplicationAdapter.extend({
         target_resource_id: suggestion.get('isResource')
           ? suggestion.get('id')
           : null
+      })
+    };
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(function(
+        responseData,
+        textStatus,
+        request
+      ) {
+        resolve(request.getResponseHeader('location'));
+      },
+      reject);
+    });
+  },
+  /**
+   * Creates a New Path based on the Context data.
+   * @param {MapContext} context - is the context where the suggestion was presented
+   * @param {MapSuggestion} suggestion - the suggestion. The suggested path
+   * @returns {Ember.RSVP.Promise}
+   */
+  addSuggestedPath: function(context) {
+    const adapter = this;
+    const namespace = this.get('navigateNextNameSpace');
+    const url = `${namespace}/system/suggestions`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: adapter.get('headers'),
+      data: JSON.stringify({
+        ctx_user_id: context.ctx_user_id,
+        ctx_class_id: context.ctx_class_id,
+        ctx_course_id: context.ctx_course_id,
+        ctx_unit_id: context.ctx_unit_id,
+        ctx_lesson_id: context.lessonId,
+        ctx_collection_id: context.ctx_collection_id,
+        suggested_content_id: context.suggested_content_id,
+        suggested_content_subtype: context.suggested_content_subtype,
+        suggested_content_type: context.suggested_content_type
       })
     };
     return new Ember.RSVP.Promise(function(resolve, reject) {

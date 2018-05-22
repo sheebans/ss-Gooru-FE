@@ -1,8 +1,7 @@
 import Ember from 'ember';
 import {
   ANONYMOUS_COLOR,
-  STUDY_PLAYER_BAR_COLOR,
-  NU_COURSE_VERSION
+  STUDY_PLAYER_BAR_COLOR
 } from 'gooru-web/config/config';
 
 /**
@@ -255,13 +254,8 @@ export default Ember.Component.extend({
     'performanceSummary',
     'courseCompetencyCompletion',
     function() {
-      const isNUCourse = this.get('isNUCourse');
-      const completed = isNUCourse
-        ? this.get('courseCompetencyCompletion.completedCount')
-        : this.get('performanceSummary.totalCompleted');
-      const total = isNUCourse
-        ? this.get('courseCompetencyCompletion.totalCount')
-        : this.get('performanceSummary.total');
+      const completed = this.get('performanceSummary.totalCompleted');
+      const total= this.get('performanceSummary.total');
       const percentage = completed ? completed / total * 100 : 0;
       return [
         {
@@ -282,12 +276,6 @@ export default Ember.Component.extend({
    * @type {String}
    */
   courseVersion: null,
-
-  /**
-   * Check it's nu course version or not
-   * @type {Boolean}
-   */
-  isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
 
   /**
    * This property will decide to show the suggested resoure or not.
@@ -350,21 +338,6 @@ export default Ember.Component.extend({
         });
     }
 
-    const isNUCourse = this.get('isNUCourse');
-    if (isNUCourse) {
-      Ember.RSVP
-        .hash({
-          courseCompetencyCompletion: component
-            .get('performanceService')
-            .findCourseCompetencyCompletionByCourseIds(myId, [courseId])
-        })
-        .then(({ courseCompetencyCompletion }) => {
-          component.set(
-            'courseCompetencyCompletion',
-            courseCompetencyCompletion.findBy('courseId', courseId)
-          );
-        });
-    }
     if (collectionId) {
       component
         .get('suggestService')

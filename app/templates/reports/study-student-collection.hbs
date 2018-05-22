@@ -13,6 +13,20 @@
 
 <div class="report-container">
   {{#if hasAnySuggestion}}
+
+      {{#if hasSignatureAssessmentSuggestions}}
+      <div class="suggestion-panel">
+        {{player.gru-suggest-test type=signatureAssessmentType assessment=collection suggestion=mapLocation.signatureAssessmentSuggestions
+        onPlayCollection='next' onPlaySuggestion='playSignatureAssessmentSuggestions'}}
+      </div>
+      {{/if}}
+
+       {{#if hasSignatureCollectionSuggestions}}
+      <div class="suggestion-panel">
+        {{player.gru-suggest-test type=signatureCollectionType assessment=collection suggestion=mapLocation.signatureCollectionSuggestions onPlayCollection='next'
+        onPlaySuggestion='playSignatureCollectionSuggestions'}}
+      </div>
+       {{/if}}
     {{#if hasBackFillSuggestions}}
       <div class="suggestion-panel">
         {{player.gru-suggest-test type=backFillType assessment=collection suggestion=mapLocation.backFillSuggestion onPlayCollection='next' onPlaySuggestion='playBackFillSuggestion'}}

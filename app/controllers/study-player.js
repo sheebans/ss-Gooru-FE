@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import {
-  ASSESSMENT_SUB_TYPES,
-  NU_COURSE_VERSION
+  ASSESSMENT_SUB_TYPES
 } from 'gooru-web/config/config';
 import PlayerController from 'gooru-web/controllers/player';
 
@@ -158,12 +157,6 @@ export default PlayerController.extend({
   courseVersion: Ember.computed.alias('course.version'),
 
   /**
-   * Check it's nu course version or not
-   * @type {Boolean}
-   */
-  isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
-
-  /**
    * @property {String} It decide to show the back to course map or not.
    */
   showBackToCourseMap: true,
@@ -224,13 +217,9 @@ export default PlayerController.extend({
       {
         elementSelector:
           '.header-panel .performance-completion-take-tour-info .completion',
-        title: controller.get('isNUCourse')
-          ? controller
-            .get('i18n')
-            .t('gru-take-tour.study-player.stepFive.nuTitle')
-          : controller
-            .get('i18n')
-            .t('gru-take-tour.study-player.stepFive.title'),
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFive.title'),
         description: controller
           .get('i18n')
           .t('gru-take-tour.study-player.stepFive.description')

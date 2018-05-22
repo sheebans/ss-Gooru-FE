@@ -70,7 +70,7 @@
                         </button>
                       </div>
                     {{else}}
-                      <span class="performance">
+                      <span class="performance" {{action "studentReport" item}}>
                         {{#if item.performance.timeSpent}}
                           {{format-time item.performance.timeSpent}}
                         {{else}}
@@ -170,11 +170,6 @@
                               {{/unless}}
                             {{/if}}
                           </div>
-                          {{#unless isNUCourse}}
-                            <span class="switch" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assign"}}">
-                              {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}
-                            </span>
-                          {{/unless}}
                         {{/if}}
                       </div>
                     {{else}}
@@ -187,12 +182,12 @@
                     <div class="performance">
                       {{#if item.isAssessment}}
                         {{#if item.performance.isCompleted}}
-                          <span class="score" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                          <span {{action "studentReport"  item}} class="score" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                           {{item.performance.score}}%
                           </span>
                         {{else}}
                           {{#if item.performance.hasStarted}}
-                            <span class="score" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                            <span{{action "studentReport" item}}  class="score" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                             {{item.performance.score}}%
                             </span>
                           {{else}}
@@ -209,7 +204,7 @@
                         {{/if}}
                       {{else}}
                         {{#if item.performance.hasStarted}}
-                          <span class="time-spent">
+                          <span {{action "studentReport"  item}} class="time-spent">
                             {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
                           </span>
                         {{else}}
