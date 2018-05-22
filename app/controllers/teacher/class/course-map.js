@@ -91,7 +91,18 @@ export default Ember.Controller.extend({
   /**
    * @property {boolean} showWelcome - indicates the toggle welcome panel state, true means open, false means closed
    */
-  showWelcome: true
+  showWelcome: true,
+
+  /**
+   * @type {Boolean}
+   * Property to check whether a class is rescoped
+   */
+  isRescopedClass: Ember.computed('class', function() {
+    let controller = this;
+    const currentClass = controller.get('class');
+    let setting = currentClass.get('setting');
+    return setting ? setting.rescope : false;
+  })
 
   // -------------------------------------------------------------------------
   // Observers
