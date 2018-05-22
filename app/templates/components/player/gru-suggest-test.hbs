@@ -3,7 +3,8 @@
         <span class="lead"><b>{{t  (concat 'gru-suggest-test.' type '-header')}}</b></span>
         <span class="description">{{t  (concat 'gru-suggest-test.' type '-lead')}}</span>
         <div class="bottom-info">
-            {{#if isBackFill}}
+            
+            {{#if (or (or isBackFill isSignatureCollection ) isSignatureAssessment) }}
                 <div class="assessment-info">
                     <div class="image">
                         <img class="img-responsive" src="{{suggestion.thumbnail}}"/>
@@ -36,12 +37,10 @@
             {{/if}}
             <div class="actions">
                 <button class="btn btn-default btn-no" disabled={{disabledButtons}} {{action 'playCollection'}}>{{t 'gru-suggest-test.no'}}</button>
-              {{#if isBackFill}}
-                  <button class="btn btn-primary btn-backfill" disabled={{disabledButtons}} {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take-backfill-pretest'}}</button>
-              {{else if isBenchmark }}
-                  <button class="btn btn-primary btn-benchmark" disabled={{disabledButtons}} {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take' type=type}}</button>
-              {{else if isResource}}
-                  <button class="btn btn-primary btn-resource" disabled={{disabledButtons}} {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take-resource'}}</button>
+               {{#if isSignatureAssessment }}
+                <button class="btn btn-primary btn-backfill" disabled={{disabledButtons}} {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take-signature-assessment'}}</button>
+             {{else if isSignatureCollection }}
+                <button class="btn btn-primary btn-backfill" disabled={{disabledButtons}} {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take-signature-collection'}}</button>
               {{else}}
                   <button class="btn btn-primary btn-suggestion" disabled={{disabledButtons}} {{action 'playSuggestion'}}>{{t 'gru-suggest-test.take' type=type}}</button>
               {{/if}}

@@ -139,6 +139,7 @@ export default Ember.Controller.extend(ModalMixin, {
       let controller = this;
       let studentId = student.get('id');
       let classId = controller.get('class.id');
+      localStorage.setItem('classId', classId);
       this.transitionToRoute(`/${studentId}/about?classId=${classId}`);
     },
 
@@ -155,9 +156,19 @@ export default Ember.Controller.extend(ModalMixin, {
       let userClassModel = {
         userId: userId,
         classId: controller.get('class.id'),
-        courseId: controller.get('class.courseId')
+        courseId: controller.get('class.courseId'),
+        pathway: true
       };
-      this.send('showModal', 'class.gru-learner-pathway', userClassModel);
+      this.send(
+        'showModal',
+        'class.gru-learner-pathway',
+        userClassModel,
+        null,
+        null,
+        null,
+        'static',
+        false
+      );
     },
 
     /**

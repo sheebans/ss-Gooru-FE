@@ -32,35 +32,45 @@ const MapLocationModel = Ember.Object.extend({
    * @property {boolean}
    */
   hasPreTestSuggestions: Ember.computed('suggestions.[]', function() {
-    return this.get('suggestions').filterBy('isPreTest').get('length');
+    return this.get('suggestions')
+      .filterBy('isPreTest')
+      .get('length');
   }),
 
   /**
    * @property {boolean}
    */
   hasPostTestSuggestions: Ember.computed('suggestions.[]', function() {
-    return this.get('suggestions').filterBy('isPostTest').get('length');
+    return this.get('suggestions')
+      .filterBy('isPostTest')
+      .get('length');
   }),
 
   /**
    * @property {boolean}
    */
   hasBackFillSuggestions: Ember.computed('suggestions.[]', function() {
-    return this.get('suggestions').filterBy('isBackFill').get('length');
+    return this.get('suggestions')
+      .filterBy('isBackFill')
+      .get('length');
   }),
 
   /**
    * @property {boolean}
    */
   hasBenchmarkSuggestions: Ember.computed('suggestions.[]', function() {
-    return this.get('suggestions').filterBy('isBenchmark').get('length');
+    return this.get('suggestions')
+      .filterBy('isBenchmark')
+      .get('length');
   }),
 
   /**
    * @property {boolean}
    */
   hasResourceSuggestions: Ember.computed('suggestions.[]', function() {
-    return this.get('suggestions').filterBy('isResource').get('length');
+    return this.get('suggestions')
+      .filterBy('isResource')
+      .get('length');
   }),
 
   /**
@@ -116,10 +126,68 @@ const MapLocationModel = Ember.Object.extend({
   /**
    * Returns the suggestion by sub type
    * @param {string} subType @see ASSESSMENT_SUB_TYPES
-     */
+   */
   getSuggestion: function(subType) {
     return this.get('suggestions').findBy('subType', subType);
-  }
+  },
+
+  /**
+   * Returns the suggestion by sub type
+   * @param {string} subType @see ASSESSMENT_SUB_TYPES
+   */
+  getSystemSuggestion: function(subType) {
+    return this.get('suggestions').findBy('subType', subType);
+  },
+
+  /**
+   * Returns the Signaure Collection suggestion for this location
+   * @property {MapSuggestion}
+   */
+  signatureCollectionSuggestions: Ember.computed(
+    'hasSignatureCollectionSuggestions',
+    function() {
+      return this.get('hasSignatureCollectionSuggestions')
+        ? this.getSystemSuggestion(ASSESSMENT_SUB_TYPES.SIGNATURE_COLLECTION)
+        : undefined;
+    }
+  ),
+
+  /**
+   * @property {boolean}
+   */
+  hasSignatureCollectionSuggestions: Ember.computed(
+    'suggestions.[]',
+    function() {
+      return this.get('suggestions')
+        .filterBy('subType', 'signature_collection')
+        .get('length');
+    }
+  ),
+
+  /**
+   * Returns the signature assessment suggestion for this location
+   * @property {MapSuggestion}
+   */
+  signatureAssessmentSuggestions: Ember.computed(
+    'hasSignatureAssessmentSuggestions',
+    function() {
+      return this.get('hasSignatureAssessmentSuggestions')
+        ? this.getSystemSuggestion(ASSESSMENT_SUB_TYPES.SIGNATURE_ASSESSMENT)
+        : undefined;
+    }
+  ),
+
+  /**
+   * @property {boolean}
+   */
+  hasSignatureAssessmentSuggestions: Ember.computed(
+    'suggestions.[]',
+    function() {
+      return this.get('suggestions')
+        .filterBy('subType', 'signature_assessment')
+        .get('length');
+    }
+  )
 });
 
 export default MapLocationModel;

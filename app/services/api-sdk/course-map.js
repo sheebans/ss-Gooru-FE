@@ -117,5 +117,14 @@ export default Ember.Service.extend({
    */
   createNewPath: function(context, suggestion) {
     return this.get('courseMapAdapter').createNewPath(context, suggestion);
+  },
+  /**
+   * Creates a suggested Path based on the Context data.
+   * @param {MapContext} context - is the context where the suggestion was presented
+   * @param {MapSuggestion} suggestion - the suggestion. The suggested path
+   * @returns {Ember.RSVP.Promise}
+   */
+  addSuggestedPath: function(context, suggestion) {
+    return this.get('courseMapAdapter').addSuggestedPath(context, suggestion);
   }
 });

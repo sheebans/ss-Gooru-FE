@@ -2,8 +2,7 @@ import Ember from 'ember';
 import StudentCollection from 'gooru-web/controllers/reports/student-collection';
 import {
   ASSESSMENT_SUB_TYPES,
-  ROLES,
-  NU_COURSE_VERSION
+  ROLES
 } from 'gooru-web/config/config';
 
 /**
@@ -49,6 +48,8 @@ export default StudentCollection.extend({
    */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
+  session: Ember.inject.service('session'),
+
   /**
    * @dependency {i18nService} Service to retrieve translations information
    */
@@ -91,6 +92,18 @@ export default StudentCollection.extend({
      */
     playBenchmarkSuggestion: function() {
       this.playSuggestedContent(this.get('mapLocation.benchmarkSuggestion'));
+    },
+
+    playSignatureAssessmentSuggestions: function() {
+      this.playSuggestedContent(
+        this.get('mapLocation.signatureAssessmentSuggestions')
+      );
+    },
+
+    playSignatureCollectionSuggestions: function() {
+      this.playSuggestedContent(
+        this.get('mapLocation.signatureCollectionSuggestions')
+      );
     }
   },
 
@@ -142,6 +155,18 @@ export default StudentCollection.extend({
   benchmarkType: ASSESSMENT_SUB_TYPES.BENCHMARK,
 
   /**
+   *signatureAssessmentType suggestion
+   * @property {String} signatureAssessmentType
+   */
+  signatureAssessmentType: ASSESSMENT_SUB_TYPES.SIGNATURE_ASSESSMENT,
+
+  /**
+   *signatureCollectionType suggestion
+   * @property {String} signatureCollectionType
+   */
+  signatureCollectionType: ASSESSMENT_SUB_TYPES.SIGNATURE_COLLECTION,
+
+  /**
    * Indicate if show pre test suggestion
    * @property {Boolean} showSuggestion
    */
@@ -190,6 +215,20 @@ export default StudentCollection.extend({
   /**
    * @property {boolean}
    */
+  hasSignatureCollectionSuggestions: Ember.computed.alias(
+    'mapLocation.hasSignatureCollectionSuggestions'
+  ),
+
+  /**
+   * @property {boolean}
+   */
+  hasSignatureAssessmentSuggestions: Ember.computed.alias(
+    'mapLocation.hasSignatureAssessmentSuggestions'
+  ),
+
+  /**
+   * @property {boolean}
+   */
   isDone: Ember.computed('mapLocation.context.status', function() {
     return (
       (this.get('mapLocation.context.status') || '').toLowerCase() === 'done'
@@ -204,13 +243,17 @@ export default StudentCollection.extend({
     'hasPostTestSuggestions',
     'hasResourceSuggestions',
     'hasBenchmarkSuggestions',
+    'hasSignatureCollectionSuggestions',
+    'hasSignatureCollectionSuggestions',
     'showSuggestion',
     function() {
       return (
         (this.get('hasBackFillSuggestions') ||
           this.get('hasPostTestSuggestions') ||
           this.get('hasResourceSuggestions') ||
-          this.get('hasBenchmarkSuggestions')) &&
+          this.get('hasBenchmarkSuggestions') ||
+          this.get('hasSignatureCollectionSuggestions') ||
+          this.get('hasSignatureAssessmentSuggestions')) &&
         this.get('showSuggestion')
       );
     }
@@ -244,12 +287,6 @@ export default StudentCollection.extend({
    * @property {String}
    */
   courseVersion: Ember.computed.alias('course.version'),
-
-  /**
-   * Check it's nu course version or not
-   * @type {Boolean}
-   */
-  isNUCourse: Ember.computed.equal('courseVersion', NU_COURSE_VERSION),
 
   /**
    * Steps for Take a Tour functionality
@@ -296,13 +333,9 @@ export default StudentCollection.extend({
       {
         elementSelector:
           '.header-panel .performance-completion-take-tour-info .completion',
-        title: controller.get('isNUCourse')
-          ? controller
-            .get('i18n')
-            .t('gru-take-tour.study-player.stepFive.nuTitle')
-          : controller
-            .get('i18n')
-            .t('gru-take-tour.study-player.stepFive.title'),
+        title: controller
+          .get('i18n')
+          .t('gru-take-tour.study-player.stepFive.title'),
         description: controller
           .get('i18n')
           .t('gru-take-tour.study-player.stepFive.description')
@@ -345,15 +378,14 @@ export default StudentCollection.extend({
     if (classId) {
       queryParams.classId = classId;
     }
-    if (suggestion && suggestion.get('isResource')) {
-      this.transitionToRoute(
-        'resource-player',
-        context.get('courseId'),
-        suggestion.get('id'),
-        {
-          queryParams
-        }
-      );
+    if (suggestion) {
+      queryParams.courseId = context.courseId;
+      queryParams.unitId = context.get('unitId');
+      queryParams.lessonId = context.lessonId;
+      queryParams.collectionId = suggestion.get('id');
+      this.transitionToRoute('study-player', context.get('courseId'), {
+        queryParams
+      });
     } else {
       this.transitionToRoute('study-player', context.get('courseId'), {
         queryParams
@@ -364,25 +396,20 @@ export default StudentCollection.extend({
   playNextContent: function() {
     const navigateMapService = this.get('navigateMapService');
     const context = this.get('mapLocation.context');
-    navigateMapService
-      .getStoredNext()
-      .then(
-        mapLocation =>
-          mapLocation.get('hasContent') || this.get('hasPreTestSuggestions')
-            ? Ember.RSVP.resolve(mapLocation)
-            : navigateMapService.next(context)
-      )
-      .then(mapLocation => {
-        let status = (mapLocation.get('context.status') || '').toLowerCase();
-        if (status === 'done') {
-          this.setProperties({
-            isDone: true,
-            hasAnySuggestion: false
-          });
-        } else {
-          this.toPlayer();
-        }
-      });
+    navigateMapService.next(context).then(mapLocation => {
+      let status = (mapLocation.get('context.status') || '').toLowerCase();
+      if (status !== 'done') {
+        this.toPlayer();
+      } else {
+        this.set('mapLocation.context.status', 'done');
+        this.set('hasBackFillSuggestions', false);
+        this.set('hasPostTestSuggestions', false);
+        this.set('hasResourceSuggestions', false);
+        this.set('hasBenchmarkSuggestions', false);
+        this.set('hasSignatureCollectionSuggestions', false);
+        this.set('hasSignatureCollectionSuggestions', false);
+      }
+    });
   },
 
   playSuggestedContent: function(suggestion) {
@@ -390,16 +417,31 @@ export default StudentCollection.extend({
     const courseMapService = this.get('courseMapService');
     navigateMapService
       .getStoredNext()
-      .then(mapLocation =>
-        Ember.RSVP.hash({
-          context: mapLocation.get('context'),
-          pathId: courseMapService.createNewPath(
-            mapLocation.get('context'),
-            suggestion
-          )
-        })
-      )
-      .then(({ context }) => navigateMapService.next(context))
+      .then(mapstoredloc => {
+        let mapContext = mapstoredloc.get('context');
+        var mapcontextloc = mapstoredloc.get('context');
+        mapContext.ctx_user_id = this.get('session.userId');
+        mapContext.ctx_class_id = mapContext.classId;
+        mapContext.ctx_course_id = mapContext.courseId;
+        mapContext.ctx_lesson_id = mapContext.lessonId;
+        mapContext.ctx_collection_id = mapContext.collectionId;
+        mapContext.ctx_unit_id = mapContext.unitId;
+        mapContext.suggested_content_type = suggestion.type;
+        mapContext.suggested_content_id = suggestion.id;
+        mapContext.suggested_content_subtype =
+          suggestion.subType === 'signature_collection'
+            ? 'signature-collection'
+            : 'signature-assessment';
+        return Ember.RSVP.hash({
+          context: mapcontextloc,
+          pathId: courseMapService.addSuggestedPath(mapContext)
+        });
+      })
+      .then(({ context, pathId }) => {
+        context.collectionId = suggestion.id; // Setting new collection id
+        context.pathId = pathId;
+        return navigateMapService.startAlternatePathSuggestion(context);
+      })
       .then(() => this.toPlayer(suggestion));
   },
 

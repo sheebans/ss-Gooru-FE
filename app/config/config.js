@@ -84,7 +84,9 @@ export const ASSESSMENT_SUB_TYPES = {
   POST_TEST: 'post-test',
   BACKFILL: 'backfill',
   BENCHMARK: 'benchmark',
-  RESOURCE: 'resource'
+  RESOURCE: 'resource',
+  SIGNATURE_ASSESSMENT: 'signature_assessment',
+  SIGNATURE_COLLECTION: 'signature_collection'
 };
 
 export const KEY_CODES = {
@@ -252,8 +254,6 @@ export const PLAYER_EVENT_SOURCE = {
   INDEPENDENT_ACTIVITY: 'ILActivity',
   RGO: 'rgo'
 };
-
-export const NU_COURSE_VERSION = '3.0-nu';
 
 export const PROFILE_NAV_MENU_ITEMS = [
   'about',

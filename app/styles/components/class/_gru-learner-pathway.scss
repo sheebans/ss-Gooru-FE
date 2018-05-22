@@ -1,7 +1,8 @@
 .gru-learner-pathway {
   padding: 10px 0 0;
-  width: 135%;
-  margin-left: -100px;
+  width: 145%;
+  margin-left: -135px;
+  margin-top: -25px;
 
   ol.accordion-course {
     background-color: $white;
@@ -18,191 +19,6 @@
 
       .user-profile-info {
         margin: 0 auto;
-        .gru-learner-pathway {
-          padding: 10px 0 0;
-          width: 135%;
-          margin-left: -100px;
-
-          ol.accordion-course {
-            background-color: $white;
-            border-radius: 4px;
-            list-style-type: none;
-            padding-left: 0;
-            margin-bottom: 0px;
-
-            .user-course-info {
-              width: 100%;
-              display: inline-block;
-              height: 130px;
-              border-bottom: 1px solid #dfe3e6;
-
-              .user-profile-info {
-                margin: 0 auto;
-
-                .profile {
-                  padding: 8px;
-
-                  .img-container {
-                    width: 110px;
-                    height: 110px;
-                    overflow: hidden;
-                    border-radius: 50px;
-                    margin-left: 15px;
-                    margin-right: 15px;
-                  }
-                }
-              }
-
-              .class-performance {
-                width: 85%;
-
-                .trophy {
-                  text-transform: capitalize;
-                  font-size: 16px;
-                  display: inherit;
-                  font-weight: 400;
-                }
-
-                .student-name {
-                  text-transform: capitalize;
-                  font-size: 14px;
-                  display: inherit;
-                  font-weight: 600;
-                }
-              }
-
-              .close {
-                display: grid;
-                width: 10%;
-                margin-top: -55px;
-
-                .clear-button {
-                  font-size: 30px;
-                  color: #cbd2d7;
-                  margin-left: 21px;
-                }
-
-                .text {
-                  text-transform: uppercase;
-                  font-size: 13px;
-                  font-weight: 500;
-                  text-align: center;
-                }
-              }
-
-              .performance {
-                width: 65%;
-                display: inherit;
-
-                .progress {
-                  height: 12px;
-
-                  .progress-bar:last-child:before {
-                    height: auto;
-                  }
-                }
-
-                .student {
-                  width: 100%;
-
-                  .student-performance {
-                    width: 92%;
-                    float: left;
-
-                    .progress {
-                      background-color: transparent;
-                      position: initial;
-                      margin-bottom: 6px;
-                    }
-                  }
-
-                  .score-text {
-                    font-size: 12px;
-                  }
-                }
-
-                .class {
-                  width: 100%;
-                  display: flex;
-                  height: 10px;
-
-                  .class-performance {
-                    width: 92%;
-                    float: left;
-
-                    .progress {
-                      background-color: transparent;
-                      position: initial;
-                      margin-bottom: 0;
-                    }
-                  }
-
-                  .score-text {
-                    font-size: 12px;
-                  }
-                }
-
-                .class-average {
-                  font-size: 12px;
-                  font-weight: 600;
-                  text-transform: capitalize;
-                }
-              }
-            }
-          }
-
-          .unit-body {
-            max-height: 460px;
-            overflow-y: auto;
-          }
-
-          .unit-body::-webkit-scrollbar {
-            height: 8px;
-            width: 4px;
-          }
-
-          .unit-body::-webkit-scrollbar-thumb {
-            background: $gray-light;
-            border: 1px solid $gray-light;
-            border-radius: 5px;
-          }
-
-          .panel {
-            background-color: transparent;
-            border: 0 none;
-            border-radius: 0;
-            box-shadow: none;
-            height: 67px;
-          }
-
-          .panel-heading {
-            position: relative;
-
-            .panel-title {
-              > a {
-                display: inline-block;
-                max-width: 54%;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                @media (min-width: $screen-sm) {
-                  max-width: 95%;
-                }
-
-                &.disabled {
-                  font-style: italic;
-                  color: $dark-100;
-                }
-              }
-            }
-          }
-
-          .gru-user-icons {
-            &.visible-xs {
-              margin-top: 8px;
-            }
-          }
-        }
 
         .profile {
           padding: 8px;
@@ -214,6 +30,68 @@
             border-radius: 50px;
             margin-left: 15px;
             margin-right: 15px;
+          }
+        }
+      }
+
+      .assessment-name {
+        font-size: 16px;
+      }
+
+      .information {
+        margin: 0;
+        height: 30px;
+        font-size: $font-size-h6;
+        display: table;
+
+        i {
+          vertical-align: middle;
+          margin: 0 5px 0 0;
+        }
+
+        span {
+          font-size: 13px;
+        }
+
+        .attempt {
+          margin: 0 3px 0 0;
+
+          .attempt-selector {
+            display: inline-block;
+
+            .current-attempt {
+              display: inline-block;
+
+              button {
+                line-height: 1;
+
+                .caret {
+                  margin-left: 10px;
+                }
+                color: $gray;
+              }
+            }
+          }
+        }
+
+        .date {
+          margin: 0 2px 0 0;
+        }
+
+        .time {
+          margin: 0 5px 0 0;
+        }
+
+        .attempt,
+        .date,
+        .reaction,
+        .time {
+          @media (max-width: $screen-xs) {
+            display: block;
+            margin: 0 0 10px;
+          }
+          @media (max-width: $screen-md) {
+            margin: 0 10px 0 0;
           }
         }
       }
@@ -239,7 +117,7 @@
       .close {
         display: grid;
         width: 10%;
-        margin-top: -55px;
+        margin-top: -85px;
 
         .clear-button {
           font-size: 30px;
@@ -283,6 +161,9 @@
 
           .score-text {
             font-size: 12px;
+            margin-top: -4px;
+            margin-left: 3px;
+            width: 55px;
           }
         }
 
@@ -304,6 +185,9 @@
 
           .score-text {
             font-size: 12px;
+            margin-top: -4px;
+            margin-left: 3px;
+            width: 55px;
           }
         }
 
@@ -317,7 +201,7 @@
   }
 
   .unit-body {
-    max-height: 450px;
+    max-height: 545px;
     overflow-y: auto;
   }
 
@@ -327,6 +211,64 @@
   }
 
   .unit-body::-webkit-scrollbar-thumb {
+    background: $gray-light;
+    border: 1px solid $gray-light;
+    border-radius: 5px;
+  }
+
+  .report-data {
+    padding: 0;
+    width: 100%;
+    max-height: 545px;
+    overflow-y: auto;
+
+    .navigation {
+      margin-top: 5px;
+    }
+
+    .gru-assessment-report {
+      .gru-assessment-summary {
+        display: inline-block;
+        .gru-summary {
+          .summary-container {
+            pointer-events: none;
+          }
+        }
+
+        .gru-mastery {
+          .standard-root {
+            .gru-learning-target {
+              .learning-target {
+                .header-content {
+                  .learning-target-description {
+                    .description {
+                      width: 300px;
+
+                      .desc-align {
+                        width: 290px;
+                        position: inherit;
+                      }
+                    }
+
+                    .question {
+                      padding: 0 1px 0 10px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .report-data::-webkit-scrollbar {
+    height: 8px;
+    width: 4px;
+  }
+
+  .report-data::-webkit-scrollbar-thumb {
     background: $gray-light;
     border: 1px solid $gray-light;
     border-radius: 5px;
