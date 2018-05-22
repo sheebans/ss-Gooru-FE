@@ -7,17 +7,30 @@
       </button>
     </div>
 
-    {{#if isRescopedClass}}
-      <div class="rescope-toggle">
-        <div class="action">
-          <span>{{t 'class.overview.course-map.rescope-toggle'}}</span>
-          {{gru-toggle-button isChecked=isChecked onToggleButton="onToggleRescope"}}
+    <div class="rescope-section">
+      {{#if isRescopedClass}}
+        <div class="rescope-toggle">
+          <div class="action">
+            <span>{{t 'class.overview.course-map.rescope-toggle'}}</span>
+            {{gru-toggle-button isChecked=isChecked onToggleButton="onToggleRescope"}}
+          </div>
+          <div class="info">
+            <span>{{t 'class.overview.course-map.rescope-info'}}</span>
+          </div>
         </div>
-        <div class="info">
-          <span>{{t 'class.overview.course-map.rescope-info'}}</span>
+      {{/if}}
+
+      {{#if (and isChecked isRescopedClass (not isContentAvailable))}}
+        <div class="custom-msg">
+          <span>
+            {{t 'class.overview.course-map.custom-msg'}}
+          </span>
+          <span {{action "onClearCustomizeMsg"}}>
+            {{gru-icon name="clear"}}
+          </span>
         </div>
-      </div>
-    {{/if}}
+      {{/if}}
+    </div>
 
     {{class.overview.gru-accordion-course
     currentClass=class

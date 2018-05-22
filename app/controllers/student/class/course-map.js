@@ -60,14 +60,23 @@ export default Ember.Controller.extend({
     /**
      * Action triggered when the user toggle between complete course-map / rescope
      */
-    onToggleRescope() {
+    onToggleRescope(isChecked) {
       let controller = this;
-      let skippedContents = controller.get('skippedContents');
-      let isContentAvailable = controller.get('isContentAvailable');
-      if (skippedContents && isContentAvailable) {
-        controller.toggleSkippedContents(skippedContents);
+      if (!isChecked) {
+        controller.getSkippedContents().then(function(skippedContents) {
+          let isContentAvailable = skippedContents
+            ? controller.isSkippedContentsEmpty(skippedContents)
+            : false;
+          controller.set('isContentAvailable', isContentAvailable);
+          if (skippedContents && isContentAvailable) {
+            controller.toggleSkippedContents(skippedContents);
+          } else {
+            controller.set('isChecked', true);
+          }
+        });
       } else {
-        controller.set('isChecked', true);
+        let skippedContents = controller.get('skippedContents');
+        controller.toggleSkippedContents(skippedContents);
       }
     },
 
@@ -83,6 +92,10 @@ export default Ember.Controller.extend({
           controller.toggleSkippedContents(skippedContents);
         }
       }
+    },
+
+    onClearCustomizeMsg() {
+      Ember.$('.custom-msg').hide(800);
     }
   },
 

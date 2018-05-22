@@ -163,7 +163,7 @@
                       <div class="controls">
                         {{#if item.isAssessment}}
                           <div class="go-live-cnt">
-                            {{#if item.visible}}
+                            {{#if (and item.visible (not isRescopedClass))}}
                               {{#unless item.isExternalAssessment}}
                                 <button {{action 'goLive' item.id}} data-toggle="tooltip" data-html="true" data-placement="bottom" title="{{t "common.launch-on-air"}}" class="on-air go-live enabled">{{t "common.launch-on-air"}}
                                 </button>
