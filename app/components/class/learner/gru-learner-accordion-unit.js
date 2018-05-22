@@ -99,6 +99,10 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     collectionReport(params) {
       this.sendAction('collectionReport', params);
+    },
+
+    onSelectItem(contentType) {
+      this.sendAction('onSelectItem', contentType);
     }
   },
 

@@ -146,6 +146,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
   didRender: function() {
     this.$('[data-toggle="tooltip"]').tooltip();
+    this.sendAction('onSelectItem');
   },
 
   removeSubscriptions: Ember.on('willDestroyElement', function() {

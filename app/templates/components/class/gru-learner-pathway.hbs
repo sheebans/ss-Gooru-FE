@@ -77,11 +77,18 @@
         </div>
         <span class="score-text" style="color: {{classColor}}"> {{assessmentResult.score}} % </span>
       </div>
-      <!-- <span class="class-average">class average</span> -->
     {{/if}}
 
-
   </div>
+
+  {{#if (and courseView isRescopedClass )}}
+    <div class="rescope-toggle">
+      <div class="action">
+        <span>{{t 'class.overview.course-map.rescope-toggle'}}</span>
+        {{gru-toggle-button isChecked=isChecked onToggleButton="onToggleRescope"}}
+      </div>
+    </div>
+  {{/if}}
   </div>
 
 
@@ -96,7 +103,8 @@
         model=item
         index=index
         isTeacher=isTeacher
-        toggleLocation=toggleLocation}}
+        toggleLocation=toggleLocation
+        onSelectItem="onSelectItem"}}
 
   {{else}}
     <li>{{t "common.contentUnavailable"}}</li>

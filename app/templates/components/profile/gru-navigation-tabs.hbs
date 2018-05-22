@@ -11,7 +11,7 @@
           {{/if}}
         </a>
       </li>
-      {{#if isStudent}}
+      {{#if (and isStudent isMyProfile)}}
         <li class="profile-menu-item proficiency" {{action 'selectItem' 'proficiency'}}>
           <a href='{{view.href}}' class="btn btn-category">
             <span>{{t "profile.gru-navigation.proficiency"}}</span>

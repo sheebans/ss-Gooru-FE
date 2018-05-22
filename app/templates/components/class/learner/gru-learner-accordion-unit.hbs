@@ -36,7 +36,8 @@
           collectionReport="collectionReport"
           onSelectLesson=(action 'updateLesson')
           isTeacher=isTeacher
-          toggleLocation=toggleLocation}}
+          toggleLocation=toggleLocation
+          onSelectItem="onSelectItem"}}
       {{else}}
         <li>{{t "common.contentUnavailable"}}</li>
         {{/each}}
