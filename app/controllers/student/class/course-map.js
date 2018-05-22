@@ -64,9 +64,9 @@ export default Ember.Controller.extend({
       let controller = this;
       if (!isChecked) {
         controller.getSkippedContents().then(function(skippedContents) {
-          let isContentAvailable = controller.isSkippedContentsEmpty(
-            skippedContents
-          );
+          let isContentAvailable = skippedContents
+            ? controller.isSkippedContentsEmpty(skippedContents)
+            : false;
           controller.set('isContentAvailable', isContentAvailable);
           if (skippedContents && isContentAvailable) {
             controller.toggleSkippedContents(skippedContents);
