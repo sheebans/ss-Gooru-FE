@@ -117,6 +117,14 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * Trigger whenever reset chart view mode toggle state got changed.
+   */
+  onChangeResetToggle: Ember.observer('isExpandChartEnabled', function() {
+    let component = this;
+    component.toggleChartSize();
+  }),
+
+  /**
    * Maintains the pull out state.
    * @type {Boolean}
    */
@@ -236,6 +244,7 @@ export default Ember.Component.extend({
       });
     cards.exit().remove();
     component.reduceChartHeight();
+    component.toggleChartSize();
   },
 
   loadDataBySubject(subjectId) {
@@ -519,5 +528,19 @@ export default Ember.Component.extend({
         .attr('fill', '#fff')
         .attr('class', `skyline ${className}`);
     });
+  },
+
+  /**
+   * @function toggleChartSize
+   * Method to toggle chart size between expanded and collapsed
+   */
+  toggleChartSize() {
+    let component = this;
+    let isExpandChartEnabled = component.get('isExpandChartEnabled');
+    if (isExpandChartEnabled) {
+      component.expandChartColumnHeight();
+    } else {
+      component.reduceChartHeight();
+    }
   }
 });

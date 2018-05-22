@@ -1699,7 +1699,8 @@ export default Object.assign(quizzesTranslations, {
     },
     proficiency: {
       'is-empty':
-        'No data available yet. Once you begin studying, your data will become available.'
+        'No data available yet. Once you begin studying, your data will become available.',
+      'expand-chart': 'Expand Chart'
     }
   },
 
