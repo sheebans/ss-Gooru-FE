@@ -170,6 +170,9 @@
                               {{/unless}}
                             {{/if}}
                           </div>
+                          <span class="switch" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assign"}}">
+                             {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=item.visible item=item}}
+                           </span>
                         {{/if}}
                       </div>
                     {{else}}
