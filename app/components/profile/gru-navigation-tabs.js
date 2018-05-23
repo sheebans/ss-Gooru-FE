@@ -6,6 +6,8 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
+  session: Ember.inject.service('session'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -73,6 +75,23 @@ export default Ember.Component.extend({
     return component.get('profile').get('role') === 'student';
   }),
 
+  /**
+   * @property {boolean} roles is student or not for proficiency tabs view
+   */
+  isProficiencyVisible: Ember.computed('profile', function() {
+    let component = this;
+    let isMyProfile = component.get('isMyProfile');
+    let isStudent = component.get('profile').get('role') === 'student';
+    let currentLoginUser = component.get('currentLoginUser');
+    let isTeacher = currentLoginUser.get('role') === 'teacher';
+    if (isTeacher && !isMyProfile) {
+      return true;
+    } else if (isStudent && isMyProfile) {
+      return true;
+    } else {
+      return false;
+    }
+  }),
   // -------------------------------------------------------------------------
   // Observers
   /**
