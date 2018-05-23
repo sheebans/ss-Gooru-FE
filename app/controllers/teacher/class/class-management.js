@@ -153,10 +153,12 @@ export default Ember.Controller.extend(ModalMixin, {
     pathwayStudent(student) {
       let controller = this;
       let userId = student.get('id');
+      let setting = controller.get('class.setting');
       let userClassModel = {
         userId: userId,
         classId: controller.get('class.id'),
         courseId: controller.get('class.courseId'),
+        isRescopedClass: setting ? setting.rescope : false,
         pathway: true
       };
       this.send(
