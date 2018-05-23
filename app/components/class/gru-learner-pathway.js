@@ -476,6 +476,7 @@ export default Ember.Component.extend(AccordionMixin, {
   getSkippedContents() {
     let component = this;
     let filter = {
+      userId: component.get('model.userId'),
       classId: component.get('model.classId'),
       courseId: component.get('model.courseId')
     };

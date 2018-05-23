@@ -78,9 +78,13 @@ export default Ember.Component.extend(AccordionMixin, {
 
   classNames: ['gru-learner-accordion-lesson', 'panel', 'panel-default'],
 
-  classNameBindings: ['isExpanded:expanded'],
+  classNameBindings: ['isExpanded:expanded', 'curComponentId'],
 
   tagName: 'li',
+
+  curComponentId: Ember.computed(function() {
+    return `l-${this.get('model.id')}`;
+  }),
 
   // -------------------------------------------------------------------------
   // Actions
