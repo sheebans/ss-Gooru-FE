@@ -379,6 +379,7 @@ export default StudentCollection.extend({
       queryParams.unitId = context.get('unitId');
       queryParams.lessonId = context.lessonId;
       queryParams.collectionId = suggestion.get('id');
+      queryParams.pathId = suggestion.pathId;
       this.transitionToRoute('study-player', context.get('courseId'), {
         queryParams
       });
@@ -452,6 +453,7 @@ export default StudentCollection.extend({
       .then(({ context, pathId }) => {
         context.collectionId = suggestion.id; // Setting new collection id
         context.pathId = pathId;
+        suggestion.pathId = pathId;
         return navigateMapService.startAlternatePathSuggestion(context);
       })
       .then(() => this.toPlayer(suggestion));
