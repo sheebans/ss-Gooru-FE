@@ -391,6 +391,12 @@ export default Ember.Controller.extend({
    */
   questionItems: null,
 
+  isRescopedClass: Ember.computed('class', function() {
+    let controller = this;
+    let currentClass = controller.get('class');
+    return currentClass.setting.rescope;
+  }),
+
   // -------------------------------------------------------------------------
   // Methods
 

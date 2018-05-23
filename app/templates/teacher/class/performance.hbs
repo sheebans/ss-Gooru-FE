@@ -1,91 +1,107 @@
-{{#if loading}}
-  {{three-bounce-spinner}}
-{{else if showPerformanceData}}
-  <div class="controller teacher class performance container-fluid">
-    {{#if questionItems}}
-      <div class="panel panel-default grade-items">
-        <div class="panel-heading">
-          {{t 'class.analytics.performance.grade-items'}}
-        </div>
-        <div class="panel-body">
-          {{gru-grade-items questionItems=questionItems}}
-        </div>
-      </div>
-    {{/if}}
-     <div class="row info out-of-scope">
-      <div class="teacher-breadcrumb">
-        {{gru-breadcrumb items=breadcrumb onSelectedItem="selectBreadcrumbItem"}}
+{{#if isRescopedClass}}
+  <div class="rescoped-class">
+    <div class="info-msg">
+      This course has been personalized for each student and therefore, class level reports are not available. However, you can get access to individual student's report by going to <span class="class-management-link" {{action "selectMenuItem" 'class-management'}}>Class Management</span>, and clicking on a student’s pathway.
+    </div>
+    <div class="accordion-img">
+      <div class="title">Within Student Pathway</div>
+      <div class="image">
       </div>
     </div>
-    <div class="row">
-      <div class="better-experience visible-xs alert alert-warning alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <span class="better-experience-message">{{t 'class.analytics.performance.better-experience-message'}}</span>
-      </div>
-    </div>
-    <div class="row filters-banner">
-    {{#unless (and isAtCollectionLevel reportData)}}
-         <div class="filters filters-container">
-            <div class="radios-container widthradiobtns">
-              <div class="classrooms-reports">
-                <div id="assessment-content-type" class="{{if filteredByAssessment 'selectedButton' 'radioNormalButton'}} pull-left pointer" {{action "selectFilterBy" "assessment" preventDefault=false}}><div for="assessment-content-type" class="{{if filteredByAssessment 'selectedButtonType' 'normalButtonType'}}">{{t 'teacher-landing.class.performance-tab.assessments'}}</div></div>
-                <div id="collection-content-type" class="{{if filteredByCollection 'selectedButton' 'radioNormalButton'}} pull-left pointer" {{action "selectFilterBy" "collection" preventDefault=false}}><div for="collection-content-type" class="{{if filteredByCollection 'selectedButtonType' 'normalButtonType'}}">{{t 'teacher-landing.class.performance-tab.collections'}}</div></div>
-              </div>
-            </div>
-        </div>
-    {{/unless}}
-     <div class="options">
-      {{#unless (and isAtCollectionLevel reportData)}}
-        <div class="data-picker">
-          {{#if filteredByAssessment}}
-            {{class.analytics.performance.gru-data-picker
-              onOptionsChange="optionsChange" options=defaultAssessmentOptions max=3}}
-          {{else}}
-            {{class.analytics.performance.gru-data-picker
-              onOptionsChange="optionsChange" options=defaultCollectionOptions max=3}}
-          {{/if}}
-        </div>
-      {{/unless}}
-    </div>
-     {{#unless (and isAtCollectionLevel reportData)}}
-        <div class="pull-left text-download-container pointer" {{action 'download'}}>
-         <label class="label-text-font">{{t 'common.download'}}</label>
-        {{gru-icon name='file_download'}}
-        </div>
-    {{/unless}}
-    {{#unless (and isAtCollectionLevel reportData)}}
-    <div class="performance-scale pull-right row-grade-container">
-      {{grading-scale-legend}}
-    </div>
-     {{/unless}}
-    </div>
-    <div class="row gru-content">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        {{#if (and isAtCollectionLevel reportData)}}
-          {{reports.gru-class-assessment-report
-            assessment=collection
-            students=class.members
-            reportData=reportData
-            anonymous=false
-            isRealTime=false
-          }}
-        {{else}}
-          {{class.analytics.performance.teacher.gru-metrics-table
-          headers=performanceDataHeaders
-          courseId=courseId
-          filterBy=filterBy
-          classId=classId
-          performanceDataMatrix=performanceDataMatrix
-          dataPickerOptions=selectedOptions
-          onNavigation="navigateTo"
-          onClickReport="navigateToReport"
-          onAssessmentClick="navigateToAssessmentReport"
-          headerType= headerType
-          }}
-        {{/if}}
-      </div>
+    <div class="info-msg">
+      You can then click on the performance metric for any unit, lesson, assessment or collection to view its corresponding report.
     </div>
   </div>
 {{else}}
-  <div class="no-content">{{t 'class.analytics.performance.no-content'}}</div>
+  {{#if loading}}
+    {{three-bounce-spinner}}
+  {{else if showPerformanceData}}
+    <div class="controller teacher class performance container-fluid">
+      {{#if questionItems}}
+        <div class="panel panel-default grade-items">
+          <div class="panel-heading">
+            {{t 'class.analytics.performance.grade-items'}}
+          </div>
+          <div class="panel-body">
+            {{gru-grade-items questionItems=questionItems}}
+          </div>
+        </div>
+      {{/if}}
+       <div class="row info out-of-scope">
+        <div class="teacher-breadcrumb">
+          {{gru-breadcrumb items=breadcrumb onSelectedItem="selectBreadcrumbItem"}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="better-experience visible-xs alert alert-warning alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <span class="better-experience-message">{{t 'class.analytics.performance.better-experience-message'}}</span>
+        </div>
+      </div>
+      <div class="row filters-banner">
+      {{#unless (and isAtCollectionLevel reportData)}}
+           <div class="filters filters-container">
+              <div class="radios-container widthradiobtns">
+                <div class="classrooms-reports">
+                  <div id="assessment-content-type" class="{{if filteredByAssessment 'selectedButton' 'radioNormalButton'}} pull-left pointer" {{action "selectFilterBy" "assessment" preventDefault=false}}><div for="assessment-content-type" class="{{if filteredByAssessment 'selectedButtonType' 'normalButtonType'}}">{{t 'teacher-landing.class.performance-tab.assessments'}}</div></div>
+                  <div id="collection-content-type" class="{{if filteredByCollection 'selectedButton' 'radioNormalButton'}} pull-left pointer" {{action "selectFilterBy" "collection" preventDefault=false}}><div for="collection-content-type" class="{{if filteredByCollection 'selectedButtonType' 'normalButtonType'}}">{{t 'teacher-landing.class.performance-tab.collections'}}</div></div>
+                </div>
+              </div>
+          </div>
+      {{/unless}}
+       <div class="options">
+        {{#unless (and isAtCollectionLevel reportData)}}
+          <div class="data-picker">
+            {{#if filteredByAssessment}}
+              {{class.analytics.performance.gru-data-picker
+                onOptionsChange="optionsChange" options=defaultAssessmentOptions max=3}}
+            {{else}}
+              {{class.analytics.performance.gru-data-picker
+                onOptionsChange="optionsChange" options=defaultCollectionOptions max=3}}
+            {{/if}}
+          </div>
+        {{/unless}}
+      </div>
+       {{#unless (and isAtCollectionLevel reportData)}}
+          <div class="pull-left text-download-container pointer" {{action 'download'}}>
+           <label class="label-text-font">{{t 'common.download'}}</label>
+          {{gru-icon name='file_download'}}
+          </div>
+      {{/unless}}
+      {{#unless (and isAtCollectionLevel reportData)}}
+      <div class="performance-scale pull-right row-grade-container">
+        {{grading-scale-legend}}
+      </div>
+       {{/unless}}
+      </div>
+      <div class="row gru-content">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          {{#if (and isAtCollectionLevel reportData)}}
+            {{reports.gru-class-assessment-report
+              assessment=collection
+              students=class.members
+              reportData=reportData
+              anonymous=false
+              isRealTime=false
+            }}
+          {{else}}
+            {{class.analytics.performance.teacher.gru-metrics-table
+            headers=performanceDataHeaders
+            courseId=courseId
+            filterBy=filterBy
+            classId=classId
+            performanceDataMatrix=performanceDataMatrix
+            dataPickerOptions=selectedOptions
+            onNavigation="navigateTo"
+            onClickReport="navigateToReport"
+            onAssessmentClick="navigateToAssessmentReport"
+            headerType= headerType
+            }}
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  {{else}}
+    <div class="no-content">{{t 'class.analytics.performance.no-content'}}</div>
+  {{/if}}
 {{/if}}

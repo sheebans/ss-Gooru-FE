@@ -165,3 +165,47 @@
     margin-right: 16px;
   }
 }
+
+.teacher {
+  .content {
+    .rescoped-class {
+      margin-top: 30px;
+      margin: auto;
+      .info-msg {
+        width: 924px;
+        height: 81px;
+        font-size: 20px;
+        font-weight: 300;
+        text-align: center;
+        color: $gray-base;
+        margin-top: 30px;
+        .class-management-link {
+          color: #1fa9e8;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+      .accordion-img {
+        .title {
+          margin: auto;
+          width: 270px;
+          height: 30px;
+          font-size: 25px;
+          font-weight: 300;
+          color: $dark-600;
+          margin-bottom: 18px;
+          margin-top: 37px;
+        }
+        .image {
+          width: 600px;
+          height: 200px;
+          margin: auto;
+          border-radius: 4px;
+          background-image: url("gooru/rescoped-course.png");
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+      }
+    }
+  }
+}
