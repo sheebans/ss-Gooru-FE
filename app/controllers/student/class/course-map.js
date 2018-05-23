@@ -63,17 +63,7 @@ export default Ember.Controller.extend({
     onToggleRescope(isChecked) {
       let controller = this;
       if (!isChecked) {
-        controller.getSkippedContents().then(function(skippedContents) {
-          let isContentAvailable = skippedContents
-            ? controller.isSkippedContentsEmpty(skippedContents)
-            : false;
-          controller.set('isContentAvailable', isContentAvailable);
-          if (skippedContents && isContentAvailable) {
-            controller.toggleSkippedContents(skippedContents);
-          } else {
-            controller.set('isChecked', true);
-          }
-        });
+        controller.processSkippedContents();
       } else {
         let skippedContents = controller.get('skippedContents');
         controller.toggleSkippedContents(skippedContents);
@@ -87,8 +77,10 @@ export default Ember.Controller.extend({
       let controller = this;
       if (controller.get('isRescopedClass')) {
         let skippedContents = controller.get('skippedContents');
-        let isContentAvailable = controller.get('isContentAvailable');
-        if (skippedContents && isContentAvailable) {
+        let isSkippedContentsAvailable = skippedContents
+          ? controller.isSkippedContentsEmpty(skippedContents)
+          : false;
+        if (isSkippedContentsAvailable) {
           controller.toggleSkippedContents(skippedContents);
         }
       }
@@ -188,23 +180,34 @@ export default Ember.Controller.extend({
     let controller = this;
     //Initially load rescope data
     if (controller.get('isRescopedClass')) {
-      controller.getSkippedContents().then(function(skippedContents) {
-        let isContentAvailable = skippedContents
-          ? controller.isSkippedContentsEmpty(skippedContents)
-          : false;
-        controller.set('isContentAvailable', isContentAvailable);
-        if (skippedContents && isContentAvailable) {
-          controller.toggleSkippedContents(skippedContents);
-          controller.set('isChecked', false);
-        } else {
-          controller.set('isChecked', true);
-        }
-      });
+      controller.processSkippedContents();
     }
   }),
 
   // -------------------------------------------------------------------------
   // Methods
+
+  /**
+   * @function processSkippedContents
+   * Method to fetch and process the skipped contents
+   */
+  processSkippedContents() {
+    let controller = this;
+    controller.getSkippedContents().then(function(skippedContents) {
+      let isContentAvailable = !!skippedContents;
+      let isSkippedContentAvailable = skippedContents
+        ? controller.isSkippedContentsEmpty(skippedContents)
+        : false;
+      controller.set('isContentAvailable', isContentAvailable);
+      if (isSkippedContentAvailable) {
+        controller.toggleSkippedContents(skippedContents);
+        controller.set('isChecked', false);
+      }
+      if (!skippedContents) {
+        controller.set('isChecked', true);
+      }
+    });
+  },
 
   /**
    * @function getSkippedContents

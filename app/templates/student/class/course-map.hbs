@@ -18,18 +18,20 @@
             <span>{{t 'class.overview.course-map.rescope-info'}}</span>
           </div>
         </div>
-      {{/if}}
 
-      {{#if (and isChecked isRescopedClass (not isContentAvailable))}}
-        <div class="custom-msg">
-          <span>
-            {{t 'class.overview.course-map.custom-msg'}}
-          </span>
-          <span {{action "onClearCustomizeMsg"}}>
-            {{gru-icon name="clear"}}
-          </span>
-        </div>
+        {{#if (not isContentAvailable)}}
+          <div class="custom-msg">
+            <span>
+              {{t 'class.overview.course-map.custom-msg'}}
+            </span>
+            <span {{action "onClearCustomizeMsg"}}>
+              {{gru-icon name="clear"}}
+            </span>
+          </div>
+        {{/if}}
+
       {{/if}}
+      
     </div>
 
     {{class.overview.gru-accordion-course
