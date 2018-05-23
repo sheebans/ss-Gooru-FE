@@ -2500,9 +2500,9 @@ export default Object.assign(quizzesTranslations, {
     'signature_collection-header': 'Suggested Collection (Optional)',
     'signature_collection-lead':
       'Based on your performance on this course, the following resource may enhance your understanding.',
-    'signature_assessment-header': 'Suggested Assesment (Optional)',
+    'signature_assessment-header': 'Suggested Assessment (Optional)',
     'signature_assessment-lead':
-      'Based on your performance on this course, the following assesment may enhance your understanding.',
+      'Based on your performance on this course, the following assessment may enhance your understanding.',
     'pre-test-lead':
       'A pre-test is suggested to measure your current understanding of the concepts in this lesson. The pre-test can help prepare you for the content in the lesson. The pre-test will not affect your course performance score.',
     'post-test-lead':
