@@ -185,12 +185,12 @@
                     <div class="performance">
                       {{#if item.isAssessment}}
                         {{#if item.performance.isCompleted}}
-                          <span {{action "studentReport"  item}} class="score" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                          <span  class="score cursor-default" style=  {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                           {{item.performance.score}}%
                           </span>
                         {{else}}
                           {{#if item.performance.hasStarted}}
-                            <span{{action "studentReport" item}}  class="score" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                            <span  class="score cursor-default" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                             {{item.performance.score}}%
                             </span>
                           {{else}}
@@ -207,7 +207,7 @@
                         {{/if}}
                       {{else}}
                         {{#if item.performance.hasStarted}}
-                          <span {{action "studentReport"  item}} class="time-spent">
+                          <span class="time-spent cursor-default">
                             {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
                           </span>
                         {{else}}
