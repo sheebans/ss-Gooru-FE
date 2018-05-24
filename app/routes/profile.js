@@ -86,14 +86,6 @@ export default Ember.Route.extend({
     });
   },
 
-  redirect: function() {
-    const currentUrl = this.get('router.url');
-    const isRoot = !/^\/(.*)\//.exec(currentUrl);
-    if (isRoot) {
-      this.transitionTo('profile.content.courses');
-    }
-  },
-
   /**
    * Set all controller properties from the model
    * @param controller

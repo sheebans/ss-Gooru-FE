@@ -58,7 +58,7 @@ export default Ember.Controller.extend({
       .get('taxonomyService')
       .getSubjects(subjectCategory)
       .then(subjects => {
-        let subject = subjects.objectAt(0);
+        let subject = subjects.objectAt(1);
         controller.set('taxonomySubjects', subjects);
         controller.set('selectedSubject', subject);
       });
