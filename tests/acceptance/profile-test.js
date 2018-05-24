@@ -16,7 +16,7 @@ moduleForAcceptance('Acceptance | profile', {
 });
 
 test('Layout', function(assert) {
-  visit('/id-for-pochita');
+  visit('/id-for-pochita/content/courses');
 
   andThen(function() {
     assert.equal(currentURL(), '/id-for-pochita/content/courses');
@@ -31,7 +31,9 @@ test('Layout', function(assert) {
   });
 });
 
-test('menu option \'about\' is selected when navigating directly to profile.about', function(assert) {
+test('menu option \'about\' is selected when navigating directly to profile.about', function(
+  assert
+) {
   visit('/id-for-pochita/about');
 
   andThen(function() {
@@ -46,7 +48,9 @@ test('menu option \'about\' is selected when navigating directly to profile.abou
   });
 });
 
-test('menu option \'content/courses \' is selected when navigating directly to profile.content', function(assert) {
+test('menu option \'content/courses \' is selected when navigating directly to profile.content', function(
+  assert
+) {
   visit('/id-for-pochita/content/courses');
 
   andThen(function() {
@@ -62,7 +66,9 @@ test('menu option \'content/courses \' is selected when navigating directly to p
   });
 });
 
-test('menu option \'network\' is selected when navigating directly to profile.network', function(assert) {
+test('menu option \'network\' is selected when navigating directly to profile.network', function(
+  assert
+) {
   visit('/id-for-pochita/network');
 
   andThen(function() {
@@ -70,7 +76,9 @@ test('menu option \'network\' is selected when navigating directly to profile.ne
   });
 });
 
-test('menu option selection updates when navigating between sections', function(assert) {
+test('menu option selection updates when navigating between sections', function(
+  assert
+) {
   visit('/id-for-pochita/about');
 
   andThen(function() {
