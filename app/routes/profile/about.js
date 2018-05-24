@@ -14,8 +14,10 @@ export default Ember.Route.extend({
   // Methods
 
   model(params) {
+    let route = this;
     return {
-      classId: params.classId
+      classId: params.classId,
+      profile: route.modelFor('profile').profile
     };
   },
 
