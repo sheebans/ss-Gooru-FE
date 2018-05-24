@@ -199,6 +199,8 @@ export default Ember.Component.extend(AccordionMixin, {
     let pathway = component.get('model.pathway');
     let isRescopedClass = component.get('model.isRescopedClass');
     if (pathway) {
+      component.set('courseView', true);
+      this.getStudentCourseMap();
       //Initially load rescope data
       if (isRescopedClass) {
         component.set('isRescopedClass', isRescopedClass);
@@ -219,8 +221,6 @@ export default Ember.Component.extend(AccordionMixin, {
           }
         });
       }
-      component.set('courseView', true);
-      this.getStudentCourseMap();
     } else {
       let model = component.get('model');
       component.set('courseView', false);

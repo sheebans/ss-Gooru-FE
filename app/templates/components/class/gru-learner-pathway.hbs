@@ -12,7 +12,6 @@
       </div>
       {{#if (not courseView)}}
         <span class="assessment-name"> {{assessmentResult.collection.title}} </span>
-
         <div class="information">
           {{#if collections.isAssessment}}
             <span class="attempt">
@@ -50,10 +49,14 @@
       </span>
       </div>
   {{/if}}
+  <div class="course-name">
+    <span class="course-name"> {{currentCourse.title}}</span>
+  </div>
+
   <div class="class-performance">
     <span class="student-name"> {{profile.firstName}} {{profile.lastName}} </span>
   </div>
-  <div class="close">
+  <div class="close {{if courseView 'course' 'report'}}">
     <a {{action 'close'}} data-dismiss="modal" class="material-icons clear-button">clear</a>
     <span class="text"> Close </span>
   </div>
@@ -84,8 +87,7 @@
   {{#if (and courseView isRescopedClass )}}
     <div class="rescope-toggle">
       <div class="action">
-        <span>{{t 'class.overview.course-map.rescope-toggle'}}</span>
-        {{gru-toggle-button isChecked=isChecked onToggleButton="onToggleRescope"}}
+        <span>{{t 'class.overview.course-map.rescope-toggle'}}</span> {{gru-toggle-button isChecked=isChecked onToggleButton="onToggleRescope"}}
       </div>
     </div>
   {{/if}}

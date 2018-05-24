@@ -34,7 +34,6 @@ export default Ember.Route.extend({
    */
   model: function(params) {
     let route = this;
-
     //Steps for Take a Tour functionality
     const tourSteps = Ember.A([
       {
