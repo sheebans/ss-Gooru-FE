@@ -15,6 +15,8 @@ export default Ember.Controller.extend({
    */
   proficiencyController: Ember.inject.controller('profile/proficiency'),
 
+  aboutController: Ember.inject.controller('profile/about'),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -59,11 +61,18 @@ export default Ember.Controller.extend({
     onClickBackButton() {
       let controller = this;
       let classId = controller.get('proficiencyController.classId');
-      let id = localStorage.getItem('classId');
+      let id = controller.get('aboutController.classId');
       if (classId || id) {
         controller.transitionToRoute(
           `/teacher/class/${classId ? classId : id}/class-management`
         );
+      } else {
+        let currntUser = controller.get('currentLoginUser');
+        if (currntUser.get('role') === 'teacher') {
+          controller.transitionToRoute('/teacher-home');
+        } else if (currntUser.get('role') === 'student') {
+          controller.transitionToRoute('/student-home');
+        }
       }
     }
   },
