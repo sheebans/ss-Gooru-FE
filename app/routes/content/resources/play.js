@@ -1,6 +1,12 @@
 import Ember from 'ember';
+import { PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
+  queryParams: {
+    source: {
+      refreshModel: true
+    }
+  },
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -28,7 +34,9 @@ export default Ember.Route.extend({
 
   model: function(params) {
     var route = this;
-
+    var isRGOsource = params.source
+      ? params.source === PLAYER_EVENT_SOURCE.RGO
+      : false;
     var resource = this.get('resourceService')
       .readResource(params.resourceId)
       .then(function(resource) {
@@ -42,11 +50,13 @@ export default Ember.Route.extend({
       });
 
     return Ember.RSVP.hash({
-      resource: resource
+      resource: resource,
+      isRGOsource: isRGOsource
     });
   },
 
   setupController(controller, model) {
     controller.set('resource', model.resource);
+    controller.set('isRGOsource', model.isRGOsource);
   }
 });

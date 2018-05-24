@@ -35,7 +35,7 @@ export default Ember.Service.extend({
    * @param {string} lessonId - lesson ID to search for
    * @returns {Promise}
    */
-  getLessonInfo: function(classId, courseId, unitId, lessonId) {
+  getLessonInfo: function(classId, courseId, unitId, lessonId, isTeacher) {
     const service = this;
     return new Ember.RSVP.Promise((resolve, reject) => {
       service
@@ -44,7 +44,65 @@ export default Ember.Service.extend({
         .then(
           response =>
             resolve(
-              service.get('courseMapSerializer').normalizeLessonInfo(response)
+              service
+                .get('courseMapSerializer')
+                .normalizeLessonInfo(response, isTeacher)
+            ),
+          reject
+        );
+    });
+  },
+
+  /**
+   * Gets the course infor for teacher class management -> course map
+   * @param {string} classId - course the belongs to
+   * @param {string} courseId - unit the belongs to
+   * @returns {Promise}
+   */
+  getCourseInfo: function(classId, courseId) {
+    const service = this;
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      service
+        .get('courseMapAdapter')
+        .getCourseInfo(classId, courseId)
+        .then(
+          response =>
+            resolve(
+              service.get('courseMapSerializer').normalizeCourseInfo(response)
+            ),
+          reject
+        );
+    });
+  },
+
+  /**
+   * Gets the course infor for teacher class management -> course map
+   * @param {string} classId - course the belongs to
+   * @param {string} courseId - unit the belongs to
+   * @returns {Promise}
+   */
+  findClassPerformanceByStudentIdUnitLevel: function(
+    classId,
+    courseId,
+    students,
+    options = { collectionType: 'assessment' }
+  ) {
+    const service = this;
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      service
+        .get('courseMapAdapter')
+        .findClassPerformanceByStudentIdUnitLevel(
+          classId,
+          courseId,
+          students,
+          options
+        )
+        .then(
+          response =>
+            resolve(
+              service
+                .get('courseMapSerializer')
+                .normalizeClassPerformanceByStudentId(response)
             ),
           reject
         );
@@ -59,5 +117,14 @@ export default Ember.Service.extend({
    */
   createNewPath: function(context, suggestion) {
     return this.get('courseMapAdapter').createNewPath(context, suggestion);
+  },
+  /**
+   * Creates a suggested Path based on the Context data.
+   * @param {MapContext} context - is the context where the suggestion was presented
+   * @param {MapSuggestion} suggestion - the suggestion. The suggested path
+   * @returns {Ember.RSVP.Promise}
+   */
+  addSuggestedPath: function(context, suggestion) {
+    return this.get('courseMapAdapter').addSuggestedPath(context, suggestion);
   }
 });

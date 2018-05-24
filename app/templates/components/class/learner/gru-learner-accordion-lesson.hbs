@@ -1,0 +1,166 @@
+<div class="panel-heading  {{if isLessonSelected 'study-active'}}" role="tab" id="{{elementId}}-heading">
+  <div class="panel-title">
+    <a class="title collapsed" role="button" data-toggle="collapse" href="#{{elementId}}-content" aria-expanded="false" aria-controls="{{elementId}}-content" {{action "selectLesson" model.id}}>
+      <span class="lesson-prefix">{{course-sections-prefix  index=index type='lesson' longName=true}}</span>{{model.title}}
+    </a>
+  </div>
+    <div class="info">
+      {{#if (or model.assessmentCount model.collectionCount)}}
+        <div class="content-count">
+          {{#if model.collectionCount}}
+            <span class="collection-count">
+              <i class="icon" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.collections"}}"></i>
+              <span>{{model.collectionCount}}</span>
+            </span>
+          {{/if}}
+          {{#if model.assessmentCount}}
+            <span class="assessment-count">
+              <i class="icon" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessments"}}"></i>
+              <span>{{model.assessmentCount}}</span>
+            </span>
+          {{/if}}
+        </div>
+      {{/if}}
+      <div class="performance-container pull-right">
+        {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
+      </div>
+    </div>
+</div>
+
+
+<div id="{{elementId}}-content" data-index="{{componentIndex}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{elementId}}-heading">
+  <div class="panel-body">
+    <ol class="collections {{if isTeacher 'teacher'}}">
+      {{#if loading}}
+        {{three-bounce-spinner}}
+      {{else}}
+        {{#each items as |item index|}}
+          {{#if item.isResource}}
+            <li class="panel resource {{if (eq activeElement item.id) 'study-active'}}">
+              <div class="panel-heading">
+                <div class="panel-title {{item.format}}">
+                  <div class="icon-container">
+                    {{gru-icon name='star'}}
+                  </div>
+                  <div class="icon-container resource-icon-type">
+                    <span class="icon"></span>
+                  </div>
+                  <a class="title" }>
+                    <div class="ellipsis">{{item.title}}</div>
+                    <div class="type">{{t (concat 'resource.' item.format)}}</div>
+                  </a>
+                </div>
+              </div>
+            </li>
+          {{else}}
+            <li class="panel {{if item.isAssessment 'assessment' 'collection'}}
+              {{if item.isSubmitted 'submitted'}}
+              {{if (and (eq currentResource item.id) showLocation) 'selected'}}
+              {{if item.isOnAir 'on-air'}}
+              {{if (eq activeElement item.id) 'study-active'}}">
+
+              <div class="panel-heading student">
+                <div class="panel-title">
+                  <div class="icon-container">
+                    {{#if item.isAssessment}}
+                      {{#if item.thumbnailUrl}}
+                        <img src="{{item.thumbnailUrl}}" />
+                      {{else}}
+                        {{gru-icon name='playlist_add_check'}}
+                      {{/if}}
+                      {{ else }}
+                      {{#if item.thumbnailUrl}}
+                        <img src="{{item.thumbnailUrl}}" />
+                      {{else}}
+                        {{gru-icon name='view_comfy'}}
+                      {{/if}}
+                    {{/if}}
+                  </div>
+                  {{#if item.visible}}
+                    <a class="title">
+                      <div class="ellipsis">{{item.title}}</div>
+                      {{#if item.collectionSubType}}
+                        <div class="type">{{t 'common.suggestion'}}</div>
+                      {{/if}}
+                    </a>
+                    {{#if item.showTrophy}}
+                      <span class="trophy"><i></i></span>
+                    {{/if}}
+                  {{else}}
+                    {{#if item.performance.noMoreAttempts}}
+                      <a class="title disabled" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.no-more-attempts"}}">
+                        <div class="ellipsis">{{item.title}}</div>
+                      </a>
+                    {{else}}
+                      <a class="title disabled" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessment-disabled"}}">
+                        <div class="ellipsis">{{item.title}}</div>
+                      </a>
+                    {{/if}}
+                  {{/if}}
+                </div>
+                  <div class="info">
+                    <div class="content-count {{if item.isExternalAssessment 'onshareenabled' ''}}">
+                      {{#if item.isAssessment}}
+                        {{#if item.questionCount}}
+                          <span class="{{if (gt item.resourceCount 0) '' 'invisible'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.resources"}}">{{gru-icon name='local_library'}}  &nbsp; &nbsp;</span>
+                          <span class="{{if (gt item.questionCount 0) '' 'invisible'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span><span class="{{if (gt item.questionCount 0) '' 'invisible'}}">{{item.questionCount}}</span>
+                        {{/if}}
+                      {{else}}
+                        {{#if (or item.questionCount item.resourceCount)}}
+                          <span class="{{if (gt item.resourceCount 0) '' 'invisible'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.resources"}}">{{gru-icon name='local_library'}}</span><span class="{{if (gt item.resourceCount 0) '' 'invisible'}}">{{item.resourceCount}}</span>
+                          <span class="{{if (gt item.questionCount 0) '' 'invisible'}}" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.questions"}}">{{gru-icon name='help_outline'}}</span><span class="{{if (gt item.questionCount 0) '' 'invisible'}}">{{item.questionCount}}</span>
+                        {{/if}}
+                      {{/if}}
+                      {{#if item.isExternalAssessment}}
+                        <img src="/assets/gooru/share.png" srcset="/assets/gooru/share@2x.png 2x,
+                              /assets/gooru/share@3x.png 3x" class="share">
+                      {{/if}}
+                    </div>
+                    <div class="performance" >
+                      {{#if item.isAssessment}}
+                        {{#if item.performance.isCompleted}}
+                          <span class="score" {{action "studentReport" item}}  style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                          {{item.performance.score}}%
+                          </span>
+                        {{else}}
+                          {{#if item.performance.hasStarted}}
+                            <span class="score"  {{action "studentReport" item}} style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                            {{item.performance.score}}%
+                            </span>
+                          {{else}}
+                            {{#if (eq item.format "assessment-external")}}
+                              <span class="not-started-external">--</span>
+                            {{else}}
+                              {{#if item.isAssessment}}
+                                <span class="not-started-external">--</span>
+                              {{else}}
+                                <span class="not-started">{{t 'common.not_started'}}</span>
+                              {{/if}}
+                            {{/if}}
+                          {{/if}}
+                        {{/if}}
+                      {{else}}
+                        {{#if item.performance.hasStarted}}
+                          <span {{action "studentReport" item}} class="time-spent">
+                            {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
+                          </span>
+                        {{else}}
+                          {{#if item.isAssessment}}
+                            <span class="not-started-external">--</span>
+                          {{else}}
+                            <span class="not-started">{{t 'common.not_started'}}</span>
+                          {{/if}}
+                        {{/if}}
+                      {{/if}}
+                    </div>
+                  </div>
+              </div>
+            </li>
+          {{/if}}
+      {{else}}
+        <li class="no-content">{{t "common.contentUnavailable"}}</li>
+        {{/each}}
+      {{/if}}
+    </ol>
+  </div>
+</div>

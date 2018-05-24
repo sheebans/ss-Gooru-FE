@@ -116,9 +116,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = this.get('appRootPath'); //configuration appRootPath
     let subType =
-      data.format === CONTENT_TYPES.RESOURCE
-        ? ASSESSMENT_SUB_TYPES.RESOURCE
-        : data.subformat || ASSESSMENT_SUB_TYPES.BACKFILL;
+      data.format === CONTENT_TYPES.COLLECTION
+        ? ASSESSMENT_SUB_TYPES.SIGNATURE_COLLECTION
+        : ASSESSMENT_SUB_TYPES.SIGNATURE_ASSESSMENT;
     return MapSuggestion.create(Ember.getOwner(this).ownerInjection(), {
       id: data.id,
       title: data.title,

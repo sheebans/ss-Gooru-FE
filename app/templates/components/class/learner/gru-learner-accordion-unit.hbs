@@ -1,0 +1,47 @@
+<div class="unit" role="tab" id="{{elementId}}-heading">
+  <div class="panel-title">
+    <a class="collapsed title" role="button" data-toggle="collapse" href="#{{elementId}}-content" aria-expanded="false" aria-controls="{{elementId}}-content" {{action "selectUnit" model.id}}>
+      <div class="title ellipsis">
+        <span class="prefix">{{course-sections-prefix index=index type='unit' longName=true}}</span>{{model.title}}
+      </div>
+    </a>
+  </div>
+  <div class="performance-container pull-right">
+    <div class="container-box" title="{{scoreText}}" style="background-color:{{grade-color (if scoreVal scoreVal 'NA')}}">
+      <label class="percentage"> {{scoreText}}</label>
+      {{#if (gte scoreVal 0 )}}
+        <div class="completion-bar">
+          <div class="segment {{if isFull 'full'}}" style="{{colorStyle}} {{widthStyle}}"></div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</div>
+
+<div id="{{elementId}}-content" data-index="{{componentIndex}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{elementId}}-heading">
+
+  <div class="panel-body">
+    <ol class="panel-group" role="tablist" aria-multiselectable="true">
+      {{#if loading}}
+        {{three-bounce-spinner}}
+      {{else}}
+        {{#each items as |lesson index|}}
+          {{class.learner.gru-learner-accordion-lesson
+          currentClass=currentClass
+          currentCourse=currentCourse
+          classMembers=classMembers
+          unitId=model.id
+          model=lesson
+          index=index
+          collectionReport="collectionReport"
+          onSelectLesson=(action 'updateLesson')
+          isTeacher=isTeacher
+          toggleLocation=toggleLocation
+          onSelectItem="onSelectItem"}}
+      {{else}}
+        <li>{{t "common.contentUnavailable"}}</li>
+        {{/each}}
+      {{/if}}
+    </ol>
+  </div>
+</div>

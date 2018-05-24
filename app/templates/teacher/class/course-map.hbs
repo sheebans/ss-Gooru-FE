@@ -6,7 +6,7 @@
       </button>
     </div>
 
-    <div class="panel panel-default panel-primary welcome {{if showWelcome 'visible' 'hidden'}}">
+   <div class="panel panel-default panel-primary welcome {{if showWelcome 'visible' 'hidden'}}">
       <div class="panel-body">
         <div class="description">{{t "teacher-landing.welcome-course-map"}}</div>
         <div class="close">
@@ -14,7 +14,6 @@
         </div>
       </div>
     </div>
-
     {{class.overview.gru-accordion-course
     currentClass=class
     classMembers=classMembers
@@ -26,7 +25,8 @@
     contentVisibility=contentVisibility
     onUpdateContentVisibility="updateContentVisibility"
     isTeacher=true
-    isNUCourse=isNUCourse}}
+    isNUCourse=isNUCourse
+    isRescopedClass=isRescopedClass}}
 
   </div>
 {{else}}

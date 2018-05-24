@@ -1,37 +1,51 @@
 .controller.about {
-  padding: 47px 20px 10px;
+  padding: 0 20px 10px;
+
   h4 {
-    margin-top: 0;
-    margin-bottom: 25px;
-    display: flex;
+    margin-top: 10;
+    margin-bottom: 0;
+    width: 99%;
+    text-align: right;
+
     .btn {
       margin-top: -0.3em;
     }
+
     .about-edit {
       margin-left: 20px;
+
       i {
         color: $gray-darker;
       }
     }
   }
+
+  .edit-view {
+    height: 30px;
+  }
+
   .about-container {
-    display: flex;
+    // display: flex;
     flex-wrap: wrap;
+
     .school-info {
       @media (min-width: $screen-md) {
         margin-left: -15px;
       }
     }
+
     .sub-title {
       border-bottom: 0.5px solid $light-300;
       font-size: 20px;
       padding-bottom: 5px;
       margin-bottom: 14px;
       color: $dark-500;
+
       .verification {
         color: $green-400;
+
         .gru-icon {
-          background: url(/assets/gooru/images/icon-verified-green.svg)
+          background: url("/assets/gooru/images/icon-verified-green.svg")
             no-repeat center center;
           display: inline-block;
           height: 24px;
@@ -41,12 +55,15 @@
       }
     }
   }
+
   .info {
     width: 100%;
+
     .panel {
       overflow: hidden;
     }
   }
+
   .avatar {
     @media (max-width: $screen-xs-max) {
       width: 100%;
@@ -55,12 +72,14 @@
       border-radius: 5px;
       position: relative;
       margin-left: 15px;
+
       .image-container {
         width: 100%;
         display: flex;
         justify-content: center;
         position: absolute;
         top: 5px;
+
         img {
           height: 140px;
         }
@@ -73,13 +92,17 @@
       padding: 0;
       margin-left: 15px;
       width: 59px;
+
       img {
         border-radius: 50%;
+        width: 59px;
+        height: 59px;
         @media (min-width: $screen-sm-min) {
           width: 100%;
         }
       }
     }
+
     .background {
       width: 75px;
       height: 75px;
@@ -98,6 +121,7 @@
     border-radius: 2px;
     background-color: #ffffff;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.07);
+
     .panel-body {
       .username {
         > p {
@@ -105,10 +129,12 @@
         }
       }
       padding: 26px;
+
       .row > div {
         padding-bottom: 10px;
       }
     }
+
     h6 {
       font-weight: normal;
       font-size: 13px;
@@ -116,16 +142,20 @@
       margin-top: 0;
       margin-bottom: 3px;
     }
+
     p {
       font-size: 16px;
       padding: 0 4px;
+
       &:last-of-type {
         margin-bottom: 0;
       }
+
       &.role {
         text-transform: capitalize;
       }
     }
+
     .bio {
       p {
         margin-bottom: 11px !important;
@@ -137,6 +167,7 @@
       }
       text-align: justify;
     }
+
     .row {
       p {
         margin-bottom: 1.5em;
@@ -145,6 +176,7 @@
     }
   }
 }
+
 &.view-profile {
   .panel {
     .panel-body {
@@ -155,6 +187,7 @@
     }
   }
 }
+
 &.edit-profile {
   .panel {
     .panel-body {
@@ -164,6 +197,7 @@
       }
     }
   }
+
   h4 {
     display: block !important;
   }

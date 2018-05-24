@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { NU_COURSE_VERSION } from 'gooru-web/config/config';
 
 /**
  * Class Overview controller
@@ -83,15 +82,20 @@ export default Ember.Controller.extend({
   contentVisibility: Ember.computed.alias('classController.contentVisibility'),
 
   /**
-   * Check it's nu course version or not
-   * @type {Boolean}
-   */
-  isNUCourse: Ember.computed.equal('course.version', NU_COURSE_VERSION),
-
-  /**
    * @property {boolean} showWelcome - indicates the toggle welcome panel state, true means open, false means closed
    */
-  showWelcome: true
+  showWelcome: true,
+
+  /**
+   * @type {Boolean}
+   * Property to check whether a class is rescoped
+   */
+  isRescopedClass: Ember.computed('class', function() {
+    let controller = this;
+    const currentClass = controller.get('class');
+    let setting = currentClass.get('setting');
+    return setting ? setting.rescope : false;
+  })
 
   // -------------------------------------------------------------------------
   // Observers

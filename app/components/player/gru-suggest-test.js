@@ -43,6 +43,24 @@ export default Ember.Component.extend({
   isResource: Ember.computed.equal('type', ASSESSMENT_SUB_TYPES.RESOURCE),
 
   /**
+   * Indicate if the suggestion is a Signature Collection
+   * @param {Boolean} isResource
+   */
+  isSignatureCollection: Ember.computed.equal(
+    'type',
+    ASSESSMENT_SUB_TYPES.SIGNATURE_COLLECTION
+  ),
+
+  /**
+   * Indicate if the suggestion is a Signature Assesment
+   * @param {Boolean} isResource
+   */
+  isSignatureAssessment: Ember.computed.equal(
+    'type',
+    ASSESSMENT_SUB_TYPES.SIGNATURE_ASSESSMENT
+  ),
+
+  /**
    * @param {Assessment} assessment
    */
   assessment: null,

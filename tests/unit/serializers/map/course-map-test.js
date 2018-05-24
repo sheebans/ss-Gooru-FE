@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
-import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 import CollectionModel from 'gooru-web/models/content/collection';
 import AssessmentModel from 'gooru-web/models/content/assessment';
 import AlternatePathModel from 'gooru-web/models/content/alternate-path';
@@ -33,9 +32,9 @@ test('normalizeLessonInfo', function(assert) {
     ctx_lesson_id: 'lesson-1',
     ctx_collection_id: 'assessment-1',
     title: 'R1-resource',
-    target_content_type: 'resource',
-    target_content_subtype: 'webpage_resource',
-    target_resource_id: 'resource-1'
+    suggested_content_type: 'resource',
+    suggested_content_subformat: 'webpage_resource',
+    suggested_content_id: 'resource-1'
   };
 
   var resource_path2 = {
@@ -45,20 +44,16 @@ test('normalizeLessonInfo', function(assert) {
     ctx_lesson_id: 'lesson-1',
     ctx_collection_id: 'assessment-2',
     title: 'R2-resource',
-    target_content_type: 'resource',
-    target_content_subtype: 'image_resource',
-    target_resource_id: 'resource-2'
+    suggested_content_type: 'resource',
+    suggested_content_subformat: 'image_resource',
+    suggested_content_id: 'resource-2'
   };
 
   const data = {
-    alternate_paths: [
-      ASSESSMENT_SUB_TYPES.PRE_TEST,
-      ASSESSMENT_SUB_TYPES.POST_TEST,
-      ASSESSMENT_SUB_TYPES.BENCHMARK,
-      ASSESSMENT_SUB_TYPES.BACKFILL,
-      resource_path,
-      resource_path2
-    ],
+    alternate_paths: {
+      system_suggestions: [resource_path],
+      teacher_suggestions: [resource_path2]
+    },
     course_path: course_path
   };
 
@@ -108,7 +103,7 @@ test('normalizeLessonInfo', function(assert) {
     }
   });
   serializer.set('alternatePathSerializer', {
-    normalizeAlternatePath: alternatePath => {
+    normalizeSuggestedResource: alternatePath => {
       return AlternatePathModel.create({
         pathId: alternatePath.id,
         targetContentSubtype: alternatePath.target_content_subtype,
@@ -136,47 +131,25 @@ test('normalizeLessonInfo', function(assert) {
   );
   assert.deepEqual(
     serializedData.get('children').length,
-    8,
+    3,
     'Returned data length should match'
   );
+
   assert.deepEqual(
     serializedData.get('children')[0].title,
-    `normalized-collection-${ASSESSMENT_SUB_TYPES.PRE_TEST}`,
-    'Pre test data should match'
+    'R1-resource',
+    'Resource data should match'
   );
+
   assert.deepEqual(
     serializedData.get('children')[1].title,
-    `normalized-collection-${ASSESSMENT_SUB_TYPES.BACKFILL}`,
-    'Backfill data should match'
+    'A1',
+    'Assessment 1 data should match'
   );
+
   assert.deepEqual(
     serializedData.get('children')[2].title,
-    'A1',
-    'Assessment data should match'
-  );
-  assert.deepEqual(
-    serializedData.get('children')[3].title,
-    `R1-${ASSESSMENT_SUB_TYPES.RESOURCE}`,
-    'Resource data should match'
-  );
-  assert.deepEqual(
-    serializedData.get('children')[4].title,
     'A2',
-    'Assessment data should match'
-  );
-  assert.deepEqual(
-    serializedData.get('children')[5].title,
-    `R2-${ASSESSMENT_SUB_TYPES.RESOURCE}`,
-    'Resource data should match'
-  );
-  assert.deepEqual(
-    serializedData.get('children')[6].title,
-    `normalized-collection-${ASSESSMENT_SUB_TYPES.POST_TEST}`,
-    'Post test data should match'
-  );
-  assert.deepEqual(
-    serializedData.get('children')[7].title,
-    `normalized-collection-${ASSESSMENT_SUB_TYPES.BENCHMARK}`,
-    'Benchmark data should match'
+    'Assessment 2 data should match'
   );
 });

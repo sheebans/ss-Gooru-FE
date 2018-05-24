@@ -62,11 +62,35 @@
     }
   }
 
+  .student-title {
+    width: 61px;
+    height: 15px;
+    opacity: 0.5;
+    font-family: Lato;
+    font-size: 13px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: $gray-base;
+  }
+
   .students-panel {
-    margin-top: 20px;
+    margin-top: 10px;
     min-height: 0;
     padding: 0;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.07), 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    .student-actions-width {
+      width: calc((955px - 640px) / 4);
+      align-items: center;
+    }
+    .miniprofile {
+      width: 29px;
+      border-radius: 50%;
+      border-color: transparent;
+    }
     table {
       width: 100%;
       margin-bottom: 0;
@@ -77,15 +101,24 @@
       .table-header {
         background-color: $white;
         width: 100%;
-        border-bottom: 2px solid $light-200;
+        border-bottom: 1px solid $light-300;
         th {
           padding: 0;
           border-bottom: none;
           height: 48px;
-          width: 36%;
+          //width: 36%;
           @media (min-width: $screen-sm-max) {
-            border-right: 2px dashed $table-border-color;
-            width: 218px;
+            //border-right: 2px dashed $table-border-color;
+            // width: calc((955px - 654px) /4);
+          }
+          th.miniprofile {
+            @extend .miniprofile;
+          }
+          .student-actions {
+            @extend .student-actions-width;
+          }
+          .datacolumn {
+            width: calc((654px - 29px) / 3);
           }
           div {
             padding: 0 0 10px 10px;
@@ -105,16 +138,28 @@
       }
       tbody {
         width: 100%;
-        max-height: 182px;
+        max-height: 364px;
         overflow: auto;
+        tr {
+          border-bottom: 1px solid $light-200;
+        }
+
         tr:nth-child(odd) {
-          background-color: $light-100;
+          background-color: $white;
         }
         tr:nth-child(even) {
           background-color: $white;
         }
         .student {
           height: 36px;
+          .miniprofile {
+            @extend .miniprofile;
+
+            cursor: pointer;
+          }
+          td.datacolumn {
+            width: calc((654px - 29px) / 3);
+          }
           td.border-right {
             width: 218px;
             white-space: nowrap;
@@ -128,9 +173,14 @@
             }
           }
           td.student-actions {
-            border: none;
-            width: calc(955px - 654px);
+            //border: none;
+            //width: 91px;
+            @extend .student-actions-width;
+            vertical-align: bottom;
+            line-height: 35px;
             padding: 0;
+            padding-left: 31px;
+            cursor: pointer;
             .remove-student {
               cursor: pointer;
               > i {
@@ -138,6 +188,10 @@
                 margin-right: 9px;
                 color: $gray-80;
               }
+            }
+
+            img {
+              vertical-align: top;
             }
           }
         }
@@ -186,6 +240,167 @@
       font-weight: 300;
       line-height: 1.54;
       text-align: center;
+    }
+  }
+  .teacherinfo {
+    margin-top: 1.9%;
+    margin-bottom: 1.9%;
+
+    i {
+      cursor: pointer;
+    }
+
+    .teacher-title {
+      width: 64px;
+      height: 19px;
+      opacity: 0.5;
+      font-family: Lato;
+      font-size: 16px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: left;
+      color: $gray-base;
+      margin-top: 1.9%;
+    }
+    .line-sep-hr {
+      width: 956px;
+      height: 1px;
+      border: solid 0.5px $gray-base;
+      margin-top: 0.1%;
+      margin-bottom: 1.5%;
+      border-bottom: none;
+    }
+    .teachercard {
+      display: flex;
+      flex-flow: row wrap;
+      .teacher-card-shape {
+        width: 225px;
+        height: 281px;
+        border-radius: 4px;
+        box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.3);
+        background-color: $white;
+        border: solid 1px $white;
+        display: inline-flex;
+        flex-flow: column;
+        justify-items: center;
+        margin-right: 1.5%;
+        margin-bottom: 1.5%;
+
+        .teacherprofileimg {
+          width: 50%;
+          height: 39.5%;
+          border-radius: 50%;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 9.3%;
+        }
+        .owner {
+          width: 100%;
+          height: 16px;
+          font-size: 13px;
+          opacity: 0.9;
+          font-weight: normal;
+          text-align: center;
+          color: $gray-base;
+        }
+
+        .teachername {
+          width: 100%;
+          height: 27px;
+          opacity: 0.9;
+          font-size: 22px;
+          font-weight: normal;
+          text-align: center;
+          color: $gray-base;
+        }
+
+        .teacherexinfocontainer {
+          flex: 1;
+          flex-flow: row;
+          margin-top: 7.5%;
+
+          .teacherexinfo {
+            display: flex;
+            position: relative;
+
+            .posabs {
+              position: absolute;
+              top: 11px;
+              left: 56px;
+            }
+
+            .t-top-line {
+              width: 179px;
+              height: 1px;
+              border: solid 0.5px $gray-base;
+              margin-left: auto;
+              margin-right: auto;
+              border-bottom: none;
+            }
+            .t-ver-line {
+              @extend .posabs;
+              width: 1px;
+              height: 51px;
+              border: solid 0.5px $gray-base;
+              left: 111px;
+              top: 0px;
+              border-left: none;
+            }
+
+            .Shape {
+              width: 20px;
+              height: 20px;
+              align-self: center;
+            }
+            .account-circle {
+              @extend .Shape;
+              @extend .posabs;
+              left: 152px;
+              object-fit: contain;
+            }
+
+            .lbl {
+              @extend .posabs;
+              font-weight: 300;
+              color: $gray;
+              text-align: center;
+            }
+            .profile-lbl {
+              @extend .lbl;
+              left: 47.5px;
+              top: 35px;
+              width: 37px;
+              height: 16px;
+              opacity: 0.9;
+              font-size: 13px;
+            }
+
+            .remove-lbl {
+              @extend .lbl;
+              left: 121px;
+              top: 35px;
+              width: 82px;
+              height: 18px;
+              font-size: 15px;
+            }
+          }
+        }
+      }
+      // Special  behavior for single card
+      .teacher-card-shape:only-child {
+        margin-left: auto;
+        margin-right: auto;
+        .teachername {
+          margin-top: auto;
+          height: 33%;
+        }
+        .owner {
+          margin-top: auto;
+        }
+      }
     }
   }
 }

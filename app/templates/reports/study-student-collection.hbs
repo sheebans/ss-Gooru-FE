@@ -13,6 +13,20 @@
 
 <div class="report-container">
   {{#if hasAnySuggestion}}
+
+      {{#if hasSignatureAssessmentSuggestions}}
+      <div class="suggestion-panel">
+        {{player.gru-suggest-test type=signatureAssessmentType assessment=collection suggestion=mapLocation.signatureAssessmentSuggestions
+        onPlayCollection='next' onPlaySuggestion='playSignatureAssessmentSuggestions'}}
+      </div>
+      {{/if}}
+
+       {{#if hasSignatureCollectionSuggestions}}
+      <div class="suggestion-panel">
+        {{player.gru-suggest-test type=signatureCollectionType assessment=collection suggestion=mapLocation.signatureCollectionSuggestions onPlayCollection='next'
+        onPlaySuggestion='playSignatureCollectionSuggestions'}}
+      </div>
+       {{/if}}
     {{#if hasBackFillSuggestions}}
       <div class="suggestion-panel">
         {{player.gru-suggest-test type=backFillType assessment=collection suggestion=mapLocation.backFillSuggestion onPlayCollection='next' onPlaySuggestion='playBackFillSuggestion'}}
@@ -53,5 +67,5 @@
     {{/if}}
     {{reports.qz-student-report attemptData=attemptData profile=profile}}
   </div>
-  {{player.gru-player-summary-footer isDone=isDone classId=classId parents="next" collection=collection}}
+  {{player.gru-player-summary-footer isDone=isDone classId=classId parents="next" courseId=courseId collection=collection}}
 </div>

@@ -1,0 +1,100 @@
+.profile .gru-navigation-tabs {
+  .profile-navigation {
+    @include flexbox;
+    @include align-items(center);
+    @include justify-content(space-between);
+    height: 56px;
+    padding: 0;
+    width: 100%;
+
+    .category-menu {
+      border-bottom: 2px solid $gray-light;
+      @media (min-width: $screen-sm-min) {
+        ul {
+          margin-left: 0;
+
+          li {
+            top: 3px;
+
+            &:first-of-type {
+              margin-left: 0;
+            }
+
+            &:last-of-type {
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+
+      .category-options {
+        li {
+          @media (min-width: $screen-md) and (max-width: $screen-md-max) {
+            margin: 0;
+          }
+
+          a {
+            margin-top: 7px;
+            @media (max-width: $screen-xs-max) {
+              margin-top: 0;
+            }
+
+            span {
+              font-size: 16px;
+              color: $light-500;
+            }
+
+            i {
+              font-size: 20px;
+              color: $light-500;
+            }
+          }
+
+          &.active {
+            border-bottom: 4px solid $gray-darker;
+
+            > a {
+              box-shadow: none !important;
+
+              > span,
+              i {
+                color: $gray-darker;
+              }
+            }
+            @media (max-width: $screen-xs-max) {
+              border-bottom: 3px solid $gray-darker;
+              margin-bottom: -4px;
+            }
+          }
+        }
+
+        li:hover {
+          > a > span,
+          i {
+            color: $gray-darker;
+          }
+          border-bottom: 4px solid $gray-darker;
+        }
+
+        li.selected {
+          border-bottom: 4px solid $gray-shaft;
+        }
+
+        li.profile-menu-item > a > span {
+          padding: 15px;
+        }
+
+        li.followings > a > span {
+          padding: 15px;
+        }
+
+        li.selected {
+          > a > span {
+            color: $gray-shaft;
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}

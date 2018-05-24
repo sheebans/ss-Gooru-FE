@@ -69,5 +69,57 @@
         height: auto;
       }
     }
+
+    .c496fefd-90b8-45a1-81a5-026f709e6157 {
+      display: none;
+    }
+  }
+
+  .rescope-section {
+    .rescope-toggle {
+      .action {
+        display: flex;
+        padding: 18px 0 8px 0;
+        span {
+          font-size: 15px;
+          color: $gray-base;
+        }
+        .gru-toggle-button {
+          margin-top: 7px;
+        }
+      }
+      .info {
+        color: $bluish-gray;
+        font-style: italic;
+      }
+    }
+
+    .custom-msg {
+      margin-top: 15px;
+      width: 960px;
+      height: 62px;
+      border-radius: 4px;
+      background-color: $white;
+      padding: 15px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
+      display: flex;
+      span {
+        opacity: 0.5;
+        color: $gray-base;
+        font-style: italic;
+        i {
+          margin-left: 115px;
+        }
+      }
+    }
+  }
+
+  .rescoped-content {
+    .panel-heading {
+      .panel-title {
+        opacity: 0.3;
+        font-style: italic;
+      }
+    }
   }
 }

@@ -9,6 +9,14 @@ export default Ember.Controller.extend({
   profileService: Ember.inject.service('api-sdk/profile'),
 
   sessionService: Ember.inject.service('api-sdk/session'),
+
+  /**
+   * Inject proficiency controller to get class id
+   */
+  proficiencyController: Ember.inject.controller('profile/proficiency'),
+
+  aboutController: Ember.inject.controller('profile/about'),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -42,6 +50,28 @@ export default Ember.Controller.extend({
                   controller.set('profile', updatedProfile);
                 });
             });
+        }
+      }
+    },
+
+    /**
+     * Action triggered when the user click back button
+     * Redirect the user into class management page
+     */
+    onClickBackButton() {
+      let controller = this;
+      let classId = controller.get('proficiencyController.classId');
+      let id = controller.get('aboutController.classId');
+      if (classId || id) {
+        controller.transitionToRoute(
+          `/teacher/class/${classId ? classId : id}/class-management`
+        );
+      } else {
+        let currntUser = controller.get('currentLoginUser');
+        if (currntUser.get('role') === 'teacher') {
+          controller.transitionToRoute('/teacher-home');
+        } else if (currntUser.get('role') === 'student') {
+          controller.transitionToRoute('/student-home');
         }
       }
     }

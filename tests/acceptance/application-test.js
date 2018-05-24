@@ -144,7 +144,7 @@ test('Legacy uri profile', function(assert) {
 
   visit('/#id-for-pochita');
   andThen(function() {
-    assert.equal(currentURL(), '/id-for-pochita/content/courses');
+    assert.equal(currentURL(), '/id-for-pochita');
   });
 });
 

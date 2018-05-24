@@ -59,9 +59,13 @@ export default Ember.Component.extend(AccordionMixin, {
 
   classNames: ['gru-accordion-unit'],
 
-  classNameBindings: ['isExpanded:expanded'],
+  classNameBindings: ['isExpanded:expanded', 'curComponentId'],
 
   tagName: 'li',
+
+  curComponentId: Ember.computed(function() {
+    return `u-${this.get('model.id')}`;
+  }),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -144,6 +148,10 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     updateContentVisibility: function(contentId, visible) {
       this.sendAction('onUpdateContentVisibility', contentId, visible);
+    },
+
+    onSelectItem(contentType) {
+      this.sendAction('onSelectItem', contentType);
     }
   },
 
@@ -169,6 +177,10 @@ export default Ember.Component.extend(AccordionMixin, {
     this.$().off('hide.bs.collapse');
     this.$().off('show.bs.collapse');
   }),
+
+  didRender() {
+    this.sendAction('onSelectItem');
+  },
 
   // -------------------------------------------------------------------------
   // Properties

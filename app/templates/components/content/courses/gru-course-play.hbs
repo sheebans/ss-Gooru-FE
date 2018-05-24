@@ -1,4 +1,9 @@
 <header>
+  {{#if isRGOsource}}
+    <div class="close-icon" {{action "onCloseWindow"}} title="Close" data-toggle="tooltip" data-placement="bottom">
+      {{gru-icon name="clear"}}
+    </div>
+  {{/if}}
   <h1>{{course.title}}</h1>
   <div class="actions">
     {{#gru-share-pop-over tagName="button" type="course"}}

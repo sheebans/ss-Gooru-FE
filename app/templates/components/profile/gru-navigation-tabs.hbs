@@ -1,0 +1,45 @@
+<div class="profile-navigation col-md-12">
+  <div class="category-menu col-md-12 col-sm-12 col-xs-12">
+    <ul class="nav nav-tabs category-options">
+
+      <li class="profile-menu-item about" {{action 'selectItem' 'about'}}>
+        <a href='{{view.href}}' class="btn btn-category">
+          {{#if isMyProfile}}
+            <span>{{t "profile.gru-navigation.about-me"}}</span>
+          {{else}}
+          <span>{{t "profile.gru-navigation.about"}}</span>
+          {{/if}}
+        </a>
+      </li>
+      {{#if isProficiencyVisible}}
+        <li class="profile-menu-item proficiency" {{action 'selectItem' 'proficiency'}}>
+          <a href='{{view.href}}' class="btn btn-category">
+            <span>{{t "profile.gru-navigation.proficiency"}}</span>
+        </a>
+        </li>
+      {{/if}}
+      <li class="profile-menu-item content" {{action 'selectItem' 'content'}}>
+        <a href='{{view.href}}' class="btn btn-category">
+          {{#if isMyProfile}}
+            <span>{{t "profile.gru-navigation.my-content"}}</span>
+          {{else}}
+            <span>{{t "profile.gru-navigation.content"}}</span>
+          {{/if}}
+        </a>
+      </li>
+      {{#link-to "profile.network.following" tagName="li" class='followings' }}
+        <a href='{{view.href}}' class="btn btn-category">
+          <span>{{t "common.following"}}</span>
+        </a>
+      {{/link-to}}
+      {{#link-to "profile.network.followers" tagName="li" class='followers' }}
+        <a href='{{view.href}}' class="btn btn-category">
+          <span>{{t "common.followers"}}</span>
+        </a>
+      {{/link-to}}
+    </ul>
+  </div>
+</div>
+<div class="take-tour">
+  {{gru-take-tour steps=steps containerClass='profile'}}
+</div>

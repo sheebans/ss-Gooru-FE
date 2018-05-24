@@ -57,21 +57,12 @@
     </div>
     <div class="performance-completion-take-tour-info pull-left">
       <div class="completion pull-left">
-        {{#if isNUCourse}}
-          {{#if courseCompetencyCompletion}}
-            <span class="score">{{courseCompetencyCompletion.completedCount}}/{{courseCompetencyCompletion.totalCount}}</span>
-          {{else}}
-            <span class="score">--</span>
-          {{/if}}
-          <span class="label">{{t 'common.competencies'}}</span>
-        {{else}}
           {{#if performanceSummary}}
             <span class="score">{{performanceSummary.totalCompleted}}/{{performanceSummary.total}}</span>
           {{else}}
             <span class="score">--</span>
           {{/if}}
           <span class="label">{{t 'common.completion'}}</span>
-        {{/if}}
       </div>
       <div class="performance pull-left" style="background-color:{{if performanceSummary (grade-color performanceSummary.score) defaultBarColor}}">
         <span class="score">

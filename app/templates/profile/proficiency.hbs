@@ -1,0 +1,42 @@
+<div class="user-proficiency">
+  <div class="panel left-panel">
+    <div class="panel-header">
+      <div class="title {{selectedMatrixView}}">
+        {{selectedSubject.title}}
+      </div>
+      {{#if (eq selectedMatrixView 'domain')}}
+        <div class="toggle-chart-view">
+          <span class="text">{{t 'profile.proficiency.expand-chart'}}</span>
+          {{gru-toggle-button onToggleButton="onToggleChart"}}
+        </div>
+      {{/if}}
+      <div class="actions">
+        <div class="toggle-view">
+          <span class="domain {{if (eq selectedMatrixView 'domain') 'active'}}" {{action "onToggleView" 'domain'}}>{{t 'common.domain'}}</span>
+          <span class="course {{if (eq selectedMatrixView 'course') 'active'}}" {{action "onToggleView" 'course'}}>{{t 'common.course'}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body matrix">
+      {{#if (eq selectedMatrixView 'domain')}}
+        <div class="domain">
+          {{proficiency.proficiency-matrix userId=userId subject=selectedSubject isExpandChartEnabled=isExpandChartEnabled}}
+        </div>
+      {{else}}
+        <div class="course">
+          {{proficiency.proficiency-course-matrix userId=userId subject=selectedSubject}}
+        </div>
+      {{/if}}
+    </div>
+  </div>
+  <div class="panel right-panel">
+    <div class="panel-header">
+      <div class="title">
+        {{t 'common.subject'}}
+      </div>
+    </div>
+    <div class="panel-body">
+      {{proficiency.subject-item-list taxonomySubjects=taxonomySubjects selectedItem=selectedSubject onSelectItem="onSelectItem"}}
+    </div>
+  </div>
+</div>

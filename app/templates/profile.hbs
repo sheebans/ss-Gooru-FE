@@ -1,13 +1,35 @@
 <div class="controller profile row">
-  <div class="navigation">
-    {{profile.gru-navigation
+  <div class="content">
+    <div class="user-profile-container">
+      <div class="user-profile-box">
+        {{#if (not isMyProfile)}}
+          <div class="user-profile-back-arrow" {{action 'onClickBackButton'}}>
+            {{gru-icon name="ic_arrow_back"}}
+          </div>
+        {{/if}}
+      </div>
+      <div class="user-profile-info">
+        <div class="profile">
+          <span class="username pull-left">{{profile.firstName}}</span>
+          <div class="img-container pull-left">
+            <img class="img-responsive" src="{{profile.avatarUrl}}">
+          </div>
+          <span class="username pull-left">{{profile.lastName}}</span>
+        </div>
+      </div>
+    </div>
+
+    {{profile.gru-navigation-tabs
     profile=profile
+    currentLoginUser=currentLoginUser
     isMyProfile=isMyProfile
+    steps=steps
     onFollowChanged="toggleFollowingStatus"
     onItemSelected="selectMenuItem"
     selectedMenuItem=menuItem}}
-  </div>
-  <div class="content">
+
+
+
     {{outlet}}
   </div>
 </div>

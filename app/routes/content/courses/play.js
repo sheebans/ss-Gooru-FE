@@ -1,7 +1,13 @@
 import Ember from 'ember';
 import BuilderItem from 'gooru-web/models/content/builder/item';
+import { PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
+  queryParams: {
+    source: {
+      refreshModel: true
+    }
+  },
   // -------------------------------------------------------------------------
   // Dependencies
 
@@ -31,7 +37,9 @@ export default Ember.Route.extend({
     var route = this;
     var createdUsersProfile = [];
     var remixedUsersProfile = [];
-
+    var isRGOsource = params.source
+      ? params.source === PLAYER_EVENT_SOURCE.RGO
+      : false;
     return route
       .get('courseService')
       .fetchById(params.courseId)
@@ -59,7 +67,8 @@ export default Ember.Route.extend({
         return Ember.RSVP.hash({
           course: course,
           createdUsers: createdUsersProfile,
-          remixedUsers: remixedUsersProfile
+          remixedUsers: remixedUsersProfile,
+          isRGOsource: isRGOsource
         });
       });
   },
@@ -83,6 +92,7 @@ export default Ember.Route.extend({
     controller.set('createdUsers', model.createdUsers);
     controller.set('remixedUsers', model.remixedUsers);
     controller.set('isOwner', isOwner);
+    controller.set('isRGOsource', model.isRGOsource);
   },
 
   deactivate: function() {

@@ -1,4 +1,4 @@
-<div class="unit" role="tab" id="{{elementId}}-heading">
+<div class="unit panel-heading" role="tab" id="{{elementId}}-heading">
   <div class="panel-title">
     <a class="collapsed title" role="button" data-toggle="collapse" href="#{{elementId}}-content"
        aria-expanded="false" aria-controls="{{elementId}}-content" {{action "selectUnit" model.id}}>
@@ -38,9 +38,11 @@
           contentVisibility=contentVisibility
           onUpdateContentVisibility="updateContentVisibility"
           isTeacher=isTeacher
-          isNUCourse=isNUCourse
           isFromDCA=isFromDCA
-          toggleLocation=toggleLocation}}
+          toggleLocation=toggleLocation
+          onSelectItem="onSelectItem"
+          isRescopedClass=isRescopedClass
+        }}
         {{else}}
           <li>{{t "common.contentUnavailable"}}</li>
         {{/each}}

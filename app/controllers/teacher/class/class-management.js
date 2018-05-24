@@ -134,13 +134,50 @@ export default Ember.Controller.extend(ModalMixin, {
         false
       );
     },
+
+    profileStudent: function(student) {
+      let controller = this;
+      let studentId = student.get('id');
+      let classId = controller.get('class.id');
+      this.transitionToRoute(`/${studentId}/about?classId=${classId}`);
+    },
+
+    proficiencyStudent: function(student) {
+      let controller = this;
+      let studentId = student.get('id');
+      let classId = controller.get('class.id');
+      this.transitionToRoute(`/${studentId}/proficiency/?classId=${classId}`);
+    },
+
+    pathwayStudent(student) {
+      let controller = this;
+      let userId = student.get('id');
+      let setting = controller.get('class.setting');
+      let userClassModel = {
+        userId: userId,
+        classId: controller.get('class.id'),
+        courseId: controller.get('class.courseId'),
+        isRescopedClass: setting ? setting.rescope : false,
+        pathway: true
+      };
+      this.send(
+        'showModal',
+        'class.gru-learner-pathway',
+        userClassModel,
+        null,
+        null,
+        null,
+        'static',
+        false
+      );
+    },
+
     /**
      *
      * Triggered when a edit save score option is selected
      */
     saveScore: function() {
       let controller = this;
-
       controller.set('editingScore', false);
       controller.saveClass();
     },
@@ -161,6 +198,25 @@ export default Ember.Controller.extend(ModalMixin, {
      */
     updateClass: function() {
       this.saveClass();
+    },
+
+    /**
+     * Triggered from a co-teacher card of class mgt
+     */
+    removeCoteacher: function(coteacher) {
+      var classCollaboratorsRef = this.get('class').get('collaborators');
+      let classCollaborators = classCollaboratorsRef.copy();
+      classCollaborators.reduce((acc, ccb, index, ccArr) => {
+        if (ccb.id === coteacher.id) {
+          ccArr.removeAt(index);
+        }
+      }, 0);
+      let classCollaboratorArr = classCollaborators.map(ccb => ccb.id);
+      this.get('classService')
+        .removeCoTeacherFromClass(this.get('class.id'), classCollaboratorArr)
+        .then(() => {
+          this.get('class').set('collaborators', classCollaborators);
+        });
     }
   },
 

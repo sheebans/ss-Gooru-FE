@@ -41,40 +41,125 @@
       </div>
     </div>
   </div>
+  <div class="teacherinfo" >
+      <span class="teacher-title">Teachers</span>
+      <div class='line-sep-hr'></div>
+      <div class="teachercard">
+        <div class="teacher-card-shape">
+              <img src={{class.owner.avatarUrl}}  class="teacherprofileimg">
+            <span class='owner'>Owner</span>
+            <span class='teachername'>{{class.owner.firstName}} {{class.owner.lastName}}</span>
+        </div>
 
+           {{#each class.collaborators as |coteacher|}}
+          <div class="teacher-card-shape">
+            <img src={{coteacher.avatarUrl}} class="teacherprofileimg">
+            <span class='owner'>Co-Teacher</span>
+            <span class='teachername'>{{ gru-full-name coteacher }}</span>
+
+            {{!-- <span class='teachername'>{{coteacher.firstName}} {{coteacher.lastName}}</span> --}}
+            <div class="teacherexinfocontainer">
+                {{!-- straignt line  --}}
+              <div class="teacherexinfo">
+                <div class='t-top-line'></div>
+                  <span data-toggle="tooltip" title='Profile' class='material-icons Shape posabs'{{action 'profileStudent' coteacher}}>
+                     {{gru-icon name='account_circle' }}
+                  </span>
+                  <div class='t-ver-line'></div>
+                  <span data-toggle="tooltip" title='Remove' class='account-circle' {{action 'removeCoteacher' coteacher}}>
+                     {{gru-icon name='remove_circle' }}
+                  </span>
+                  <div class='profile-lbl'>Profile</div>
+                  <div class='remove-lbl'>Remove</div>
+              </div>
+            </div>
+            {{!-- container --}}
+          </div>
+          {{/each}}
+      </div>
+  </div>
   {{#if sortedMembers}}
+
+    <span  class="student-title"> Students</span>
     <div class="students-panel">
       <table class="table table-striped">
         <thead  class="table-header">
           <tr>
+            <th class=''>
+                <span></span>
+            </th>
             <th>
-              <div class='sortable last-name' {{action 'sortStudents' 'lastName'}}>
+              <div class='sortable last-name datacolumn' {{action 'sortStudents' 'lastName'}}>
                 <span>{{t "teacher-landing.class.class-management-tab.last-name"}}</span>
                 {{gru-icon name='swap_vert'}}
               </div>
             </th>
             <th>
-              <div class='sortable first-name' {{action 'sortStudents' 'firstName'}}>
+              <div class='sortable first-name datacolumn' {{action 'sortStudents' 'firstName'}}>
                 <span>{{t "teacher-landing.class.class-management-tab.first-name"}}</span>
                 {{gru-icon name='swap_vert'}}
               </div>
             </th>
             <th>
-              <div class='sortable student-id' {{action 'sortStudents' 'studentId'}}>
+              <div class='sortable student-id datacolumn' {{action 'sortStudents' 'studentId'}}>
                 <span>{{t "teacher-landing.class.class-management-tab.student-id"}}</span>
                 {{gru-icon name='swap_vert'}}
               </div>
             </th>
+            <th>
+              <div class='student-actions' >
+                <span>Proficiency</span>
+              </div>
+            </th>
+            <th>
+              <div class='student-actions' >
+                <span>Profile</span>
+              </div>
+            </th>
+            <th>
+              <div class='student-actions' >
+                <span>Pathway</span>
+              </div>
+            </th>
+            <th>
+              <div class='student-actions'>
+                <span>Remove</span>
+                </div>
+              </th>
           </tr>
         </thead>
         <tbody>
           {{#each sortedMembers as |student|}}
             <tr class="student">
-              <td class="last-name border-right"><span>{{student.lastName}}</span></td>
-              <td class="first-name border-right"><span>{{student.firstName}}</span></td>
-              <td class="student-id border-right"><span>{{student.studentId}}</span></td>
+              <td class= 'student'>
+                <span class='Shape' data-toggle="tooltip" title='Profile' {{action 'profileStudent' student}}>
+                  <img src={{student.avatarUrl}} class='miniprofile'>
+                </span>
+              </td>
+
+              <td class="last-name datacolumn"><span>{{student.lastName}}</span></td>
+              <td class="first-name datacolumn"><span>{{student.firstName}}</span></td>
+              <td class="student-id datacolumn"><span>{{student.studentId}}</span></td>
               <td class="student-actions">
-              <span class="delete-btn right remove-student" data-toggle="tooltip" title="{{t 'common.remove'}}" {{action 'removeStudent' student}}>
+                <span class= 'Shape' data-toggle="tooltip" title= 'Proficiency' {{action
+                  'proficiencyStudent' student}}>
+                    <img src='/assets/gooru/proficiency_new.png' >
+                </span>
+              </td>
+              <td class="student-actions">
+                <span class='Shape' data-toggle="tooltip" title='Profile' {{action
+                  'profileStudent' student}}>
+                   {{gru-icon name='account_circle'}}
+                </span>
+              </td>
+              <td class="student-actions">
+                <span class='Shape' data-toggle="tooltip" title='Pathway' {{action
+                  'pathwayStudent' student}}>
+                 {{gru-icon name='arrow_forward'}}
+                </span>
+              </td>
+              <td class="student-actions">
+              <span class='delete-btn  remove-student' data-toggle="tooltip" title="{{t 'common.remove'}}" {{action 'removeStudent' student}}>
                 {{gru-icon name='delete'}}
               </span>
               </td>

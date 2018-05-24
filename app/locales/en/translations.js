@@ -596,6 +596,7 @@ export default Object.assign(quizzesTranslations, {
     'studen-id-display':
       'Student ID (not displayed on Profile, displayed in Anonymous mode)',
     'subject-and-framework': 'Subject and Framework',
+    subject: 'Subject',
     submit: 'Submit',
     'submit-all': 'Submit all',
     submitAll: 'Submit All',
@@ -740,7 +741,14 @@ export default Object.assign(quizzesTranslations, {
       title: 'Course Map',
       locate: 'Locate Me',
       'edit-content': 'Edit Content',
-      'add-to-daily-class-activities': 'Add to Daily Class Activities'
+      'add-to-daily-class-activities': 'Add to Daily Class Activities',
+      'course-map': {
+        'rescope-toggle': 'Show Complete Course Map',
+        'rescope-info':
+          'This course has been personalized specifically for you from the Math Foundation course. To see the original course, enable this feature.',
+        'custom-msg':
+          'We are personalizing this course specifically for you based on your proficiency. Please check back in a little while to see the personalized course map.'
+      }
     },
     analytics: {
       performance: {
@@ -1682,10 +1690,17 @@ export default Object.assign(quizzesTranslations, {
       content: 'Content',
       followers: 'Followers',
       library: 'Library',
-      'my-content': 'My Content'
+      'my-content': 'My Content',
+      following: 'Following',
+      proficiency: 'Proficiency'
     },
     edit: {
       'select-district': 'Select a district...'
+    },
+    proficiency: {
+      'is-empty':
+        'No data available yet. Once you begin studying, your data will become available.',
+      'expand-chart': 'Expand Chart'
     }
   },
 
@@ -2482,6 +2497,12 @@ export default Object.assign(quizzesTranslations, {
     'backfill-header': 'Suggested Collection (Optional)',
     'benchmark-header': 'Benchmark-Test (Optional)',
     'resource-header': 'Suggested Resource (Optional)',
+    'signature_collection-header': 'Suggested Collection (Optional)',
+    'signature_collection-lead':
+      'Based on your performance on this course, the following resource may enhance your understanding.',
+    'signature_assessment-header': 'Suggested Assessment (Optional)',
+    'signature_assessment-lead':
+      'Based on your performance on this course, the following assessment may enhance your understanding.',
     'pre-test-lead':
       'A pre-test is suggested to measure your current understanding of the concepts in this lesson. The pre-test can help prepare you for the content in the lesson. The pre-test will not affect your course performance score.',
     'post-test-lead':
@@ -2495,6 +2516,8 @@ export default Object.assign(quizzesTranslations, {
     no: 'No, thanks',
     'no-suggestions': 'Here\'s a summary of your performance.',
     take: 'Take {{type}}',
+    'take-signature-collection': 'Study Suggested Collection',
+    'take-signature-assessment': 'Study Suggested Assessment',
     'take-backfill-pretest': 'Study Suggested Collection',
     'take-resource': 'Study Resource',
     'end-of-course': 'You have reached the end of the course.'
