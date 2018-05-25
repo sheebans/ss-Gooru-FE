@@ -83,7 +83,9 @@ export default Ember.Component.extend({
     let isMyProfile = component.get('isMyProfile');
     let isStudent = component.get('profile').get('role') === 'student';
     let currentLoginUser = component.get('currentLoginUser');
-    let isTeacher = currentLoginUser.get('role') === 'teacher';
+    let isTeacher = currentLoginUser
+      ? currentLoginUser.get('role') === 'teacher'
+      : false;
     if (isTeacher && !isMyProfile) {
       return true;
     } else if (isStudent && isMyProfile) {
