@@ -23,9 +23,13 @@ export default Ember.Route.extend({
   model: function() {
     const profile = this.modelFor('profile').profile;
 
-    var myFollowings = this.get('profileService').readFollowing(
-      this.get('session.userId')
-    );
+    var myFollowings = Ember.A([]);
+    let loggedUserId = this.get('session.userId');
+    if (profile.get('id') !== loggedUserId && loggedUserId !== 'anonymous') {
+      myFollowings = this.get('profileService').readFollowing(
+        this.get('session.userId')
+      );
+    }
 
     //followers
     var followers = this.get('profileService').readFollowers(profile.get('id'));

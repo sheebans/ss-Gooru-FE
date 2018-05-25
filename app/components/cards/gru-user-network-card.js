@@ -67,5 +67,13 @@ export default Ember.Component.extend({
   isMyProfile: Ember.computed('user', function() {
     let user = this.get('user');
     return user.id === this.get('session.userId');
+  }),
+
+  /**
+   * @property {Boolean}
+   * Check is an user is anonymous or not
+   */
+  isAnonymous: Ember.computed('user', function() {
+    return this.get('session.userId') === 'anonymous';
   })
 });
