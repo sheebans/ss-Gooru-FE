@@ -23,7 +23,8 @@ export default Ember.Route.extend({
   model: function() {
     const profile = this.modelFor('profile').profile;
     var myFollowings;
-    if (profile.get('id') !== this.get('session.userId')) {
+    let loggedUserId = this.get('session.userId');
+    if (profile.get('id') !== loggedUserId && loggedUserId !== 'anonymous') {
       myFollowings = this.get('profileService').readFollowing(
         this.get('session.userId')
       );
@@ -32,7 +33,6 @@ export default Ember.Route.extend({
     var followings = this.get('profileService').readFollowing(
       profile.get('id')
     );
-
     return Ember.RSVP.hash({
       followings: followings,
       myFollowings: myFollowings
