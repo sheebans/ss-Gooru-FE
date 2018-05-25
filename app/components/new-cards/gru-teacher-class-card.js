@@ -157,10 +157,23 @@ export default Ember.Component.extend({
     const currentLocation = this.get('class.currentLocation');
     return currentLocation
       ? `${currentLocation.get('collection.title')},
-      ${this.get('i18n').t('student-landing.class.unit')
-    .string} ${currentLocation.get('unitIndex') + 1},
-      ${this.get('i18n').t('student-landing.class.lesson')
-    .string} ${currentLocation.get('lessonIndex') + 1}`
+      ${
+  this.get('i18n').t('student-landing.class.unit').string
+} ${currentLocation.get('unitIndex') + 1},
+      ${
+  this.get('i18n').t('student-landing.class.lesson').string
+} ${currentLocation.get('lessonIndex') + 1}`
       : '';
+  }),
+
+  /**
+   * The class is rescoped
+   * @property {String}
+   */
+  isRescopedClass: Ember.computed(function() {
+    let component = this;
+    const currentClass = component.get('class');
+    let setting = currentClass.get('setting');
+    return setting ? setting.rescope : false;
   })
 });
