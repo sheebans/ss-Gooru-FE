@@ -117,6 +117,12 @@ export default Ember.Controller.extend({
    */
   menuItem: null,
 
+  /**
+   * @type {Object}
+   * Property to store currently logged in user data
+   */
+  currentLoginUser: null,
+
   // -------------------------------------------------------------------------
   // Observers
 

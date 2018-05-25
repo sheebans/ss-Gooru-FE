@@ -718,7 +718,7 @@ export default Ember.Service.extend({
       .then(function(data) {
         return service
           .get('collectionPerformanceSummarySerializer')
-          .normalizeAllCollectionPerformanceSummary(data);
+          .normalizeAllILCollectionPerformanceSummary(data);
       });
   },
 
