@@ -2,7 +2,7 @@
   <div class="content">
     <div class="user-profile-container">
       <div class="user-profile-box">
-        {{#if (not isMyProfile)}}
+        {{#if (and (not isAnonymousUser) (not isMyProfile))}}
           <div class="user-profile-back-arrow" {{action 'onClickBackButton'}}>
             {{gru-icon name="ic_arrow_back"}}
           </div>
