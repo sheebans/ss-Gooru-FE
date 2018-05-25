@@ -72,10 +72,13 @@ export default Ember.Route.extend({
         ? route.get('profileService').readUserProfileByUsername(params.userId)
         : route.get('profileService').readUserProfile(params.userId);
 
-      const loginUserProfile = route
-        .get('profileService')
-        .readUserProfile(route.get('currentLoginId'));
-
+      let loggedUserId = route.get('currentLoginId');
+      const loginUserProfile =
+        loggedUserId !== 'anonymous'
+          ? route
+            .get('profileService')
+            .readUserProfile(route.get('currentLoginId'))
+          : null;
       return profilePromise.then(function(profile) {
         var EditProfileValidation = Profile.extend(EditProfileValidations);
         var editProfile = EditProfileValidation.create(
