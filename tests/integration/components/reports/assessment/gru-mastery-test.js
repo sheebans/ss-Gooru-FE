@@ -58,7 +58,7 @@ test('Mastery Layout', function(assert) {
   this.set('assessmentResult', assessmentResult);
 
   this.render(
-    hbs`{{reports/assessment/gru-mastery learningTargets=learningTargets assessmentResult=assessmentResult}}`
+    hbs`{{reports/assessment/gru-mastery learningTargets=learningTargets assessmentResult=assessmentResult pathway=true}}`
   );
 
   const $component = this.$(); //component dom element
