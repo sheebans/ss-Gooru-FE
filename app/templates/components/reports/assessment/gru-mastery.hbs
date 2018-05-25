@@ -1,6 +1,8 @@
-<div class="header">
-  <h4 class="hidden-xs">{{t "common.standard"}} (s)</h4>
-</div>
+{{#if pathway}}
+  <div class="header">
+    <h4 class="hidden-xs">{{t "common.standard"}} (s)</h4>
+  </div>
+{{/if}}
 <div class="standard-root">
   {{#if learningTargets}}
     {{reports.assessment.gru-learning-target learningTarget=firstLearningTarget assessmentResult=assessmentResult onBubbleSelect="bubbleSelect"}}

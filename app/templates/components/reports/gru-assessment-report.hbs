@@ -26,6 +26,7 @@
   {{else}}
     {{#if assessmentResult.hasMastery}}
       {{reports.assessment.gru-mastery
+        pathway=pathway
     learningTargets=assessmentResult.mastery
     assessmentResult=assessmentResult
     onBubbleSelect='bubbleSelect'}}
