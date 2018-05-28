@@ -384,6 +384,7 @@ export default StudentCollection.extend({
         queryParams
       });
     } else {
+      queryParams.pathId = 0;
       this.transitionToRoute('study-player', context.get('courseId'), {
         queryParams
       });
