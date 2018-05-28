@@ -54,7 +54,7 @@
         {{/if}}
         <div class="title-section">
           {{#if course.title}}
-            <div class="title pointer" alt="{{course.title}}">
+            <div {{action 'selectItem' 'course-map'}} class="title pointer" alt="{{course.title}}">
               {{truncate text=course.title maxLength=90}}
             </div>
           {{else}}
@@ -154,7 +154,7 @@
         {{/if}}
         <div class="title-section">
           {{#if course.title}}
-            <div class="title pointer" alt="{{course.title}}">
+            <div {{action 'selectItem' 'course-map'}} class="title pointer" alt="{{course.title}}">
               {{truncate text=course.title maxLength=90}}
             </div>
           {{else}}
