@@ -5,7 +5,7 @@
     </a>
   </div>
   {{#unless isFromDCA}}
-    <div class="info">
+    <div class="info {{if isRescopedClassForTeacher 'isRescopedClassForTeacher' ''}}">
       {{#if (or model.assessmentCount model.collectionCount)}}
         <div class="content-count">
           {{#if model.collectionCount}}
@@ -22,16 +22,18 @@
           {{/if}}
         </div>
       {{/if}}
-      <div class= {{if isTeacher 'controls' 'play-btn'}}>
-        {{#unless isTeacher}}
-          <button class="btn btn-info study-now" disabled= {{if (or studyNowDisabled (not isExpanded)) 'true' ''}} {{action "studyNow" 'lesson' model}} data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.play"}}">
+      {{#if (not isRescopedClassForTeacher )}}
+        <div class= {{if isTeacher 'controls' 'play-btn'}}>
+          {{#unless isTeacher}}
+            <button class="btn btn-info study-now" disabled= {{if (or studyNowDisabled (not isExpanded)) 'true' ''}} {{action "studyNow" 'lesson' model}} data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.play"}}">
           {{gru-icon name='play_arrow'}}
         </button>
-        {{/unless}}
-      </div>
-      <div class="performance-container pull-right">
-        {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
-      </div>
+          {{/unless}}
+        </div>
+        <div class="performance-container pull-right">
+          {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
+        </div>
+      {{/if}}
     </div>
   {{/unless}}
 </div>
@@ -55,8 +57,7 @@
                   <a class="title {{item.source}}" {{action "selectResource" item}}>
                     <div class="ellipsis">{{item.title}}</div>
                     {{#if (eq item.source 'system_suggestions')}}
-                      {{gru-icon name="explore"}}
-                    {{else if (eq item.source 'teacher_suggestions')}}
+                      {{gru-icon name="explore"}} {{else if (eq item.source 'teacher_suggestions')}}
                       <i class="teacher_suggestions icon"></i>
                     {{/if}}
                   </a>
@@ -70,7 +71,7 @@
                         </button>
                       </div>
                     {{else}}
-                      <span class="performance" {{action "studentReport" item}}>
+                      <span class="performance " {{action "studentReport" item}}>
                         {{#if item.performance.timeSpent}}
                           {{format-time item.performance.timeSpent}}
                         {{else}}
@@ -111,8 +112,7 @@
                     <a class="title {{item.source}}" {{action "selectResource" item}}>
                       <div class="ellipsis">{{item.title}}</div>
                       {{#if (eq item.source 'system_suggestions')}}
-                        {{gru-icon name="explore"}}
-                      {{else if (eq item.source 'teacher_suggestions')}}
+                        {{gru-icon name="explore"}} {{else if (eq item.source 'teacher_suggestions')}}
                         <i class="teacher_suggestions icon"></i>
                       {{/if}}
                     </a>
@@ -153,10 +153,8 @@
                         {{/if}}
                       {{/if}}
                       {{#if item.isExternalAssessment}}
-                        <img src="/assets/gooru/share.png"
-                      srcset="/assets/gooru/share@2x.png 2x,
-                              /assets/gooru/share@3x.png 3x"
-                      class="share">
+                        <img src="/assets/gooru/share.png" srcset="/assets/gooru/share@2x.png 2x,
+                              /assets/gooru/share@3x.png 3x" class="share">
                       {{/if}}
                     </div>
                     {{#if isTeacher}}
@@ -182,43 +180,45 @@
                         </button>
                       </div>
                     {{/if}}
-                    <div class="performance">
-                      {{#if item.isAssessment}}
-                        {{#if item.performance.isCompleted}}
-                          <span  class="score cursor-default" style=  {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                    {{#if (not isRescopedClassForTeacher)}}
+                      <div class="performance">
+                        {{#if item.isAssessment}}
+                          {{#if item.performance.isCompleted}}
+                            <span class="score cursor-default" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                           {{item.performance.score}}%
                           </span>
-                        {{else}}
-                          {{#if item.performance.hasStarted}}
-                            <span  class="score cursor-default" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                          {{else}}
+                            {{#if item.performance.hasStarted}}
+                              <span class="score cursor-default" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                             {{item.performance.score}}%
                             </span>
-                          {{else}}
-                            {{#if (eq item.format "assessment-external")}}
-                              <span class="not-started-external">--</span>
                             {{else}}
-                              {{#if item.isAssessment}}
+                              {{#if (eq item.format "assessment-external")}}
                                 <span class="not-started-external">--</span>
                               {{else}}
-                                <span class="not-started">{{t 'common.not_started'}}</span>
+                                {{#if item.isAssessment}}
+                                  <span class="not-started-external">--</span>
+                                {{else}}
+                                  <span class="not-started">{{t 'common.not_started'}}</span>
+                                {{/if}}
                               {{/if}}
                             {{/if}}
                           {{/if}}
-                        {{/if}}
-                      {{else}}
-                        {{#if item.performance.hasStarted}}
-                          <span class="time-spent cursor-default">
+                        {{else}}
+                          {{#if item.performance.hasStarted}}
+                            <span class="time-spent cursor-default">
                             {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
                           </span>
-                        {{else}}
-                          {{#if item.isAssessment}}
-                            <span class="not-started-external">--</span>
                           {{else}}
-                            <span class="not-started">{{t 'common.not_started'}}</span>
+                            {{#if item.isAssessment}}
+                              <span class="not-started-external">--</span>
+                            {{else}}
+                              <span class="not-started">{{t 'common.not_started'}}</span>
+                            {{/if}}
                           {{/if}}
                         {{/if}}
-                      {{/if}}
-                    </div>
+                      </div>
+                    {{/if}}
                   </div>
           {{else}}
             <div class="info">
@@ -235,10 +235,8 @@
                   {{/if}}
                 {{/if}}
                 {{#if item.isExternalAssessment}}
-                        <img src="/assets/gooru/share.png"
-                      srcset="/assets/gooru/share@2x.png 2x,
-                              /assets/gooru/share@3x.png 3x"
-                      class="share">
+                  <img src="/assets/gooru/share.png" srcset="/assets/gooru/share@2x.png 2x,
+                              /assets/gooru/share@3x.png 3x" class="share">
                 {{/if}}
               </div>
             </div>

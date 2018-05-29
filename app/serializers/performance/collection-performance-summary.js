@@ -32,6 +32,23 @@ export default Ember.Object.extend({
     }
   },
 
+  normalizeAllILCollectionPerformanceSummary: function(payload) {
+    const serializer = this;
+    if (payload.usageData && payload.usageData.length > 0) {
+      if (Ember.isArray(payload.usageData)) {
+        return payload.usageData.map(function(collectionPerformanceSummary) {
+          return serializer.normalizeCollectionPerformanceSummary(
+            collectionPerformanceSummary
+          );
+        });
+      } else {
+        return [];
+      }
+    } else {
+      return [];
+    }
+  },
+
   /**
    * Normalize a CollectionPerformanceSummary
    * @param {*} data

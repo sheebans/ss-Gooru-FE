@@ -28,7 +28,7 @@
             <div class="no-course-image"></div>
           {{/if}}
         </div>
-        <div class="course-name">
+        <div class="course-name {{if isRescopedClass 'isRescopedClass' ''}}">
           {{#if course.title}}
             {{{truncate text=course.title maxLength=50}}}
           {{else}}
@@ -73,9 +73,11 @@
         <div class="copy-code">
           {{gru-copy-value value=class.code tooltipCode="teacher-landing.class.click-to-copy"}}
         </div>
-        <div class="performance-container">
-          {{charts/gru-performance-chart performanceSummary=class.performanceSummary routeToGo="teacher.class.performance"}}
-        </div>
+        {{#if (not isRescopedClass)}}
+          <div class="performance-container">
+            {{charts/gru-performance-chart performanceSummary=class.performanceSummary routeToGo="teacher.class.performance"}}
+          </div>
+        {{/if}}
       </div>
     </div>
   </div>

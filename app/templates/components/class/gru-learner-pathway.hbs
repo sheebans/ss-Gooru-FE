@@ -49,15 +49,17 @@
       </span>
       </div>
   {{/if}}
-  <div class="course-name">
-    <span class="course-name"> {{currentCourse.title}}</span>
-  </div>
+  {{#if courseView}}
+    <div class="course-name">
+      <span class="course-name"> {{course.title}}</span>
+    </div>
+  {{/if}}
 
   <div class="class-performance">
     <span class="student-name"> {{profile.firstName}} {{profile.lastName}} </span>
   </div>
-  <div class="close {{if courseView 'course' 'report'}}">
-    <a {{action 'close'}} data-dismiss="modal" class="material-icons clear-button">clear</a>
+  <div {{action 'close'}} class="close {{if courseView 'course' 'report'}}">
+    <a data-dismiss="modal" class="material-icons clear-button">clear</a>
     <span class="text"> Close </span>
   </div>
 
@@ -66,19 +68,23 @@
       <div class="student">
         <div class="student-performance">
           <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="{{studentColorStyle}} {{studentAverage}}"></div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+            aria-valuemin="0" aria-valuemax="100" style="{{studentColorStyle}} {{studentAverage}}">
+          </div>
+            <span class="score-text" style="color: {{studentColor}}"> {{studentPerformance.score}} % </span>
           </div>
         </div>
-        <span class="score-text" style="color: {{studentColor}}"> {{studentPerformance.score}} % </span>
       </div>
     {{else}}
       <div class="class">
         <div class="class-performance">
           <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="{{collectionColorStyle}} {{collectionAverage}}"> </div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+             aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="{{collectionColorStyle}} {{collectionAverage}}">
+            </div>
+            <span class="score-text" style="color: {{classColor}}"> {{assessmentResult.score}} % </span>
           </div>
         </div>
-        <span class="score-text" style="color: {{classColor}}"> {{assessmentResult.score}} % </span>
       </div>
     {{/if}}
 
@@ -117,16 +123,6 @@
       {{#if isReportLoading}}
         {{three-bounce-spinner}}
       {{else}}
-        {{#if (not ownReport)}}
-          <div class="col-sm-12 navigation">
-            <button {{action 'goBack'}} class="btn btn-info back">
-            <span>
-              {{gru-icon name='keyboard_arrow_left'}}
-                {{t 'common.back'}}
-            </span>
-          </button>
-          </div>
-        {{/if}}
         {{#if assessmentResult}}
           {{reports.gru-assessment-report
          areAnswersHidden=areAnswersHidden

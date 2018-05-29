@@ -28,7 +28,7 @@
           {{/link-to}}
         </div>
       {{else}}
-        <div class="no-percentage-header" >
+        <div class="no-percentage-header">
           <div class="title ellipsis">
             {{#link-to 'teacher.class.course-map' class.id}}
               {{truncate text=class.title maxLength=25}}
@@ -96,9 +96,15 @@
             <div class="title">{{t 'student-landing.class-code'}}</div>
             <div class="class-code">{{class.code}}</div>
           </div>
-          {{#link-to 'teacher.class.performance' class.id class="pointer percentage" tagName="div" }}
-            {{scorePercentage}}
-          {{/link-to}}
+          {{#if (not isRescopedClass)}}
+            {{#link-to 'teacher.class.performance' class.id class="pointer percentage" tagName="div" }}
+              {{scorePercentage}}
+            {{/link-to}}
+          {{else}}
+            {{#link-to 'teacher.class.performance' class.id class="pointer percentage no-percentage" tagName="div" }}
+              <i class="icon"> </i>
+            {{/link-to}}
+          {{/if}}
         </div>
       {{else}}
         {{#if (eq class.performanceSummary.score 0)}}
@@ -118,7 +124,7 @@
               <div class="class-code">{{class.code}}</div>
             </div>
             {{#link-to 'teacher.class.performance' class.id class="pointer percentage no-percentage" tagName="div" }}
-                <i class="icon"> </i>
+              <i class="icon"> </i>
             {{/link-to}}
           </div>
         {{/if}}

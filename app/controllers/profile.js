@@ -94,6 +94,13 @@ export default Ember.Controller.extend({
   }),
 
   /**
+   * Property to check whethere the current user is anonymous or not
+   */
+  isAnonymousUser: Ember.computed('profile', function() {
+    return this.get('currentUserId') === 'anonymous';
+  }),
+
+  /**
    * Current user id
    */
   currentUserId: Ember.computed.alias('session.userId'),
@@ -109,6 +116,12 @@ export default Ember.Controller.extend({
    * @property {String}
    */
   menuItem: null,
+
+  /**
+   * @type {Object}
+   * Property to store currently logged in user data
+   */
+  currentLoginUser: null,
 
   // -------------------------------------------------------------------------
   // Observers

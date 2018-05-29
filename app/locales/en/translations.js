@@ -1182,7 +1182,9 @@ export default Object.assign(quizzesTranslations, {
     'no-course': 'You have not assigned a course to this </br> classroom yet.',
     teach: 'Teach with a Gooru classroom',
     'welcome-course-map':
-      'This is your Course Map where you can view course content, turn assessments on or off and launch assessments in real-time. You can also view overall class performance and completion. For a detailed view of class performance, visit your classroom\'s Report tab.'
+      'This is your Course Map where you can view course content, turn assessments on or off and launch assessments in real-time. You can also view overall class performance and completion. For a detailed view of class performance, visit your classroom\'s Report tab.',
+    'welcome-rescoped-course-map':
+      'This course has been personalized for each student in the class. You can view each student’s course map in the Class Management page by clicking on the student’s learning pathway (->)'
   },
   goals: {
     manage: {

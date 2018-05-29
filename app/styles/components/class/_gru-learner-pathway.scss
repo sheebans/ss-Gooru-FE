@@ -121,7 +121,7 @@
         .clear-button {
           font-size: 30px;
           color: #cbd2d7;
-          margin-left: 21px;
+          margin-left: 27px;
         }
 
         .text {
@@ -133,11 +133,11 @@
       }
 
       .course {
-        margin-top: -20px;
+        margin-top: -50px;
       }
 
       .report {
-        margin-top: -45px;
+        margin-top: -85px;
       }
 
       .performance {
@@ -163,14 +163,20 @@
               background-color: transparent;
               position: initial;
               margin-bottom: 6px;
+
+              .progress-bar {
+                border-bottom-right-radius: 5px;
+                border-top-right-radius: 5px;
+              }
             }
           }
 
           .score-text {
-            font-size: 12px;
-            margin-top: -4px;
             margin-left: 3px;
             width: 55px;
+            position: absolute;
+            display: inline-block;
+            line-height: 1;
           }
         }
 
@@ -187,14 +193,20 @@
               background-color: transparent;
               position: initial;
               margin-bottom: 0;
+
+              .progress-bar {
+                border-bottom-right-radius: 5px;
+                border-top-right-radius: 5px;
+              }
             }
           }
 
           .score-text {
-            font-size: 12px;
-            margin-top: -4px;
             margin-left: 3px;
             width: 55px;
+            position: absolute;
+            display: inline-block;
+            line-height: 1;
           }
         }
 

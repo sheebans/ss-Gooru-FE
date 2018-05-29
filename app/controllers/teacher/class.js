@@ -61,6 +61,17 @@ export default Ember.Controller.extend({
   menuItem: null,
 
   /**
+   * The class is rescoped
+   * @property {String}
+   */
+  isRescopedClass: Ember.computed(function() {
+    let controller = this;
+    const currentClass = controller.get('class');
+    let setting = currentClass.get('setting');
+    return setting ? setting.rescope : false;
+  }),
+
+  /**
    * @property {boolean} Indicates if course has 1 or more units
    */
   hasUnits: Ember.computed.gt('course.unitCount', 0),
