@@ -1,4 +1,10 @@
 .controller.teacher.class.class-management {
+  .miniprofile {
+    width: 29px;
+    border-radius: 50%;
+    border-color: transparent;
+  }
+
   .header-info {
     max-width: 960px;
     box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.07);
@@ -86,11 +92,7 @@
       width: calc((955px - 640px) / 4);
       align-items: center;
     }
-    .miniprofile {
-      width: 29px;
-      border-radius: 50%;
-      border-color: transparent;
-    }
+
     table {
       width: 100%;
       margin-bottom: 0;
@@ -401,6 +403,19 @@
           margin-top: auto;
         }
       }
+    }
+  }
+
+  .teachers-info-table {
+    @extend .students-panel;
+    .teacherdatacolumn {
+      width: calc(955px / 3);
+    }
+    .teacher-actions {
+      width: calc(300px / 2);
+    }
+    table > tbody > tr > td.teacher-actions {
+      padding-left: 30px;
     }
   }
 }
