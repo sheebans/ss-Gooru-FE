@@ -41,7 +41,7 @@
       </div>
     </div>
   </div>
-  <div class="teacherinfo" >
+  <div class="teacherinfo" style="display:none;" >
       <span class="teacher-title">Teachers</span>
       <div class='line-sep-hr'></div>
       <div class="teachercard">
@@ -78,6 +78,76 @@
           {{/each}}
       </div>
   </div>
+{{#if class.collaborators }}
+  <div class="teachers-info-container">
+    <div class="teacherinfo">
+      <span class="teacher-title">Teachers</span>
+      <div class='line-sep-hr'></div>
+      <div class="teachers-info-table">
+      <table class="table table-striped">
+        <thead class="table-header">
+          <tr>
+            <th class=''>
+              <span></span>
+            </th>
+            <th>
+              <div class='sortable last-name teacherdatacolumn' >
+                <span>{{t "teacher-landing.class.class-management-tab.last-name"}}</span>
+              </div>
+            </th>
+            <th>
+              <div class='sortable first-name teacherdatacolumn'>
+                <span>{{t "teacher-landing.class.class-management-tab.first-name"}}</span>
+              </div>
+            </th>
+            <th>
+              <div class='teacher-actions'>
+                <span>Profile</span>
+              </div>
+            </th>
+            <th>
+              <div class='teacher-actions'>
+                <span>Remove</span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+           {{#each class.collaborators as |coteacher|}}
+          <tr class="student">
+            <td class='student'>
+              <span class='Shape' data-toggle="tooltip" title='Profile' {{action 'profileStudent' coteacher}}>
+                <img src={{coteacher.avatarUrl}} class='miniprofile'>
+              </span>
+            </td>
+      
+            <td class="last-name teacherdatacolumn">
+              <span>{{coteacher.lastName}}</span>
+            </td>
+            <td class="first-name teacherdatacolumn">
+              <span>{{coteacher.firstName}}</span>
+            </td>
+          
+           
+            <td class="teacher-actions">
+              <span class='Shape' data-toggle="tooltip" title='Profile' {{action 'profileStudent' coteacher}}>
+                {{gru-icon name='account_circle'}}
+              </span>
+            </td>
+            
+            <td class="teacher-actions">
+              <span class='delete-btn  remove-teacher' data-toggle="tooltip" title="{{t 'common.remove'}}" {{action 'removeCoteacher' coteacher}}>
+                {{gru-icon name='delete'}}
+              </span>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table></div>
+
+    </div>
+  </div>
+  {{/if}}
   {{#if sortedMembers}}
 
     <span  class="student-title"> Students</span>

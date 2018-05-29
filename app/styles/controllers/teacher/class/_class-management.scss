@@ -1,9 +1,16 @@
 .controller.teacher.class.class-management {
+  .miniprofile {
+    width: 29px;
+    border-radius: 50%;
+    border-color: transparent;
+  }
+
   .header-info {
     max-width: 960px;
     box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.07);
     margin: auto;
     margin-top: 10px;
+    margin-bottom: 10px;
     background-color: $white;
     .class-information {
       height: 60px;
@@ -63,11 +70,11 @@
   }
 
   .student-title {
-    width: 61px;
-    height: 15px;
+    width: 64px;
+    height: 19px;
     opacity: 0.5;
     font-family: Lato;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: bold;
     font-style: normal;
     font-stretch: normal;
@@ -75,6 +82,7 @@
     letter-spacing: normal;
     text-align: left;
     color: $gray-base;
+    margin-top: 1.9%;
   }
 
   .students-panel {
@@ -86,11 +94,7 @@
       width: calc((955px - 640px) / 4);
       align-items: center;
     }
-    .miniprofile {
-      width: 29px;
-      border-radius: 50%;
-      border-color: transparent;
-    }
+
     table {
       width: 100%;
       margin-bottom: 0;
@@ -251,19 +255,7 @@
     }
 
     .teacher-title {
-      width: 64px;
-      height: 19px;
-      opacity: 0.5;
-      font-family: Lato;
-      font-size: 16px;
-      font-weight: bold;
-      font-style: normal;
-      font-stretch: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      text-align: left;
-      color: $gray-base;
-      margin-top: 1.9%;
+      @extend .student-title;
     }
     .line-sep-hr {
       width: 956px;
@@ -399,6 +391,27 @@
         }
         .owner {
           margin-top: auto;
+        }
+      }
+    }
+  }
+
+  .teachers-info-table {
+    @extend .students-panel;
+    .teacherdatacolumn {
+      width: calc(955px / 3);
+    }
+    .teacher-actions {
+      width: calc(300px / 2);
+    }
+    table > tbody > tr > td.teacher-actions {
+      padding-left: 30px;
+      .remove-teacher {
+        cursor: pointer;
+        > i {
+          line-height: 35px;
+          margin-right: 9px;
+          color: $gray-80;
         }
       }
     }
