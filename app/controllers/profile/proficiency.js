@@ -56,7 +56,7 @@ export default Ember.Controller.extend({
     let controller = this;
     controller
       .get('taxonomyService')
-      .getSubjects(subjectCategory)
+      .getTaxonomySubjects(subjectCategory)
       .then(subjects => {
         let subject = subjects.objectAt(1);
         controller.set('taxonomySubjects', subjects);
@@ -105,5 +105,8 @@ export default Ember.Controller.extend({
    */
   selectedMatrixView: 'domain',
 
+  /**
+   * Property to show/hide expanded chart
+   */
   isExpandChartEnabled: false
 });
