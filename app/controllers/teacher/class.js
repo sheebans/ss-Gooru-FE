@@ -71,7 +71,7 @@ export default Ember.Controller.extend({
    * The class is rescoped
    * @property {String}
    */
-  isRescopedClass: Ember.observer('class', function() {
+  isRescopedClass: Ember.computed('class', function() {
     let controller = this;
     const currentClass = controller.get('class');
     let setting = currentClass.get('setting');
