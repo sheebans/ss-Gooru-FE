@@ -30,15 +30,19 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   beforeModel: function() {
     this._super(...arguments);
     const router = this;
-    router.get('authenticationService').signOut();
-    const isProd = Env.environment === 'production';
-    let redirectUrl = null;
-    redirectUrl = EndPointsConfig.getMarketingsiteURL();
-    if (isProd && redirectUrl) {
-      router.get('session').invalidate();
-      window.location.replace(redirectUrl);
-    } else {
-      router.get('session').invalidate();
-    }
+    router
+      .get('authenticationService')
+      .signOut()
+      .then(() => {
+        const isProd = Env.environment === 'production';
+        let redirectUrl = null;
+        redirectUrl = EndPointsConfig.getMarketingsiteURL();
+        if (isProd && redirectUrl) {
+          router.get('session').invalidate();
+          window.location.replace(redirectUrl);
+        } else {
+          router.get('session').invalidate();
+        }
+      });
   }
 });

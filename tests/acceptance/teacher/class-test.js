@@ -93,16 +93,6 @@ test('Layout', function(assert) {
 
     const $copyClassCode = $classroomInformation.find('.copy-code');
     T.exists(assert, $copyClassCode, 'Missing copy class code container');
-
-    const $performanceContainer = $classroomInformation.find(
-      '.performance-container'
-    );
-    T.exists(assert, $performanceContainer, 'Missing performance container');
-    T.exists(
-      assert,
-      $performanceContainer.find('.gru-performance-chart'),
-      'Missing performance chart component'
-    );
   });
 });
 

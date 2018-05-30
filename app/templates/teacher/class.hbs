@@ -51,7 +51,7 @@
         </div>
         <div class="teacher-profile">
           {{#if class.owner}}
-            <img class="img-responsive" src="{{class.owner.avatarUrl}}">
+            <img class="img-responsive" src="{{class.owner.avatarUrl}}" {{action 'profileTeacher' class.owner}}>
             <span class="owner-name">
               {{#if class.owner.firstName}}
                 {{truncate text=(concat class.owner.firstName ' ' class.owner.lastName) maxLength=25}}

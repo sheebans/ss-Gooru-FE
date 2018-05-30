@@ -288,16 +288,16 @@ export default Ember.Component.extend(AccordionMixin, {
       }
     },
 
-    close() {
+    closeReport() {
+      let component = this;
+      component.set('courseView', true);
+    },
+
+    closeCourse() {
       let component = this;
       component.triggerAction({
         action: 'closeModal'
       });
-    },
-
-    goBack() {
-      let component = this;
-      component.set('courseView', true);
     }
   },
 

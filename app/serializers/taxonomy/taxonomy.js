@@ -34,7 +34,8 @@ export default Ember.Object.extend({
     var serializer = this;
     return TaxonomyRoot.create(Ember.getOwner(serializer).ownerInjection(), {
       id: subjectPayload.id,
-      frameworkId: subjectPayload.standard_framework_id,
+      frameworkId:
+        subjectPayload.standard_framework_id || subjectPayload.frameworkId,
       title: subjectPayload.title,
       subjectTitle: subjectPayload.title,
       code: subjectPayload.code,
@@ -43,6 +44,21 @@ export default Ember.Object.extend({
         subjectPayload.title
       )
     });
+  },
+
+  /**
+   * Method to normalize taxonomy subjects from DS
+   */
+  normalizeTaxonomySubjects(subjectPayload) {
+    var result = [];
+    const serializer = this;
+    const subjects = subjectPayload.subjects;
+    if (Ember.isArray(subjects)) {
+      result = subjects.map(function(subject) {
+        return serializer.normalizeSubject(subject);
+      });
+    }
+    return result;
   },
 
   normalizeFrameworks: function(frameworksPayload, parentTitle) {
