@@ -240,6 +240,16 @@ export default Ember.Component.extend({
       .attr('width', cellWidth)
       .attr('height', cellHeight)
       .attr('yaxis-seq', d => d.yAxisSeq)
+      .on('click', function(d) {
+        let competencyNode = component.$(
+          `.competency-${d.xAxisSeq}-${d.yAxisSeq}`
+        );
+        let className = competencyNode.attr('class');
+        if (className.indexOf('competency-more-cells') < 0) {
+          component.blockChartContainer(d);
+          component.sendAction('onCompetencyPullOut', d);
+        }
+      })
       .style('fill', '#EAEAEA')
       .transition()
       .duration(1000)
@@ -271,7 +281,7 @@ export default Ember.Component.extend({
         );
         component.drawChart(resultSet);
       } else {
-        console.warn('There may be ..'); // eslint-disable-line
+        Ember.Logger.warn('comp is destroyed...');
       }
     }, this);
   },

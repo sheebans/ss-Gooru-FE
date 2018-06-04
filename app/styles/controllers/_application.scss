@@ -4,6 +4,12 @@
     overflow-y: hidden;
   }
 }
+.profile_proficiency {
+  overflow-y: hidden;
+  .app-container {
+    overflow-y: auto;
+  }
+}
 .app-container {
   height: 100vh;
   padding-top: 55px;
@@ -53,7 +59,7 @@
         width: 25%;
       }
       @include linear-gradient($blue-500, $blue-400);
-      box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, .50);
+      box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
 
       * {
         background-color: transparent;

@@ -155,6 +155,10 @@ export default Ember.Component.extend({
       })
       .attr('width', cellWidth)
       .attr('height', cellWidth)
+      .on('click', function(d) {
+        component.blockChartContainer(d);
+        component.sendAction('onCompetencyPullOut', d);
+      })
       .style('fill', '#FFF')
       .transition()
       .duration(1000)
@@ -162,8 +166,7 @@ export default Ember.Component.extend({
         return d.isEmpty
           ? '#FFF'
           : colorsBasedOnStatus.get(d.status.toString());
-      })
-      .style('cursor', 'default');
+      });
     cards.exit().remove();
   },
 
@@ -188,7 +191,7 @@ export default Ember.Component.extend({
         );
         component.drawChart(resultSet);
       } else {
-        console.warn('comp is destroyed...'); // eslint-disable-line
+        Ember.Logger.warn('comp is destroyed...');
       }
     });
   },

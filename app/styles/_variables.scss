@@ -24,6 +24,7 @@ $blue-700: #43acdb !default;
 $navy-blue: #0071bc !default;
 $cyan-blue: #7fb8dd !default;
 //** Dark
+$dark-50: #cacaca !default;
 $dark-100: #949a9f !default;
 $dark-200: #67727b !default;
 $dark-300: #535e67 !default;
@@ -31,6 +32,9 @@ $dark-400: #37424b !default;
 $dark-500: #29323a !default;
 $dark-600: #35424b !default;
 $dark-700: #36424b !default;
+$dark-800: #4a4a4a !default;
+$dark-900: #35424b !default;
+
 //** Light
 $light-100: #f1f3f7 !default;
 $light-200: #e3e5ea !default;
@@ -130,12 +134,10 @@ $link-hover-decoration: underline !default;
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif: "Lato", "Helvetica Neue", Helvetica, Arial,
-  sans-serif !default;
+$font-family-sans-serif: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $font-family-serif: Georgia, "Times New Roman", Times, serif !default;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
-$font-family-monospace: Menlo, Monaco, Consolas, "Courier New",
-  monospace !default;
+$font-family-monospace: Menlo, Monaco, Consolas, "Courier New", monospace !default;
 $font-family-base: $font-family-sans-serif !default;
 //** Default for google sign in button
 $font-family-roboto: "Roboto", sans-serif !default;
@@ -167,7 +169,9 @@ $font-size-lead: 19px !default;
 //** Unit-less `line-height` for use in components like buttons.
 $line-height-base: 1.846 !default; // 20/14
 //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
-$line-height-computed: floor(($font-size-base * $line-height-base)) !default; // ~20px
+$line-height-computed: floor(
+  ($font-size-base * $line-height-base)
+) !default; // ~20px
 
 //** By default, this inherits from the `<body>`.
 $headings-font-family: inherit !default;
@@ -296,21 +300,19 @@ $input-border-focus: #66afe9 !default;
 $input-color-placeholder: $gray-light !default;
 
 //** Default `.form-control` height
-$input-height-base: ($line-height-computed + ($padding-base-vertical * 2) + 2)
-  !default;
+$input-height-base: (
+  $line-height-computed + ($padding-base-vertical * 2) + 2
+) !default;
 //** Large `.form-control` height
 $input-height-large: (
-    ceil($font-size-large * $line-height-large) + ($padding-large-vertical * 2) + 2
-  )
-  !default;
+  ceil($font-size-large * $line-height-large) + ($padding-large-vertical * 2) +
+    2
+) !default;
 //** Small `.form-control` height
 $input-height-small: (
-    floor($font-size-small * $line-height-small) +
-      (
-        $padding-small-vertical * 2
-      ) + 2
-  )
-  !default;
+  floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) +
+    2
+) !default;
 
 //** `.form-group` margin
 $form-group-margin-bottom: 15px !default;
@@ -459,8 +461,9 @@ $navbar-height: 64px !default;
 $navbar-margin-bottom: $line-height-computed !default;
 $navbar-border-radius: $border-radius-base !default;
 $navbar-padding-horizontal: floor(($grid-gutter-width / 2)) !default;
-$navbar-padding-vertical: (($navbar-height - $line-height-computed) / 2)
-  !default;
+$navbar-padding-vertical: (
+  ($navbar-height - $line-height-computed) / 2
+) !default;
 $navbar-collapse-max-height: 340px !default;
 
 $navbar-default-color: $gray-light !default;
@@ -648,8 +651,10 @@ $popover-arrow-outer-width: ($popover-arrow-width + 1) !default;
 //** Popover outer arrow color
 $popover-arrow-outer-color: fadein($popover-border-color, 7.5%) !default;
 //** Popover outer arrow fallback color
-$popover-arrow-outer-fallback-color: darken($popover-fallback-border-color, 20%)
-  !default;
+$popover-arrow-outer-fallback-color: darken(
+  $popover-fallback-border-color,
+  20%
+) !default;
 
 //== Labels
 //

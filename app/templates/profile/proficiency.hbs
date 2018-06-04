@@ -20,11 +20,11 @@
     <div class="panel-body matrix">
       {{#if (eq selectedMatrixView 'domain')}}
         <div class="domain">
-          {{proficiency.proficiency-matrix userId=userId subject=selectedSubject isExpandChartEnabled=isExpandChartEnabled}}
+          {{proficiency.proficiency-matrix userId=userId subject=selectedSubject isExpandChartEnabled=isExpandChartEnabled onCompetencyPullOut='onCompetencyPullOut' showPullOut=showPullOut}}
         </div>
       {{else}}
         <div class="course">
-          {{proficiency.proficiency-course-matrix userId=userId subject=selectedSubject}}
+          {{proficiency.proficiency-course-matrix userId=userId subject=selectedSubject onCompetencyPullOut='onCompetencyPullOut' showPullOut=showPullOut}}
         </div>
       {{/if}}
     </div>
@@ -39,4 +39,14 @@
       {{proficiency.subject-item-list taxonomySubjects=taxonomySubjects selectedItem=selectedSubject onSelectItem="onSelectItem"}}
     </div>
   </div>
+  {{#gru-pull-out showPullOut=showPullOut title=description description=title showMore=showMore isLoading=isLoading as |section|}}
+    {{#if section.isLessContent}}
+      {{proficiency.competencies-pull-out-body
+        collection=collection
+        userId=userId
+        competency=competency
+        isLoading=isLoading
+     }}
+    {{/if}}
+  {{/gru-pull-out}}
 </div>
