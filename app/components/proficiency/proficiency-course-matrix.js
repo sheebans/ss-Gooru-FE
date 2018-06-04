@@ -166,8 +166,7 @@ export default Ember.Component.extend({
         return d.isEmpty
           ? '#FFF'
           : colorsBasedOnStatus.get(d.status.toString());
-      })
-      .style('cursor', 'default');
+      });
     cards.exit().remove();
   },
 
@@ -183,13 +182,17 @@ export default Ember.Component.extend({
         .get('competencyService')
         .getCompetencyMatrixCoordinates(subjectId)
     }).then(({ competencyMatrixs, competencyMatrixCoordinates }) => {
-      component.set('isLoading', false);
-      component.set('isCompetenciesNull', !(competencyMatrixs.length > 0));
-      let resultSet = component.parseCompetencyData(
-        competencyMatrixs,
-        competencyMatrixCoordinates
-      );
-      component.drawChart(resultSet);
+      if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
+        component.set('isLoading', false);
+        component.set('isCompetenciesNull', !(competencyMatrixs.length > 0));
+        let resultSet = component.parseCompetencyData(
+          competencyMatrixs,
+          competencyMatrixCoordinates
+        );
+        component.drawChart(resultSet);
+      } else {
+        Ember.Logger.warn('comp is destroyed...');
+      }
     });
   },
 
