@@ -143,6 +143,7 @@ $box-shadow: 1px -1px;
 @import "components/gru-confetti";
 @import "components/gru-status-switch";
 @import "components/gru-toggle-button";
+@import "components/gru-pull-out";
 
 @import "components/cards/gru-class-card";
 @import "components/cards/gru-student-class-card";
@@ -341,6 +342,8 @@ $box-shadow: 1px -1px;
 @import "components/proficiency/proficiency-matrix";
 @import "components/proficiency/subject-item-list";
 @import "components/proficiency/proficiency-course-matrix";
+@import "components/proficiency/competencies-pull-out-body";
+@import "components/proficiency/pull-out-accordion-collection";
 
 @import "routes/student/class/performance";
 @import "routes/content/rubric/preview";

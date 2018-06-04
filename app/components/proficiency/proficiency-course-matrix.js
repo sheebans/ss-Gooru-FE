@@ -155,6 +155,10 @@ export default Ember.Component.extend({
       })
       .attr('width', cellWidth)
       .attr('height', cellWidth)
+      .on('click', function(d) {
+        component.blockChartContainer(d);
+        component.sendAction('onCompetencyPullOut', d);
+      })
       .style('fill', '#FFF')
       .transition()
       .duration(1000)
@@ -171,24 +175,22 @@ export default Ember.Component.extend({
     let component = this;
     let userId = component.get('userId');
     component.set('isLoading', true);
-    return Ember.RSVP
-      .hash({
-        competencyMatrixs: component
-          .get('competencyService')
-          .getCompetencyMatrixCourse(userId, subjectId),
-        competencyMatrixCoordinates: component
-          .get('competencyService')
-          .getCompetencyMatrixCoordinates(subjectId)
-      })
-      .then(({ competencyMatrixs, competencyMatrixCoordinates }) => {
-        component.set('isLoading', false);
-        component.set('isCompetenciesNull', !(competencyMatrixs.length > 0));
-        let resultSet = component.parseCompetencyData(
-          competencyMatrixs,
-          competencyMatrixCoordinates
-        );
-        component.drawChart(resultSet);
-      });
+    return Ember.RSVP.hash({
+      competencyMatrixs: component
+        .get('competencyService')
+        .getCompetencyMatrixCourse(userId, subjectId),
+      competencyMatrixCoordinates: component
+        .get('competencyService')
+        .getCompetencyMatrixCoordinates(subjectId)
+    }).then(({ competencyMatrixs, competencyMatrixCoordinates }) => {
+      component.set('isLoading', false);
+      component.set('isCompetenciesNull', !(competencyMatrixs.length > 0));
+      let resultSet = component.parseCompetencyData(
+        competencyMatrixs,
+        competencyMatrixCoordinates
+      );
+      component.drawChart(resultSet);
+    });
   },
 
   parseCompetencyData: function(
