@@ -7,7 +7,7 @@ export default Ember.Component.extend({
   /**
    * @requires service:performance
    */
-  performanceService: Ember.inject.service('api-sdk/performance'),
+  performanceService: Ember.inject.service('performance'),
 
   // -------------------------------------------------------------------------
   // Attributes
