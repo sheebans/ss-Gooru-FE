@@ -171,16 +171,15 @@ export default Ember.Component.extend({
     let component = this;
     let userId = component.get('userId');
     component.set('isLoading', true);
-    return Ember.RSVP
-      .hash({
-        competencyMatrixs: component
-          .get('competencyService')
-          .getCompetencyMatrixCourse(userId, subjectId),
-        competencyMatrixCoordinates: component
-          .get('competencyService')
-          .getCompetencyMatrixCoordinates(subjectId)
-      })
-      .then(({ competencyMatrixs, competencyMatrixCoordinates }) => {
+    return Ember.RSVP.hash({
+      competencyMatrixs: component
+        .get('competencyService')
+        .getCompetencyMatrixCourse(userId, subjectId),
+      competencyMatrixCoordinates: component
+        .get('competencyService')
+        .getCompetencyMatrixCoordinates(subjectId)
+    }).then(({ competencyMatrixs, competencyMatrixCoordinates }) => {
+      if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
         component.set('isLoading', false);
         component.set('isCompetenciesNull', !(competencyMatrixs.length > 0));
         let resultSet = component.parseCompetencyData(
@@ -188,7 +187,10 @@ export default Ember.Component.extend({
           competencyMatrixCoordinates
         );
         component.drawChart(resultSet);
-      });
+      } else {
+        console.warn('comp is destroyed...'); // eslint-disable-line
+      }
+    });
   },
 
   parseCompetencyData: function(
