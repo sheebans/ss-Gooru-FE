@@ -27,6 +27,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   setupController(controller, model) {
     controller.set('userId', model.userId);
     controller.set('parentController.classId', model.classId);
-    controller.set('parentController.menuItem', 'proficiency');
+    //Make the proficiency tab get selected
+    controller.get('parentController').selectMenuItem('proficiency');
   }
 });

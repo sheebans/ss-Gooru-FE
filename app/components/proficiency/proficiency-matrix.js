@@ -227,15 +227,29 @@ export default Ember.Component.extend({
       .attr('copy-yaxis', d => (d.yAxisSeq - 1) * cellHeight)
       .attr('class', d => {
         let skylineClassName = d.skyline ? 'skyline-competency' : '';
-        return `competency ${skylineClassName} competency-${d.xAxisSeq} competency-${d.xAxisSeq}-${d.yAxisSeq}`;
+        return `competency ${skylineClassName} competency-${
+          d.xAxisSeq
+        } competency-${d.xAxisSeq}-${d.yAxisSeq}`;
       })
       .attr('copy-class-name', d => {
         let skylineClassName = d.skyline ? 'skyline-competency' : '';
-        return `competency ${skylineClassName} competency-${d.xAxisSeq} competency-${d.xAxisSeq}-${d.yAxisSeq}`;
+        return `competency ${skylineClassName} competency-${
+          d.xAxisSeq
+        } competency-${d.xAxisSeq}-${d.yAxisSeq}`;
       })
       .attr('width', cellWidth)
       .attr('height', cellHeight)
       .attr('yaxis-seq', d => d.yAxisSeq)
+      .on('click', function(d) {
+        let competencyNode = component.$(
+          `.competency-${d.xAxisSeq}-${d.yAxisSeq}`
+        );
+        let className = competencyNode.attr('class');
+        if (className.indexOf('competency-more-cells') < 0) {
+          component.blockChartContainer(d);
+          component.sendAction('onCompetencyPullOut', d);
+        }
+      })
       .style('fill', '#EAEAEA')
       .transition()
       .duration(1000)
@@ -251,23 +265,25 @@ export default Ember.Component.extend({
     let component = this;
     let userId = component.get('userId');
     component.set('isLoading', true);
-    return Ember.RSVP
-      .hash({
-        competencyMatrixs: component
-          .get('competencyService')
-          .getCompetencyMatrixDomain(userId, subjectId),
-        competencyMatrixCoordinates: component
-          .get('competencyService')
-          .getCompetencyMatrixCoordinates(subjectId)
-      })
-      .then(({ competencyMatrixs, competencyMatrixCoordinates }) => {
+    return Ember.RSVP.hash({
+      competencyMatrixs: component
+        .get('competencyService')
+        .getCompetencyMatrixDomain(userId, subjectId),
+      competencyMatrixCoordinates: component
+        .get('competencyService')
+        .getCompetencyMatrixCoordinates(subjectId)
+    }).then(({ competencyMatrixs, competencyMatrixCoordinates }) => {
+      if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
         component.set('isLoading', false);
         let resultSet = component.parseCompetencyData(
           competencyMatrixs,
           competencyMatrixCoordinates
         );
         component.drawChart(resultSet);
-      });
+      } else {
+        Ember.Logger.warn('comp is destroyed...');
+      }
+    }, this);
   },
 
   parseCompetencyData(competencyMatrixs, competencyMatrixCoordinates) {
@@ -348,7 +364,9 @@ export default Ember.Component.extend({
     const cellHeight = component.get('cellHeight');
     const width = component.get('width');
     let selectedElement = component.$(
-      `.competency-${selectedCompetency.xAxisSeq}-${selectedCompetency.yAxisSeq}`
+      `.competency-${selectedCompetency.xAxisSeq}-${
+        selectedCompetency.yAxisSeq
+      }`
     );
     let xAxisSeq = selectedElement.attr('x');
     let yAxisSeq = selectedElement.attr('y');

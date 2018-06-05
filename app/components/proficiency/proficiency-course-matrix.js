@@ -155,6 +155,10 @@ export default Ember.Component.extend({
       })
       .attr('width', cellWidth)
       .attr('height', cellWidth)
+      .on('click', function(d) {
+        component.blockChartContainer(d);
+        component.sendAction('onCompetencyPullOut', d);
+      })
       .style('fill', '#FFF')
       .transition()
       .duration(1000)
@@ -162,8 +166,7 @@ export default Ember.Component.extend({
         return d.isEmpty
           ? '#FFF'
           : colorsBasedOnStatus.get(d.status.toString());
-      })
-      .style('cursor', 'default');
+      });
     cards.exit().remove();
   },
 
@@ -171,16 +174,15 @@ export default Ember.Component.extend({
     let component = this;
     let userId = component.get('userId');
     component.set('isLoading', true);
-    return Ember.RSVP
-      .hash({
-        competencyMatrixs: component
-          .get('competencyService')
-          .getCompetencyMatrixCourse(userId, subjectId),
-        competencyMatrixCoordinates: component
-          .get('competencyService')
-          .getCompetencyMatrixCoordinates(subjectId)
-      })
-      .then(({ competencyMatrixs, competencyMatrixCoordinates }) => {
+    return Ember.RSVP.hash({
+      competencyMatrixs: component
+        .get('competencyService')
+        .getCompetencyMatrixCourse(userId, subjectId),
+      competencyMatrixCoordinates: component
+        .get('competencyService')
+        .getCompetencyMatrixCoordinates(subjectId)
+    }).then(({ competencyMatrixs, competencyMatrixCoordinates }) => {
+      if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
         component.set('isLoading', false);
         component.set('isCompetenciesNull', !(competencyMatrixs.length > 0));
         let resultSet = component.parseCompetencyData(
@@ -188,7 +190,10 @@ export default Ember.Component.extend({
           competencyMatrixCoordinates
         );
         component.drawChart(resultSet);
-      });
+      } else {
+        Ember.Logger.warn('comp is destroyed...');
+      }
+    });
   },
 
   parseCompetencyData: function(
