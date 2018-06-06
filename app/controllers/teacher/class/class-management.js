@@ -158,7 +158,8 @@ export default Ember.Controller.extend(ModalMixin, {
         classId: controller.get('class.id'),
         courseId: controller.get('class.courseId'),
         isRescopedClass: setting ? setting.rescope : false,
-        pathway: true
+        pathway: true,
+        isStudentProfile: true
       };
       this.send(
         'showModal',
