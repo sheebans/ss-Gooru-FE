@@ -184,14 +184,26 @@
                       <div class="performance">
                         {{#if item.isAssessment}}
                           {{#if item.performance.isCompleted}}
-                            <span class="score cursor-default" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
-                          {{item.performance.score}}%
-                          </span>
+                               {{#if isStudent }}
+                                  <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                                {{item.performance.score}}%
+                                </span>
+                                {{else}}
+                                    <span class="score cursor-default " style={{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                                      {{item.performance.score}}%
+                                    </span>
+                               {{/if }}
                           {{else}}
                             {{#if item.performance.hasStarted}}
-                              <span class="score cursor-default" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
-                            {{item.performance.score}}%
-                            </span>
+                              {{#if isStudent }}
+                                <span {{action 'studentReport' item}} class="score " style={{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                                  {{item.performance.score}}%
+                                </span>
+                                  {{else}}
+                                  <span class="score cursor-default" style={{safe-html (concat "color:" (grade-color item.performance.score) )}}>
+                                    {{item.performance.score}}%
+                                  </span>
+                                {{/if }}
                             {{else}}
                               {{#if (eq item.format "assessment-external")}}
                                 <span class="not-started-external">--</span>

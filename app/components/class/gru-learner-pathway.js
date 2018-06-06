@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import AccordionMixin from '../../mixins/gru-accordion';
 import { getBarGradeColor, toLocal } from 'gooru-web/utils/utils';
+import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
 
 import Context from 'gooru-web/models/result/context';
 
@@ -116,6 +117,36 @@ export default Ember.Component.extend(AccordionMixin, {
       return component.get('assessmentResult.collection');
     }
   }),
+
+  /**
+   * @property {boolean} areAnswersHidden - Should answer results be hidden?
+   */
+  areAnswersHidden: Ember.computed(
+    'collections.isAssessment',
+    'collections.showFeedback',
+    function() {
+      return (
+        this.get('model').isStudent === true &&
+        this.get('collections.isAssessment') &&
+        this.get('collections.showFeedback') === ASSESSMENT_SHOW_VALUES.NEVER
+      );
+    }
+  ),
+
+  /**
+   * @property {boolean} isAnswerKeyHidden - Should the answer key be hidden?
+   */
+  isAnswerKeyHidden: Ember.computed(
+    'collections.isAssessment',
+    'collections.showKey',
+    function() {
+      return (
+        this.get('model').isStudent === true &&
+        this.get('collections.isAssessment') &&
+        !this.get('collections.showKey')
+      );
+    }
+  ),
 
   /**
    * @property {boolean}showAttempts
