@@ -96,6 +96,25 @@ export default Ember.Component.extend({
     }
     return isProficiencyTabVisible;
   }),
+
+  /**
+   * @property {boolean} roles is teacher only view about and proficiency tabs
+   */
+  isShowTabs: Ember.computed('profile', function() {
+    let component = this;
+    let isTabsVisible = true;
+    let isStudentProfile = component.get('isStudent');
+    let isFromLearnerProfile = component.get('isFromLearnerProfile');
+    let loggedInUser = component.get('currentLoginUser');
+    if (loggedInUser) {
+      let isTeacher = loggedInUser.get('role') === 'teacher';
+      if (isStudentProfile && isTeacher && isFromLearnerProfile) {
+        isTabsVisible = false;
+      }
+    }
+    return isTabsVisible;
+  }),
+
   // -------------------------------------------------------------------------
   // Observers
   /**

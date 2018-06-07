@@ -20,13 +20,5 @@ export default Ember.Controller.extend({
    * @see controllers/profile.js
    * @property {isMyProfile}
    */
-  isMyProfile: Ember.computed.reads('parentController.isMyProfile'),
-
-  queryParams: ['classId'],
-
-  /**
-   * @type {String}
-   * User selected class id
-   */
-  classId: null
+  isMyProfile: Ember.computed.reads('parentController.isMyProfile')
 });
