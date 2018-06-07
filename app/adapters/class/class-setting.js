@@ -4,7 +4,7 @@ import Ember from 'ember';
  *
  * Adapter to support the class setting update operations
  *
- * @typedef {Object} ClassActivityAdapter
+ * @typedef {Object} ClassSettingAdapter
  */
 export default Ember.Object.extend({
   session: Ember.inject.service('session'),
