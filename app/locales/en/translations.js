@@ -2507,7 +2507,7 @@ export default Object.assign(quizzesTranslations, {
     'resource-header': 'Suggested Resource (Optional)',
     'signature_collection-header': 'Suggested Collection (Optional)',
     'signature_collection-lead':
-      'Based on your performance on this course, the following resource may enhance your understanding.',
+      'Based on your performance on this course, the following collection may enhance your understanding.',
     'signature_assessment-header': 'Suggested Assessment (Optional)',
     'signature_assessment-lead':
       'Based on your performance on this course, the following assessment may enhance your understanding.',
