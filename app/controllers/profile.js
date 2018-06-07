@@ -17,7 +17,7 @@ export default Ember.Controller.extend({
 
   aboutController: Ember.inject.controller('profile/about'),
 
-  // queryParams: ['classId'],
+  queryParams: ['classId'],
   // -------------------------------------------------------------------------
   // Actions
   actions: {
