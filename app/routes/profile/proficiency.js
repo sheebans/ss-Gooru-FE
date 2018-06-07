@@ -2,12 +2,6 @@ import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
-  queryParams: {
-    classId: {
-      refreshModel: true
-    }
-  },
-
   beforeModel(transition) {
     let route = this;
     let userId = transition.params
@@ -16,17 +10,15 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     route.set('userId', userId);
   },
 
-  model(params) {
+  model() {
     let route = this;
     return {
-      userId: route.get('userId'),
-      classId: params.classId
+      userId: route.get('userId')
     };
   },
 
   setupController(controller, model) {
     controller.set('userId', model.userId);
-    controller.set('parentController.classId', model.classId);
     //Make the proficiency tab get selected
     controller.get('parentController').selectMenuItem('proficiency');
   }

@@ -4,19 +4,12 @@ export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  queryParams: {
-    classId: {
-      refreshModel: true
-    }
-  },
-
   // -------------------------------------------------------------------------
   // Methods
 
-  model(params) {
+  model() {
     let route = this;
     return {
-      classId: params.classId,
       profile: route.modelFor('profile').profile
     };
   },
@@ -29,6 +22,5 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     controller.get('parentController').selectMenuItem('about');
     controller.set('profile', model.profile);
-    controller.set('parentController.classId', model.classId);
   }
 });
