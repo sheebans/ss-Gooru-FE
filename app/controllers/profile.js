@@ -97,7 +97,7 @@ export default Ember.Controller.extend({
   }),
 
   /**
-   * Property to check whethere the classmanagement class id is true or not
+   * Property to check whether the classmanagement class id is available or not
    */
   isFromLearnerProfile: Ember.computed('classId', function() {
     let controller = this;
@@ -106,7 +106,7 @@ export default Ember.Controller.extend({
   }),
 
   /**
-   * Property to check whethere the current user is anonymous or not
+   * Property to check whether the current user is anonymous or not
    */
   isAnonymousUser: Ember.computed('profile', function() {
     return this.get('currentUserId') === 'anonymous';
