@@ -10,7 +10,8 @@
     box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.07);
     margin: auto;
     margin-top: 10px;
-    margin-bottom: 10px;
+    z-index: 1;
+    position: relative;
     background-color: $white;
     .class-information {
       height: 60px;

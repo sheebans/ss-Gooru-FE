@@ -17,6 +17,11 @@ export default Ember.Controller.extend(ModalMixin, {
    */
   classService: Ember.inject.service('api-sdk/class'),
 
+  /**
+   * @requires service:api-sdk/class-setting
+   */
+  classSettingService: Ember.inject.service('api-sdk/class-setting'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -218,6 +223,17 @@ export default Ember.Controller.extend(ModalMixin, {
         .then(() => {
           this.get('class').set('collaborators', classCollaborators);
         });
+    },
+
+    /**
+     * Triggered when rescope enable button got clicked
+     * @param  {Boolean} isChecked
+     */
+    onUpdateRescopeSetting(classId, rescope) {
+      this.get('classSettingService').updateRescopeClassSetting(
+        classId,
+        rescope
+      );
     }
   },
 
