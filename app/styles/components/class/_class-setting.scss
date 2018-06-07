@@ -1,0 +1,67 @@
+.class-setting {
+  background-color: $white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  margin-bottom: 20px;
+  .class-setting-container {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-top: 10px;
+
+    hr {
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+
+    span {
+      font-size: 22px;
+      color: $gray-base;
+    }
+
+    .rescope-settings-container {
+      display: flex;
+      i {
+        width: 50px;
+        display: block;
+        background-image: url(gooru/images/path.png);
+      }
+
+      p {
+        line-height: 18px;
+        width: calc(100% - 100px);
+      }
+      .not-allow-change-setting {
+        cursor: default;
+        pointer-events: none;
+      }
+    }
+
+    .gru-switch {
+      width: 50px;
+      display: inline-block;
+
+      .toggle-off {
+        left: 33px;
+        font-style: italic;
+        font-size: 10px;
+      }
+
+      .toggle-on {
+        left: -13px;
+        font-style: italic;
+        font-size: 10px;
+      }
+
+      .toggle-handle {
+        top: -5px;
+        left: -2px;
+        border-radius: 20px;
+      }
+
+      .toggle.btn {
+        width: 40px !important;
+        height: 20px !important;
+        border-radius: 20px;
+      }
+    }
+  }
+}
