@@ -86,10 +86,10 @@ export default Ember.Component.extend({
     let loggedInUser = component.get('currentLoginUser');
     if (loggedInUser) {
       let isTeacher = loggedInUser.get('role') === 'teacher';
-      let isStudent = !isTeacher;
+      let isStudent = loggedInUser.get('role') === 'student';
       if (
         isStudentProfile &&
-        ((isTeacher && !isMyProfile) || (isStudent || isMyProfile))
+        ((isTeacher && !isMyProfile) || (isStudent && isMyProfile))
       ) {
         isProficiencyTabVisible = true;
       }

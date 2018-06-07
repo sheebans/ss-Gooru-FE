@@ -1,0 +1,11 @@
+<div class="class-setting-container">
+  <span>{{t 'class.classSetting.name'}}</span>
+  <hr/>
+  <div class="rescope-settings-container">
+    <i></i>
+    <p>{{t 'class.classSetting.rescope-info'}}</p>
+    <div class={{if setting.rescope "not-allow-change-setting"}}>
+      {{gru-switch  switchOptions=switchOptions onOptionSwitch='onToggleRescopeSetting' isChecked=setting.rescope}}
+    </div>
+  </div>
+</div>

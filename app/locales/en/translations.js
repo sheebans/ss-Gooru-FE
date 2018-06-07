@@ -712,6 +712,12 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   class: {
+    classSetting: {
+      name: 'Class Settings',
+      'rescope-info':
+        'Personalize the course for each student based on their proficiency. Since each student will be on their own path, assessments in their personalized course will be turned on. Once personalization has been applied, it cannot be undone'
+    },
+
     info: {
       'class-info': 'Classroom Information',
       teachers: 'Teachers',
@@ -2501,7 +2507,7 @@ export default Object.assign(quizzesTranslations, {
     'resource-header': 'Suggested Resource (Optional)',
     'signature_collection-header': 'Suggested Collection (Optional)',
     'signature_collection-lead':
-      'Based on your performance on this course, the following resource may enhance your understanding.',
+      'Based on your performance on this course, the following collection may enhance your understanding.',
     'signature_assessment-header': 'Suggested Assessment (Optional)',
     'signature_assessment-lead':
       'Based on your performance on this course, the following assessment may enhance your understanding.',

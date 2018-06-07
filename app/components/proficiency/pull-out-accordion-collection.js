@@ -91,20 +91,16 @@ export default Ember.Component.extend({
 
   resetAccordionArrowBasedOnState: function() {
     let component = this;
-    if (
-      component
-        .$(`#${component.get('elementId')}-heading > .panel-title a i`)
-        .hasClass('fa-caret-down')
-    ) {
-      component
-        .$(`#${component.get('elementId')}-heading > .panel-title a i`)
-        .addClass('fa-caret-up')
-        .removeClass('fa-caret-down');
+    let element = component.$(
+      `#${component.get('elementId')}-heading > .panel-title a i`
+    );
+
+    if (element.hasClass('arrow_drop_up')) {
+      element.addClass('arrow_drop_down').removeClass('arrow_drop_up');
+      element.text('arrow_drop_down');
     } else {
-      component
-        .$(`#${component.get('elementId')}-heading > .panel-title a i`)
-        .addClass('fa-caret-down')
-        .removeClass('fa-caret-up');
+      element.addClass('arrow_drop_up').removeClass('arrow_drop_down');
+      element.text('arrow_drop_up');
     }
   }
 });

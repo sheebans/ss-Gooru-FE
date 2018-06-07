@@ -41,6 +41,7 @@
       </div>
     </div>
   </div>
+  {{class.class-setting class=class onUpdateRescopeSetting='onUpdateRescopeSetting'}}
   <div class="teacherinfo" style="display:none;" >
       <span class="teacher-title">Teachers</span>
       <div class='line-sep-hr'></div>
@@ -120,21 +121,21 @@
                 <img src={{coteacher.avatarUrl}} class='miniprofile'>
               </span>
             </td>
-      
+
             <td class="last-name teacherdatacolumn">
               <span>{{coteacher.lastName}}</span>
             </td>
             <td class="first-name teacherdatacolumn">
               <span>{{coteacher.firstName}}</span>
             </td>
-          
-           
+
+
             <td class="teacher-actions">
               <span class='Shape' data-toggle="tooltip" title='Profile' {{action 'profileStudent' coteacher}}>
                 {{gru-icon name='account_circle'}}
               </span>
             </td>
-            
+
             <td class="teacher-actions">
               <span class='delete-btn  remove-teacher' data-toggle="tooltip" title="{{t 'common.remove'}}" {{action 'removeCoteacher' coteacher}}>
                 {{gru-icon name='delete'}}

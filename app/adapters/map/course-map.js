@@ -27,7 +27,7 @@ export default ApplicationAdapter.extend({
    * @param {string} lessonId - lesson ID to search for
    * @returns {Promise}
    */
-  getLessonInfo: function(classId, courseId, unitId, lessonId) {
+  getLessonInfo: function(classId, courseId, unitId, lessonId, userId) {
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/${courseId}/units/${unitId}/lessons/${lessonId}`;
@@ -36,7 +36,8 @@ export default ApplicationAdapter.extend({
       contentType: 'application/json; charset=utf-8',
       headers: adapter.get('headers'),
       data: {
-        classId
+        classId,
+        userId
       }
     };
     return Ember.$.ajax(url, options);
@@ -137,14 +138,11 @@ export default ApplicationAdapter.extend({
       })
     };
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      Ember.$.ajax(url, options).then(function(
-        responseData,
-        textStatus,
-        request
-      ) {
-        resolve(request.getResponseHeader('location'));
-      },
-      reject);
+      Ember.$
+        .ajax(url, options)
+        .then(function(responseData, textStatus, request) {
+          resolve(request.getResponseHeader('location'));
+        }, reject);
     });
   },
   /**
@@ -176,14 +174,11 @@ export default ApplicationAdapter.extend({
       })
     };
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      Ember.$.ajax(url, options).then(function(
-        responseData,
-        textStatus,
-        request
-      ) {
-        resolve(request.getResponseHeader('location'));
-      },
-      reject);
+      Ember.$
+        .ajax(url, options)
+        .then(function(responseData, textStatus, request) {
+          resolve(request.getResponseHeader('location'));
+        }, reject);
     });
   }
 });
