@@ -228,7 +228,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         unitId: unitId,
         lessonId: lessonId,
         collectionId: collectionId,
-        type: type
+        type: type,
+        isStudent: component.get('isStudent')
       };
       this.send(
         'showModal',
