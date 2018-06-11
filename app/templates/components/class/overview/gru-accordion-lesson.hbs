@@ -218,9 +218,15 @@
                           {{/if}}
                         {{else}}
                           {{#if item.performance.hasStarted}}
+                           {{#if isStudent }}
+                            <span {{action 'studentReport' item}} class="score " style={{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                                {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}                       
+                            </span>
+                           {{else}}
                             <span class="time-spent cursor-default">
-                            {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
-                          </span>
+                              {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
+                            </span>
+                           {{/if }}
                           {{else}}
                             {{#if item.isAssessment}}
                               <span class="not-started-external">--</span>
