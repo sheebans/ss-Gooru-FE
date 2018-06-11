@@ -88,6 +88,52 @@
     }
   }
 
+  .last-updated {
+    text-align: right;
+    margin-top: 15px;
+    margin-right: 30px;
+    .date-time {
+      font-weight: bold;
+    }
+  }
+
+  .proficiency-legends {
+    float: right;
+    margin-top: 15px;
+    display: flex;
+    .legend {
+      display: flex;
+      margin-right: 30px;
+      .box {
+        display: block;
+        width: 15.6px;
+        height: 15.6px;
+        transform: rotate(90deg);
+        margin-right: 8.4px;
+      }
+      .title {
+        line-height: 13px;
+        font-size: 12px;
+        color: $elephant-dark;
+      }
+      &.mastered {
+        .box {
+          background-color: $blue-400;
+        }
+      }
+      &.in-progress {
+        .box {
+          background-color: $in-progress;
+        }
+      }
+      &.not-started {
+        .box {
+          background-color: $not-started;
+        }
+      }
+    }
+  }
+
   .spinner {
     position: absolute;
     left: 40%;

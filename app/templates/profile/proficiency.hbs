@@ -20,13 +20,33 @@
     <div class="panel-body matrix">
       {{#if (eq selectedMatrixView 'domain')}}
         <div class="domain">
-          {{proficiency.proficiency-matrix userId=userId subject=selectedSubject isExpandChartEnabled=isExpandChartEnabled onCompetencyPullOut='onCompetencyPullOut' showPullOut=showPullOut}}
+          {{proficiency.proficiency-matrix userId=userId subject=selectedSubject isExpandChartEnabled=isExpandChartEnabled onCompetencyPullOut='onCompetencyPullOut' showPullOut=showPullOut onGetLastUpdated="onGetLastUpdated"}}
         </div>
       {{else}}
         <div class="course">
-          {{proficiency.proficiency-course-matrix userId=userId subject=selectedSubject onCompetencyPullOut='onCompetencyPullOut' showPullOut=showPullOut}}
+          {{proficiency.proficiency-course-matrix userId=userId subject=selectedSubject onCompetencyPullOut='onCompetencyPullOut' showPullOut=showPullOut onGetLastUpdated="onGetLastUpdated"}}
         </div>
       {{/if}}
+
+      <div class="last-updated">
+        {{concat (t 'common.last-updated') ':'}} <span class="date-time">{{format-date lastUpdated 'MMMM DD, YYYY h:mm A'}}</span>
+      </div>
+      
+      <div class="proficiency-legends">
+        <div class="mastered legend">
+          <span class="box"></span>
+          <span class="title">{{t 'profile.proficiency.mastered'}}</span>
+        </div>
+        <div class="in-progress legend">
+          <span class="box"></span>
+          <span class="title">{{t 'profile.proficiency.in-progress'}}</span>
+        </div>
+        <div class="not-started legend">
+          <span class="box"></span>
+          <span class="title">{{t 'profile.proficiency.not-started'}}</span>
+        </div>
+      </div>
+
     </div>
   </div>
   <div class="panel right-panel">
@@ -39,6 +59,7 @@
       {{proficiency.subject-item-list taxonomySubjects=taxonomySubjects selectedItem=selectedSubject onSelectItem="onSelectItem"}}
     </div>
   </div>
+
   {{#gru-pull-out showPullOut=showPullOut title=description description=title showMore=showMore isLoading=isLoading as |section|}}
     {{#if section.isLessContent}}
       {{proficiency.competencies-pull-out-body

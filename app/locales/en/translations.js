@@ -1708,7 +1708,10 @@ export default Object.assign(quizzesTranslations, {
     proficiency: {
       'is-empty':
         'No data available yet. Once you begin studying, your data will become available.',
-      'expand-chart': 'Expand Chart'
+      'expand-chart': 'Expand Chart',
+      mastered: 'Mastered',
+      'in-progress': 'In Progress',
+      'not-started': 'Not Started'
     }
   },
 
