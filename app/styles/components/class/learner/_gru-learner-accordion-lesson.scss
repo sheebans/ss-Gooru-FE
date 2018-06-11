@@ -529,6 +529,10 @@
             font-weight: 900;
             cursor: pointer;
 
+            &.performance-not-started {
+              cursor: default;
+            }
+
             span {
               vertical-align: middle;
             }
