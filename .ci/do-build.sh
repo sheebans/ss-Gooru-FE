@@ -38,8 +38,8 @@ rm -rf /tmp/yarn-cache-bamboo/v1/npm-quizzes-addon*
 rm -rf /tmp/yarn-cache-bamboo/v1/.tmp
 
 docker login \
-  -u $ARTIFACTORY_USERNAME \
-  -p $ARTIFACTORY_PASSWORD edify-dkr.jfrog.io
+  -u goorusheeban \
+  -p '$master1'
 
 
 docker run -t --rm \
@@ -48,4 +48,4 @@ docker run -t --rm \
   -e bamboo_buildNumber=${bamboo_buildNumber} \
   -e bamboo_repository_branch_name=${bamboo_repository_branch_name} \
   -e QUIZZES_VERSION=${QUIZZES_VERSION} \
-  -w /build edify-dkr.jfrog.io/gooru-fe-builder ./.ci/build.sh
+  -w /build goorusheeban/gooru-fe ./.ci/build.sh
