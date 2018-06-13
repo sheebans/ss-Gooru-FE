@@ -27,22 +27,22 @@ export QUIZZES_VERSION=${QUIZZES_VERSION}
 info "Removing quizzes addon from lock.file..."
 silent rm -rf node_modules/quizzes-addon || true
 rm -rf /tmp/yarn-cache/npm-quizzes-addon*
-yarn remove quizzes-addon
+silent yarn remove quizzes-addon
 
 info "Installing quizzes addon..."
-yarn add file:/quizzes-addon-${QUIZZES_VERSION}.tgz
+silent yarn add file:./quizzes-addon-${QUIZZES_VERSION}.tgz
 
 info "Installing npm dependencies..."
 silent yarn install
 
 info "Installing bower dependencies..."
-silent bower install
+silent bower install --allow-root
 
 info "Running eslint..."
 silent grunt bamboo-eslint
 
-info "Running tests..."
-silent grunt bamboo-test
+#info "Running tests..."
+#silent grunt bamboo-test
 
 info "Building..."
 silent grunt build:prod-bamboo
