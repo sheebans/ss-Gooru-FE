@@ -49,7 +49,7 @@ docker run  -t --rm \
 	-e bamboo_buildNumber=${bamboo_buildNumber} \
 	-e bamboo_repository_branch_name=${bamboo_repository_branch_name} \
 	-e QUIZZES_VERSION=${QUIZZES_VERSION} \
-	-w /build goorusheeban/gooru-fe-build ./.ci/build.sh
+	-w /build goorusheeban/gooru-fe-build:v2 ./.ci/build.sh
 
 
 #source .ci/build.sh
