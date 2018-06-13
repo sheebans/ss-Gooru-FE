@@ -38,17 +38,18 @@ chmod 0777 /tmp/yarn-cache-bamboo
 rm -rf /tmp/yarn-cache-bamboo/v1/npm-quizzes-addon*
 rm -rf /tmp/yarn-cache-bamboo/v1/.tmp
 
-#docker login \
- # -u goorusheeban \
- # -p '$master1'
+docker login \
+  -u goorusheeban \
+  -p '$master1'
 
 
-#docker run -t --rm \
- # -v $PWD:/build \
-  #-v /tmp/yarn-cache-bamboo:/tmp/yarn-cache \
-  #-e bamboo_buildNumber=${bamboo_buildNumber} \
-  #-e bamboo_repository_branch_name=${bamboo_repository_branch_name} \
-  #-e QUIZZES_VERSION=${QUIZZES_VERSION} \
-  #-w /build goorusheeban/gooru-fe ./.ci/build.sh
+docker run  -t --rm \
+	-v $PWD:/build \
+	-v /tmp/yarn-cache-bamboo:/tmp/yarn-cache \
+	-e bamboo_buildNumber=${bamboo_buildNumber} \
+	-e bamboo_repository_branch_name=${bamboo_repository_branch_name} \
+	-e QUIZZES_VERSION=${QUIZZES_VERSION} \
+	-w /build goorusheeban/gooru-fe ./.ci/build.sh
 
-source .ci/build.sh
+
+#source .ci/build.sh
