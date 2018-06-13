@@ -41,8 +41,8 @@ silent bower install --allow-root
 info "Running eslint..."
 silent grunt bamboo-eslint
 
-#info "Running tests..."
-#silent grunt bamboo-test
+info "Running tests..."
+silent grunt bamboo-test
 
 info "Building..."
 silent grunt build:prod-bamboo
