@@ -123,6 +123,13 @@ export default Ember.Controller.extend({
         };
         controller.set('competency', competency);
       });
+    },
+
+    /**
+     * Action triggered once the last updated date returned from the API
+     */
+    onGetLastUpdated(lastUpdated) {
+      this.set('lastUpdated', lastUpdated);
     }
   },
 

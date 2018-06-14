@@ -58,6 +58,7 @@ export default Ember.Object.extend({
    */
   normalizeCompetencyMatrixCourse: function(response) {
     let resultSet = Ember.A();
+    let courses = Ember.A();
     if (response.userCompetencyMatrix) {
       let userCourseCompetencyMatrix = Ember.A(response.userCompetencyMatrix);
       userCourseCompetencyMatrix.forEach(courseData => {
@@ -69,9 +70,13 @@ export default Ember.Object.extend({
           competencySet.pushObject(competency);
         });
         course.set('competencies', competencySet);
-        resultSet.pushObject(course);
+        courses.pushObject(course);
       });
     }
+    resultSet = {
+      courses: courses,
+      lastUpdated: response.lastUpdated || null
+    };
     return resultSet;
   },
 
@@ -81,6 +86,7 @@ export default Ember.Object.extend({
    */
   normalizeCompetencyMatrixDomain: function(response) {
     let resultSet = Ember.A();
+    let domains = Ember.A();
     if (response.userCompetencyMatrix) {
       let userCompetencyMatrix = Ember.A(response.userCompetencyMatrix);
       userCompetencyMatrix.forEach(domainData => {
@@ -94,9 +100,13 @@ export default Ember.Object.extend({
         domain.set('competencies', competencySet);
         domainSet.pushObject(domain);
         domain.set('domains', domainSet);
-        resultSet.pushObject(domain);
+        domains.pushObject(domain);
       });
     }
+    resultSet = {
+      domains: domains,
+      lastUpdated: response.lastUpdated || null
+    };
     return resultSet;
   },
 

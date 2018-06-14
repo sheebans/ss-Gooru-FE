@@ -715,12 +715,6 @@ export default Object.assign(quizzesTranslations, {
     }
   },
   class: {
-    classSetting: {
-      name: 'Class Settings',
-      'rescope-info':
-        'Personalize the course for each student based on their proficiency. Since each student will be on their own path, assessments in their personalized course will be turned on. Once personalization has been applied, it cannot be undone'
-    },
-
     info: {
       'class-info': 'Classroom Information',
       teachers: 'Teachers',
@@ -1711,7 +1705,10 @@ export default Object.assign(quizzesTranslations, {
     proficiency: {
       'is-empty':
         'No data available yet. Once you begin studying, your data will become available.',
-      'expand-chart': 'Expand Chart'
+      'expand-chart': 'Expand Chart',
+      mastered: 'Mastered',
+      'in-progress': 'In Progress',
+      'not-started': 'Not Started'
     }
   },
 

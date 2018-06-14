@@ -227,45 +227,47 @@ export default Ember.Component.extend(AccordionMixin, {
     let component = this;
     component._super(...arguments);
     component.set('isLoading', true);
-    let pathway = component.get('model.pathway');
-    let isRescopedClass = component.get('model.isRescopedClass');
-    if (pathway) {
-      component.set('courseView', true);
-      this.getStudentCourseMap();
-      //Initially load rescope data
-      if (isRescopedClass) {
-        component.set('isRescopedClass', isRescopedClass);
-        component.getSkippedContents().then(function(skippedContents) {
-          let isContentAvailable;
-          if (skippedContents) {
-            isContentAvailable = component.isSkippedContentsEmpty(
-              skippedContents
-            );
-            component.set('isContentAvailable', isContentAvailable);
-          }
+    if (this.get('model')) {
+      let pathway = component.get('model.pathway');
+      let isRescopedClass = component.get('model.isRescopedClass');
+      if (pathway) {
+        component.set('courseView', true);
+        this.getStudentCourseMap();
+        //Initially load rescope data
+        if (isRescopedClass) {
+          component.set('isRescopedClass', isRescopedClass);
+          component.getSkippedContents().then(function(skippedContents) {
+            let isContentAvailable;
+            if (skippedContents) {
+              isContentAvailable = component.isSkippedContentsEmpty(
+                skippedContents
+              );
+              component.set('isContentAvailable', isContentAvailable);
+            }
 
-          if (skippedContents && isContentAvailable) {
-            component.toggleSkippedContents(skippedContents);
-            component.set('isChecked', false);
-          } else {
-            component.set('isChecked', true);
-          }
-        });
+            if (skippedContents && isContentAvailable) {
+              component.toggleSkippedContents(skippedContents);
+              component.set('isChecked', false);
+            } else {
+              component.set('isChecked', true);
+            }
+          });
+        }
+      } else {
+        let model = component.get('model');
+        component.set('courseView', false);
+        component.set('ownReport', true);
+        let params = {
+          userId: model.userId,
+          classId: model.classId,
+          courseId: model.courseId,
+          unitId: model.unitId,
+          lessonId: model.lessonId,
+          collectionId: model.collectionId,
+          type: model.type
+        };
+        this.getStundentCollectionReport(params);
       }
-    } else {
-      let model = component.get('model');
-      component.set('courseView', false);
-      component.set('ownReport', true);
-      let params = {
-        userId: model.userId,
-        classId: model.classId,
-        courseId: model.courseId,
-        unitId: model.unitId,
-        lessonId: model.lessonId,
-        collectionId: model.collectionId,
-        type: model.type
-      };
-      this.getStundentCollectionReport(params);
     }
   },
 
@@ -321,7 +323,13 @@ export default Ember.Component.extend(AccordionMixin, {
 
     closeReport() {
       let component = this;
-      component.set('courseView', true);
+      if (this.get('model.isStudent')) {
+        component.triggerAction({
+          action: 'closeModal'
+        });
+      } else {
+        component.set('courseView', true);
+      }
     },
 
     closeCourse() {

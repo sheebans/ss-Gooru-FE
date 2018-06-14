@@ -184,12 +184,16 @@ export default Ember.Component.extend({
     }).then(({ competencyMatrixs, competencyMatrixCoordinates }) => {
       if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
         component.set('isLoading', false);
-        component.set('isCompetenciesNull', !(competencyMatrixs.length > 0));
+        component.set(
+          'isCompetenciesNull',
+          !(competencyMatrixs.courses.length > 0)
+        );
         let resultSet = component.parseCompetencyData(
-          competencyMatrixs,
+          competencyMatrixs.courses,
           competencyMatrixCoordinates
         );
         component.drawChart(resultSet);
+        component.sendAction('onGetLastUpdated', competencyMatrixs.lastUpdated);
       } else {
         Ember.Logger.warn('comp is destroyed...');
       }

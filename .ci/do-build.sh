@@ -32,20 +32,23 @@ silent aws s3 cp \
 
 info "Running build inside a custom docker image..."
 
+rm -rf /tmp/yarn-cache-bamboo
 mkdir /tmp/yarn-cache-bamboo
 chmod 0777 /tmp/yarn-cache-bamboo
 rm -rf /tmp/yarn-cache-bamboo/v1/npm-quizzes-addon*
 rm -rf /tmp/yarn-cache-bamboo/v1/.tmp
 
 docker login \
-  -u $ARTIFACTORY_USERNAME \
-  -p $ARTIFACTORY_PASSWORD edify-dkr.jfrog.io
+	  -u $ARTIFACTORY_USERNAME \
+	    -p $ARTIFACTORY_PASSWORD
+
+docker run  -t --rm \
+	-v $PWD:/build \
+	-v /tmp/yarn-cache-bamboo:/tmp/yarn-cache \
+	-e bamboo_buildNumber=${bamboo_buildNumber} \
+	-e bamboo_repository_branch_name=${bamboo_repository_branch_name} \
+	-e QUIZZES_VERSION=${QUIZZES_VERSION} \
+	-w /build dockergooru/fe-build ./.ci/build.sh
 
 
-docker run -t --rm \
-  -v $PWD:/build \
-  -v /tmp/yarn-cache-bamboo:/tmp/yarn-cache \
-  -e bamboo_buildNumber=${bamboo_buildNumber} \
-  -e bamboo_repository_branch_name=${bamboo_repository_branch_name} \
-  -e QUIZZES_VERSION=${QUIZZES_VERSION} \
-  -w /build edify-dkr.jfrog.io/gooru-fe-builder ./.ci/build.sh
+#source .ci/build.sh
