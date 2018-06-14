@@ -222,7 +222,6 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
       let collectionId = collection.get('id');
       let type = collection.get('format');
       let params = {
-        isStudent: this.get('isStudent'),
         userId: userId,
         classId: classId,
         courseId: courseId,
