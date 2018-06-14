@@ -94,36 +94,6 @@ export default Ember.Component.extend({
   didRender() {
     this._super(...arguments);
     let component = this;
-    component.$('.multi-item-carousel').carousel({
-      interval: false
-    });
-    // for every slide in carousel, copy the next slide's item in the slide.
-    // Do the same for the next, next item.
-    component.$('.multi-item-carousel .item').each(function(index, element) {
-      var next = component.$(element).next();
-      if (!next.length) {
-        next = component.$(this).siblings(':first');
-      }
-      next
-        .children(':first-child')
-        .clone()
-        .appendTo(component.$(this));
-
-      if (next.next().length > 0) {
-        next
-          .next()
-          .children(':first-child')
-          .clone()
-          .appendTo(component.$(this));
-      } else {
-        component
-          .$(this)
-          .siblings(':first')
-          .children(':first-child')
-          .clone()
-          .appendTo(component.$(this));
-      }
-    });
     component.$('[data-toggle="tooltip"]').tooltip({
       trigger: 'hover'
     });
