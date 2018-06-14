@@ -159,15 +159,6 @@ test('Layout', function(assert) {
     $header.find('.bar-charts .completion-chart .gru-x-bar-chart'),
     'Missing completion chart'
   );
-
-  const $suggestions = $header.find('.suggest-player');
-  T.exists(assert, $suggestions, 'Missing suggestions.');
-
-  T.exists(
-    assert,
-    $suggestions.find('.slider-inner-container'),
-    'Missing suggestions slider'
-  );
 });
 
 skip('Study player | NU Course : Completion metrics', function(assert) {

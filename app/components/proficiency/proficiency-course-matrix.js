@@ -174,35 +174,30 @@ export default Ember.Component.extend({
     let component = this;
     let userId = component.get('userId');
     component.set('isLoading', true);
-    return Ember.RSVP
-      .hash({
-        competencyMatrixs: component
-          .get('competencyService')
-          .getCompetencyMatrixCourse(userId, subjectId),
-        competencyMatrixCoordinates: component
-          .get('competencyService')
-          .getCompetencyMatrixCoordinates(subjectId)
-      })
-      .then(({ competencyMatrixs, competencyMatrixCoordinates }) => {
-        if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
-          component.set('isLoading', false);
-          component.set(
-            'isCompetenciesNull',
-            !(competencyMatrixs.courses.length > 0)
-          );
-          let resultSet = component.parseCompetencyData(
-            competencyMatrixs.courses,
-            competencyMatrixCoordinates
-          );
-          component.drawChart(resultSet);
-          component.sendAction(
-            'onGetLastUpdated',
-            competencyMatrixs.lastUpdated
-          );
-        } else {
-          Ember.Logger.warn('comp is destroyed...');
-        }
-      });
+    return Ember.RSVP.hash({
+      competencyMatrixs: component
+        .get('competencyService')
+        .getCompetencyMatrixCourse(userId, subjectId),
+      competencyMatrixCoordinates: component
+        .get('competencyService')
+        .getCompetencyMatrixCoordinates(subjectId)
+    }).then(({ competencyMatrixs, competencyMatrixCoordinates }) => {
+      if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
+        component.set('isLoading', false);
+        component.set(
+          'isCompetenciesNull',
+          !(competencyMatrixs.courses.length > 0)
+        );
+        let resultSet = component.parseCompetencyData(
+          competencyMatrixs.courses,
+          competencyMatrixCoordinates
+        );
+        component.drawChart(resultSet);
+        component.sendAction('onGetLastUpdated', competencyMatrixs.lastUpdated);
+      } else {
+        Ember.Logger.warn('comp is destroyed...');
+      }
+    });
   },
 
   parseCompetencyData: function(

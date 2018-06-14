@@ -34,6 +34,11 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
    */
   quizzesAttemptService: Ember.inject.service('quizzes/attempt'),
 
+  /**
+   * @type {suggestService} Service to retrieve suggest resources
+   */
+  suggestService: Ember.inject.service('api-sdk/suggest'),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -81,7 +86,9 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
           return navigateMapService.next(mapLocation.context);
         })
         .then(() =>
-          this.transitionTo('reports.study-student-collection', { queryParams })
+          this.transitionTo('reports.study-student-collection', {
+            queryParams
+          })
         );
     },
 
@@ -108,7 +115,9 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         const courseId = mapLocation.get('context.courseId');
         const unitId = mapLocation.get('context.unitId');
         const lessonId = mapLocation.get('context.lessonId');
-
+        const collectionId =
+          mapLocation.get('context.itemId') ||
+          mapLocation.get('context.collectionId');
         params.type =
           mapLocation.get('context.itemType') ||
           mapLocation.get('context.collectionType');
@@ -117,17 +126,23 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         }
 
         return Ember.RSVP.hash({
-          //loading breadcrumb information and navigation info
           course: route.get('courseService').fetchById(courseId),
           unit: route.get('unitService').fetchById(courseId, unitId),
           lesson: route
             .get('lessonService')
-            .fetchById(courseId, unitId, lessonId)
+            .fetchById(courseId, unitId, lessonId),
+          suggestedResources:
+            collectionId != null
+              ? route
+                .get('suggestService')
+                .suggestResourcesForCollection(
+                  route.get('session.userId'),
+                  collectionId
+                )
+              : null
         }).then(function(hash) {
           //setting query params using the map location
-          params.collectionId =
-            mapLocation.get('context.itemId') ||
-            mapLocation.get('context.collectionId');
+          params.collectionId = collectionId;
           params.classId = params.classId || mapLocation.get('context.classId');
           params.unitId = params.unitId || mapLocation.get('context.unitId');
           params.lessonId =
@@ -165,7 +180,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
               mapLocation,
               collectionId: params.collectionId,
               type: params.type,
-              minScore: params.minScore
+              minScore: params.minScore,
+              suggestedResources: hash.suggestedResources
             });
           });
         });
@@ -191,7 +207,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       collectionId: model.collectionId,
       courseId: mapLocation.get('context.courseId'),
       type: model.type,
-      minScore: model.minScore
+      minScore: model.minScore,
+      suggestedResources: model.suggestedResources
     });
   },
 

@@ -78,56 +78,51 @@ export default Ember.Controller.extend({
       controller.set('showPullOut', true);
       controller.set('showMore', false);
       let userId = controller.get('userId');
-      return Ember.RSVP
-        .hash({
-          collections: controller
-            .get('competencyService')
-            .getUserPerformanceCompetencyCollections(
-              userId,
-              data.competencyCode
-            )
-        })
-        .then(({ collections }) => {
-          controller.set('isLoading', false);
-          let collectionData = Ember.A();
-          let status;
-          let statusMastered;
-          if (
-            data.status === 2 ||
-            data.status === 3 ||
-            data.status === 4 ||
-            data.status === 5
-          ) {
-            status = 'Mastered';
+      return Ember.RSVP.hash({
+        collections: controller
+          .get('competencyService')
+          .getUserPerformanceCompetencyCollections(userId, data.competencyCode)
+      }).then(({ collections }) => {
+        controller.set('isLoading', false);
+        let collectionData = Ember.A();
+        let status;
+        let statusMastered;
+        if (
+          data.status === 2 ||
+          data.status === 3 ||
+          data.status === 4 ||
+          data.status === 5
+        ) {
+          status = 'Mastered';
+          statusMastered = controller.get('competencyStatus')
+            ? controller.get('competencyStatus')[data.status]
+            : null;
+          collectionData = collections;
+          if (!collectionData.length >= 1) {
             statusMastered = controller.get('competencyStatus')
-              ? controller.get('competencyStatus')[data.status]
+              ? controller.get('competencyStatus')[2]
               : null;
-            collectionData = collections;
-            if (!collectionData.length >= 1) {
-              statusMastered = controller.get('competencyStatus')
-                ? controller.get('competencyStatus')[2]
-                : null;
-            }
-          } else if (data.status === 1) {
-            status = 'in progress';
-            collectionData = collections;
-          } else {
-            status = 'Not Started';
           }
-          controller.set('collection', collectionData);
-          controller.set(
-            'title',
-            data.courseName ? data.courseName : data.domainName
-          );
-          controller.set('description', data.competencyCode);
-          let competency = {
-            status: status ? status : 'NA',
-            date: data.date,
-            statusMastered: statusMastered ? statusMastered : null,
-            competencyName: data.competencyName
-          };
-          controller.set('competency', competency);
-        });
+        } else if (data.status === 1) {
+          status = 'in progress';
+          collectionData = collections;
+        } else {
+          status = 'Not Started';
+        }
+        controller.set('collection', collectionData);
+        controller.set(
+          'title',
+          data.courseName ? data.courseName : data.domainName
+        );
+        controller.set('description', data.competencyCode);
+        let competency = {
+          status: status ? status : 'NA',
+          date: data.date,
+          statusMastered: statusMastered ? statusMastered : null,
+          competencyName: data.competencyName
+        };
+        controller.set('competency', competency);
+      });
     },
 
     /**
