@@ -23,8 +23,8 @@ if [[ -z "$AWS_ACCESS_KEY_ID" ]] || [[ -z "$AWS_SECRET_ACCESS_KEY" ]] || [[ -z "
   exit 1
 fi
 
-info "Downloading welcome site..."
-silent aws s3 cp s3://${S3_BUCKET}/frontend-30/welcome/welcome.tar.gz .
+#info "Downloading welcome site..."
+#silent aws s3 cp s3://${S3_BUCKET}/frontend-30/welcome/welcome.tar.gz .
 
 info "Downloading quizzes addon..."
 silent aws s3 cp \
