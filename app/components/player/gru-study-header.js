@@ -29,11 +29,6 @@ export default Ember.Component.extend({
   performanceService: Ember.inject.service('api-sdk/performance'),
 
   /**
-   * @type {suggestService} Service to retrieve suggest resources
-   */
-  suggestService: Ember.inject.service('api-sdk/suggest'),
-
-  /**
    * @property {Service} session
    */
   session: Ember.inject.service('session'),
@@ -53,27 +48,6 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-    /**
-     * Action triggered when a suggested resource is clicked
-     */
-    playSuggested(resource) {
-      let collectionUrl = window.location.href;
-      if (!this.get('collectionUrl')) {
-        this.set('collectionUrl', collectionUrl);
-      }
-      let queryParams = { collectionUrl: this.get('collectionUrl') };
-      let classId = this.get('classId');
-      if (classId) {
-        queryParams.classId = classId;
-      }
-      this.get('router').transitionTo(
-        'resource-player',
-        this.get('courseId'),
-        resource.id,
-        { queryParams }
-      );
-    },
-
     /**
      * Redirect to course map
      */
@@ -102,8 +76,8 @@ export default Ember.Component.extend({
     },
 
     /**
-    * Go back to collection
-    */
+     * Go back to collection
+     */
     backToCollection() {
       window.location.href = this.get('collectionUrl');
     }
@@ -120,7 +94,9 @@ export default Ember.Component.extend({
   didRender() {
     this._super(...arguments);
     let component = this;
-    component.$('.multi-item-carousel').carousel({ interval: false });
+    component.$('.multi-item-carousel').carousel({
+      interval: false
+    });
     // for every slide in carousel, copy the next slide's item in the slide.
     // Do the same for the next, next item.
     component.$('.multi-item-carousel .item').each(function(index, element) {
@@ -148,7 +124,9 @@ export default Ember.Component.extend({
           .appendTo(component.$(this));
       }
     });
-    component.$('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+    component.$('[data-toggle="tooltip"]').tooltip({
+      trigger: 'hover'
+    });
     const performancePercentage = component.get('performancePercentage');
     if (performancePercentage > 0) {
       component
@@ -165,7 +143,10 @@ export default Ember.Component.extend({
               .$('.bar-charts')
               .find('.segment')
               .width() - 50;
-          component.$('.popover').css({ top: '84px', left: `${left}px` });
+          component.$('.popover').css({
+            top: '84px',
+            left: `${left}px`
+          });
         })
         .mouseleave(function() {
           component.$(this).popover('hide');
@@ -215,11 +196,6 @@ export default Ember.Component.extend({
   totalResources: null,
 
   /**
-   * @property {Array} list of suggested resources of a collection
-   */
-  suggestedResources: null,
-
-  /**
    * @property {String} color - Hex color value for the bar in the bar chart
    */
   color: ANONYMOUS_COLOR,
@@ -255,8 +231,8 @@ export default Ember.Component.extend({
     'courseCompetencyCompletion',
     function() {
       const completed = this.get('performanceSummary.totalCompleted');
-      const total= this.get('performanceSummary.total');
-      const percentage = completed ? completed / total * 100 : 0;
+      const total = this.get('performanceSummary.total');
+      const percentage = completed ? (completed / total) * 100 : 0;
       return [
         {
           color: this.get('color'),
@@ -277,12 +253,6 @@ export default Ember.Component.extend({
    */
   courseVersion: null,
 
-  /**
-   * This property will decide to show the suggested resoure or not.
-   * @property {Boolean}
-   */
-  hasSuggestedResources: false,
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -294,63 +264,43 @@ export default Ember.Component.extend({
     const component = this;
     const myId = component.get('session.userId');
     const classId = component.get('classId');
-    const collectionId = component.get('collection.id');
     const totalResources = component.get('collection.resources')
       ? component.get('collection.resources').length
       : null;
     component.set('totalResources', totalResources);
     const courseId = component.get('courseId');
     if (classId) {
-      Ember.RSVP
-        .hash({
-          classPerformanceSummaryItems: component
-            .get('performanceService')
-            .findClassPerformanceSummaryByStudentAndClassIds(myId, [classId])
-        })
-        .then(({ classPerformanceSummaryItems }) => {
+      Ember.RSVP.hash({
+        classPerformanceSummaryItems: component
+          .get('performanceService')
+          .findClassPerformanceSummaryByStudentAndClassIds(myId, [classId])
+      }).then(({ classPerformanceSummaryItems }) => {
+        component.set(
+          'performanceSummary',
+          classPerformanceSummaryItems.findBy('classId', classId)
+        );
+      });
+    } else {
+      Ember.RSVP.hash({
+        coursePerformanceSummaryItems: component
+          .get('learnerService')
+          .fetchCoursesPerformance(myId, [courseId])
+      }).then(({ coursePerformanceSummaryItems }) => {
+        let coursePerformanceSummaryItem = coursePerformanceSummaryItems.findBy(
+          'courseId',
+          courseId
+        );
+        if (coursePerformanceSummaryItem) {
           component.set(
             'performanceSummary',
-            classPerformanceSummaryItems.findBy('classId', classId)
+            Ember.create({
+              totalCompleted: coursePerformanceSummaryItem.completedCount,
+              total: coursePerformanceSummaryItem.totalCount,
+              score: coursePerformanceSummaryItem.scoreInPercentage
+            })
           );
-        });
-    } else {
-      Ember.RSVP
-        .hash({
-          coursePerformanceSummaryItems: component
-            .get('learnerService')
-            .fetchCoursesPerformance(myId, [courseId])
-        })
-        .then(({ coursePerformanceSummaryItems }) => {
-          let coursePerformanceSummaryItem = coursePerformanceSummaryItems.findBy(
-            'courseId',
-            courseId
-          );
-          if (coursePerformanceSummaryItem) {
-            component.set(
-              'performanceSummary',
-              Ember.create({
-                totalCompleted: coursePerformanceSummaryItem.completedCount,
-                total: coursePerformanceSummaryItem.totalCount,
-                score: coursePerformanceSummaryItem.scoreInPercentage
-              })
-            );
-          }
-        });
-    }
-
-    if (collectionId) {
-      component
-        .get('suggestService')
-        .suggestResourcesForCollection(
-          component.get('session.userId'),
-          collectionId
-        )
-        .then(suggestedResources => {
-          component.set('suggestedResources', suggestedResources);
-          if (suggestedResources && suggestedResources.length > 0) {
-            component.set('hasSuggestedResources', true);
-          }
-        });
+        }
+      });
     }
   }
 });

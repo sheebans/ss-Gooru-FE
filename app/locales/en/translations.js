@@ -44,6 +44,9 @@ export default Object.assign(quizzesTranslations, {
    * COMMON: Translations used globally in the app or shared between components
    */
   common: {
+    relevance: 'Relevance',
+    engagement: 'Engagement',
+    efficacy: 'Efficacy',
     'a-collection': 'a collection',
     'a-course': 'a course',
     'a-question': 'a question',
