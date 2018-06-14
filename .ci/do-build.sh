@@ -39,9 +39,8 @@ rm -rf /tmp/yarn-cache-bamboo/v1/npm-quizzes-addon*
 rm -rf /tmp/yarn-cache-bamboo/v1/.tmp
 
 docker login \
-  -u goorusheeban \
-  -p '$master1'
-
+	  -u $ARTIFACTORY_USERNAME \
+	    -p $ARTIFACTORY_PASSWORD
 
 docker run  -t --rm \
 	-v $PWD:/build \
@@ -49,7 +48,7 @@ docker run  -t --rm \
 	-e bamboo_buildNumber=${bamboo_buildNumber} \
 	-e bamboo_repository_branch_name=${bamboo_repository_branch_name} \
 	-e QUIZZES_VERSION=${QUIZZES_VERSION} \
-	-w /build goorusheeban/gooru-fe-build:v2 ./.ci/build.sh
+	-w /build dockergooru/fe-build ./.ci/build.sh
 
 
 #source .ci/build.sh
