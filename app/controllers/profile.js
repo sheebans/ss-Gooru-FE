@@ -17,6 +17,7 @@ export default Ember.Controller.extend({
 
   aboutController: Ember.inject.controller('profile/about'),
 
+  queryParams: ['classId'],
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -60,11 +61,10 @@ export default Ember.Controller.extend({
      */
     onClickBackButton() {
       let controller = this;
-      let classId = controller.get('proficiencyController.classId');
-      let id = controller.get('aboutController.classId');
-      if (classId || id) {
+      let classId = controller.get('classId');
+      if (classId) {
         controller.transitionToRoute(
-          `/teacher/class/${classId ? classId : id}/class-management`
+          `/teacher/class/${classId}/class-management`
         );
       } else {
         let currntUser = controller.get('currentLoginUser');
@@ -90,11 +90,23 @@ export default Ember.Controller.extend({
    * @returns {bool}
    */
   isMyProfile: Ember.computed('profile', function() {
-    return this.get('profile').get('id') === this.get('currentUserId');
+    let controller = this;
+    return (
+      controller.get('profile').get('id') === controller.get('currentUserId')
+    );
   }),
 
   /**
-   * Property to check whethere the current user is anonymous or not
+   * Property to check whether the classmanagement class id is available or not
+   */
+  isFromLearnerProfile: Ember.computed('classId', function() {
+    let controller = this;
+    let classId = controller.get('classId');
+    return classId !== null;
+  }),
+
+  /**
+   * Property to check whether the current user is anonymous or not
    */
   isAnonymousUser: Ember.computed('profile', function() {
     return this.get('currentUserId') === 'anonymous';
@@ -122,6 +134,12 @@ export default Ember.Controller.extend({
    * Property to store currently logged in user data
    */
   currentLoginUser: null,
+
+  /**
+   * @type {String}
+   * User selected class id
+   */
+  classId: null,
 
   // -------------------------------------------------------------------------
   // Observers

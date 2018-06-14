@@ -228,7 +228,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         unitId: unitId,
         lessonId: lessonId,
         collectionId: collectionId,
-        type: type
+        type: type,
+        isStudent: component.get('isStudent')
       };
       this.send(
         'showModal',
@@ -332,8 +333,11 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
    * @type {Boolean}
    */
   studyNowDisabled: Ember.computed('items', function() {
-    return (
-      this.get('items.length') === 1 && !this.get('items')[0].get('visible')
+    let items = this.get('items');
+    return !(
+      items != null &&
+      items.length > 0 &&
+      items.findBy('visible', true)
     );
   }),
 
@@ -345,12 +349,14 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
     'isStudent',
     'isResourceSelected',
     'showLocation',
+    'studyNowDisabled',
     function() {
       return (
         this.get('isStudent') &&
         this.get('isExpanded') &&
         !this.get('isResourceSelected') &&
-        !this.get('showLocation')
+        !this.get('showLocation') &&
+        !this.get('studyNowDisabled')
       );
     }
   ),

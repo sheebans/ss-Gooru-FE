@@ -39,15 +39,15 @@
             <li class="panel resource {{if (eq activeElement item.id) 'study-active'}}">
               <div class="panel-heading">
                 <div class="panel-title {{item.format}}">
-                  <div class="icon-container">
-                    {{gru-icon name='star'}}
-                  </div>
                   <div class="icon-container resource-icon-type">
-                    <span class="icon"></span>
+                    <span class="icon"><i class="{{item.contentSubFormat}}"></i></span>
                   </div>
-                  <a class="title" }>
+                  <a class="title {{item.source}}" {{action "selectResource" item}}>
                     <div class="ellipsis">{{item.title}}</div>
-                    <div class="type">{{t (concat 'resource.' item.format)}}</div>
+                    {{#if (eq item.source 'system_suggestions')}}
+                      {{gru-icon name="explore"}} {{else if (eq item.source 'teacher_suggestions')}}
+                      <i class="teacher_suggestions icon"></i>
+                    {{/if}}
                   </a>
                 </div>
               </div>
@@ -77,10 +77,11 @@
                     {{/if}}
                   </div>
                   {{#if item.visible}}
-                    <a class="title">
+                    <a class="title {{item.source}}">
                       <div class="ellipsis">{{item.title}}</div>
-                      {{#if item.collectionSubType}}
-                        <div class="type">{{t 'common.suggestion'}}</div>
+                      {{#if (eq item.source 'system_suggestions')}}
+                        {{gru-icon name="explore"}} {{else if (eq item.source 'teacher_suggestions')}}
+                        <i class="teacher_suggestions icon"></i>
                       {{/if}}
                     </a>
                     {{#if item.showTrophy}}
@@ -88,12 +89,20 @@
                     {{/if}}
                   {{else}}
                     {{#if item.performance.noMoreAttempts}}
-                      <a class="title disabled" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.no-more-attempts"}}">
+                      <a class="title {{item.source}} disabled" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.no-more-attempts"}}">
                         <div class="ellipsis">{{item.title}}</div>
+                        {{#if (eq item.source 'system_suggestions')}}
+                          {{gru-icon name="explore"}} {{else if (eq item.source 'teacher_suggestions')}}
+                          <i class="teacher_suggestions icon"></i>
+                        {{/if}}
                       </a>
                     {{else}}
-                      <a class="title disabled" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessment-disabled"}}">
+                      <a class="title {{item.source}} disabled" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.assessment-disabled"}}">
                         <div class="ellipsis">{{item.title}}</div>
+                        {{#if (eq item.source 'system_suggestions')}}
+                          {{gru-icon name="explore"}} {{else if (eq item.source 'teacher_suggestions')}}
+                          <i class="teacher_suggestions icon"></i>
+                        {{/if}}
                       </a>
                     {{/if}}
                   {{/if}}
@@ -116,7 +125,7 @@
                               /assets/gooru/share@3x.png 3x" class="share">
                       {{/if}}
                     </div>
-                    <div class="performance" >
+                    <div class="performance {{unless item.performance.hasStarted 'performance-not-started'}}" >
                       {{#if item.isAssessment}}
                         {{#if item.performance.isCompleted}}
                           <span class="score" {{action "studentReport" item}}  style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>

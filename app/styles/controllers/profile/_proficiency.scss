@@ -1,6 +1,15 @@
 .user-proficiency {
   display: flex;
+  .gru-pull-out {
+    top: 63px;
+    height: calc(100vh - 63px);
 
+    .pull-out-less-content-container {
+      .pull-out-content {
+        padding: 0;
+      }
+    }
+  }
   .panel {
     box-shadow: 2px -1px 4px 0 rgba(0, 0, 0, 0.1);
     min-height: 550.3px;
@@ -75,6 +84,52 @@
         font-weight: bold;
         color: $gray-29;
         text-transform: uppercase;
+      }
+    }
+  }
+
+  .last-updated {
+    text-align: right;
+    margin-top: 15px;
+    margin-right: 30px;
+    .date-time {
+      font-weight: bold;
+    }
+  }
+
+  .proficiency-legends {
+    float: right;
+    margin-top: 15px;
+    display: flex;
+    .legend {
+      display: flex;
+      margin-right: 30px;
+      .box {
+        display: block;
+        width: 15.6px;
+        height: 15.6px;
+        transform: rotate(90deg);
+        margin-right: 8.4px;
+      }
+      .title {
+        line-height: 13px;
+        font-size: 12px;
+        color: $elephant-dark;
+      }
+      &.mastered {
+        .box {
+          background-color: $blue-400;
+        }
+      }
+      &.in-progress {
+        .box {
+          background-color: $in-progress;
+        }
+      }
+      &.not-started {
+        .box {
+          background-color: $not-started;
+        }
       }
     }
   }

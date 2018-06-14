@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import AccordionMixin from '../../mixins/gru-accordion';
 import { getBarGradeColor, toLocal } from 'gooru-web/utils/utils';
+import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
 
 import Context from 'gooru-web/models/result/context';
 
@@ -118,6 +119,36 @@ export default Ember.Component.extend(AccordionMixin, {
   }),
 
   /**
+   * @property {boolean} areAnswersHidden - Should answer results be hidden?
+   */
+  areAnswersHidden: Ember.computed(
+    'collections.isAssessment',
+    'collections.showFeedback',
+    function() {
+      return (
+        this.get('model').isStudent === true &&
+        this.get('collections.isAssessment') &&
+        this.get('collections.showFeedback') === ASSESSMENT_SHOW_VALUES.NEVER
+      );
+    }
+  ),
+
+  /**
+   * @property {boolean} isAnswerKeyHidden - Should the answer key be hidden?
+   */
+  isAnswerKeyHidden: Ember.computed(
+    'collections.isAssessment',
+    'collections.showKey',
+    function() {
+      return (
+        this.get('model').isStudent === true &&
+        this.get('collections.isAssessment') &&
+        !this.get('collections.showKey')
+      );
+    }
+  ),
+
+  /**
    * @property {boolean}showAttempts
    */
   showAttempts: false,
@@ -196,45 +227,47 @@ export default Ember.Component.extend(AccordionMixin, {
     let component = this;
     component._super(...arguments);
     component.set('isLoading', true);
-    let pathway = component.get('model.pathway');
-    let isRescopedClass = component.get('model.isRescopedClass');
-    if (pathway) {
-      component.set('courseView', true);
-      this.getStudentCourseMap();
-      //Initially load rescope data
-      if (isRescopedClass) {
-        component.set('isRescopedClass', isRescopedClass);
-        component.getSkippedContents().then(function(skippedContents) {
-          let isContentAvailable;
-          if (skippedContents) {
-            isContentAvailable = component.isSkippedContentsEmpty(
-              skippedContents
-            );
-            component.set('isContentAvailable', isContentAvailable);
-          }
+    if (this.get('model')) {
+      let pathway = component.get('model.pathway');
+      let isRescopedClass = component.get('model.isRescopedClass');
+      if (pathway) {
+        component.set('courseView', true);
+        this.getStudentCourseMap();
+        //Initially load rescope data
+        if (isRescopedClass) {
+          component.set('isRescopedClass', isRescopedClass);
+          component.getSkippedContents().then(function(skippedContents) {
+            let isContentAvailable;
+            if (skippedContents) {
+              isContentAvailable = component.isSkippedContentsEmpty(
+                skippedContents
+              );
+              component.set('isContentAvailable', isContentAvailable);
+            }
 
-          if (skippedContents && isContentAvailable) {
-            component.toggleSkippedContents(skippedContents);
-            component.set('isChecked', false);
-          } else {
-            component.set('isChecked', true);
-          }
-        });
+            if (skippedContents && isContentAvailable) {
+              component.toggleSkippedContents(skippedContents);
+              component.set('isChecked', false);
+            } else {
+              component.set('isChecked', true);
+            }
+          });
+        }
+      } else {
+        let model = component.get('model');
+        component.set('courseView', false);
+        component.set('ownReport', true);
+        let params = {
+          userId: model.userId,
+          classId: model.classId,
+          courseId: model.courseId,
+          unitId: model.unitId,
+          lessonId: model.lessonId,
+          collectionId: model.collectionId,
+          type: model.type
+        };
+        this.getStundentCollectionReport(params);
       }
-    } else {
-      let model = component.get('model');
-      component.set('courseView', false);
-      component.set('ownReport', true);
-      let params = {
-        userId: model.userId,
-        classId: model.classId,
-        courseId: model.courseId,
-        unitId: model.unitId,
-        lessonId: model.lessonId,
-        collectionId: model.collectionId,
-        type: model.type
-      };
-      this.getStundentCollectionReport(params);
     }
   },
 
@@ -290,7 +323,13 @@ export default Ember.Component.extend(AccordionMixin, {
 
     closeReport() {
       let component = this;
-      component.set('courseView', true);
+      if (this.get('model.isStudent')) {
+        component.triggerAction({
+          action: 'closeModal'
+        });
+      } else {
+        component.set('courseView', true);
+      }
     },
 
     closeCourse() {

@@ -5,7 +5,11 @@ import EditProfileValidations from 'gooru-web/validations/edit-profile';
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
   // Dependencies
-
+  queryParams: {
+    classId: {
+      refreshModel: true
+    }
+  },
   /**
    * @type {ProfileService} Service to retrieve profile information
    */

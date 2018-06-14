@@ -82,21 +82,39 @@ export default Ember.Component.extend({
     let component = this;
     let isProficiencyTabVisible = false;
     let isMyProfile = component.get('isMyProfile');
-    let isStudentProfile = component.get('profile').get('role') === 'student';
-    let currentLoginUser = component.get('currentLoginUser');
-    let isTeacher = currentLoginUser
-      ? currentLoginUser.get('role') === 'teacher'
-      : false;
-    let isStudent = component.get('isStudent');
-
-    if (
-      isStudentProfile &&
-      ((isTeacher && !isMyProfile) || (isStudent || isMyProfile))
-    ) {
-      isProficiencyTabVisible = true;
+    let isStudentProfile = component.get('isStudent');
+    let loggedInUser = component.get('currentLoginUser');
+    if (loggedInUser) {
+      let isTeacher = loggedInUser.get('role') === 'teacher';
+      let isStudent = loggedInUser.get('role') === 'student';
+      if (
+        isStudentProfile &&
+        ((isTeacher && !isMyProfile) || (isStudent && isMyProfile))
+      ) {
+        isProficiencyTabVisible = true;
+      }
     }
     return isProficiencyTabVisible;
   }),
+
+  /**
+   * @property {boolean} roles is teacher only view about and proficiency tabs
+   */
+  isShowTabs: Ember.computed('profile', function() {
+    let component = this;
+    let isTabsVisible = true;
+    let isStudentProfile = component.get('isStudent');
+    let isFromLearnerProfile = component.get('isFromLearnerProfile');
+    let loggedInUser = component.get('currentLoginUser');
+    if (loggedInUser) {
+      let isTeacher = loggedInUser.get('role') === 'teacher';
+      if (isStudentProfile && isTeacher && isFromLearnerProfile) {
+        isTabsVisible = false;
+      }
+    }
+    return isTabsVisible;
+  }),
+
   // -------------------------------------------------------------------------
   // Observers
   /**
