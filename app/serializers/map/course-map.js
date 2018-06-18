@@ -80,7 +80,7 @@ export default Ember.Object.extend({
         let ctxCollectionIndex = lessonChildren.findIndex(
           child => child.id === suggestedPath.assessmentId
         );
-        if (ctxCollectionIndex) {
+        if (ctxCollectionIndex >= 0) {
           //Add suggested content, next to the context collection
           lessonChildren.splice(ctxCollectionIndex + 1, 0, suggestedPath);
         }
