@@ -59,6 +59,18 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           route.transitionTo('teacher.class.performance');
         } else if (item === 'class-activities') {
           route.transitionTo('teacher.class.class-activities');
+        } else if (item === 'close') {
+          let backurl = this.get('backUrls');
+          backurl = backurl || controller.get('backUrls');
+          if (backurl) {
+            route.transitionTo(backurl);
+          } else {
+            if (controller.class.isArchived) {
+              route.transitionTo('teacher-home'); //, (query - params showArchivedClasses = "true" showActiveClasses = "false") class="back-to" } }
+            } else {
+              route.transitionTo('teacher-home');
+            }
+          }
         }
       }
     },
@@ -152,51 +164,47 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const performanceSummaryPromise = route
       .get('performanceService')
       .findClassPerformanceSummaryByClassIds([classId]);
-    return Ember.RSVP
-      .hash({
-        class: classPromise,
-        members: membersPromise,
-        classPerformanceSummaryItems: performanceSummaryPromise
-      })
-      .then(function(hash) {
-        const aClass = hash.class;
-        const members = hash.members;
-        const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
-        aClass.set(
-          'performanceSummary',
-          classPerformanceSummaryItems.findBy('classId', classId)
-        );
+    return Ember.RSVP.hash({
+      class: classPromise,
+      members: membersPromise,
+      classPerformanceSummaryItems: performanceSummaryPromise
+    }).then(function(hash) {
+      const aClass = hash.class;
+      const members = hash.members;
+      const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
+      aClass.set(
+        'performanceSummary',
+        classPerformanceSummaryItems.findBy('classId', classId)
+      );
 
-        const courseId = aClass.get('courseId');
-        let visibilityPromise = Ember.RSVP.resolve([]);
-        let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
+      const courseId = aClass.get('courseId');
+      let visibilityPromise = Ember.RSVP.resolve([]);
+      let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
 
-        if (courseId) {
-          visibilityPromise = route
-            .get('classService')
-            .readClassContentVisibility(classId);
-          coursePromise = route.get('courseService').fetchById(courseId);
-        }
-        return Ember.RSVP
-          .hash({
-            contentVisibility: visibilityPromise,
-            course: coursePromise
-          })
-          .then(function(hash) {
-            const contentVisibility = hash.contentVisibility;
-            const course = hash.course;
-            aClass.set('owner', members.get('owner'));
-            aClass.set('collaborators', members.get('collaborators'));
-            aClass.set('members', members.get('members'));
-            return {
-              class: aClass,
-              course,
-              members,
-              contentVisibility,
-              tourSteps
-            };
-          });
+      if (courseId) {
+        visibilityPromise = route
+          .get('classService')
+          .readClassContentVisibility(classId);
+        coursePromise = route.get('courseService').fetchById(courseId);
+      }
+      return Ember.RSVP.hash({
+        contentVisibility: visibilityPromise,
+        course: coursePromise
+      }).then(function(hash) {
+        const contentVisibility = hash.contentVisibility;
+        const course = hash.course;
+        aClass.set('owner', members.get('owner'));
+        aClass.set('collaborators', members.get('collaborators'));
+        aClass.set('members', members.get('members'));
+        return {
+          class: aClass,
+          course,
+          members,
+          contentVisibility,
+          tourSteps
+        };
       });
+    });
   },
 
   /**

@@ -1,0 +1,89 @@
+.gru-class-navbar {
+  .panel {
+    height: 51px;
+  }
+
+  ul.nav-pills,
+  ul.nav-bar {
+    .nav-item {
+      border-left: $border-right-side $light-200;
+      border-right: $border-left-side $light-200;
+    }
+
+    li {
+      &.divider {
+        border-left: 1px solid $panel-default-border;
+        height: 50px;
+      }
+      height: 43px;
+
+      &.vactive {
+        display: block;
+        color: $blue-400;
+        a {
+          color: $blue-400;
+        }
+      }
+      a {
+        //background-color: $white;
+        color: $gray-base;
+      }
+      @media (min-width: $screen-sm) {
+        display: block;
+      }
+
+      @media (max-width: $screen-xs-max) {
+        .charts.gru-performance-chart {
+          display: none;
+        }
+      }
+
+      &.class-activities > a:hover,
+      &.class-activities > a.vactive {
+        color: green;
+        img {
+          display: block;
+        }
+      }
+
+      .class-title {
+        padding: 5px;
+      }
+    }
+  }
+  .navbar-right {
+    margin-right: 0px;
+  }
+  .charts.gru-performance-chart {
+    min-width: 59px;
+    > .container-box {
+      height: 51px;
+    }
+  }
+
+  .nav > li > a:hover,
+  .nav > li > a:focus {
+    padding-top: 13.5px;
+    background-color: $white;
+    color: $blue-400; // sunken effect
+  }
+
+  ul.navbar-nav > li.class-info {
+    > a {
+      border-radius: 3px;
+      padding: 10px 15px;
+    }
+  }
+}
+
+div.teacher.class {
+  div.header.clearfix > div.go-back-container {
+    display: none;
+  }
+}
+// .classroom-information {
+//   display: none;
+// }
+.controller.teacher.class.course-map {
+  margin-top: 50px !important;
+}

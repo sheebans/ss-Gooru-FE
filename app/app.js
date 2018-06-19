@@ -11,6 +11,10 @@ Ember.TextField.reopen({
   attributeBindings: ['data-toggle', 'data-placement']
 });
 
+Ember.LinkComponent.reopen({
+  attributeBindings: ['data-toggle', 'title']
+});
+
 App = Ember.Application.extend({
   rootElement: config.rootElement,
   modulePrefix: config.modulePrefix,
