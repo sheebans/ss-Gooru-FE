@@ -1,0 +1,66 @@
+<div class="panel">
+<ul class="nav nav-pills" role="tablist">
+    <li class="closetab tab">
+        {{#if backUrls}}
+            <a {{action 'selectItem' 'close'}} title="{{t 'common.back-to-report'}}" role="tab" data-toggle="tooltip">
+                {{gru-icon name='close'}}
+            </a>
+         {{else}} 
+            {{#if class.isArchived}}
+              {{#link-to 'teacher-home' (query-params showArchivedClasses="true" showActiveClasses="false" ) class="back-to" data-toggle="tooltip" title= 'Back to Classrooms' }} 
+             {{gru-icon name='close'}} {{/link-to}}
+            {{else}}
+                {{#link-to 'teacher-home' class="back-to" data-toggle="tooltip" title= 'Back to Classrooms' }} {{gru-icon name='close'}}  {{/link-to}}
+            {{/if}}
+         {{/if}}
+    </li>
+    
+    {{#unless class.isArchived}}
+    <li role="separator" class="divider"></li>
+    <li class="class-activities tab">
+        <a {{action 'selectItem' 'class-activities'}} title= "{{t 'teacher-landing.class.class-activities'}}" role="tab" data-toggle="tooltip">
+            <img src='/assets/gooru/pin.png'>
+        </a>
+    </li>
+    <li role="separator" class="divider"></li>
+
+    <li class="course-map tab">
+        <a {{action 'selectItem' 'course-map'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.course-map'}}">
+             {{gru-icon name='sort'}}
+        </a>
+    </li>
+    {{/unless}}
+    <li role="separator" class="divider"></li>
+    <li class="performance tab">
+        <a {{action 'selectItem' 'performance'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.report'}} ">
+         {{gru-icon name='insert_chart'}}
+        </a>
+    </li>
+    {{#unless class.isArchived}}
+    <li role="separator" class="divider"></li>
+    <li class="class-management tab">
+        <a {{action 'selectItem' 'class-management'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.class-management' }}">
+                 {{gru-icon name='school'}}
+        </a>
+    </li>
+    <li role="separator" class="divider"></li>
+    {{/unless}}
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+     {{#if (not isRescopedClass)}}
+    <div class="">
+        {{charts/gru-performance-chart performanceSummary=class.performanceSummary routeToGo="teacher.class.performance"}}
+    </div>
+    {{/if}}
+    </li>
+    <li role="separator" class="divider"></li>
+    <li class="class-info">
+        <a {{action 'selectItem' 'class-info'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.class-management-tab.class-information'}}">
+            <img src='/assets/gooru/information-outline-1.png'>
+        </a>
+    </li>
+    </ul>
+</ul>
+ 
+</div>
