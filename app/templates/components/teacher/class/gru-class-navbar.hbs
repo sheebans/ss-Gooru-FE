@@ -3,14 +3,14 @@
     <li class="closetab tab">
         {{#if backUrls}}
             <a {{action 'selectItem' 'close'}} title="{{t 'common.back-to-report'}}" role="tab" data-toggle="tooltip">
-                {{gru-icon name='close'}}
+                {{gru-icon name='clear'}}
             </a>
          {{else}} 
             {{#if class.isArchived}}
               {{#link-to 'teacher-home' (query-params showArchivedClasses="true" showActiveClasses="false" ) class="back-to" data-toggle="tooltip" title= 'Back to Classrooms' }} 
-             {{gru-icon name='close'}} {{/link-to}}
+             {{gru-icon name='clear'}} {{/link-to}}
             {{else}}
-                {{#link-to 'teacher-home' class="back-to" data-toggle="tooltip" title= 'Back to Classrooms' }} {{gru-icon name='close'}}  {{/link-to}}
+                {{#link-to 'teacher-home' class="back-to" data-toggle="tooltip" title= 'Back to Classrooms' }} {{gru-icon name='clear'}}  {{/link-to}}
             {{/if}}
          {{/if}}
     </li>
