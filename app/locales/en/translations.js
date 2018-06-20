@@ -54,6 +54,8 @@ export default Object.assign(quizzesTranslations, {
     about: 'About',
     'about-you': 'About You',
     'about-me': 'About Me',
+    accept: 'Accept',
+    ignore: 'Ignore',
     add: 'Add',
     'add-assessment': 'Create New Assessment',
     'add-century-skills': 'Add 21st Century Skills',
@@ -2526,6 +2528,16 @@ export default Object.assign(quizzesTranslations, {
     'take-backfill-pretest': 'Study Suggested Collection',
     'take-resource': 'Study Resource',
     'end-of-course': 'You have reached the end of the course.'
+  },
+
+  'gru-content-suggestion': {
+    header: 'We have a suggestion for you!',
+    'suggestion-text': {
+      collection:
+        'Based on your performance on this topic, we recommend that you go through our suggested collection to help you gain mastery.',
+      assessment:
+        'Based on your performance on this topic, we recommend that you go through our suggested assessment to help you gain mastery.'
+    }
   },
 
   'student-open-ended-summary': {

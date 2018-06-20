@@ -1,0 +1,66 @@
+<div class="modal-header">
+  <span class="suggestion-title">{{t 'gru-content-suggestion.header'}}</span>
+</div>
+<div class="modal-body">
+  <div class="suggestion-details">
+    <div class="title">
+      {{currentContent.title}}
+    </div>
+    <div class="type">
+      {{t 'common.suggestion'}}
+    </div>
+    <div class="description">
+      {{t (if (eq suggestedContent.type 'collection') 'gru-content-suggestion.suggestion-text.collection' 'gru-content-suggestion.suggestion-text.assessment')}}
+    </div>
+  </div>
+  <div class="content-details">
+    <div class="collection">
+      <div class="header" style="background-image: url({{suggestedContent.thumbnail}});">
+        <div class="title truncate">
+          {{suggestedContent.title}}
+        </div>
+      </div>
+      <div class="count">
+        {{#if suggestedContent.resourceCount}}
+          <span class="resource">{{suggestedContent.resourceCount}} {{t "common.resource-pl" count=suggestedContent.resourceCount}}</span>
+        {{/if}}
+        {{#if (and suggestedContent.resourceCount suggestedContent.questionCount)}}
+          <span>|</span>
+        {{/if}}
+        {{#if suggestedContent.questionCount}}
+          <span class="question">{{suggestedContent.questionCount}} {{t "common.question-pl" count=suggestedContent.questionCount}}</span>
+        {{/if}}
+      </div>
+      <div class="info hide">
+        <div class="values">
+          <div class="tag">
+            <div class="value">0.5</div>
+            <div class="type">Relevance</div>
+          </div>
+          <div class="tag">
+            <div class="value">0.5</div>
+            <div class="type">Engagement</div>
+          </div>
+          <div class="tag">
+            <div class="value">0.5</div>
+            <div class="type">Efficacy</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="actions">
+      <div class="system-suggestion">
+        {{gru-icon name="explore"}}
+      </div>
+      <div class="action">
+        <div class="accept" {{action "onAcceptSuggestion"}}>
+          {{t 'common.accept'}}
+        </div>
+        <div class="ignore" {{action "onIgnoreSuggestion"}}>
+          {{t 'common.ignore'}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
