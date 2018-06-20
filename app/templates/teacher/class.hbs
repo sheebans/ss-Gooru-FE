@@ -1,6 +1,6 @@
 <div class="teacher class"> {{gru-take-tour steps=steps containerClass='class-view-tour'}}
   
-   {{teacher.class.gru-class-navbar class=class onItemSelected="selectMenuItem" onCollapseExpandClicked="toggleHeader" selectedMenuItem=menuItem
+   {{teacher.class.gru-class-navbar class=class onItemSelected="selectMenuItem" selectedMenuItem=menuItem
   isRescopedClass = isRescopedClass }}
 
   <div class="header clearfix">
@@ -23,7 +23,7 @@
       {{/if}}
       <h1>{{class.title}}</h1>
     </div>
-    <div class="panel panel-default panel-primary classroom-information" style="display:none">
+    <div class="panel panel-default panel-primary classroom-information  hide-classroom-information" >
       <div class="panel-body">
         <div class="course-image">
           {{#if course.thumbnailUrl}}
