@@ -30,6 +30,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
       if (this.get('onItemSelected')) {
         this.selectItem(item);
         this.sendAction('onItemSelected', item);
+        if (item === 'class-info') {
+          $('.classroom-information').toggleClass('hide-classroom-information');
+        }
       }
     },
 
@@ -108,8 +111,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
     if (item) {
       let itemElement = `.${item}`;
       if (item === 'class-info') {
-        $('.classroom-information').toggle();
         this.$(itemElement).removeClass('vactive');
+        return false;
       } else {
         let eleScr = this.$('li.class-activities.vactive a > img');
         eleScr.attr('src', '/assets/gooru/pin.png'); // disselect all
