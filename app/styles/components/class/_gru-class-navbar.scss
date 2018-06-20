@@ -41,9 +41,9 @@
       &.class-activities > a:hover,
       &.class-activities > a.vactive {
         color: green;
-        img {
-          display: block;
-        }
+        // img {
+        //   display: block;
+        // }
       }
 
       .class-title {
@@ -63,9 +63,9 @@
 
   .nav > li > a:hover,
   .nav > li > a:focus {
-    padding-top: 13.5px;
+    //padding-top: 10px;
     background-color: $white;
-    color: $blue-400; // sunken effect
+    //color: $blue-400; // sunken effect
   }
 
   ul.navbar-nav > li.class-info {
@@ -81,9 +81,10 @@ div.teacher.class {
     display: none;
   }
 }
-// .classroom-information {
-//   display: none;
-// }
+
+.hide-classroom-information {
+  display: none;
+}
 .controller.teacher.class.course-map {
   margin-top: 50px !important;
 }
