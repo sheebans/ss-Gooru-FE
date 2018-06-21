@@ -13,7 +13,6 @@
       </div>
     </div>
   </div>
-  {{#if (not courseView)}}
     <span class="assessment-name"> {{assessmentResult.collection.title}} </span>
     <div class="information">
       {{#if collections.isAssessment}}
@@ -51,39 +50,17 @@
         {{gru-icon name='av_timer'}}<span>{{format-time assessmentResult.totalTimeSpent}}</span>
   </span>
   </div>
-  {{/if}}
-  {{#if courseView}}
-    <div class="course-name">
-      <span class="course-name"> {{course.title}}</span>
-    </div>
-  {{/if}}
-
   <div class="class-performance">
     <span class="student-name"> {{profile.firstName}} {{profile.lastName}} </span>
   </div>
-  {{#if courseView }}
-    <div {{action 'closeCourse'}} class="close course">
-      <a class="material-icons clear-button">clear</a>
-      <span class="text"> Close </span>
-    </div>
-  {{else}}
+
     <div {{action 'closeReport'}} class="close report">
       <a class="material-icons clear-button">clear</a>
       <span class="text"> Close </span>
     </div>
-  {{/if}}
 
   <div class="performance">
-    {{#if courseView}}
-      <div class="student">
-        <div class="student-performance">
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="{{studentColorStyle}} {{studentAverage}}"></div>
-            <span class="score-text" style="color: {{studentColor}}"> {{studentPerformance.score}} % </span>
-          </div>
-        </div>
-      </div>
-    {{else}}
+
       <div class="class">
         <div class="class-performance">
           <div class="progress">
@@ -93,17 +70,9 @@
           </div>
         </div>
       </div>
-    {{/if}}
 
   </div>
 
-  {{#if (and courseView isRescopedClass )}}
-    <div class="rescope-toggle">
-      <div class="action">
-        <span>{{t 'class.overview.course-map.rescope-toggle'}}</span> {{gru-toggle-button isChecked=isChecked onToggleButton="onToggleRescope"}}
-      </div>
-    </div>
-  {{/if}}
 </div>
 <div>
 

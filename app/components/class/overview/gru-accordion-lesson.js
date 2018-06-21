@@ -212,7 +212,6 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
      * @returns {undefined}
      */
     studentReport: function(collection) {
-      let controller = this;
       let component = this;
       let currentClass = component.get('currentClass');
       let userId = component.get('session.userId');
@@ -232,8 +231,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         type: type,
         isStudent: component.get('isStudent')
       };
-      controller.set('studentReportData', params);
-      controller.set('showReportPullUp', true);
+      component.set('studentReportData', params);
+      component.set('showReportPullUp', true);
     }
   },
 

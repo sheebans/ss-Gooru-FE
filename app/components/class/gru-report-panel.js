@@ -36,33 +36,33 @@ export default Ember.Component.extend({
    */
   courseMapService: Ember.inject.service('api-sdk/course-map'),
 
-  // -------------------------------------------------------------------------
-  // Properties
-
   /**
-   * @property {Ember.Service} session management
+   * @requires {Ember.Service} session management
    */
   session: Ember.inject.service('session'),
 
   /**
-   * @property {Ember.Service} Service to retrieve an assessment result
+   * @requires {Ember.Service} Service to retrieve an assessment result
    */
   userSessionService: Ember.inject.service('api-sdk/user-session'),
 
   /**
-   * @property {AssessmentService} Service to retrieve an assessment
+   * @requires {AssessmentService} Service to retrieve an assessment
    */
   assessmentService: Ember.inject.service('api-sdk/assessment'),
 
   /**
-   * @property {CollectionService} Service to retrieve a collection
+   * @requires {CollectionService} Service to retrieve a collection
    */
   collectionService: Ember.inject.service('api-sdk/collection'),
 
   /**
-   * @property {LessonService} Service to retrieve a lesson
+   * @requires {LessonService} Service to retrieve a lesson
    */
   lessonService: Ember.inject.service('api-sdk/lesson'),
+
+  // -------------------------------------------------------------------------
+  // Properties
 
   /**
    * Indicates the status of the spinner
@@ -176,6 +176,9 @@ export default Ember.Component.extend({
     );
   }),
 
+  showPullUp: false,
+
+  // -------------------------------------------------------------------------
   // Actions
 
   actions: {
@@ -188,15 +191,8 @@ export default Ember.Component.extend({
     }
   },
 
-  showPullUp: false,
-
-  header: {
-    isShowHeader: true
-  },
-
-  body: {
-    isShowBody: true
-  },
+  // -------------------------------------------------------------------------
+  // Events
 
   /**
    * Functionto triggered once when the component element is first rendered.
@@ -210,15 +206,16 @@ export default Ember.Component.extend({
    * Function to animate the pathway pullup from bottom to top
    */
   pullUpAnimation() {
+    let component = this;
     if (this.get('showPullUp')) {
-      Ember.$('.gru-report-panel').animate(
+      component.$().animate(
         {
           top: '15%'
         },
         850
       );
     } else {
-      Ember.$('.gru-report-panel').animate(
+      component.$().animate(
         {
           top: '100%'
         },
@@ -246,7 +243,6 @@ export default Ember.Component.extend({
 
   /**
    * @function  get collection summary report by student
-   * @param {objects} collections - collection or assessment Ids..
    */
   getStundentCollectionReport(params) {
     let component = this;

@@ -23,10 +23,10 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
 
-  /**
-   * Action triggered when the user invoke the pull up.
-   **/
   actions: {
+    /**
+     * Action triggered when the user invoke the pull up.
+     **/
     onPullUpClose() {
       this.set('showPullUp', false);
     }
