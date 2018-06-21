@@ -28,22 +28,24 @@
         </div>
       {{/if}}
 
-      <div class="last-updated">
-        {{concat (t 'common.last-updated') ':'}} <span class="date-time">{{format-date lastUpdated 'MMMM DD, YYYY h:mm A'}}</span>
-      </div>
-      
-      <div class="proficiency-legends">
-        <div class="mastered legend">
-          <span class="box"></span>
-          <span class="title">{{t 'profile.proficiency.mastered'}}</span>
+      <div class="proficiency-tags">
+        <div class="proficiency-legends">
+          <div class="mastered legend">
+            <span class="box"></span>
+            <span class="title">{{t 'profile.proficiency.mastered'}}</span>
+          </div>
+          <div class="in-progress legend">
+            <span class="box"></span>
+            <span class="title">{{t 'profile.proficiency.in-progress'}}</span>
+          </div>
+          <div class="not-started legend">
+            <span class="box"></span>
+            <span class="title">{{t 'profile.proficiency.not-started'}}</span>
+          </div>
         </div>
-        <div class="in-progress legend">
-          <span class="box"></span>
-          <span class="title">{{t 'profile.proficiency.in-progress'}}</span>
-        </div>
-        <div class="not-started legend">
-          <span class="box"></span>
-          <span class="title">{{t 'profile.proficiency.not-started'}}</span>
+
+        <div class="last-updated">
+          {{concat (t 'common.last-updated') ':'}} <span class="date-time">{{if lastUpdated (format-date lastUpdated 'MMMM DD, YYYY h:mm A') 'NA'}}</span>
         </div>
       </div>
 
