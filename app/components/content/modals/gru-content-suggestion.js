@@ -42,7 +42,7 @@ export default Ember.Component.extend({
   // Actions
   actions: {
     /**
-     * Actrion triggered when the user accept a suggestion
+     * Action triggered when the user accept a suggestion
      */
     onAcceptSuggestion() {
       let component = this;
@@ -50,7 +50,7 @@ export default Ember.Component.extend({
     },
 
     /**
-     * Actrion triggered when the user ignore a suggestion
+     * Action triggered when the user ignore a suggestion
      */
     onIgnoreSuggestion() {
       let component = this;
@@ -66,7 +66,8 @@ export default Ember.Component.extend({
    * Method to animate the component
    */
   animateComponent() {
-    Ember.$('.gru-content-suggestion').animate(
+    let component = this;
+    component.$().animate(
       {
         top: '20%',
         left: '20%'
