@@ -4,10 +4,10 @@ import Ember from 'ember';
  * Gooru APP pull up component
  *
  * Component responsible for generating the skeleton pull up component,
- * which  have header, footer(Optional), title, close button and more info(Optional).
+ * which  have header, footer(Optional) and close button .
  * @augments ember/Component
  * see the sample usage below
- * {{#gru-pull-up showPullUp=showPullUp title=title  description=description  showMore=true  as |section| }}
+ * {{#gru-pull-up showPullUp=showPullUp  as |pull-up| }}
  * {{/gru-pull-up}}
  */
 

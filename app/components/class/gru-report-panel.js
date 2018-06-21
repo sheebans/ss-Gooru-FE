@@ -8,52 +8,8 @@ export default Ember.Component.extend({
 
   classNames: ['class', 'gru-report-panel'],
 
-  // Actions
-
-  /**
-   * Action triggered when the user invoke the pull up.
-   **/
-  actions: {
-    onPullUpClose() {
-      this.set('showPullUp', false);
-      this.pullUpAnimation();
-    }
-  },
-
-  showPullUp: false,
-
-  header: {
-    isShowHeader: true
-  },
-
-  body: {
-    isShowBody: true
-  },
-
-  /**
-   * @property {Ember.Service} session management
-   */
-  session: Ember.inject.service('session'),
-
-  /**
-   * @property {Ember.Service} Service to retrieve an assessment result
-   */
-  userSessionService: Ember.inject.service('api-sdk/user-session'),
-
-  /**
-   * @property {AssessmentService} Service to retrieve an assessment
-   */
-  assessmentService: Ember.inject.service('api-sdk/assessment'),
-
-  /**
-   * @property {CollectionService} Service to retrieve a collection
-   */
-  collectionService: Ember.inject.service('api-sdk/collection'),
-
-  /**
-   * @property {LessonService} Service to retrieve a lesson
-   */
-  lessonService: Ember.inject.service('api-sdk/lesson'),
+  // -------------------------------------------------------------------------
+  // Dependencies
 
   /**
    * @type {ClassService} Service to retrieve class information
@@ -79,6 +35,34 @@ export default Ember.Component.extend({
    * @requires service:api-sdk/course-map
    */
   courseMapService: Ember.inject.service('api-sdk/course-map'),
+
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * @property {Ember.Service} session management
+   */
+  session: Ember.inject.service('session'),
+
+  /**
+   * @property {Ember.Service} Service to retrieve an assessment result
+   */
+  userSessionService: Ember.inject.service('api-sdk/user-session'),
+
+  /**
+   * @property {AssessmentService} Service to retrieve an assessment
+   */
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
+
+  /**
+   * @property {CollectionService} Service to retrieve a collection
+   */
+  collectionService: Ember.inject.service('api-sdk/collection'),
+
+  /**
+   * @property {LessonService} Service to retrieve a lesson
+   */
+  lessonService: Ember.inject.service('api-sdk/lesson'),
 
   /**
    * Indicates the status of the spinner
@@ -192,6 +176,28 @@ export default Ember.Component.extend({
     );
   }),
 
+  // Actions
+
+  actions: {
+    /**
+     * Action triggered when the user close the pull up.
+     **/
+    onPullUpClose() {
+      this.set('showPullUp', false);
+      this.pullUpAnimation();
+    }
+  },
+
+  showPullUp: false,
+
+  header: {
+    isShowHeader: true
+  },
+
+  body: {
+    isShowBody: true
+  },
+
   /**
    * Functionto triggered once when the component element is first rendered.
    */
@@ -220,6 +226,9 @@ export default Ember.Component.extend({
       );
     }
   },
+
+  // -------------------------------------------------------------------------
+  // Methods
 
   /**
    * Function to show the student report
@@ -309,7 +318,7 @@ export default Ember.Component.extend({
   setAssessmentResult: function(assessmentResult, session) {
     const component = this;
     const collection = component.get('collection');
-    const totalAttempts = component.get('completedSessions.length'); //TODO this is coming wrong from BE
+    const totalAttempts = component.get('completedSessions.length');
     assessmentResult.merge(collection);
     assessmentResult.set('totalAttempts', totalAttempts);
     if (session && session.eventTime) {

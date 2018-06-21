@@ -211,6 +211,9 @@ export default Ember.Controller.extend(ModalMixin, {
         });
     },
 
+    /**
+     * Method to show student report in pathway pullup
+     */
     onOpenStudentReport(reportData, model) {
       let component = this;
       let controller = this;

@@ -241,7 +241,7 @@
       <div class="message">{{t 'teacher-landing.class.class-management-tab.students-null'}}</div>
     </div>
   {{/if}}
-  {{#gru-pull-up showPullUp=showPathWayPullUp title="Am a new pull up in classmanagement page" description="test descriptions" as |pull-up|}}
+  {{#gru-pull-up showPullUp=showPathWayPullUp as |pull-up|}}
     {{#if pull-up.isShowHeader}}
       {{class.gru-learner-pathway model=studentPathway onOpenStudentReport="onOpenStudentReport" }}
     {{/if}}

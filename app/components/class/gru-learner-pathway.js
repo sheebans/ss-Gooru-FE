@@ -241,10 +241,6 @@ export default Ember.Component.extend(AccordionMixin, {
 
     collectionReport(params) {
       let component = this;
-      // component.set('isAssessment', params.type === 'assessment');
-      // component.set('isCollection', params.type === 'collection');
-      // component.set('areAnswersHidden', fals(e);
-      // component.set('isAnswerKeyHidden', false);
       component.sendAction(
         'onOpenStudentReport',
         params,
