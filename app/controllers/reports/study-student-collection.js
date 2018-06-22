@@ -123,8 +123,7 @@ export default StudentCollection.extend({
      */
     onIgnoreSuggestion() {
       let controller = this;
-      let mapLocation = controller.get('mapLocation');
-      controller.playGivenContent(mapLocation.context);
+      controller.playNextContent();
       controller.set('isShowSuggestion', false);
     }
   },
