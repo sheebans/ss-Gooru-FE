@@ -246,7 +246,6 @@ export default Ember.Component.extend(AccordionMixin, {
         params,
         component.get('model')
       );
-      // this.getStundentCollectionReport(params);
     },
 
     /**
