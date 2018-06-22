@@ -259,10 +259,15 @@
     }
   }
   .reports.gru-assessment-report {
-    height: 369px;
+    height: 407px;
     overflow: auto;
     .desc-align {
       position: relative !important;
     }
+  }
+  .reports.gru-assessment-report::-webkit-scrollbar {
+    height: 8px;
+    width: 3px;
+    background: #bbbbbb;
   }
 }
