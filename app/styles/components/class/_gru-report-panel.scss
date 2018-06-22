@@ -258,4 +258,11 @@
       }
     }
   }
+  .reports.gru-assessment-report {
+    height: 369px;
+    overflow: auto;
+    .desc-align {
+      position: relative !important;
+    }
+  }
 }
