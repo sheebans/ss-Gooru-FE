@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import AccordionMixin from '../../mixins/gru-accordion';
 import { getBarGradeColor, toLocal } from 'gooru-web/utils/utils';
-import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
 
 import Context from 'gooru-web/models/result/context';
 
@@ -119,36 +118,6 @@ export default Ember.Component.extend(AccordionMixin, {
   }),
 
   /**
-   * @property {boolean} areAnswersHidden - Should answer results be hidden?
-   */
-  areAnswersHidden: Ember.computed(
-    'collections.isAssessment',
-    'collections.showFeedback',
-    function() {
-      return (
-        this.get('model').isStudent === true &&
-        this.get('collections.isAssessment') &&
-        this.get('collections.showFeedback') === ASSESSMENT_SHOW_VALUES.NEVER
-      );
-    }
-  ),
-
-  /**
-   * @property {boolean} isAnswerKeyHidden - Should the answer key be hidden?
-   */
-  isAnswerKeyHidden: Ember.computed(
-    'collections.isAssessment',
-    'collections.showKey',
-    function() {
-      return (
-        this.get('model').isStudent === true &&
-        this.get('collections.isAssessment') &&
-        !this.get('collections.showKey')
-      );
-    }
-  ),
-
-  /**
    * @property {boolean}showAttempts
    */
   showAttempts: false,
@@ -223,7 +192,7 @@ export default Ember.Component.extend(AccordionMixin, {
   // -------------------------------------------------------------------------
   // Events
 
-  init() {
+  onChange: Ember.observer('model', function() {
     let component = this;
     component._super(...arguments);
     component.set('isLoading', true);
@@ -253,23 +222,9 @@ export default Ember.Component.extend(AccordionMixin, {
             }
           });
         }
-      } else {
-        let model = component.get('model');
-        component.set('courseView', false);
-        component.set('ownReport', true);
-        let params = {
-          userId: model.userId,
-          classId: model.classId,
-          courseId: model.courseId,
-          unitId: model.unitId,
-          lessonId: model.lessonId,
-          collectionId: model.collectionId,
-          type: model.type
-        };
-        this.getStundentCollectionReport(params);
       }
     }
-  },
+  }),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -286,11 +241,11 @@ export default Ember.Component.extend(AccordionMixin, {
 
     collectionReport(params) {
       let component = this;
-      component.set('isAssessment', params.type === 'assessment');
-      component.set('isCollection', params.type === 'collection');
-      component.set('areAnswersHidden', false);
-      component.set('isAnswerKeyHidden', false);
-      this.getStundentCollectionReport(params);
+      component.sendAction(
+        'onOpenStudentReport',
+        params,
+        component.get('model')
+      );
     },
 
     /**

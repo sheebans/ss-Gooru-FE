@@ -1,0 +1,38 @@
+.gru-pull-up {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  top: 100%;
+  z-index: 99999;
+  background: #fff;
+  width: 71.3%;
+  .gru-learner-pathway {
+    width: 99.3%;
+    margin-left: 0px;
+    margin-top: 0px;
+  }
+  .close {
+    display: none !important;
+  }
+  .pullup-close {
+    position: absolute;
+    right: 2%;
+    top: 5%;
+    background: #fff;
+    width: 63px;
+    text-align: center;
+    cursor: pointer;
+    height: 56px;
+    i {
+      font-size: 35px;
+      margin-left: -105px;
+    }
+    div {
+      line-height: 1px;
+    }
+  }
+  .unit-body {
+    overflow: auto;
+    height: 396px;
+  }
+}

@@ -231,16 +231,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         type: type,
         isStudent: component.get('isStudent')
       };
-      this.send(
-        'showModal',
-        'class.gru-learner-pathway',
-        params,
-        null,
-        null,
-        null,
-        'static',
-        false
-      );
+      component.set('studentReportData', params);
+      component.set('showReportPullUp', true);
     }
   },
 
