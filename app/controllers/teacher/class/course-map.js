@@ -89,9 +89,10 @@ export default Ember.Controller.extend({
   showWelcome: true,
 
   /**
-   * @property {boolean} roles is owner of class only view edit course button
+   * @property {boolean}
+   * Property to find out is owner of the class or not
    */
-  isOwnerOfClass: Ember.computed('class', function() {
+  isOwner: Ember.computed('class', function() {
     let component = this;
     let loggedInUserId = component.get('session.userId');
     let classOwnerId = component.get('class.owner.id');

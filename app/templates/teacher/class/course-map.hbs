@@ -1,7 +1,7 @@
 {{#if class.courseId}}
-  <div class="controller teacher class course-map {{unless isOwnerOfClass 'co-teacher'}}">
+  <div class="controller teacher class course-map {{unless isOwner 'not-owner'}}">
 
-    {{#if isOwnerOfClass}}
+    {{#if isOwner}}
       <div class="actions">
         <button {{action "editContent" course.id class.id}} class="btn btn-primary edit-content">
         {{t "common.edit-course"}} {{gru-icon name='edit'}}
