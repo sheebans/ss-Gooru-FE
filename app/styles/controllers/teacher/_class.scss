@@ -2,18 +2,22 @@
   padding: 12px 0;
   max-width: 960px;
   margin: 0 auto;
+
   .gru-take-tour {
     right: 80px;
     top: 125px;
   }
+
   .content .no-content {
     margin-top: 15px;
   }
+
   .header {
     .go-back-container {
       .back-to {
         font-size: $font-size-lead;
         font-weight: 300;
+
         i {
           font-size: $font-size-arrow-icon;
           height: 30px;
@@ -22,6 +26,7 @@
         }
       }
     }
+
     h1 {
       color: $dark-500;
       font-size: $font-size-lead;
@@ -29,23 +34,28 @@
       display: inline-block;
       margin: 0 200px 0 200px;
     }
+
     .panel.classroom-information {
       float: $tab-float-dir;
       margin: 10px 20px 0 0;
       width: 100%;
+
       .panel-body {
         padding: 0;
         height: 60px;
+
         .course-image {
           border-right: $border-right-side;
           border-left: $border-left-side;
           height: 60px;
           width: 90px;
           float: $tab-float-dir !important;
+
           img {
             height: 100%;
             width: 89px;
           }
+
           .no-course-image {
             background: url("gooru/course-default-medium.png");
             background-size: 90px 60px;
@@ -53,37 +63,45 @@
             height: 60px;
           }
         }
+
         .course-name {
           line-height: 1.4;
           margin: 10px 0 0 10px;
           width: 25%;
           float: $tab-float-dir !important;
         }
+
         .isRescopedClass {
           width: 36%;
         }
+
         .counts-container {
           padding: 6px 0 0;
           width: 6%;
           float: $tab-float-dir !important;
+
           .count {
             height: 20px;
             margin: 2px 0 0;
             width: 100%;
+
             i {
               font-size: $font-size-units-icon;
               line-height: 1.1;
             }
+
             span {
               vertical-align: top;
               margin-left: 4px;
             }
           }
         }
+
         .teacher-profile {
           margin: 0 0 0 15px;
           width: 16%;
           float: $tab-float-dir !important;
+
           img {
             border-radius: 50px;
             display: inline-block;
@@ -93,6 +111,7 @@
             width: 43px;
             cursor: pointer;
           }
+
           .owner-name {
             display: inline-block !important;
             float: $tab-float-dir;
@@ -101,16 +120,19 @@
             width: 65%;
           }
         }
+
         .taxonomy-standards {
           min-width: 100px;
           margin: 0 0 0 15px;
           padding: 12px 0 0;
           width: 17.2%;
           float: $tab-float-dir !important;
+
           .taxonomy.gru-taxonomy-tag {
             background-color: $light-300;
             border: none;
             max-width: 135px;
+
             .content {
               b,
               span {
@@ -119,6 +141,7 @@
             }
           }
         }
+
         .class-code {
           border-left: $border-right-side $light-200;
           border-right: $border-left-side $light-200;
@@ -127,16 +150,19 @@
           text-align: $menu-float-dir;
           width: 7%;
           float: $tab-float-dir !important;
+
           div {
             line-height: 1;
             text-transform: uppercase;
             color: $dark-400;
             width: 100%;
+
             &.title {
               opacity: 0.5;
               font-size: $font-size-xxxsmall;
               font-weight: normal;
             }
+
             &.code {
               font-size: $font-size-small;
               font-weight: bold;
@@ -144,27 +170,137 @@
             }
           }
         }
+
         .copy-code {
           margin: 15px 0 0;
           float: $tab-float-dir !important;
+
           .copy-btn {
             height: 30px;
+
             i {
               font-size: 20px;
             }
           }
         }
+
         .performance-container {
           width: 11.9%;
           float: $menu-float-dir !important;
+
           .percentage {
             margin: 12px 0;
             font-size: $font-size-h3;
           }
+
           .completion-bar {
             width: 80%;
           }
         }
+
+        @media (min-width: 1025px) and (max-width: 1280px) {
+          $screen-width: 955px;
+
+          .course-image {
+            width: 90px;
+
+            img {
+              width: 89px;
+            }
+          }
+
+          .teacher-profile {
+            img {
+              display: block;
+            }
+          }
+        }
+
+        @media (min-width: 1281px) {
+          $screen-width: 955px;
+
+          .course-image {
+            width: 90px;
+
+            img {
+              width: 89px;
+            }
+          }
+
+          .teacher-profile {
+            img {
+              display: block;
+            }
+          }
+        }
+
+        // device ipd and below handleing
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+          $screen-width: 768px;
+
+          .course-image {
+            width: 60px;
+
+            img {
+              width: 59px;
+            }
+          }
+
+          .teacher-profile {
+            img {
+              display: none;
+            }
+          }
+        }
+
+        /* 
+                      ##Device = Low Resolution Tablets, Mobiles (Landscape)
+                      ##Screen = B/w 481px to 767px
+                    */
+
+        @media (min-width: 481px) and (max-width: 767px) {
+          $screen-width: 768px; // Needs different handling
+
+          .course-image {
+            width: 60px;
+
+            img {
+              width: 59px;
+            }
+          }
+
+          .teacher-profile {
+            img {
+              display: none;
+            }
+          }
+        }
+
+        /* 
+                      ##Device = Most of the Smartphones Mobiles (Portrait)
+                      ##Screen = B/w 320px to 479px
+                    */
+
+        @media (min-width: 320px) and (max-width: 480px) {
+          $screen-width: 768px; // Needs different handling
+
+          .course-image {
+            width: 60px;
+
+            img {
+              width: 59px;
+            }
+          }
+
+          .teacher-profile {
+            img {
+              display: none;
+            }
+          }
+        }
+
+        // ends here
       }
     }
   }
