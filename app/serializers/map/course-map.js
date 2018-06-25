@@ -68,24 +68,22 @@ export default Ember.Object.extend({
    * @param data - The endpoint response in JSON format
    * @returns {Object} lesson and alternate paths
    */
-  normalizeLessonInfo: function(data, isTeacher) {
+  normalizeLessonInfo: function(data) {
     var serializer = this;
     let lesson = this.get('lessonSerializer').normalizeLesson(data.course_path);
     let lessonChildren = lesson.get('children');
-    if (!isTeacher) {
-      let suggestedPaths = serializer.normalizeAlternatePathContent(
-        data.alternate_paths
+    let suggestedPaths = serializer.normalizeAlternatePathContent(
+      data.alternate_paths
+    );
+    suggestedPaths.map(suggestedPath => {
+      let ctxCollectionIndex = lessonChildren.findIndex(
+        child => child.id === suggestedPath.assessmentId
       );
-      suggestedPaths.map(suggestedPath => {
-        let ctxCollectionIndex = lessonChildren.findIndex(
-          child => child.id === suggestedPath.assessmentId
-        );
-        if (ctxCollectionIndex >= 0) {
-          //Add suggested content, next to the context collection
-          lessonChildren.splice(ctxCollectionIndex + 1, 0, suggestedPath);
-        }
-      });
-    }
+      if (ctxCollectionIndex >= 0) {
+        //Add suggested content, next to the context collection
+        lessonChildren.splice(ctxCollectionIndex + 1, 0, suggestedPath);
+      }
+    });
     return lesson;
   },
 
