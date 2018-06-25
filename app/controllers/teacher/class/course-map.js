@@ -90,13 +90,13 @@ export default Ember.Controller.extend({
 
   /**
    * @property {boolean}
-   * Property to find out is owner of the class or not
+   * Property to find out is owner of the course or not
    */
-  isOwner: Ember.computed('class', function() {
+  isOwner: Ember.computed('course', function() {
     let component = this;
     let loggedInUserId = component.get('session.userId');
-    let classOwnerId = component.get('class.owner.id');
-    return loggedInUserId === classOwnerId;
+    let courseOwnerId = component.get('course.owner.id');
+    return loggedInUserId === courseOwnerId;
   }),
 
   /**
