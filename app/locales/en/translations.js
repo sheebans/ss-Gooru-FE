@@ -1126,6 +1126,10 @@ export default Object.assign(quizzesTranslations, {
     'latest-assessment': 'Latest Assessment',
     'create-classroom': 'Create a classroom, assign contents, invite students',
     class: {
+      manage: 'Manage',
+      reports: 'Reports',
+      'daily-activites': 'Daily Activites',
+      courses: 'Course',
       'back-to': 'Back to Classrooms',
       'back-to-archived': 'Back to Archived Classrooms',
       'class-management': 'Class Management',
