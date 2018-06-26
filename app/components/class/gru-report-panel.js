@@ -188,6 +188,7 @@ export default Ember.Component.extend({
     onPullUpClose() {
       this.set('showPullUp', false);
       this.pullUpAnimation();
+      this.sendAction('onClosePullUp');
     }
   },
 
@@ -210,7 +211,7 @@ export default Ember.Component.extend({
     if (this.get('showPullUp')) {
       component.$().animate(
         {
-          top: '15%'
+          top: '10%'
         },
         850
       );

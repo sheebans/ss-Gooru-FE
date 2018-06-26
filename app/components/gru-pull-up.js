@@ -25,6 +25,12 @@ export default Ember.Component.extend({
 
   actions: {
     /**
+     * Action triggered when the user close the pull up.
+     **/
+    closeAll: function() {
+      this.sendAction('onClosePullUp');
+    },
+    /**
      * Action triggered when the user invoke the pull up.
      **/
     onPullUpClose() {
@@ -68,17 +74,14 @@ export default Ember.Component.extend({
     if (this.get('showPullUp')) {
       Ember.$('.gru-pull-up').animate(
         {
-          top: '15%'
+          top: '10%'
         },
         850
       );
     } else {
-      Ember.$('.gru-pull-up').animate(
-        {
-          top: '100%'
-        },
-        850
-      );
+      Ember.$('.gru-pull-up').animate({
+        top: '100%'
+      });
     }
   })
 });

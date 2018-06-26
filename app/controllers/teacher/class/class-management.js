@@ -24,6 +24,13 @@ export default Ember.Controller.extend(ModalMixin, {
   // Actions
   actions: {
     /**
+     * Action triggered when the user click outside of pullup.
+     **/
+    onClosePullUp() {
+      this.set('showPathWayPullUp', false);
+      this.set('showReportPullUp', false);
+    },
+    /**
      * Archive class
      **/
     archiveClass: function() {

@@ -1,10 +1,15 @@
+{{#if showPullUp}}
+<div class="overlay-report {{if isStudent 'student-report-overlay'}}" {{action 'onPullUpClose'}}></div>
+{{/if}}
+<div class="report-panel-container">
+
+{{#if isLoading}}
+  {{three-bounce-spinner}}
+{{else}}
 <div class="pullup-close pull-right" {{action 'onPullUpClose'}}>
   {{gru-icon name='ic_close'}}
   <div>Close</div>
 </div>
-{{#if isLoading}}
-  {{three-bounce-spinner}}
-{{else}}
 <div class="user-course-info">
   <div class="user-profile-info">
     <div class="profile">
@@ -97,3 +102,4 @@
 
 </div>
 {{/if}}
+</div>
