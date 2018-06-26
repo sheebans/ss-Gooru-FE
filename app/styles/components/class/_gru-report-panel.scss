@@ -294,7 +294,7 @@
     }
   }
   .reports.gru-assessment-report {
-    height: 442px;
+    max-height: 442px;
     overflow: auto;
     .desc-align {
       position: relative !important;

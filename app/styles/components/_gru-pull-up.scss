@@ -29,7 +29,8 @@
     width: 768px;
     margin-left: 0px;
     margin-top: 0px;
-    height: 645px;
+    max-height: 442px;
+    overflow: auto;
   }
   .close {
     display: none !important;

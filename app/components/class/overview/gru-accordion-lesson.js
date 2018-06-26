@@ -92,6 +92,13 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
   // Actions
   actions: {
     /**
+     * Action triggered when the user click outside of pullup.
+     **/
+    onClosePullUp() {
+      this.set('showPathWayPullUp', false);
+      this.set('showReportPullUp', false);
+    },
+    /**
      * Load the data for this lesson (data should only be loaded once) and trigger
      * the 'onLessonUpdate' event handler
      *
