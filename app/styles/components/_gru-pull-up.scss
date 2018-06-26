@@ -29,8 +29,7 @@
     width: 768px;
     margin-left: 0px;
     margin-top: 0px;
-    max-height: 442px;
-    overflow: auto;
+    height: 545px;
   }
   .close {
     display: none !important;
@@ -54,6 +53,6 @@
   }
   .unit-body {
     overflow: auto;
-    max-height: 545px;
+    max-height: 436px !important;
   }
 }
