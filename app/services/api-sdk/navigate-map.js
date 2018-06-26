@@ -119,7 +119,8 @@ export default Ember.Service.extend({
     lessonId,
     collectionId,
     collectionType,
-    classId = undefined
+    classId = undefined,
+    pathId
   ) {
     const service = this;
     const mapContext = MapContext.create({
@@ -131,7 +132,8 @@ export default Ember.Service.extend({
       itemId: collectionId,
       itemType: collectionType,
       classId,
-      status: 'start'
+      status: 'start',
+      pathId
     });
     return service.next(mapContext);
   },
@@ -344,7 +346,6 @@ export default Ember.Service.extend({
     const resourceId = params.resourceId;
     const continueCourse = !unitId;
     const startLesson = lessonId && !collectionId;
-
     const navigateMapService = this;
 
     let mapLocationPromise = null;
@@ -394,7 +395,8 @@ export default Ember.Service.extend({
         lessonId,
         collectionId,
         collectionType,
-        classId
+        classId,
+        parseInt(pathId)
       );
     }
     return mapLocationPromise;
