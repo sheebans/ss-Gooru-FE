@@ -1,3 +1,6 @@
+{{#if showPullUp}}
+<div class="overlay" {{action 'onPullUpClose'}}></div>
+{{/if}}
 <div>
       {{yield header}}
     <div class="pullup-close pull-right" {{action 'onPullUpClose'}}>

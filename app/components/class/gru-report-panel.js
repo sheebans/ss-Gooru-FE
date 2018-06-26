@@ -182,6 +182,9 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
+    closeAll: function() {
+      this.sendAction('onClosePullUp');
+    },
     /**
      * Action triggered when the user close the pull up.
      **/
@@ -210,7 +213,7 @@ export default Ember.Component.extend({
     if (this.get('showPullUp')) {
       component.$().animate(
         {
-          top: '15%'
+          top: '10%'
         },
         850
       );
