@@ -55,4 +55,8 @@
     overflow: auto;
     max-height: 436px !important;
   }
+  .gru-learner-pathway .unit-body::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
 }
