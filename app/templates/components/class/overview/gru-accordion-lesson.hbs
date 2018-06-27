@@ -219,7 +219,7 @@
                         {{else}}
                           {{#if item.performance.hasStarted}}
                             {{#if isStudent }}
-                              <span {{action 'studentReport'}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                              <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                                 {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
                             </span>
                             {{else}}
