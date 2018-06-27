@@ -25,8 +25,7 @@
 }
 .report-panel-container {
   background: #ffffff !important;
-  max-height: 572px;
-  height: 572px;
+  min-height: 330px;
 }
 .class.gru-report-panel {
   position: fixed;
