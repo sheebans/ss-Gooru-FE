@@ -23,14 +23,11 @@
   cursor: pointer;
   opacity: 0.9;
 }
-.report-panel-container {
-  background: #ffffff !important;
-  min-height: 330px;
-}
+
 .class.gru-report-panel {
   position: fixed;
   top: 0;
-  height: 100vh;
+  height: 90vh;
   top: 100%;
   z-index: 99999;
   background: #fff;
@@ -293,7 +290,8 @@
     }
   }
   .reports.gru-assessment-report {
-    max-height: 442px;
+    max-height: calc(90vh - 130px);
+    height: calc(90vh - 130px);
     overflow: auto;
     .desc-align {
       position: relative !important;
@@ -303,5 +301,15 @@
     height: 8px;
     width: 8px;
     background: #bbbbbb;
+  }
+  .report-panel-container {
+    background: #ffffff !important;
+    max-height: calc(90vh - 130px);
+    height: calc(90vh - 130px);
+    .reports.assessment.gru-questions
+      .summary-report-questions
+      .questions-header {
+      margin-right: 25px;
+    }
   }
 }
