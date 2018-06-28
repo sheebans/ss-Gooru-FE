@@ -240,7 +240,8 @@
   }
 
   .unit-body {
-    max-height: 545px;
+    max-height: calc(90vh - 130px);
+    height: calc(90vh - 130px);
     overflow-y: auto;
   }
 

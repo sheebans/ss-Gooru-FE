@@ -54,7 +54,7 @@
   }
   .unit-body {
     overflow: auto;
-    max-height: calc(90vh - 130px) !important;
+    max-height: calc(90vh - 130px);
     height: calc(90vh - 130px);
   }
   .gru-learner-pathway .unit-body::-webkit-scrollbar {
