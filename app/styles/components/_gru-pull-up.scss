@@ -29,7 +29,8 @@
     width: 768px;
     margin-left: 0px;
     margin-top: 0px;
-    height: 330px;
+    max-height: calc(90vh - 130px);
+    height: calc(90vh - 130px);
   }
   .close {
     display: none !important;
@@ -59,5 +60,10 @@
   .gru-learner-pathway .unit-body::-webkit-scrollbar {
     height: 8px;
     width: 8px;
+  }
+  .pathwy-panel-container {
+    background: #ffffff !important;
+    max-height: calc(90vh - 130px);
+    height: calc(90vh - 130px);
   }
 }
