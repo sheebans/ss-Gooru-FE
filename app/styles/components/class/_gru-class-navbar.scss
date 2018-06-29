@@ -16,7 +16,7 @@
       display: inline-block;
       word-wrap: break-word;
       //width: 90px;
-      vertical-align: text-bottom;
+      vertical-align: middle;
     }
 
     @media (min-width: 768px) and (max-width: 1024px) {
@@ -107,8 +107,8 @@
 
       a {
         color: $gray-base;
-        > img {
-          vertical-align: baseline;
+        .gru-icon {
+          vertical-align: middle;
         }
       }
 
