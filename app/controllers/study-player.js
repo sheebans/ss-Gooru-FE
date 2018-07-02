@@ -21,7 +21,8 @@ export default PlayerController.extend({
     'collectionId',
     'source',
     'pathId',
-    'minScore'
+    'minScore',
+    'collectionSource'
   ],
 
   // -------------------------------------------------------------------------
@@ -116,6 +117,12 @@ export default PlayerController.extend({
    * @property {integer}
    */
   minScore: null,
+
+  /**
+   * Source of collection
+   * @property {Sring}
+   */
+  collectionSource: null,
 
   /**
    * Indicates if it should show the back button
