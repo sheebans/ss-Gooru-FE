@@ -2,12 +2,20 @@
   <span class="suggestion-title">{{t 'gru-content-suggestion.header'}}</span>
 </div>
 <div class="modal-body">
+  <div class="deviation">
+  </div>
   <div class="suggestion-details">
     <div class="title">
       {{currentContent.title}}
     </div>
     <div class="type">
       {{t 'common.suggestion'}}
+    </div>
+    <div class="taxonomy">
+      {{#if tags.length}}
+        {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true showDescription=true}}
+        <span class="border"></span>
+      {{/if}}
     </div>
     <div class="description">
       {{t (if (eq suggestedContent.type 'collection') 'gru-content-suggestion.suggestion-text.collection' 'gru-content-suggestion.suggestion-text.assessment')}}
@@ -31,6 +39,11 @@
           <span class="question">{{suggestedContent.questionCount}} {{t "common.question-pl" count=suggestedContent.questionCount}}</span>
         {{/if}}
       </div>
+      <div class="taxonomy">
+        {{#if suggestedTags.length}}
+          {{taxonomy.gru-taxonomy-tag-list tags=suggestedTags tagsVisible=1 isInCard=true showDescription=true}}
+        {{/if}}
+      </div>
     </div>
     <div class="actions">
       <div class="system-suggestion">
@@ -41,7 +54,7 @@
           {{t 'common.accept'}}
         </div>
         <div class="ignore" {{action "onIgnoreSuggestion"}}>
-          {{t 'common.ignore'}}
+          <span>{{t 'common.ignore'}}</span>
         </div>
       </div>
     </div>

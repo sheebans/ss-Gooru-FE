@@ -4,6 +4,7 @@ import MapContent from 'gooru-web/models/map/content';
 import MapSuggestion from 'gooru-web/models/map/map-suggestion';
 import ResourceModel from 'gooru-web/models/content/resource';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
+import TaxonomySerializer from 'gooru-web/serializers/taxonomy/taxonomy';
 import {
   ASSESSMENT_SUB_TYPES,
   CONTENT_TYPES,
@@ -20,6 +21,18 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @property {Service} session
    */
   session: Ember.inject.service('session'),
+
+  /**
+   * @property {TaxonomySerializer} taxonomySerializer
+   */
+  taxonomySerializer: null,
+
+  init: function() {
+    this.set(
+      'taxonomySerializer',
+      TaxonomySerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+  },
 
   /**
    * Serialize a MapContext object into a JSON representation
@@ -129,7 +142,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
         ? basePath + data.thumbnail
         : appRootPath + DEFAULT_IMAGES.COLLECTION,
       resourceFormat: ResourceModel.normalizeResourceFormat(data.subformat),
-      subType
+      subType,
+      standards: serializer
+        .get('taxonomySerializer')
+        .normalizeTaxonomyObject(JSON.parse(data.taxonomy))
     });
   }
 });

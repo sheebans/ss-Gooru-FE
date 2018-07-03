@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -105,5 +107,35 @@ export default Ember.Component.extend({
       .then(function(hash) {
         return hash.assessment;
       });
-  }
+  },
+
+  // -------------------------------------------------------------------------
+  // Properties
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('currentContent', function() {
+    let standards = this.get('currentContent.standards');
+    if (standards) {
+      standards = standards.filter(function(standard) {
+        // Filter out learning targets (they're too long for the card)
+        return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
+      });
+      return TaxonomyTag.getTaxonomyTags(standards);
+    }
+  }),
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags which is available in the suggested content
+   */
+  suggestedTags: Ember.computed('suggestedContent', function() {
+    let standards = this.get('suggestedContent.standards');
+    if (standards) {
+      standards = standards.filter(function(standard) {
+        // Filter out learning targets (they're too long for the card)
+        return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
+      });
+      return TaxonomyTag.getTaxonomyTags(standards);
+    }
+  })
 });
