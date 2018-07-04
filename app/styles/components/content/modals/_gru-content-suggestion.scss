@@ -125,7 +125,7 @@
         }
 
         .taxonomy {
-          padding-left: 8px;
+          margin-left: 5px;
         }
 
         .info {
@@ -196,6 +196,10 @@
           background-color: $dark-400;
           .tag-label {
             color: $white;
+            font-size: 12px;
+          }
+          .tag-caption {
+            display: none;
           }
         }
       }
