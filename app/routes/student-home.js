@@ -1,10 +1,7 @@
 import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
-import {
-  ROLES,
-  PLAYER_EVENT_SOURCE
-} from 'gooru-web/config/config';
+import { ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 /**
  * Student home route
@@ -100,7 +97,14 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       }
 
       suggestionPromise.then(() =>
-        route.transitionTo('study-player', courseId, { queryParams })
+        route.transitionTo(
+          'student.class.study-player',
+          queryParams.classId,
+          courseId,
+          {
+            queryParams
+          }
+        )
       );
     },
 
@@ -275,30 +279,28 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         .get('courseService')
         .fetchById(fourthCourseId);
     }
-    return Ember.RSVP
-      .hash({
-        firstCourse: firstCoursePromise,
-        secondCourse: secondCoursePromise,
-        thirdCourse: thirdCoursePromise,
-        fourthCourse: fourthCoursePromise
-      })
-      .then(function(hash) {
-        const firstFeaturedCourse = hash.firstCourse;
-        const secondFeaturedCourse = hash.secondCourse;
-        const thirdFeaturedCourse = hash.thirdCourse;
-        const fourthFeaturedCourse = hash.fourthCourse;
+    return Ember.RSVP.hash({
+      firstCourse: firstCoursePromise,
+      secondCourse: secondCoursePromise,
+      thirdCourse: thirdCoursePromise,
+      fourthCourse: fourthCoursePromise
+    }).then(function(hash) {
+      const firstFeaturedCourse = hash.firstCourse;
+      const secondFeaturedCourse = hash.secondCourse;
+      const thirdFeaturedCourse = hash.thirdCourse;
+      const fourthFeaturedCourse = hash.fourthCourse;
 
-        featuredCourses.push(firstFeaturedCourse);
-        featuredCourses.push(secondFeaturedCourse);
-        featuredCourses.push(thirdFeaturedCourse);
-        featuredCourses.push(fourthFeaturedCourse);
+      featuredCourses.push(firstFeaturedCourse);
+      featuredCourses.push(secondFeaturedCourse);
+      featuredCourses.push(thirdFeaturedCourse);
+      featuredCourses.push(fourthFeaturedCourse);
 
-        return {
-          activeClasses,
-          featuredCourses,
-          tourSteps
-        };
-      });
+      return {
+        activeClasses,
+        featuredCourses,
+        tourSteps
+      };
+    });
   },
 
   afterModel(resolvedModel) {
@@ -307,30 +309,28 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     let classIds = activeClasses.mapBy('id');
     let myId = route.get('session.userId');
 
-    Ember.RSVP
-      .hash({
-        classPerformanceSummaryItems: route
-          .get('performanceService')
-          .findClassPerformanceSummaryByStudentAndClassIds(myId, classIds),
-        classesLocation: route
-          .get('analyticsService')
-          .getUserCurrentLocationByClassIds(classIds, myId, true)
-      })
-      .then(function(hash) {
-        const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
-        const classesLocation = hash.classesLocation;
-        activeClasses.forEach(function(activeClass) {
-          const classId = activeClass.get('id');
-          activeClass.set(
-            'currentLocation',
-            classesLocation.findBy('classId', classId)
-          );
-          activeClass.set(
-            'performanceSummary',
-            classPerformanceSummaryItems.findBy('classId', classId)
-          );
-        });
+    Ember.RSVP.hash({
+      classPerformanceSummaryItems: route
+        .get('performanceService')
+        .findClassPerformanceSummaryByStudentAndClassIds(myId, classIds),
+      classesLocation: route
+        .get('analyticsService')
+        .getUserCurrentLocationByClassIds(classIds, myId, true)
+    }).then(function(hash) {
+      const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
+      const classesLocation = hash.classesLocation;
+      activeClasses.forEach(function(activeClass) {
+        const classId = activeClass.get('id');
+        activeClass.set(
+          'currentLocation',
+          classesLocation.findBy('classId', classId)
+        );
+        activeClass.set(
+          'performanceSummary',
+          classPerformanceSummaryItems.findBy('classId', classId)
+        );
       });
+    });
   },
 
   setupController: function(controller, model) {

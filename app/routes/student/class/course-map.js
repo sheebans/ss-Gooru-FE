@@ -6,6 +6,23 @@ export default Ember.Route.extend({
   // Dependencies
 
   session: Ember.inject.service('session'),
+  /**
+   * @type {ClassService} Service to retrieve class information
+   */
+  classService: Ember.inject.service('api-sdk/class'),
+  /**
+   * @type {CourseService} Service to retrieve course information
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
+
+  /**
+   * @type {UnitService} Service to retrieve unit information
+   */
+  unitService: Ember.inject.service('api-sdk/unit'),
+  /**
+   * @type {PerformanceService} Service to retrieve class performance summary
+   */
+  performanceService: Ember.inject.service('api-sdk/performance'),
 
   i18n: Ember.inject.service(),
 
@@ -89,6 +106,133 @@ export default Ember.Route.extend({
     });
   },
 
+  modela: function(params) {
+    const route = this;
+    var classModelRsvp = this.classModel(params);
+    return classModelRsvp.then(function(hash) {
+      const currentClass = hash.class;
+      const course = hash.course;
+      const units = hash.units;
+      const userId = route.get('session.userId');
+      const classMembers = currentClass.get('members');
+      const userLocation = route
+        .get('analyticsService')
+        .getUserCurrentLocation(currentClass.get('id'), userId);
+
+      return Ember.RSVP.hash({
+        userLocation: userLocation,
+        course: course,
+        units: units,
+        currentClass: currentClass,
+        classMembers: classMembers
+      });
+    });
+  },
+
+  classModel: function() {
+    const route = this;
+    const myId = route.get('session.userId');
+
+    //Steps for Take a Tour functionality
+    let tourSteps = Ember.A([
+      {
+        title: route.get('i18n').t('gru-take-tour.student-class.stepOne.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepOne.description')
+      },
+      {
+        elementSelector: '.student .classroom-information',
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepTopBar.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepTopBar.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .nav-tabs .class-activities',
+        title: route.get('i18n').t('gru-take-tour.student-class.stepTwo.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepTwo.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .nav-tabs .course-map',
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepThree.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepThree.description')
+      },
+      {
+        elementSelector: '.gru-class-navigation .nav-tabs .performance',
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepFour.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepFour.description')
+      },
+      {
+        title: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepFive.title'),
+        description: route
+          .get('i18n')
+          .t('gru-take-tour.student-class.stepFive.description')
+      }
+    ]);
+
+    const classId = '13ff77c7-3cd2-43c5-8b2c-660746c8cdca';
+    const classPromise = route.get('classService').readClassInfo(classId);
+    const membersPromise = route.get('classService').readClassMembers(classId);
+    const performanceSummaryPromise = route
+      .get('performanceService')
+      .findClassPerformanceSummaryByStudentAndClassIds(myId, [classId]);
+    return Ember.RSVP.hash({
+      class: classPromise,
+      members: membersPromise,
+      classPerformanceSummaryItems: performanceSummaryPromise
+    }).then(function(hash) {
+      const aClass = hash.class;
+      const members = hash.members;
+      const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
+      aClass.set(
+        'performanceSummary',
+        classPerformanceSummaryItems.findBy('classId', classId)
+      );
+      const courseId = aClass.get('courseId');
+      let visibilityPromise = Ember.RSVP.resolve([]);
+      let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
+
+      if (courseId) {
+        visibilityPromise = route
+          .get('classService')
+          .readClassContentVisibility(classId);
+        coursePromise = route.get('courseService').fetchById(courseId);
+      }
+      return Ember.RSVP.hash({
+        contentVisibility: visibilityPromise,
+        course: coursePromise
+      }).then(function(hash) {
+        const contentVisibility = hash.contentVisibility;
+        const course = hash.course;
+        aClass.set('owner', members.get('owner'));
+        aClass.set('collaborators', members.get('collaborators'));
+        aClass.set('members', members.get('members'));
+        return Ember.RSVP.hash({
+          class: aClass,
+          course: course,
+          members: members,
+          units: course.get('children') || [],
+          contentVisibility: contentVisibility,
+          tourSteps: tourSteps
+        });
+      });
+    });
+  },
   /**
    * Set all controller properties from the model
    * @param controller
@@ -176,7 +320,9 @@ export default Ember.Route.extend({
         );
     }
     suggestionPromise.then(() =>
-      route.transitionTo('study-player', courseId, { queryParams })
+      route.transitionTo('study-player', courseId, {
+        queryParams
+      })
     );
   },
 
@@ -201,7 +347,9 @@ export default Ember.Route.extend({
       .get('navigateMapService')
       .startLesson(courseId, unitId, lessonId, classId)
       .then(() =>
-        route.transitionTo('study-player', courseId, { queryParams })
+        route.transitionTo('study-player', courseId, {
+          queryParams
+        })
       );
   },
 
@@ -221,7 +369,9 @@ export default Ember.Route.extend({
       .get('navigateMapService')
       .continueCourse(courseId, classId)
       .then(() =>
-        route.transitionTo('study-player', courseId, { queryParams })
+        route.transitionTo('study-player', courseId, {
+          queryParams
+        })
       );
   },
 

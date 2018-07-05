@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
-
+import { ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
     refresh: {
@@ -45,7 +45,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
       if (item !== currentItem) {
         controller.selectMenuItem(item);
-        const queryParams = {
+        var queryParams = {
           queryParams: {
             filterBy: 'assessment'
           }
@@ -55,8 +55,27 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           route.transitionTo('student.independent.performance', queryParams);
         } else if (item === 'course-map') {
           route.transitionTo('student.independent.course-map');
-        } else {
-          route.transitionTo('student.independent');
+        } else if (item === 'study-player') {
+          let userLocation = controller.get('userlocation');
+          let courseId = controller.get('course').id;
+          let unitId = userLocation.get('unitId');
+          let lessonId = userLocation.get('lessonId');
+          let collectionId = userLocation.get('collectionId');
+
+          let queryParams = {
+            classId: null,
+            unitId,
+            lessonId,
+            collectionId,
+            role: ROLES.STUDENT,
+            source: PLAYER_EVENT_SOURCE.INDEPENDENT_ACTIVITY,
+            type: 'collection'
+          };
+          route.transitionTo('study-player', courseId, {
+            queryParams
+          });
+        } else if (item === 'close') {
+          route.transitionTo('student-independent-learning.learning-base');
         }
       }
     }
@@ -77,19 +96,21 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       .get('learnerService')
       .fetchCoursesPerformance(userId, [courseId]);
 
-    return Ember.RSVP
-      .hash({
-        course: coursePromise,
-        performance: performancePromise
-      })
-      .then(function(hash) {
-        const course = hash.course;
-        const performance = hash.performance;
-        return Ember.RSVP.hash({
-          course,
-          performance
-        });
+    return Ember.RSVP.hash({
+      course: coursePromise,
+      performance: performancePromise
+    }).then(function(hash) {
+      const course = hash.course;
+      const performance = hash.performance;
+      let userLocation = route
+        .get('learnerService')
+        .fetchLocationCourse(course.get('id'), userId);
+      return Ember.RSVP.hash({
+        course,
+        performance,
+        userLocation
       });
+    });
   },
   /**
    * Run after model is set
@@ -109,5 +130,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('performance', model.performance[0]);
     controller.set('course', model.course);
     controller.set('units', model.course.get('children') || []);
+    controller.set('userlocation', model.userLocation);
   }
 });

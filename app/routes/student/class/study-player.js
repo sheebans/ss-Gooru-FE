@@ -181,9 +181,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
               collectionId: params.collectionId,
               type: params.type,
               minScore: params.minScore,
-              suggestedResources: hash.suggestedResources,
-              collectionSource: params.collectionSource,
-              collectionSubType: params.collectionSubType
+              suggestedResources: hash.suggestedResources
             });
           });
         });
@@ -198,7 +196,9 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       course: model.course,
       unit: model.unit,
       lesson: model.lesson,
-      showConfirmation: model.collection && !isAnonymous,
+      showConfirmation:
+        model.collection &&
+        !(model.collection.get('isCollection') || isAnonymous), //TODO: move to computed
       mapLocation: model.mapLocation,
       classId: mapLocation.get('context.classId'),
       //setting query params variables using the map location
@@ -208,9 +208,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       courseId: mapLocation.get('context.courseId'),
       type: model.type,
       minScore: model.minScore,
-      suggestedResources: model.suggestedResources,
-      collectionSource: model.collectionSource,
-      collectionSubType: model.collectionSubType
+      suggestedResources: model.suggestedResources
     });
   },
 

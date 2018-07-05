@@ -38,6 +38,9 @@ export default Ember.Component.extend({
    */
   learnerService: Ember.inject.service('api-sdk/learner'),
 
+  menuItem: null,
+
+  sourceType: null,
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -80,6 +83,56 @@ export default Ember.Component.extend({
      */
     backToCollection() {
       window.location.href = this.get('collectionUrl');
+    },
+
+    selectMenuItem: function(item) {
+      const route = this.get('router');
+      const classId = this.get('classId') || null;
+      const component = this;
+      const currentItem = component.get('menuItem');
+
+      if (item !== currentItem) {
+        component.setMenuItem(item);
+        const queryParams = {
+          queryParams: {
+            filterBy: 'assessment'
+          }
+        };
+
+        if (item === 'performance') {
+          if (classId == null) {
+            route.transitionTo(
+              'student.independent.performance',
+              this.get('courseId'),
+              queryParams
+            );
+          } else {
+            route.transitionTo(
+              'student.class.performance',
+              classId,
+              queryParams
+            );
+          }
+        } else if (item === 'course-map') {
+          if (classId == null) {
+            this.get('router').transitionTo(
+              'student.independent.course-map',
+              this.get('courseId'),
+              {
+                queryParams: {
+                  refresh: true
+                }
+              }
+            );
+          } else {
+            route.transitionTo('student.class.course-map', classId);
+          }
+        } else if (item === 'class-activities') {
+          route.transitionTo('student.class.class-activities', classId);
+        } else {
+          route.transitionTo('student.class');
+        }
+      } // end of if block
     }
   },
 
@@ -202,7 +255,7 @@ export default Ember.Component.extend({
     function() {
       const completed = this.get('performanceSummary.totalCompleted');
       const total = this.get('performanceSummary.total');
-      const percentage = completed ? (completed / total) * 100 : 0;
+      const percentage = completed ? completed / total * 100 : 0;
       return [
         {
           color: this.get('color'),
@@ -272,5 +325,12 @@ export default Ember.Component.extend({
         }
       });
     }
+
+    if (!this.menuItem) {
+      this.setMenuItem('study-player');
+    }
+  },
+  setMenuItem: function(item) {
+    this.set('menuItem', item);
   }
 });
