@@ -134,14 +134,9 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     }
 
     suggestionPromise.then(() =>
-      route.transitionTo(
-        'student.class.study-player',
-        queryParams.classId,
-        courseId,
-        {
-          queryParams
-        }
-      )
+      route.transitionTo('study-player', courseId, {
+        queryParams
+      })
     );
   },
 
