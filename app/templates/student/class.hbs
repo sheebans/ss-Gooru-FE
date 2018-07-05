@@ -8,7 +8,7 @@
       {{/link-to}}
       <h1>{{class.title}}</h1>
     </div>
-    <div class="panel panel-default panel-primary classroom-information">
+    <div class="panel panel-default panel-primary classroom-information hide-classroom-information">
       <div class="panel-body">
         <div class="course-image">
           {{#if course.thumbnailUrl}}
@@ -66,12 +66,7 @@
     </div>
   </div>
   {{#if class}}
-    {{student.class.gru-class-navigation
-      class=class
-      onItemSelected="selectMenuItem"
-      onCollapseExpandClicked="toggleHeader"
-      selectedMenuItem=menuItem
-      expand=true}}
+      {{student.class.gru-study-navbar class=class onItemSelected="selectMenuItem" selectedMenuItem=menuItem isRescopedClass = isRescopedClass studyCurrent=studyPlayer hasClassInfo = 'true' }} 
   {{else}}
   {{student.class.gru-class-navigation
     class=class

@@ -1,0 +1,127 @@
+<div class="panel">
+    <div class="nav-body">
+        <ul class="nav nav-pills" role="tablist">
+            <li role="separator" class="divider"></li>
+            <li class="closetab tab">
+                {{#if (or (eq sourceType 'ILActivity') (eq ILActivity 'true') ) }}
+                 {{#link-to 'student-independent-learning.learning-base'
+                     title="{{t 'student-landing.class.back-to-independent"  data-toggle="tooltip"}}
+                        {{gru-icon name='clear'}}
+                    {{/link-to}}
+                {{else}}
+                    {{#if backUrls}}
+                        <a {{action 'selectItem' 'close'}} title="{{t 'common.back-to-report'}}" role="tab" data-toggle="tooltip">
+                            {{gru-icon name='clear'}}
+                        </a>
+                    {{else}}
+                        {{#if class.isArchived}}
+                            {{#link-to 'student-home' (query-params showArchivedClasses="true" showActiveClasses="false" ) class="back-to" data-toggle="tooltip"
+                                title='Back to Classrooms' }} {{gru-icon name='clear'}} {{/link-to}}
+                        {{else}}
+                            {{#link-to 'student-home' class="back-to" data-toggle="tooltip" title='Back to Classrooms' }}
+                                {{gru-icon name='clear'}}
+                            {{/link-to}}
+                        {{/if}}
+                    {{/if}}
+                {{/if}}
+            </li>
+            {{#unless class.isArchived}}
+                {{#if (not (eq sourceType 'ILActivity')) }}
+                    {{#if (not (eq ILActivity 'true')) }}
+                        <li role="separator" class="divider"></li>
+                        <li class="class-activities tab">
+                            <a {{action 'selectItem' 'class-activities'}} title="{{t 'teacher-landing.class.class-activities'}}" role="tab" data-toggle="tooltip">
+                                <img src='/assets/gooru/pin-white.png'>
+                                <span class="add-info">
+                                    &nbsp; {{t 'teacher-landing.class.class-activities'}}
+                                </span>
+                            </a>
+                        </li>
+                    {{/if}}
+                {{/if}}
+                <li role="separator" class="divider"></li>
+                <li class="course-map study-player tab">
+                    {{#if (eq selectedMenuItem 'course-map')}}
+                        <a {{action 'selectItem' 'study-player'}} role="tab" data-toggle="tooltip" title="{{t 'student-landing.study-player'}}">
+                            {{gru-icon name='play_arrow'}}
+                            <span class="add-info">
+                                &nbsp; {{t 'student-landing.study-player'}}
+                            </span>
+                        </a>
+                    {{else}}
+                        <a {{action 'selectItem' 'course-map'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.course-map'}}">
+                            {{gru-icon name='sort'}}
+                            <span class="add-info">
+                                &nbsp; {{t 'teacher-landing.class.course-map'}}
+                            </span>
+                        </a>
+                    {{/if}}
+                </li>
+            {{/unless}}
+            <li role="separator" class="divider"></li>
+            <li class="performance tab">
+                <a {{action 'selectItem' 'performance'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.report'}} ">
+                    {{gru-icon name='insert_chart'}}
+                    <span class="add-info">
+                        &nbsp; {{t 'teacher-landing.class.reports'}}
+                    </span>
+                </a>
+            </li>
+            {{#unless class.isArchived}}
+                <li role="separator" class="divider"></li>
+                <li class="class-management tab hidden">
+                    <a {{action 'selectItem' 'class-management'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.class-management' }}">
+                        {{gru-icon name='school'}}
+                        <span class="add-info">
+                            &nbsp; {{t 'teacher-landing.class.class-management' }}
+                        </span>
+                    </a>
+                </li>
+                <li role="separator" class="divider hidden"></li>
+            {{/unless}}
+            <ul class="nav navbar-nav navbar-right">
+                {{#if hasClassInfo }}
+                    <li>
+                        {{#if (not isRescopedClass)}}
+                            <div class="">
+                                {{charts/gru-performance-chart performanceSummary=class.performanceSummary routeToGo="teacher.class.performance"}}
+                            </div>
+                        {{/if}}
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li class="class-info">
+                        <a {{action 'selectItem' 'class-info'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.class-management-tab.class-information'}}">
+                            <img src='/assets/gooru/info-outline-white.png'>
+                        </a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                {{else}}
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <div class="performance">
+                            {{#if performanceSummary}}
+                                <span class="score">{{performanceSummary.totalCompleted}}/{{performanceSummary.total}}</span>
+                            {{else}}
+                                <span class="score">--</span>
+                            {{/if}}
+                            <span class="label">{{t 'common.completion'}}</span>
+                        </div>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <div class="performance" style="background-color:{{if performanceSummary (grade-color performanceSummary.score) defaultBarColor}}">
+                            <span class="score">
+                                {{#if performanceSummary}}
+                                    {{#if performanceSummary.score}} {{performanceSummary.score}}% {{else}}0% {{/if}} {{else}}--
+                                {{/if}}
+                            </span>
+                            <span class="label">{{t 'teacher-landing.class.performance'}} </span>
+                        </div>
+                    </li>
+                    {{!-- </ul>
+            <ul class="nav navbar-nav navbar-right" style="display:none"> --}}
+                {{/if}}
+            </ul>
+        </ul>
+    </div>
+</div>

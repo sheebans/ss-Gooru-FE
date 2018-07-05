@@ -59,6 +59,8 @@ export default Ember.Controller.extend({
    */
   menuItem: null,
 
+  ILActivity: null,
+
   /**
    * Percentage value for the score chart
    * @property {Boolean}

@@ -1,0 +1,207 @@
+.gru-study-navbar {
+  position: fixed;
+  top: 63px;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+
+  .panel {
+    height: 51px;
+    width: 100%;
+  }
+
+  .nav-body {
+    margin: auto;
+
+    .add-info {
+      display: inline-block;
+      word-wrap: break-word;
+
+      //width: 90px;
+      vertical-align: middle;
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .add-info {
+        display: none;
+      }
+    }
+
+    @media (min-width: 1025px) and (max-width: 1280px) {
+      //width: 960px;
+      add-info: {
+        display: inline-block;
+      }
+    }
+
+    @media (min-width: 1281px) {
+      //width: 960px;
+      add-info: {
+        display: inline-block;
+      }
+    }
+
+    /* 
+                      ##Device = Tablets, Ipads (landscape)
+                      ##Screen = B/w 768px to 1024px
+                    */
+
+    @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+      //width: 960px;
+      add-info: {
+        display: inline-block;
+      }
+    }
+
+    /* 
+                      ##Device = Low Resolution Tablets, Mobiles (Landscape)
+                      ##Screen = B/w 481px to 767px
+                    */
+
+    @media (min-width: 481px) and (max-width: 767px) {
+      .add-info {
+        display: none;
+      }
+    }
+
+    /* 
+                      ##Device = Most of the Smartphones Mobiles (Portrait)
+                      ##Screen = B/w 320px to 479px
+                    */
+
+    @media (min-width: 320px) and (max-width: 480px) {
+      .add-info {
+        display: none;
+      }
+    }
+  }
+
+  ul.nav-pills,
+  ul.nav-bar {
+    .nav-item {
+      border-left: $border-right-side $light-200;
+      border-right: $border-left-side $light-200;
+    }
+
+    li {
+      &.divider {
+        border-left: 1px solid $panel-default-border;
+        height: 50px;
+      }
+
+      &.class-info > a {
+        opacity: 1;
+      }
+
+      height: 43px;
+
+      &.vactive {
+        display: block;
+        color: $blue-400;
+
+        a {
+          color: $blue-400;
+        }
+      }
+
+      a {
+        color: $gray-base;
+
+        .gru-icon {
+          vertical-align: middle;
+        }
+      }
+
+      @media (min-width: $screen-sm) {
+        display: block;
+      }
+
+      @media (max-width: $screen-xs-max) {
+        .charts.gru-performance-chart {
+          display: none;
+        }
+      }
+
+      .class-title {
+        padding: 5px;
+      }
+    }
+  }
+
+  .navbar-right {
+    margin-right: 0px;
+
+    li {
+      .performance {
+        height: 51.5px;
+        width: 143px;
+
+        .score {
+          font-weight: 900;
+          font-size: 30px;
+          height: 35px;
+          line-height: 35px;
+          display: block;
+          text-align: center;
+
+          // margin-top: 4px;
+        }
+
+        .label {
+          font-size: 12px;
+          line-height: 8px;
+          text-transform: uppercase;
+          font-weight: bold;
+          display: block;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .charts.gru-performance-chart {
+    min-width: 59px;
+
+    > .container-box {
+      height: 51px;
+    }
+  }
+
+  .nav > li > a:hover,
+  .nav > li > a:focus {
+    background-color: $blue-400; // sunken effect
+  }
+
+  ul.navbar-nav > li.class-info {
+    > a {
+      border-radius: 3px;
+      padding: 10px 15px;
+    }
+  }
+} //nav-body
+
+div.student.class {
+  div.header.clearfix {
+    margin-top: 55px;
+
+    > div.go-back-container {
+      display: none;
+    }
+  }
+}
+
+.hide-classroom-information {
+  display: none;
+}
+
+.controller.teacher.class.course-map {
+  margin-top: 50px !important;
+}
+
+.start-tour {
+  display: none;
+}
+
+button.locate {
+  display: none;
+}

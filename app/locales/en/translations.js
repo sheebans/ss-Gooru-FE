@@ -1100,6 +1100,7 @@ export default Object.assign(quizzesTranslations, {
       'time-period': 'Time Period',
       'update-report': 'Update Report'
     },
+    'study-player': 'Study Player',
     'my-study': 'My Study',
     'no-classrooms':
       'You have not yet joined any classrooms. Click on “Join </br> Classroom” to add your teacher’s class. You can also search for </br> a featured course under the Library tab.',

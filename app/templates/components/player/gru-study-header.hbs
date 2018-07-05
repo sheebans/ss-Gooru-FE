@@ -1,4 +1,4 @@
-<div class="header-panel row">
+<div class="header-panel row" style="display:none">
   <div class="col-xs-3 course-info">
     {{#if showBackToCourseMap}}
       <div class="course-map pull-left" {{action 'redirectCourseMap'}} data-toggle="tooltip" data-placement="bottom" title="{{t 'common.back-to-course-map'}}">
@@ -58,7 +58,7 @@
     </div>
   </div>
 </div>
-
+ {{student.class.gru-study-navbar class=class onItemSelected="selectMenuItem" selectedMenuItem=menuItem isRescopedClass =isRescopedClass sourceType=sourceType performanceSummary =performanceSummary}}
   <div class="bar-charts" data-content="{{performancePercentage}}% Completed">
     <div class="completion-chart">
       {{charts/gru-x-bar-chart data=barChartData }}
