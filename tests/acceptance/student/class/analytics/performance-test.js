@@ -46,7 +46,7 @@ test('Layout', function(assert) {
       'Missing performance content'
     );
 
-    const $classMenu = find('.student.class .gru-class-navigation .nav');
+    const $classMenu = find('.student.class .gru-study-navbar .nav');
     T.exists(
       assert,
       $classMenu.find('.performance.active'),

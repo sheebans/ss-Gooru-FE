@@ -25,7 +25,7 @@ test('Layout', function(assert) {
     T.exists(assert, $classContainer, 'Missing class container');
     T.exists(
       assert,
-      $classContainer.find('> .gru-class-navigation'),
+      $classContainer.find('> .gru-study-navbar'),
       'Missing class navigation component'
     );
     T.exists(

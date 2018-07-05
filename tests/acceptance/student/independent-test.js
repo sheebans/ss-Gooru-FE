@@ -36,7 +36,7 @@ test('Layout', function(assert) {
 
     T.exists(
       assert,
-      $courseContainer.find('.gru-class-navigation'),
+      $courseContainer.find('.gru-study-navbar'),
       'Missing navigation'
     );
     T.exists(assert, $courseContainer.find('.content'), 'Missing content');
