@@ -89,7 +89,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     let courseId = null;
     let queryParams = null;
     let classId = null;
-    currentLocation = null;
+    const controller = route.get('controller');
+    if (controller.get('course')) {
+      courseId = controller.get('course').id;
+      classId = controller.get('class').id;
+    }
     if (currentLocation) {
       courseId = currentLocation.get('courseId');
       classId = currentLocation.get('classId');
@@ -112,43 +116,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         subtype: collectionSubType,
         pathId
       };
-
-      // Verifies if it is a suggested Collection/Assessment
-      if (collectionSubType) {
-        suggestionPromise = route
-          .get('navigateMapService')
-          .startSuggestion(
-            courseId,
-            unitId,
-            lessonId,
-            collectionId,
-            collectionType,
-            collectionSubType,
-            pathId,
-            classId
-          );
-      } else {
-        suggestionPromise = route
-          .get('navigateMapService')
-          .startCollection(
-            courseId,
-            unitId,
-            lessonId,
-            collectionId,
-            collectionType,
-            classId
-          );
-      }
-    } else {
-      const controller = route.get('controller');
-      if (controller.get('course')) {
-        courseId = controller.get('course').id;
-        classId = controller.get('class').id;
-      }
-      suggestionPromise = route
-        .get('navigateMapService')
-        .continueCourse(courseId, classId);
     }
+    suggestionPromise = route
+      .get('navigateMapService')
+      .continueCourse(courseId, classId);
+
     suggestionPromise.then(() =>
       route.transitionTo('study-player', courseId, {
         queryParams
