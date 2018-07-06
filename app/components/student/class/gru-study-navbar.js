@@ -13,7 +13,7 @@ export default Ember.Component.extend({
         this.selectItem(item);
         this.sendAction('onItemSelected', item);
         if (item === 'class-info') {
-          $('.classroom-information').toggleClass('hide-classroom-information');
+          $('.classroom-information').toggle({ direction: 'left' }, 1000);
         }
       }
     },
