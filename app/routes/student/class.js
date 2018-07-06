@@ -85,54 +85,70 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const route = this;
     let role = ROLES.STUDENT;
     let source = PLAYER_EVENT_SOURCE.COURSE_MAP;
-    let courseId = currentLocation.get('courseId');
-    let classId = currentLocation.get('classId');
-    let unitId = currentLocation.get('unitId');
-    let lessonId = currentLocation.get('lessonId');
-    let collectionId = currentLocation.get('collectionId');
-    let collectionType = currentLocation.get('collectionType');
-    let collectionSubType = currentLocation.get('collection.collectionSubType');
-    let pathId = currentLocation.get('collection.pathId') || 0;
-    let queryParams = {
-      classId,
-      unitId,
-      lessonId,
-      collectionId,
-      role,
-      source,
-      type: collectionType,
-      subtype: collectionSubType,
-      pathId
-    };
-
     let suggestionPromise = null;
-    // Verifies if it is a suggested Collection/Assessment
-    if (collectionSubType) {
-      suggestionPromise = route
-        .get('navigateMapService')
-        .startSuggestion(
-          courseId,
-          unitId,
-          lessonId,
-          collectionId,
-          collectionType,
-          collectionSubType,
-          pathId,
-          classId
-        );
-    } else {
-      suggestionPromise = route
-        .get('navigateMapService')
-        .startCollection(
-          courseId,
-          unitId,
-          lessonId,
-          collectionId,
-          collectionType,
-          classId
-        );
-    }
+    let courseId = null;
+    let queryParams = null;
+    let classId = null;
+    currentLocation = null;
+    if (currentLocation) {
+      courseId = currentLocation.get('courseId');
+      classId = currentLocation.get('classId');
+      let unitId = currentLocation.get('unitId');
+      let lessonId = currentLocation.get('lessonId');
+      let collectionId = currentLocation.get('collectionId');
+      let collectionType = currentLocation.get('collectionType');
+      let collectionSubType = currentLocation.get(
+        'collection.collectionSubType'
+      );
+      let pathId = currentLocation.get('collection.pathId') || 0;
+      queryParams = {
+        classId,
+        unitId,
+        lessonId,
+        collectionId,
+        role,
+        source,
+        type: collectionType,
+        subtype: collectionSubType,
+        pathId
+      };
 
+      // Verifies if it is a suggested Collection/Assessment
+      if (collectionSubType) {
+        suggestionPromise = route
+          .get('navigateMapService')
+          .startSuggestion(
+            courseId,
+            unitId,
+            lessonId,
+            collectionId,
+            collectionType,
+            collectionSubType,
+            pathId,
+            classId
+          );
+      } else {
+        suggestionPromise = route
+          .get('navigateMapService')
+          .startCollection(
+            courseId,
+            unitId,
+            lessonId,
+            collectionId,
+            collectionType,
+            classId
+          );
+      }
+    } else {
+      const controller = route.get('controller');
+      if (controller.get('course')) {
+        courseId = controller.get('course').id;
+        classId = controller.get('class').id;
+      }
+      suggestionPromise = route
+        .get('navigateMapService')
+        .continueCourse(courseId, classId);
+    }
     suggestionPromise.then(() =>
       route.transitionTo('study-player', courseId, {
         queryParams
