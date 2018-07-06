@@ -30,6 +30,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    */
   session: Ember.inject.service('session'),
 
+  /**
+   * @property {NavigateMapService}
+   */
+  navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -57,10 +62,20 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           route.transitionTo('student.independent.course-map');
         } else if (item === 'study-player') {
           let userLocation = controller.get('userlocation');
-          let courseId = controller.get('course').id;
-          let unitId = userLocation.get('unitId');
-          let lessonId = userLocation.get('lessonId');
-          let collectionId = userLocation.get('collectionId');
+          let courseId, unitId, lessonId, collectionId;
+          courseId = controller.get('course').id;
+
+          let suggestionPromise = null;
+          if (userLocation) {
+            unitId = userLocation.get('unitId');
+            lessonId = userLocation.get('lessonId');
+            collectionId = userLocation.get('collectionId');
+            suggestionPromise = Ember.RSVP.resolve(Ember.Object.create({}));
+          } else {
+            suggestionPromise = route
+              .get('navigateMapService')
+              .continueCourse(courseId);
+          }
 
           let queryParams = {
             classId: null,
@@ -71,9 +86,10 @@ export default Ember.Route.extend(PrivateRouteMixin, {
             source: PLAYER_EVENT_SOURCE.INDEPENDENT_ACTIVITY,
             type: 'collection'
           };
-          route.transitionTo('study-player', courseId, {
-            queryParams
-          });
+
+          suggestionPromise.then(() =>
+            route.transitionTo('study-player', courseId, { queryParams })
+          );
         } else if (item === 'close') {
           route.transitionTo('student-independent-learning.learning-base');
         }
