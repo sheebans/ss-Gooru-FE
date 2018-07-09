@@ -77,6 +77,8 @@ export default Ember.Component.extend({
 
   hasClassInfo: null,
 
+  navTitle: null,
+
   // -------------------------------------------------------------------------
   // Observers
   /**

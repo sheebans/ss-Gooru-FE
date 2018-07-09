@@ -42,9 +42,9 @@
     }
 
     /* 
-                          ##Device = Tablets, Ipads (landscape)
-                          ##Screen = B/w 768px to 1024px
-                        */
+                              ##Device = Tablets, Ipads (landscape)
+                              ##Screen = B/w 768px to 1024px
+                            */
 
     @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
       //width: 960px;
@@ -54,9 +54,9 @@
     }
 
     /* 
-                          ##Device = Low Resolution Tablets, Mobiles (Landscape)
-                          ##Screen = B/w 481px to 767px
-                        */
+                              ##Device = Low Resolution Tablets, Mobiles (Landscape)
+                              ##Screen = B/w 481px to 767px
+                            */
 
     @media (min-width: 481px) and (max-width: 767px) {
       .add-info {
@@ -65,14 +65,23 @@
     }
 
     /* 
-                          ##Device = Most of the Smartphones Mobiles (Portrait)
-                          ##Screen = B/w 320px to 479px
-                        */
+                              ##Device = Most of the Smartphones Mobiles (Portrait)
+                              ##Screen = B/w 320px to 479px
+                            */
 
     @media (min-width: 320px) and (max-width: 480px) {
       .add-info {
         display: none;
       }
+    }
+
+    .studyplayer-title {
+      text-align: center;
+      opacity: 1;
+      height: 22px;
+      font-size: 16px;
+      font-weight: bold;
+      pointer-events: none;
     }
   }
 
@@ -111,6 +120,7 @@
         padding-bottom: 8px;
         padding-left: 15px;
         padding-right: 15px;
+
         .gru-icon {
           vertical-align: middle;
         }
@@ -161,6 +171,12 @@
         }
       }
     }
+  }
+
+  .navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
   }
 
   .charts.gru-performance-chart {
