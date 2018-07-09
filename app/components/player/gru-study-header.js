@@ -45,7 +45,8 @@ export default Ember.Component.extend({
   // Attributes
 
   classNames: ['gru-study-header'],
-  classNameBindings: ['showConfirmation:hidden'],
+  
+  classNameBindings: ['showConfirmation:non-clickable'],
 
   // -------------------------------------------------------------------------
   // Actions
