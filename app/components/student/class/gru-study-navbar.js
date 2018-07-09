@@ -11,9 +11,10 @@ export default Ember.Component.extend({
     selectItem: function(item) {
       if (this.get('onItemSelected')) {
         this.selectItem(item);
-        this.sendAction('onItemSelected', item);
         if (item === 'class-info') {
           $('.classroom-information').toggle({ direction: 'left' }, 1000);
+        } else {
+          this.sendAction('onItemSelected', item);
         }
       }
     },
