@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { getBarGradeColor } from 'gooru-web/utils/utils';
 
 export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
@@ -9,9 +10,9 @@ export default Ember.Controller.extend({
   // Actions
   actions: {
     /**
-    * Collapses the header section
-    * @param {boolean} state
-    */
+     * Collapses the header section
+     * @param {boolean} state
+     */
     toggleHeader: function(state) {
       var $panels = $('.header .panel');
       if (state) {
@@ -74,6 +75,23 @@ export default Ember.Controller.extend({
    */
   hasStudents: Ember.computed.gt('class.countMembers', 0),
 
+  barChartData: Ember.computed(function() {
+    let score = this.get('class.performanceSummary.score');
+    let scoreColor = getBarGradeColor(score);
+    const completed = this.get('class.performanceSummary.totalCompleted');
+    const total = this.get('class.performanceSummary.total');
+    const percentage = completed ? completed / total * 100 : 0;
+    return [
+      {
+        color: scoreColor,
+        percentage
+      }
+    ];
+  }),
+  performancePercentage: Ember.computed('barChartData', function() {
+    let data = this.get('barChartData').objectAt(0);
+    return data.percentage.toFixed(0);
+  }),
   // -------------------------------------------------------------------------
   // Methods
 
