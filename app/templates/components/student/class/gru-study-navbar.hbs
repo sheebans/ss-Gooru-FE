@@ -67,8 +67,9 @@
                     </span>
                 </a>
             </li>
+              <li role="separator" class="divider"></li>
             {{#unless class.isArchived}}
-                <li role="separator" class="divider"></li>
+                <li role="separator" class="divider hidden"></li>
                 <li class="class-management tab hidden">
                     <a {{action 'selectItem' 'class-management'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.class-management' }}">
                         {{gru-icon name='school'}}
@@ -79,6 +80,17 @@
                 </li>
                 <li role="separator" class="divider hidden"></li>
             {{/unless}}
+            {{#if navTitle}}
+            <ul class="nav navbar-nav navbar-center">
+                <li class="studyplayer-title">
+                    <a style=" opacity:1; ">
+                         <span>
+                     {{navTitle}}
+                     </span>
+                    </a>
+                </li>
+            </ul>
+            {{/if}}
             <ul class="nav navbar-nav navbar-right">
                 {{#if hasClassInfo }}
                     <li>
@@ -118,8 +130,6 @@
                             <span class="label">{{t 'teacher-landing.class.performance'}} </span>
                         </div>
                     </li>
-                    {{!-- </ul>
-            <ul class="nav navbar-nav navbar-right" style="display:none"> --}}
                 {{/if}}
             </ul>
         </ul>
