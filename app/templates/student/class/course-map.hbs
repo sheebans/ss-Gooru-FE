@@ -1,18 +1,12 @@
 {{#if class.courseId}}
-  <div class="controller student course-map">
-    <div class="actions">
-      <span class="min-score {{unless class.minScore 'hidden'}}"><i></i> > {{class.minScore}} %</span>
-      <button {{action "locateMe" userLocation}} title="{{t 'class.overview.locate'}}" class="btn btn-info locate" data-toggle="tooltip" data-placement="auto">
-        <span>{{gru-icon name='near_me'}}</span>
-      </button>
-    </div>
+
 
     <div class="rescope-section">
       {{#if isRescopedClass}}
         <div class="rescope-toggle">
           <div class="action">
             <span>{{t 'class.overview.course-map.rescope-toggle'}}</span>
-            {{gru-toggle-button isChecked=isChecked onToggleButton="onToggleRescope"}}
+            {{gru-toggle-button isChecked=isChecked onToggleButton="onToggleRescope" }}
           </div>
           <div class="info">
             <span>{{t 'class.overview.course-map.rescope-info'}}</span>
@@ -33,6 +27,15 @@
       {{/if}}
       
     </div>
+      <div class="controller student course-map">
+        <div class="actions">
+          <span class="min-score {{unless class.minScore 'hidden'}}">
+            <i></i> > {{class.minScore}} %</span>
+          <button {{action "locateMe" userLocation}} title="{{t 'class.overview.locate'}}" class="btn btn-info locate" data-toggle="tooltip"
+            data-placement="auto">
+            <span>{{gru-icon name='near_me'}}</span>
+          </button>
+        </div>
 
     {{class.overview.gru-accordion-course
     currentClass=class
