@@ -175,6 +175,12 @@ export default Ember.Component.extend({
           component.$(this).popover('hide');
         });
     }
+    if (
+      component.$('.gru-study-navbar').length > 0 &&
+      Ember.$('.qz-player').length > 0
+    ) {
+      Ember.$('.qz-player').css({ 'padding-top': '164px' });
+    }
   },
 
   // -------------------------------------------------------------------------
