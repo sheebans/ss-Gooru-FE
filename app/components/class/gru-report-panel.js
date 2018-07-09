@@ -183,6 +183,12 @@ export default Ember.Component.extend({
 
   showPullUp: false,
 
+
+  /**
+   * @property {Boolean}
+   * Property to show/hide change score button
+   */
+
   showChangeScore: true,
 
   /**
@@ -214,6 +220,9 @@ export default Ember.Component.extend({
       this.pullUpAnimation();
     },
 
+    /**
+     * Action triggered when update question score
+     */
     onUpdateQuestionScore: function(data) {
       this.updateQuestionScore(data);
     }
