@@ -61,6 +61,11 @@ export default Ember.Component.extend({
    */
   lessonService: Ember.inject.service('api-sdk/lesson'),
 
+  /**
+   * @property {Ember.Service} Service to update analytics report.
+   */
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
+
   // -------------------------------------------------------------------------
   // Properties
 
@@ -178,6 +183,28 @@ export default Ember.Component.extend({
 
   showPullUp: false,
 
+
+  /**
+   * @property {Boolean}
+   * Property to show/hide change score button
+   */
+
+  showChangeScore: true,
+
+  /**
+   * Indicates the visibility of change score button
+   * @property {Boolean}
+   */
+  isChangeScoreEnabled: false,
+
+  /**
+   * @property {Boolean}
+   * Is teacher accessing the report or not
+   */
+  isTeacher: Ember.computed('isStudent', function() {
+    return !this.get('isStudent');
+  }),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -191,6 +218,13 @@ export default Ember.Component.extend({
     onPullUpClose() {
       this.set('showPullUp', false);
       this.pullUpAnimation();
+    },
+
+    /**
+     * Action triggered when update question score
+     */
+    onUpdateQuestionScore: function(data) {
+      this.updateQuestionScore(data);
     }
   },
 
@@ -367,5 +401,77 @@ export default Ember.Component.extend({
       unitId: unitId,
       lessonId: lessonId
     });
+  },
+
+  /**
+   * @function updateQuestionScore
+   * Method to update the question score
+   */
+
+  updateQuestionScore: function(questionScoreUpdateData) {
+    let component = this;
+    const context = component.getContext(component.get('reportData'));
+    let data = component.buildQuestionScoreUpdatePayLoad(
+      questionScoreUpdateData
+    );
+    let completedSessions = component.get('completedSessions');
+    const totalSessions = completedSessions.length;
+    const session = totalSessions ? completedSessions[totalSessions - 1] : null;
+    if (session) {
+      //collections has no session
+      context.set('sessionId', session.sessionId);
+      data.session_id = session.sessionId;
+    }
+    component
+      .get('analyticsService')
+      .updateQuestionScore(data)
+      .then(() => {
+
+        component
+          .loadSession(session)
+          .then(() => component.set('isChangeScoreEnabled', false));
+      });
+  },
+
+  /**
+   * @function loadSession
+   * Method to load session from the reportData
+   */
+  loadSession: function(session) {
+    const component = this;
+    const context = component.getContext(component.get('reportData'));
+    if (session) {
+      //collections has no session
+      context.set('sessionId', session.sessionId);
+    }
+    const performanceService = component.get('performanceService');
+    const loadStandards = session && context.get('isInContext');
+    return performanceService
+      .findAssessmentResultByCollectionAndStudent(context, loadStandards)
+      .then(function(assessmentResult) {
+        component.setAssessmentResult(assessmentResult, session);
+      });
+  },
+
+  /**
+   * @function buildQuestionScoreUpdatePayLoad
+   * Method to build question score updated layout from current version
+   */
+  buildQuestionScoreUpdatePayLoad: function(questionScoreUpdateData) {
+    let component = this;
+    let context = component.getContext(component.get('reportData'));
+    let updateData = Ember.Object.create({
+      student_id: context.get('userId'),
+      session_id: context.get('sessionId'),
+      unit_id: context.get('unitId'),
+      collection_id: context.get('collectionId'),
+      class_id: context.get('classId'),
+      collection_type: context.get('collectionType'),
+      lesson_id: context.get('lessonId'),
+      course_id: context.get('courseId'),
+      resources: questionScoreUpdateData,
+      content_source: 'coursemap' // TO-DO Have to replace actual content source, right now default set as coursemap
+    });
+    return updateData;
   }
 });
