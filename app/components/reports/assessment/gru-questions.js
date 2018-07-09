@@ -137,7 +137,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * Indicates change score button got enabled.
    * @property {boolean}
    */
-  isChangeScoreEnabled: false,
+  isChangeScoreEnabled: true,
 
   /**
    * Update question score list
