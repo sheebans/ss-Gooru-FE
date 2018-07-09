@@ -684,7 +684,9 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
       this.get('activeElement')
     );
 
-    component.set('isResourceSelected', isResourceSelected);
+    if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
+      component.set('isResourceSelected', isResourceSelected);
+    }
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
       const classMinScore = component.get('currentClass.minScore');

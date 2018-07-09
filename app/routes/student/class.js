@@ -121,11 +121,15 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       .get('navigateMapService')
       .continueCourse(courseId, classId);
 
-    suggestionPromise.then(() =>
-      route.transitionTo('study-player', courseId, {
+    suggestionPromise.then(() => {
+      if (courseId == null || courseId === '') {
+        console.warn('very fast transition aborted'); // eslint-disable-line
+        return; //
+      }
+      return route.transitionTo('study-player', courseId, {
         queryParams
-      })
-    );
+      });
+    });
   },
 
   // -------------------------------------------------------------------------

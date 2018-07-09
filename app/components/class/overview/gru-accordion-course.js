@@ -266,8 +266,10 @@ export default Ember.Component.extend(AccordionMixin, {
             unit.set('membersCount', peer.get('peerCount'));
           }
         });
-        component.set('loading', false);
-        component.set('items', units);
+        if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
+          component.set('loading', false);
+          component.set('items', units);
+        }
       });
   }
 });
