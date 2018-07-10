@@ -90,6 +90,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
    */
   toggleState: false,
 
+  navTitle: null,
+
   // -------------------------------------------------------------------------
   // Observers
   /**
