@@ -60,6 +60,18 @@
         <li role="separator" class="divider"></li>
         {{/unless}}
 
+        {{#if navTitle}}
+            <ul class="nav navbar-nav navbar-center">
+                <li class="studyplayer-title">
+                    <a style=" opacity:1; ">
+                        <span>
+                            {{navTitle}}
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        {{/if}}
+
         <ul class="nav navbar-nav navbar-right">
             <li>
         {{#if (not isRescopedClass)}}
@@ -77,5 +89,7 @@
         <li role="separator" class="divider"></li>
         </ul>
     </ul>
+
+    
 </div>
 </div>

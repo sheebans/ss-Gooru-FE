@@ -15,6 +15,7 @@
     .add-info {
       display: inline-block;
       word-wrap: break-word;
+
       //width: 90px;
       vertical-align: middle;
     }
@@ -40,9 +41,9 @@
     }
 
     /* 
-          ##Device = Tablets, Ipads (landscape)
-          ##Screen = B/w 768px to 1024px
-        */
+              ##Device = Tablets, Ipads (landscape)
+              ##Screen = B/w 768px to 1024px
+            */
 
     @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
       //width: 960px;
@@ -52,9 +53,9 @@
     }
 
     /* 
-          ##Device = Low Resolution Tablets, Mobiles (Landscape)
-          ##Screen = B/w 481px to 767px
-        */
+              ##Device = Low Resolution Tablets, Mobiles (Landscape)
+              ##Screen = B/w 481px to 767px
+            */
 
     @media (min-width: 481px) and (max-width: 767px) {
       .add-info {
@@ -63,23 +64,32 @@
     }
 
     /* 
-          ##Device = Most of the Smartphones Mobiles (Portrait)
-          ##Screen = B/w 320px to 479px
-        */
+              ##Device = Most of the Smartphones Mobiles (Portrait)
+              ##Screen = B/w 320px to 479px
+            */
 
     @media (min-width: 320px) and (max-width: 480px) {
       .add-info {
         display: none;
       }
     }
+
+    .studyplayer-title {
+      text-align: center;
+      opacity: 1;
+      height: 22px;
+      font-size: 16px;
+      font-weight: bold;
+      pointer-events: none;
+    }
   }
 
   /* @media (min-width: $screen-sm) {
-      display: block;
-      .add-info{
-        display: none;
-      }
-    } */
+        display: block;
+        .add-info{
+          display: none;
+        }
+      } */
 
   ul.nav-pills,
   ul.nav-bar {
@@ -94,7 +104,7 @@
         height: 50px;
       }
 
-      height: 43px;
+      height: 50px;
 
       &.vactive {
         display: block;
@@ -107,6 +117,12 @@
 
       a {
         color: $gray-base;
+        height: 100%;
+        padding-top: 12px;
+        padding-bottom: 8px;
+        padding-left: 15px;
+        padding-right: 15px;
+
         .gru-icon {
           vertical-align: middle;
         }
@@ -123,11 +139,11 @@
       }
 
       /*  &.class-activities > a:hover,
-      &.class-activities > a.vactive {
-        // img {
-        //   display: block;
-        // }
-      } */
+            &.class-activities > a.vactive {
+              // img {
+              //   display: block;
+              // }
+            } */
 
       .class-title {
         padding: 5px;
@@ -159,6 +175,12 @@
       border-radius: 3px;
       padding: 10px 15px;
     }
+  }
+
+  .navbar-nav.navbar-center {
+    position: absolute;
+    left: 60%;
+    transform: translatex(-50%);
   }
 } //nav-body
 
