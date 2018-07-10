@@ -65,15 +65,22 @@ export default QuizzesPlayer.extend(
       /**
    * When closing the player
    */
-      onClosePlayer: function() {
+      onClosePlayer: function(transitionTo) {
+        const route = this;
+        const controller = route.get('controller');
+        const classId = controller.get('classId');
         const $appContainer = Ember.$('.app-container');
         if ($appContainer.hasClass('navigator-on')) {
           $appContainer.removeClass('navigator-on');
         }
-        var route = !this.get('history.lastRoute.name')
-          ? 'index'
-          : this.get('history.lastRoute.url');
-        this.transitionTo(route);
+        if (transitionTo === 'course-map' && classId) {
+          route.transitionTo(`/student/class/${classId}/course-map/`);
+        } else {
+          var redirectTo = !route.get('history.lastRoute.name')
+            ? 'index'
+            : route.get('history.lastRoute.url');
+          route.transitionTo(redirectTo);
+        }
       },
       /**
    * Action triggered to remix the collection
