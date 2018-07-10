@@ -39,6 +39,12 @@ export default Ember.Component.extend({
   didInsertElement: function() {
     var item = this.get('selectedMenuItem');
     this.selectItem(item);
+    if (
+      Ember.$('.gru-study-navbar').length > 0 &&
+      Ember.$('.student-independent-container').length > 0
+    ) {
+      Ember.$('.student-independent-container').css({ 'padding-top': '64px' });
+    }
   },
 
   willDestroyElement() {
