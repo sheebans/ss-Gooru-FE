@@ -42,9 +42,9 @@
     }
 
     /* 
-                              ##Device = Tablets, Ipads (landscape)
-                              ##Screen = B/w 768px to 1024px
-                            */
+                                  ##Device = Tablets, Ipads (landscape)
+                                  ##Screen = B/w 768px to 1024px
+                                */
 
     @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
       //width: 960px;
@@ -54,9 +54,9 @@
     }
 
     /* 
-                              ##Device = Low Resolution Tablets, Mobiles (Landscape)
-                              ##Screen = B/w 481px to 767px
-                            */
+                                  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+                                  ##Screen = B/w 481px to 767px
+                                */
 
     @media (min-width: 481px) and (max-width: 767px) {
       .add-info {
@@ -65,9 +65,9 @@
     }
 
     /* 
-                              ##Device = Most of the Smartphones Mobiles (Portrait)
-                              ##Screen = B/w 320px to 479px
-                            */
+                                  ##Device = Most of the Smartphones Mobiles (Portrait)
+                                  ##Screen = B/w 320px to 479px
+                                */
 
     @media (min-width: 320px) and (max-width: 480px) {
       .add-info {
@@ -184,6 +184,10 @@
 
     > .container-box {
       height: 51px;
+
+      > .percentage {
+        margin-top: 9.5px;
+      }
     }
   }
 
