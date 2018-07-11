@@ -4,7 +4,6 @@
   position: fixed;
   height: 104px;
   color: $white;
-  z-index: $zindex-navbar-fixed + 1;
 
   //Study player header will not be clickable, if show confirmation popup is active
   &.non-clickable {
