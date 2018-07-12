@@ -74,7 +74,7 @@ export default QuizzesPlayer.extend(
           $appContainer.removeClass('navigator-on');
         }
         if (transitionTo === 'course-map' && classId) {
-          route.transitionTo(`/student/class/${classId}/course-map/`);
+          window.location = `/student/class/${classId}/course-map`;
         } else {
           var redirectTo = !route.get('history.lastRoute.name')
             ? 'index'
