@@ -1,0 +1,208 @@
+.gru-content-suggestion {
+  width: 791px;
+  height: 296px;
+  object-fit: contain;
+  border-radius: 4px;
+  background-color: $white;
+  z-index: 9999;
+  position: fixed;
+  box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.07), 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  left: 20%;
+
+  .modal-header {
+    text-align: center;
+    height: 74px;
+    border-bottom: solid 1px $dark-400;
+    .suggestion-title {
+      font-size: 39.5px;
+      font-weight: 300;
+      line-height: 52px;
+      color: $orange-400;
+    }
+  }
+
+  .modal-body {
+    border: none;
+    display: flex;
+    height: 221px;
+    margin-right: 1px;
+    padding: 0;
+
+    .deviation {
+      background-image: url('gooru/suggestion-deviation.svg');
+      width: 48px;
+      margin-left: 20px;
+    }
+
+    .suggestion-details {
+      width: 385px;
+      margin-left: 20px;
+      padding-right: 18px;
+      border-right: 1px solid $dark-200;
+
+      .title {
+        $font-size: 13px;
+        font-weight: bold;
+        color: #4a90e2;
+        margin-top: 25px;
+        $lines-to-show: 2;
+        $line-height: 1.6;
+        @include ellipsis($font-size: $font-size, $line-height: $line-height, $lines-to-show: $lines-to-show);
+        height: 45px;
+        max-height: 45px;
+      }
+      .type {
+        font-size: 13px;
+        font-weight: bold;
+        color: $dark-400;
+      }
+      .description {
+        font-size: 13px;
+        color: $dark-400;
+        line-height: 20px;
+        margin-top: 10px;
+      }
+      .taxonomy {
+        span.border {
+          border-bottom: 1px solid $nobel-gray;
+          width: 70%;
+          float: right;
+          display: block;
+          margin-top: -3px;
+        }
+      }
+    }
+
+    .content-details {
+      width: 398px;
+      display: flex;
+
+      .collection {
+        .header {
+          width: 298px;
+          height: 145px;
+          background-size: cover;
+          background-repeat: no-repeat;
+          position: relative;
+
+          .title {
+            font-size: 16px;
+            font-weight: bold;
+            color: $white;
+            bottom: 1px;
+            position: absolute;
+            line-height: 18px;
+            padding: 10px;
+            z-index: 9999;
+          }
+          &:after {
+            display: block;
+            position: absolute;
+            z-index: 9;
+            background-image: linear-gradient(
+              to bottom,
+              rgba(255, 255, 255, 0) 0,
+              $gray-base 100%
+            );
+            margin-top: 58px;
+            height: 60%;
+            width: 100%;
+            content: "";
+          }
+        }
+
+        .count {
+          font-size: 12px;
+          color: $dark-400;
+          padding: 5px 5px 5px 15px;
+          display: flex;
+          .resource {
+            padding-right: 8px;
+          }
+          .question {
+            padding-left: 8px;
+          }
+        }
+
+        .taxonomy {
+          margin-left: 5px;
+        }
+
+        .info {
+          .values {
+            display: flex;
+            .tag {
+              padding: 10px;
+              .value {
+                margin: auto;
+                width: 28px;
+                height: 15px;
+                line-height: 15px;
+                text-align: center;
+                border-radius: 8px;
+                background-color: $light-green;
+                color: $white;
+                font-size: 10px;
+              }
+              .type {
+                font-size: 10px;
+                text-align: center;
+                color: $dark-400;
+              }
+            }
+          }
+        }
+      }
+      .actions {
+        width: 100px;
+        .system-suggestion {
+          height: 145px;
+          text-align: center;
+          i {
+            font-size: 62px;
+            line-height: 143px;
+            color: $sun-color;
+          }
+        }
+        .action {
+          .accept {
+            border-bottom: solid 2px $white;
+          }
+          .accept,
+          .ignore {
+            background-color: $sun-color;
+            height: 38px;
+            font-size: 13px;
+            font-weight: bold;
+            color: $white;
+            line-height: 38px;
+            text-align: center;
+            text-transform: uppercase;
+            cursor: pointer;
+          }
+          .ignore {
+            border-bottom-right-radius: 4px;
+            span {
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+    }
+
+    .taxonomy {
+      .gru-taxonomy-tag-list {
+        .gru-taxonomy-tag {
+          background-color: $dark-400;
+          .tag-label {
+            color: $white;
+            font-size: 12px;
+          }
+          .tag-caption {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

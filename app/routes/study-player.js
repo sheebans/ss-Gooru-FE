@@ -34,6 +34,11 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
    */
   quizzesAttemptService: Ember.inject.service('quizzes/attempt'),
 
+  /**
+   * @type {suggestService} Service to retrieve suggest resources
+   */
+  suggestService: Ember.inject.service('api-sdk/suggest'),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -81,7 +86,9 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
           return navigateMapService.next(mapLocation.context);
         })
         .then(() =>
-          this.transitionTo('reports.study-student-collection', { queryParams })
+          this.transitionTo('reports.study-student-collection', {
+            queryParams
+          })
         );
     },
 
@@ -108,7 +115,9 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         const courseId = mapLocation.get('context.courseId');
         const unitId = mapLocation.get('context.unitId');
         const lessonId = mapLocation.get('context.lessonId');
-
+        const collectionId =
+          mapLocation.get('context.itemId') ||
+          mapLocation.get('context.collectionId');
         params.type =
           mapLocation.get('context.itemType') ||
           mapLocation.get('context.collectionType');
@@ -117,17 +126,23 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         }
 
         return Ember.RSVP.hash({
-          //loading breadcrumb information and navigation info
           course: route.get('courseService').fetchById(courseId),
           unit: route.get('unitService').fetchById(courseId, unitId),
           lesson: route
             .get('lessonService')
-            .fetchById(courseId, unitId, lessonId)
+            .fetchById(courseId, unitId, lessonId),
+          suggestedResources:
+            collectionId != null
+              ? route
+                .get('suggestService')
+                .suggestResourcesForCollection(
+                  route.get('session.userId'),
+                  collectionId
+                )
+              : null
         }).then(function(hash) {
           //setting query params using the map location
-          params.collectionId =
-            mapLocation.get('context.itemId') ||
-            mapLocation.get('context.collectionId');
+          params.collectionId = collectionId;
           params.classId = params.classId || mapLocation.get('context.classId');
           params.unitId = params.unitId || mapLocation.get('context.unitId');
           params.lessonId =
@@ -165,7 +180,10 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
               mapLocation,
               collectionId: params.collectionId,
               type: params.type,
-              minScore: params.minScore
+              minScore: params.minScore,
+              suggestedResources: hash.suggestedResources,
+              collectionSource: params.collectionSource,
+              collectionSubType: params.collectionSubType
             });
           });
         });
@@ -180,9 +198,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       course: model.course,
       unit: model.unit,
       lesson: model.lesson,
-      showConfirmation:
-        model.collection &&
-        !(model.collection.get('isCollection') || isAnonymous), //TODO: move to computed
+      showConfirmation: model.collection && !isAnonymous,
       mapLocation: model.mapLocation,
       classId: mapLocation.get('context.classId'),
       //setting query params variables using the map location
@@ -191,8 +207,43 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       collectionId: model.collectionId,
       courseId: mapLocation.get('context.courseId'),
       type: model.type,
-      minScore: model.minScore
+      minScore: model.minScore,
+      suggestedResources: model.suggestedResources,
+      collectionSource: model.collectionSource,
+      collectionSubType: model.collectionSubType,
+      isStudyPlayer: true
     });
+  },
+
+  selectMenuItem: function(item) {
+    const route = this;
+    const controller = route.get('controller');
+    const currentItem = controller.get('menuItem');
+
+    if (item !== currentItem) {
+      controller.selectMenuItem(item);
+      if (item === 'class-management') {
+        route.transitionTo('teacher.class.class-management');
+      } else if (item === 'course-map') {
+        route.transitionTo('teacher.class.course-map');
+      } else if (item === 'performance') {
+        route.transitionTo('teacher.class.performance');
+      } else if (item === 'class-activities') {
+        route.transitionTo('teacher.class.class-activities');
+      } else if (item === 'close') {
+        let backurl = this.get('backUrls');
+        backurl = backurl || controller.get('backUrls');
+        if (backurl) {
+          route.transitionTo(backurl);
+        } else {
+          if (controller.class.isArchived) {
+            route.transitionTo('teacher-home'); //, (query - params showArchivedClasses = "true" showActiveClasses = "false") class="back-to" } }
+          } else {
+            route.transitionTo('teacher-home');
+          }
+        }
+      }
+    }
   },
 
   deactivate: function() {

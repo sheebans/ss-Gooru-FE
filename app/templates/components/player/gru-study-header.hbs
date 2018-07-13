@@ -1,4 +1,4 @@
-<div class="header-panel row">
+<div class="header-panel row" style="display:none">
   <div class="col-xs-3 course-info">
     {{#if showBackToCourseMap}}
       <div class="course-map pull-left" {{action 'redirectCourseMap'}} data-toggle="tooltip" data-placement="bottom" title="{{t 'common.back-to-course-map'}}">
@@ -28,32 +28,6 @@
   </div>
   <div class="col-xs-9 suggest-performance">
     <div class="suggest-player pull-left">
-    {{#if hasSuggestedResources}}
-        <div class="slider-container carousel slide multi-item-carousel" id="theCarousel">
-          <div class="slider-inner-container carousel-inner">
-            {{#each suggestedResources as |resource index|}}
-              <div class="item  {{if (eq index 0) "active" "" }}">
-                <div class="col-xs-6" {{action 'playSuggested' resource}}>
-                  <i class="{{resource.format}}-icon resource-icon"></i>
-                  <div class="suggest-resource-title">
-                      <span class="title">{{resource.title}}</span>
-                  </div>
-                </div>
-              </div>
-            {{/each}}
-          </div>
-          <a class="left carousel-control" href="#theCarousel" data-slide="prev">
-                {{gru-icon name="ic_keyboard_arrow_left"}}
-            </a>
-          <a class="right carousel-control" href="#theCarousel" data-slide="next">
-                {{gru-icon name="ic_keyboard_arrow_right"}}
-          </a>
-        </div>
-      {{else}}
-        <div class="no-suggestion-title">
-          <p>{{t 'gru-study-header.no-suggestions'}}</p>
-        </div>
-      {{/if}}
     </div>
     <div class="performance-completion-take-tour-info pull-left">
       <div class="completion pull-left">
@@ -84,7 +58,7 @@
     </div>
   </div>
 </div>
-
+ {{student.class.gru-study-navbar class=class  navTitle=courseTitle onItemSelected="selectMenuItem" selectedMenuItem=menuItem isRescopedClass =isRescopedClass sourceType=sourceType performanceSummary =performanceSummary}}
   <div class="bar-charts" data-content="{{performancePercentage}}% Completed">
     <div class="completion-chart">
       {{charts/gru-x-bar-chart data=barChartData }}

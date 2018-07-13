@@ -240,13 +240,14 @@
   }
 
   .unit-body {
-    max-height: 545px;
+    max-height: calc(90vh - 130px);
+    height: calc(90vh - 130px);
     overflow-y: auto;
   }
 
   .unit-body::-webkit-scrollbar {
     height: 8px;
-    width: 4px;
+    width: 8px;
   }
 
   .unit-body::-webkit-scrollbar-thumb {

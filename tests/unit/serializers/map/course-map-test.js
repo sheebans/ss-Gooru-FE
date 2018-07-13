@@ -131,25 +131,19 @@ test('normalizeLessonInfo', function(assert) {
   );
   assert.deepEqual(
     serializedData.get('children').length,
-    3,
+    2,
     'Returned data length should match'
   );
 
   assert.deepEqual(
     serializedData.get('children')[0].title,
-    'R1-resource',
-    'Resource data should match'
+    'A1',
+    'Should return first assessment title'
   );
 
   assert.deepEqual(
     serializedData.get('children')[1].title,
-    'A1',
-    'Assessment 1 data should match'
-  );
-
-  assert.deepEqual(
-    serializedData.get('children')[2].title,
     'A2',
-    'Assessment 2 data should match'
+    'Should return second assessment title'
   );
 });

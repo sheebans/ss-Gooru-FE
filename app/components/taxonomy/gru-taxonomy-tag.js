@@ -102,7 +102,8 @@ export default Ember.Component.extend({
       content: function() {
         return component.$('.tag-tooltip').html();
       },
-      trigger: 'manual'
+      trigger: 'manual',
+      container: 'body'
     });
 
     if (isMobile.matches) {

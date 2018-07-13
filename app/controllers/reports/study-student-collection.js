@@ -60,7 +60,13 @@ export default StudentCollection.extend({
      * Action triggered for the next button
      */
     next: function() {
-      this.checknPlayNext();
+      let controller = this;
+      let suggestedContent = controller.get('suggestedContent');
+      if (suggestedContent) {
+        controller.set('isShowSuggestion', true);
+      } else {
+        controller.checknPlayNext();
+      }
     },
     /**
      * If the user want to continue playing the post-test suggestion
@@ -100,6 +106,25 @@ export default StudentCollection.extend({
       this.playSuggestedContent(
         this.get('mapLocation.signatureCollectionSuggestions')
       );
+    },
+
+    /**
+     * Action triggered when the user accept a suggestion
+     */
+    onAcceptSuggestion() {
+      let controller = this;
+      let suggestedContent = controller.get('suggestedContent');
+      controller.playSuggestedContent(suggestedContent);
+      controller.set('isShowSuggestion', false);
+    },
+
+    /**
+     * Action triggered when the user ignore a suggestion
+     */
+    onIgnoreSuggestion() {
+      let controller = this;
+      controller.playNextContent();
+      controller.set('isShowSuggestion', false);
     }
   },
 
@@ -358,6 +383,22 @@ export default StudentCollection.extend({
     return steps;
   }),
 
+  /**
+   * @property {Json}
+   * Computed property to store suggestedContent
+   */
+  suggestedContent: Ember.computed('mapLocation', function() {
+    let controller = this;
+    let suggestions = controller.get('mapLocation.suggestions');
+    return suggestions ? suggestions[0] : null;
+  }),
+
+  /**
+   * @property {Boolean}
+   * Property to show/hide suggestion component
+   */
+  isShowSuggestion: false,
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -380,6 +421,9 @@ export default StudentCollection.extend({
       queryParams.lessonId = context.lessonId;
       queryParams.collectionId = suggestion.get('id');
       queryParams.pathId = suggestion.pathId;
+      queryParams.subtype =   suggestion.subType === 'signature_collection'
+        ? 'signature-collection'
+        : 'signature-assessment';
       this.transitionToRoute('study-player', context.get('courseId'), {
         queryParams
       });

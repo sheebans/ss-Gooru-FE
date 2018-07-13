@@ -1,7 +1,5 @@
 import Ember from 'ember';
-import {
-  ASSESSMENT_SUB_TYPES
-} from 'gooru-web/config/config';
+import { ASSESSMENT_SUB_TYPES } from 'gooru-web/config/config';
 import PlayerController from 'gooru-web/controllers/player';
 
 /**
@@ -23,7 +21,8 @@ export default PlayerController.extend({
     'collectionId',
     'source',
     'pathId',
-    'minScore'
+    'minScore',
+    'collectionSource'
   ],
 
   // -------------------------------------------------------------------------
@@ -120,6 +119,12 @@ export default PlayerController.extend({
   minScore: null,
 
   /**
+   * Source of collection
+   * @property {Sring}
+   */
+  collectionSource: null,
+
+  /**
    * Indicates if it should show the back button
    * @property {boolean}
    */
@@ -171,6 +176,11 @@ export default PlayerController.extend({
    * @property {boolean}
    */
   showPlayerHeader: false,
+
+  /**
+   * @property {Array} list of suggested resources of a collection
+   */
+  suggestedResources: null,
 
   /**
    * Steps for Take a Tour functionality

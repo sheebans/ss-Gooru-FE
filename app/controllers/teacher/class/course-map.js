@@ -12,6 +12,8 @@ export default Ember.Controller.extend({
 
   classController: Ember.inject.controller('teacher.class'),
 
+  session: Ember.inject.service('session'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -85,6 +87,17 @@ export default Ember.Controller.extend({
    * @property {boolean} showWelcome - indicates the toggle welcome panel state, true means open, false means closed
    */
   showWelcome: true,
+
+  /**
+   * @property {boolean}
+   * Property to find out is owner of the course or not
+   */
+  isOwner: Ember.computed('course', function() {
+    let component = this;
+    let loggedInUserId = component.get('session.userId');
+    let courseOwnerId = component.get('course.owner.id');
+    return loggedInUserId === courseOwnerId;
+  }),
 
   /**
    * @type {Boolean}

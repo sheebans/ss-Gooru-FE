@@ -126,13 +126,15 @@ export default Ember.Controller.extend(ModalMixin, {
     });
     let localStorage = this.get('applicationController').getLocalStorage();
     const userId = this.get('session.userId');
-    const localStorageItem = `${userId}_dontShowWelcomeModal`;
     const localStorageLogins = `${userId}_logins`;
+    /*     const localStorageItem = `${userId}_dontShowWelcomeModal`;
 
     if (!localStorage.getItem(localStorageItem)) {
       this.send('showModal', 'content.modals.gru-welcome-message');
     }
-    let loginCount = localStorage.getItem(localStorageLogins);
+ */ let loginCount = localStorage.getItem(
+      localStorageLogins
+    );
     if (loginCount) {
       this.set('loginCount', +loginCount);
     }

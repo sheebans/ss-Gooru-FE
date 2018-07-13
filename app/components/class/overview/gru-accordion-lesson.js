@@ -92,6 +92,13 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
   // Actions
   actions: {
     /**
+     * Action triggered when the user click outside of pullup.
+     **/
+    onClosePullUp() {
+      this.set('showPathWayPullUp', false);
+      this.set('showReportPullUp', false);
+    },
+    /**
      * Load the data for this lesson (data should only be loaded once) and trigger
      * the 'onLessonUpdate' event handler
      *
@@ -231,16 +238,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         type: type,
         isStudent: component.get('isStudent')
       };
-      this.send(
-        'showModal',
-        'class.gru-learner-pathway',
-        params,
-        null,
-        null,
-        null,
-        'static',
-        false
-      );
+      component.set('studentReportData', params);
+      component.set('showReportPullUp', true);
     }
   },
 
@@ -685,7 +684,9 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
       this.get('activeElement')
     );
 
-    component.set('isResourceSelected', isResourceSelected);
+    if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
+      component.set('isResourceSelected', isResourceSelected);
+    }
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
       const classMinScore = component.get('currentClass.minScore');

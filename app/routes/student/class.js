@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
+import { ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
@@ -29,6 +30,12 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    * @type {UnitService} Service to retrieve unit information
    */
   unitService: Ember.inject.service('api-sdk/unit'),
+
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
+  /**
+   * @property {NavigateMapService}
+   */
+  navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
   /**
    * @type {i18nService} Service to retrieve translations information
@@ -62,11 +69,67 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           route.transitionTo('student.class.course-map');
         } else if (item === 'class-activities') {
           route.transitionTo('student.class.class-activities');
-        } else {
-          route.transitionTo('student.class');
+        } else if (item === 'study-player') {
+          route.studyPlayer(controller.get('classmodel').currentLocation);
         }
       }
     }
+  },
+  /**
+   * Open the player with the specific currentLocation
+   *
+   * @function actions:playItem
+   * @param {string} currentLocation - All the params for the currentLocation
+   */
+  studyPlayer: function(currentLocation) {
+    const route = this;
+    let role = ROLES.STUDENT;
+    let source = PLAYER_EVENT_SOURCE.COURSE_MAP;
+    let suggestionPromise = null;
+    let courseId = null;
+    let queryParams = null;
+    let classId = null;
+    const controller = route.get('controller');
+    if (controller.get('course')) {
+      courseId = controller.get('course').id;
+      classId = controller.get('class').id;
+    }
+    if (currentLocation) {
+      courseId = currentLocation.get('courseId');
+      classId = currentLocation.get('classId');
+      let unitId = currentLocation.get('unitId');
+      let lessonId = currentLocation.get('lessonId');
+      let collectionId = currentLocation.get('collectionId');
+      let collectionType = currentLocation.get('collectionType');
+      let collectionSubType = currentLocation.get(
+        'collection.collectionSubType'
+      );
+      let pathId = currentLocation.get('collection.pathId') || 0;
+      queryParams = {
+        classId,
+        unitId,
+        lessonId,
+        collectionId,
+        role,
+        source,
+        type: collectionType,
+        subtype: collectionSubType,
+        pathId
+      };
+    }
+    suggestionPromise = route
+      .get('navigateMapService')
+      .continueCourse(courseId, classId);
+
+    suggestionPromise.then(() => {
+      if (courseId == null || courseId === '') {
+        console.warn('very fast transition aborted'); // eslint-disable-line
+        return; //
+      }
+      return route.transitionTo('study-player', courseId, {
+        queryParams
+      });
+    });
   },
 
   // -------------------------------------------------------------------------
@@ -137,51 +200,56 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const performanceSummaryPromise = route
       .get('performanceService')
       .findClassPerformanceSummaryByStudentAndClassIds(myId, [classId]);
-    return Ember.RSVP
-      .hash({
-        class: classPromise,
-        members: membersPromise,
-        classPerformanceSummaryItems: performanceSummaryPromise
-      })
-      .then(function(hash) {
-        const aClass = hash.class;
-        const members = hash.members;
-        const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
-        aClass.set(
-          'performanceSummary',
-          classPerformanceSummaryItems.findBy('classId', classId)
-        );
-        const courseId = aClass.get('courseId');
-        let visibilityPromise = Ember.RSVP.resolve([]);
-        let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
+    return Ember.RSVP.hash({
+      class: classPromise,
+      members: membersPromise,
+      classPerformanceSummaryItems: performanceSummaryPromise
+    }).then(function(hash) {
+      const aClass = hash.class;
+      const members = hash.members;
+      const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
+      aClass.set(
+        'performanceSummary',
+        classPerformanceSummaryItems.findBy('classId', classId)
+      );
+      const courseId = aClass.get('courseId');
+      let visibilityPromise = Ember.RSVP.resolve([]);
+      let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
 
-        if (courseId) {
-          visibilityPromise = route
-            .get('classService')
-            .readClassContentVisibility(classId);
-          coursePromise = route.get('courseService').fetchById(courseId);
-        }
-        return Ember.RSVP
-          .hash({
-            contentVisibility: visibilityPromise,
-            course: coursePromise
-          })
-          .then(function(hash) {
-            const contentVisibility = hash.contentVisibility;
-            const course = hash.course;
-            aClass.set('owner', members.get('owner'));
-            aClass.set('collaborators', members.get('collaborators'));
-            aClass.set('members', members.get('members'));
-            return Ember.RSVP.hash({
-              class: aClass,
-              course: course,
-              members: members,
-              units: course.get('children') || [],
-              contentVisibility: contentVisibility,
-              tourSteps: tourSteps
-            });
-          });
+      if (courseId) {
+        visibilityPromise = route
+          .get('classService')
+          .readClassContentVisibility(classId);
+        coursePromise = route.get('courseService').fetchById(courseId);
+      }
+
+      var userLocationPromise = route
+        .get('analyticsService')
+        .getUserCurrentLocation(classId, myId);
+
+      return Ember.RSVP.hash({
+        contentVisibility: visibilityPromise,
+        course: coursePromise,
+        currentLocation: userLocationPromise
+      }).then(function(hash) {
+        const contentVisibility = hash.contentVisibility;
+        const course = hash.course;
+        var currentLocation = hash.currentLocation;
+        aClass.set('owner', members.get('owner'));
+        aClass.set('collaborators', members.get('collaborators'));
+        aClass.set('members', members.get('members'));
+        aClass.set('currentLocation', currentLocation);
+        return Ember.RSVP.hash({
+          class: aClass,
+          course: course,
+          members: members,
+          units: course.get('children') || [],
+          contentVisibility: contentVisibility,
+          tourSteps: tourSteps,
+          currentLocation: currentLocation
+        });
       });
+    });
   },
 
   /**
@@ -195,5 +263,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('units', model.units);
     controller.set('contentVisibility', model.contentVisibility);
     controller.set('steps', model.tourSteps);
+    controller.set('classmodel', model);
   }
 });

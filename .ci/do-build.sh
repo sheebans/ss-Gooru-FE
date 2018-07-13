@@ -23,9 +23,6 @@ if [[ -z "$AWS_ACCESS_KEY_ID" ]] || [[ -z "$AWS_SECRET_ACCESS_KEY" ]] || [[ -z "
   exit 1
 fi
 
-info "Downloading welcome site..."
-silent aws s3 cp s3://${S3_BUCKET}/frontend-30/welcome/welcome.tar.gz .
-
 info "Downloading quizzes addon..."
 silent aws s3 cp \
   s3://${S3_BUCKET}/quizzes-addon/${QUIZZES_VERSION}/quizzes-addon-${QUIZZES_VERSION}.tgz .
@@ -39,9 +36,8 @@ rm -rf /tmp/yarn-cache-bamboo/v1/npm-quizzes-addon*
 rm -rf /tmp/yarn-cache-bamboo/v1/.tmp
 
 docker login \
-  -u goorusheeban \
-  -p '$master1'
-
+	  -u $ARTIFACTORY_USERNAME \
+	    -p $ARTIFACTORY_PASSWORD
 
 docker run  -t --rm \
 	-v $PWD:/build \
@@ -49,7 +45,7 @@ docker run  -t --rm \
 	-e bamboo_buildNumber=${bamboo_buildNumber} \
 	-e bamboo_repository_branch_name=${bamboo_repository_branch_name} \
 	-e QUIZZES_VERSION=${QUIZZES_VERSION} \
-	-w /build goorusheeban/gooru-fe-build:v2 ./.ci/build.sh
+	-w /build dockergooru/fe-build ./.ci/build.sh
 
 
 #source .ci/build.sh

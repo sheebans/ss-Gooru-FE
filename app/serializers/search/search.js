@@ -271,7 +271,10 @@ export default Ember.Object.extend(ConfigurationMixin, {
         .get('taxonomySerializer')
         .normalizeTaxonomyArray(taxonomyInfo),
       publishStatus: result.publishStatus,
-      publisher: result.publisher ? result.publisher[0] : null
+      publisher: result.publisher ? result.publisher[0] : null,
+      efficacy: result.efficacy,
+      engagement: result.engagement,
+      relevance: result.relevance
     });
   },
 

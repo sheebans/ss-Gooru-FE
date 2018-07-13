@@ -184,26 +184,26 @@
                       <div class="performance">
                         {{#if item.isAssessment}}
                           {{#if item.performance.isCompleted}}
-                               {{#if isStudent }}
-                                  <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                            {{#if isStudent }}
+                              <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                                 {{item.performance.score}}%
                                 </span>
-                                {{else}}
-                                    <span class="score cursor-default " style={{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                            {{else}}
+                              <span class="score cursor-default " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                                       {{item.performance.score}}%
                                     </span>
-                               {{/if }}
+                            {{/if }}
                           {{else}}
                             {{#if item.performance.hasStarted}}
                               {{#if isStudent }}
-                                <span {{action 'studentReport' item}} class="score " style={{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                                <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                                   {{item.performance.score}}%
                                 </span>
-                                  {{else}}
-                                  <span class="score cursor-default" style={{safe-html (concat "color:" (grade-color item.performance.score) )}}>
+                              {{else}}
+                                <span class="score cursor-default" style= {{safe-html (concat "color:" (grade-color item.performance.score) )}}>
                                     {{item.performance.score}}%
                                   </span>
-                                {{/if }}
+                              {{/if }}
                             {{else}}
                               {{#if (eq item.format "assessment-external")}}
                                 <span class="not-started-external">--</span>
@@ -218,15 +218,15 @@
                           {{/if}}
                         {{else}}
                           {{#if item.performance.hasStarted}}
-                           {{#if isStudent }}
-                            <span {{action 'studentReport' item}} class="score " style={{safe-html (concat "color:" (grade-color item.performance.score))}}>
-                                {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}                       
+                            {{#if isStudent }}
+                              <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                                {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
                             </span>
-                           {{else}}
-                            <span class="time-spent cursor-default">
+                            {{else}}
+                              <span class="time-spent cursor-default">
                               {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
                             </span>
-                           {{/if }}
+                            {{/if }}
                           {{else}}
                             {{#if item.isAssessment}}
                               <span class="not-started-external">--</span>
@@ -279,4 +279,7 @@
       {{/if}}
     </ol>
   </div>
+  {{#if showReportPullUp}}
+    {{class.gru-report-panel showPullUp=showReportPullUp reportData=studentReportData model=model isStudent=isStudent onClosePullUp="onClosePullUp"}}
+  {{/if}}
 </div>

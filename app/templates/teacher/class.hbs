@@ -1,4 +1,8 @@
 <div class="teacher class"> {{gru-take-tour steps=steps containerClass='class-view-tour'}}
+  
+   {{teacher.class.gru-class-navbar navTitle= class.title class=class onItemSelected="selectMenuItem" selectedMenuItem=menuItem
+  isRescopedClass = isRescopedClass }}
+
   <div class="header clearfix">
     <div class="go-back-container">
       {{#if backUrls}}
@@ -19,7 +23,7 @@
       {{/if}}
       <h1>{{class.title}}</h1>
     </div>
-    <div class="panel panel-default panel-primary classroom-information">
+    <div class="panel panel-default panel-primary classroom-information  hide-classroom-information" >
       <div class="panel-body">
         <div class="course-image">
           {{#if course.thumbnailUrl}}
@@ -82,13 +86,17 @@
     </div>
   </div>
 
-  {{teacher.class.gru-class-navigation
+  {{!-- {{teacher.class.gru-class-navigation
     class=class
     onItemSelected="selectMenuItem"
     onCollapseExpandClicked="toggleHeader"
-    selectedMenuItem=menuItem}}
+    selectedMenuItem=menuItem}} --}}
+
+
 
   <div class="content">
     {{outlet}}
   </div>
+  
+
 </div>

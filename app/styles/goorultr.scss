@@ -144,6 +144,7 @@ $box-shadow: 1px -1px;
 @import "components/gru-status-switch";
 @import "components/gru-toggle-button";
 @import "components/gru-pull-out";
+@import "components/gru-pull-up";
 
 @import "components/cards/gru-class-card";
 @import "components/cards/gru-student-class-card";
@@ -169,6 +170,7 @@ $box-shadow: 1px -1px;
 @import "components/charts/gru-performance-chart";
 
 @import "components/class/gru-class-navigation";
+@import "components/class/gru-class-navbar";
 @import "components/class/gru-class-activity-panel";
 @import "components/class/gru-student-class-activity-panel";
 @import "components/class/analytics/performance/gru-actions-bar";
@@ -183,6 +185,7 @@ $box-shadow: 1px -1px;
 @import "components/class/overview/gru-accordion-unit";
 @import "components/class/overview/gru-accordion-lesson";
 @import "components/class/gru-learner-pathway";
+@import "components/class/gru-report-panel";
 @import "components/class/learner/gru-learner-accordion-unit";
 @import "components/class/learner/gru-learner-accordion-lesson";
 
@@ -221,6 +224,7 @@ $box-shadow: 1px -1px;
 @import "components/content/modals/gru-resource-new";
 @import "components/content/modals/gru-submit-confirmation";
 @import "components/content/modals/gru-welcome-message";
+@import "components/content/modals/gru-content-suggestion";
 @import "components/content/questions/answers/gru-answers";
 @import "components/content/questions/answers/gru-hot-text-highlight";
 @import "components/content/questions/answers/gru-hs-image";
@@ -319,6 +323,7 @@ $box-shadow: 1px -1px;
 @import "components/student/gru-performance-filter-panel";
 @import "components/student/gru-performance-course-filter";
 @import "components/student/gru-performance-courses";
+@import "components/student/class/_gru-study-navbar";
 
 @import "components/student/class/gru-class-navigation";
 @import "components/student/class/analytics/gru-performance-table";

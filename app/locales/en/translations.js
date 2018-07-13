@@ -44,6 +44,9 @@ export default Object.assign(quizzesTranslations, {
    * COMMON: Translations used globally in the app or shared between components
    */
   common: {
+    relevance: 'Relevance',
+    engagement: 'Engagement',
+    efficacy: 'Efficacy',
     'a-collection': 'a collection',
     'a-course': 'a course',
     'a-question': 'a question',
@@ -54,6 +57,8 @@ export default Object.assign(quizzesTranslations, {
     about: 'About',
     'about-you': 'About You',
     'about-me': 'About Me',
+    accept: 'Accept',
+    ignore: 'Ignore',
     add: 'Add',
     'add-assessment': 'Create New Assessment',
     'add-century-skills': 'Add 21st Century Skills',
@@ -1095,6 +1100,7 @@ export default Object.assign(quizzesTranslations, {
       'time-period': 'Time Period',
       'update-report': 'Update Report'
     },
+    'study-player': 'Study Player',
     'my-study': 'My Study',
     'no-classrooms':
       'You have not yet joined any classrooms. Click on “Join </br> Classroom” to add your teacher’s class. You can also search for </br> a featured course under the Library tab.',
@@ -1121,6 +1127,10 @@ export default Object.assign(quizzesTranslations, {
     'latest-assessment': 'Latest Assessment',
     'create-classroom': 'Create a classroom, assign contents, invite students',
     class: {
+      manage: 'Manage',
+      reports: 'Reports',
+      'daily-activites': 'Daily Activites',
+      courses: 'Course',
       'back-to': 'Back to Classrooms',
       'back-to-archived': 'Back to Archived Classrooms',
       'class-management': 'Class Management',
@@ -2526,6 +2536,16 @@ export default Object.assign(quizzesTranslations, {
     'take-backfill-pretest': 'Study Suggested Collection',
     'take-resource': 'Study Resource',
     'end-of-course': 'You have reached the end of the course.'
+  },
+
+  'gru-content-suggestion': {
+    header: 'We have a suggestion for you!',
+    'suggestion-text': {
+      collection:
+        'Based on your performance on this topic, we recommend that you go through our suggested collection to help you gain mastery.',
+      assessment:
+        'Based on your performance on this topic, we recommend that you go through our suggested assessment to help you gain mastery.'
+    }
   },
 
   'student-open-ended-summary': {

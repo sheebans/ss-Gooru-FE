@@ -24,6 +24,13 @@ export default Ember.Controller.extend(ModalMixin, {
   // Actions
   actions: {
     /**
+     * Action triggered when the user click outside of pullup.
+     **/
+    onClosePullUp() {
+      this.set('showPathWayPullUp', false);
+      this.set('showReportPullUp', false);
+    },
+    /**
      * Archive class
      **/
     archiveClass: function() {
@@ -154,23 +161,14 @@ export default Ember.Controller.extend(ModalMixin, {
       let userId = student.get('id');
       let setting = controller.get('class.setting');
       let userClassModel = {
-        userId: userId,
+        userId: userId || null,
         classId: controller.get('class.id'),
         courseId: controller.get('class.courseId'),
         isRescopedClass: setting ? setting.rescope : false,
-        pathway: true,
-        isStudentProfile: true
+        pathway: true
       };
-      this.send(
-        'showModal',
-        'class.gru-learner-pathway',
-        userClassModel,
-        null,
-        null,
-        null,
-        'static',
-        false
-      );
+      controller.set('studentPathway', userClassModel);
+      controller.set('showPathWayPullUp', true);
     },
 
     /**
@@ -218,6 +216,18 @@ export default Ember.Controller.extend(ModalMixin, {
         .then(() => {
           this.get('class').set('collaborators', classCollaborators);
         });
+    },
+
+    /**
+     * Method to show student report in pathway pullup
+     */
+    onOpenStudentReport(reportData, model) {
+      let component = this;
+      let controller = this;
+      controller.set('showReportPullUp', true);
+      controller.set('reportData', reportData);
+      controller.set('model', model);
+      component.set('isLoading', true);
     }
   },
 
@@ -298,6 +308,12 @@ export default Ember.Controller.extend(ModalMixin, {
    * @property {Class}
    */
   tempClass: null,
+
+  /**
+   * Propery to hide the pathway pullup.
+   * @property {showPathWayPullUp}
+   */
+  showPathWayPullUp: false,
 
   // -------------------------------------------------------------------------
   // Observers
