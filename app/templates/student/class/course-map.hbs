@@ -26,7 +26,7 @@
 
       {{/if}}
       
-    </div>
+    </div>   
       <div class="controller student course-map">
         <div class="actions">
           <span class="min-score {{unless class.minScore 'hidden'}}">
@@ -37,6 +37,11 @@
           </button>
         </div>
 
+    {{#if hasRouteSuggestion}}
+      <div class="suggest-icon"> 
+      </div>
+      {{class.overview.course-suggestions}}
+    {{/if}}
     {{class.overview.gru-accordion-course
     currentClass=class
     classMembers=classMembers

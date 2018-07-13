@@ -37,6 +37,8 @@ export default Ember.Route.extend({
    */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
+  route0Service: Ember.inject.service('api-sdk/route0'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -96,13 +98,17 @@ export default Ember.Route.extend({
     const userLocation = route
       .get('analyticsService')
       .getUserCurrentLocation(currentClass.get('id'), userId);
+    const route0Promise = route
+      .get('route0Service')
+      .fetchInClass({ courseId: course.id, classId: currentClass.id });
 
     return Ember.RSVP.hash({
       userLocation: userLocation,
       course: course,
       units: units,
       currentClass: currentClass,
-      classMembers: classMembers
+      classMembers: classMembers,
+      route0: route0Promise
     });
   },
 
@@ -252,6 +258,7 @@ export default Ember.Route.extend({
     controller.set('units', model.units);
     controller.set('course', model.course);
     controller.set('classMembers', model.classMembers);
+    controller.set('route0', model.route0);
     controller.get('studentClassController').selectMenuItem('course-map');
   },
 

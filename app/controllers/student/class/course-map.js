@@ -170,6 +170,17 @@ export default Ember.Controller.extend({
     return setting ? setting.rescope : false;
   }),
 
+  hasRouteSuggestion: Ember.computed('class', function() {
+    /* let controller = this;
+    const currentClass = controller.get('class');
+    const route0 = controller.get('route0');
+    let setting = currentClass.get('setting');
+    let isCourseSetup=  setting  ? ( setting.course && setting.course.premium && setting.premium === true)  : false;
+    let showRoute0Suggestion = route0.status === 'pending'; */
+    let isCourseSetup = true,
+      showRoute0Suggestion = true;
+    return isCourseSetup && showRoute0Suggestion;
+  }),
   // -------------------------------------------------------------------------
   // Observers
 
@@ -223,10 +234,9 @@ export default Ember.Controller.extend({
     let skippedContentsPromise = Ember.RSVP.resolve(
       controller.get('rescopeService').getSkippedContents(filter)
     );
-    return Ember.RSVP
-      .hash({
-        skippedContents: skippedContentsPromise
-      })
+    return Ember.RSVP.hash({
+      skippedContents: skippedContentsPromise
+    })
       .then(function(hash) {
         controller.set('skippedContents', hash.skippedContents);
         return hash.skippedContents;

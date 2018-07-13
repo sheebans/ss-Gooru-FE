@@ -6,13 +6,16 @@
     font-size: $font-size-base;
     margin: -23px 0 0;
     height: 24px;
+
     button {
       padding: 0 10px 0 7px;
+
       i {
         color: $white;
         font-size: $font-size-h5;
         width: 18px;
       }
+
       &.locate {
         background-color: $green-400;
         width: 35px;
@@ -21,15 +24,18 @@
         -webkit-border-radius: 50%;
         border-radius: 50%;
         margin: 0 0 0 40px;
+
         i {
           margin: 0 3px 0 0;
           font-size: $font-size-large;
         }
       }
     }
+
     .min-score {
       margin-right: 5px;
       vertical-align: text-bottom;
+
       i {
         background: url("gooru/trophy.png");
         background-size: 20px 20px;
@@ -40,21 +46,26 @@
       }
     }
   }
+
   .gru-accordion {
     clear: both;
+
     .panel-heading {
       padding: 0;
       margin: 0;
       background-color: $white;
       height: 67px;
+
       &.study-active {
         -webkit-box-shadow: 0px 0px 11px 3px rgba(75, 151, 65, 1);
         -moz-box-shadow: 0px 0px 11px 3px rgba(75, 151, 65, 1);
         box-shadow: 0px 0px 11px 3px rgba(75, 151, 65, 1);
         z-index: 9;
+
         .info {
           .btn.study-now {
             width: 58px;
+
             i {
               font-size: $font-size-anonymous;
               color: $green-400;
@@ -63,8 +74,10 @@
         }
       }
     }
+
     .gru-accordion-lesson {
       height: 67px;
+
       &.expanded {
         height: auto;
       }
@@ -80,14 +93,17 @@
       .action {
         display: flex;
         padding: 18px 0 8px 0;
+
         span {
           font-size: 15px;
           color: $gray-base;
         }
+
         .gru-toggle-button {
           margin-top: 7px;
         }
       }
+
       .info {
         color: $bluish-gray;
         font-style: italic;
@@ -103,10 +119,12 @@
       padding: 15px;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
       display: flex;
+
       span {
         opacity: 0.5;
         color: $gray-base;
         font-style: italic;
+
         i {
           margin-left: 115px;
         }
@@ -131,5 +149,49 @@
         display: inline-flex;
       }
     }
+  }
+
+  .material-icons.material-icons--outline {
+    font-family: "Material Icons Outline";
+  }
+
+  .route-suggestions-container {
+    width: 100%;
+    height: 67px;
+    object-fit: contain;
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-shadow: 0 0 4px 2px #eb8d3c;
+    padding: 13px;
+    cursor: pointer;
+  }
+
+  .suggest-icon {
+    width: 33.6px;
+    height: 33.6px;
+    color: #eb8d3c;
+    padding: 0px;
+    padding-top: 8px;
+  }
+
+  .suggest-sep {
+    width: 1px;
+    height: 43px;
+    float: left;
+    border: solid 1px #d7d7d7;
+    display: inline;
+  }
+
+  .suggest-desc {
+    display: inline;
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #37424b;
   }
 }
