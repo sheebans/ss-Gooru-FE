@@ -22,7 +22,8 @@ export default PlayerController.extend({
     'source',
     'pathId',
     'minScore',
-    'collectionSource'
+    'collectionSource',
+    'isStudyPlayer'
   ],
 
   // -------------------------------------------------------------------------
@@ -123,6 +124,12 @@ export default PlayerController.extend({
    * @property {Sring}
    */
   collectionSource: null,
+
+  /**
+   * @property {Boolean}
+   * Property to find out whether study-player rendered or not
+   */
+  isStudyPlayer: true,
 
   /**
    * Indicates if it should show the back button
@@ -280,7 +287,8 @@ export default PlayerController.extend({
       lessonId: null,
       collectionId: null,
       resourceId: null,
-      type: null
+      type: null,
+      isStudyPlayer: true
     });
   }
 });
