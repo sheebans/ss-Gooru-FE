@@ -66,7 +66,7 @@ export default Ember.Component.extend({
 
   /**
    * @function drawchart
-   * Method to draw donut chart based on the class performance 
+   * Method to draw donut chart based on the class performance
    */
   drawchart: function() {
     let component = this;

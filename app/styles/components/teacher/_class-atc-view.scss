@@ -4,7 +4,7 @@
     .class-view {
       min-height: 600px;
       border-radius: 4px;
-      background-color: #ffffff;
+      background-color: $white;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
       padding: 15px;
       .body {
@@ -23,8 +23,8 @@
           width: 42px;
           height: 92px;
           top: 150px;
-          background-color: #ffffff;
-          border: solid 3px #35424a;
+          background-color: $white;
+          border: solid 3px $charcoal-grey;
           position: absolute;
           cursor: pointer;
           i {
@@ -49,7 +49,7 @@
           .title {
             font-size: 13px;
             font-weight: bold;
-            color: #35424b;
+            color: $dark-600;
             text-align: center;
             text-transform: uppercase;
           }
@@ -59,6 +59,7 @@
             }
           }
           .no-performance {
+            border-top: 1px solid;
             text-align: center;
             font-size: 25px;
           }
