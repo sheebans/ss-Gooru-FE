@@ -219,5 +219,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('contentVisibility', model.contentVisibility);
     controller.set('steps', model.tourSteps);
     controller.set('router', this.get('router'));
+    controller.updateLastAccessedClass(model.class);
   }
 });

@@ -321,10 +321,15 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
    * @param model
    */
   setupController: function(controller, model) {
+    let lastAccessedClassData = controller.getLastAccessedClassData();
     controller.set('steps', model.tourSteps);
     controller.set('featuredCourses', model.featuredCourses);
     controller.set('archivedClass', model.archivedClasses);
     controller.set('activeClasses', model.activeClasses);
+    controller.set('lastAccessedClassData', lastAccessedClassData);
+    let isActiveClassessAvailable = model.activeClasses.length > 0;
+    controller.set('isShowAtcView', isActiveClassessAvailable);
+    controller.updateLastAccessedClassPosition(lastAccessedClassData.id);
   },
 
   /**
