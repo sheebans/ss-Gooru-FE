@@ -203,7 +203,7 @@ export default Ember.Controller.extend(ModalMixin, {
   init: function() {
     const controller = this;
     controller._super(...arguments);
-    controller.set('lastAccessedClassData', this.getLastAccessedClassData());
+    controller.set('lastAccessedClassData', controller.getLastAccessedClassData());
     Ember.run.schedule('afterRender', this, function() {
       if (controller.get('showArchivedClasses')) {
         controller.get('archivedClassObject');
