@@ -230,12 +230,14 @@
 
 .teacher-navigator {
   padding-top: 7px;
+  position: relative;
+  @media (min-width: $screen-sm) {
+    box-shadow: inset 0 -1px 0 $gray-light;
+    -webkit-padding-start: 0px;
+  }
 
   .nav-tabs {
-    @media (min-width: $screen-sm) {
-      box-shadow: inset 0 -1px 0 $gray-light;
-      -webkit-padding-start: 0px;
-    }
+    width: 95%;
 
     li {
       margin-right: 15px;
@@ -301,6 +303,34 @@
     @include justify-content(space-between);
     height: 35px;
     margin: 8px 0 0;
+  }
+
+  .atc-view.nav{
+    height: 64px;
+    width: 100%;
+    display: flex;
+    border-bottom: solid 1px #b2b2b2;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    .class-title {
+      padding: 15px;
+      width: 95%;
+      line-height: 30px;
+      font-size: 30px;
+      color: #37424b;
+      text-transform: capitalize;
+    }
+  }
+
+  .toggle-view {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    i {
+      font-size: 35px;
+      line-height: 1.8;
+      cursor: pointer;
+    }
   }
 }
 

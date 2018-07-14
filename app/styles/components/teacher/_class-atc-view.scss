@@ -1,0 +1,106 @@
+.teacher-panel {
+  .teacher.class-atc-view {
+    margin-bottom: 30px;
+    .class-view {
+      min-height: 600px;
+      border-radius: 4px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+      padding: 15px;
+      .body {
+        position: relative;
+        #atc-chart {
+          height: 425px;
+          border: 1px solid;
+          text-align: center;
+          font-size: 25px;
+          span {
+            margin-top: 100px;
+          }
+        }
+
+        .class-nav {
+          width: 42px;
+          height: 92px;
+          top: 150px;
+          background-color: #ffffff;
+          border: solid 3px #35424a;
+          position: absolute;
+          cursor: pointer;
+          i {
+            font-size: 37px;
+            line-height: 87px;
+          }
+          &.disable {
+            pointer-events: none;
+          }
+        }
+        .nav-previous {
+          left: -15px;
+        }
+        .nav-next {
+          right: -15px;
+        }
+      }
+
+      .footer {
+        margin-top: 30px;
+        .class-performance {
+          .title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #35424b;
+            text-align: center;
+            text-transform: uppercase;
+          }
+          .performance {
+            .class-performance-chart {
+              border-top: 1px solid;
+            }
+          }
+          .no-performance {
+            text-align: center;
+            font-size: 25px;
+          }
+          margin: auto;
+          width: 300px;
+        }
+
+        .actions {
+          width: 120px;
+          margin: auto;
+          display: flex;
+          margin-top: 15px;
+          .dca, .course-map, .performance {
+            width: 40px;
+            height: 40px;
+            padding: 12px;
+            border: 1px solid $light-200;
+            cursor: pointer;
+            .icon {
+              width: 35px;
+              height: 30px;
+              display: block;
+            }
+          }
+          .dca i {
+            background-image: url('gooru/images/teacher-landing-class-activities.svg');
+            background-repeat: no-repeat;
+            background-size: 13px;
+
+          }
+          .course-map i {
+            background-image: url('gooru/images/teacher-landing-course-map.svg');
+            background-repeat: no-repeat;
+            background-size: 15px;
+          }
+          .performance i{
+            background-image: url('gooru/images/teacher-landing-class-report.svg');
+            background-repeat: no-repeat;
+            background-size: 15px;
+          }
+        }
+      }
+    }
+  }
+}
