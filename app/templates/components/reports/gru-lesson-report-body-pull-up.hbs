@@ -1,0 +1,63 @@
+<div class="report-body-content">
+  <div class="collapse-text">
+      <span class="scatter-text">TEKS.SS.4.19</span>
+      <span class="scatter-text">TEKS.SS.4.21</span>
+      <span class="scatter-text">TEKS.SS.4.22</span>
+  </div><!-- collapse text div ends -->
+  <!-- View 3  -->
+  <div class="report-filters">
+    <div class="filter-title"><span>Filter By</span></div>
+    <div class="c-filter"><i class="material-icons c-icon">view_comfy</i> <span>Collections</span></div>
+    <div class="a-filter"><div class="p-box-bl"><span>%</span></div> <span>Assesments</span></div>
+
+    <div class="performance"><i class="fa fa-fw fa-sort c-done-all"></i><i class="material-icons">done_all</i><span>Performance</span></div>
+    <div class="time-spent"><i class="fa fa-fw fa-sort c-done-all"></i><i class="material-icons">access_time</i> <span>Time Spent</span></div>
+    <div class="reactions"><i class="material-icons ">%</i> <span>Reactions</span></div>
+
+  </div>
+<div class="outer-div">
+  <!-- <div class="tableHeader">
+  <div class="r-bdr fl">{{tableHeader.student}}</div>
+  {{#each tableHeader.collections as |collection|}}
+    <div class="r-bdr">
+      <div class="score-circle-g">
+        <div class="p-box-w"><span>%</span></div></div><span class="assessment-title">{{collection.title}}</span>
+    </div>
+  {{/each}}
+</div> -->
+  <table class="report-table-data">
+    <thead>
+      <th class="m-width">
+        {{tableHeader.student}}
+      </th>
+      {{#each tableHeader.collections as |collection|}}
+        <th class="m-width">
+          <div class="score-circle-g">
+            <div class="p-box-w"><span>%</span></div>
+          </div>
+          <span class="assessment-title">{{collection.title}}</span>
+
+        </th>
+      {{/each}}
+    </thead>
+    <tbody>
+      {{#each tableRow as |studentPerformance|}}
+        <tr>
+          <td class="prof-icon">
+            <span class="student-profile"><img src="{{studentPerformance.thumbnail}}" class="img-circle" width="30" height="30" /></span>
+            <span class="studnet-name">{{studentPerformance.fullName}}</span></td>
+            {{#each studentPerformance.collections as |collectionPerformance|}}
+              <td class="r-bdr m-width">
+                <div class="performaceSection">{{collectionPerformance.score}}</div>
+                <div class="performaceSection time-clr">{{collectionPerformance.timeSpent}}</div>
+              </td>
+            {{/each}}
+        </tr>
+      {{/each}}
+
+    </tbody>
+  </table>
+</div>
+  <!-- View 3 Ends -->
+
+</div><!-- report body content div ends -->

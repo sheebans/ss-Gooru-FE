@@ -97,7 +97,27 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
     onClosePullUp() {
       this.set('showPathWayPullUp', false);
       this.set('showReportPullUp', false);
+      this.set('showLessonReportPullUp', false);
     },
+
+    /**
+     * Action triggered when the user click the lesson level performance score.
+     **/
+    onOpenLessonLevelReport() {
+      const component = this;
+      const classId = component.get('currentClass.id');
+      const unitId = component.get('unitId');
+      const lessonId = component.get('model.id');
+      const courseId =
+        component.get('currentClass.courseId') ||
+        component.get('currentCourse.id');
+      component.set('classId', classId);
+      component.set('unitId', unitId);
+      component.set('lessonId', lessonId);
+      component.set('courseId', courseId);
+      component.set('showLessonReportPullUp', true);
+    },
+
     /**
      * Load the data for this lesson (data should only be loaded once) and trigger
      * the 'onLessonUpdate' event handler
@@ -394,6 +414,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
     }
     return false;
   }),
+
+  showLessonReportPullUp: false,
 
   // -------------------------------------------------------------------------
   // Observers

@@ -1,0 +1,93 @@
+table.report-table-data {
+  table-layout: fixed;
+  width: 100%;
+  tr {
+    border: solid 1px #e3e5ea;
+  }
+  th {
+    border-top: 0px;
+    font-size: 10px;
+    padding-left: 10px;
+    color: #535e67;
+    font-weight: bold;
+  }
+  /* style for View 1
+.thead-1 {
+  width: 10%
+}
+.thead-2 {
+  width: 2%;
+}
+.thead-3 {
+  width: 4%;
+}
+.thead-4 {
+  width: 4%;
+}
+.thead-5 {
+  width: 4%
+}
+.thead-6 {
+  width: 6%;
+}
+.thead-7 {
+  width: 3%;
+}
+*/
+  /*style for view 3*/
+  .thead-1 {
+    width: 2%;
+  }
+  .thead-2 {
+    width: 7%;
+  }
+  .thead-3 {
+    width: 2%;
+  }
+  .thead-4 {
+    width: 15%;
+  }
+  .thead-5 {
+    width: 2%;
+  }
+  /*view 3 style ends */
+  td {
+    padding: 5px 10px;
+    .course-no {
+      font-size: 20px;
+      font-weight: bold;
+      width: 178px;
+      display: inline-block;
+    }
+    .course-data {
+      font-size: 15px;
+      font-weight: normal;
+    }
+  }
+  /*progress bar style for view 3*/
+  .progress {
+    height: 5px;
+    margin-bottom: 0px !important;
+    background-color: #ffffff !important;
+    .progress-bar {
+      background-color: #319848 !important;
+    }
+    .progress-bar:last-child:before {
+      background-color: #fff !important;
+    }
+    .progress-bar:last-child:after {
+      background-color: #fff !important;
+    }
+  }
+  /* progress bar style for view 3 ENDS*/
+  /* student profile for view 3*/
+  .student-profile {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ccc;
+    color: #000;
+    display: block;
+  }
+  /*student profile view 3 ENDs*/
+}

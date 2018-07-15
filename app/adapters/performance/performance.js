@@ -10,6 +10,8 @@ export default Ember.Object.extend({
 
   namespace: '/api/ds/users',
 
+  insightsNamespace: '/api/nucleus-insights/v2',
+
   /**
    * Get performance of user performance units
    * @returns {Promise.<[]>}
@@ -181,6 +183,33 @@ export default Ember.Object.extend({
       userResourceInCollection: Ember.$.ajax(url, options)
     }).then(function(hash) {
       return hash.userResourceInCollection.value;
+    });
+  },
+
+  /**
+   * Get performance of user resource in collection for teacher view
+   * @returns {Promise.<[]>}
+   */
+  getStudentsCollectionPerformance(classId, courseId, unitId, lessonId, type) {
+    const adapter = this;
+    const namespace = adapter.get('insightsNamespace');
+    const url = `${namespace}/study/assessment/performance`;
+    const options = {
+      type: 'GET',
+      headers: adapter.defineHeaders(),
+      contentType: 'application/json; charset=utf-8',
+      data: {
+        classId,
+        courseId,
+        unitId,
+        lessonId,
+        collectionType: type
+      }
+    };
+    return Ember.RSVP.hashSettled({
+      collectionPerformance: Ember.$.ajax(url, options)
+    }).then(function(hash) {
+      return hash.collectionPerformance.value;
     });
   },
 

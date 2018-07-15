@@ -1,0 +1,281 @@
+.gru-lesson-report-body-pull-up {
+  .report-filters {
+    height: 50px;
+    font-weight: bold;
+    width: 768px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+    .c-done-all {
+      float: right;
+      position: relative;
+      right: 18px;
+      top: 4px;
+      cursor: pointer;
+    }
+    .p-box-bl {
+      width: 20px;
+      height: 15px;
+      color: #fff;
+      background: #02a8e6;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 5px;
+      position: relative;
+      top: 1px;
+      span {
+        position: relative;
+        top: -3px;
+        font-size: 12px;
+      }
+    }
+    .filter-title {
+      padding-top: 14px;
+    }
+
+    .a-filter {
+      color: #02a8e6;
+      cursor: pointer;
+    }
+    .c-filter {
+      cursor: pointer;
+      color: #cccccc;
+      i {
+        color: #cccccc;
+      }
+    }
+
+    .a-filter,
+    .c-filter,
+    .filter-title {
+      width: 85px;
+      margin-right: 4px;
+      text-align: center;
+      float: left;
+      height: 50px;
+      vertical-align: middle;
+      font-size: 12px;
+      padding-top: 5px;
+    }
+
+    .performance {
+      margin-left: 198px;
+    }
+
+    .performance,
+    .reactions,
+    .time-spent {
+      width: 85px;
+      margin-right: 4px;
+      text-align: center;
+      float: left;
+      height: 50px;
+      vertical-align: middle;
+      font-size: 12px;
+      padding-top: 5px;
+    }
+
+    .reactions {
+      display: none;
+    }
+
+    .filter-title {
+      background: #fafafa;
+      padding-top: 14px;
+    }
+
+    .material-icons {
+      font-size: 20px;
+      color: #37424b;
+      display: inherit;
+    }
+  }
+
+  .collapse-text {
+    height: 60px;
+    line-height: 2.9em;
+    width: 614px;
+
+    .scatter-text {
+      font-size: 13px;
+      background-color: #37424b;
+      border-radius: 3px;
+      color: #ffffff;
+      padding: 1px 4px;
+      margin: 10px;
+    }
+  }
+  .outer-div {
+    width: 768px;
+    overflow-x: scroll;
+    overflow-y: visible;
+    max-width: 768px;
+    height: calc(90vh - 130px);
+    max-height: calc(90vh - 130px);
+    table.report-table-data {
+      table-layout: fixed;
+      width: 100%;
+      margin: 0 auto;
+      th.m-width {
+        width: 241px;
+        border-right: 1px dashed #cccccc;
+      }
+      .time-clr {
+        color: #319848;
+      }
+      th.r-bdr {
+        border-right: 1px dashed #cccccc;
+      }
+      td:nth-child(2),
+      td:nth-child(1) {
+        border-right: 1px dashed #cccccc;
+      }
+      td.m-width {
+        width: 100px;
+        padding: 0;
+        .performaceSection {
+          float: left;
+          width: 31px;
+        }
+      }
+      .score-circle-g {
+        width: 30px;
+        height: 30px;
+        border-radius: 50px;
+        background: #97cca2;
+        float: left;
+        position: relative;
+        top: 6px;
+
+        .p-box-w {
+          width: 20px;
+          height: 15px;
+          color: #97cca2;
+          background: #ffffff;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 7px;
+
+          span {
+            position: relative;
+            top: -3px;
+            font-size: 12px;
+            left: 5px;
+          }
+        }
+      }
+
+      .score-circle-o {
+        width: 30px;
+        height: 30px;
+        border-radius: 50px;
+        background: #ffbf63;
+        float: left;
+        position: relative;
+        top: 6px;
+
+        .p-box-b {
+          width: 20px;
+          height: 15px;
+          color: #ffbf63;
+          background: #333;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 7px;
+
+          span {
+            position: relative;
+            top: -3px;
+            font-size: 12px;
+          }
+        }
+      }
+
+      td,
+      th {
+        padding: 1em;
+        margin: 0;
+        vertical-align: middle;
+      }
+
+      th {
+        text-align: left;
+      }
+
+      tr {
+        border: solid 1px #e3e5ea;
+      }
+
+      td.score {
+        text-align: right;
+      }
+
+      td.time-spent {
+        text-align: center;
+      }
+
+      th {
+        border-top: 0;
+        font-size: 12px;
+        color: #535e67;
+        font-weight: bold;
+
+        span.assessment-title {
+          white-space: normal;
+          width: 180px;
+          display: inline-flex;
+          font-weight: normal;
+          text-align: left;
+          font-size: 13px;
+          padding-left: 8px;
+          float: left;
+        }
+      }
+
+      td {
+        .course-no {
+          font-size: 20px;
+          font-weight: bold;
+          width: 178px;
+          display: inline-block;
+        }
+
+        .course-data {
+          font-size: 15px;
+          font-weight: normal;
+        }
+      }
+      /*progress bar style for view 3*/
+      .progress {
+        height: 5px;
+        margin-bottom: 0 !important;
+        background-color: #ffffff !important;
+
+        .progress-bar {
+          background-color: #319848 !important;
+        }
+
+        .progress-bar:last-child:before {
+          background-color: #fff !important;
+        }
+
+        .progress-bar:last-child:after {
+          background-color: #fff !important;
+        }
+      }
+      /* progress bar style for view 3 ENDS*/
+      /* student profile for view 3*/
+      .student-profile {
+        float: left;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #ccc;
+        color: #000;
+        display: block;
+        margin-right: 6px;
+      }
+      /*student profile view 3 ENDs*/
+    }
+  }
+}

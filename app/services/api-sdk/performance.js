@@ -8,6 +8,8 @@ import ActivityPerformanceSummaryAdapter from 'gooru-web/adapters/performance/ac
 import CourseCompetencyCompletionAdapter from 'gooru-web/adapters/performance/course-competency-completion';
 import CourseCompetencyCompletionSerializer from 'gooru-web/serializers/performance/course-competency-completion';
 import { aggregateClassActivityPerformanceSummaryItems } from 'gooru-web/utils/performance-summary';
+import PerformanceAdapter from 'gooru-web/adapters/performance/performance';
+import PerformanceSerializer from 'gooru-web/serializers/performance/performance';
 
 /**
  * @typedef {Object} PerformanceService
@@ -65,6 +67,11 @@ export default Ember.Service.extend({
    */
   courseCompetencyCompletionAdapter: null,
 
+  /**
+   * @property {performanceAdapter}
+   */
+  performanceAdapter: null,
+
   // -------------------------------------------------------------------------
   // Events
 
@@ -117,6 +124,14 @@ export default Ember.Service.extend({
       CourseCompetencyCompletionSerializer.create(
         Ember.getOwner(this).ownerInjection()
       )
+    );
+    this.set(
+      'performanceAdapter',
+      PerformanceAdapter.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'performanceSerializer',
+      PerformanceSerializer.create(Ember.getOwner(this).ownerInjection())
     );
   },
 
@@ -567,7 +582,7 @@ export default Ember.Service.extend({
     service.get('store').unloadAll('performance/class-collection-performance');
     return service
       .get('store')
-      .query('performance/class-collection-performance', {
+      .queryRecord('performance/class-collection-performance', {
         collectionType: options.collectionType,
         classId: classId,
         courseId: courseId,
@@ -846,5 +861,38 @@ export default Ember.Service.extend({
     } else {
       return Ember.RSVP.resolve([]);
     }
+  },
+
+  /**
+   * Get the student collection performance data new ui
+   * @param  {String} classId
+   * @param  {String} courseId
+   */
+  getStudentsCollectionPerformance: function(
+    classId,
+    courseId,
+    unitId,
+    lessonId,
+    type
+  ) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('performanceAdapter')
+        .getStudentsCollectionPerformance(
+          classId,
+          courseId,
+          unitId,
+          lessonId,
+          type
+        )
+        .then(function(response) {
+          resolve(
+            service
+              .get('performanceSerializer')
+              .normalizeGetStudentsCollectionPerformance(response)
+          );
+        }, reject);
+    });
   }
 });

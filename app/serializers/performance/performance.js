@@ -24,6 +24,10 @@ export default DS.JSONAPISerializer.extend({
     return model;
   },
 
+  normalizeGetStudentsCollectionPerformance(payload) {
+    let studentPerformances = payload ? payload.content || null : null;
+    return studentPerformances || Ember.A([]);
+  },
   /**
    * Normalizes the response for the QueryRecord method
    * @param store
