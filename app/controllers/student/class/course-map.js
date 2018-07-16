@@ -75,7 +75,7 @@ export default Ember.Controller.extend({
      */
     onSelectItem() {
       let controller = this;
-      if (controller.get('isRescopedClass')) {
+      if (controller.get('isPremiumClass')) {
         let skippedContents = controller.get('skippedContents');
         let isSkippedContentsAvailable = skippedContents
           ? controller.isSkippedContentsEmpty(skippedContents)
@@ -163,11 +163,11 @@ export default Ember.Controller.extend({
    * @type {Boolean}
    * Property to check whether a class is rescoped
    */
-  isRescopedClass: Ember.computed('class', function() {
+  isPremiumClass: Ember.computed('class', function() {
     let controller = this;
     const currentClass = controller.get('class');
     let setting = currentClass.get('setting');
-    return setting ? setting.rescope : false;
+    return setting ? setting['course.premium'] : false;
   }),
 
   // -------------------------------------------------------------------------
@@ -179,7 +179,7 @@ export default Ember.Controller.extend({
   observeCurrentClass: Ember.observer('currentClass', function() {
     let controller = this;
     //Initially load rescope data
-    if (controller.get('isRescopedClass')) {
+    if (controller.get('isPremiumClass')) {
       controller.processSkippedContents();
     }
   }),

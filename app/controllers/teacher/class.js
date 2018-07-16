@@ -71,11 +71,11 @@ export default Ember.Controller.extend({
    * The class is rescoped
    * @property {String}
    */
-  isRescopedClass: Ember.computed('class', function() {
+  isPremiumClass: Ember.computed('class', function() {
     let controller = this;
     const currentClass = controller.get('class');
     let setting = currentClass.get('setting');
-    return setting ? setting.rescope : false;
+    return setting ? setting['course.premium'] : false;
   }),
 
   /**

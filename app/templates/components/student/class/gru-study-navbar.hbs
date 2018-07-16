@@ -94,7 +94,7 @@
             <ul class="nav navbar-nav navbar-right">
                 {{#if hasClassInfo }}
                     <li>
-                        {{#if (not isRescopedClass)}}
+                        {{#if (not isPremiumClass)}}
                             <div class="">
                                 {{charts/gru-performance-chart performanceSummary=class.performanceSummary routeToGo="student.class.performance"}}
                             </div>

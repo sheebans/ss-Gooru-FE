@@ -1,7 +1,7 @@
 <div class="teacher class"> {{gru-take-tour steps=steps containerClass='class-view-tour'}}
-  
+
    {{teacher.class.gru-class-navbar navTitle= class.title class=class onItemSelected="selectMenuItem" selectedMenuItem=menuItem
-  isRescopedClass = isRescopedClass }}
+  isPremiumClass = isPremiumClass }}
 
   <div class="header clearfix">
     <div class="go-back-container">
@@ -32,7 +32,7 @@
             <div class="no-course-image"></div>
           {{/if}}
         </div>
-        <div class="course-name {{if isRescopedClass 'isRescopedClass' ''}}">
+        <div class="course-name {{if isPremiumClass 'isPremiumClass' ''}}">
           {{#if course.title}}
             {{{truncate text=course.title maxLength=50}}}
           {{else}}
@@ -77,7 +77,7 @@
         <div class="copy-code">
           {{gru-copy-value value=class.code tooltipCode="teacher-landing.class.click-to-copy"}}
         </div>
-        {{#if (not isRescopedClass)}}
+        {{#if (not isPremiumClass)}}
           <div class="performance-container">
             {{charts/gru-performance-chart performanceSummary=class.performanceSummary routeToGo="teacher.class.performance"}}
           </div>
@@ -97,6 +97,6 @@
   <div class="content">
     {{outlet}}
   </div>
-  
+
 
 </div>
