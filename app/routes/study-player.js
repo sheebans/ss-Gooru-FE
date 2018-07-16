@@ -210,7 +210,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       minScore: model.minScore,
       suggestedResources: model.suggestedResources,
       collectionSource: model.collectionSource,
-      collectionSubType: model.collectionSubType
+      collectionSubType: model.collectionSubType,
+      isStudyPlayer: true
     });
   },
 

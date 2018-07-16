@@ -19,6 +19,11 @@ export default Ember.Controller.extend(ModalMixin, {
   applicationController: Ember.inject.controller('application'),
 
   /**
+   * @requires controller:teacher/class
+   */
+  teacherClassController: Ember.inject.controller('teacher/class'),
+
+  /**
    * @requires service:api-sdk/performance
    */
 
@@ -68,6 +73,73 @@ export default Ember.Controller.extend(ModalMixin, {
       });
   }),
 
+  /**
+   * @function getLastAccessedClassData
+   * Method to get last accessed class data from localStorage/first class
+   */
+  getLastAccessedClassData() {
+    const controller = this;
+    let userId = controller.get('session.userId');
+    let lastAccessedClassData =
+      JSON.parse(localStorage.getItem(`${userId}_recent_class`)) || null;
+    let isLastAccessedClassAvailable = lastAccessedClassData
+      ? Object.keys(lastAccessedClassData).length
+      : null;
+    //If last accessed class available in the local storage
+    if (!isLastAccessedClassAvailable) {
+      let activeClasses = controller.get('activeClasses');
+      lastAccessedClassData = activeClasses ? activeClasses.objectAt(0) : null;
+      if (lastAccessedClassData) {
+        lastAccessedClassData = controller.updateLastAccessedClass(
+          lastAccessedClassData
+        );
+      }
+    }
+    return lastAccessedClassData;
+  },
+
+  /**
+   * @function getSequencedActiveClass
+   * Method to get next/previous class by given sequence number
+   */
+  getSequencedActiveClass(classSeq) {
+    const controller = this;
+    let activeClasses = controller.get('activeClasses');
+    let sequencedActiveClass = activeClasses.objectAt(classSeq) || null;
+    if (sequencedActiveClass) {
+      sequencedActiveClass = controller.updateLastAccessedClass(
+        sequencedActiveClass
+      );
+    }
+    return sequencedActiveClass;
+  },
+
+  /**
+   * @function updateLastAccessedClass
+   * Method to update last accessed class data into the localStorage
+   */
+  updateLastAccessedClass(classData) {
+    const controller = this;
+    controller.updateLastAccessedClassPosition(classData.id);
+    return controller
+      .get('teacherClassController')
+      .updateLastAccessedClass(classData);
+  },
+
+  /**
+   * @function updateLastAccessedClassPosition
+   * Method to update last accessed class position
+   */
+  updateLastAccessedClassPosition(classId) {
+    let controller = this;
+    let activeClasses = controller.get('activeClasses');
+    let classPosition = activeClasses.findIndex(function(classData) {
+      return classData.id === classId;
+    });
+    controller.set('currentClassPosition', classPosition);
+    return classPosition;
+  },
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -110,6 +182,34 @@ export default Ember.Controller.extend(ModalMixin, {
       const controller = this;
       controller.send('updateUserClasses'); // Triggers the refresh of user classes in top header
       controller.transitionToRoute('teacher.class.course-map', classId);
+    },
+
+    /**
+     * Action triggered when user move to next/previous class
+     */
+    onChangeAtcClass(actionSequence) {
+      const controller = this;
+      let currentClassPosition = controller.get('currentClassPosition');
+      let classSeq =
+        actionSequence === 'previous'
+          ? currentClassPosition - 1
+          : currentClassPosition + 1;
+      controller.set(
+        'lastAccessedClassData',
+        controller.getSequencedActiveClass(classSeq)
+      );
+    },
+
+    /**
+     * Action triggered when user change atc/class-room view
+     */
+    onToggleTeacherView(view) {
+      let controller = this;
+      let isShowAtcView = true;
+      if (view === 'classroom') {
+        isShowAtcView = false;
+      }
+      controller.set('isShowAtcView', isShowAtcView);
     }
   },
 
@@ -118,7 +218,10 @@ export default Ember.Controller.extend(ModalMixin, {
   init: function() {
     const controller = this;
     controller._super(...arguments);
-
+    controller.set(
+      'lastAccessedClassData',
+      controller.getLastAccessedClassData()
+    );
     Ember.run.schedule('afterRender', this, function() {
       if (controller.get('showArchivedClasses')) {
         controller.get('archivedClassObject');
@@ -244,5 +347,23 @@ export default Ember.Controller.extend(ModalMixin, {
    */
   resetValues: function() {
     this.set('showActiveClasses', true);
-  }
+  },
+
+  /**
+   * @property {JSON}
+   * Property to store last accessed class data
+   */
+  lastAccessedClassData: null,
+
+  /**
+   * @property {Boolean}
+   * Property to show/hide ATC view
+   */
+  isShowAtcView: true,
+
+  /**
+   * @property {Number}
+   * Property to store last accessed class position
+   */
+  currentClassPosition: 0
 });

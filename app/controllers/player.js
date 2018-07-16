@@ -10,7 +10,15 @@ export default QuizzesPlayerController.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  queryParams: ['resourceId', 'role', 'type', 'sourceId', 'source', 'classId'],
+  queryParams: [
+    'resourceId',
+    'role',
+    'type',
+    'sourceId',
+    'source',
+    'classId',
+    'isStudyPlayer'
+  ],
 
   // -------------------------------------------------------------------------
   // Properties
@@ -39,6 +47,12 @@ export default QuizzesPlayerController.extend({
    * @property {string}
    */
   type: null,
+
+  /**
+   * @property {Boolean}
+   * Property to find out whether study-player rendered or not
+   */
+  isStudyPlayer: false,
 
   // -------------------------------------------------------------------------
   // Methods

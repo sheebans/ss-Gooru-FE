@@ -15,16 +15,14 @@ moduleForAcceptance('Acceptance | player', {
   }
 });
 
-test('Layout - default to collection since parameter is not sent', function(
-  assert
-) {
+test('Layout - default to collection since parameter is not sent', function(assert) {
   assert.expect(2);
   visit('/player/all-resource-types-collection-id');
 
   andThen(function() {
     assert.equal(
       currentURL(),
-      '/player/all-resource-types-collection-id'
+      '/player/all-resource-types-collection-id?resourceId=image-resource-id&role=student'
     );
 
     const $playerContainer = find('.qz-player');
