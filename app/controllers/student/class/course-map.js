@@ -170,15 +170,21 @@ export default Ember.Controller.extend({
     return setting ? setting.rescope : false;
   }),
 
-  hasRouteSuggestion: Ember.computed('class', function() {
-    /* let controller = this;
+  isPremiumCourse: Ember.computed('class', function() {
+    let controller = this;
     const currentClass = controller.get('class');
-    const route0 = controller.get('route0');
     let setting = currentClass.get('setting');
-    let isCourseSetup=  setting  ? ( setting.course && setting.course.premium && setting.premium === true)  : false;
-    let showRoute0Suggestion = route0.status === 'pending'; */
-    let isCourseSetup = true,
-      showRoute0Suggestion = true;
+    return setting
+      ? setting.course && setting.course.premium && setting.premium === true
+      : false;
+  }),
+
+  hasRouteSuggestion: Ember.computed('class', function() {
+    let controller = this;
+    const route0 = controller.get('route0');
+    let isCourseSetup = controller.get('isPremiumCourse');
+    let showRoute0Suggestion =
+      route0.status === 'pending' || route0.status === 'rejected';
     return isCourseSetup && showRoute0Suggestion;
   }),
   // -------------------------------------------------------------------------

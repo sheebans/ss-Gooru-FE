@@ -1,4 +1,33 @@
 import Ember from 'ember';
 import AccordionMixin from '../../../mixins/gru-accordion';
 
-export default Ember.Component.extend(AccordionMixin, {});
+export default Ember.Component.extend(AccordionMixin, {
+  // Mock Data
+
+  taxonomyList: [
+    {
+      code: 'D2.Civ.1.K-2',
+      frameworkCode: 'C3',
+      id: 'C3.K12.SS-K.2-CIV-01',
+      parentTitle: 'Social Sciences',
+      title: 'Describe roles and responsibilities of people in authority.',
+      taxonomyLevel: 'standard'
+    },
+    {
+      code: 'D2.Civ.1.K-3',
+      frameworkCode: 'C3',
+      id: 'C3.K12.SS-K.2-CIV-01',
+      parentTitle: 'Social Sciences',
+      title: 'Describe roles and responsibilities of people in authority.',
+      taxonomyLevel: 'standard'
+    },
+    {
+      code: 'D2.Civ.1.K-4',
+      frameworkCode: 'C3',
+      id: 'C3.K12.SS-K.2-CIV-01',
+      parentTitle: 'Social Sciences',
+      title: 'Describe roles and responsibilities of people in authority.',
+      taxonomyLevel: 'standard'
+    }
+  ]
+});

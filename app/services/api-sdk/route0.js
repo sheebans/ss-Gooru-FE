@@ -25,22 +25,23 @@ export default Ember.Service.extend({
 
   fetchInClass: function(filter) {
     const service = this;
-    var responseMockData = {
-      status: 'pending', //'accepted' , 'regected', 'na'
+    /* var responseMockData = {
+      status: 'pending', //'accepted' , 'regected', 'na= not applicable, already complted' , 'na = not avalible, course does not have anything to offer'
+      // 40x= na for misc reasons,
       route0Content: {},
       userCompetencyRoute: {}
-    };
+    }; */
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      if (filter) {
+      /*  if (filter) {
         resolve(responseMockData);
         //return responseMockData;
-      }
+      } */
       let serializedFilterData = service
         .get('route0Serializer')
         .fetchInClass(filter);
       service
         .get('route0Adapter')
-        .createAssessment({
+        .fetchInClass({
           body: serializedFilterData
         })
         .then(
@@ -48,7 +49,12 @@ export default Ember.Service.extend({
             resolve(responseData);
           },
           function(error) {
-            reject(error);
+            const status = error.status;
+            if (status === 404) {
+              resolve({ status: '404' });
+            } else {
+              reject(error);
+            }
           }
         );
     });

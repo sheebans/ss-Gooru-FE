@@ -157,19 +157,64 @@
 
   .route-suggestions-container {
     width: 100%;
-    height: 67px;
+    min-height: 90px;
     object-fit: contain;
     border-radius: 4px;
-    background-color: #ffffff;
-    box-shadow: 0 0 4px 2px #eb8d3c;
+    background-color: $white;
+    box-shadow: 0 0 4px 2px $sun-color;
     padding: 13px;
+  }
+
+  .route0-banner {
     cursor: pointer;
+  }
+
+  .route0-bannerdesc {
+    padding-bottom: 10px;
+  }
+
+  .suggested-lessons {
+    width: 131px;
+    height: 15px;
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 0.94;
+    letter-spacing: normal;
+    text-align: left;
+    color: #29323a;
+    margin-top: 14px;
+  }
+
+  .created-by-kangoorus {
+    width: 128px;
+    height: 15px;
+    font-family: Lato;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: left;
+    color: #666666;
+    margin-top: 9px;
+    margin-bottom: 9px;
+  }
+
+  .detail-sep {
+    height: 1.5px;
+    border: solid 0.7px $dark-400;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .suggest-icon {
     width: 33.6px;
     height: 33.6px;
-    color: #eb8d3c;
+    color: $sun-color;
     padding: 0px;
     padding-top: 8px;
   }
@@ -178,20 +223,54 @@
     width: 1px;
     height: 43px;
     float: left;
-    border: solid 1px #d7d7d7;
+    border: solid 1px $sep-border-color;
     display: inline;
   }
 
   .suggest-desc {
     display: inline;
-    font-family: Lato;
+    font-family: $font-family-sans-serif;
     font-size: 16px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: left;
-    color: #37424b;
+    color: $dark-400;
+  }
+
+  .compet-container {
+    width: 744px;
+    height: 80px;
+    background-color: #ffffff;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.13);
+    -webkit-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.13);
+    -moz-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.13);
+    padding: 10px;
+  }
+
+  .Mask {
+    -webkit-box-shadow: inset -1px -7px 48px 0px rgba(0, 0, 0, 0.52);
+    -moz-box-shadow: inset -1px -7px 48px 0px rgba(0, 0, 0, 0.52);
+    box-shadow: inset -1px -7px 48px 0px rgba(0, 0, 0, 0.52);
+  }
+
+  .route-compgraph {
+    width: 298.7px;
+    height: 339px;
+    border: solid 1px $dark-400;
+  }
+
+  .gru-taxonomy-tag-list {
+    border-bottom: 1px solid;
+
+    .gru-taxonomy-tag {
+      background-color: $dark-400;
+
+      .tag-label {
+        color: $white;
+        font-size: 12px;
+      }
+
+      .tag-caption {
+        display: none;
+      }
+    }
   }
 }

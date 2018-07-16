@@ -98,9 +98,22 @@ export default Ember.Route.extend({
     const userLocation = route
       .get('analyticsService')
       .getUserCurrentLocation(currentClass.get('id'), userId);
-    const route0Promise = route
-      .get('route0Service')
-      .fetchInClass({ courseId: course.id, classId: currentClass.id });
+
+    let setting = currentClass.get('setting');
+    let premiumCourse = setting
+      ? setting.course && setting.course.premium && setting.premium === true
+      : false;
+
+    var route0Promise = {};
+    if (premiumCourse) {
+      route0Promise = route
+        .get('route0Service')
+        .fetchInClass({ courseId: course.id, classId: currentClass.id });
+    } else {
+      route0Promise = new Ember.RSVP.Promise(function(resolve) {
+        resolve({ status: '401' }); // This is a dummy status
+      });
+    }
 
     return Ember.RSVP.hash({
       userLocation: userLocation,

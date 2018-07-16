@@ -19,14 +19,13 @@ export default ApplicationAdapter.extend({
   fetchInClass: function(filter) {
     const adapter = this;
     const namespace = adapter.get('namespace');
-    const url = `${namespace}/rtd/?classId=${filter.classId}&courseId=${
-      filter.courseId
+    const url = `${namespace}/rtd/?classId=${filter.body.classId}&courseId=${
+      filter.body.courseId
     }`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
-      headers: adapter.get('headers'),
-      data: filter
+      headers: adapter.get('headers')
     };
     return Ember.$.ajax(url, options);
   },
