@@ -170,11 +170,11 @@ export default Ember.Component.extend({
    * The class is Premius
    * @property {String}
    */
-   isPremiumClass: Ember.computed('class', function() {
-     const controller = this;
-     let currentClass = controller.get('class');
-     let classSetting = currentClass.setting;
-     return classSetting ? classSetting['course.premium'] : false;
-   }),
+  isPremiumClass: Ember.computed('class', function() {
+    const controller = this;
+    let currentClass = controller.get('class');
+    let classSetting = currentClass.setting;
+    return classSetting ? classSetting['course.premium'] : false;
+  })
 
 });
