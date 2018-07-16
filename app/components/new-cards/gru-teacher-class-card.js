@@ -167,7 +167,7 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * The class is Premius
+   * The class is premium
    * @property {String}
    */
   isPremiumClass: Ember.computed('class', function() {
