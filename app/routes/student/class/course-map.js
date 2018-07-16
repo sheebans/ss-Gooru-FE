@@ -101,7 +101,7 @@ export default Ember.Route.extend({
 
     let setting = currentClass.get('setting');
     let premiumCourse = setting
-      ? setting.course && setting.course.premium && setting.premium === true
+      ? setting['course.premium'] && setting['course.premium'] === true
       : false;
 
     var route0Promise = {};

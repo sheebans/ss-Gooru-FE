@@ -175,7 +175,7 @@ export default Ember.Controller.extend({
     const currentClass = controller.get('class');
     let setting = currentClass.get('setting');
     return setting
-      ? setting.course && setting.course.premium && setting.premium === true
+      ? setting['course.premium'] && setting['course.premium'] === true
       : false;
   }),
 
