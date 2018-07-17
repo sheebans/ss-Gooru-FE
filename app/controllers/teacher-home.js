@@ -341,7 +341,7 @@ export default Ember.Controller.extend(ModalMixin, {
    * @property {Boolean}
    * Property to show/hide ATC view
    */
-  isShowAtcView: true,
+  isShowAtcView: false,
 
   /**
    * @property {Number}
