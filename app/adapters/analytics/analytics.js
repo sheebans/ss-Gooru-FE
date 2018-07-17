@@ -75,6 +75,25 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * @function getAtcPerformanceSummary
+   * Method to fetch performance summary of a class for ATC view
+   */
+  getAtcPerformanceSummary(classId, courseId) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/atc/pvc`;
+    const options = {
+      type: 'GET',
+      headers: adapter.defineHeaders(),
+      data: {
+        classId,
+        courseId
+      }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       Authorization: `Token ${this.get('session.token-api3')}`

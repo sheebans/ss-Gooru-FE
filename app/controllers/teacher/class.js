@@ -111,6 +111,7 @@ export default Ember.Controller.extend({
       lastAccessedClassData = {
         id: classData.id,
         title: classData.title,
+        courseId: classData.courseId,
         performance: controller.getClassPerformance(classData.performanceSummary)
       };
     }

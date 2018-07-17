@@ -1,8 +1,12 @@
 <div class="class-view">
   <div class="body">
-    <div id="atc-chart">
-      <span>Chart Coming Soon!</span>
-    </div>
+    {{#if isStudentPerformed}}
+      <div id="atc-chart">
+        {{teacher.class.atc-chart classData=classData}}
+      </div>
+    {{else}}
+      <div class="not-started">Your students have not yet started studying a course.</div>
+    {{/if}}
     <div class="class-nav nav-previous {{if isPreviousDisabled 'disable'}}" {{action "onChangeAtcClass" 'previous'}}>
       {{gru-icon name="keyboard_arrow_left"}}
     </div>
@@ -13,9 +17,9 @@
   <div class="footer">
     <div class="class-performance">
       <div class="title">
-        Class performance
+        <span>Class performance</span>
       </div>
-      {{#if classData.performance}}
+      {{#if (and classData.performance classData.performance.score)}}
         <div class="performance">
           {{teacher.class-performance-chart data=classPerformanceData performanceColor=classPerformanceColor}}
         </div>

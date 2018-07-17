@@ -38,7 +38,7 @@ export default Ember.Component.extend({
    * Observer to watch data changes
    */
   dataObserver: Ember.observer('data', function() {
-    d3.select('svg').remove();
+    d3.select('svg.performance-chart').remove();
     this.drawchart();
   }),
 
@@ -73,39 +73,17 @@ export default Ember.Component.extend({
     let width = component.get('width');
     let height = component.get('height');
     let data = component.get('data');
-    let radius = component.get('radius');
     let performanceColor = component.get('performanceColor');
     let svg = d3.select(component.element)
       .append('svg')
       .attr('class', 'pie')
+      .attr('class', 'performance-chart')
       .attr('width', width)
       .attr('height', height);
 
     let g = svg.append('g')
       .attr('transform', `translate(${  width / 2  },${  height / 2  })`);
 
-    let arc = d3.svg.arc()
-      .innerRadius(115)
-      .outerRadius(radius);
-
-    let pie = d3.layout.pie()
-      .value(function(d) {
-        return d.score;
-      })
-      .sort(null);
-    pie.padAngle(0.05);
-
-    let arcs = g.selectAll('arc')
-      .data(pie(data))
-      .enter()
-      .append('g')
-      .attr('class', 'arc');
-    arcs.append('path')
-      .attr('d', arc)
-      .attr('fill', performanceColor)
-      .each(function(d, i) {
-        this._current = i;
-      });
     let text = g.append('svg:foreignObject')
       .attr('width', 100).attr('height', 100)
       .attr('x', -50)
