@@ -16,7 +16,7 @@ export default Ember.Component.extend({
   classService: Ember.inject.service('api-sdk/class'),
 
   /**
-   * @type {LessonService} Service to retrieve class information
+   * @type {LessonService} Service to retrieve lesson information
    */
   lessonService: Ember.inject.service('api-sdk/lesson'),
 
@@ -31,6 +31,21 @@ export default Ember.Component.extend({
   actions: {
     onPullUpClose() {
       this.set('showPullUp', false);
+    },
+
+    sortStudents: function(criteria) {
+      if (this.get('sortBy') !== criteria) {
+        this.set('sortBy', criteria);
+        this.set('reverseSort', false);
+      } else {
+        this.set('reverseSort', !this.get('reverseSort'));
+      }
+    },
+
+    filterByReportData: function(type) {
+      let component = this;
+      component.set('type', type);
+      component.getStudentPerformances();
     }
   },
 
@@ -89,20 +104,83 @@ export default Ember.Component.extend({
    */
   type: 'assessment',
 
+  /**
+   * @param {Boolean} reverseSort - default sort in ascending order
+   */
+  reverseSort: false,
+
+  /**
+   * Propery to sort the score column.
+   * @property {type}
+   */
+  sortByScore: 'sortBy',
+
+  /**
+   * Property to load the performance data
+   */
+  collections: Ember.A([]),
+
+  /**
+   * Property to assesslist data
+   */
+  classMembers: Ember.A([]),
+
+  /**
+   * Property to assessmentlist data
+   */
+  memberPerformances: Ember.A([]),
+
+  // -------------------------------------------------------------------------
+  // Events
   didInsertElement() {
     let component = this;
     if (this.get('showPullUp')) {
+      // component.getStudentData();
+      component.getStudentData();
       component.getStudentPerformances();
     }
+    //For table vertical aand horizondal scroll
+    $('tbody').scroll(function() {
+      //detect a scroll event on the tbody
+      /*
+      Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement
+      of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.
+      */
+      $('thead').css('left', -$('tbody').scrollLeft()); //fix the thead relative to the body scrolling
+      $('thead th:nth-child(1)').css('left', $('tbody').scrollLeft()); //fix the first cell of the header
+      $('tbody td:nth-child(1)').css('left', $('tbody').scrollLeft()); //fix the first column of tdbody
+    });
   },
 
+  //--------------------------------------------------------------------------
+  // Observer
+  //
+
+  /**
+   * Observer to check the showPullUp property in component
+   **/
   pullUpObserver: Ember.observer('showPullUp', function() {
     let component = this;
     if (component.get('showPullUp')) {
-      component.getStudentPerformances();
+      component.getStudentData().then(function() {
+        component.getStudentPerformances();
+      });
     }
   }),
 
+  // pullUpObserver: Ember.observer('classMembers', function() {
+  //   let component = this;
+  //   if (component.get('classMembers')) {
+  //     component.getStudentData();
+  //   }
+  // }),
+
+  // -------------------------------------------------------------------------
+  // Methods
+
+  /**
+   * Get the list of class members
+   */
   getClassMembers() {
     let component = this;
     const classId = this.get('classId');
@@ -114,6 +192,9 @@ export default Ember.Component.extend({
       });
   },
 
+  /**
+   * Get the list of assessment list
+   */
   getListOfAssessments() {
     const courseId = this.get('courseId');
     const unitId = this.get('unitId');
@@ -127,6 +208,10 @@ export default Ember.Component.extend({
       return hash.studentAssessment.children;
     });
   },
+
+  /**
+   * Get the overall performance
+   */
   getPerformances() {
     const classId = this.get('classId');
     const courseId = this.get('courseId');
@@ -149,7 +234,68 @@ export default Ember.Component.extend({
     });
   },
 
+  /**
+   * Get the student performance
+   */
   getStudentPerformances() {
+    let component = this;
+    let type = this.get('type');
+    let memberPerformances = component.get('memberPerformances');
+    let collections = component.get('collections');
+    let filteredCollections = component.getContentByType(collections, type);
+    let classMembers = component.get('classMembers');
+    let tableRow = Ember.A([]);
+    component.generateTableHeader(filteredCollections);
+    classMembers.map(member => {
+      let memberId = member.id;
+      let fullName = `${member.lastName} ${member.firstName}`;
+      let memberPerformance = memberPerformances.findBy('userId', memberId);
+      let studentPerformances = memberPerformance
+        ? memberPerformance.usageData.length > 0
+          ? memberPerformance.usageData
+          : null
+        : null;
+      let studentData = {
+        fullName: fullName,
+        thumbnail: member.avatarUrl,
+        student: member,
+        collections: Ember.A([])
+      };
+
+      let tableBody = Ember.A([]);
+      filteredCollections.map(collection => {
+        let studentCollectionPerformance = {
+          score: null,
+          timeSpent: null,
+          status: null,
+          collectionId: collection.id
+        };
+        if (studentPerformances) {
+          let collectionPerformance = studentPerformances.findBy(
+            'collectionId',
+            collection.id
+          );
+          if (collectionPerformance) {
+            let collectionTimeSpent = collectionPerformance.timeSpent
+              ? formatTime(collectionPerformance.timeSpent)
+              : null;
+            studentCollectionPerformance = {
+              score: collectionPerformance.scoreInPercentage,
+              timeSpent: collectionTimeSpent,
+              status: collectionPerformance.status,
+              collectionId: collection.id
+            };
+          }
+        }
+        tableBody.push(studentCollectionPerformance);
+      });
+      studentData.collections = tableBody;
+      tableRow.push(studentData);
+    });
+    component.set('tableRow', tableRow);
+  },
+
+  getStudentData() {
     let component = this;
     let classMembersPromise = component.getClassMembers();
     let performancePromise = component.getPerformances();
@@ -162,57 +308,15 @@ export default Ember.Component.extend({
       let classMembers = hash.classMembers.members;
       let collections = hash.assessmentLists;
       let memberPerformances = hash.performances;
-      let tableRow = Ember.A([]);
-      component.generateTableHeader(collections);
-      classMembers.map(member => {
-        let memberId = member.id;
-        let fullName = `${member.lastName} ${member.firstName}`;
-        let memberPerformance = memberPerformances.findBy('userId', memberId);
-        let studentPerformances = memberPerformance
-          ? memberPerformance.usageData.length > 0
-            ? memberPerformance.usageData
-            : null
-          : null;
-        let studentData = {
-          fullName: fullName,
-          thumbnail: member.avatarUrl,
-          student: member,
-          collections: Ember.A([])
-        };
-        let tableBody = Ember.A([]);
-        collections.map(collection => {
-          let studentCollectionPerformance = {
-            score: null,
-            timeSpent: null,
-            status: null,
-            collectionId: collection.id
-          };
-          if (studentPerformances) {
-            let collectionPerformance = studentPerformances.findBy(
-              'collectionId',
-              collection.id
-            );
-            if (collectionPerformance) {
-              let collectionTimeSpent = collectionPerformance.timeSpent
-                ? formatTime(collectionPerformance.timeSpent)
-                : null;
-              studentCollectionPerformance = {
-                score: collectionPerformance.scoreInPercentage,
-                timeSpent: collectionTimeSpent,
-                status: collectionPerformance.status,
-                collectionId: collection.id
-              };
-            }
-          }
-          tableBody.push(studentCollectionPerformance);
-        });
-        studentData.collections = tableBody;
-        tableRow.push(studentData);
-      });
-      component.set('tableRow', tableRow);
+      component.set('memberPerformances', memberPerformances);
+      component.set('collections', collections);
+      component.set('classMembers', classMembers);
     });
   },
 
+  /**
+   * Generate the table header for student perfomance data
+   */
   generateTableHeader(collections) {
     let component = this;
     let tableHeader = {
@@ -224,5 +328,18 @@ export default Ember.Component.extend({
     }
     component.set('tableHeader', tableHeader);
     return tableHeader;
+  },
+
+  /**
+   * Get the content by type as collection or assessment
+   */
+  getContentByType(collections, type) {
+    let filteredCollections = Ember.A([]);
+    collections.map(collection => {
+      if (collection.format === type) {
+        filteredCollections.push(collection);
+      }
+    });
+    return filteredCollections;
   }
 });
