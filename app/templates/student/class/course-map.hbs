@@ -38,7 +38,7 @@
         </div>
 
     {{#if hasRouteSuggestion}}
-      {{class.overview.course-suggestions}}
+      {{class.overview.course-suggestions route0=route0 routeSuggestAction=(action 'courseRouteSuggestAction' ) }}
     {{/if}}
     {{class.overview.gru-accordion-course
     currentClass=class

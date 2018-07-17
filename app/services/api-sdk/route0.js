@@ -58,5 +58,31 @@ export default Ember.Service.extend({
           }
         );
     });
+  },
+  updateRouteAction: function(action) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      let serializedFilterData = service
+        .get('route0Serializer')
+        .updateRouteAction(action);
+      service
+        .get('route0Adapter')
+        .updateRouteAction({
+          body: serializedFilterData
+        })
+        .then(
+          function(responseData) {
+            resolve(responseData);
+          },
+          function(error) {
+            const status = error.status;
+            if (status === 404) {
+              resolve({ status: '200' });
+            } else {
+              reject(error);
+            }
+          }
+        );
+    });
   }
 });

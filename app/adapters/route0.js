@@ -19,7 +19,7 @@ export default ApplicationAdapter.extend({
   fetchInClass: function(filter) {
     const adapter = this;
     const namespace = adapter.get('namespace');
-    const url = `${namespace}/rtd/?classId=${filter.body.classId}&courseId=${
+    const url = `${namespace}/rtd?classId=${filter.body.classId}&courseId=${
       filter.body.courseId
     }`;
     const options = {
@@ -46,6 +46,19 @@ export default ApplicationAdapter.extend({
       contentType: 'application/json; charset=utf-8',
       headers: adapter.get('headers'),
       data: filter
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  updateRouteAction: function(action) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/rtd/status`;
+    const options = {
+      type: 'PUT',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.get('headers'),
+      data: JSON.stringify(action.body)
     };
     return Ember.$.ajax(url, options);
   }

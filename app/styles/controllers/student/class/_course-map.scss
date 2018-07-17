@@ -236,8 +236,8 @@
   }
 
   .compet-container {
-    width: 744px;
-    height: 80px;
+    width: 724px;
+    height: 169px;
     background-color: #ffffff;
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.13);
     -webkit-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.13);
@@ -270,6 +270,43 @@
 
       .tag-caption {
         display: none;
+      }
+    }
+  }
+
+  .route0suggestionHero {
+    background-image: "route0suggestion.jpg";
+    height: 169px;
+    width: 210px;
+    border: 1px solid $sun-color;
+  }
+
+  .action {
+    .accept {
+      border-bottom: solid 2px $white;
+    }
+
+    .accept,
+    .ignore {
+      background-color: $sun-color;
+      height: 38px;
+      font-size: 13px;
+      font-weight: bold;
+      color: $white;
+      line-height: 38px;
+      text-align: center;
+      cursor: pointer;
+      width: 131px;
+      border-radius: 3px;
+      box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+      vertical-align: text-bottom;
+    }
+
+    .ignore {
+      border-bottom-right-radius: 4px;
+
+      span {
+        opacity: 0.5;
       }
     }
   }

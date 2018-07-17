@@ -2,8 +2,11 @@ import Ember from 'ember';
 import AccordionMixin from '../../../mixins/gru-accordion';
 
 export default Ember.Component.extend(AccordionMixin, {
-  // Mock Data
-
+  actions: {
+    routeAction: function(actiontype) {
+      this.attrs.routeSuggestAction(actiontype);
+    }
+  },
   taxonomyList: [
     {
       code: 'D2.Civ.1.K-2',

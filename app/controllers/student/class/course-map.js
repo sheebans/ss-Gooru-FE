@@ -15,6 +15,11 @@ export default Ember.Controller.extend({
    */
   rescopeService: Ember.inject.service('api-sdk/rescope'),
 
+  /**
+   * Route0
+   */
+  route0Service: Ember.inject.service('api-sdk/route0'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -88,6 +93,21 @@ export default Ember.Controller.extend({
 
     onClearCustomizeMsg() {
       Ember.$('.custom-msg').hide(800);
+    },
+    courseRouteSuggestAction: function(action) {
+      let controller = this;
+      let currentClass = controller.get('currentClass');
+      let actionData = {
+        classId: currentClass.get('id'),
+        courseId: currentClass.get('courseId'),
+        status: action
+      };
+      let route0Promise = controller
+        .get('route0Service')
+        .updateRouteAction(actionData);
+      route0Promise.then(function() {
+        //console.log(resp); //ToDo: Refresh UI
+      });
     }
   },
 
