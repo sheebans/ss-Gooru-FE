@@ -1,0 +1,39 @@
+.atc-chart {
+    svg {
+      width: 960px;
+      height: 500px;
+    }
+    .axis path,
+    .axis line{
+      fill: none;
+      stroke: #37424b;
+      opacity: 0.5;
+      stroke-dasharray: 8 8;
+    }
+
+    .line{
+      fill: none;
+      stroke: blue;
+    }
+
+    .tick text, .placeholder{
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      color: #37424b;
+    }
+
+    .tick line{
+      opacity: 0.5;
+    }
+
+    .student-profile {
+      clip-path: circle(50% at center);
+    }
+
+    text.student-info {
+      font-size: 10px;
+      text-align: center;
+      color: #37424b;
+    }
+}

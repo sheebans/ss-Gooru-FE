@@ -2,7 +2,7 @@
   .teacher.class-atc-view {
     margin-bottom: 30px;
     .class-view {
-      min-height: 600px;
+      min-height: 320px;
       border-radius: 4px;
       background-color: $white;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
@@ -10,13 +10,12 @@
       .body {
         position: relative;
         #atc-chart {
-          height: 425px;
-          border: 1px solid;
+
+        }
+
+        .not-started {
           text-align: center;
-          font-size: 25px;
-          span {
-            margin-top: 100px;
-          }
+          font-size: 15px;
         }
 
         .class-nav {
@@ -24,7 +23,6 @@
           height: 92px;
           top: 150px;
           background-color: $white;
-          border: solid 3px $charcoal-grey;
           position: absolute;
           cursor: pointer;
           i {
@@ -37,9 +35,12 @@
         }
         .nav-previous {
           left: -15px;
+          box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.25);
         }
         .nav-next {
           right: -15px;
+          box-shadow: -2px 1px 5px 3px rgba(0, 0, 0, 0.25);
+
         }
       }
 
@@ -52,14 +53,14 @@
             color: $dark-600;
             text-align: center;
             text-transform: uppercase;
-          }
-          .performance {
-            .class-performance-chart {
-              border-top: 1px solid;
+            span {
+              padding-bottom: 8px;
+              width: 200px;
+              border-bottom: 1px solid;
             }
           }
+
           .no-performance {
-            border-top: 1px solid;
             text-align: center;
             font-size: 25px;
           }

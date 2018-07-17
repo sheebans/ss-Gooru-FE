@@ -34,6 +34,7 @@ export default Ember.Component.extend({
      */
     onChangeAtcClass(actionSequence) {
       let component = this;
+      component.set('isLoading', true);
       component.sendAction('onChangeAtcClass', actionSequence);
     },
 
@@ -94,10 +95,19 @@ export default Ember.Component.extend({
   classPerformanceData: Ember.computed('classData', function() {
     let component = this;
     let classPerformance = component.get('classData.performance');
-    let score = classPerformance ? classPerformance.score || 0 : 0;
+    let score = classPerformance ? classPerformance.score : 0;
     let classPerformanceData= Ember.A([{
       score: score
     }]);
     return classPerformanceData;
+  }),
+
+  /**
+   * @property {Boolean}
+   * Property to check whether the class mapped with a course or not
+   */
+  isStudentPerformed: Ember.computed('classData', function() {
+    let component = this;
+    return component.get('classData.courseId') || false;
   })
 });

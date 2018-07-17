@@ -353,6 +353,7 @@ $box-shadow: 1px -1px;
 //ATC View
 @import "components/teacher/class-atc-view";
 @import "components/teacher/class-performance-chart";
+@import "components/teacher/class/atc-chart";
 
 @import "routes/student/class/performance";
 @import "routes/content/rubric/preview";

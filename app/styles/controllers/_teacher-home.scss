@@ -306,17 +306,17 @@
   }
 
   .atc-view.nav{
-    height: 64px;
+    height: 50px;
     width: 100%;
     display: flex;
     border-bottom: solid 1px $greyish;
     background-color: $white;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
     .class-title {
-      padding: 15px;
+      padding: 8px;
       width: 95%;
       line-height: 30px;
-      font-size: 30px;
+      font-size: 22px;
       color: $dark-400;
       text-transform: capitalize;
     }
@@ -324,10 +324,10 @@
 
   .toggle-view {
     position: absolute;
-    top: 8px;
+    top: 6px;
     right: 8px;
     i {
-      font-size: 35px;
+      font-size: 30px;
       line-height: 1.8;
       cursor: pointer;
     }
