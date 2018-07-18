@@ -6,7 +6,7 @@
     .axis path,
     .axis line{
       fill: none;
-      stroke: #37424b;
+      stroke: $dark-600;
       opacity: 0.5;
       stroke-dasharray: 8 8;
     }
@@ -20,7 +20,7 @@
       font-size: 12px;
       font-weight: bold;
       text-align: center;
-      color: #37424b;
+      color: $dark-600;
     }
 
     .tick line{
@@ -34,6 +34,13 @@
     text.student-info {
       font-size: 10px;
       text-align: center;
-      color: #37424b;
+      color: $dark-600;
+    }
+
+    .reset {
+      float: right;
+      font-size: 13px;
+      font-weight: bold;
+      color: $dark-600;
     }
 }

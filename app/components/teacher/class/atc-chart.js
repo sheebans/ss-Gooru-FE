@@ -54,6 +54,23 @@ export default Ember.Component.extend({
     component.drawchart();
   }),
 
+
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+
+    /*
+     * Action triggered when the user click reset zoom
+     */
+    onClearZoom() {
+      const component = this;
+      d3.select('svg.atc-chart').remove();
+      component.drawchart();
+      component.set('isZoomInView', false);
+    }
+  },
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -106,8 +123,8 @@ export default Ember.Component.extend({
           progress: 0
         };
         if (studentPerformance) {
-          studentData.score = studentPerformance.score;
-          studentData.progress = studentPerformance.progress;
+          studentData.score = studentPerformance.score || 0;
+          studentData.progress = studentPerformance.progress || 0;
         }
         studentsPerformanceData.push(studentData);
       });
@@ -149,12 +166,21 @@ export default Ember.Component.extend({
 
     var dataset = component.get('chartData');
 
+    var maxScore = d3.max(dataset, function(d){ return d.score; });
+    var maxProgress = d3.max(dataset, function(d){ return d.progress; });
+    var minScore = d3.min(dataset, function(d){ return d.score; });
+    var minProgress = d3.min(dataset, function(d){ return d.progress; });
+    var axisDomain = [0, 100];
+
+    if (maxScore === 100 || maxProgress === 100 || minScore === 0 || minProgress === 0) {
+      axisDomain = [-10, 110];
+    }
     var xScale = d3.scale.linear()
-      .domain([0, 100])
+      .domain(axisDomain)
       .range([0, width]);
 
     var yScale = d3.scale.linear()
-      .domain([0, 100])
+      .domain(axisDomain)
       .range([height, 0]);
 
     var xAxis = d3.svg.axis()
@@ -192,6 +218,7 @@ export default Ember.Component.extend({
               .attr('y', function(d) { return yScale(d.score)+ 40; })
               .attr('x', function(d) { return xScale(d.progress); });
             component.cleanUpChart();
+            component.set('isZoomInView', true);
           }))
       .append('g')
       .attr('transform', `translate(${  margin.left  },${  margin.top  })`);
@@ -290,8 +317,15 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * @property {String}
+   * @property {Boolean}
    * Property to show/hide loading spinner
    */
-  isLoading: true
+  isLoading: true,
+
+  /**
+   * @property {Boolean}
+   * Property to show/hide reset chart
+   */
+  isZoomInView: false
+
 });

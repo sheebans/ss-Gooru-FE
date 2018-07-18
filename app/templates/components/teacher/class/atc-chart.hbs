@@ -1,4 +1,8 @@
 {{#if isLoading}}
   {{three-bounce-spinner}}
 {{/if}}
+
+{{#if isZoomInView}}
+  <div class="reset" {{action "onClearZoom"}}>Reset Chart</div>
+{{/if}}
 <!-- Chart will be rendered through JS -->
