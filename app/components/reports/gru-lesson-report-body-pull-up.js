@@ -44,6 +44,7 @@ export default Ember.Component.extend({
 
     filterByReportData: function(type) {
       let component = this;
+      this.set('active', !this.get('active'));
       component.set('type', type);
       component.getStudentPerformances();
     }
@@ -139,16 +140,25 @@ export default Ember.Component.extend({
       component.getStudentData();
       component.getStudentPerformances();
     }
+  },
+
+  didRender() {
+    var component = this;
+
     //For table vertical aand horizondal scroll
-    $('tbody').scroll(function() {
+    component.$('tbody').scroll(function() {
       //detect a scroll event on the tbody
       /*
       Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement
       of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.
       */
-      $('thead').css('left', -$('tbody').scrollLeft()); //fix the thead relative to the body scrolling
-      $('thead th:nth-child(1)').css('left', $('tbody').scrollLeft()); //fix the first cell of the header
-      $('tbody td:nth-child(1)').css('left', $('tbody').scrollLeft()); //fix the first column of tdbody
+      component.$('thead').css('left', -component.$('tbody').scrollLeft()); //fix the thead relative to the body scrolling
+      component
+        .$('thead th:nth-child(1)')
+        .css('left', component.$('tbody').scrollLeft()); //fix the first cell of the header
+      component
+        .$('tbody td:nth-child(1)')
+        .css('left', component.$('tbody').scrollLeft()); //fix the first column of tdbody
     });
   },
 

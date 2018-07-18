@@ -33,6 +33,7 @@
         padding-top: 8px;
         float: left;
         width: 82%;
+        line-height: 18px;
         overflow: hidden;
         height: 45px;
       }
@@ -58,7 +59,7 @@
       background-color: #ffff;
       color: #ccc;
       min-width: 241px;
-      height: 44px;
+      height: 45px;
       text-align: center;
       vertical-align: middle;
       padding-top: 13px;
@@ -70,8 +71,9 @@
       position: relative;
       display: block; /*seperates the tbody from the header*/
       width: 768px;
-      height: 239px;
+      max-height: calc(60vh - 130px);
       overflow: scroll;
+      height: 60vh;
     }
 
     tbody td {
