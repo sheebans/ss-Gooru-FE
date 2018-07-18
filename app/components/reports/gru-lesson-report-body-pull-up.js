@@ -44,7 +44,8 @@ export default Ember.Component.extend({
 
     filterByReportData: function(type) {
       let component = this;
-      this.set('active', !this.get('active'));
+      component.$('.data-filter').removeClass('active');
+      component.$(`.${type}`).addClass('active');
       component.set('type', type);
       component.getStudentPerformances();
     }

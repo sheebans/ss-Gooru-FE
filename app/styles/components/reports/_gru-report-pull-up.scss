@@ -91,7 +91,9 @@
 
         #myCarousel {
           position: unset !important;
-
+          .carousel-inner {
+            height: 167px;
+          }
           .report-avrg {
             width: 180px;
             height: 180px;

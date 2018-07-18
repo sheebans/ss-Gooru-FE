@@ -127,7 +127,7 @@
       width: 20px;
       height: 15px;
       color: #fff;
-      background: #02a8e6;
+      background: #cccccc;
       margin-left: auto;
       margin-right: auto;
       margin-bottom: 5px;
@@ -143,12 +143,15 @@
       padding-top: 14px;
     }
 
-    .a-filter {
-      color: #02a8e6;
-      cursor: pointer;
+    .data-filter {
+      color: #ccc;
+      &.active {
+        color: #02a8e6 !important;
+      }
     }
-    &.active {
-      color: #000fff;
+
+    .a-filter {
+      cursor: pointer;
     }
     .c-filter {
       cursor: pointer;
