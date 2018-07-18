@@ -206,25 +206,33 @@
 
   .detail-sep {
     height: 1.5px;
-    border: solid 0.7px $dark-400;
+    border: solid 0.7px $sep-border-color;
     margin-top: 10px;
     margin-bottom: 10px;
   }
 
   .suggest-icon {
-    width: 33.6px;
-    height: 33.6px;
+    width: 61.6px;
+    height: 61.6px;
     color: $sun-color;
     padding: 0px;
     padding-top: 8px;
+
+    i {
+      font-size: 61px;
+      line-height: 45px;
+      color: $sun-color;
+    }
   }
 
   .suggest-sep {
     width: 1px;
-    height: 43px;
+    height: 61px;
     float: left;
     border: solid 1px $sep-border-color;
     display: inline;
+    margin-left: 4px;
+    margin-right: 4px;
   }
 
   .suggest-desc {
@@ -239,9 +247,9 @@
     width: 724px;
     height: 169px;
     background-color: #ffffff;
-    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.13);
-    -webkit-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.13);
-    -moz-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.13);
+    box-shadow: inset 0 5px 4px 0 rgba(0, 0, 0, 0.13);
+    -webkit-box-shadow: inset 0 5px 4px 0 rgba(0, 0, 0, 0.13);
+    -moz-box-shadow: inset 0 5px 4px 0 rgba(0, 0, 0, 0.13);
     padding: 10px;
   }
 
@@ -258,7 +266,7 @@
   }
 
   .gru-taxonomy-tag-list {
-    border-bottom: 1px solid;
+    border-bottom: 1px solid lightgray;
 
     .gru-taxonomy-tag {
       background-color: $dark-400;
@@ -282,9 +290,9 @@
   }
 
   .action {
-    .accept {
-      border-bottom: solid 2px $white;
-    }
+    // .accept {
+    //   border-bottom: inset 2px $white;
+    // }
 
     .accept,
     .ignore {
@@ -296,14 +304,17 @@
       line-height: 38px;
       text-align: center;
       cursor: pointer;
-      width: 131px;
+      width: 108px;
       border-radius: 3px;
       box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
       vertical-align: text-bottom;
+      display: inline-block;
     }
 
     .ignore {
       border-bottom-right-radius: 4px;
+      background-color: #b8bfc4;
+      margin-left: 5px;
 
       span {
         opacity: 0.5;

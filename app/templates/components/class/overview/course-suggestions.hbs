@@ -24,20 +24,32 @@
                 <img class="route0suggestionHero" src='/assets/gooru/route0suggestion.jpg' />
             </div>
             <div style="clear:both"></div>
-            <div class='route-compgraph pull-left'></div>
-            <div class='pull-right'>
-                <ol>
+            <div class='route-compgraph pull-left hidden'></div>
+            <div class='gru-accordion'>
+                <ol class=''>
                     {{#each route0.route0Content.units as |unit|}}
                         <li>
-                            <div>{{unit.unitSequence}}</div>
-                            <div class='suggest-sep'> </div>
-                            <div> {{unit.unitTitle}} </div>
+                            <div>Unit {{unit.unitSequence}}- {{unit.unitTitle}}</div>
+                            <div>  </div>
+                            {{#each unit.lessons as |lesson|}}
+                                <div> Lesson {{lesson.lessonSequence}} - {{lesson.lessonTitle}} </div>
+                                <div>  </div>
+                                {{#each lesson.assessments as |assessment|}}
+                                    <div> {{assessment.assessmentSequence}} - {{assessment.assessmentTitle}}</div>
+                                    <div>  </div>
+                                {{/each}}
+                                {{#each lesson.collections as |collection|}}
+                                    <div> {{collection.collectionSequence}} - {{collection.collectionTitle}} </div>
+                                    <div>  </div>
+                                 
+                                {{/each}}
+                            {{/each}}
                         </li>
                     {{/each}}
                 </ol>
             </div>
             <div style="clear:both"></div>
-            <div class="action">
+            <div class="action col-md-offset-9">
                 <div class="accept " {{ action 'routeAction' 'accepted' }}>
                     {{t 'common.accept'}} {{gru-icon name="done"}}
                 </div>
