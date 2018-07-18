@@ -1,0 +1,19 @@
+<div class="unit panel-heading" role="tab" id="{{elementId}}-heading">
+    <div class="panel-title">
+        <a class="collapsed title" role="button" data-toggle="collapse" href="#{{elementId}}-content" aria-expanded="false" aria-controls="{{elementId}}-content">
+            {{!--  {{action "selectUnit" model.unitId}} --}}
+            <div class="title ellipsis">
+                <span class="prefix">{{course-sections-prefix index=index type='unit' longName=true}}</span>{{model.unitTitle}}
+            </div>
+        </a>
+    </div>
+</div>
+<div id="{{elementId}}-content" data-index="{{componentIndex}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{elementId}}-heading">
+    <div class="panel-body">
+        <ol class="panel-group" role="tablist" aria-multiselectable="true">
+            {{#each model.lessons as |lesson index|}}
+                {{class.overview.lesson-suggestions model=lesson index=index }}
+            {{/each}}
+        </ol>
+    </div>
+</div>

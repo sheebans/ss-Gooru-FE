@@ -25,13 +25,14 @@
             </div>
             <div style="clear:both"></div>
             <div class='route-compgraph pull-left hidden'></div>
-            <div class='gru-accordion'>
+            <div class=''>
                 <ol class=''>
-                    {{#each route0.route0Content.units as |unit|}}
+                    {{#each route0.route0Content.units as |unit index|}}
+                         {{class.overview.unit-suggestions model=unit index=index }}
                         <li>
-                            <div>Unit {{unit.unitSequence}}- {{unit.unitTitle}}</div>
-                            <div>  </div>
-                            {{#each unit.lessons as |lesson|}}
+                            {{!-- <div>Unit {{unit.unitSequence}}- {{unit.unitTitle}}</div>
+                            <div>  </div> --}}
+                            {{!-- {{#each unit.lessons as |lesson|}}
                                 <div> Lesson {{lesson.lessonSequence}} - {{lesson.lessonTitle}} </div>
                                 <div>  </div>
                                 {{#each lesson.assessments as |assessment|}}
@@ -43,7 +44,7 @@
                                     <div>  </div>
                                  
                                 {{/each}}
-                            {{/each}}
+                            {{/each}} --}}
                         </li>
                     {{/each}}
                 </ol>

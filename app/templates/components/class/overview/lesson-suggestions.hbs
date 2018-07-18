@@ -1,0 +1,13 @@
+<div class="panel-heading  {{if isLessonSelected 'study-active'}}" role="tab" id="{{elementId}}-heading">
+    <div class="panel-title">
+        <a class="title collapsed" role="button" data-toggle="collapse" href="#{{elementId}}-content" aria-expanded="false" aria-controls="{{elementId}}-content"
+            >
+            {{!-- {{action "selectLesson" model.id}} --}}
+            <span class="lesson-prefix">{{course-sections-prefix  index=index type='lesson' longName=true}}</span>{{model.lessonTitle}}
+        </a>
+    </div> 
+</div>
+<div id="{{elementId}}-content" data-index="{{componentIndex}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{elementId}}-heading">
+    <div class="panel-body">
+    </div>
+</div>
