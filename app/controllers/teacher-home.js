@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Env from 'gooru-web/config/environment';
 import ModalMixin from 'gooru-web/mixins/modal';
+import { getBarGradeColor } from 'gooru-web/utils/utils';
 
 export default Ember.Controller.extend(ModalMixin, {
   queryParams: ['showArchivedClasses', 'showActiveClasses'],
@@ -347,5 +348,16 @@ export default Ember.Controller.extend(ModalMixin, {
    * @property {Number}
    * Property to store last accessed class position
    */
-  currentClassPosition: 0
+  currentClassPosition: 0,
+
+  /**
+   * @property {String}
+   * Property to hold class performance color based on score value
+   */
+  classPerformanceColor: Ember.computed('lastAccessedClassData', function() {
+    let controller = this;
+    let classPerformance = controller.get('lastAccessedClassData.performance');
+    return classPerformance ? getBarGradeColor(classPerformance.score) : null;
+  })
+
 });

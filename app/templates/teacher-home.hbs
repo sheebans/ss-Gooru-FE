@@ -1,4 +1,4 @@
-<div class="controller teacher-landing row">
+<div class="controller teacher-landing row {{if isShowAtcView 'atc-landing'}}">
   <iframe id="download_iframe" style="display:none;"></iframe>
   {{gru-take-tour steps=steps containerClass='home-tour'}}
   <div class="teacher-panel">
@@ -28,6 +28,11 @@
           <div class="class-title ellipsis">
             {{lastAccessedClassData.title}}
           </div>
+          {{#if (and lastAccessedClassData.performance lastAccessedClassData.performance.score)}}
+            <div class="atc-class-performance" style="background-color: {{classPerformanceColor}};">
+              {{concat lastAccessedClassData.performance.score '%'}}
+            </div>
+          {{/if}}
           <div class="toggle-view" {{action "onToggleTeacherView" 'classroom'}}>
             {{gru-icon name="view_module"}}
           </div>

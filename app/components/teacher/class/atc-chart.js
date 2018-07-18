@@ -162,7 +162,7 @@ export default Ember.Component.extend({
 
     var margin = {top: 20, right: 100, bottom: 50, left: 100},
       width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+      height = 450 - margin.top - margin.bottom;
 
     var dataset = component.get('chartData');
 
@@ -187,14 +187,14 @@ export default Ember.Component.extend({
       .scale(xScale)
       .orient('bottom')
       .innerTickSize(-height)
-      .outerTickSize(0)
+      .outerTickSize(-520)
       .tickPadding(10);
 
     var yAxis = d3.svg.axis()
       .scale(yScale)
       .orient('left')
       .innerTickSize(-width)
-      .outerTickSize(0)
+      .outerTickSize(-760)
       .tickPadding(10);
 
     var svg = d3.select(component.element).append('svg')
@@ -238,8 +238,8 @@ export default Ember.Component.extend({
       .attr('transform', 'translate(-460, 450) rotate(-90)')
       .append('text')
       .attr('class', 'placeholder')
-      .attr('x', '0')
-      .attr('y', height)
+      .attr('x', '50')
+      .attr('y', '445')
       .text('Performance');
 
     svg.append('g')
