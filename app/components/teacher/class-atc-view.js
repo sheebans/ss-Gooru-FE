@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { getBarGradeColor } from 'gooru-web/utils/utils';
 
 /**
  * class performance chart
@@ -76,16 +75,6 @@ export default Ember.Component.extend({
     let totalClasses = component.get('totalClasses');
     let classPosition = component.get('classPosition');
     return totalClasses === (classPosition + 1);
-  }),
-
-  /**
-   * @property {String}
-   * Property to hold class performance color based on score value
-   */
-  classPerformanceColor: Ember.computed('classData', function() {
-    let component = this;
-    let classPerformance = component.get('classData.performance');
-    return classPerformance ? getBarGradeColor(classPerformance.score) : null;
   }),
 
   /**

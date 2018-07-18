@@ -15,20 +15,6 @@
     </div>
   </div>
   <div class="footer">
-    <div class="class-performance">
-      <div class="title">
-        <span>Class performance</span>
-      </div>
-      {{#if (and classData.performance classData.performance.score)}}
-        <div class="performance">
-          {{teacher.class-performance-chart data=classPerformanceData performanceColor=classPerformanceColor}}
-        </div>
-      {{else}}
-        <div class="no-performance">
-          &dash;&dash;
-        </div>
-      {{/if}}
-    </div>
     <div class="actions">
       <div class="dca" data-toggle="tooltip" title="Daily Class Activities" {{action "onSelectClassItem" 'class-activities' classData.id}}>
         <i class="icon"></i>

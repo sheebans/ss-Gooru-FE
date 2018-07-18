@@ -9,9 +9,6 @@
       padding: 15px;
       .body {
         position: relative;
-        #atc-chart {
-
-        }
 
         .not-started {
           text-align: center;
@@ -34,18 +31,17 @@
           }
         }
         .nav-previous {
-          left: -15px;
+          left: -35px;
           box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.25);
         }
         .nav-next {
-          right: -15px;
+          right: -35px;
           box-shadow: -2px 1px 5px 3px rgba(0, 0, 0, 0.25);
 
         }
       }
 
       .footer {
-        margin-top: 30px;
         .class-performance {
           .title {
             font-size: 13px;
