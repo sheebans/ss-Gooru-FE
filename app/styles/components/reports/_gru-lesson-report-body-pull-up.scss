@@ -147,6 +147,9 @@
       color: #02a8e6;
       cursor: pointer;
     }
+    &.active {
+      color: #000fff;
+    }
     .c-filter {
       cursor: pointer;
       color: #cccccc;

@@ -178,13 +178,6 @@ export default Ember.Component.extend({
     }
   }),
 
-  // pullUpObserver: Ember.observer('classMembers', function() {
-  //   let component = this;
-  //   if (component.get('classMembers')) {
-  //     component.getStudentData();
-  //   }
-  // }),
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -305,6 +298,9 @@ export default Ember.Component.extend({
     component.set('tableRow', tableRow);
   },
 
+  /**
+   * Generate the student data for filter
+   */
   getStudentData() {
     let component = this;
     let classMembersPromise = component.getClassMembers();
