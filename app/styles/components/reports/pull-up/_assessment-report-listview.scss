@@ -1,0 +1,39 @@
+.reports.pull-up-assessment-report-listview {
+  .table-fixed-left table,
+  .table-fixed-right table {
+    border-collapse: collapse;
+  }
+
+  .table-fixed-left td,
+  .table-fixed-left th,
+  .table-fixed-right td,
+  .table-fixed-right th {
+    border: 1px solid #ddd;
+    padding: 5px;
+  }
+
+  .table-fixed-left {
+    width: 120px;
+    float: left;
+    position: fixed;
+    overflow-x: scroll;
+    white-space: nowrap;
+    text-align: left;
+    border: 1px solid #ddd;
+    z-index: 2;
+  }
+
+  .table-fixed-right {
+    width: calc(100% - 145px);
+    right: 15px;
+    position: fixed;
+    overflow-x: scroll;
+    border: 1px solid #ddd;
+    white-space: nowrap;
+  }
+
+  .table-fixed-right td,
+  .table-fixed-right th {
+    padding: 5px 10px;
+  }
+}

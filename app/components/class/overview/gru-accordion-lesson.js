@@ -240,6 +240,15 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
       };
       component.set('studentReportData', params);
       component.set('showReportPullUp', true);
+    },
+
+    /**
+     * Load the student report data for this assessment
+     * @function actions:StudentAssesmentReportPullup
+     */
+    teacherReport() {
+      let component = this;
+      component.set('showAssessmentReportPullUp', true);
     }
   },
 
