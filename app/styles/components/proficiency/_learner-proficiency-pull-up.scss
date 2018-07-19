@@ -1,0 +1,88 @@
+.learner-proficiency-pull-up {
+  background-color: $white;
+  .proficiency-pull-up {
+    .header {
+      height: 135px;
+      background-color: #ffffff;
+      display: flex;
+      border-bottom: 1px solid;
+      padding: 15px 0 8px 20px;
+      .left-panel {
+        .avatar {
+          width: 106px;
+          height: 106px;
+          border-radius: 50%;
+          background-size: cover;
+        }
+        margin-right: 24px;
+      }
+
+      .right-panel {
+        width: calc(100% - 185px);
+        .student-info {
+          font-size: 25px;
+          color: #37424b;
+          text-transform: capitalize;
+        }
+        .taxonomy-info {
+          /* The container <div> - needed to position the dropdown content */
+          .dropdown {
+              position: relative;
+              display: inline-block;
+              width: 100%;
+              .active-item {
+                display: flex;
+                cursor: pointer;
+                
+                .label {
+                  min-width: 170px;
+                  font-size: 20px;
+                  font-weight: bold;
+                  color: #37424a;
+                  padding: 0;
+                  text-align: left;
+                }
+                .icon {
+                  font-size: 20px;
+                  font-weight: bold;
+                  color: #37424a;
+                }
+              }
+          }
+
+          /* Dropdown Content (Hidden by Default) */
+          .dropdown-content {
+              display: none;
+              position: absolute;
+              background-color: $white;
+              min-width: 170px;
+              box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+              max-height: 150px;
+              overflow-y: auto;
+              z-index: 1;
+              .list-item  {
+                height: 30px;
+                line-height: 30px;
+                padding-left: 15px;
+                cursor: pointer;
+                &:hover, &.active {
+                  background-color: $light-200;
+                }
+              }
+          }
+          /* Show the dropdown menu on hover */
+          .dropdown:hover .dropdown-content {
+              display: block;
+          }
+        }
+      }
+    }
+
+    .body {
+      padding: 30px;
+      background-color: $white;
+      height: calc(90vh - 140px);
+      overflow: auto;
+    }
+  }
+}

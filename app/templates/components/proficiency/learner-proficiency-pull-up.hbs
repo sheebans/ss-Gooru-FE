@@ -1,0 +1,39 @@
+<div class="proficiency-pull-up">
+  <div class="header">
+    <div class="left-panel">
+      <div class="avatar" style="background-image: url({{student.avatarUrl}});"></div>
+    </div>
+    <div class="right-panel">
+      <div class="student-info ellipsis">
+        {{studentFullName}}
+      </div>
+      <div class="taxonomy-info">
+        <div class="dropdown categories">
+          <div class="active-item active-category"><div class="label ellipsis">{{t activeCategory.label}}</div><div class="icon">{{gru-icon name="arrow_drop_down"}}</div></div>
+          <div class="dropdown-content category-list">
+            {{#each taxonomyCategories as |category|}}
+              <div class="list-item category {{if (eq activeCategory.apiCode category.apiCode) 'active'}}" {{action "onSelectCategory" category}}>{{t category.label}}</div>
+            {{/each}}
+          </div>
+        </div>
+
+        <div class="dropdown subjects">
+          <div class="active-item active-subject"><div class="label ellipsis">{{activeSubject.title}}</div><div class="icon">{{gru-icon name="arrow_drop_down"}}</div></div>
+          <div class="dropdown-content subject-list">
+            {{#each taxonomySubjects as |subject|}}
+              <div class="list-item subject {{if (eq activeSubject.id subject.id) 'active'}}" {{action "onSelectSubject" subject}}>{{subject.title}}</div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="proficiency-chart">
+        {{proficiency.learner-proficiency-domain-matrix timeLine=timeLine showPullUp=isShowProficiencyPullup userId=student.id subject=activeSubject}}
+    </div>
+    <div class="time-series">
+      {{charts.monthly-time-series-chart showPullUp=isShowProficiencyPullup onSelectMonth="onSelectMonth"}}
+    </div>
+  </div>
+</div>

@@ -249,4 +249,14 @@
   {{#if showReportPullUp}}
     {{class.gru-report-panel showPullUp=showReportPullUp reportData=reportData model=model onClosePullUp="onClosePullUp"}}
   {{/if}}
+
+  {{#gru-pull-up showPullUp=isShowProficiencyPullup as |pull-up|}}
+    {{#if pull-up.isShowHeader}}
+      {{proficiency.learner-proficiency-pull-up
+         student=selectedStudent
+         subjectBucket=subjectBucket
+         isShowProficiencyPullup=isShowProficiencyPullup}}
+    {{/if}}
+  {{/gru-pull-up}}
+
 </div>

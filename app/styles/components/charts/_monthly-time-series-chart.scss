@@ -1,0 +1,28 @@
+.monthly-time-series-chart {
+  .axis path,
+  .axis line{
+    fill: none;
+    stroke: #35424a;
+  }
+
+  .line{
+    fill: none;
+    stroke: blue;
+    stroke-width: 2px;
+  }
+
+  circle {
+    fill: #6092e0;
+    stroke: white;
+    stroke-width: 3px;
+  }
+  .tick text{
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #344048;
+    opacity: 0.8;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+}

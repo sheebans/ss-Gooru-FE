@@ -151,9 +151,9 @@ export default Ember.Controller.extend(ModalMixin, {
 
     proficiencyStudent: function(student) {
       let controller = this;
-      let studentId = student.get('id');
-      let classId = controller.get('class.id');
-      this.transitionToRoute(`/${studentId}/proficiency/?classId=${classId}`);
+      controller.set('isShowProficiencyPullup', true);
+      controller.set('selectedStudent', student);
+      // this.transitionToRoute(`/${studentId}/proficiency/?classId=${classId}`);
     },
 
     pathwayStudent(student) {
@@ -314,6 +314,15 @@ export default Ember.Controller.extend(ModalMixin, {
    * @property {showPathWayPullUp}
    */
   showPathWayPullUp: false,
+
+  isShowProficiencyPullup: false,
+
+  subjectBucket: Ember.computed('course', function() {
+    let controller = this;
+    return controller.get('course.subject') || 'K12.MA';
+  }),
+
+  selectedStudent: null,
 
   // -------------------------------------------------------------------------
   // Observers
