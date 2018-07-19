@@ -391,10 +391,15 @@ export default Ember.Controller.extend({
    */
   questionItems: null,
 
-  isRescopedClass: Ember.computed('class', function() {
-    let controller = this;
+  /**
+   * @property {Boolean}
+   * property to check, is it has premium course
+   */
+  isPremiumClass: Ember.computed('class', function() {
+    const controller = this;
     let currentClass = controller.get('class');
-    return currentClass.setting.rescope;
+    let classSetting = currentClass.setting;
+    return classSetting ? classSetting['course.premium'] : false;
   }),
 
   // -------------------------------------------------------------------------

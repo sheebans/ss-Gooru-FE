@@ -96,7 +96,7 @@
             <div class="title">{{t 'student-landing.class-code'}}</div>
             <div class="class-code">{{class.code}}</div>
           </div>
-          {{#if (not isRescopedClass)}}
+          {{#if (not isPremiumClass)}}
             {{#link-to 'teacher.class.performance' class.id class="pointer percentage" tagName="div" }}
               {{scorePercentage}}
             {{/link-to}}

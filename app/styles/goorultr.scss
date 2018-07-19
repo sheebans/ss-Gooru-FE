@@ -350,5 +350,10 @@ $box-shadow: 1px -1px;
 @import "components/proficiency/competencies-pull-out-body";
 @import "components/proficiency/pull-out-accordion-collection";
 
+//ATC View
+@import "components/teacher/class-atc-view";
+@import "components/teacher/class-performance-chart";
+@import "components/teacher/class/atc-chart";
+
 @import "routes/student/class/performance";
 @import "routes/content/rubric/preview";

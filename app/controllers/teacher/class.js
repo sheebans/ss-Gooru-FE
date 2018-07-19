@@ -71,11 +71,11 @@ export default Ember.Controller.extend({
    * The class is rescoped
    * @property {String}
    */
-  isRescopedClass: Ember.computed('class', function() {
+  isPremiumClass: Ember.computed('class', function() {
     let controller = this;
     const currentClass = controller.get('class');
     let setting = currentClass.get('setting');
-    return setting ? setting.rescope : false;
+    return setting ? setting['course.premium'] : false;
   }),
 
   /**
@@ -97,5 +97,42 @@ export default Ember.Controller.extend({
    */
   selectMenuItem: function(item) {
     this.set('menuItem', item);
+  },
+
+  /**
+   * @function updateLastAccessedClass
+   * Method to update last accessed data into the localStorage using key userId_recent_class
+   */
+  updateLastAccessedClass(classData) {
+    let controller = this;
+    let userId = controller.get('session.userId');
+    let lastAccessedClassData = {};
+    if (classData) {
+      lastAccessedClassData = {
+        id: classData.id,
+        title: classData.title,
+        courseId: classData.courseId,
+        performance: controller.getClassPerformance(classData.performanceSummary)
+      };
+    }
+    localStorage.setItem(`${userId}_recent_class`, JSON.stringify(lastAccessedClassData));
+    return lastAccessedClassData;
+  },
+
+  /**
+   * @function getClassPerformance
+   * Method to get class performance from given class performance summary
+   */
+  getClassPerformance(performanceSummary) {
+    let classPerformance = null;
+    if (performanceSummary) {
+      classPerformance = {
+        score: performanceSummary.score,
+        timeSpent: performanceSummary.timeSpent,
+        total: performanceSummary.total,
+        totalCompleted: performanceSummary.totalCompleted
+      };
+    }
+    return classPerformance;
   }
 });

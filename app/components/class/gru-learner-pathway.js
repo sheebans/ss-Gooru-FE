@@ -198,13 +198,13 @@ export default Ember.Component.extend(AccordionMixin, {
     component.set('isLoading', true);
     if (this.get('model')) {
       let pathway = component.get('model.pathway');
-      let isRescopedClass = component.get('model.isRescopedClass');
+      let isPremiumClass = component.get('model.isPremiumClass');
       if (pathway) {
         component.set('courseView', true);
         this.getStudentCourseMap();
         //Initially load rescope data
-        if (isRescopedClass) {
-          component.set('isRescopedClass', isRescopedClass);
+        if (isPremiumClass) {
+          component.set('isPremiumClass', isPremiumClass);
           component.getSkippedContents().then(function(skippedContents) {
             let isContentAvailable;
             if (skippedContents) {
@@ -267,7 +267,7 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     onSelectItem() {
       let component = this;
-      if (component.get('isRescopedClass')) {
+      if (component.get('isPremiumClass')) {
         let skippedContents = component.get('skippedContents');
         let isContentAvailable = component.get('isContentAvailable');
         if (skippedContents && isContentAvailable) {

@@ -289,7 +289,8 @@ export default Ember.Route.extend({
       subtype: collectionSubType,
       pathId,
       minScore,
-      collectionSource: collection.source || 'course_map'
+      collectionSource: collection.source || 'course_map',
+      isStudyPlayer: true
     };
 
     let suggestionPromise = null;

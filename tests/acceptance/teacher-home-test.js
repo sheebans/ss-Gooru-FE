@@ -42,21 +42,7 @@ test('Layout', function(assert) {
 
     const $navigatorContainer = $teacherPanel.find('.teacher-navigator');
     T.exists(assert, $navigatorContainer, 'Missing teacher navigator');
-    assert.ok(
-      $('#active-classes').hasClass('active'),
-      'Active classes should be visible'
-    );
-    const $tabContent = $teacherPanel.find('.tab-content');
 
-    click('#archived-classes');
-    andThen(function() {
-      assert.ok($('span.no-archived'), 'Missing no archived available lead');
-      assert.equal(
-        $tabContent.find('#archived-classes .gru-class-card').length,
-        2,
-        'Wrong number of archived class cards'
-      );
-    });
   });
 });
 

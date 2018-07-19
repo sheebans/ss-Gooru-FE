@@ -7,6 +7,8 @@ var performanceService = Ember.Object.create({
   }
 });
 
+var activeClasses = false;
+
 var applicationController = Ember.Object.create({
   profile: Ember.Object.create({
     id: 'profile-id'
@@ -44,7 +46,8 @@ test('Sort Archived Classes by Date', function(assert) {
   Ember.run(() => {
     let controller = this.subject({
       applicationController,
-      performanceService
+      performanceService,
+      activeClasses
     });
     controller.set('showArchivedClasses', true);
     controller.send('filterByDate');
@@ -76,7 +79,8 @@ test('Sort Archived Classes By Title', function(assert) {
   Ember.run(() => {
     let controller = this.subject({
       applicationController,
-      performanceService
+      performanceService,
+      activeClasses
     });
     controller.send('filterByTitle');
     assert.equal(

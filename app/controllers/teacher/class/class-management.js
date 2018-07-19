@@ -164,7 +164,7 @@ export default Ember.Controller.extend(ModalMixin, {
         userId: userId || null,
         classId: controller.get('class.id'),
         courseId: controller.get('class.courseId'),
-        isRescopedClass: setting ? setting.rescope : false,
+        isPremiumClass: setting ? setting['course.premium'] : false,
         pathway: true
       };
       controller.set('studentPathway', userClassModel);

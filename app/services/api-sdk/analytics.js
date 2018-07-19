@@ -323,5 +323,21 @@ export default Ember.Service.extend({
           return resolve(true);
         }, reject);
     });
+  },
+
+  /**
+   * @function getAtcPerformanceSummary
+   * Method to fetch performance summary of a class for ATC view
+   */
+  getAtcPerformanceSummary(classId, courseId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('analyticsAdapter')
+        .getAtcPerformanceSummary(classId, courseId)
+        .then(function(classSummary) {
+          resolve(service.get('analyticsSerializer').normalizeAtcPerformanceSummary(classSummary));
+        }, reject);
+    });
   }
 });
