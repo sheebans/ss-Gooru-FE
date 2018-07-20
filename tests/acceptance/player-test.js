@@ -15,9 +15,7 @@ moduleForAcceptance('Acceptance | player', {
   }
 });
 
-test('Layout - default to collection since parameter is not sent', function(
-  assert
-) {
+test('Layout - default to collection since parameter is not sent', function(assert) {
   assert.expect(2);
   visit('/player/all-resource-types-collection-id');
 

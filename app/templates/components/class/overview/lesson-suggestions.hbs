@@ -1,0 +1,47 @@
+<div class="panel-heading  {{if isLessonSelected 'study-active'}}" role="tab" id="{{elementId}}-heading">
+    <div class="panel-title">
+        <a class="title collapsed ellipsis" role="button" data-toggle="collapse" href="#{{elementId}}-content" aria-expanded="false" aria-controls="{{elementId}}-content"
+            {{action "selectLesson" model.lessonId}}>
+            <span class="lesson-prefix">{{course-sections-prefix  index=index type='lesson' longName=true}}</span>{{model.lessonTitle}}
+        </a>
+    </div>
+</div>
+<div id="{{elementId}}-content" data-index="{{componentIndex}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{elementId}}-heading">
+    <div class="panel-body">
+        <ol class="collections">
+            {{#each model.collections as |item index|}}
+                <li class="panel">
+                    <div class="panel-heading student">
+                        <div class="panel-title">
+                            <div class="icon-container">
+                                {{#if ( eq item.collectionType 'assessment')}}
+                                    <img src="/assets/gooru/assessment-default.png">
+                                {{else}}
+                                    <img src="/assets/gooru/collection-default.png" />
+                                {{/if}}
+                            </div>
+                            <a class="title {{item.collectionTitle}} truncate">
+                                {{item.title}}
+                            </a>
+                        </div>
+                        {{#if isPlayer}}
+                            <div class="info">
+                                <div class="content-count">
+                                </div>
+                                <div class="play-btn">
+                                    <button class="btn btn-info study-now" {{action "studyNow" item}} data-toggle="tooltip" data-html="true" data-placement="top"
+                                        title="{{t "common.play"}}">
+                                        {{gru-icon name='play_arrow'}}
+                                    </button>
+                                </div>
+                                <div class="performance">--</div>
+                            </div>
+                        {{else}}
+                            {{!-- ToDo: Set the performance number if need be for preview --}}
+                        {{/if}}
+                    </div>
+                </li>
+            {{/each}}
+        </ol>
+    </div>
+</div>

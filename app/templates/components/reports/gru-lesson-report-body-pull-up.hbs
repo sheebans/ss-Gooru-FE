@@ -1,0 +1,56 @@
+<div class="report-body-content">
+  <div class="collapse-text dont-show">
+      <span class="scatter-text">TEKS.SS.4.19</span>
+      <span class="scatter-text">TEKS.SS.4.21</span>
+      <span class="scatter-text">TEKS.SS.4.22</span>
+  </div><!-- collapse text div ends -->
+  <!-- View 3  -->
+  <div class="report-filters">
+    <div class="filter-title"><span>Filter By</span></div>
+    <div class="c-filter collection data-filter" {{action 'filterByReportData' 'collection'}}><i class="material-icons c-icon" >view_comfy</i> <span>Collections</span></div>
+    <div class="a-filter assessment data-filter active" {{action 'filterByReportData' 'assessment'}}><div class="p-box-bl"><span>%</span></div> <span>Assesments</span></div>
+
+    <div class="performance"><i class="fa fa-fw fa-sort c-done-all dont-show" {{action 'sortStudents' score }}></i><i class="material-icons">done_all</i><span>Performance</span></div>
+    <div class="time-spent"><i class="fa fa-fw fa-sort c-done-all dont-show"></i><i class="material-icons">access_time</i> <span>Time Spent</span></div>
+    <div class="reactions"><i class="material-icons ">%</i> <span>Reactions</span></div>
+  </div>
+<div class="outer-div">
+<!-- testing table -->
+<table>
+   <thead>
+     <tr>
+       <th>
+         {{tableHeader.student}} <i class="fa fa-fw fa-sort student-sort dont-show"></i>
+       </th>
+       {{#each tableHeader.collections as |collection|}}
+         <th class="m-width">
+           <div class="score-circle-g">
+            <img src='/assets/gooru/lesson_assessment_white.svg' >
+           </div>
+           <div class="assessment-title">{{collection.title}}</div>
+         </th>
+       {{/each}}
+     </tr>
+   </thead>
+   <tbody>
+     {{#each tableRow as |studentPerformance|}}
+       <tr>
+         <td class="prof-icon">
+           <span class="student-profile"><img src="{{studentPerformance.thumbnail}}" class="img-circle" width="30" height="30" /></span>
+           <span class="student-name">{{studentPerformance.fullName}}</span></td>
+           {{#each studentPerformance.collections as |collectionPerformance|}}
+             <td class="r-bdr">
+               <div class="performance-section">{{if collectionPerformance.score (concat collectionPerformance.score '%') '-'}}</div>
+               <div class="performance-section time-clr">{{collectionPerformance.timeSpent}}</div>
+             </td>
+           {{/each}}
+       </tr>
+     {{/each}}
+   </tbody>
+ </table>
+<!-- testing table ends -->
+
+</div>
+  <!-- View 3 Ends -->
+
+</div><!-- report body content div ends -->

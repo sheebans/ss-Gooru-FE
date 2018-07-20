@@ -6,13 +6,16 @@
     font-size: $font-size-base;
     margin: -23px 0 0;
     height: 24px;
+
     button {
       padding: 0 10px 0 7px;
+
       i {
         color: $white;
         font-size: $font-size-h5;
         width: 18px;
       }
+
       &.locate {
         background-color: $green-400;
         width: 35px;
@@ -21,15 +24,18 @@
         -webkit-border-radius: 50%;
         border-radius: 50%;
         margin: 0 0 0 40px;
+
         i {
           margin: 0 3px 0 0;
           font-size: $font-size-large;
         }
       }
     }
+
     .min-score {
       margin-right: 5px;
       vertical-align: text-bottom;
+
       i {
         background: url("gooru/trophy.png");
         background-size: 20px 20px;
@@ -40,21 +46,26 @@
       }
     }
   }
+
   .gru-accordion {
     clear: both;
+
     .panel-heading {
       padding: 0;
       margin: 0;
       background-color: $white;
       height: 67px;
+
       &.study-active {
         -webkit-box-shadow: 0px 0px 11px 3px rgba(75, 151, 65, 1);
         -moz-box-shadow: 0px 0px 11px 3px rgba(75, 151, 65, 1);
         box-shadow: 0px 0px 11px 3px rgba(75, 151, 65, 1);
         z-index: 9;
+
         .info {
           .btn.study-now {
             width: 58px;
+
             i {
               font-size: $font-size-anonymous;
               color: $green-400;
@@ -63,8 +74,10 @@
         }
       }
     }
+
     .gru-accordion-lesson {
       height: 67px;
+
       &.expanded {
         height: auto;
       }
@@ -80,14 +93,17 @@
       .action {
         display: flex;
         padding: 18px 0 8px 0;
+
         span {
           font-size: 15px;
           color: $gray-base;
         }
+
         .gru-toggle-button {
           margin-top: 7px;
         }
       }
+
       .info {
         color: $bluish-gray;
         font-style: italic;
@@ -103,10 +119,12 @@
       padding: 15px;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
       display: flex;
+
       span {
         opacity: 0.5;
         color: $gray-base;
         font-style: italic;
+
         i {
           margin-left: 115px;
         }
@@ -131,5 +149,190 @@
         display: inline-flex;
       }
     }
+  }
+}
+
+.student.class {
+  .route-suggestions-container {
+    width: 100%;
+    min-height: 90px;
+    object-fit: contain;
+    border-radius: 4px;
+    background-color: $white;
+    box-shadow: 0 0 4px 2px $sun-color;
+
+    // padding: 13px;
+  }
+
+  .routesuggestion-preview {
+    .route0-banner {
+      cursor: pointer;
+      padding: 12px;
+    }
+
+    .route0-bannerdesc {
+      padding-bottom: 10px;
+    }
+
+    .suggested-lessons {
+      width: 131px;
+      height: 15px;
+      font-family: Lato;
+      font-size: 16px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 0.94;
+      letter-spacing: normal;
+      text-align: left;
+      color: #29323a;
+      margin-top: 14px;
+      margin-left: 12px;
+    }
+
+    .created-by-kangoorus {
+      width: 128px;
+      height: 15px;
+      font-family: Lato;
+      font-size: 13px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.15;
+      letter-spacing: normal;
+      text-align: left;
+      color: #666666;
+      margin-top: 9px;
+      margin-bottom: 9px;
+      margin-left: 12px;
+    }
+
+    .detail-sep {
+      height: 1.5px;
+      border: solid 0.7px $sep-border-color;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .suggest-icon {
+      width: 61.6px;
+      height: 61.6px;
+      color: $sun-color;
+      padding: 0px;
+      padding-top: 8px;
+
+      i {
+        font-size: 61px;
+        line-height: 45px;
+        color: $sun-color;
+      }
+    }
+
+    .suggest-sep {
+      width: 1px;
+      height: 61px;
+      float: left;
+      border: solid 1px $sep-border-color;
+      display: inline;
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+
+    .suggest-desc {
+      display: inline;
+      font-family: $font-family-sans-serif;
+      font-size: 16px;
+      text-align: left;
+      color: $dark-400;
+    }
+
+    .compet-container {
+      width: 724px;
+      height: 169px;
+      background-color: #ffffff;
+      box-shadow: inset 0 5px 4px 0 rgba(0, 0, 0, 0.13);
+      -webkit-box-shadow: inset 0 5px 4px 0 rgba(0, 0, 0, 0.13);
+      -moz-box-shadow: inset 0 5px 4px 0 rgba(0, 0, 0, 0.13);
+      padding: 10px;
+    }
+
+    .Mask {
+      -webkit-box-shadow: inset -1px -7px 48px 0px rgba(0, 0, 0, 0.52);
+      -moz-box-shadow: inset -1px -7px 48px 0px rgba(0, 0, 0, 0.52);
+      box-shadow: inset -1px -7px 48px 0px rgba(0, 0, 0, 0.52);
+    }
+
+    .route-compgraph {
+      width: 298.7px;
+      height: 339px;
+      border: solid 1px $dark-400;
+    }
+
+    .gru-taxonomy-tag-list {
+      border-bottom: 1px solid lightgray;
+
+      .gru-taxonomy-tag {
+        background-color: $dark-400;
+
+        .tag-label {
+          color: $white;
+          font-size: 12px;
+        }
+
+        .tag-caption {
+          display: none;
+        }
+      }
+    }
+
+    .route0suggestionHero {
+      background-image: "route0suggestion.jpg";
+      height: 169px;
+      width: 210px;
+      border: 1px solid $sun-color;
+    }
+
+    .action {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+
+      .accept,
+      .ignore {
+        background-color: $sun-color;
+        height: 38px;
+        font-size: 13px;
+        font-weight: bold;
+        color: $white;
+        line-height: 38px;
+        text-align: center;
+        cursor: pointer;
+        width: 108px;
+        border-radius: 3px;
+        box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+        vertical-align: text-bottom;
+        display: inline-block;
+      }
+
+      .accept {
+        > i {
+          display: none;
+          line-height: 17px;
+        }
+      }
+
+      .ignore {
+        border-bottom-right-radius: 4px;
+        background-color: #b8bfc4;
+        margin-left: 5px;
+
+        span {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+
+  .routesuggestion-coursemap {
   }
 }
