@@ -42,7 +42,6 @@ test('Layout', function(assert) {
 
     const $navigatorContainer = $teacherPanel.find('.teacher-navigator');
     T.exists(assert, $navigatorContainer, 'Missing teacher navigator');
-
   });
 });
 

@@ -176,5 +176,4 @@ export default Ember.Component.extend({
     let classSetting = currentClass.setting;
     return classSetting ? classSetting['course.premium'] : false;
   })
-
 });
