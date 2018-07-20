@@ -107,12 +107,12 @@ export default Ember.Service.extend({
    * Get user competency Matrix for domains by subject
    * @returns {Promise.<[]>}
    */
-  getCompetencyMatrixDomain: function(user, subject) {
+  getCompetencyMatrixDomain: function(user, subject, timeSeries) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service
         .get('competencyAdapter')
-        .getCompetencyMatrixDomain(user, subject)
+        .getCompetencyMatrixDomain(user, subject, timeSeries)
         .then(function(response) {
           resolve(
             service

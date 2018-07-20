@@ -209,11 +209,10 @@ export default Ember.Component.extend({
       .scale(xScale)
       .orient('bottom')
       .innerTickSize(-height)
-      .outerTickSize(-520)
+      .outerTickSize(-380)
       .tickPadding(10);
 
-    var yAxis = d3.svg
-      .axis()
+    var yAxis = d3.svg.axis()
       .scale(yScale)
       .orient('left')
       .innerTickSize(-width)
@@ -235,22 +234,14 @@ export default Ember.Component.extend({
           .on('zoom', function() {
             svg.select('.x.axis').call(xAxis);
             svg.select('.y.axis').call(yAxis);
-            svg
-              .selectAll('.student-profile')
-              .attr('x', function(d) {
-                return xScale(d.progress);
-              })
-              .attr('y', function(d) {
-                return yScale(d.score);
-              });
-            svg
-              .selectAll('.student-info')
-              .attr('y', function(d) {
-                return yScale(d.score) + 40;
-              })
-              .attr('x', function(d) {
-                return xScale(d.progress);
-              });
+            svg.selectAll('.student-profile').attr('x', function(d) {
+              return xScale(d.progress);
+            }).attr('y', function(d) {
+              return yScale(d.score);
+            });
+            svg.selectAll('.student-info')
+              .attr('y', function(d) { return yScale(d.score)+ 40; })
+              .attr('x', function(d) { return xScale(d.progress) + 7; });
             component.cleanUpChart();
             component.set('isZoomInView', true);
           })
@@ -269,18 +260,16 @@ export default Ember.Component.extend({
       .attr('class', 'y axis')
       .call(yAxis);
 
-    svg
-      .append('g')
-      .attr('transform', 'translate(-460, 450) rotate(-90)')
+    svg.append('g')
+      .attr('transform', 'translate(-498, 270) rotate(-90)')
       .append('text')
       .attr('class', 'placeholder')
       .attr('x', '50')
       .attr('y', '445')
       .text('Performance');
 
-    svg
-      .append('g')
-      .attr('transform', 'translate(0, 20) rotate(0)')
+    svg.append('g')
+      .attr('transform', 'translate(350, 40) rotate(0)')
       .append('text')
       .attr('class', 'placeholder')
       .attr('x', '0')
@@ -292,12 +281,9 @@ export default Ember.Component.extend({
       .enter()
       .append('svg:image')
       .attr('class', 'student-profile')
-      .attr('y', function(d) {
-        return yScale(d.score);
-      })
-      .attr('x', function(d) {
-        return xScale(d.progress);
-      })
+      .attr('y', function(d) { return yScale(d.score); })
+      .attr('x', function(d) { return xScale(d.progress); })
+      .style('clip-path', 'circle(50.0% at 50% 50%)')
       .attr({
         'xlink:href': function(d) {
           return d.thumbnail;
