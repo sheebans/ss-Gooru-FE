@@ -104,6 +104,7 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
      * Action triggered when the user click the lesson level performance score.
      **/
     onOpenLessonLevelReport() {
+      //ToDo: setup perfromance level data to the model> item
       const component = this;
       const classId = component.get('currentClass.id');
       const unitId = component.get('unitId');
