@@ -246,8 +246,27 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
      * Load the student report data for this assessment
      * @function actions:StudentAssesmentReportPullup
      */
-    teacherReport() {
+    teacherAssessmentReport(collection) {
       let component = this;
+      let currentClass = component.get('currentClass');
+      let userId = component.get('session.userId');
+      let classId = currentClass.get('id');
+      let courseId = currentClass.get('courseId');
+      let unitId = component.get('unitId');
+      let lessonId = component.get('model.id');
+      let params = {
+        userId: userId,
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId,
+        lessonId: lessonId,
+        collection: collection,
+        lessonModel: component.get('model'),
+        unitModel: component.get('unit'),
+        collections: component.get('items'),
+        classMembers: component.get('classMembers')
+      };
+      component.set('teacherAssessmentReportData', params);
       component.set('showAssessmentReportPullUp', true);
     }
   },

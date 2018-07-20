@@ -9,6 +9,16 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
+  /**
+   * @requires service:api-sdk/assessment
+   */
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
+
+  /**
+   * @requires service:api-sdk/analytics
+   */
+  analyticsService: Ember.inject.service('api-sdk/analytics'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -47,6 +57,7 @@ export default Ember.Component.extend({
    */
   didInsertElement() {
     this.openPullUp();
+    this.loadData();
   },
   // -------------------------------------------------------------------------
   // Properties
@@ -55,37 +66,43 @@ export default Ember.Component.extend({
    * ClassId belongs to this assessment report.
    * @type {String}
    */
-  classId: null,
+  classId: Ember.computed.alias('context.classId'),
 
   /**
    * CourseId belongs to this assessment report.
    * @type {String}
    */
-  courseId: null,
+  courseId: Ember.computed.alias('context.courseId'),
 
   /**
-   * UnitId belongs to this assessment report.
+   * Unit belongs to this assessment report.
    * @type {String}
    */
-  unitId: null,
+  unit: Ember.computed.alias('context.unitModel'),
 
   /**
-   * UnitId belongs to this assessment report.
+   * Lesson belongs to this assessment report.
    * @type {[type]}
    */
-  lessonId: null,
+  lesson: Ember.computed.alias('context.lessonModel'),
 
   /**
    * AssessmentId of this report.
    * @type {[type]}
    */
-  assessmentId: null,
+  assessmentId: Ember.computed.alias('context.collectionId'),
 
   /**
    * List of collection mapped to lesson.
    * @type {Array}
    */
-  collections: null,
+  collections: Ember.computed.alias('context.collections'),
+
+  /**
+   * Selected collection.
+   * @type {Array}
+   */
+  selectedCollection: Ember.computed.alias('context.collection'),
 
   /**
    * Propery to hide the default pullup.
@@ -117,6 +134,24 @@ export default Ember.Component.extend({
    */
   isTimeSpentFltApplied: false,
 
+  /**
+   * selected assessment object which will have other meta data's
+   * @type {Object}
+   */
+  assessment: null,
+
+  /**
+   * List of class members
+   * @type {Object}
+   */
+  classMembers: Ember.computed.alias('context.classMembers'),
+
+  /**
+   * Stutent performance report data
+   * @type {Object}
+   */
+  studentPerformanceData: null,
+
   //--------------------------------------------------------------------------
   // Methods
 
@@ -144,5 +179,50 @@ export default Ember.Component.extend({
         component.set('showPullUp', false);
       }
     );
+  },
+
+  loadData() {
+    let component = this;
+    let collectionId = component.get('selectedCollection.id');
+    let unitId = component.get('unit.id');
+    let lessonId = component.get('lesson.id');
+    let courseId = component.get('courseId');
+    let classId = component.get('classId');
+    return Ember.RSVP.hash({
+      assessment: component
+        .get('assessmentService')
+        .readAssessment(collectionId),
+      performance: component
+        .get('analyticsService')
+        .findResourcesByCollection(
+          classId,
+          courseId,
+          unitId,
+          lessonId,
+          collectionId,
+          'assessment'
+        )
+    }).then(({ assessment, performance }) => {
+      component.set('assessment', assessment);
+      component.set('performance', performance);
+      component.parseClassMemberAndPerformanceData();
+    });
+  },
+
+  parseClassMemberAndPerformanceData() {
+    let component = this;
+    let classMembers = component.get('classMembers');
+    let users = Ember.A([]);
+    classMembers.forEach(member => {
+      let user = Ember.Object.create({
+        id: member.id,
+        firstName: member.firstName,
+        lastName: member.lastName,
+        avatarUrl: member.avatarUrl
+      });
+
+      users.pushObject(user);
+    });
+    users = users.sortBy('lastName');
   }
 });

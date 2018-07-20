@@ -189,7 +189,7 @@
                                 {{item.performance.score}}%
                                 </span>
                             {{else}}
-                              <span class="score" {{action 'teacherReport' item}} style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                              <span class="score" {{action 'teacherAssessmentReport' item}} style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                                       {{item.performance.score}}%
                                     </span>
                             {{/if }}
@@ -200,7 +200,7 @@
                                   {{item.performance.score}}%
                                 </span>
                               {{else}}
-                                <span class="score" {{action 'teacherReport' item}} style= {{safe-html (concat "color:" (grade-color item.performance.score) )}}>
+                                <span class="score" {{action 'teacherAssessmentReport' item}} style= {{safe-html (concat "color:" (grade-color item.performance.score) )}}>
                                     {{item.performance.score}}%
                                   </span>
                               {{/if }}
@@ -283,6 +283,6 @@
     {{class.gru-report-panel showPullUp=showReportPullUp reportData=studentReportData model=model isStudent=isStudent onClosePullUp="onClosePullUp"}}
   {{/if}}
   {{#if showAssessmentReportPullUp}}
-    {{reports.pull-up.assessment-report showPullUp=showAssessmentReportPullUp}}
+    {{reports.pull-up.assessment-report context=teacherAssessmentReportData showPullUp=showAssessmentReportPullUp}}
   {{/if}}
 </div>
