@@ -7,7 +7,6 @@ import Ember from 'ember';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -70,11 +69,11 @@ export default Ember.Component.extend({
    * @property {Boolean}
    * Property to enable/disable next nav icon
    */
-  isNextDisabled: Ember.computed('classPosition', 'totalClasses', function(){
+  isNextDisabled: Ember.computed('classPosition', 'totalClasses', function() {
     let component = this;
     let totalClasses = component.get('totalClasses');
     let classPosition = component.get('classPosition');
-    return totalClasses === (classPosition + 1);
+    return totalClasses === classPosition + 1;
   }),
 
   /**
@@ -85,9 +84,11 @@ export default Ember.Component.extend({
     let component = this;
     let classPerformance = component.get('classData.performance');
     let score = classPerformance ? classPerformance.score : 0;
-    let classPerformanceData= Ember.A([{
-      score: score
-    }]);
+    let classPerformanceData = Ember.A([
+      {
+        score: score
+      }
+    ]);
     return classPerformanceData;
   }),
 

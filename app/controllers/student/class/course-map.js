@@ -15,6 +15,11 @@ export default Ember.Controller.extend({
    */
   rescopeService: Ember.inject.service('api-sdk/rescope'),
 
+  /**
+   * Route0
+   */
+  route0Service: Ember.inject.service('api-sdk/route0'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -88,6 +93,27 @@ export default Ember.Controller.extend({
 
     onClearCustomizeMsg() {
       Ember.$('.custom-msg').hide(800);
+    },
+    courseRouteSuggestAction: function(action) {
+      let controller = this;
+      let currentClass = controller.get('currentClass');
+      let actionData = {
+        classId: currentClass.get('id'),
+        courseId: currentClass.get('courseId'),
+        status: action
+      };
+      let route0Promise = controller
+        .get('route0Service')
+        .updateRouteAction(actionData);
+      route0Promise.then(function() {
+        if (controller.get('target.router')) {
+          controller.get('target.router').refresh();
+        }
+      });
+    },
+    studyPlayer: function(type, unitId, lessonId, item) {
+      let controller = this;
+      controller.send('studyPlayer', type, unitId, lessonId, item);
     }
   },
 
@@ -170,6 +196,32 @@ export default Ember.Controller.extend({
     return setting ? setting['course.premium'] : false;
   }),
 
+  isPremiumCourse: Ember.computed('class', function() {
+    let controller = this;
+    const currentClass = controller.get('class');
+    let setting = currentClass.get('setting');
+    return setting
+      ? setting['course.premium'] && setting['course.premium'] === true
+      : false;
+  }),
+
+  hasRouteSuggestion: Ember.computed('class', function() {
+    let controller = this;
+    const route0 = controller.get('route0');
+    let isCourseSetup = controller.get('isPremiumCourse');
+    let showRoute0Suggestion =
+      route0.status === 'pending' || route0.status === 'rejected';
+    return isCourseSetup && showRoute0Suggestion;
+  }),
+
+  showRoute0Suggestion: Ember.computed('class', function() {
+    let controller = this;
+    const route0 = controller.get('route0');
+    let isCourseSetup = controller.get('isPremiumCourse');
+    let showRoute0Suggestion = route0.status === 'accepted';
+    return isCourseSetup && showRoute0Suggestion;
+  }),
+
   // -------------------------------------------------------------------------
   // Observers
 
@@ -223,10 +275,9 @@ export default Ember.Controller.extend({
     let skippedContentsPromise = Ember.RSVP.resolve(
       controller.get('rescopeService').getSkippedContents(filter)
     );
-    return Ember.RSVP
-      .hash({
-        skippedContents: skippedContentsPromise
-      })
+    return Ember.RSVP.hash({
+      skippedContents: skippedContentsPromise
+    })
       .then(function(hash) {
         controller.set('skippedContents', hash.skippedContents);
         return hash.skippedContents;

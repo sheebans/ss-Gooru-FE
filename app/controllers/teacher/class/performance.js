@@ -429,31 +429,29 @@ export default Ember.Controller.extend({
     const lessonIndex = unit.getChildLessonIndex(lesson) + 1;
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      return Ember.RSVP
-        .hash({
-          collection: collectionId
-            ? isAssessment
-              ? controller.get('assessmentService').readAssessment(collectionId)
-              : controller.get('collectionService').readCollection(collectionId)
-            : undefined
-        })
-        .then(function(hash) {
-          const collection = hash.collection;
-          const question = collection.get('children').findBy('id', resourceId);
-          itemObject.setProperties({
-            unitPrefix: `U${unitIndex}`,
-            lessonPrefix: `L${lessonIndex}`,
-            classId: controller.get('class.id'),
-            courseId: controller.get('course.id'),
-            unitId: unit.get('id'),
-            lessonId: lesson.get('id'),
-            collection,
-            question,
-            studentCount
-          });
+      return Ember.RSVP.hash({
+        collection: collectionId
+          ? isAssessment
+            ? controller.get('assessmentService').readAssessment(collectionId)
+            : controller.get('collectionService').readCollection(collectionId)
+          : undefined
+      }).then(function(hash) {
+        const collection = hash.collection;
+        const question = collection.get('children').findBy('id', resourceId);
+        itemObject.setProperties({
+          unitPrefix: `U${unitIndex}`,
+          lessonPrefix: `L${lessonIndex}`,
+          classId: controller.get('class.id'),
+          courseId: controller.get('course.id'),
+          unitId: unit.get('id'),
+          lessonId: lesson.get('id'),
+          collection,
+          question,
+          studentCount
+        });
 
-          resolve(itemObject);
-        }, reject);
+        resolve(itemObject);
+      }, reject);
     });
   },
 
