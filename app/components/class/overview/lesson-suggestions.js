@@ -37,8 +37,8 @@ export default Ember.Component.extend(AccordionMixin, {
           ? item.collectionType
           : 'lesson';
       let itemid = item[`${type}Id`];
-      this.onStudyNow(type, itemid, item);
-      //console.log('params', params);
+      item = Ember.Object.create(item);
+      this.attrs.onStudyNow(type, itemid, this.model.lessonId, item);
     },
     /**
      * Observe changes when expands or collapse a lesson.
