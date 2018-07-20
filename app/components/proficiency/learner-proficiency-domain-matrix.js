@@ -31,9 +31,6 @@ export default Ember.Component.extend({
   classNames: ['learner-proficiency-domain-matrix'],
 
   // -------------------------------------------------------------------------
-  // Events
-
-  // -------------------------------------------------------------------------
   // Properties
 
   /**
@@ -44,7 +41,7 @@ export default Ember.Component.extend({
   /**
    * @property {Number} height
    */
-  height: 900,
+  height: 700,
 
   /**
    * User id of competency matrix to plot
@@ -106,23 +103,6 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * subjectId  change will call the function
-   */
-  onChangeSubject: Ember.observer('subject', function() {
-    let component = this;
-    if (component.get('subject')) {
-      component.loadDataBySubject(component.get('subject.id'));
-    }
-    return null;
-  }),
-
-
-  onChangeTimeLine: Ember.observer('timeLine', function() {
-    let component = this;
-    component.loadDataBySubject(component.get('subject.id'));
-  }),
-
-  /**
    * It maintains the number of cells in each column
    * @type {Number}
    */
@@ -145,7 +125,7 @@ export default Ember.Component.extend({
    * Default height of the chart
    * @type {Number}
    */
-  defaultHeightOfChart: 450,
+  defaultHeightOfChart: 350,
 
   /**
    * Maximum number of reduce cell below
@@ -159,6 +139,10 @@ export default Ember.Component.extend({
    */
   skylineContainer: null,
 
+  /**
+   * @type {Json}
+   * Currently selected/active month and year
+   */
   timeLine: {},
 
   // -------------------------------------------------------------------------
@@ -171,16 +155,33 @@ export default Ember.Component.extend({
     }
   },
 
-  onWatchPullUpChange: Ember.observer('showPullUp', function() {
+  /**
+   * subjectId  change will call the function
+   */
+  onChangeSubject: Ember.observer('subject', function() {
     let component = this;
     if (component.get('subject')) {
       component.loadDataBySubject(component.get('subject.id'));
     }
+    return null;
   }),
+
+  /**
+   * Timeline change will call this function
+   */
+  onChangeTimeLine: Ember.observer('timeLine', function() {
+    let component = this;
+    component.loadDataBySubject(component.get('subject.id'));
+  }),
+
 
   // -------------------------------------------------------------------------
   // Methods
 
+  /**
+   * @function drawChart
+   * Method to plot competency chart
+   */
   drawChart(data) {
     let component = this;
     let cellSizeInRow = component.get('taxonomyDomains');
@@ -235,6 +236,10 @@ export default Ember.Component.extend({
     component.reduceChartHeight();
   },
 
+  /**
+   * @function loadDataBySubject
+   * Method to fetch domain and co-ordinate data using subject id
+   */
   loadDataBySubject(subjectId) {
     let component = this;
     let userId = component.get('userId');
@@ -262,6 +267,10 @@ export default Ember.Component.extend({
     }, this);
   },
 
+  /**
+   * @function parseCompetencyData
+   * Method to parse raw competency matrix and co-ordinate data to plot the chart
+   */
   parseCompetencyData(competencyMatrixs, competencyMatrixCoordinates) {
     let component = this;
     const cellHeight = component.get('cellHeight');
@@ -334,6 +343,10 @@ export default Ember.Component.extend({
     return resultSet;
   },
 
+  /**
+   * @function reduceChartBelowCells
+   * Method to reduce chart bottom cells based on the available height and number of competencies
+   */
   reduceChartBelowCells() {
     let component = this;
     let skylines = component.$('.skyline-competency');
@@ -388,6 +401,10 @@ export default Ember.Component.extend({
     }
   },
 
+  /**
+   * @function reduceChartAboveCells
+   * Method to reduce chart top cells to shrink the chart within given widh and height
+   */
   reduceChartAboveCells() {
     let component = this;
     let numberOfDomainColumn = component.get('taxonomyDomains').length;
@@ -433,6 +450,10 @@ export default Ember.Component.extend({
     }
   },
 
+  /**
+   * @function reduceChartHeight
+   * Method to reduce chart height to compress the chart within available space
+   */
   reduceChartHeight() {
     let component = this;
     component.reduceChartBelowCells();
@@ -465,6 +486,10 @@ export default Ember.Component.extend({
     component.$('#render-proficiency-matrix svg').attr('height', height);
   },
 
+  /**
+   * @function drawSkyline
+   * Method to draw skyline over the competency cell
+   */
   drawSkyline() {
     let component = this;
     let skylineElements = component.$('.skyline-competency');
@@ -478,32 +503,34 @@ export default Ember.Component.extend({
       let x1 =
         parseInt(component.$(skylineElements[index]).attr('x')) + cellWidth / 2;
       let y1 = parseInt(component.$(skylineElements[index]).attr('y'));
-      y1 = y1 === 0 ? y1 + 3 : y1 + cellHeight / 2;
+      y1 = y1 + cellHeight / 2;
       if (index < indexSize - 1) {
         let x2 =
           parseInt(component.$(skylineElements[index + 1]).attr('x')) +
           cellWidth / 2;
         let y2 = parseInt(component.$(skylineElements[index + 1]).attr('y'));
-        y2 = y2 === 0 ? y2 + 3 : y2 + cellHeight / 2;
+        y2 = y2 + cellHeight / 2;
         svg
           .append('line')
           .attr('x1', x1)
           .attr('y1', y1)
           .attr('x2', x2)
-          .attr('y2', y2);
-        // .attr('class', `skyline ${className}`);
+          .attr('y2', y2)
+          .attr('class', 'sky-line');
       }
       svg
         .append('circle')
         .attr('cx', x1)
         .attr('cy', y1)
-        .attr('r', 3)
+        .attr('r', 2)
         .attr('fill', '#fff');
-      // .attr('class', `skyline ${className}`);
     });
-    component.drawBaseLine();
   },
 
+  /**
+   * @function drawBaseLine
+   * Method to draw base line over the competency
+   */
   drawBaseLine() {
     let component = this;
     let skylineElements = component.$('.skyline-competency');
@@ -516,9 +543,7 @@ export default Ember.Component.extend({
       let nextElement = component.$(skylineElements[index+1]);
       let curElementXaxis = parseInt(curElement.attr('x'));
       let curElementYAxis = parseInt(curElement.attr('y'));
-
       // Line axis from (x1, y1) to (x2, y2)
-
       let startingPoint = {
         x: curElementXaxis,
         y: curElementYAxis + cellHeight

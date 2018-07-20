@@ -241,22 +241,27 @@
       <div class="message">{{t 'teacher-landing.class.class-management-tab.students-null'}}</div>
     </div>
   {{/if}}
-  {{#gru-pull-up showPullUp=showPathWayPullUp as |pull-up|}}
-    {{#if pull-up.isShowHeader}}
-      {{class.gru-learner-pathway model=studentPathway onOpenStudentReport="onOpenStudentReport" }}
-    {{/if}}
-  {{/gru-pull-up}}
+  {{#if showPathWayPullUp}}
+    {{#gru-pull-up showPullUp=showPathWayPullUp as |pull-up|}}
+      {{#if pull-up.isShowHeader}}
+        {{class.gru-learner-pathway model=studentPathway onOpenStudentReport="onOpenStudentReport" }}
+      {{/if}}
+    {{/gru-pull-up}}
+  {{/if}}
+  
   {{#if showReportPullUp}}
     {{class.gru-report-panel showPullUp=showReportPullUp reportData=reportData model=model onClosePullUp="onClosePullUp"}}
   {{/if}}
 
-  {{#gru-pull-up showPullUp=isShowProficiencyPullup as |pull-up|}}
-    {{#if pull-up.isShowHeader}}
-      {{proficiency.learner-proficiency-pull-up
-         student=selectedStudent
-         subjectBucket=subjectBucket
-         isShowProficiencyPullup=isShowProficiencyPullup}}
-    {{/if}}
-  {{/gru-pull-up}}
+  {{#if isShowProficiencyPullup}}
+    {{#gru-pull-up showPullUp=isShowProficiencyPullup onClosePullUp="onClosePullUp" as |pull-up|}}
+      {{#if pull-up.isShowHeader}}
+        {{proficiency.learner-proficiency-pull-up
+           student=selectedStudent
+           subjectBucket=subjectBucket
+           }}
+      {{/if}}
+    {{/gru-pull-up}}
+  {{/if}}
 
 </div>

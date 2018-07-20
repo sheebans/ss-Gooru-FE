@@ -3,39 +3,42 @@ import d3 from 'd3';
 
 export default Ember.Component.extend({
 
+  // -------------------------------------------------------------------------
+  // Attributes
+
   classNames: ['monthly-time-series-chart'],
 
+  // -------------------------------------------------------------------------
+  // Events
+
   didInsertElement() {
-    if (this.get('showPullUp')) {
-      this.drawChart();
-    }
+    let component = this;
+    component.$('svg.time-series').remove();
+    component.drawChart();
   },
 
-  obs: Ember.observer('showPullUp', function() {
-    if (this.get('showPullUp')) {
-      this.drawChart();
-    }
-  }),
+  // -------------------------------------------------------------------------
+  // Methods
 
+  /**
+   * @function drawChart
+   * Method to plot time series chart
+   */
   drawChart() {
     let component = this;
-
-    d3.select('svg.time-series').remove();
-    // Config SVG
-    let width = 700,
-      height = 100;
-
+    // Config SVG size
+    let width = 700, height = 65;
     let date = new Date();
     let curYear = date.getFullYear();
-
     // Define d3 xScale
-    let x = d3.time.scale()
+    let xScale = d3.time.scale()
+      //Jan to Dec of current year
       .domain([new Date(curYear, 0), new Date(curYear, 11)])
       .range([0, width - 40]);
 
     // Define main d3 xAxis
     let xAxis = d3.svg.axis()
-      .scale(x)
+      .scale(xScale)
       .tickFormat(d3.time.format('%b \'%y'))
       .tickPadding(14);
 
@@ -46,7 +49,7 @@ export default Ember.Component.extend({
     let axes = svgContainer
       .append('g')
       .attr('class', 'x axis')
-      .attr('transform', 'translate(20,30)')
+      .attr('transform', 'translate(20,20)')
       .call(xAxis);
 
     svgContainer
@@ -54,18 +57,19 @@ export default Ember.Component.extend({
       .attr('height', height)
       .attr('class', 'time-series')
       .call(d3.behavior.zoom()
-        .x(x)
+        .x(xScale)
         .scaleExtent([1, 1])
         .on('zoom', function() {
           axes.call(xAxis);
           component.bindTicksClickable();
         }));
-
-
     component.bindTicksClickable();
-
-
   },
+
+  /**
+   * @function bindTicksClickable
+   * Method to bind each tick clickable
+   */
 
   bindTicksClickable() {
     let component = this;
@@ -78,6 +82,7 @@ export default Ember.Component.extend({
         let curYear = curDate.getFullYear();
         let curTickMonth = date.getMonth();
         let curTickYear = date.getFullYear();
+        //Default selection of current month and year
         if (curMonth === curTickMonth && curYear === curTickYear) {
           d3.select('circle.active-month').remove();
           tickCotainer.append('circle')

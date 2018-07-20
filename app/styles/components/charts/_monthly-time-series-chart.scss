@@ -1,8 +1,13 @@
 .monthly-time-series-chart {
+
+  svg {
+    width: 700px;
+    height: 65px;
+  }
   .axis path,
   .axis line{
     fill: none;
-    stroke: #35424a;
+    stroke: $charcoal-grey;
   }
 
   .line{
@@ -12,14 +17,14 @@
   }
 
   circle {
-    fill: #6092e0;
+    fill: $soft-blue;
     stroke: white;
     stroke-width: 3px;
   }
   .tick text{
     font-size: 10px;
     text-transform: uppercase;
-    color: #344048;
+    color: $charcoal-grey;
     opacity: 0.8;
     font-weight: bold;
     cursor: pointer;

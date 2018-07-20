@@ -192,39 +192,10 @@ export default Ember.Component.extend(AccordionMixin, {
   // -------------------------------------------------------------------------
   // Events
 
-  onChange: Ember.observer('model', function() {
+  didInsertElement() {
     let component = this;
-    component._super(...arguments);
-    component.set('isLoading', true);
-    if (this.get('model')) {
-      let pathway = component.get('model.pathway');
-      let isPremiumClass = component.get('model.isPremiumClass');
-      if (pathway) {
-        component.set('courseView', true);
-        this.getStudentCourseMap();
-        //Initially load rescope data
-        if (isPremiumClass) {
-          component.set('isPremiumClass', isPremiumClass);
-          component.getSkippedContents().then(function(skippedContents) {
-            let isContentAvailable;
-            if (skippedContents) {
-              isContentAvailable = component.isSkippedContentsEmpty(
-                skippedContents
-              );
-              component.set('isContentAvailable', isContentAvailable);
-            }
-
-            if (skippedContents && isContentAvailable) {
-              component.toggleSkippedContents(skippedContents);
-              component.set('isChecked', false);
-            } else {
-              component.set('isChecked', true);
-            }
-          });
-        }
-      }
-    }
-  }),
+    component.loadPathWayData();
+  },
 
   // -------------------------------------------------------------------------
   // Actions
@@ -292,6 +263,40 @@ export default Ember.Component.extend(AccordionMixin, {
       component.triggerAction({
         action: 'closeModal'
       });
+    }
+  },
+
+  loadPathWayData() {
+    let component = this;
+    component._super(...arguments);
+    component.set('isLoading', true);
+    if (this.get('model')) {
+      let pathway = component.get('model.pathway');
+      let isPremiumClass = component.get('model.isPremiumClass');
+      if (pathway) {
+        component.set('courseView', true);
+        this.getStudentCourseMap();
+        //Initially load rescope data
+        if (isPremiumClass) {
+          component.set('isPremiumClass', isPremiumClass);
+          component.getSkippedContents().then(function(skippedContents) {
+            let isContentAvailable;
+            if (skippedContents) {
+              isContentAvailable = component.isSkippedContentsEmpty(
+                skippedContents
+              );
+              component.set('isContentAvailable', isContentAvailable);
+            }
+
+            if (skippedContents && isContentAvailable) {
+              component.toggleSkippedContents(skippedContents);
+              component.set('isChecked', false);
+            } else {
+              component.set('isChecked', true);
+            }
+          });
+        }
+      }
     }
   },
 

@@ -20,21 +20,23 @@ export default Ember.Component.extend({
   competencyService: Ember.inject.service('api-sdk/competency'),
 
   // -------------------------------------------------------------------------
-  // Properties
+  // Events
 
   didInsertElement(){
     let component = this;
     let activeCategory = component.get('activeCategory');
-    component.fetchSubjectsByCategory(activeCategory);
+    if (component.get('activeCategory')) {
+      component.fetchSubjectsByCategory(activeCategory);
+    }
   },
 
-  observer: Ember.observer('isShowProficiencyPullup', function() {
-    let component = this;
-    let activeCategory = component.get('activeCategory');
-    component.fetchSubjectsByCategory(activeCategory);
-  }),
-
+  // -------------------------------------------------------------------------
+  // Actions
   actions: {
+
+    /**
+     * Action triggered when select a month from chart
+     */
     onSelectMonth(date) {
       let timeLine = {
         month: date.getMonth() + 1,
@@ -43,35 +45,41 @@ export default Ember.Component.extend({
       this.set('timeLine', timeLine);
     },
 
-    onSelectCategory(category) {
-      let component = this;
-      component.fetchSubjectsByCategory(category);
-      component.set('activeCategory', category);
-    },
-
+    /**
+     * Action triggered when select a subject
+     */
     onSelectSubject(subject) {
       let component = this;
       component.set('activeSubject', subject);
     }
   },
 
+  // -------------------------------------------------------------------------
+  // Actions
   /**
    * @function fetchSubjectsByCategory
    * @param subjectCategory
    * Method to fetch list of subjects using given category level
    */
   fetchSubjectsByCategory(category) {
-    let controller = this;
-    controller
+    let component = this;
+    component
       .get('taxonomyService')
-      .getSubjects(category.value)
+      .getTaxonomySubjects(category.value)
       .then(subjects => {
-        let subject = subjects.objectAt(0);
-        controller.set('taxonomySubjects', subjects);
-        controller.set('activeSubject', subject);
+        let subject = subjects.findBy('code', component.get('subjectBucket'));
+        component.set('taxonomySubjects', subjects);
+        component.set('activeSubject', subject || subjects.objectAt(0));
       });
   },
 
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * @property {JSON}
+   * Property to store currently selected month and year
+   */
   timeLine: Ember.computed(function() {
     let curDate = new Date;
     return {
@@ -80,14 +88,28 @@ export default Ember.Component.extend({
     };
   }),
 
-  taxonomyCategories: TAXONOMY_CATEGORIES,
-
+  /**
+   * @property {Array}
+   * Property to store list of taxonomy subjects
+   */
   taxonomySubjects: Ember.A([]),
 
+  /**
+   * @property {JSON}
+   * Property to store active category //TODO for now it is always K12
+   */
   activeCategory: TAXONOMY_CATEGORIES[0],
 
+  /**
+   * @property {Object}
+   * Property to store active subject
+   */
   activeSubject: null,
 
+  /**
+   * @property {String}
+   * Property to store currently selected student's full name
+   */
   studentFullName: Ember.computed('student', function() {
     let component = this;
     let firstName = component.get('student.firstName') || '';

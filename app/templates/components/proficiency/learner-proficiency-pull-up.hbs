@@ -9,12 +9,7 @@
       </div>
       <div class="taxonomy-info">
         <div class="dropdown categories">
-          <div class="active-item active-category"><div class="label ellipsis">{{t activeCategory.label}}</div><div class="icon">{{gru-icon name="arrow_drop_down"}}</div></div>
-          <div class="dropdown-content category-list">
-            {{#each taxonomyCategories as |category|}}
-              <div class="list-item category {{if (eq activeCategory.apiCode category.apiCode) 'active'}}" {{action "onSelectCategory" category}}>{{t category.label}}</div>
-            {{/each}}
-          </div>
+          <div class="active-item active-category"><div class="label ellipsis">{{t activeCategory.label}}</div></div>
         </div>
 
         <div class="dropdown subjects">
@@ -30,10 +25,10 @@
   </div>
   <div class="body">
     <div class="proficiency-chart">
-        {{proficiency.learner-proficiency-domain-matrix timeLine=timeLine showPullUp=isShowProficiencyPullup userId=student.id subject=activeSubject}}
+        {{proficiency.learner-proficiency-domain-matrix timeLine=timeLine userId=student.id subject=activeSubject}}
     </div>
     <div class="time-series">
-      {{charts.monthly-time-series-chart showPullUp=isShowProficiencyPullup onSelectMonth="onSelectMonth"}}
+      {{charts.monthly-time-series-chart onSelectMonth="onSelectMonth"}}
     </div>
   </div>
 </div>

@@ -29,6 +29,7 @@ export default Ember.Controller.extend(ModalMixin, {
     onClosePullUp() {
       this.set('showPathWayPullUp', false);
       this.set('showReportPullUp', false);
+      this.set('isShowProficiencyPullup', false);
     },
     /**
      * Archive class
@@ -153,7 +154,6 @@ export default Ember.Controller.extend(ModalMixin, {
       let controller = this;
       controller.set('isShowProficiencyPullup', true);
       controller.set('selectedStudent', student);
-      // this.transitionToRoute(`/${studentId}/proficiency/?classId=${classId}`);
     },
 
     pathwayStudent(student) {
@@ -311,17 +311,29 @@ export default Ember.Controller.extend(ModalMixin, {
 
   /**
    * Propery to hide the pathway pullup.
-   * @property {showPathWayPullUp}
+   * @property {Boolean}
    */
   showPathWayPullUp: false,
 
+  /**
+   * @property {Boolean}
+   * Property to show/hide proficiency pull up
+   */
   isShowProficiencyPullup: false,
 
+  /**
+   * @property {String}
+   * Property to store coruse subject bucket or K12.MA will be default
+   */
   subjectBucket: Ember.computed('course', function() {
     let controller = this;
     return controller.get('course.subject') || 'K12.MA';
   }),
 
+  /**
+   * @property {Object}
+   * Property to store selected student's data
+   */
   selectedStudent: null,
 
   // -------------------------------------------------------------------------

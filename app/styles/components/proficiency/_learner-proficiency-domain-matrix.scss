@@ -16,7 +16,7 @@
     display: flex;
 
     .matrix-chart {
-      width: 430px;
+      width: 450px;
       overflow: auto;
 
       &::-webkit-scrollbar {
@@ -38,7 +38,6 @@
         transition: transform 0.6s ease-in;
         -webkit-transform-style: preserve-3d;
         transform-style: preserve-3d;
-        height: 450px;
 
         .competency {
           stroke: $snow-gray;
@@ -89,16 +88,33 @@
     }
 
     .domain-list {
-      width: calc(100% - 430px);
+      width: calc(100% - 450px);
       margin-left: 12px;
+      max-height: 350px;
+      overflow-y: auto;
+
       .domain {
         font-size: 12px;
-        color: #37424b;
-        margin-bottom: 5px;
+        color: $dark-400;
         display: flex;
+        margin-bottom: 3px;
         .sequence {
           margin-right: 5px;
         }
+        .name {
+          line-height: 18px;
+        }
+      }
+
+      &::-webkit-scrollbar {
+        height: 6px;
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $gray-light;
+        border: 1px solid $gray-light;
+        border-radius: 5px;
       }
     }
 
