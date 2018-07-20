@@ -35,7 +35,7 @@
       {{class.overview.routesuggestion-preview route0=route0 routeSuggestAction=(action 'courseRouteSuggestAction' ) }}
     {{/if}}
     {{#if showRoute0Suggestion}}
-      {{class.overview.routesuggestion-coursemap route0=route0 routeSuggestAction=(action 'courseRouteSuggestAction'  ) onStudyNow=studyPlayer }}
+      {{class.overview.routesuggestion-coursemap route0=route0 routeSuggestAction=(action 'courseRouteSuggestAction'  ) onStudyNow=(action 'studyCoursePlayer' ) }}
     {{/if}}
     {{class.overview.gru-accordion-course
     currentClass=class

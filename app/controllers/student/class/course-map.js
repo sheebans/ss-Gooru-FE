@@ -111,7 +111,7 @@ export default Ember.Controller.extend({
         }
       });
     },
-    studyPlayer: function(type, unitId, lessonId, item) {
+    studyCoursePlayer: function(type, unitId, lessonId, item) {
       let controller = this;
       controller.send('studyPlayer', type, unitId, lessonId, item);
     }
