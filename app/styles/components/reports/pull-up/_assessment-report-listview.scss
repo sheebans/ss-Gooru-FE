@@ -43,7 +43,7 @@
             .last-header {
               display: flex;
               opacity: 0.5;
-
+              cursor: pointer;
               &.active {
                 opacity: 1;
               }
@@ -75,6 +75,7 @@
           width: 250px;
           display: flex;
           align-items: center;
+          cursor: pointer;
 
           .user-profile-img {
             width: 43px;
@@ -179,20 +180,53 @@
             width: calc(200px / 3);
 
             div {
-              width: 27px;
-              height: 27px;
+              width: 25px;
+              height: 25px;
               border-radius: 50%;
               font-size: 10px;
-              color: #86d59f;
-              line-height: 24px;
+              font-weight: bold;
+              line-height: 22px;
               text-align: center;
-              border: 1px solid #86d59f;
-              margin-left: 13px;
+              margin-left: 20px;
+              margin-top: 2px;
+
+              &.correct {
+                color: #1fa33c;
+                border: 1px solid #1fa33c;
+              }
+
+              &.wrong {
+                color: #ff4c5c;
+                border: 1px solid #ff4c5c;
+              }
+
+              &.not-started {
+                color: #37434d;
+                border: 1px solid #37434d;
+              }
+
+              &.skipped {
+                margin-left: 8px;
+
+                span {
+                  position: relative;
+                  top: -11px;
+                  left: 20px;
+                  color: #ccc;
+                  font-size: 12px;
+                }
+
+                i {
+                  font-size: 30px;
+                  color: #ccc;
+                }
+              }
             }
           }
 
           .timespent-value {
             width: calc(200px / 3);
+            text-align: center;
           }
 
           .reaction-value {

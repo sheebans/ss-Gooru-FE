@@ -5,110 +5,54 @@
         <th>
           <div class="header-filters">
             <div class="name-filter">
-              <span class="name-header">Name</span>
-              <span class="last-header">
-                <span>Last</span> {{gru-icon name="keyboard_arrow_down"}}
+              <span class="name-header">{{t 'common.name'}}</span>
+              <span class="first-header {{if sortByFirstnameEnabled 'active'}}" {{action 'sortByFirstName'}}>
+                <span>{{t 'common.first'}}</span>
+              {{#if sortByFirstnameEnabled}}
+                {{gru-icon name="keyboard_arrow_up"}}
+              {{else}}
+                {{gru-icon name="keyboard_arrow_down"}}
+              {{/if}}
               </span>
-              <span class="first-header active">
-                <span>First</span> {{gru-icon name="keyboard_arrow_up"}}
+              <span class="last-header {{if sortByLastnameEnabled 'active'}}" {{action 'sortByLastName'}}>
+                <span>{{t 'common.last'}}</span>
+                {{#if sortByLastnameEnabled}}
+                  {{gru-icon name="keyboard_arrow_up"}}
+                {{else}}
+                  {{gru-icon name="keyboard_arrow_down"}}
+                {{/if}}
               </span>
             </div>
-            <div class="rubric-filter">
+            <div class="rubric-filter" {{action 'sortByScore'}}>
               <i class="rubric-icon"></i>
             </div>
           </div>
         </th>
       </tr>
-      <tr>
-        <th>
-          <div class="user-profile-summary">
-            <div class="user-profile-details">
-              <div class="user-profile-img">
-                <img src="/assets/gooru/profile.png" />
+      {{#each studentPerformanceData as |student|}}
+        <tr>
+          <th>
+            <div class="user-profile-summary">
+              <div class="user-profile-details" {{action 'studentReport' selectedCollection student.id}}>
+                <div class="user-profile-img">
+                  <img src="{{student.avatarUrl}}" />
+                </div>
+                <div class="username">
+                  <span>{{student.firstName}}</span>
+                  <span>{{student.lastName}}</span>
+                </div>
               </div>
-              <div class="username">
-                <span>lastname</span>
-                <span>firstname</span>
-              </div>
-            </div>
-            <div class="score-details">
-              <span>10</span>
-            </div>
-          </div>
-        </th>
-      </tr>
-      <tr>
-        <th>
-          <div class="user-profile-summary">
-            <div class="user-profile-details">
-              <div class="user-profile-img">
-                <img src="/assets/gooru/profile.png" />
-              </div>
-              <div class="username">
-                <span>lastname</span>
-                <span>firstname</span>
+              <div class="score-details">
+                {{#if student.hasStarted}}
+                  <span style= {{safe-html (concat "color:" (grade-color student.overAllScore))}}>{{student.overAllScore}}%</span>
+                {{else}}
+                  <span>--</span>
+                {{/if}}
               </div>
             </div>
-            <div class="score-details">
-              <span>10</span>
-            </div>
-          </div>
-        </th>
-      </tr>
-      <tr>
-        <th>
-          <div class="user-profile-summary">
-            <div class="user-profile-details">
-              <div class="user-profile-img">
-                <img src="/assets/gooru/profile.png" />
-              </div>
-              <div class="username">
-                <span>lastname</span>
-                <span>firstname</span>
-              </div>
-            </div>
-            <div class="score-details">
-              <span>10</span>
-            </div>
-          </div>
-        </th>
-      </tr>
-      <tr>
-        <th>
-          <div class="user-profile-summary">
-            <div class="user-profile-details">
-              <div class="user-profile-img">
-                <img src="/assets/gooru/profile.png" />
-              </div>
-              <div class="username">
-                <span>lastname</span>
-                <span>firstname</span>
-              </div>
-            </div>
-            <div class="score-details">
-              <span>10</span>
-            </div>
-          </div>
-        </th>
-      </tr>
-      <tr>
-        <th>
-          <div class="user-profile-summary">
-            <div class="user-profile-details">
-              <div class="user-profile-img">
-                <img src="/assets/gooru/profile.png" />
-              </div>
-              <div class="username">
-                <span>lastname</span>
-                <span>firstname</span>
-              </div>
-            </div>
-            <div class="score-details">
-              <span>10</span>
-            </div>
-          </div>
-        </th>
-      </tr>
+          </th>
+        </tr>
+      {{/each}}
     </tbody>
   </table>
 </div>
@@ -116,397 +60,58 @@
   <table>
     <tbody>
       <tr>
-        <th>
-          <div class="question-header">
-            <div class="question-icon">
-              <i></i>
+        {{#each questions as | question |}}
+          <th>
+            <div class="question-header">
+              <div class="question-icon">
+                <i></i>
+              </div>
+              <div class="question-title">
+                <p>{{safe-html question.title}}</p>
+              </div>
             </div>
-            <div class="question-title">
-              <p>Question name</p>
-            </div>
-          </div>
-        </th>
-        <th>
-          <div class="question-header">
-            <div class="question-icon">
-              <i></i>
-            </div>
-            <div class="question-title">
-              <p>Question name</p>
-            </div>
-          </div>
-        </th>
-        <th>
-          <div class="question-header">
-            <div class="question-icon">
-              <i></i>
-            </div>
-            <div class="question-title">
-              <p>Question name</p>
-            </div>
-          </div>
-        </th>
-        <th>
-          <div class="question-header">
-            <div class="question-icon">
-              <i></i>
-            </div>
-            <div class="question-title">
-              <p>Question name</p>
-            </div>
-          </div>
-        </th>
+          </th>
+        {{/each}}
       </tr>
-      <tr>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
+      {{#each studentPerformanceData as |student|}}
+        <tr>
+          {{#each student.userPerformanceData as |userPerformanceData|}}
+            <td>
+              <div class="perf-time-react-container">
+                <div class="question-score-value">
+                  {{#if userPerformanceData.hasStarted}}
+                    {{#if userPerformanceData.isSkipped}}
+                      <div class="skipped">
+                        <span>{{userPerformanceData.sequence}}</span> {{gru-icon name="not_interested"}}
+                      </div>
+                    {{else}}
+                      <div class="{{if userPerformanceData.correct 'correct' 'wrong'}}">{{userPerformanceData.sequence}}</div>
+                    {{/if}}
+                  {{else}}
+                    <div class="not-started">{{userPerformanceData.sequence}}</div>
+                  {{/if}}
+                </div>
+                {{#if isTimeSpentFltApplied}}
+                  <div class="timespent-value">
+                    <span>{{format-time userPerformanceData.timeSpent}}</span>
+                  </div>
+                {{/if}}
+                {{#if isReactionFltApplied}}
+                  <div class="reaction-value">
+                    <div class="selected-reaction">
+                      {{#if userPerformanceData.reaction_unicode}}
+                        <svg>
+                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#{{userPerformanceData.reaction_unicode}}"></use>
+                        </svg>
+                      {{/if}}
+                    </div>
+                  </div>
+                {{/if}}
               </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="perf-time-react-container">
-            <div class="question-score-value">
-              <div>10</div>
-            </div>
-            <div class="timespent-value">
-              <span>1h 2m 4s</span>
-            </div>
-            <div class="reaction-value">
-              <div class="selected-reaction">
-                <svg>
-                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#1f610"></use>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </td>
-      </tr>
+            </td>
+          {{/each}}
+        </tr>
+      {{/each}}
     </tbody>
   </table>
 </div>

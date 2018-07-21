@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { EMOTION_VALUES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -46,6 +47,42 @@ export default Ember.Component.extend({
 
     onToggleReactionFlt() {
       this.toggleProperty('isReactionFltApplied');
+    },
+
+    onClickPrev() {
+      let component = this;
+      let collections = component.get('collections');
+      let selectedElement = component.$(
+        '#report-carousel-wrapper .item.active'
+      );
+      let currentIndex = selectedElement.data('item-index');
+      let selectedIndex = selectedElement.data('item-index') - 1;
+      if (currentIndex === 0) {
+        selectedIndex = collections.length - 1;
+      }
+      component.set('selectedCollection', collections.objectAt(selectedIndex));
+      component.$('#report-carousel-wrapper').carousel('prev');
+      component.loadData();
+    },
+
+    onClickNext() {
+      let component = this;
+      let collections = component.get('collections');
+      let selectedElement = component.$(
+        '#report-carousel-wrapper .item.active'
+      );
+      let currentIndex = selectedElement.data('item-index');
+      let selectedIndex = currentIndex + 1;
+      if (collections.length - 1 === currentIndex) {
+        selectedIndex = 0;
+      }
+      component.set('selectedCollection', collections.objectAt(selectedIndex));
+      component.$('#report-carousel-wrapper').carousel('next');
+      component.loadData();
+    },
+
+    studentReport(collection, userId) {
+      this.sendAction('studentReport', collection, userId);
     }
   },
 
@@ -96,7 +133,10 @@ export default Ember.Component.extend({
    * List of collection mapped to lesson.
    * @type {Array}
    */
-  collections: Ember.computed.alias('context.collections'),
+  collections: Ember.computed('context.collections', function() {
+    let collections = this.get('context.collections');
+    return collections.filterBy('format', 'assessment');
+  }),
 
   /**
    * Selected collection.
@@ -150,7 +190,19 @@ export default Ember.Component.extend({
    * Stutent performance report data
    * @type {Object}
    */
-  studentPerformanceData: null,
+  studentPerformanceData: Ember.A([]),
+
+  /**
+   * It maintains the state of loading
+   * @type {Boolean}
+   */
+  isLoading: false,
+
+  /**
+   * This attribute decide sorting key
+   * @type {String}
+   */
+  sortCriteria: 'firstName',
 
   //--------------------------------------------------------------------------
   // Methods
@@ -188,6 +240,7 @@ export default Ember.Component.extend({
     let lessonId = component.get('lesson.id');
     let courseId = component.get('courseId');
     let classId = component.get('classId');
+    component.set('isLoading', true);
     return Ember.RSVP.hash({
       assessment: component
         .get('assessmentService')
@@ -204,12 +257,12 @@ export default Ember.Component.extend({
         )
     }).then(({ assessment, performance }) => {
       component.set('assessment', assessment);
-      component.set('performance', performance);
-      component.parseClassMemberAndPerformanceData();
+      component.parseClassMemberAndPerformanceData(assessment, performance);
+      component.set('isLoading', false);
     });
   },
 
-  parseClassMemberAndPerformanceData() {
+  parseClassMemberAndPerformanceData(assessment, performance) {
     let component = this;
     let classMembers = component.get('classMembers');
     let users = Ember.A([]);
@@ -220,9 +273,63 @@ export default Ember.Component.extend({
         lastName: member.lastName,
         avatarUrl: member.avatarUrl
       });
-
+      let questions = assessment.get('children');
+      let userPerformance = performance.findBy('user', member.id);
+      let resultSet = component.parsePerformanceQuestionAndUserData(
+        questions,
+        userPerformance
+      );
+      user.set('userPerformanceData', resultSet.userPerformanceData);
+      user.set('overAllScore', resultSet.overAllScore);
+      user.set('hasStarted', resultSet.hasStarted);
       users.pushObject(user);
     });
-    users = users.sortBy('lastName');
+    users = users.sortBy(component.get('sortCriteria'));
+    component.set('studentPerformanceData', users);
+  },
+
+  parsePerformanceQuestionAndUserData(questions, userPerformance) {
+    let userPerformanceData = Ember.A([]);
+    let numberOfCorrectAnswers = 0;
+    let hasStarted = false;
+    questions.forEach((question, index) => {
+      let questionId = question.get('id');
+      let performanceData = Ember.Object.create({
+        id: question.get('id'),
+        sequence: index + 1
+      });
+      if (userPerformance) {
+        performanceData.set('hasStarted', true);
+        hasStarted = true;
+        let resourceResults = userPerformance.get('resourceResults');
+        let resourceResult = resourceResults.findBy('resourceId', questionId);
+        if (resourceResult) {
+          let reaction = resourceResult.get('reaction');
+          performanceData.set('reaction', reaction);
+          if (reaction > 0) {
+            let selectionEmotion = EMOTION_VALUES.findBy('value', reaction);
+            performanceData.set('reaction_unicode', selectionEmotion.unicode);
+          }
+          if (resourceResult.get('correct')) {
+            numberOfCorrectAnswers++;
+          }
+          performanceData.set('correct', resourceResult.get('correct'));
+          performanceData.set('timeSpent', resourceResult.get('timeSpent'));
+          performanceData.set('isSkipped', !resourceResult.get('userAnswer'));
+        } else {
+          performanceData.set('isSkipped', true);
+        }
+      } else {
+        performanceData.set('hasStarted', false);
+      }
+      userPerformanceData.pushObject(performanceData);
+    });
+    let overAllScore = (numberOfCorrectAnswers / questions.length) * 100;
+    let resultSet = {
+      userPerformanceData: userPerformanceData,
+      overAllScore: overAllScore,
+      hasStarted: hasStarted
+    };
+    return resultSet;
   }
 });
