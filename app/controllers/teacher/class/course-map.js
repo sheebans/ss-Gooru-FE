@@ -109,18 +109,18 @@ export default Ember.Controller.extend({
      * Action triggered when the user click the lesson level performance score.
      **/
     onOpenLessonReport(lesson, unitId) {
-      const component = this;
-      const classId = component.get('currentClass.id');
+      const controller = this;
+      const classId = controller.get('currentClass.id');
       const lessonId = lesson.id;
       const courseId =
-        component.get('currentClass.courseId') ||
-        component.get('currentCourse.id');
-      component.set('classId', classId);
-      component.set('unitId', unitId);
-      component.set('lessonId', lessonId);
-      component.set('courseId', courseId);
-      component.set('selectedLesson', lesson);
-      component.set('showLessonReportPullUp', true);
+        controller.get('currentClass.courseId') ||
+        controller.get('currentCourse.id');
+      controller.set('classId', classId);
+      controller.set('unitId', unitId);
+      controller.set('lessonId', lessonId);
+      controller.set('courseId', courseId);
+      controller.set('selectedLesson', lesson);
+      controller.set('showLessonReportPullUp', true);
     },
 
     /**
