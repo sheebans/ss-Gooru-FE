@@ -25,7 +25,7 @@
   </div>
   <div class="body">
     <div class="proficiency-chart">
-        {{proficiency.learner-proficiency-domain-matrix timeLine=timeLine userId=student.id subject=activeSubject}}
+        {{proficiency.learner-proficiency-domain-matrix subjectBucket=subjectBucket timeLine=timeLine userId=student.id subject=activeSubject class=class}}
     </div>
     <div class="time-series">
       {{charts.monthly-time-series-chart onSelectMonth="onSelectMonth"}}

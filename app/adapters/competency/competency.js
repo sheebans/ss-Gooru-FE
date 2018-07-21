@@ -154,6 +154,31 @@ export default Ember.Object.extend({
     });
   },
 
+  /**
+   * @function getUserProficiencyBaseLine
+   * Method to fetch user proficiency baseline
+   */
+  getUserProficiencyBaseLine(classId, courseId, userId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/v2/user/baseline/learnerprofile`;
+    const options = {
+      type: 'GET',
+      headers: adapter.defineHeaders(),
+      contentType: 'application/json; charset=utf-8',
+      data: {
+        classId,
+        courseId,
+        userId
+      }
+    };
+    return Ember.RSVP.hashSettled({
+      competencyMatrix: Ember.$.ajax(url, options)
+    }).then(function(hash) {
+      return hash.competencyMatrix.value;
+    });
+  },
+
   defineHeaders() {
     return {
       Authorization: `Token ${this.get('session.token-api3')}`
