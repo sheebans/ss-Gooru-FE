@@ -393,11 +393,11 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
    * rescoped class average performance hide for teacher's
    * @property {Ember.Array}
    */
-  isRescopedClassForTeacher: Ember.computed('isRescopedClass', function() {
+  isPremiumClassForTeacher: Ember.computed('isPremiumClass', function() {
     let component = this;
-    let isRescopedClass = component.get('isRescopedClass');
+    let isPremiumClass = component.get('isPremiumClass');
     let isTeacher = component.get('isTeacher');
-    if (isRescopedClass && isTeacher) {
+    if (isPremiumClass && isTeacher) {
       return true;
     }
     return false;

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Env from 'gooru-web/config/environment';
 import ModalMixin from 'gooru-web/mixins/modal';
+import { getBarGradeColor } from 'gooru-web/utils/utils';
 
 export default Ember.Controller.extend(ModalMixin, {
   queryParams: ['showArchivedClasses', 'showActiveClasses'],
@@ -80,14 +81,19 @@ export default Ember.Controller.extend(ModalMixin, {
   getLastAccessedClassData() {
     const controller = this;
     let userId = controller.get('session.userId');
-    let lastAccessedClassData = JSON.parse(localStorage.getItem(`${userId}_recent_class`)) || null;
-    let isLastAccessedClassAvailable = lastAccessedClassData ? Object.keys(lastAccessedClassData).length : null;
+    let lastAccessedClassData =
+      JSON.parse(localStorage.getItem(`${userId}_recent_class`)) || null;
+    let isLastAccessedClassAvailable = lastAccessedClassData
+      ? Object.keys(lastAccessedClassData).length
+      : null;
     //If last accessed class available in the local storage
     if (!isLastAccessedClassAvailable) {
       let activeClasses = controller.get('activeClasses');
       lastAccessedClassData = activeClasses ? activeClasses.objectAt(0) : null;
       if (lastAccessedClassData) {
-        lastAccessedClassData = controller.updateLastAccessedClass(lastAccessedClassData);
+        lastAccessedClassData = controller.updateLastAccessedClass(
+          lastAccessedClassData
+        );
       }
     }
     return lastAccessedClassData;
@@ -102,7 +108,9 @@ export default Ember.Controller.extend(ModalMixin, {
     let activeClasses = controller.get('activeClasses');
     let sequencedActiveClass = activeClasses.objectAt(classSeq) || null;
     if (sequencedActiveClass) {
-      sequencedActiveClass = controller.updateLastAccessedClass(sequencedActiveClass);
+      sequencedActiveClass = controller.updateLastAccessedClass(
+        sequencedActiveClass
+      );
     }
     return sequencedActiveClass;
   },
@@ -114,7 +122,9 @@ export default Ember.Controller.extend(ModalMixin, {
   updateLastAccessedClass(classData) {
     const controller = this;
     controller.updateLastAccessedClassPosition(classData.id);
-    return controller.get('teacherClassController').updateLastAccessedClass(classData);
+    return controller
+      .get('teacherClassController')
+      .updateLastAccessedClass(classData);
   },
 
   /**
@@ -181,8 +191,14 @@ export default Ember.Controller.extend(ModalMixin, {
     onChangeAtcClass(actionSequence) {
       const controller = this;
       let currentClassPosition = controller.get('currentClassPosition');
-      let classSeq = actionSequence === 'previous' ? currentClassPosition - 1 : currentClassPosition + 1;
-      controller.set('lastAccessedClassData', controller.getSequencedActiveClass(classSeq));
+      let classSeq =
+        actionSequence === 'previous'
+          ? currentClassPosition - 1
+          : currentClassPosition + 1;
+      controller.set(
+        'lastAccessedClassData',
+        controller.getSequencedActiveClass(classSeq)
+      );
     },
 
     /**
@@ -203,7 +219,10 @@ export default Ember.Controller.extend(ModalMixin, {
   init: function() {
     const controller = this;
     controller._super(...arguments);
-    controller.set('lastAccessedClassData', controller.getLastAccessedClassData());
+    controller.set(
+      'lastAccessedClassData',
+      controller.getLastAccessedClassData()
+    );
     Ember.run.schedule('afterRender', this, function() {
       if (controller.get('showArchivedClasses')) {
         controller.get('archivedClassObject');
@@ -332,20 +351,30 @@ export default Ember.Controller.extend(ModalMixin, {
   },
 
   /**
-  * @property {JSON}
-  * Property to store last accessed class data
-  */
+   * @property {JSON}
+   * Property to store last accessed class data
+   */
   lastAccessedClassData: null,
 
   /**
    * @property {Boolean}
    * Property to show/hide ATC view
    */
-  isShowAtcView: true,
+  isShowAtcView: false,
 
   /**
    * @property {Number}
    * Property to store last accessed class position
    */
-  currentClassPosition: 0
+  currentClassPosition: 0,
+
+  /**
+   * @property {String}
+   * Property to hold class performance color based on score value
+   */
+  classPerformanceColor: Ember.computed('lastAccessedClassData', function() {
+    let controller = this;
+    let classPerformance = controller.get('lastAccessedClassData.performance');
+    return classPerformance ? getBarGradeColor(classPerformance.score) : null;
+  })
 });

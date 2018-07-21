@@ -12,7 +12,7 @@
 
     <div class="panel panel-default panel-primary welcome {{if showWelcome 'visible' 'hidden'}}">
       <div class="panel-body">
-        {{#if isRescopedClass}}
+        {{#if isPremiumClass}}
           <div class="description">{{t "teacher-landing.welcome-rescoped-course-map"}}</div>
         {{else}}
           <div class="description">{{t "teacher-landing.welcome-course-map"}}</div>
@@ -34,10 +34,8 @@
     onUpdateContentVisibility="updateContentVisibility"
     isTeacher=true
     isNUCourse=isNUCourse
-    isRescopedClass=isRescopedClass
     onOpenLessonReport="onOpenLessonReport"
-  }}
-
+    isPremiumClass=isPremiumClass}}
   </div>
 {{else}}
   <div class="no-content">This classroom does not have a related course and it has no content</div>

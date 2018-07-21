@@ -10,7 +10,15 @@ export default QuizzesPlayerController.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
-  queryParams: ['resourceId', 'role', 'type', 'sourceId', 'source', 'classId', 'isStudyPlayer'],
+  queryParams: [
+    'resourceId',
+    'role',
+    'type',
+    'sourceId',
+    'source',
+    'classId',
+    'isStudyPlayer'
+  ],
 
   // -------------------------------------------------------------------------
   // Properties

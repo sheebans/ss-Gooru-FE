@@ -71,11 +71,11 @@ export default Ember.Controller.extend({
    * The class is rescoped
    * @property {String}
    */
-  isRescopedClass: Ember.computed('class', function() {
+  isPremiumClass: Ember.computed('class', function() {
     let controller = this;
     const currentClass = controller.get('class');
     let setting = currentClass.get('setting');
-    return setting ? setting.rescope : false;
+    return setting ? setting['course.premium'] : false;
   }),
 
   /**
@@ -111,10 +111,16 @@ export default Ember.Controller.extend({
       lastAccessedClassData = {
         id: classData.id,
         title: classData.title,
-        performance: controller.getClassPerformance(classData.performanceSummary)
+        courseId: classData.courseId,
+        performance: controller.getClassPerformance(
+          classData.performanceSummary
+        )
       };
     }
-    localStorage.setItem(`${userId}_recent_class`, JSON.stringify(lastAccessedClassData));
+    localStorage.setItem(
+      `${userId}_recent_class`,
+      JSON.stringify(lastAccessedClassData)
+    );
     return lastAccessedClassData;
   },
 

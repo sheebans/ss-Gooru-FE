@@ -8,7 +8,6 @@ import d3 from 'd3';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   //------------------------------------------------------------------------
   //Dependencies
 
@@ -31,14 +30,13 @@ export default Ember.Component.extend({
       radius: 95
     });
     this.drawchart();
-
   },
 
   /**
    * Observer to watch data changes
    */
   dataObserver: Ember.observer('data', function() {
-    d3.select('svg').remove();
+    d3.select('svg.performance-chart').remove();
     this.drawchart();
   }),
 
@@ -73,47 +71,29 @@ export default Ember.Component.extend({
     let width = component.get('width');
     let height = component.get('height');
     let data = component.get('data');
-    let radius = component.get('radius');
     let performanceColor = component.get('performanceColor');
-    let svg = d3.select(component.element)
+    let svg = d3
+      .select(component.element)
       .append('svg')
       .attr('class', 'pie')
+      .attr('class', 'performance-chart')
       .attr('width', width)
       .attr('height', height);
 
-    let g = svg.append('g')
-      .attr('transform', `translate(${  width / 2  },${  height / 2  })`);
-
-    let arc = d3.svg.arc()
-      .innerRadius(115)
-      .outerRadius(radius);
-
-    let pie = d3.layout.pie()
-      .value(function(d) {
-        return d.score;
-      })
-      .sort(null);
-    pie.padAngle(0.05);
-
-    let arcs = g.selectAll('arc')
-      .data(pie(data))
-      .enter()
+    let g = svg
       .append('g')
-      .attr('class', 'arc');
-    arcs.append('path')
-      .attr('d', arc)
-      .attr('fill', performanceColor)
-      .each(function(d, i) {
-        this._current = i;
-      });
-    let text = g.append('svg:foreignObject')
-      .attr('width', 100).attr('height', 100)
+      .attr('transform', `translate(${width / 2},${height / 2})`);
+
+    let text = g
+      .append('svg:foreignObject')
+      .attr('width', 100)
+      .attr('height', 100)
       .attr('x', -50)
       .attr('y', -50);
-    text.append('xhtml:div')
+    text
+      .append('xhtml:div')
       .style('background-color', performanceColor)
-      .attr('class', 'performance-score').text(`${data[0].score  }%`);
-
+      .attr('class', 'performance-score')
+      .text(`${data[0].score}%`);
   }
-
 });

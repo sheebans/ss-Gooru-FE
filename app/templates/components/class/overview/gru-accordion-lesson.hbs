@@ -5,7 +5,7 @@
     </a>
   </div>
   {{#unless isFromDCA}}
-    <div class="info {{if isRescopedClassForTeacher 'isRescopedClassForTeacher' ''}}">
+    <div class="info {{if isPremiumClassForTeacher 'isPremiumClassForTeacher' ''}}">
       {{#if (or model.assessmentCount model.collectionCount)}}
         <div class="content-count">
           {{#if model.collectionCount}}
@@ -22,7 +22,7 @@
           {{/if}}
         </div>
       {{/if}}
-      {{#if (not isRescopedClassForTeacher )}}
+      {{#if (not isPremiumClassForTeacher )}}
         <div class= {{if isTeacher 'controls' 'play-btn'}}>
           {{#unless isTeacher}}
             <button class="btn btn-info study-now" disabled= {{if (or studyNowDisabled (not isExpanded)) 'true' ''}} {{action "studyNow" 'lesson' model}} data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.play"}}">
@@ -161,7 +161,7 @@
                       <div class="controls">
                         {{#if item.isAssessment}}
                           <div class="go-live-cnt">
-                            {{#if (and item.visible (not isRescopedClass))}}
+                            {{#if (and item.visible (not isPremiumClass))}}
                               {{#unless item.isExternalAssessment}}
                                 <button {{action 'goLive' item.id}} data-toggle="tooltip" data-html="true" data-placement="bottom" title="{{t "common.launch-on-air"}}" class="on-air go-live enabled">{{t "common.launch-on-air"}}
                                 </button>
@@ -180,7 +180,7 @@
                         </button>
                       </div>
                     {{/if}}
-                    {{#if (not isRescopedClassForTeacher)}}
+                    {{#if (not isPremiumClassForTeacher)}}
                       <div class="performance">
                         {{#if item.isAssessment}}
                           {{#if item.performance.isCompleted}}
