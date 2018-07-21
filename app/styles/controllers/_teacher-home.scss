@@ -25,6 +25,12 @@
       top: 135px;
       width: 40px;
     }
+
+    &.atc-landing {
+      background: $dark-400;
+      opacity: 0.8;
+      padding-top: 5px;
+    }
   }
 
   .filter-date-asc {
@@ -305,29 +311,42 @@
     margin: 8px 0 0;
   }
 
-  .atc-view.nav{
-    height: 64px;
+  .atc-view.nav {
+    height: 50px;
     width: 100%;
     display: flex;
     border-bottom: solid 1px $greyish;
     background-color: $white;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
     .class-title {
-      padding: 15px;
-      width: 95%;
+      padding: 8px;
+      width: 85%;
       line-height: 30px;
-      font-size: 30px;
+      font-size: 20px;
       color: $dark-400;
       text-transform: capitalize;
+    }
+
+    .atc-class-performance {
+      width: 80px;
+      text-align: center;
+      color: $white;
+      line-height: 50px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .toggle-view {
+      right: 18px;
     }
   }
 
   .toggle-view {
     position: absolute;
-    top: 8px;
+    top: 6px;
     right: 8px;
     i {
-      font-size: 35px;
+      font-size: 30px;
       line-height: 1.8;
       cursor: pointer;
     }

@@ -185,5 +185,21 @@ export default Ember.Object.extend({
       });
     }
     return result;
+  },
+
+  normalizeAtcPerformanceSummary(payload) {
+    let normalizedClassPerformanceSummary = Ember.A([]);
+    if (payload && payload.usageData) {
+      let performanceSummary = payload.usageData;
+      performanceSummary.map(performance => {
+        let userPerformanceData = {
+          progress: performance.percentCompletion,
+          score: performance.percentScore,
+          userId: performance.userId
+        };
+        normalizedClassPerformanceSummary.push(userPerformanceData);
+      });
+    }
+    return normalizedClassPerformanceSummary;
   }
 });

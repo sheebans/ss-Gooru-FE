@@ -391,10 +391,15 @@ export default Ember.Controller.extend({
    */
   questionItems: null,
 
-  isRescopedClass: Ember.computed('class', function() {
-    let controller = this;
+  /**
+   * @property {Boolean}
+   * property to check, is it has premium course
+   */
+  isPremiumClass: Ember.computed('class', function() {
+    const controller = this;
     let currentClass = controller.get('class');
-    return currentClass.setting.rescope;
+    let classSetting = currentClass.setting;
+    return classSetting ? classSetting['course.premium'] : false;
   }),
 
   // -------------------------------------------------------------------------
@@ -424,31 +429,29 @@ export default Ember.Controller.extend({
     const lessonIndex = unit.getChildLessonIndex(lesson) + 1;
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      return Ember.RSVP
-        .hash({
-          collection: collectionId
-            ? isAssessment
-              ? controller.get('assessmentService').readAssessment(collectionId)
-              : controller.get('collectionService').readCollection(collectionId)
-            : undefined
-        })
-        .then(function(hash) {
-          const collection = hash.collection;
-          const question = collection.get('children').findBy('id', resourceId);
-          itemObject.setProperties({
-            unitPrefix: `U${unitIndex}`,
-            lessonPrefix: `L${lessonIndex}`,
-            classId: controller.get('class.id'),
-            courseId: controller.get('course.id'),
-            unitId: unit.get('id'),
-            lessonId: lesson.get('id'),
-            collection,
-            question,
-            studentCount
-          });
+      return Ember.RSVP.hash({
+        collection: collectionId
+          ? isAssessment
+            ? controller.get('assessmentService').readAssessment(collectionId)
+            : controller.get('collectionService').readCollection(collectionId)
+          : undefined
+      }).then(function(hash) {
+        const collection = hash.collection;
+        const question = collection.get('children').findBy('id', resourceId);
+        itemObject.setProperties({
+          unitPrefix: `U${unitIndex}`,
+          lessonPrefix: `L${lessonIndex}`,
+          classId: controller.get('class.id'),
+          courseId: controller.get('course.id'),
+          unitId: unit.get('id'),
+          lessonId: lesson.get('id'),
+          collection,
+          question,
+          studentCount
+        });
 
-          resolve(itemObject);
-        }, reject);
+        resolve(itemObject);
+      }, reject);
     });
   },
 

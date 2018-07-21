@@ -1,5 +1,5 @@
 <div class="panel">
-<div class="nav-body"> 
+<div class="nav-body">
     <ul class="nav nav-pills" role="tablist">
         <li role="separator" class="divider"></li>
         <li class="closetab tab">
@@ -7,16 +7,16 @@
                 <a {{action 'selectItem' 'close'}} title="{{t 'common.back-to-report'}}" role="tab" data-toggle="tooltip">
                     {{gru-icon name='clear'}}
                 </a>
-            {{else}} 
+            {{else}}
                 {{#if class.isArchived}}
-                {{#link-to 'teacher-home' (query-params showArchivedClasses="true" showActiveClasses="false" ) class="back-to" data-toggle="tooltip" title= 'Back to Classrooms' }} 
+                {{#link-to 'teacher-home' (query-params showArchivedClasses="true" showActiveClasses="false" ) class="back-to" data-toggle="tooltip" title= 'Back to Classrooms' }}
                 {{gru-icon name='clear'}} {{/link-to}}
                 {{else}}
                     {{#link-to 'teacher-home' class="back-to" data-toggle="tooltip" title= 'Back to Classrooms' }} {{gru-icon name='clear'}}  {{/link-to}}
                 {{/if}}
             {{/if}}
         </li>
-        
+
         {{#unless class.isArchived}}
         <li role="separator" class="divider"></li>
         <li class="class-activities tab">
@@ -74,7 +74,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-        {{#if (not isRescopedClass)}}
+        {{#if (not isPremiumClass)}}
         <div class="">
             {{charts/gru-performance-chart performanceSummary=class.performanceSummary routeToGo="teacher.class.performance"}}
         </div>
@@ -90,6 +90,6 @@
         </ul>
     </ul>
 
-    
+
 </div>
 </div>

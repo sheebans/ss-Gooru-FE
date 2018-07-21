@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { getBarGradeColor } from 'gooru-web/utils/utils';
 
 /**
  * class performance chart
@@ -8,7 +7,6 @@ import { getBarGradeColor } from 'gooru-web/utils/utils';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -34,6 +32,7 @@ export default Ember.Component.extend({
      */
     onChangeAtcClass(actionSequence) {
       let component = this;
+      component.set('isLoading', true);
       component.sendAction('onChangeAtcClass', actionSequence);
     },
 
@@ -70,21 +69,11 @@ export default Ember.Component.extend({
    * @property {Boolean}
    * Property to enable/disable next nav icon
    */
-  isNextDisabled: Ember.computed('classPosition', 'totalClasses', function(){
+  isNextDisabled: Ember.computed('classPosition', 'totalClasses', function() {
     let component = this;
     let totalClasses = component.get('totalClasses');
     let classPosition = component.get('classPosition');
-    return totalClasses === (classPosition + 1);
-  }),
-
-  /**
-   * @property {String}
-   * Property to hold class performance color based on score value
-   */
-  classPerformanceColor: Ember.computed('classData', function() {
-    let component = this;
-    let classPerformance = component.get('classData.performance');
-    return classPerformance ? getBarGradeColor(classPerformance.score) : null;
+    return totalClasses === classPosition + 1;
   }),
 
   /**
@@ -94,10 +83,21 @@ export default Ember.Component.extend({
   classPerformanceData: Ember.computed('classData', function() {
     let component = this;
     let classPerformance = component.get('classData.performance');
-    let score = classPerformance ? classPerformance.score || 0 : 0;
-    let classPerformanceData= Ember.A([{
-      score: score
-    }]);
+    let score = classPerformance ? classPerformance.score : 0;
+    let classPerformanceData = Ember.A([
+      {
+        score: score
+      }
+    ]);
     return classPerformanceData;
+  }),
+
+  /**
+   * @property {Boolean}
+   * Property to check whether the class mapped with a course or not
+   */
+  isStudentPerformed: Ember.computed('classData', function() {
+    let component = this;
+    return component.get('classData.courseId') || false;
   })
 });

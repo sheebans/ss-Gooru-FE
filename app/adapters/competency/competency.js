@@ -109,19 +109,20 @@ export default Ember.Object.extend({
    * Get user competency Matrix for domains by subjects
    * @returns {Promise.<[]>}
    */
-  getCompetencyMatrixDomain(user, subject) {
+  getCompetencyMatrixDomain(user, subject, timeSeries = {}) {
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/v2/tx/competency/matrix/domain`;
+    const defaultParams = {
+      user,
+      subject
+    };
     const options = {
       type: 'GET',
       headers: adapter.defineHeaders(),
-      contentType: 'application/json; charset=utf-8',
-      data: {
-        user,
-        subject
-      }
+      contentType: 'application/json; charset=utf-8'
     };
+    options.data = Object.assign(defaultParams, timeSeries);
     return Ember.RSVP.hashSettled({
       competencyMatrix: Ember.$.ajax(url, options)
     }).then(function(hash) {
@@ -144,6 +145,31 @@ export default Ember.Object.extend({
       data: {
         user,
         subject
+      }
+    };
+    return Ember.RSVP.hashSettled({
+      competencyMatrix: Ember.$.ajax(url, options)
+    }).then(function(hash) {
+      return hash.competencyMatrix.value;
+    });
+  },
+
+  /**
+   * @function getUserProficiencyBaseLine
+   * Method to fetch user proficiency baseline
+   */
+  getUserProficiencyBaseLine(classId, courseId, userId) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/v2/user/baseline/learnerprofile`;
+    const options = {
+      type: 'GET',
+      headers: adapter.defineHeaders(),
+      contentType: 'application/json; charset=utf-8',
+      data: {
+        classId,
+        courseId,
+        userId
       }
     };
     return Ember.RSVP.hashSettled({
