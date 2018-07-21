@@ -87,9 +87,9 @@
       display: block;
       /*seperates the tbody from the header*/
       width: 768px;
-      max-height: calc(60vh - 130px);
+      max-height: calc(70vh - 130px);
       overflow: scroll;
-      height: 60vh;
+      height: 70vh;
     }
     tbody::-webkit-scrollbar-thumb {
       background: #bbb;
