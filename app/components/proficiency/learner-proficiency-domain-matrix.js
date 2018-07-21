@@ -585,7 +585,7 @@ export default Ember.Component.extend({
           component.joinBaseLinePoints(cellIndex, linePoint);
           cellIndex++;
         });
-          component.set('isBaseLineDrawn', true);
+        component.set('isBaseLineDrawn', true);
       });
     }
   },
@@ -605,12 +605,12 @@ export default Ember.Component.extend({
     //Connect base line points if last and current points are not same
     if (lastBaseLineContainer.length && lastBaseLinePoint.y2 !== curLinePoint.y1) {
       baseLineContainer
-      .append('line')
-      .attr('x1', lastBaseLinePoint.x2)
-      .attr('y1', lastBaseLinePoint.y2)
-      .attr('x2', curLinePoint.x1)
-      .attr('y2', curLinePoint.y1)
-      .attr('class', 'base-line');
+        .append('line')
+        .attr('x1', lastBaseLinePoint.x2)
+        .attr('y1', lastBaseLinePoint.y2)
+        .attr('x2', curLinePoint.x1)
+        .attr('y2', curLinePoint.y1)
+        .attr('class', 'base-line');
     }
   },
 
