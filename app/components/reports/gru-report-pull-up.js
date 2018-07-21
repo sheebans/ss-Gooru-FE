@@ -65,6 +65,21 @@ export default Ember.Component.extend({
   // Observer
   //
 
+  didInsertElement() {
+    if (this.get('showPullUp')) {
+      Ember.$('.gru-report-pull-up').animate(
+        {
+          top: '10%'
+        },
+        400
+      );
+    } else {
+      Ember.$('.gru-report-pull-up').animate({
+        top: '100%'
+      });
+    }
+  },
+
   /**
    * Observer to check the showPullUp property in component
    **/

@@ -34,9 +34,19 @@
     onUpdateContentVisibility="updateContentVisibility"
     isTeacher=true
     isNUCourse=isNUCourse
-    isRescopedClass=isRescopedClass}}
+    isRescopedClass=isRescopedClass
+    onOpenLessonReport="onOpenLessonReport"
+  }}
 
   </div>
 {{else}}
   <div class="no-content">This classroom does not have a related course and it has no content</div>
+{{/if}}
+
+{{#if showLessonReportPullUp}}
+  {{#reports.gru-report-pull-up breadcrumb=(concat 'Lesson' selectedLesson.sequence) title=selectedLesson.title score=selectedLesson.performance.score showPullUp=showLessonReportPullUp as |lessonReport| }}
+    {{#if lessonReport.isShowBody}}
+      {{reports.gru-lesson-report-body-pull-up onClosePullUp="onClosePullUp" showPullUp=showLessonReportPullUp classId=classId unitId=unitId lessonId=lessonId courseId=courseId}}
+    {{/if}}
+  {{/reports.gru-report-pull-up}}
 {{/if}}

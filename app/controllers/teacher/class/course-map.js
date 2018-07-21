@@ -30,39 +30,30 @@ export default Ember.Controller.extend({
   isFirstLoad: true,
 
   // -------------------------------------------------------------------------
-  // Actions
-
-  actions: {
-    /**
-     * Update 'location' (bound query param)
-     *
-     * @function
-     * @param {String} newLocation - String of the form 'unitId[+lessonId[+resourceId]]'
-     * @returns {undefined}
-     */
-    updateLocation: function(newLocation) {
-      this.set('location', newLocation ? newLocation : null);
-    },
-    /**
-     * Trigger action to update content visibility list
-     */
-    updateContentVisibility: function(contentId, visible) {
-      this.send('updateContentVisible', contentId, visible);
-    },
-
-    /**
-     * Triggered when a close welcome panel button is selected.
-     */
-    toggleHeader: function() {
-      this.set('showWelcome', false);
-    }
-  },
-
-  // -------------------------------------------------------------------------
-  // Events
-
-  // -------------------------------------------------------------------------
   // Properties
+  /**
+   * Propery to show class id.
+   * @property {classId}
+   */
+  classId: '',
+
+  /**
+   * Propery to show course id.
+   * @property {courseId}
+   */
+  courseId: '',
+
+  /**
+   * Propery to show unit id.
+   * @property {unitId}
+   */
+  unitId: '',
+
+  /**
+   * Propery to show lesson id.
+   * @property {lessonId}
+   */
+  lessonId: '',
 
   /**
    * A link to the parent class controller
@@ -108,7 +99,57 @@ export default Ember.Controller.extend({
     const currentClass = controller.get('class');
     let setting = currentClass.get('setting');
     return setting ? setting.rescope : false;
-  })
+  }),
+
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    /**
+     * Action triggered when the user click the lesson level performance score.
+     **/
+    onOpenLessonReport(lesson, unitId) {
+      const component = this;
+      const classId = component.get('currentClass.id');
+      const lessonId = lesson.id;
+      const courseId =
+        component.get('currentClass.courseId') ||
+        component.get('currentCourse.id');
+      component.set('classId', classId);
+      component.set('unitId', unitId);
+      component.set('lessonId', lessonId);
+      component.set('courseId', courseId);
+      component.set('selectedLesson', lesson);
+      component.set('showLessonReportPullUp', true);
+    },
+
+    /**
+     * Update 'location' (bound query param)
+     *
+     * @function
+     * @param {String} newLocation - String of the form 'unitId[+lessonId[+resourceId]]'
+     * @returns {undefined}
+     */
+    updateLocation: function(newLocation) {
+      this.set('location', newLocation ? newLocation : null);
+    },
+    /**
+     * Trigger action to update content visibility list
+     */
+    updateContentVisibility: function(contentId, visible) {
+      this.send('updateContentVisible', contentId, visible);
+    },
+
+    /**
+     * Triggered when a close welcome panel button is selected.
+     */
+    toggleHeader: function() {
+      this.set('showWelcome', false);
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // Events
 
   // -------------------------------------------------------------------------
   // Observers

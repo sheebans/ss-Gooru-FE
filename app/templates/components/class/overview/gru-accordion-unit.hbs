@@ -1,3 +1,4 @@
+    <div class="unit-level" {{action 'onOpenUnitLevelReport'}}>Unit Section</div>
 <div class="unit panel-heading" role="tab" id="{{elementId}}-heading">
   <div class="panel-title">
     <a class="collapsed title" role="button" data-toggle="collapse" href="#{{elementId}}-content"
@@ -8,7 +9,6 @@
     </a>
   </div>
 </div>
-
 <div id="{{elementId}}-content"
      data-index="{{componentIndex}}"
      class="panel-collapse collapse"
@@ -42,6 +42,7 @@
           toggleLocation=toggleLocation
           onSelectItem="onSelectItem"
           isRescopedClass=isRescopedClass
+          onOpenLessonReport="onOpenLessonReport"
         }}
         {{else}}
           <li>{{t "common.contentUnavailable"}}</li>
@@ -50,3 +51,9 @@
     </ol>
   </div>
 </div>
+
+<!-- {{#reports.gru-report-pull-up showPullUp=showUnitReportPullUp  as |unitReport| }}
+  {{#if unitReport.isShowBody}}
+    {{reports.gru-unit-report-body-pull-up showPullUp=showUnitReportPullUp onClosePullUp="onClosePullUp"}}
+  {{/if}}
+{{/reports.gru-report-pull-up}} -->

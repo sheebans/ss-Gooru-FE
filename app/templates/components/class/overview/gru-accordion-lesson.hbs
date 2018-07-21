@@ -30,7 +30,7 @@
         </button>
           {{/unless}}
         </div>
-        <div class="performance-container pull-right" {{action 'onOpenLessonLevelReport' model}}>
+        <div class="performance-container pull-right" {{action 'onOpenLessonReport' model}}>
           {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
         </div>
       {{/if}}
@@ -283,9 +283,4 @@
     {{class.gru-report-panel showPullUp=showReportPullUp reportData=studentReportData model=model isStudent=isStudent onClosePullUp="onClosePullUp"}}
   {{/if}}
 
-  {{#reports.gru-report-pull-up breadcrumb=(concat 'Lesson' model.sequence) title=model.title score=model.performance.score showPullUp=showLessonReportPullUp as |test| }}
-    {{#if test.isShowBody}}
-      {{reports.gru-lesson-report-body-pull-up showPullUp=showLessonReportPullUp classId=classId unitId=unitId lessonId=lessonId courseId=courseId}}
-    {{/if}}
-  {{/reports.gru-report-pull-up}}
 </div>
