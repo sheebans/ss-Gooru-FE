@@ -95,8 +95,6 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
      * Action triggered when the user click outside of pullup.
      **/
     onClosePullUp() {
-      // this.set('showPathWayPullUp', false);
-      // this.set('showReportPullUp', false);
       this.set('showLessonReportPullUp', false);
     },
     /**

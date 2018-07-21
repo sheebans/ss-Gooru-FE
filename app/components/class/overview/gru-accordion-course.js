@@ -50,7 +50,7 @@ export default Ember.Component.extend(AccordionMixin, {
   // Actions
   actions: {
     /**
-     * @function To open lesson level report
+     * @function onOpenLessonReport to open lesson level report
      */
     onOpenLessonReport: function(model, unitId) {
       this.sendAction('onOpenLessonReport', model, unitId);
