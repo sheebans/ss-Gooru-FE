@@ -67,10 +67,26 @@ export default Ember.Component.extend({
       .get('taxonomyService')
       .getTaxonomySubjects(category.value)
       .then(subjects => {
-        let subject = subjects.findBy('code', component.get('subjectBucket'));
+        let subject = component.getActiveSubject(subjects);
         component.set('taxonomySubjects', subjects);
-        component.set('activeSubject', subject || subjects.objectAt(0));
+        component.set('activeSubject', subject);
       });
+  },
+
+  /**
+   * @function getActiveSubject
+   * Method to get active subject by using subject bucket
+   */
+  getActiveSubject(subjects) {
+    let component = this;
+    let activeSubject = subjects.objectAt(1);
+    let subjectBucket = component.get('subjectBucket');
+    subjects.map( subject => {
+      if(subjectBucket.split(subject.id).length > 1) {
+        activeSubject = subject;
+      }
+    });
+    return activeSubject;
   },
 
   // -------------------------------------------------------------------------

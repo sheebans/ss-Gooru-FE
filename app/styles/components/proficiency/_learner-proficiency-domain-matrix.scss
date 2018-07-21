@@ -30,48 +30,59 @@
         border-radius: 5px;
       }
 
-      #render-proficiency-matrix {
-        margin-bottom: 20px;
-        position: relative;
-        transform: rotateX(180deg);
-        -webkit-transition: -webkit-transform 0.6s ease-in;
-        transition: transform 0.6s ease-in;
-        -webkit-transform-style: preserve-3d;
-        transform-style: preserve-3d;
+      .scrollable-chart {
+        height: 370px;
+        overflow-y: auto;
+        width: max-content;
 
-        .competency {
-          stroke: $snow-gray;
-          stroke-width: 1;
-          shape-rendering: crispedges;
-          stroke-opacity: 0.4;
-          cursor: pointer;
+        &::-webkit-scrollbar {
+          height: 6px;
+          width: 8px;
+        }
 
-          &.competency-more-cells {
-            cursor: default;
+        &::-webkit-scrollbar-thumb {
+          background: $gray-light;
+          border: 1px solid $gray-light;
+          border-radius: 5px;
+        }
+
+        #render-proficiency-matrix {
+          margin-bottom: 20px;
+          position: relative;
+          transform: rotateX(180deg);
+          -webkit-transition: -webkit-transform 0.6s ease-in;
+          transition: transform 0.6s ease-in;
+          -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+
+          .competency {
+            stroke: $snow-gray;
+            stroke-width: 1;
+            shape-rendering: crispedges;
+            stroke-opacity: 0.4;
           }
-        }
 
-        #skyline-container {
-          line {
-            stroke: $white;
-            stroke-width: 2px;
-            opacity: 0.5;
+          #skyline-container {
+            line {
+              stroke: $white;
+              stroke-width: 2px;
+              opacity: 0.5;
+            }
           }
-        }
 
-        #baseline-container {
-          line {
-            stroke: $white;
-            stroke-width: 4px;
+          #baseline-container {
+            line {
+              stroke: $white;
+              stroke-width: 4px;
+            }
           }
+
+          .skyline {
+            transition-property: visibility, opacity;
+            transition-duration: 0s, 1s;
+          }
+
         }
-
-
-        .skyline {
-          transition-property: visibility, opacity;
-          transition-duration: 0s, 1s;
-        }
-
       }
 
       .domain-sequence {

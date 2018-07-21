@@ -145,11 +145,18 @@ export default Ember.Component.extend({
    */
   timeLine: {},
 
+  /**
+   * @type {Boolean}
+   * Check is baseline already shown or not
+   */
+  isBaseLineDrawn: false,
+
   // -------------------------------------------------------------------------
   // Events
 
   didInsertElement() {
     let component = this;
+    component.set('isBaseLineDrawn', false);
     if (component.get('subject')) {
       component.loadDataBySubject(component.get('subject.id'));
     }
@@ -233,7 +240,7 @@ export default Ember.Component.extend({
         return colorsBasedOnStatus.get(d.status.toString());
       });
     cards.exit().remove();
-    component.reduceChartHeight();
+    component.expandChartColumnHeight();
   },
 
   /**
@@ -459,7 +466,7 @@ export default Ember.Component.extend({
     component.reduceChartBelowCells();
     component.reduceChartAboveCells();
     component.drawSkyline();
-    component.drawBaseLine();
+
     let height = component.get('isTaxonomyDomainsAvailable')
       ? component.get('defaultHeightOfChart')
       : 50;
@@ -484,6 +491,7 @@ export default Ember.Component.extend({
     let height = component.get('height');
     component.$('#render-proficiency-matrix').height(height);
     component.$('#render-proficiency-matrix svg').attr('height', height);
+    component.$('.scrollable-chart').scrollTop(height);
   },
 
   /**
@@ -503,13 +511,13 @@ export default Ember.Component.extend({
       let x1 =
         parseInt(component.$(skylineElements[index]).attr('x')) + cellWidth / 2;
       let y1 = parseInt(component.$(skylineElements[index]).attr('y'));
-      y1 = y1 + cellHeight / 2;
+      y1 = y1 === 0 ? y1 + 3 : y1 + cellHeight / 2;
       if (index < indexSize - 1) {
         let x2 =
           parseInt(component.$(skylineElements[index + 1]).attr('x')) +
           cellWidth / 2;
         let y2 = parseInt(component.$(skylineElements[index + 1]).attr('y'));
-        y2 = y2 + cellHeight / 2;
+        y2 = y2 === 0 ? y2 + 3: y2 + cellHeight / 2;
         svg
           .append('line')
           .attr('x1', x1)
@@ -533,47 +541,77 @@ export default Ember.Component.extend({
    */
   drawBaseLine() {
     let component = this;
-    let skylineElements = component.$('.skyline-competency');
-    let numberOfElements = component.$(skylineElements).length;
-    let cellWidth = component.get('cellWidth');
-    let cellHeight = component.get('cellHeight');
+    let subjectBucket = component.get('subjectBucket');
+    let subjectId = component.get('subject.id');
+    let isOwnSubject = subjectBucket.split(subjectId).length > 1;
+    if (!component.get('isBaseLineDrawn') || isOwnSubject) {
+      let classId = component.get('class.id');
+      let courseId = component.get('class.courseId');
+      let userId = component.get('userId');
+      let baseLineContainer = d3.select('#baseline-container');
+      let cellHeight = component.get('cellHeight');
+      let cellWidth = component.get('cellWidth');
+      return Ember.RSVP.hash({
+        userProficiencyBaseLine: component.get('competencyService').getUserProficiencyBaseLine(classId, courseId, userId),
+        competencyMatrixCoordinates: component.get('competencyService').getCompetencyMatrixCoordinates(subjectId)
+      }).then(({userProficiencyBaseLine, competencyMatrixCoordinates}) => {
+        let baseLineDomains = userProficiencyBaseLine.domains;
+        let domains = competencyMatrixCoordinates.domains;
+        let cellIndex = 0;
+        domains.map( domain => {
+          let domainData = baseLineDomains.findBy('domainCode', domain.domainCode);
+          let domainCompetencies = domainData ? domainData.competencies : [];
+          let domainWiseMasteredCompetencies = Ember.A([]);
+          domainCompetencies.map( competency => {
+            //Consider only the mastered competencies
+            if (competency.status === 4 || competency.status === 5) {
+              domainWiseMasteredCompetencies.push(competency);
+            }
+          });
+          let x1 = cellIndex * cellWidth;
+          let y1 = cellHeight * ((domainWiseMasteredCompetencies.length) );
+          let x2 = x1 + cellWidth;
+          let y2 = y1;
+          let linePoint = {
+            x1, x2, y1, y2
+          };
+          baseLineContainer
+            .append('line')
+            .attr('x1', linePoint.x1)
+            .attr('y1', linePoint.y1)
+            .attr('x2', linePoint.x2)
+            .attr('y2', linePoint.y2)
+            .attr('class', `base-line-${cellIndex}`);
+          component.joinBaseLinePoints(cellIndex, linePoint);
+          cellIndex++;
+        });
+        component.set('isBaseLineDrawn', true);
+      });
+    }
+  },
+
+  /**
+   * @function joinBaseLinePoints
+   * Method to draw vertical line to connects base line points, if necessary
+   */
+  joinBaseLinePoints(cellIndex, curLinePoint) {
+    let component = this;
+    let lastBaseLineContainer = component.$(`.base-line-${cellIndex - 1}`);
     let baseLineContainer = component.get('baseLineContainer');
-    skylineElements.each(function(index) {
-      let curElement = component.$(skylineElements[index]);
-      let nextElement = component.$(skylineElements[index+1]);
-      let curElementXaxis = parseInt(curElement.attr('x'));
-      let curElementYAxis = parseInt(curElement.attr('y'));
-      // Line axis from (x1, y1) to (x2, y2)
-      let startingPoint = {
-        x: curElementXaxis,
-        y: curElementYAxis + cellHeight
-      };
-
-      let endPoint = {
-        x: startingPoint.x + cellWidth,
-        y: startingPoint.y
-      };
-
+    let lastBaseLinePoint = {
+      x2: parseInt(lastBaseLineContainer.attr('x2')),
+      y2: parseInt(lastBaseLineContainer.attr('y2'))
+    };
+    //Connect base line points if last and current points are not same
+    if (lastBaseLineContainer.length && lastBaseLinePoint.y2 !== curLinePoint.y1) {
       baseLineContainer
         .append('line')
-        .attr('x1', startingPoint.x)
-        .attr('y1', startingPoint.y)
-        .attr('x2', endPoint.x)
-        .attr('y2', endPoint.y)
+        .attr('x1', lastBaseLinePoint.x2)
+        .attr('y1', lastBaseLinePoint.y2)
+        .attr('x2', curLinePoint.x1)
+        .attr('y2', curLinePoint.y1)
         .attr('class', 'base-line');
-
-      //Draw vertical line
-      let startingPointOfNextLine = parseInt(nextElement.attr('y')) + cellHeight;
-      if (index + 1 < numberOfElements && endPoint.y !== startingPointOfNextLine) {
-        baseLineContainer
-          .append('line')
-          .attr('x1', endPoint.x)
-          .attr('y1', endPoint.y)
-          .attr('x2', parseInt(nextElement.attr('x')))
-          .attr('y2', parseInt(nextElement.attr('y')) + cellHeight)
-          .attr('class', 'base-line');
-      }
-    });
+    }
   },
 
   /**

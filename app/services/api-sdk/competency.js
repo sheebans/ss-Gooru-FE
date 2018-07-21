@@ -141,5 +141,25 @@ export default Ember.Service.extend({
           );
         }, reject);
     });
+  },
+
+  /**
+   * @function getUserProficiencyBaseLine
+   * Method to fetch user proficiency baseline
+   */
+  getUserProficiencyBaseLine(classId, courseId, userId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('competencyAdapter')
+        .getUserProficiencyBaseLine(classId, courseId, userId)
+        .then(function(response) {
+          resolve(
+            service
+              .get('competencySerializer')
+              .normalizeCompetencyMatrixDomain(response)
+          );
+        }, reject);
+    });
   }
 });
