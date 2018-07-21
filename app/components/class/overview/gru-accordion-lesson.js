@@ -100,8 +100,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
     /**
      * @function To open lesson level report
      */
-    onOpenLessonReport: function(model, unitId) {
-      unitId = this.get('unitId');
+    onOpenLessonReport: function(model) {
+      let unitId = this.get('unitId');
       this.sendAction('onOpenLessonReport', model, unitId);
     },
     /**
