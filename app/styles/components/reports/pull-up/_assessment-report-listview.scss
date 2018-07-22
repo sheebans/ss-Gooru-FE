@@ -44,6 +44,7 @@
               display: flex;
               opacity: 0.5;
               cursor: pointer;
+
               &.active {
                 opacity: 1;
               }
@@ -183,12 +184,13 @@
               width: 25px;
               height: 25px;
               border-radius: 50%;
-              font-size: 10px;
+              font-size: 12px;
               font-weight: bold;
-              line-height: 22px;
+              line-height: 23px;
               text-align: center;
               margin-left: 20px;
               margin-top: 2px;
+              font-weight: bold;
 
               &.correct {
                 color: #1fa33c;
@@ -206,12 +208,7 @@
               }
 
               &.skipped {
-                margin-left: 8px;
-
                 span {
-                  position: relative;
-                  top: -11px;
-                  left: 20px;
                   color: #ccc;
                   font-size: 12px;
                 }
@@ -219,6 +216,9 @@
                 i {
                   font-size: 30px;
                   color: #ccc;
+                  display: block;
+                  margin-top: -25px;
+                  margin-left: -2px;
                 }
               }
             }

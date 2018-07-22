@@ -93,7 +93,11 @@
                 </div>
                 {{#if isTimeSpentFltApplied}}
                   <div class="timespent-value">
+                    {{#if userPerformanceData.timeSpent}}
                     <span>{{format-time userPerformanceData.timeSpent}}</span>
+                    {{else}}
+                    <span>--</span>
+                    {{/if}}
                   </div>
                 {{/if}}
                 {{#if isReactionFltApplied}}
@@ -103,6 +107,8 @@
                         <svg>
                           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#{{userPerformanceData.reaction_unicode}}"></use>
                         </svg>
+                      {{else}}
+                        --
                       {{/if}}
                     </div>
                   </div>

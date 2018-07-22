@@ -4,8 +4,44 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'pull-up-assessment-report-gridview']
+  classNames: ['reports', 'pull-up-assessment-report-gridview'],
 
   // -------------------------------------------------------------------------
   // Dependencies
+
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * This property will get change based on filter selection, by default reaction filter off.
+   * @type {Boolean}
+   */
+  isReactionFltApplied: false,
+
+  /**
+   * This property will get change based on filter selection, by default timespent filter off.
+   * @type {Boolean}
+   */
+  isTimeSpentFltApplied: false,
+
+  /**
+   * List of questions associated with assessment
+   * @type {Array}
+   */
+  questions: Ember.A(),
+
+  /**
+   * Students performance data
+   * @type {Array}
+   */
+  studentPerformanceData: Ember.A(),
+
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    studentReport(collection, userId) {
+      this.sendAction('studentReport', collection, userId);
+    }
+  }
 });

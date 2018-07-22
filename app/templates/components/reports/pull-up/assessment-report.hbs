@@ -52,7 +52,7 @@
       </div>
     </div>
 
-    <div class="report-performance-tabular">
+    <div class="report-performance-tabular {{if isGridView 'grid'}}">
       <div class="report-header-container">
         <div class="taxonomy-details">
         </div>
@@ -85,7 +85,7 @@
       </div>
       <div class="report-view-container">
         {{#if isGridView}}
-          {{reports.pull-up.assessment-report-gridview questions=assessment.children studentPerformanceData=studentPerformanceData  selectedCollection=selectedCollection studentReport="studentReport" }}
+          {{reports.pull-up.assessment-report-gridview questions=assessment.children studentPerformanceData=studentPerformanceData  selectedCollection=selectedCollection isReactionFltApplied=false isTimeSpentFltApplied=false studentReport="studentReport" }}
         {{else}}
           {{reports.pull-up.assessment-report-listview questions=assessment.children studentPerformanceData=studentPerformanceData  selectedCollection=selectedCollection isReactionFltApplied=isReactionFltApplied isTimeSpentFltApplied=isTimeSpentFltApplied studentReport="studentReport" }}
         {{/if}}
