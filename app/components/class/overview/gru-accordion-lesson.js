@@ -224,10 +224,12 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
      * @function actions:CollectionReport
      * @returns {undefined}
      */
-    studentReport: function(collection) {
+    studentReport: function(collection, userId) {
       let component = this;
       let currentClass = component.get('currentClass');
-      let userId = component.get('session.userId');
+      if (!userId) {
+        userId = component.get('session.userId');
+      }
       let classId = currentClass.get('id');
       let courseId = currentClass.get('courseId');
       let unitId = component.get('unitId');
@@ -246,6 +248,34 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
       };
       component.set('studentReportData', params);
       component.set('showReportPullUp', true);
+    },
+
+    /**
+     * Load the student report data for this assessment
+     * @function actions:StudentAssesmentReportPullup
+     */
+    teacherAssessmentReport(collection) {
+      let component = this;
+      let currentClass = component.get('currentClass');
+      let userId = component.get('session.userId');
+      let classId = currentClass.get('id');
+      let courseId = currentClass.get('courseId');
+      let unitId = component.get('unitId');
+      let lessonId = component.get('model.id');
+      let params = {
+        userId: userId,
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId,
+        lessonId: lessonId,
+        collection: collection,
+        lessonModel: component.get('model'),
+        unitModel: component.get('unit'),
+        collections: component.get('items'),
+        classMembers: component.get('classMembers')
+      };
+      component.set('teacherAssessmentReportData', params);
+      component.set('showAssessmentReportPullUp', true);
     }
   },
 

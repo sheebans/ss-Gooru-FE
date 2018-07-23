@@ -20,12 +20,14 @@
     span {
       display: block;
     }
+
     b {
       color: $gray;
       font-weight: normal;
       line-height: 1.2;
       @include text-overflow;
     }
+
     span {
       color: $gray-light;
       text-transform: uppercase;
@@ -57,6 +59,7 @@
         color: $gray;
       }
     }
+
     &.add {
       i {
         font-size: 13px;
@@ -71,6 +74,32 @@
   }
 
   &.read-only {
+    .tag-title {
+      margin-bottom: 0;
+      @include ellipsis($font-size: 13px, $line-height: 1.2, $lines-to-show: 2);
+
+      .code {
+        color: #fff;
+        @include ellipsis(
+          $font-size: 12px,
+          $line-height: 1.2,
+          $lines-to-show: 1
+        );
+      }
+
+      .label {
+        text-align: left;
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        @include ellipsis(
+          $font-size: 13px,
+          $line-height: 1.2,
+          $lines-to-show: 1
+        );
+      }
+    }
+
     .popover.fade {
       background-color: $white;
 
@@ -138,6 +167,7 @@
     }
   }
 }
+
 .panel-body {
   .gru-taxonomy-tag-list {
     .gru-taxonomy-tag {

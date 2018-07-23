@@ -1,0 +1,111 @@
+.reports.pull-up-assessment-report-gridview {
+  .grid-view-container {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 200px 200px 200px;
+    padding-left: 40px;
+    padding-top: 40px;
+
+    .grid-view-card {
+      width: 200px;
+      min-height: 140px;
+      box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.3);
+      background: #fff;
+      margin-left: 20px;
+      border-radius: 4px;
+      padding-bottom: 10px;
+
+      .user-profile-summary {
+        height: 70px;
+        border-bottom: 1px solid #969696;
+        margin-left: 10px;
+        margin-right: 10px;
+
+        .user-profile-details {
+          width: 190px;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          padding-top: 10px;
+
+          &.not-started {
+            pointer-events: none;
+          }
+
+          .user-profile-img {
+            width: 70px;
+
+            img {
+              width: 50px;
+              border-radius: 50%;
+              margin-left: 7px;
+              border-color: transparent;
+            }
+          }
+
+          .username {
+            line-height: 1.2;
+
+            p {
+              margin: 0;
+              padding: 0;
+            }
+          }
+        }
+      }
+
+      .questions-container {
+        display: grid;
+        grid-template-columns: 45px 45px 45px 45px;
+
+        .question-score-value {
+          display: flex;
+          margin-top: 10px;
+
+          div {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 23px;
+            text-align: center;
+            margin-left: 20px;
+            margin-top: 2px;
+            font-weight: bold;
+
+            &.correct {
+              color: #1fa33c;
+              border: 1px solid #1fa33c;
+            }
+
+            &.wrong {
+              color: #ff4c5c;
+              border: 1px solid #ff4c5c;
+            }
+
+            &.not-started {
+              color: #37434d;
+              border: 1px solid #37434d;
+            }
+
+            &.skipped {
+              span {
+                color: #ccc;
+                font-size: 12px;
+              }
+
+              i {
+                font-size: 30px;
+                color: #ccc;
+                display: block;
+                margin-top: -25px;
+                margin-left: -2px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

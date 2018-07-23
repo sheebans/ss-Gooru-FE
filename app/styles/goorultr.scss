@@ -64,6 +64,7 @@ $box-shadow: 1px -1px;
 @import "controllers/reports/student-collection-analytics";
 @import "controllers/reports/study-student-collection";
 @import "controllers/reports/student-open-ended-summary";
+
 @import "controllers/search";
 @import "controllers/sign-in";
 @import "controllers/sign-up";
@@ -317,6 +318,9 @@ $box-shadow: 1px -1px;
 @import "components/reports/class-assessment/gru-student-view";
 @import "components/reports/class-assessment/gru-summary";
 @import "components/reports/class-assessment/gru-table-view";
+@import "components/reports/pull-up/assessment-report";
+@import "components/reports/pull-up/assessment-report-listview";
+@import "components/reports/pull-up/assessment-report-gridview";
 @import "components/reports/gru-report-pull-up";
 @import "components/reports/gru-lesson-report-body-pull-up";
 @import "components/search/gru-question-options";
