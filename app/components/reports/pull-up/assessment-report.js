@@ -53,6 +53,7 @@ export default Ember.Component.extend({
 
     onClickPrev() {
       let component = this;
+      component.$('#report-carousel-wrapper .carousel-control').hide();
       let collections = component.get('collections');
       let selectedElement = component.$(
         '#report-carousel-wrapper .item.active'
@@ -69,6 +70,7 @@ export default Ember.Component.extend({
 
     onClickNext() {
       let component = this;
+      component.$('#report-carousel-wrapper .carousel-control').hide();
       let collections = component.get('collections');
       let selectedElement = component.$(
         '#report-carousel-wrapper .item.active'
@@ -137,7 +139,9 @@ export default Ember.Component.extend({
    */
   collections: Ember.computed('context.collections', function() {
     let collections = this.get('context.collections');
-    return collections.filterBy('format', 'assessment');
+    return collections
+      .filterBy('format', 'assessment')
+      .filterBy('performance.hasStarted', true);
   }),
 
   /**
@@ -323,6 +327,7 @@ export default Ember.Component.extend({
     component.set('sortByFirstnameEnabled', true);
     component.set('sortByScoreEnabled', false);
     component.set('studentPerformanceData', users);
+    component.handleCarouselControl();
   },
 
   parsePerformanceQuestionAndUserData(questions, userPerformance) {
@@ -368,5 +373,26 @@ export default Ember.Component.extend({
       hasStarted: hasStarted
     };
     return resultSet;
+  },
+
+  handleCarouselControl() {
+    let component = this;
+    let selectedElement = component.$('#report-carousel-wrapper .item.active');
+    let collections = component.get('collections');
+    let currentIndex = selectedElement.data('item-index');
+    if (collections.length - 1 === 0) {
+      component.$('#report-carousel-wrapper .carousel-control').hide();
+    } else {
+      if (currentIndex === 0) {
+        component.$('#report-carousel-wrapper .carousel-control.left').hide();
+      } else {
+        component.$('#report-carousel-wrapper .carousel-control.left').show();
+      }
+      if (currentIndex === collections.length - 1) {
+        component.$('#report-carousel-wrapper .carousel-control.right').hide();
+      } else {
+        component.$('#report-carousel-wrapper .carousel-control.right').show();
+      }
+    }
   }
 });
