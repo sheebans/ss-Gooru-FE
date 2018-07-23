@@ -37,7 +37,6 @@
         .nav-next {
           right: -35px;
           box-shadow: -2px 1px 5px 3px rgba(0, 0, 0, 0.25);
-
         }
       }
 
@@ -69,7 +68,9 @@
           margin: auto;
           display: flex;
           margin-top: 15px;
-          .dca, .course-map, .performance {
+          .dca,
+          .course-map,
+          .performance {
             width: 40px;
             height: 40px;
             padding: 12px;
@@ -82,18 +83,17 @@
             }
           }
           .dca i {
-            background-image: url('gooru/images/teacher-landing-class-activities.svg');
+            background-image: url("gooru/images/teacher-landing-class-activities.svg");
             background-repeat: no-repeat;
             background-size: 13px;
-
           }
           .course-map i {
-            background-image: url('gooru/images/teacher-landing-course-map.svg');
+            background-image: url("gooru/images/teacher-landing-course-map.svg");
             background-repeat: no-repeat;
             background-size: 15px;
           }
-          .performance i{
-            background-image: url('gooru/images/teacher-landing-class-report.svg');
+          .performance i {
+            background-image: url("gooru/images/teacher-landing-class-report.svg");
             background-repeat: no-repeat;
             background-size: 15px;
           }

@@ -1,0 +1,93 @@
+.learner-proficiency-pull-up {
+  background-color: $white;
+  .proficiency-pull-up {
+    .header {
+      height: 97px;;
+      background-color: $white;
+      display: flex;
+      border-bottom: 1px solid;
+      padding: 9px 0 9px 20px;
+      .left-panel {
+        .avatar {
+          width: 75px;
+          height: 75px;
+          border-radius: 50%;
+          background-size: cover;
+        }
+        margin-right: 24px;
+      }
+
+      .right-panel {
+        width: calc(100% - 185px);
+        .student-info {
+          width: 100%;
+          font-size: 18px;
+          color: $dark-400;
+          text-transform: capitalize;
+        }
+        .taxonomy-info {
+
+          display: grid;
+          /* The container <div> - needed to position the dropdown content */
+          .dropdown {
+              position: relative;
+              display: inline-block;
+              width: max-content;
+              .active-item {
+                display: flex;
+                cursor: pointer;
+                height: 25px;
+
+                .label {
+                  min-width: 170px;
+                  font-size: 17px;
+                  font-weight: bold;
+                  color: $charcoal-grey;
+                  padding: 0;
+                  text-align: left;
+                }
+                .icon {
+                  font-size: 17px;
+                  font-weight: bold;
+                  color: $charcoal-grey;
+                }
+              }
+          }
+
+          /* Dropdown Content (Hidden by Default) */
+          .dropdown-content {
+              display: none;
+              position: absolute;
+              background-color: $white;
+              min-width: 187px;
+              box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+              max-height: 150px;
+              overflow-y: auto;
+              z-index: 1;
+              border-top: 1px solid;
+              .list-item  {
+                height: 30px;
+                line-height: 30px;
+                padding-left: 15px;
+                cursor: pointer;
+                &:hover, &.active {
+                  background-color: $light-200;
+                }
+              }
+          }
+          /* Show the dropdown menu on hover */
+          .dropdown:hover .dropdown-content {
+              display: block;
+          }
+        }
+      }
+    }
+
+    .body {
+      padding: 10px 30px 0 30px;
+      background-color: $white;
+      height: calc(90vh - 100px);
+      overflow: auto;
+    }
+  }
+}

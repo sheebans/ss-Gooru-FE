@@ -112,10 +112,15 @@ export default Ember.Controller.extend({
         id: classData.id,
         title: classData.title,
         courseId: classData.courseId,
-        performance: controller.getClassPerformance(classData.performanceSummary)
+        performance: controller.getClassPerformance(
+          classData.performanceSummary
+        )
       };
     }
-    localStorage.setItem(`${userId}_recent_class`, JSON.stringify(lastAccessedClassData));
+    localStorage.setItem(
+      `${userId}_recent_class`,
+      JSON.stringify(lastAccessedClassData)
+    );
     return lastAccessedClassData;
   },
 

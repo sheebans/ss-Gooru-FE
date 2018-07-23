@@ -1,42 +1,42 @@
 {{#if class.courseId}}
-
-
-    <div class="rescope-section">
-      {{#if isPremiumClass}}
-        <div class="rescope-toggle">
-          <div class="action">
-            <span>{{t 'class.overview.course-map.rescope-toggle'}}</span>
-            {{gru-toggle-button isChecked=isChecked onToggleButton="onToggleRescope" }}
-          </div>
-          <div class="info">
-            <span>{{t 'class.overview.course-map.rescope-info'}}</span>
-          </div>
+  <div class="rescope-section">
+    {{#if isPremiumClass}}
+      <div class="rescope-toggle">
+        <div class="action">
+          <span>{{t 'class.overview.course-map.rescope-toggle'}}</span>
+          {{gru-toggle-button isChecked=isChecked onToggleButton="onToggleRescope" }}
         </div>
-
-        {{#if (not isContentAvailable)}}
-          <div class="custom-msg">
-            <span>
-              {{t 'class.overview.course-map.custom-msg'}}
-            </span>
-            <span {{action "onClearCustomizeMsg"}}>
-              {{gru-icon name="clear"}}
-            </span>
-          </div>
-        {{/if}}
-
+        <div class="info">
+          <span>{{t 'class.overview.course-map.rescope-info'}}</span>
+        </div>
+      </div>
+      {{#if (not isContentAvailable)}}
+        <div class="custom-msg">
+          <span>
+            {{t 'class.overview.course-map.custom-msg'}}
+          </span>
+          <span {{action "onClearCustomizeMsg"}}>
+            {{gru-icon name="clear"}}
+          </span>
+        </div>
       {{/if}}
-
+    {{/if}}
+  </div>
+  <div class="controller student course-map">
+    <div class="actions">
+      <span class="min-score {{unless class.minScore 'hidden'}}">
+        <i></i> > {{class.minScore}} %</span>
+      <button {{action "locateMe" userLocation}} title="{{t 'class.overview.locate'}}" class="btn btn-info locate" data-toggle="tooltip"
+        data-placement="auto">
+        <span>{{gru-icon name='near_me'}}</span>
+      </button>
     </div>
-      <div class="controller student course-map">
-        <div class="actions">
-          <span class="min-score {{unless class.minScore 'hidden'}}">
-            <i></i> > {{class.minScore}} %</span>
-          <button {{action "locateMe" userLocation}} title="{{t 'class.overview.locate'}}" class="btn btn-info locate" data-toggle="tooltip"
-            data-placement="auto">
-            <span>{{gru-icon name='near_me'}}</span>
-          </button>
-        </div>
-
+    {{#if hasRouteSuggestion}}
+      {{class.overview.routesuggestion-preview route0=route0 routeSuggestAction=(action 'courseRouteSuggestAction' ) }}
+    {{/if}}
+    {{#if showRoute0Suggestion}}
+      {{class.overview.routesuggestion-coursemap route0=route0 routeSuggestAction=(action 'courseRouteSuggestAction'  ) onStudyNow=(action 'studyCoursePlayer' ) }}
+    {{/if}}
     {{class.overview.gru-accordion-course
     currentClass=class
     classMembers=classMembers

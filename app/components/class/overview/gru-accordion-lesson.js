@@ -95,8 +95,14 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
      * Action triggered when the user click outside of pullup.
      **/
     onClosePullUp() {
-      this.set('showPathWayPullUp', false);
-      this.set('showReportPullUp', false);
+      this.set('showLessonReportPullUp', false);
+    },
+    /**
+     * @function To open lesson level report
+     */
+    onOpenLessonReport: function(model) {
+      let unitId = this.get('unitId');
+      this.sendAction('onOpenLessonReport', model, unitId);
     },
     /**
      * Load the data for this lesson (data should only be loaded once) and trigger
@@ -424,6 +430,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
     }
     return false;
   }),
+
+  showLessonReportPullUp: false,
 
   // -------------------------------------------------------------------------
   // Observers

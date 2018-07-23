@@ -757,7 +757,10 @@ export default Object.assign(quizzesTranslations, {
         'rescope-info':
           'This course has been personalized specifically for you from the Math Foundation course. To see the original course, enable this feature.',
         'custom-msg':
-          'We are personalizing this course specifically for you based on your proficiency. Please check back in a little while to see the personalized course map.'
+          'We are personalizing this course specifically for you based on your proficiency. Please check back in a little while to see the personalized course map.',
+
+        'route0-bannerdesc':
+          'As per your competency profile, there are some competencies that you need to master so that you can do well in this course. We have a route that we recommend you take to master these competencies. Click here to see the details.'
       }
     },
     analytics: {
