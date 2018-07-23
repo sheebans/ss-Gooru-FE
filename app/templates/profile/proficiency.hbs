@@ -20,7 +20,7 @@
     <div class="panel-body matrix">
       {{#if (eq selectedMatrixView 'domain')}}
         <div class="domain">
-          {{proficiency.proficiency-matrix userId=userId subject=selectedSubject isExpandChartEnabled=isExpandChartEnabled onCompetencyPullOut='onCompetencyPullOut' showPullOut=showPullOut onGetLastUpdated="onGetLastUpdated"}}
+          {{proficiency.proficiency-matrix userId=userId subject=selectedSubject isExpandChartEnabled=isExpandChartEnabled onCompetencyPullOut='onCompetencyPullOut' showPullOut=showPullOut onGetLastUpdated="onGetLastUpdated" timeLine=timeLine}}
         </div>
       {{else}}
         <div class="course">
@@ -48,6 +48,12 @@
           {{concat (t 'common.last-updated') ':'}} <span class="date-time">{{if lastUpdated (format-date lastUpdated 'MMMM DD, YYYY h:mm A') 'NA'}}</span>
         </div>
       </div>
+
+      {{#if (eq selectedMatrixView 'domain')}}
+        <div class="time-series">
+          {{charts.monthly-time-series-chart onSelectMonth="onSelectMonth"}}
+        </div>
+      {{/if}}
 
     </div>
   </div>

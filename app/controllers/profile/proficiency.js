@@ -130,6 +130,17 @@ export default Ember.Controller.extend({
      */
     onGetLastUpdated(lastUpdated) {
       this.set('lastUpdated', lastUpdated);
+    },
+
+    /**
+     * Action triggered when select a month/year from the filter
+     */
+    onSelectMonth(date) {
+      let timeLine = {
+        month: date.getMonth() + 1,
+        year: date.getFullYear()
+      };
+      this.set('timeLine', timeLine);
     }
   },
 
@@ -189,5 +200,17 @@ export default Ember.Controller.extend({
   /**
    * Property to show/hide expanded chart
    */
-  isExpandChartEnabled: false
+  isExpandChartEnabled: false,
+
+  /**
+   * @property {JSON}
+   * Property to store currently selected month and year
+   */
+  timeLine: Ember.computed(function() {
+    let curDate = new Date();
+    return {
+      month: curDate.getMonth() + 1,
+      year: curDate.getFullYear()
+    };
+  })
 });
