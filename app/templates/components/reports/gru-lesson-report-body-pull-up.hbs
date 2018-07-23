@@ -10,8 +10,8 @@
     <div class="c-filter collection data-filter {{if isCollection 'active' }}"  {{action 'filterByReportData' 'collection'}}><i class="material-icons c-icon" >view_comfy</i> <span>Collections</span></div>
     <div class="a-filter assessment data-filter active {{if isCollection 'active'}}" {{action 'filterByReportData' 'assessment'}}><div class="p-box-bl"><span>%</span></div> <span>Assesments</span></div>
 
-    <div class="performance"><i class="fa fa-fw fa-sort c-done-all dont-show" {{action 'sortStudents' score }}></i><i class="material-icons">done_all</i><span {{action 'isPerformanceEnable'}}>Performance</span></div>
-    <div class="time-spent"><i class="fa fa-fw fa-sort c-done-all dont-show"></i><i class="material-icons">access_time</i> <span {{action 'isTimespenEnabled'}}>Time Spent</span></div>
+    <div class="performance"><i class="fa fa-fw fa-sort c-done-all dont-show" {{action 'sortStudents' score }}></i><i class="material-icons">done_all</i><span>Performance</span></div>
+    <div class="time-spent"><i class="fa fa-fw fa-sort c-done-all dont-show"></i><i class="material-icons">access_time</i> <span {{action 'timeSpentToggle'}}>Time Spent</span></div>
     <div class="reactions"><i class="material-icons ">%</i> <span>Reactions</span></div>
   </div>
 <div class="outer-div">
@@ -44,7 +44,7 @@
            {{#each studentPerformance.collections as |collectionPerformance|}}
              <td class="r-bdr">
                <div class="performance-section"><span class="score-actions">{{if collectionPerformance.score (concat collectionPerformance.score '%') '--'}}</span></div>
-               <div class="performance-section time-clr"><span class="ts-actions">{{if collectionPerformance.timeSpent (concat collectionPerformance.score '') '--'}}</span></div>
+               <div class="performance-section time-clr"><span class="ts-actions">{{if collectionPerformance.timeSpent (concat collectionPerformance.timeSpent '') '--'}}</span></div>
              </td>
            {{/each}}
        </tr>

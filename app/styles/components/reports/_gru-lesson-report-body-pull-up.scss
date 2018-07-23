@@ -218,6 +218,7 @@
       }
     }
     .time-spent {
+      cursor: pointer;
       &.disable-time {
         opacity: 0.3;
       }
@@ -233,7 +234,6 @@
       vertical-align: middle;
       font-size: 12px;
       padding-top: 5px;
-      cursor: pointer;
     }
 
     .reactions {
