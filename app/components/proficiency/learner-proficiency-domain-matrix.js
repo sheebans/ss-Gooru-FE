@@ -66,7 +66,7 @@ export default Ember.Component.extend({
    * Width of the cell
    * @type {Number}
    */
-  cellWidth: 35,
+  cellWidth: 30,
 
   /**
    * height of the cell
@@ -568,8 +568,10 @@ export default Ember.Component.extend({
               domainWiseMasteredCompetencies.push(competency);
             }
           });
+          let numberOfMasteredCompetency = domainWiseMasteredCompetencies.length;
+          let masteredCompetencyHighestSeq = numberOfMasteredCompetency ? domainWiseMasteredCompetencies[numberOfMasteredCompetency - 1].competencySeq : 0;
           let x1 = cellIndex * cellWidth;
-          let y1 = cellHeight * ((domainWiseMasteredCompetencies.length) );
+          let y1 = cellHeight * masteredCompetencyHighestSeq;
           let x2 = x1 + cellWidth;
           let y2 = y1;
           let linePoint = {
