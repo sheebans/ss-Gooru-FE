@@ -41,6 +41,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
    * @returns {Object} JSON Object representation of the model
    */
   serializeMapContext: function(model) {
+    let path_type = model.get('collectionSubType') ? 'system' : null;
     return {
       course_id: model.get('courseId'),
       class_id: model.get('classId'),
@@ -54,7 +55,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
       current_item_subtype: model.get('itemSubType'),
       state: model.get('status'),
       path_id: model.get('pathId') || 0,
-      score_percent: model.get('score')
+      path_type: model.get('pathType') || path_type,
+      score_percent: model.get('score'),
+      context_data: model.get('contextData')
     };
   },
 
@@ -95,7 +98,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
       itemSubType: data.current_item_subtype,
       status: data.state,
       pathId: data.path_id,
-      score: data.score_percent
+      pathType: data.path_type,
+      score: data.score_percent,
+      contextData: data.context_data
     });
   },
 
@@ -132,6 +137,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
       data.format === CONTENT_TYPES.COLLECTION
         ? ASSESSMENT_SUB_TYPES.SIGNATURE_COLLECTION
         : ASSESSMENT_SUB_TYPES.SIGNATURE_ASSESSMENT;
+    let pathType = subType ? 'system' : null;
+
     return MapSuggestion.create(Ember.getOwner(this).ownerInjection(), {
       id: data.id,
       title: data.title,
@@ -143,6 +150,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
         : appRootPath + DEFAULT_IMAGES.COLLECTION,
       resourceFormat: ResourceModel.normalizeResourceFormat(data.subformat),
       subType,
+      pathType: pathType,
       standards: serializer
         .get('taxonomySerializer')
         .normalizeTaxonomyObject(JSON.parse(data.taxonomy))

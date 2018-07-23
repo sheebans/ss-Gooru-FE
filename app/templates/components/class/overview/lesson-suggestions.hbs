@@ -5,6 +5,23 @@
             <span class="lesson-prefix">{{course-sections-prefix  index=index type='lesson' longName=true}}</span>{{model.lessonTitle}}
         </a>
     </div>
+    {{#if isPlayer}}
+        <div class="info">
+            <div class="content-count">
+            </div>
+            <div class="play-btn">
+                <button class="btn btn-info study-now" {{action 'studyNow' model 'lesson' }} data-toggle="tooltip" data-html="true" data-placement="top"
+                    title="{{t "common.play"}}">
+                    {{gru-icon name='play_arrow'}}
+                </button>
+            </div>
+            <div class="performance-container" {{action 'onOpenLessonLevelReport' model}}>
+                 {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
+            </div>
+        </div>
+    {{else}}
+        {{!-- ToDo: Set the performance number if need be for preview --}}
+    {{/if}}
 </div>
 <div id="{{elementId}}-content" data-index="{{componentIndex}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{elementId}}-heading">
     <div class="panel-body">
@@ -34,7 +51,32 @@
                                         {{gru-icon name='play_arrow'}}
                                     </button>
                                 </div>
-                                <div class="performance">--</div>
+                                <div class="performance">
+                                    {{#if ( eq item.collectionType 'assessment')}}
+                                        {{#if item.performance.isCompleted}}
+                                                <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                                                    {{item.performance.score}}%
+                                                </span>
+                                        {{else}}
+                                            {{#if item.performance.hasStarted}}
+                                                    <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                                                        {{item.performance.score}}%
+                                                    </span>
+                                               
+                                            {{else}}
+                                                <span class="not-started">{{t 'common.not_started'}}</span>
+                                            {{/if}}
+                                        {{/if}}
+                                    {{else}}
+                                        {{#if item.performance.hasStarted}}
+                                                <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                                                    {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
+                                                </span>
+                                        {{else}}
+                                                <span class="not-started">{{t 'common.not_started'}}</span>
+                                        {{/if}}
+                                    {{/if}}
+                                </div>
                             </div>
                         {{else}}
                             {{!-- ToDo: Set the performance number if need be for preview --}}

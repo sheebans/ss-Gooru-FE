@@ -77,6 +77,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
    */
   normalizeSuggestedCollection(content, source) {
     let serializer = this;
+    let pathType = source === 'teacher_suggestions' ? 'teacher' : 'system';
     const basePath = serializer.get('session.cdnUrls.content');
     const appRootPath = serializer.get('appRootPath'); //configuration appRootPath
     const defaultImage =
@@ -106,7 +107,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
         collectionSubType: content.suggested_content_subtype,
         source,
         thumbnailUrl,
-        isSuggestedContent: true
+        isSuggestedContent: true,
+        pathType: pathType
       }
     );
   },

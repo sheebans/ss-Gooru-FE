@@ -71,7 +71,13 @@ export default Ember.Route.extend({
       item.set('minScore', currentClass.get('minScore'));
 
       if (type === 'lesson') {
-        route.startLessonStudyPlayer(classId, courseId, unitId, lessonId);
+        route.startLessonStudyPlayer(
+          classId,
+          courseId,
+          unitId,
+          lessonId,
+          item.pathType
+        );
       } else if (type === 'resource') {
         route.startResourceStudyPlayer(classId, courseId, item);
       } else {
@@ -178,6 +184,7 @@ export default Ember.Route.extend({
     let collectionSubType = collection.get('collectionSubType');
     let minScore = collection.get('minScore');
     let pathId = collection.get('pathId') || 0;
+    let pathType = collection.get('pathType');
     let queryParams = {
       classId,
       unitId,
@@ -190,7 +197,8 @@ export default Ember.Route.extend({
       pathId,
       minScore,
       collectionSource: collection.source || 'course_map',
-      isStudyPlayer: true
+      isStudyPlayer: true,
+      pathType
     };
 
     let suggestionPromise = null;
@@ -206,7 +214,8 @@ export default Ember.Route.extend({
           collectionType,
           collectionSubType,
           pathId,
-          classId
+          classId,
+          pathType
         );
     } else {
       suggestionPromise = route
@@ -217,7 +226,9 @@ export default Ember.Route.extend({
           lessonId,
           collectionId,
           collectionType,
-          classId
+          classId,
+          pathId,
+          pathType
         );
     }
     suggestionPromise.then(() =>
@@ -234,7 +245,13 @@ export default Ember.Route.extend({
    * @param {string} unitId
    * @param {string} lessonId
    */
-  startLessonStudyPlayer: function(classId, courseId, unitId, lessonId) {
+  startLessonStudyPlayer: function(
+    classId,
+    courseId,
+    unitId,
+    lessonId,
+    pathType
+  ) {
     const route = this;
     const role = ROLES.STUDENT;
     const queryParams = {
@@ -242,11 +259,12 @@ export default Ember.Route.extend({
       unitId,
       lessonId,
       role,
-      source: PLAYER_EVENT_SOURCE.COURSE_MAP
+      source: PLAYER_EVENT_SOURCE.COURSE_MAP,
+      pathType
     };
     route
       .get('navigateMapService')
-      .startLesson(courseId, unitId, lessonId, classId)
+      .startLesson(courseId, unitId, lessonId, classId, pathType)
       .then(() =>
         route.transitionTo('study-player', courseId, {
           queryParams
@@ -289,7 +307,8 @@ export default Ember.Route.extend({
       lessonId: resource.get('lessonId'),
       collectionId: resource.get('assessmentId'),
       source: PLAYER_EVENT_SOURCE.COURSE_MAP,
-      pathId: resource.get('pathId')
+      pathId: resource.get('pathId'),
+      pathType: resource.get('pathType')
     };
     route
       .get('navigateMapService')
@@ -300,7 +319,8 @@ export default Ember.Route.extend({
         queryParams.collectionId,
         resource.get('id'),
         queryParams.pathId,
-        classId
+        classId,
+        queryParams.pathType
       )
       .then(function() {
         if (classId) {

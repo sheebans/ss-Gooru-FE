@@ -181,7 +181,6 @@ export default Ember.Component.extend({
     component.loadDataBySubject(component.get('subject.id'));
   }),
 
-
   // -------------------------------------------------------------------------
   // Methods
 
@@ -517,7 +516,7 @@ export default Ember.Component.extend({
           parseInt(component.$(skylineElements[index + 1]).attr('x')) +
           cellWidth / 2;
         let y2 = parseInt(component.$(skylineElements[index + 1]).attr('y'));
-        y2 = y2 === 0 ? y2 + 3: y2 + cellHeight / 2;
+        y2 = y2 === 0 ? y2 + 3 : y2 + cellHeight / 2;
         svg
           .append('line')
           .attr('x1', x1)
@@ -552,17 +551,24 @@ export default Ember.Component.extend({
       let cellHeight = component.get('cellHeight');
       let cellWidth = component.get('cellWidth');
       return Ember.RSVP.hash({
-        userProficiencyBaseLine: component.get('competencyService').getUserProficiencyBaseLine(classId, courseId, userId),
-        competencyMatrixCoordinates: component.get('competencyService').getCompetencyMatrixCoordinates(subjectId)
-      }).then(({userProficiencyBaseLine, competencyMatrixCoordinates}) => {
+        userProficiencyBaseLine: component
+          .get('competencyService')
+          .getUserProficiencyBaseLine(classId, courseId, userId),
+        competencyMatrixCoordinates: component
+          .get('competencyService')
+          .getCompetencyMatrixCoordinates(subjectId)
+      }).then(({ userProficiencyBaseLine, competencyMatrixCoordinates }) => {
         let baseLineDomains = userProficiencyBaseLine.domains;
         let domains = competencyMatrixCoordinates.domains;
         let cellIndex = 0;
-        domains.map( domain => {
-          let domainData = baseLineDomains.findBy('domainCode', domain.domainCode);
+        domains.map(domain => {
+          let domainData = baseLineDomains.findBy(
+            'domainCode',
+            domain.domainCode
+          );
           let domainCompetencies = domainData ? domainData.competencies : [];
           let domainWiseMasteredCompetencies = Ember.A([]);
-          domainCompetencies.map( competency => {
+          domainCompetencies.map(competency => {
             //Consider only the mastered competencies
             if (competency.status === 4 || competency.status === 5) {
               domainWiseMasteredCompetencies.push(competency);
@@ -575,7 +581,10 @@ export default Ember.Component.extend({
           let x2 = x1 + cellWidth;
           let y2 = y1;
           let linePoint = {
-            x1, x2, y1, y2
+            x1,
+            x2,
+            y1,
+            y2
           };
           baseLineContainer
             .append('line')
@@ -605,7 +614,10 @@ export default Ember.Component.extend({
       y2: parseInt(lastBaseLineContainer.attr('y2'))
     };
     //Connect base line points if last and current points are not same
-    if (lastBaseLineContainer.length && lastBaseLinePoint.y2 !== curLinePoint.y1) {
+    if (
+      lastBaseLineContainer.length &&
+      lastBaseLinePoint.y2 !== curLinePoint.y1
+    ) {
       baseLineContainer
         .append('line')
         .attr('x1', lastBaseLinePoint.x2)

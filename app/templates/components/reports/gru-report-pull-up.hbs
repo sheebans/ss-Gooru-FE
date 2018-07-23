@@ -25,7 +25,7 @@
           <div class="carousel-inner">
           <div class="item active">
             <div class="report-avrg">
-                  <span class="dummy-avg"><p>{{score}}%</p></span>
+                  <span class="dummy-avg" style= {{safe-html (concat "background-color:" (grade-color score))}}><p>{{score}}%</p></span>
             </div>
             <div class="report-desc pull-left dont-show">
               <span class="desc-head">Description</span>

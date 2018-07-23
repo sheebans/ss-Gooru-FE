@@ -62,9 +62,19 @@ const MapContextModel = Ember.Object.extend({
   pathId: null,
 
   /**
+   * @property {string} pathType
+   */
+  pathType: null,
+
+  /**
    * @property {number} score
    */
-  score: null
+  score: null,
+
+  /**
+   * @property {string} internal context
+   */
+  context_data: null
 });
 
 export default MapContextModel;
