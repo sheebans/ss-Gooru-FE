@@ -285,6 +285,30 @@
       }
     }
 
+    .preview-content {
+      display: flex;
+
+      .suggestion-accordion {
+        .gru-accordion-course {
+          width: 490px;
+          .gru-accordion-unit {
+            .gru-accordion-lesson {
+              .collections {
+                .panel {
+                  .panel-title {
+                    width: 100%;
+                    .title {
+                      width: 100%;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
     .route0suggestionHero {
       background-image: "route0suggestion.jpg";
       height: 169px;

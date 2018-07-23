@@ -30,4 +30,12 @@
     cursor: pointer;
   }
 
+  .tick {
+    &.gray-out {
+      opacity: 0.5 !important;
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+
 }

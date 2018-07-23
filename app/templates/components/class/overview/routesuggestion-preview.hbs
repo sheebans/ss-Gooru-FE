@@ -26,7 +26,15 @@
             </div>
             <div style="clear:both"></div>
             <div class='route-compgraph pull-left hidden'></div>
-               {{class.overview.course-suggestions model=route0 index=index routeSuggestAction=routeSuggestAction}}         
+
+            <div class="preview-content">
+              <div class="proficiency-chart">
+                {{class.overview.route-suggestion-proficiency-matrix route0=route0 class=class course=course}}
+              </div>
+              <div class="suggestion-accordion">
+                {{class.overview.course-suggestions model=route0 index=index routeSuggestAction=routeSuggestAction}}
+              </div>
+            </div>
             <div style="clear:both"></div>
             <div class="action col-md-offset-9">
                 <div class="accept " {{ action 'routeAction' 'accepted' }}>
