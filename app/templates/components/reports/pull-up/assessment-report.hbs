@@ -1,0 +1,112 @@
+<div class="report-backdrop" {{action 'onPullUpClose'}}></div>
+<div class="assessment-report-container">
+  <div class="report-header">
+    <div class="report-breadcrumb">
+      <div class="unit-title">
+        <i class="unit-icon"></i>
+        <p>{{unit.title}}</p>
+      </div>
+      <div class="lesson-title">
+        {{gru-icon name="keyboard_arrow_right"}}
+        <i class="lesson-icon"></i>
+        <p>{{lesson.title}}</p>
+      </div>
+      <div class="assessment-title">
+        {{gru-icon name="keyboard_arrow_right"}}
+        <i class="assessment-icon"></i>
+        <p>{{selectedCollection.title}}</p>
+      </div>
+    </div>
+    <div class="report-close-pullup" {{action 'onPullUpClose'}}>
+      {{gru-icon name="close" }}
+    </div>
+  </div>
+  <div class="report-content">
+    <div class="report-carousel">
+      <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+          {{#each collections as |collectionItem index|}}
+            {{#if (eq collectionItem.format 'assessment')}}
+              <div data-item-index="{{index}}" class="item {{if (eq collectionItem.id  selectedCollection.id) 'active'}}">
+                <img class="assessment-cover-img" src="{{collectionItem.thumbnailUrl}}" />
+              </div>
+            {{/if}}
+          {{/each}}
+        </div>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" data-slide="prev" {{action 'onClickPrev'}}>
+        {{gru-icon name="keyboard_arrow_left"}}
+      </a>
+        <a class="right carousel-control" data-slide="next" {{action 'onClickNext'}}>
+        {{gru-icon name="keyboard_arrow_right"}}
+      </a>
+      </div>
+      <div class="report-carousel-content-container">
+        <div class="report-carousel-content">
+          {{#if isLoading}}
+            {{three-bounce-spinner}}
+          {{/if}}
+          <div class="assessment-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedCollection.performance.score))}}>{{selectedCollection.performance.score}}%</div>
+          <div class="assessment-description">{{assessment.learningObjectives}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-performance-tabular {{if isGridView 'grid'}}">
+      <div class="report-header-container">
+        <div class="taxonomy-details">
+          {{#if tags.length}}
+            {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1  showTitle=true}}
+          {{/if}}
+        </div>
+        <div class="report-action-btns">
+          <div class="view-btn-actions">
+            <div class="grid-view-icon {{if isGridView 'active'}}" {{action "onChooseGridView"}}>
+              {{gru-icon name="view_module"}}
+              <span>{{t 'common.grid'}}</span>
+            </div>
+            <div class="list-view-icon {{if isListView 'active'}}" {{action "onChooseListView"}}>
+              {{gru-icon name="view_list"}}
+              <span>{{t 'common.list'}}</span>
+            </div>
+          </div>
+          <div class="filter-btns">
+            <div class="performance-icon active">
+              {{gru-icon name="done_all"}}
+              <span>{{t 'gru-course-play.performance'}}</span>
+            </div>
+            <div class="timespent-icon {{if isTimeSpentFltApplied 'active'}}" {{action "onToggleTimeSpentFlt"}}>
+              {{gru-icon name="access_time"}}
+              <span>{{t 'common.timeSpent'}}</span>
+            </div>
+            <div class="reaction-icon {{if isReactionFltApplied 'active'}}" {{action "onToggleReactionFlt"}}>
+              {{gru-icon name="insert_emoticon"}}
+              <span>{{t 'reports.gru-table-view.reactions'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="report-view-container">
+        {{#if isGridView}}
+          {{reports.pull-up.assessment-report-gridview
+            questions=assessment.children
+            studentPerformanceData=studentPerformanceData
+            selectedCollection=selectedCollection
+            studentReport="studentReport"
+          }}
+        {{else}}
+          {{reports.pull-up.assessment-report-listview
+            sortByFirstnameEnabled=sortByFirstnameEnabled
+            sortByLastnameEnabled=sortByLastnameEnabled
+            sortByScoreEnabled=sortByScoreEnabled
+            questions=assessment.children
+            studentPerformanceData=studentPerformanceData
+            selectedCollection=selectedCollection
+            isReactionFltApplied=isReactionFltApplied
+            isTimeSpentFltApplied=isTimeSpentFltApplied
+            studentReport="studentReport" }}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>

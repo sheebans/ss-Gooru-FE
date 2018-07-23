@@ -1,11 +1,31 @@
 {{#if model.isReadonly}}
   <div class="content standard-tag">
     {{#if model.data}}
-    <b class="tag-label">{{model.data.label}}</b>
-     <span class="tag-caption ellipsis">{{model.data.caption}}</span>
-   {{else}}
-    <b class="tag-label">{{model.code}}</b>
-     <span class="tag-caption ellipsis">{{model.frameworkCode}}</span>
+      {{#if showTitle}}
+        {{#if model.data.title}}
+          <p class="tag-title">
+            {{model.data.title}}
+          </p>
+        {{else}}
+          <p class="tag-title">
+            <span class="label">{{model.data.label}}</span>
+            <span class="code">{{model.data.caption}}</span>
+          </p>
+        {{/if}}
+      {{else}}
+        <b class="tag-label">{{model.data.label}}</b>
+        <span class="tag-caption ellipsis">{{model.data.caption}}</span>
+      {{/if}}
+    {{else}}
+      {{#if showTitle}}
+        <p class="tag-title">
+          <span class="label">{{model.code}}</span>
+          <span class="code">{{model.frameworkCode}}</span>
+        </p>
+      {{else}}
+        <b class="tag-label">{{model.code}}</b>
+        <span class="tag-caption ellipsis">{{model.frameworkCode}}</span>
+      {{/if}}
     {{/if}}
 
   </div>
