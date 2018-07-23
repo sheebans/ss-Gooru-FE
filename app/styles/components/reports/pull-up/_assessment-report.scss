@@ -207,6 +207,56 @@
         .taxonomy-details {
           width: 278px;
           height: 50px;
+
+          .gru-taxonomy-tag-list {
+            .gru-taxonomy-tag {
+              max-width: 200px;
+              width: 200px;
+              border: none;
+              background-color: #37434d;
+              border-radius: 0;
+              color: #fff;
+              height: 50px;
+
+              .standard-tag {
+                width: 200px;
+                display: flex;
+                align-items: center;
+                padding-left: 10px;
+                padding-right: 10px;
+              }
+            }
+            .non-visible-tags {
+              margin-top: 10px;
+              margin-left: 10px;
+              background: #37434d;
+              width: 35px;
+              color: #fff;
+              border-radius: 4px;
+            }
+
+            .popover {
+              background: #fff;
+              margin-left: 5px;
+
+              .arrow::after {
+                border-left-color: #fff;
+                border-right-color: #fff;
+              }
+
+              .popover-content {
+                .gru-taxonomy-tag {
+                  max-width: 300px;
+                  width: 270px;
+                  border-radius: 4px;
+
+                  .standard-tag {
+                    width: 270px;
+                  }
+                }
+              }
+            }
+          }
         }
 
         .report-action-btns {

@@ -33,7 +33,7 @@
         <tr>
           <th>
             <div class="user-profile-summary">
-              <div class="user-profile-details" {{action 'studentReport' selectedCollection student.id}}>
+              <div class="user-profile-details {{unless student.hasStarted 'not-started'}}" {{action 'studentReport' selectedCollection student.id}}>
                 <div class="user-profile-img">
                   <img src="{{student.avatarUrl}}" />
                 </div>
@@ -108,7 +108,7 @@
                           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#{{userPerformanceData.reaction_unicode}}"></use>
                         </svg>
                       {{else}}
-                        --
+                        <span>--</span>
                       {{/if}}
                     </div>
                   </div>

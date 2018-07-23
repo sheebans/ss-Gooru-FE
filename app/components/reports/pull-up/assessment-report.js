@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import { EMOTION_VALUES } from 'gooru-web/config/config';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -199,10 +201,42 @@ export default Ember.Component.extend({
   isLoading: false,
 
   /**
-   * This attribute decide sorting key
+   * This attribute decide default sorting key
    * @type {String}
    */
-  sortCriteria: 'firstName',
+  defaultSortCriteria: 'firstName',
+
+  /**
+   * Maintain the status of sort by firstName
+   * @type {String}
+   */
+  sortByFirstnameEnabled: true,
+
+  /**
+   * Maintain the status of sort by lastName
+   * @type {String}
+   */
+  sortByLastnameEnabled: false,
+
+  /**
+   * Maintain the status of sort by overAllScore
+   * @type {String}
+   */
+  sortByScoreEnabled: false,
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('assessment.standards.[]', function() {
+    let standards = this.get('assessment.standards');
+    if (standards) {
+      standards = standards.filter(function(standard) {
+        // Filter out learning targets (they're too long for the card)
+        return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
+      });
+      return TaxonomyTag.getTaxonomyTags(standards);
+    }
+  }),
 
   //--------------------------------------------------------------------------
   // Methods
@@ -284,7 +318,10 @@ export default Ember.Component.extend({
       user.set('hasStarted', resultSet.hasStarted);
       users.pushObject(user);
     });
-    users = users.sortBy(component.get('sortCriteria'));
+    users = users.sortBy(component.get('defaultSortCriteria'));
+    component.set('sortByLastnameEnabled', false);
+    component.set('sortByFirstnameEnabled', true);
+    component.set('sortByScoreEnabled', false);
     component.set('studentPerformanceData', users);
   },
 

@@ -28,6 +28,10 @@
           cursor: pointer;
           padding-top: 10px;
 
+          &.not-started {
+            pointer-events: none;
+          }
+
           .user-profile-img {
             width: 70px;
 
