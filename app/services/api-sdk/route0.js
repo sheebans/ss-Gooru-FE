@@ -42,6 +42,9 @@ export default Ember.Service.extend({
         })
         .then(
           function(responseData) {
+            responseData = service
+              .get('route0Serializer')
+              .normalizeFetch(responseData);
             resolve(responseData);
           },
           function(error) {
