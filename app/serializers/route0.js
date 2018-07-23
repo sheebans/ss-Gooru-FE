@@ -18,7 +18,7 @@ export default DS.JSONAPISerializer.extend({
           lesson.pathType = 'route0';
           lesson.collections.forEach(function(col) {
             col.pathType = 'route0';
-            col.pathId = col.path_id; //ToDo: remove 60 as pathid comes from route0 API
+            col.pathId = col.pathId;
           });
         });
       });
