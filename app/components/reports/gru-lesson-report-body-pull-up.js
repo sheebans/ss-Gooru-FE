@@ -51,6 +51,7 @@ export default Ember.Component.extend({
       component.$('.data-filter').removeClass('active');
       component.$(`.${type}`).addClass('active');
       component.set('type', type);
+      component.$('.performance').css('cursor', 'not-allowed');
       component.getStudentPerformances();
     },
 
@@ -58,14 +59,13 @@ export default Ember.Component.extend({
       let component = this;
       component.$('span.score-actions').toggleClass('hide-score');
       component.$('.performance').toggleClass('disable-score');
-      //component.$('.time-spent').addClass('disable-time');
+      component.$('.assessment').hasClass('active');
     },
 
     isTimespenEnabled() {
       let component = this;
       component.$('span.ts-actions').toggleClass('hide-score');
       component.$('.time-spent').toggleClass('disable-time');
-      //  component.$('.performance').addClass('disable-score');
     }
   },
 
