@@ -52,6 +52,20 @@ export default Ember.Component.extend({
       component.$(`.${type}`).addClass('active');
       component.set('type', type);
       component.getStudentPerformances();
+    },
+
+    isPerformanceEnable() {
+      let component = this;
+      component.$('span.score-actions').toggleClass('hide-score');
+      component.$('.performance').toggleClass('disable-score');
+      //component.$('.time-spent').addClass('disable-time');
+    },
+
+    isTimespenEnabled() {
+      let component = this;
+      component.$('span.ts-actions').toggleClass('hide-score');
+      component.$('.time-spent').toggleClass('disable-time');
+      //  component.$('.performance').addClass('disable-score');
     }
   },
 
@@ -141,6 +155,36 @@ export default Ember.Component.extend({
    * Property to assessmentlist data
    */
   memberPerformances: Ember.A([]),
+
+  /**
+   * Property to enable score , by default score is disabled
+   */
+  isScoreEnabled: false,
+
+  /**
+   * Property to enable reactions , by default reaction is disabled
+   */
+  isReactionEnabled: false,
+
+  /**
+   * Property to enable performance , by default performance is disabled
+   */
+  isPerformanceEnabled: false,
+
+  /**
+   * Property to enable timespent , by default timespent is disabled
+   */
+  isTimeSpentEnabled: false,
+
+  /**
+   * Property to collection is active
+   */
+  isCollection: false,
+
+  /**
+   * Property to assessment is active
+   */
+  isAssessment: false,
 
   // -------------------------------------------------------------------------
   // Events

@@ -1,4 +1,7 @@
 .gru-lesson-report-body-pull-up {
+  .ttest {
+    cursor: not-allowed;
+  }
   .dont-show {
     display: none;
   }
@@ -44,12 +47,12 @@
         width: 82%;
         line-height: 18px;
         overflow: hidden;
-        height: 45px;
         -webkit-line-clamp: 2;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         text-align: center;
         line-height: 15px;
+        padding-bottom: 8px;
       }
 
       .score-circle-g {
@@ -59,7 +62,7 @@
         background: #97cca2;
         float: left;
         margin-right: 5px;
-        margin-top: 7px;
+        margin-top: 3px;
         margin-left: 5px;
 
         img {
@@ -115,6 +118,9 @@
         margin-left: 3px;
         height: 27px;
         text-indent: -37px;
+        .hide-score {
+          display: none;
+        }
       }
     }
 
@@ -207,8 +213,15 @@
 
     .performance {
       margin-left: 253px;
+      &.disable-score {
+        opacity: 0.3;
+      }
     }
-
+    .time-spent {
+      &.disable-time {
+        opacity: 0.3;
+      }
+    }
     .performance,
     .reactions,
     .time-spent {
@@ -220,6 +233,7 @@
       vertical-align: middle;
       font-size: 12px;
       padding-top: 5px;
+      cursor: pointer;
     }
 
     .reactions {
