@@ -98,6 +98,24 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
       this.set('showLessonReportPullUp', false);
     },
     /**
+     * Action triggered when the user click the lesson level performance score.
+     **/
+    onOpenLessonLevelReport() {
+      //ToDo: setup perfromance level data to the model> item
+      const component = this;
+      const classId = component.get('currentClass.id');
+      const unitId = component.get('unitId');
+      const lessonId = component.get('model.id');
+      const courseId =
+        component.get('currentClass.courseId') ||
+        component.get('currentCourse.id');
+      component.set('classId', classId);
+      component.set('unitId', unitId);
+      component.set('lessonId', lessonId);
+      component.set('courseId', courseId);
+      component.set('showLessonReportPullUp', true);
+    },
+    /*
      * @function To open lesson level report
      */
     onOpenLessonReport: function(model) {

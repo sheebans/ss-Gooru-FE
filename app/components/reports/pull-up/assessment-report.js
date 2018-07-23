@@ -366,7 +366,7 @@ export default Ember.Component.extend({
       }
       userPerformanceData.pushObject(performanceData);
     });
-    let overAllScore = (numberOfCorrectAnswers / questions.length) * 100;
+    let overAllScore = numberOfCorrectAnswers / questions.length * 100;
     let resultSet = {
       userPerformanceData: userPerformanceData,
       overAllScore: overAllScore,

@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
-
   classNames: ['learner-proficiency-pull-up'],
 
   // -------------------------------------------------------------------------
@@ -22,7 +21,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
-  didInsertElement(){
+  didInsertElement() {
     let component = this;
     let activeCategory = component.get('activeCategory');
     if (component.get('activeCategory')) {
@@ -33,7 +32,6 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     /**
      * Action triggered when select a month from chart
      */
@@ -81,8 +79,8 @@ export default Ember.Component.extend({
     let component = this;
     let activeSubject = subjects.objectAt(1);
     let subjectBucket = component.get('subjectBucket');
-    subjects.map( subject => {
-      if(subjectBucket.split(subject.id).length > 1) {
+    subjects.map(subject => {
+      if (subjectBucket.split(subject.id).length > 1) {
         activeSubject = subject;
       }
     });
@@ -97,7 +95,7 @@ export default Ember.Component.extend({
    * Property to store currently selected month and year
    */
   timeLine: Ember.computed(function() {
-    let curDate = new Date;
+    let curDate = new Date();
     return {
       month: curDate.getMonth() + 1,
       year: curDate.getFullYear()
@@ -130,6 +128,6 @@ export default Ember.Component.extend({
     let component = this;
     let firstName = component.get('student.firstName') || '';
     let lastName = component.get('student.lastName') || '';
-    return `${firstName  } ${  lastName}`;
+    return `${firstName} ${lastName}`;
   })
 });
