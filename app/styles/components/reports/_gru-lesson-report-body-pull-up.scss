@@ -1,4 +1,7 @@
 .gru-lesson-report-body-pull-up {
+  .dont-show {
+    display: none;
+  }
   /***********************************/
   table {
     position: relative;
@@ -10,11 +13,11 @@
     tr {
       border: 1px solid #cccccc;
     }
-
     /*thead*/
     thead {
       position: relative;
-      display: block; /*seperates the header from the body allowing it to be positioned*/
+      display: block;
+      /*seperates the header from the body allowing it to be positioned*/
       width: 768px;
       overflow: visible;
     }
@@ -25,10 +28,16 @@
       height: 32px;
       font-weight: normal;
       font-size: 12px;
+
+      .student-sort {
+        cursor: pointer;
+      }
     }
+
     th.m-width {
       width: 270px;
       border-right: 1px dashed #cccccc;
+
       .assessment-title {
         padding-top: 8px;
         float: left;
@@ -36,7 +45,13 @@
         line-height: 18px;
         overflow: hidden;
         height: 45px;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        text-align: center;
+        line-height: 15px;
       }
+
       .score-circle-g {
         width: 30px;
         height: 30px;
@@ -46,12 +61,13 @@
         margin-right: 5px;
         margin-top: 7px;
         margin-left: 5px;
+
         img {
-          margin: 5px;
-          margin-top: 7px;
+          margin: 7px 5px 5px;
         }
       }
     }
+
     thead th:nth-child(1) {
       /*first cell in the header*/
       position: relative;
@@ -65,23 +81,33 @@
       padding-top: 13px;
       border-right: 1px dashed #cccccc;
     }
-
     /*tbody*/
     tbody {
       position: relative;
-      display: block; /*seperates the tbody from the header*/
+      display: block;
+      /*seperates the tbody from the header*/
       width: 768px;
-      max-height: calc(60vh - 130px);
+      max-height: calc(70vh - 130px);
       overflow: scroll;
-      height: 60vh;
+      height: 70vh;
+    }
+    tbody::-webkit-scrollbar-thumb {
+      background: #bbb;
+      border: 1px solid #bbb;
+      border-radius: 5px;
     }
 
+    tbody::-webkit-scrollbar {
+      width: 4px;
+      border-radius: 3px;
+    }
     tbody td {
       background-color: #fff;
       min-width: 270px;
       height: 47px;
       padding: 10px;
       border-right: 1px dashed #ccc;
+
       .performance-section {
         width: 120px;
         float: left;
@@ -101,14 +127,13 @@
       min-width: 241px;
       padding: 10px;
       border-right: 1px dashed #cccccc;
+
       .student-name {
         margin-left: 5px;
       }
     }
   }
-
   /***********************************/
-
   .report-filters {
     height: 50px;
     font-weight: bold;
@@ -123,6 +148,7 @@
       top: 4px;
       cursor: pointer;
     }
+
     .p-box-bl {
       width: 20px;
       height: 15px;
@@ -133,18 +159,21 @@
       margin-bottom: 5px;
       position: relative;
       top: 1px;
+
       span {
         position: relative;
         top: -3px;
         font-size: 12px;
       }
     }
+
     .filter-title {
       padding-top: 14px;
     }
 
     .data-filter {
       color: #ccc;
+
       &.active {
         color: #02a8e6 !important;
       }
@@ -153,9 +182,11 @@
     .a-filter {
       cursor: pointer;
     }
+
     .c-filter {
       cursor: pointer;
       color: #cccccc;
+
       i {
         color: #cccccc;
       }

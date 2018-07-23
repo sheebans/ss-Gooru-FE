@@ -15,6 +15,9 @@
     <div class="reactions"><i class="material-icons ">%</i> <span>Reactions</span></div>
   </div>
 <div class="outer-div">
+  {{#if isLoading}}
+    {{three-bounce-spinner}}
+  {{else}}
 <!-- testing table -->
 <table>
    <thead>
@@ -24,7 +27,7 @@
        </th>
        {{#each tableHeader.collections as |collection|}}
          <th class="m-width">
-           <div class="score-circle-g">
+           <div class="score-circle-g" style= {{safe-html (concat "background-color:" (grade-color collection.score))}}>
             <img src='/assets/gooru/lesson_assessment_white.svg' >
            </div>
            <div class="assessment-title">{{collection.title}}</div>
@@ -40,14 +43,15 @@
            <span class="student-name">{{studentPerformance.fullName}}</span></td>
            {{#each studentPerformance.collections as |collectionPerformance|}}
              <td class="r-bdr">
-               <div class="performance-section">{{if collectionPerformance.score (concat collectionPerformance.score '%') '-'}}</div>
-               <div class="performance-section time-clr">{{collectionPerformance.timeSpent}}</div>
+               <div class="performance-section">{{if collectionPerformance.score (concat collectionPerformance.score '%') '--'}}</div>
+               <div class="performance-section time-clr">{{if collectionPerformance.timeSpent '--'}}</div>
              </td>
            {{/each}}
        </tr>
      {{/each}}
    </tbody>
  </table>
+ {{/if}}
 <!-- testing table ends -->
 
 </div>

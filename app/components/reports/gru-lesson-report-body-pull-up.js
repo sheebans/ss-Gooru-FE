@@ -29,8 +29,12 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
+    /**
+     * Action triggered when the user close the pull up.
+     **/
     onPullUpClose() {
       this.set('showPullUp', false);
+      this.set('showLessonReportPullUp', false);
     },
 
     sortStudents: function(criteria) {
@@ -75,6 +79,12 @@ export default Ember.Component.extend({
   body: {
     isShowBody: true
   },
+
+  /**
+   * Indicates the status of the spinner
+   * @property {Boolean}
+   */
+  isLoading: false,
 
   /**
    * Propery to show class id.
@@ -136,10 +146,12 @@ export default Ember.Component.extend({
   // Events
   didInsertElement() {
     let component = this;
-    if (this.get('showPullUp')) {
-      // component.getStudentData();
-      component.getStudentData();
-      component.getStudentPerformances();
+    if (component.get('showPullUp')) {
+      component.set('isLoading', true);
+      component.getStudentData().then(function() {
+        component.getStudentPerformances();
+        component.set('isLoading', false);
+      });
     }
   },
 

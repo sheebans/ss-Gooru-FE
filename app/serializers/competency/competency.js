@@ -92,14 +92,11 @@ export default Ember.Object.extend({
       userCompetencyMatrix.forEach(domainData => {
         let domain = Ember.Object.create(domainData);
         let competencies = domain.get('competencies');
-        let domainSet = Ember.A();
         let competencySet = Ember.A();
         competencies.forEach(data => {
           competencySet.pushObject(Ember.Object.create(data));
         });
         domain.set('competencies', competencySet);
-        domainSet.pushObject(domain);
-        domain.set('domains', domainSet);
         domains.pushObject(domain);
       });
     }

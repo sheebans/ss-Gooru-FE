@@ -248,7 +248,7 @@
       {{/if}}
     {{/gru-pull-up}}
   {{/if}}
-  
+
   {{#if showReportPullUp}}
     {{class.gru-report-panel showPullUp=showReportPullUp reportData=reportData model=model onClosePullUp="onClosePullUp"}}
   {{/if}}
@@ -259,6 +259,7 @@
         {{proficiency.learner-proficiency-pull-up
            student=selectedStudent
            subjectBucket=subjectBucket
+           class=class
            }}
       {{/if}}
     {{/gru-pull-up}}
