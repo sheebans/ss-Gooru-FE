@@ -52,6 +52,7 @@ export default Object.assign(quizzesTranslations, {
     first: 'First',
     last: 'Last',
     name: 'Name',
+    avg: 'Avg',
     'a-collection': 'a collection',
     'a-course': 'a course',
     'a-question': 'a question',

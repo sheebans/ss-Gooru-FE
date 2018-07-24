@@ -4,7 +4,8 @@
       {{#if showTitle}}
         {{#if model.data.title}}
           <p class="tag-title">
-            {{model.data.title}}
+            <span class="label">{{model.data.label}}</span>
+            <span class="code">{{model.data.caption}}</span>
           </p>
         {{else}}
           <p class="tag-title">

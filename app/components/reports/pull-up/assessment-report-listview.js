@@ -40,13 +40,13 @@ export default Ember.Component.extend({
    * Maintain the status of sort by firstName
    * @type {String}
    */
-  sortByFirstnameEnabled: true,
+  sortByFirstnameEnabled: false,
 
   /**
    * Maintain the status of sort by lastName
    * @type {String}
    */
-  sortByLastnameEnabled: false,
+  sortByLastnameEnabled: true,
 
   /**
    * Maintain the status of sort by overAllScore

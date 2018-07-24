@@ -2,7 +2,7 @@
   <table>
     <tbody>
       <tr>
-        <th>
+        <th class="header-name">
           <div class="header-filters">
             <div class="name-filter">
               <span class="name-header">{{t 'common.name'}}</span>
@@ -23,8 +23,8 @@
                 {{/if}}
               </span>
             </div>
-            <div class="rubric-filter" {{action 'sortByScore'}}>
-              <i class="rubric-icon"></i>
+            <div class="avg-filter">
+              <span>{{t 'common.avg'}}</span>
             </div>
           </div>
         </th>
@@ -61,7 +61,7 @@
     <tbody>
       <tr>
         {{#each questions as | question |}}
-          <th>
+          <th class="header-content">
             <div class="question-header">
               <div class="question-icon">
                 <i></i>

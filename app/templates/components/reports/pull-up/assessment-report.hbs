@@ -4,12 +4,12 @@
     <div class="report-breadcrumb">
       <div class="unit-title">
         <i class="unit-icon"></i>
-        <p>{{unit.title}}</p>
+        <p>{{t 'common.unit'}} {{unit.sequence}} : {{unit.title}}</p>
       </div>
       <div class="lesson-title">
         {{gru-icon name="keyboard_arrow_right"}}
         <i class="lesson-icon"></i>
-        <p>{{lesson.title}}</p>
+        <p>{{t 'common.lesson'}} {{lesson.sequence}} : {{lesson.title}}</p>
       </div>
       <div class="assessment-title">
         {{gru-icon name="keyboard_arrow_right"}}
@@ -46,8 +46,12 @@
           {{#if isLoading}}
             {{three-bounce-spinner}}
           {{/if}}
-          <div class="assessment-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedCollection.performance.score))}}>{{selectedCollection.performance.score}}%</div>
-          <div class="assessment-description">{{assessment.learningObjectives}}</div>
+          <div class="performance-display-container">
+            <div class="assessment-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedCollection.performance.score))}}>{{selectedCollection.performance.score}}%</div>
+          </div>
+          <div class="assessment-description">
+            <p>{{assessment.learningObjectives}}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -56,7 +60,7 @@
       <div class="report-header-container">
         <div class="taxonomy-details">
           {{#if tags.length}}
-            {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1  showTitle=true}}
+            {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 showDescription=true  showTitle=true}}
           {{/if}}
         </div>
         <div class="report-action-btns">

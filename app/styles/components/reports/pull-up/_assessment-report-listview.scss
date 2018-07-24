@@ -21,9 +21,16 @@
         border-bottom: 1px solid #cccccc;
         overflow: hidden;
 
+        &.header-name {
+          position: relative;
+          background-color: #fff;
+          border-bottom: 0;
+        }
+
         .header-filters {
           height: 40px;
           display: flex;
+          border-bottom: 1px solid #cccccc;
 
           .name-filter {
             height: 40px;
@@ -51,19 +58,13 @@
             }
           }
 
-          .rubric-filter {
+          .avg-filter {
             width: 45px;
             height: 40px;
-
-            .rubric-icon {
-              background-image: url("../assets/gooru/images/navigation_rubric_icon.svg");
-              background-repeat: no-repeat;
-              width: 20px;
-              width: 35px;
-              height: 40px;
-              display: block;
-              background-position: 10px 13px;
-            }
+            padding-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
         }
       }
@@ -77,9 +78,11 @@
           display: flex;
           align-items: center;
           cursor: pointer;
+
           &.not-started {
             pointer-events: none;
           }
+
           .user-profile-img {
             width: 43px;
 
@@ -125,10 +128,17 @@
       }
 
       th {
+        &.header-content {
+          position: relative;
+          background-color: #fff;
+          border-bottom: 0;
+        }
+
         .question-header {
           width: 200px;
           height: 40px;
           display: flex;
+          border-bottom: 1px solid #cccccc;
 
           .question-icon {
             width: 45px;

@@ -97,6 +97,7 @@ export default Ember.Component.extend({
    * Function to triggered once when the component element is first rendered.
    */
   didInsertElement() {
+    this.handleScrollToFixHeader();
     this.openPullUp();
     this.loadData();
   },
@@ -208,19 +209,19 @@ export default Ember.Component.extend({
    * This attribute decide default sorting key
    * @type {String}
    */
-  defaultSortCriteria: 'firstName',
+  defaultSortCriteria: 'lastName',
 
   /**
    * Maintain the status of sort by firstName
    * @type {String}
    */
-  sortByFirstnameEnabled: true,
+  sortByFirstnameEnabled: false,
 
   /**
    * Maintain the status of sort by lastName
    * @type {String}
    */
-  sortByLastnameEnabled: false,
+  sortByLastnameEnabled: true,
 
   /**
    * Maintain the status of sort by overAllScore
@@ -269,6 +270,27 @@ export default Ember.Component.extend({
         component.set('showPullUp', false);
       }
     );
+  },
+
+  handleScrollToFixHeader() {
+    let component = this;
+    component.$('.report-content').scroll(function() {
+      let scrollTop = component.$('.report-content').scrollTop();
+      let headerName = component.$(
+        '.report-content .pull-up-assessment-report-listview .header-name'
+      );
+      let headerContent = component.$(
+        '.report-content .pull-up-assessment-report-listview .header-content'
+      );
+      if (scrollTop >= 210) {
+        let position = scrollTop - 218;
+        component.$(headerName).css('top', `${position}px`);
+        component.$(headerContent).css('top', `${position}px`);
+      } else {
+        component.$(headerName).css('top', '0px');
+        component.$(headerContent).css('top', '0px');
+      }
+    });
   },
 
   loadData() {
@@ -323,8 +345,8 @@ export default Ember.Component.extend({
       users.pushObject(user);
     });
     users = users.sortBy(component.get('defaultSortCriteria'));
-    component.set('sortByLastnameEnabled', false);
-    component.set('sortByFirstnameEnabled', true);
+    component.set('sortByLastnameEnabled', true);
+    component.set('sortByFirstnameEnabled', false);
     component.set('sortByScoreEnabled', false);
     component.set('studentPerformanceData', users);
     component.handleCarouselControl();
