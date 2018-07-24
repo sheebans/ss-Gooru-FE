@@ -26,9 +26,9 @@
       <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
         <div class="carousel-inner">
           {{#each collections as |collectionItem index|}}
-              <div data-item-index="{{index}}" class="item {{if (eq collectionItem.id  selectedCollection.id) 'active'}}">
-                <div class="collection-background-cover"/>
-              </div>
+            <div data-item-index="{{index}}" class="item {{if (eq collectionItem.id  selectedCollection.id) 'active'}}">
+              <div class="collection-background-cover" />
+            </div>
           {{/each}}
         </div>
         <!-- Left and right controls -->
@@ -39,11 +39,13 @@
           <i class="arrow-right"></i>
         </a>
       </div>
+      {{#if isLoading}}
+        <div class="loading-spinner">
+          {{three-bounce-spinner}}
+        </div>
+      {{/if}}
       <div class="report-carousel-content-container">
         <div class="report-carousel-content">
-          {{#if isLoading}}
-            {{three-bounce-spinner}}
-          {{/if}}
           <div class="performance-display-container">
             <div class="collection-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedCollection.performance.score))}}>{{selectedCollection.performance.score}}%</div>
           </div>

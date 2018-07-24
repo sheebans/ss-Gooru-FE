@@ -58,7 +58,9 @@ export default Ember.Component.extend({
 
     onClickPrev() {
       let component = this;
-      component.$('#report-carousel-wrapper .carousel-control').hide();
+      component
+        .$('#report-carousel-wrapper .carousel-control')
+        .addClass('in-active');
       let collections = component.get('collections');
       let selectedElement = component.$(
         '#report-carousel-wrapper .item.active'
@@ -75,7 +77,9 @@ export default Ember.Component.extend({
 
     onClickNext() {
       let component = this;
-      component.$('#report-carousel-wrapper .carousel-control').hide();
+      component
+        .$('#report-carousel-wrapper .carousel-control')
+        .addClass('in-active');
       let collections = component.get('collections');
       let selectedElement = component.$(
         '#report-carousel-wrapper .item.active'
@@ -428,17 +432,27 @@ export default Ember.Component.extend({
     let collections = component.get('collections');
     let currentIndex = selectedElement.data('item-index');
     if (collections.length - 1 === 0) {
-      component.$('#report-carousel-wrapper .carousel-control').hide();
+      component
+        .$('#report-carousel-wrapper .carousel-control')
+        .addClass('in-active');
     } else {
       if (currentIndex === 0) {
-        component.$('#report-carousel-wrapper .carousel-control.left').hide();
+        component
+          .$('#report-carousel-wrapper .carousel-control.left')
+          .addClass('in-active');
       } else {
-        component.$('#report-carousel-wrapper .carousel-control.left').show();
+        component
+          .$('#report-carousel-wrapper .carousel-control.left')
+          .removeClass('in-active');
       }
       if (currentIndex === collections.length - 1) {
-        component.$('#report-carousel-wrapper .carousel-control.right').hide();
+        component
+          .$('#report-carousel-wrapper .carousel-control.right')
+          .addClass('in-active');
       } else {
-        component.$('#report-carousel-wrapper .carousel-control.right').show();
+        component
+          .$('#report-carousel-wrapper .carousel-control.right')
+          .removeClass('in-active');
       }
     }
   }
