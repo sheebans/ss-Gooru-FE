@@ -125,10 +125,6 @@ export default Ember.Route.extend({
     /*
      status: 'pending', //'accepted' , 'regected', 'na= not applicable, already complted' , 'na = not avalible, course does not have anything to offer'
     */
-    /* route0Promise = new Ember.RSVP.Promise(function(resolve) {
-      resolve(route.get('routeMockData')); // mockdata //ToDo: Remove mockdata
-    }); */
-
     return Ember.RSVP.hash({
       userLocation: userLocation,
       course: course,
