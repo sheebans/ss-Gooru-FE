@@ -117,6 +117,14 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * Timeline change will call this function
+   */
+  onChangeTimeLine: Ember.observer('timeLine', function() {
+    let component = this;
+    component.loadDataBySubject(component.get('subject.id'));
+  }),
+
+  /**
    * Trigger whenever reset chart view mode toggle state got changed.
    */
   onChangeResetToggle: Ember.observer('isExpandChartEnabled', function() {
@@ -184,6 +192,18 @@ export default Ember.Component.extend({
    * TODO enabled by default will to handle in future implementation
    */
   isSkylineEnabled: true,
+
+  /**
+   * @property {JSON}
+   * Property to store currently selected month and year
+   */
+  timeLine: Ember.computed(function() {
+    let curDate = new Date();
+    return {
+      month: curDate.getMonth() + 1,
+      year: curDate.getFullYear()
+    };
+  }),
 
   // -------------------------------------------------------------------------
   // Events
@@ -264,11 +284,12 @@ export default Ember.Component.extend({
   loadDataBySubject(subjectId) {
     let component = this;
     let userId = component.get('userId');
+    let timeLine = component.get('timeLine');
     component.set('isLoading', true);
     return Ember.RSVP.hash({
       competencyMatrixs: component
         .get('competencyService')
-        .getCompetencyMatrixDomain(userId, subjectId),
+        .getCompetencyMatrixDomain(userId, subjectId, timeLine),
       competencyMatrixCoordinates: component
         .get('competencyService')
         .getCompetencyMatrixCoordinates(subjectId)
