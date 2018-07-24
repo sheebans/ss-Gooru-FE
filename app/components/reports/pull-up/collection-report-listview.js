@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'pull-up-assessment-report-listview'],
+  classNames: ['reports', 'pull-up-collection-report-listview'],
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -25,16 +25,16 @@ export default Ember.Component.extend({
   isTimeSpentFltApplied: false,
 
   /**
-   * List of questions associated with assessment
+   * List of contents associated with collection
    * @type {Array}
    */
-  questions: Ember.A(),
+  contents: Ember.A(),
 
   /**
-   * Students performance data
+   * Students report data
    * @type {Array}
    */
-  studentPerformanceData: Ember.A(),
+  studentReportData: Ember.A(),
 
   /**
    * Maintain the status of sort by firstName

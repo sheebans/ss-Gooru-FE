@@ -1,5 +1,5 @@
 <div class="report-backdrop" {{action 'onPullUpClose'}}></div>
-<div class="assessment-report-container">
+<div class="collection-report-container">
   <div class="report-header">
     <div class="report-breadcrumb">
       <div class="unit-title">
@@ -11,9 +11,9 @@
         <i class="lesson-icon"></i>
         <p>{{t 'common.lesson'}} {{lesson.sequence}} : {{lesson.title}}</p>
       </div>
-      <div class="assessment-title">
+      <div class="collection-title">
         {{gru-icon name="keyboard_arrow_right"}}
-        <i class="assessment-icon"></i>
+        <i class="collection-icon"></i>
         <p>{{selectedCollection.title}}</p>
       </div>
     </div>
@@ -26,20 +26,18 @@
       <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
         <div class="carousel-inner">
           {{#each collections as |collectionItem index|}}
-            {{#if (eq collectionItem.format 'assessment')}}
               <div data-item-index="{{index}}" class="item {{if (eq collectionItem.id  selectedCollection.id) 'active'}}">
-                <img class="assessment-cover-img" src="{{collectionItem.thumbnailUrl}}" />
+                <div class="collection-background-cover"/>
               </div>
-            {{/if}}
           {{/each}}
         </div>
         <!-- Left and right controls -->
         <a class="left carousel-control" data-slide="prev" {{action 'onClickPrev'}}>
-        {{gru-icon name="keyboard_arrow_left"}}
-      </a>
+          <i class="arrow-left"></i>
+        </a>
         <a class="right carousel-control" data-slide="next" {{action 'onClickNext'}}>
-        {{gru-icon name="keyboard_arrow_right"}}
-      </a>
+          <i class="arrow-right"></i>
+        </a>
       </div>
       <div class="report-carousel-content-container">
         <div class="report-carousel-content">
@@ -47,10 +45,10 @@
             {{three-bounce-spinner}}
           {{/if}}
           <div class="performance-display-container">
-            <div class="assessment-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedCollection.performance.score))}}>{{selectedCollection.performance.score}}%</div>
+            <div class="collection-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedCollection.performance.score))}}>{{selectedCollection.performance.score}}%</div>
           </div>
-          <div class="assessment-description">
-            <p>{{assessment.learningObjectives}}</p>
+          <div class="collection-report-chart">
+            {{charts.report-bar-chart studentChartReportData=studentChartReportData}}
           </div>
         </div>
       </div>
@@ -92,19 +90,19 @@
       </div>
       <div class="report-view-container">
         {{#if isGridView}}
-          {{reports.pull-up.assessment-report-gridview
-            questions=assessment.children
-            studentPerformanceData=studentPerformanceData
+          {{reports.pull-up.collection-report-gridview
+            contents=collection.children
+            studentReportData=studentReportData
             selectedCollection=selectedCollection
             studentReport="studentReport"
           }}
         {{else}}
-          {{reports.pull-up.assessment-report-listview
+          {{reports.pull-up.collection-report-listview
             sortByFirstnameEnabled=sortByFirstnameEnabled
             sortByLastnameEnabled=sortByLastnameEnabled
             sortByScoreEnabled=sortByScoreEnabled
-            questions=assessment.children
-            studentPerformanceData=studentPerformanceData
+            contents=collection.children
+            studentReportData=studentReportData
             selectedCollection=selectedCollection
             isReactionFltApplied=isReactionFltApplied
             isTimeSpentFltApplied=isTimeSpentFltApplied

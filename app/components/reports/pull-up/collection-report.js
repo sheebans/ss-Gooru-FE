@@ -7,10 +7,15 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'pull-up-assessment-report'],
+  classNames: ['reports', 'pull-up-collection-report'],
 
   // -------------------------------------------------------------------------
   // Dependencies
+
+  /**
+   * @requires service:api-sdk/collection
+   */
+  collectionService: Ember.inject.service('api-sdk/collection'),
 
   /**
    * @requires service:api-sdk/assessment
@@ -105,34 +110,34 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * ClassId belongs to this assessment report.
+   * ClassId belongs to this collection report.
    * @type {String}
    */
   classId: Ember.computed.alias('context.classId'),
 
   /**
-   * CourseId belongs to this assessment report.
+   * CourseId belongs to this collection report.
    * @type {String}
    */
   courseId: Ember.computed.alias('context.courseId'),
 
   /**
-   * Unit belongs to this assessment report.
+   * Unit belongs to this collection report.
    * @type {String}
    */
   unit: Ember.computed.alias('context.unitModel'),
 
   /**
-   * Lesson belongs to this assessment report.
+   * Lesson belongs to this collection report.
    * @type {[type]}
    */
   lesson: Ember.computed.alias('context.lessonModel'),
 
   /**
-   * AssessmentId of this report.
+   * collectionId of this report.
    * @type {[type]}
    */
-  assessmentId: Ember.computed.alias('context.collectionId'),
+  collectionId: Ember.computed.alias('context.collectionId'),
 
   /**
    * List of collection mapped to lesson.
@@ -182,10 +187,10 @@ export default Ember.Component.extend({
   isTimeSpentFltApplied: false,
 
   /**
-   * selected assessment object which will have other meta data's
+   * selected collection object which will have other meta data's
    * @type {Object}
    */
-  assessment: null,
+  collection: null,
 
   /**
    * List of class members
@@ -194,10 +199,16 @@ export default Ember.Component.extend({
   classMembers: Ember.computed.alias('context.classMembers'),
 
   /**
-   * Stutent performance report data
+   * Stutent  report data
    * @type {Object}
    */
-  studentPerformanceData: Ember.A([]),
+  studentReportData: Ember.A([]),
+
+  /**
+   * Stutent  chart report data
+   * @type {Object}
+   */
+  studentChartReportData: Ember.A([]),
 
   /**
    * It maintains the state of loading
@@ -232,8 +243,8 @@ export default Ember.Component.extend({
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
-  tags: Ember.computed('assessment.standards.[]', function() {
-    let standards = this.get('assessment.standards');
+  tags: Ember.computed('collection.standards.[]', function() {
+    let standards = this.get('collection.standards');
     if (standards) {
       standards = standards.filter(function(standard) {
         // Filter out learning targets (they're too long for the card)
@@ -276,19 +287,14 @@ export default Ember.Component.extend({
     let component = this;
     component.$('.report-content').scroll(function() {
       let scrollTop = component.$('.report-content').scrollTop();
-      let headerName = component.$(
-        '.report-content .pull-up-assessment-report-listview .header-name'
+      let headerTabular = component.$(
+        '.report-content .pull-up-collection-report-listview .tabular-header'
       );
-      let headerContent = component.$(
-        '.report-content .pull-up-assessment-report-listview .header-content'
-      );
-      if (scrollTop >= 210) {
-        let position = scrollTop - 218;
-        component.$(headerName).css('top', `${position}px`);
-        component.$(headerContent).css('top', `${position}px`);
+      if (scrollTop >= 347) {
+        let position = scrollTop - 347;
+        component.$(headerTabular).css('top', `${position}px`);
       } else {
-        component.$(headerName).css('top', '0px');
-        component.$(headerContent).css('top', '0px');
+        component.$(headerTabular).css('top', '0px');
       }
     });
   },
@@ -296,15 +302,17 @@ export default Ember.Component.extend({
   loadData() {
     let component = this;
     let collectionId = component.get('selectedCollection.id');
+    let format = component.get('selectedCollection.format');
     let unitId = component.get('unit.id');
     let lessonId = component.get('lesson.id');
     let courseId = component.get('courseId');
     let classId = component.get('classId');
     component.set('isLoading', true);
     return Ember.RSVP.hash({
-      assessment: component
-        .get('assessmentService')
-        .readAssessment(collectionId),
+      collection:
+        format === 'assessment'
+          ? component.get('assessmentService').readAssessment(collectionId)
+          : component.get('collectionService').readCollection(collectionId),
       performance: component
         .get('analyticsService')
         .findResourcesByCollection(
@@ -313,19 +321,20 @@ export default Ember.Component.extend({
           unitId,
           lessonId,
           collectionId,
-          'assessment'
+          format
         )
-    }).then(({ assessment, performance }) => {
-      component.set('assessment', assessment);
-      component.parseClassMemberAndPerformanceData(assessment, performance);
+    }).then(({ collection, performance }) => {
+      component.set('collection', collection);
+      component.parseClassMemberAndPerformanceData(collection, performance);
       component.set('isLoading', false);
     });
   },
 
-  parseClassMemberAndPerformanceData(assessment, performance) {
+  parseClassMemberAndPerformanceData(collection, performance) {
     let component = this;
     let classMembers = component.get('classMembers');
     let users = Ember.A([]);
+    let usersChartData = Ember.A([]);
     classMembers.forEach(member => {
       let user = Ember.Object.create({
         id: member.id,
@@ -333,40 +342,54 @@ export default Ember.Component.extend({
         lastName: member.lastName,
         avatarUrl: member.avatarUrl
       });
-      let questions = assessment.get('children');
+      let userChartData = Ember.Object.create({
+        id: member.id,
+        firstName: member.firstName,
+        lastName: member.lastName,
+        avatarUrl: member.avatarUrl
+      });
+      let contents = collection.get('children');
       let userPerformance = performance.findBy('user', member.id);
-      let resultSet = component.parsePerformanceQuestionAndUserData(
-        questions,
+      let resultSet = component.parsePerformanceContentAndUserData(
+        contents,
         userPerformance
       );
       user.set('userPerformanceData', resultSet.userPerformanceData);
       user.set('overAllScore', resultSet.overAllScore);
       user.set('hasStarted', resultSet.hasStarted);
+      userChartData.set('hasStarted', resultSet.hasStarted);
+      userChartData.set('score', resultSet.overAllScore);
+      userChartData.set('difference', 100 - resultSet.overAllScore);
       users.pushObject(user);
+      usersChartData.pushObject(userChartData);
     });
     users = users.sortBy(component.get('defaultSortCriteria'));
+    usersChartData = usersChartData.sortBy(
+      component.get('defaultSortCriteria')
+    );
     component.set('sortByLastnameEnabled', true);
     component.set('sortByFirstnameEnabled', false);
     component.set('sortByScoreEnabled', false);
-    component.set('studentPerformanceData', users);
+    component.set('studentReportData', users);
+    component.set('studentChartReportData', usersChartData);
     component.handleCarouselControl();
   },
 
-  parsePerformanceQuestionAndUserData(questions, userPerformance) {
+  parsePerformanceContentAndUserData(contents, userPerformance) {
     let userPerformanceData = Ember.A([]);
     let numberOfCorrectAnswers = 0;
     let hasStarted = false;
-    questions.forEach((question, index) => {
-      let questionId = question.get('id');
+    contents.forEach((content, index) => {
+      let contentId = content.get('id');
       let performanceData = Ember.Object.create({
-        id: question.get('id'),
+        id: content.get('id'),
         sequence: index + 1
       });
       if (userPerformance) {
         performanceData.set('hasStarted', true);
         hasStarted = true;
         let resourceResults = userPerformance.get('resourceResults');
-        let resourceResult = resourceResults.findBy('resourceId', questionId);
+        let resourceResult = resourceResults.findBy('resourceId', contentId);
         if (resourceResult) {
           let reaction = resourceResult.get('reaction');
           performanceData.set('reaction', reaction);
@@ -388,7 +411,9 @@ export default Ember.Component.extend({
       }
       userPerformanceData.pushObject(performanceData);
     });
-    let overAllScore = (numberOfCorrectAnswers / questions.length) * 100;
+    let overAllScore = Math.round(
+      (numberOfCorrectAnswers / contents.length) * 100
+    );
     let resultSet = {
       userPerformanceData: userPerformanceData,
       overAllScore: overAllScore,

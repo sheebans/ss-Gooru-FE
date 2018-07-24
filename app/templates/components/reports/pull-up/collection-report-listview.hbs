@@ -2,7 +2,7 @@
   <table>
     <tbody>
       <tr>
-        <th class="header-name">
+        <th class="tabular-header">
           <div class="header-filters">
             <div class="name-filter">
               <span class="name-header">{{t 'common.name'}}</span>
@@ -29,7 +29,7 @@
           </div>
         </th>
       </tr>
-      {{#each studentPerformanceData as |student|}}
+      {{#each studentReportData as |student|}}
         <tr>
           <th>
             <div class="user-profile-summary">
@@ -60,25 +60,25 @@
   <table>
     <tbody>
       <tr>
-        {{#each questions as | question |}}
-          <th class="header-content">
-            <div class="question-header">
+        {{#each contents as | content |}}
+          <th class="tabular-header">
+            <div class="content-header">
               <div class="question-icon">
                 <i></i>
               </div>
-              <div class="question-title">
-                <p>{{safe-html question.title}}</p>
+              <div class="content-title">
+                <p>{{safe-html content.title}}</p>
               </div>
             </div>
           </th>
         {{/each}}
       </tr>
-      {{#each studentPerformanceData as |student|}}
+      {{#each studentReportData as |student|}}
         <tr>
           {{#each student.userPerformanceData as |userPerformanceData|}}
             <td>
               <div class="perf-time-react-container">
-                <div class="question-score-value">
+                <div class="content-score-value">
                   {{#if userPerformanceData.hasStarted}}
                     {{#if userPerformanceData.isSkipped}}
                       <div class="skipped">
