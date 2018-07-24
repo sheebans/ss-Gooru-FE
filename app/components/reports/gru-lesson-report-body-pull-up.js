@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import { formatTime } from '../../utils/utils';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -37,21 +39,77 @@ export default Ember.Component.extend({
       this.set('showLessonReportPullUp', false);
     },
 
-    sortStudents: function(criteria) {
-      if (this.get('sortBy') !== criteria) {
-        this.set('sortBy', criteria);
-        this.set('reverseSort', false);
-      } else {
-        this.set('reverseSort', !this.get('reverseSort'));
-      }
-    },
-
     filterByReportData: function(type) {
       let component = this;
       component.$('.data-filter').removeClass('active');
       component.$(`.${type}`).addClass('active');
       component.set('type', type);
+      if (type === 'collection') {
+        component.$('.performance').addClass('hide');
+      } else {
+        component.$('.performance').removeClass('hide');
+      }
       component.getStudentPerformances();
+    },
+
+    timeSpentToggle() {
+      let component = this;
+      component.$('span.ts-actions').toggleClass('hide-score');
+      component.$('.time-spent').toggleClass('disable-time');
+    },
+
+    sortByFirstName() {
+      let component = this;
+      component.toggleProperty('sortByFirstnameEnabled');
+      if (component.get('sortByFirstnameEnabled')) {
+        component.set(
+          'tableRow',
+          component.get('tableRow').sortBy('firstName')
+        );
+      } else {
+        component.set(
+          'tableRow',
+          component
+            .get('tableRow')
+            .sortBy('firstName')
+            .reverse()
+        );
+      }
+    },
+
+    sortByLastName() {
+      let component = this;
+      component.toggleProperty('sortByLastnameEnabled');
+      if (component.get('sortByLastnameEnabled')) {
+        component.set('tableRow', component.get('tableRow').sortBy('lastName'));
+      } else {
+        component.set(
+          'memberPerformances',
+          component
+            .get('memberPerformances')
+            .sortBy('lastName')
+            .reverse()
+        );
+      }
+    },
+
+    sortByScore() {
+      let component = this;
+      component.toggleProperty('sortByScoreEnabled');
+      if (component.get('sortByScoreEnabled')) {
+        component.set(
+          'tableRow',
+          component.get('tableRow').sortBy('overAllScore')
+        );
+      } else {
+        component.set(
+          'tableRow',
+          component
+            .get('tableRow')
+            .sortBy('overAllScore')
+            .reverse()
+        );
+      }
     }
   },
 
@@ -122,12 +180,6 @@ export default Ember.Component.extend({
   reverseSort: false,
 
   /**
-   * Propery to sort the score column.
-   * @property {type}
-   */
-  sortByScore: 'sortBy',
-
-  /**
    * Property to load the performance data
    */
   collections: Ember.A([]),
@@ -138,9 +190,67 @@ export default Ember.Component.extend({
   classMembers: Ember.A([]),
 
   /**
-   * Property to assessmentlist data
+   * Property to member performances data
    */
   memberPerformances: Ember.A([]),
+
+  /**
+   * Maintain the status of sort by firstName
+   * @type {String}
+   */
+  sortByFirstnameEnabled: true,
+
+  /**
+   * Maintain the status of sort by lastName
+   * @type {String}
+   */
+  sortByLastnameEnabled: false,
+
+  /**
+   * Maintain the status of sort by overAllScore
+   * @type {String}
+   */
+  sortByScoreEnabled: false,
+
+  /**
+   * This attribute decide default sorting key
+   * @type {String}
+   */
+  defaultSortCriteria: 'firstName',
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('assessment.standards.[]', function() {
+    let standards = this.get('assessment.standards');
+    if (standards) {
+      standards = standards.filter(function(standard) {
+        // Filter out learning targets (they're too long for the card)
+        return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
+      });
+      return TaxonomyTag.getTaxonomyTags(standards);
+    }
+  }),
+
+  /**
+   * Property to enable score , by default score is disabled
+   */
+  isScoreEnabled: false,
+
+  /**
+   * Property to enable reactions , by default reaction is disabled
+   */
+  isReactionEnabled: false,
+
+  /**
+   * Property to collection is active
+   */
+  isCollection: false,
+
+  /**
+   * Property to assessment is active
+   */
+  isAssessment: false,
 
   // -------------------------------------------------------------------------
   // Events
@@ -308,6 +418,10 @@ export default Ember.Component.extend({
       studentData.collections = tableBody;
       tableRow.push(studentData);
     });
+    tableRow = tableRow.sortBy(component.get('defaultSortCriteria'));
+    component.set('sortByLastnameEnabled', false);
+    component.set('sortByFirstnameEnabled', true);
+    component.set('sortByScoreEnabled', false);
     component.set('tableRow', tableRow);
   },
 
