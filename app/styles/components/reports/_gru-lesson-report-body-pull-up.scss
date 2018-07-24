@@ -220,6 +220,7 @@
 
     .a-filter {
       cursor: pointer;
+      margin-right: 264px !important;
     }
 
     .c-filter {
@@ -245,13 +246,13 @@
     }
 
     .performance {
-      margin-left: 253px;
       &.disable-score {
         opacity: 0.3;
       }
     }
     .time-spent {
       cursor: pointer;
+      float: right !important;
       &.disable-time {
         opacity: 0.3;
       }

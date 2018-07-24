@@ -52,6 +52,12 @@ export default Ember.Component.extend({
       component.getStudentPerformances();
     },
 
+    timeSpentToggle() {
+      let component = this;
+      component.$('span.ts-actions').toggleClass('hide-score');
+      component.$('.time-spent').toggleClass('disable-time');
+    },
+
     sortByFirstName() {
       let component = this;
       component.toggleProperty('sortByFirstnameEnabled');
