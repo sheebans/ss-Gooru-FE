@@ -44,6 +44,11 @@ export default Ember.Component.extend({
       component.$('.data-filter').removeClass('active');
       component.$(`.${type}`).addClass('active');
       component.set('type', type);
+      if (type === 'collection') {
+        component.$('.performance').addClass('hide');
+      } else {
+        component.$('.performance').removeClass('hide');
+      }
       component.getStudentPerformances();
     },
 
@@ -179,7 +184,7 @@ export default Ember.Component.extend({
   classMembers: Ember.A([]),
 
   /**
-   * Property to assessmentlist data
+   * Property to member performances data
    */
   memberPerformances: Ember.A([]),
 
@@ -220,6 +225,26 @@ export default Ember.Component.extend({
       return TaxonomyTag.getTaxonomyTags(standards);
     }
   }),
+
+  /**
+   * Property to enable score , by default score is disabled
+   */
+  isScoreEnabled: false,
+
+  /**
+   * Property to enable reactions , by default reaction is disabled
+   */
+  isReactionEnabled: false,
+
+  /**
+   * Property to collection is active
+   */
+  isCollection: false,
+
+  /**
+   * Property to assessment is active
+   */
+  isAssessment: false,
 
   // -------------------------------------------------------------------------
   // Events

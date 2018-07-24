@@ -125,10 +125,6 @@ export default Ember.Route.extend({
     /*
      status: 'pending', //'accepted' , 'regected', 'na= not applicable, already complted' , 'na = not avalible, course does not have anything to offer'
     */
-    /* route0Promise = new Ember.RSVP.Promise(function(resolve) {
-      resolve(route.get('routeMockData')); // mockdata //ToDo: Remove mockdata
-    }); */
-
     return Ember.RSVP.hash({
       userLocation: userLocation,
       course: course,
@@ -184,7 +180,7 @@ export default Ember.Route.extend({
     let collectionSubType = collection.get('collectionSubType');
     let minScore = collection.get('minScore');
     let pathId = collection.get('pathId') || 0;
-    let pathType = collection.get('pathType');
+    let pathType = collection.get('pathType') || '';
     let queryParams = {
       classId,
       unitId,
@@ -308,7 +304,7 @@ export default Ember.Route.extend({
       collectionId: resource.get('assessmentId'),
       source: PLAYER_EVENT_SOURCE.COURSE_MAP,
       pathId: resource.get('pathId'),
-      pathType: resource.get('pathType')
+      pathType: resource.get('pathType') || ''
     };
     route
       .get('navigateMapService')

@@ -23,7 +23,8 @@ export default PlayerController.extend({
     'pathId',
     'minScore',
     'collectionSource',
-    'isStudyPlayer'
+    'isStudyPlayer',
+    'pathType'
   ],
 
   // -------------------------------------------------------------------------

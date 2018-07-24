@@ -31,7 +31,7 @@
       }
 
       .scrollable-chart {
-        height: 370px;
+        height: 57vh;
         overflow-y: auto;
         width: max-content;
 
@@ -100,7 +100,7 @@
     .domain-list {
       width: calc(100% - 450px);
       margin-left: 12px;
-      max-height: 350px;
+      max-height: 62vh;
       overflow-y: auto;
 
       .domain {

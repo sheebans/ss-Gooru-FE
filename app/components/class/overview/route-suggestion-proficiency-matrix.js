@@ -6,6 +6,7 @@
  */
 import Ember from 'ember';
 import d3 from 'd3';
+import {getSubjectIdFromSubjectBucket} from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
 
@@ -112,7 +113,7 @@ export default Ember.Component.extend({
   getCompetencyMatrixCoordinates() {
     let component = this;
     let competencyService = component.get('competencyService');
-    let subjectId = component.get('course.subject');
+    let subjectId = getSubjectIdFromSubjectBucket(component.get('course.subject'));
     let domainMatrixCoordinatesPromise = Ember.RSVP.resolve(competencyService.getCompetencyMatrixCoordinates(subjectId));
     return Ember.RSVP.hash({
       domainMatrixCoordinates: domainMatrixCoordinatesPromise
@@ -127,7 +128,7 @@ export default Ember.Component.extend({
    */
   parseCompetencyData(userBaseLineCompetencies, competencyDomains, route0Suggetions) {
     let component = this;
-    const cellHeight = 15;
+    const cellHeight = component.get('cellHeight');
     let taxonomyDomains = Ember.A();
     let currentXaxis = 1;
     let resultSet = Ember.A();
@@ -203,7 +204,7 @@ export default Ember.Component.extend({
     component.set('height', cellHeight * Math.max(...numberOfCellsInEachColumn));
     component.set('taxonomyDomains', taxonomyDomains);
     component.drawChart(resultSet);
-    component.$('.scrollable-chart').scrollTop(component.get('height'));
+
   },
 
   /**
@@ -218,6 +219,7 @@ export default Ember.Component.extend({
     const colorsBasedOnStatus = component.get('colorsBasedOnStatus');
     const cellWidth = component.get('cellWidth');
     const cellHeight = component.get('cellHeight');
+    const suggestionCompetencyColor = component.get('route0SuggetionColor');
     const width = Math.round(numberOfCellsInEachColumn * cellWidth);
     component.set('width', width);
     const height = component.get('height');
@@ -258,10 +260,9 @@ export default Ember.Component.extend({
       .transition()
       .duration(1000)
       .style('fill', d => {
-        return d.isroute0SuggestedCompetency ? component.get('route0SuggetionColor') : colorsBasedOnStatus.get(d.status.toString());
+        return d.isroute0SuggestedCompetency ? suggestionCompetencyColor : colorsBasedOnStatus.get(d.status.toString());
       });
     cards.exit().remove();
-    component.$('.scrollable-chart').scrollTop(component.get('height'));
   }
 
 

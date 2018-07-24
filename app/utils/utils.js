@@ -966,3 +966,17 @@ export function getRoutePathFirstOccurrence() {
   let currentLocationPath = window.location.pathname;
   return currentLocationPath.split('/')[2];
 }
+
+
+/**
+ * Extract subject id by ignoring framework code, if available
+ * @return {String}
+ */
+export function getSubjectIdFromSubjectBucket(subjectBucket) {
+  let subjectBucketSize = subjectBucket.split('.');
+  let taxonomySubject = subjectBucket;
+  if (subjectBucketSize.length > 2) {  //subject with framework
+    taxonomySubject = subjectBucket.substring(subjectBucket.indexOf('.') + 1);
+  }
+  return taxonomySubject;
+}
