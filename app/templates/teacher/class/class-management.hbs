@@ -242,7 +242,7 @@
     </div>
   {{/if}}
   {{#if showPathWayPullUp}}
-    {{#gru-pull-up showPullUp=showPathWayPullUp as |pull-up|}}
+    {{#gru-pull-up pullUpType="pathway-pullup" showPullUp=showPathWayPullUp as |pull-up|}}
       {{#if pull-up.isShowHeader}}
         {{class.gru-learner-pathway model=studentPathway onOpenStudentReport="onOpenStudentReport" }}
       {{/if}}
@@ -254,12 +254,13 @@
   {{/if}}
 
   {{#if isShowProficiencyPullup}}
-    {{#gru-pull-up showPullUp=isShowProficiencyPullup onClosePullUp="onClosePullUp" as |pull-up|}}
+    {{#gru-pull-up pullUpType="proficiency-pullup" showPullUp=isShowProficiencyPullup onClosePullUp="onClosePullUp" as |pull-up|}}
       {{#if pull-up.isShowHeader}}
         {{proficiency.learner-proficiency-pull-up
            student=selectedStudent
            subjectBucket=subjectBucket
            class=class
+           course=course
            }}
       {{/if}}
     {{/gru-pull-up}}
