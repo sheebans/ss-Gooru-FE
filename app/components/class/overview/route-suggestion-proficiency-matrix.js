@@ -6,6 +6,7 @@
  */
 import Ember from 'ember';
 import d3 from 'd3';
+import {getSubjectIdFromSubjectBucket} from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
 
@@ -112,7 +113,7 @@ export default Ember.Component.extend({
   getCompetencyMatrixCoordinates() {
     let component = this;
     let competencyService = component.get('competencyService');
-    let subjectId = component.get('course.subject');
+    let subjectId = getSubjectIdFromSubjectBucket(component.get('course.subject'));
     let domainMatrixCoordinatesPromise = Ember.RSVP.resolve(competencyService.getCompetencyMatrixCoordinates(subjectId));
     return Ember.RSVP.hash({
       domainMatrixCoordinates: domainMatrixCoordinatesPromise
