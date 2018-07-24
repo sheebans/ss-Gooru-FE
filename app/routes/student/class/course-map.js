@@ -184,7 +184,7 @@ export default Ember.Route.extend({
     let collectionSubType = collection.get('collectionSubType');
     let minScore = collection.get('minScore');
     let pathId = collection.get('pathId') || 0;
-    let pathType = collection.get('pathType');
+    let pathType = collection.get('pathType') || '';
     let queryParams = {
       classId,
       unitId,
@@ -308,7 +308,7 @@ export default Ember.Route.extend({
       collectionId: resource.get('assessmentId'),
       source: PLAYER_EVENT_SOURCE.COURSE_MAP,
       pathId: resource.get('pathId'),
-      pathType: resource.get('pathType')
+      pathType: resource.get('pathType') || ''
     };
     route
       .get('navigateMapService')
