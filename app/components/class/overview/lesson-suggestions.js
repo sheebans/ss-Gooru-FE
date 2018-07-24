@@ -33,9 +33,9 @@ export default Ember.Component.extend(AccordionMixin, {
     studyNow: function(item, itemtype) {
       let type =
         !itemtype &&
-        (item.collectionType === 'assesment' ||
+        (item.collectionType === 'assessment' ||
           item.collectionType === 'collection')
-          ? item.collectionType
+          ? 'collection'
           : 'lesson';
       let itemid = item[`${type}Id`];
       item = Ember.Object.create(item);
