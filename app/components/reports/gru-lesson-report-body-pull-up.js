@@ -51,7 +51,11 @@ export default Ember.Component.extend({
       component.$('.data-filter').removeClass('active');
       component.$(`.${type}`).addClass('active');
       component.set('type', type);
-      component.$('.performance').css('cursor', 'not-allowed');
+      if (type === 'collection') {
+        component.$('.performance').addClass('hide');
+      } else {
+        component.$('.performance').removeClass('hide');
+      }
       component.getStudentPerformances();
     },
 
