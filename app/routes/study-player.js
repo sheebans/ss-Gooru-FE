@@ -61,7 +61,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         unitId: controller.get('unitId'),
         contextId,
         source: controller.get('source'),
-        minScore: controller.get('minScore')
+        minScore: controller.get('minScore'),
+        pathType: controller.get('pathType') || ''
       };
       if (classId) {
         queryParams.classId = classId;
