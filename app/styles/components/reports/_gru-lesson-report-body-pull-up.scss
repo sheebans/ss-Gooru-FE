@@ -73,13 +73,43 @@
       position: relative;
       display: block;
       background-color: #ffff;
-      color: #ccc;
       min-width: 241px;
       height: 45px;
-      text-align: center;
-      vertical-align: middle;
-      padding-top: 13px;
       border-right: 1px dashed #cccccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .header-filters {
+        height: 40px;
+        display: flex;
+
+        .name-filter {
+          height: 40px;
+          width: 241px;
+          padding-top: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .first-header,
+          .last-header,
+          .name-header {
+            margin-right: 10px;
+          }
+
+          .first-header,
+          .last-header {
+            display: flex;
+            opacity: 0.5;
+            cursor: pointer;
+
+            &.active {
+              opacity: 1;
+            }
+          }
+        }
+      }
     }
     /*tbody*/
     tbody {

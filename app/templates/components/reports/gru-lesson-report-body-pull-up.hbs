@@ -1,8 +1,8 @@
 <div class="report-body-content">
-  <div class="collapse-text dont-show">
-      <span class="scatter-text">TEKS.SS.4.19</span>
-      <span class="scatter-text">TEKS.SS.4.21</span>
-      <span class="scatter-text">TEKS.SS.4.22</span>
+  <div class="collapse-text">
+    {{#if tags.length}}
+      {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1  showTitle=true}}
+    {{/if}}
   </div><!-- collapse text div ends -->
   <!-- View 3  -->
   <div class="report-filters">
@@ -23,7 +23,27 @@
    <thead>
      <tr>
        <th>
-         {{tableHeader.student}} <i class="fa fa-fw fa-sort student-sort dont-show"></i>
+         <div class="header-filters">
+           <div class="name-filter">
+         <span class="name-header">{{tableHeader.student}}</span>
+         <span class="first-header {{if sortByFirstnameEnabled 'active'}}" {{action 'sortByFirstName'}}>
+           <span>{{t 'common.first'}}</span>
+         {{#if sortByFirstnameEnabled}}
+           {{gru-icon name="keyboard_arrow_up"}}
+         {{else}}
+           {{gru-icon name="keyboard_arrow_down"}}
+         {{/if}}
+         </span>
+         <span class="last-header {{if sortByLastnameEnabled 'active'}}" {{action 'sortByLastName'}}>
+           <span>{{t 'common.last'}}</span>
+           {{#if sortByLastnameEnabled}}
+             {{gru-icon name="keyboard_arrow_up"}}
+           {{else}}
+             {{gru-icon name="keyboard_arrow_down"}}
+           {{/if}}
+         </span>
+       </div>
+     </div>
        </th>
        {{#each tableHeader.collections as |collection|}}
          <th class="m-width">
