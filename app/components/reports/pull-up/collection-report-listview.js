@@ -67,14 +67,14 @@ export default Ember.Component.extend({
       component.toggleProperty('sortByFirstnameEnabled');
       if (component.get('sortByFirstnameEnabled')) {
         component.set(
-          'studentPerformanceData',
-          component.get('studentPerformanceData').sortBy('firstName')
+          'studentReportData',
+          component.get('studentReportData').sortBy('firstName')
         );
       } else {
         component.set(
-          'studentPerformanceData',
+          'studentReportData',
           component
-            .get('studentPerformanceData')
+            .get('studentReportData')
             .sortBy('firstName')
             .reverse()
         );
@@ -86,14 +86,14 @@ export default Ember.Component.extend({
       component.toggleProperty('sortByLastnameEnabled');
       if (component.get('sortByLastnameEnabled')) {
         component.set(
-          'studentPerformanceData',
-          component.get('studentPerformanceData').sortBy('lastName')
+          'studentReportData',
+          component.get('studentReportData').sortBy('lastName')
         );
       } else {
         component.set(
-          'studentPerformanceData',
+          'studentReportData',
           component
-            .get('studentPerformanceData')
+            .get('studentReportData')
             .sortBy('lastName')
             .reverse()
         );
@@ -105,14 +105,14 @@ export default Ember.Component.extend({
       component.toggleProperty('sortByScoreEnabled');
       if (component.get('sortByScoreEnabled')) {
         component.set(
-          'studentPerformanceData',
-          component.get('studentPerformanceData').sortBy('overAllScore')
+          'studentReportData',
+          component.get('studentReportData').sortBy('overAllScore')
         );
       } else {
         component.set(
-          'studentPerformanceData',
+          'studentReportData',
           component
-            .get('studentPerformanceData')
+            .get('studentReportData')
             .sortBy('overAllScore')
             .reverse()
         );
