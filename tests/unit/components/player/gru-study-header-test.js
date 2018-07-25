@@ -13,7 +13,6 @@ test('barChartData', function(assert) {
   let component;
   let aClass = Ember.Object.create({
     id: 'class-1',
-    courseId: 'course-1',
     title: 'MPM-Data Analytics Class'
   });
   let classPerformanceSummary = [
@@ -42,7 +41,6 @@ test('barChartData', function(assert) {
     () =>
       (component = this.subject({
         classId: 'class-1',
-        courseId: 'course-1',
         session: {
           userId: 'user-id'
         },
@@ -58,7 +56,7 @@ test('barChartData', function(assert) {
         performanceService: {
           findClassPerformanceSummaryByStudentAndClassIds: (
             userId,
-            [{classId, courseId}]
+            [{classId}]
           ) => {
             assert.equal(classId, 'class-1', 'Class id should match');
             return Ember.RSVP.resolve(classPerformanceSummary);
