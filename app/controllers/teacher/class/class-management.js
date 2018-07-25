@@ -336,6 +336,17 @@ export default Ember.Controller.extend(ModalMixin, {
    */
   selectedStudent: null,
 
+  /**
+   * @property {isCourseAssigned}
+   * Property to check whether a course is assigned to the class or not
+   */
+  isCourseAssigned: Ember.computed('class', function() {
+    let controller = this;
+    let classData = controller.get('class');
+    let isCourseAssigned = classData ? classData.courseId || false : false;
+    return isCourseAssigned;
+  }),
+
   // -------------------------------------------------------------------------
   // Observers
 

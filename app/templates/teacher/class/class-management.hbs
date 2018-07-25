@@ -219,7 +219,7 @@
                    {{gru-icon name='account_circle'}}
                 </span>
               </td>
-              <td class="student-actions">
+              <td class="student-actions {{if (not isCourseAssigned) 'disabled'}}">
                 <span class='Shape' data-toggle="tooltip" title='Pathway' {{action
                   'pathwayStudent' student}}>
                  {{gru-icon name='arrow_forward'}}
