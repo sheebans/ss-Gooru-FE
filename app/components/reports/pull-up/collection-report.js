@@ -96,6 +96,11 @@ export default Ember.Component.extend({
 
     studentReport(collection, userId) {
       this.sendAction('studentReport', collection, userId);
+    },
+
+    onClickChart(userId) {
+      let collection = this.get('selectedCollection');
+      this.sendAction('studentReport', collection, userId);
     }
   },
 
@@ -339,6 +344,7 @@ export default Ember.Component.extend({
     let classMembers = component.get('classMembers');
     let users = Ember.A([]);
     let usersChartData = Ember.A([]);
+    let usersTotaltimeSpent = Ember.A([]);
     classMembers.forEach(member => {
       let user = Ember.Object.create({
         id: member.id,
@@ -363,9 +369,11 @@ export default Ember.Component.extend({
       user.set('hasStarted', resultSet.hasStarted);
       userChartData.set('hasStarted', resultSet.hasStarted);
       userChartData.set('score', resultSet.overAllScore);
+      userChartData.set('totalTimeSpent', resultSet.totalTimeSpent);
       userChartData.set('difference', 100 - resultSet.overAllScore);
       users.pushObject(user);
       usersChartData.pushObject(userChartData);
+      usersTotaltimeSpent.push(resultSet.totalTimeSpent);
     });
     users = users.sortBy(component.get('defaultSortCriteria'));
     usersChartData = usersChartData.sortBy(
@@ -375,6 +383,8 @@ export default Ember.Component.extend({
     component.set('sortByFirstnameEnabled', false);
     component.set('sortByScoreEnabled', false);
     component.set('studentReportData', users);
+    let maxTimeSpent = Math.max(...usersTotaltimeSpent);
+    component.calculateTimeSpentScore(usersChartData, maxTimeSpent);
     component.set('studentChartReportData', usersChartData);
     component.handleCarouselControl();
   },
@@ -382,6 +392,7 @@ export default Ember.Component.extend({
   parsePerformanceContentAndUserData(contents, userPerformance) {
     let userPerformanceData = Ember.A([]);
     let numberOfCorrectAnswers = 0;
+    let totalTimeSpent = 0;
     let hasStarted = false;
     contents.forEach((content, index) => {
       let contentId = content.get('id');
@@ -404,6 +415,7 @@ export default Ember.Component.extend({
           if (resourceResult.get('correct')) {
             numberOfCorrectAnswers++;
           }
+          totalTimeSpent = totalTimeSpent + resourceResult.get('timeSpent');
           performanceData.set('correct', resourceResult.get('correct'));
           performanceData.set('timeSpent', resourceResult.get('timeSpent'));
           performanceData.set('isSkipped', !resourceResult.get('userAnswer'));
@@ -421,7 +433,8 @@ export default Ember.Component.extend({
     let resultSet = {
       userPerformanceData: userPerformanceData,
       overAllScore: overAllScore,
-      hasStarted: hasStarted
+      hasStarted: hasStarted,
+      totalTimeSpent: totalTimeSpent
     };
     return resultSet;
   },
@@ -455,5 +468,15 @@ export default Ember.Component.extend({
           .removeClass('in-active');
       }
     }
+  },
+
+  calculateTimeSpentScore(usersChartData, maxTimeSpent) {
+    usersChartData.forEach(data => {
+      let timeSpentScore = Math.round(
+        (data.get('totalTimeSpent') / maxTimeSpent) * 100
+      );
+      data.set('timeSpentScore', timeSpentScore);
+      data.set('timeSpentDifference', 100 - timeSpentScore);
+    });
   }
 });

@@ -37,15 +37,31 @@ export default Ember.Component.extend({
       data.push(studentChartReportData.slice(index, index + numberOfBars));
     }
     return data;
-  })
+  }),
+
+  /**
+   * This attribute will decide which field to use for chart
+   * @type {Boolean}
+   */
+  useTimeSpentScore: false,
+
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    onClickChart(userId) {
+      this.sendAction('onClickChart', userId);
+    },
+
+    onClickPrev() {
+      this.$('#report-bar-carousel-wrapper').carousel('prev');
+    },
+
+    onClickNext() {
+      this.$('#report-bar-carousel-wrapper').carousel('next');
+    }
+  }
 
   // -------------------------------------------------------------------------
   // Events
-
-  /**
-   * Function to triggered once when the component element is first rendered.
-   */
-  /*didInsertElement() {
-    let component = this;
-  }*/
 });

@@ -15,6 +15,10 @@
           width: 30px;
           height: 140px;
           margin-left: 2px;
+          cursor: pointer;
+          &.not-started {
+            pointer-events: none;
+          }
 
           .bar-chart {
             width: 30px;

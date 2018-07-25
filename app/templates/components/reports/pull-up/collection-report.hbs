@@ -50,7 +50,7 @@
             <div class="collection-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedCollection.performance.score))}}>{{selectedCollection.performance.score}}%</div>
           </div>
           <div class="collection-report-chart">
-            {{charts.report-bar-chart studentChartReportData=studentChartReportData}}
+            {{charts.report-bar-chart studentChartReportData=studentChartReportData onClickChart="onClickChart"}}
           </div>
         </div>
       </div>

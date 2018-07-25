@@ -94,6 +94,15 @@
               height: 29px;
             }
           }
+
+          .username {
+            width: 200px;
+            @include ellipsis(
+              $font-size: 13px,
+              $line-height: 1.2,
+              $lines-to-show: 1
+            );
+          }
         }
       }
 
