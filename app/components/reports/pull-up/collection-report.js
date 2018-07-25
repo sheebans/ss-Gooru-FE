@@ -275,7 +275,7 @@ export default Ember.Component.extend({
       {
         top: '10%'
       },
-      850
+      400
     );
   },
 
@@ -285,7 +285,7 @@ export default Ember.Component.extend({
       {
         top: '100%'
       },
-      850,
+      400,
       function() {
         component.set('showPullUp', false);
       }
@@ -299,11 +299,16 @@ export default Ember.Component.extend({
       let headerTabular = component.$(
         '.report-content .pull-up-collection-report-listview .tabular-header'
       );
+      let scrollArrow = component.$(
+        '.pull-up-collection-report-listview .scroll-arrow'
+      );
       if (scrollTop >= 347) {
         let position = scrollTop - 347;
         component.$(headerTabular).css('top', `${position}px`);
+        component.$(scrollArrow).css('top', `${position}px`);
       } else {
         component.$(headerTabular).css('top', '0px');
+        component.$(scrollArrow).css('top', '0px');
       }
     });
   },

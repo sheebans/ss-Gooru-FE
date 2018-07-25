@@ -43,7 +43,11 @@
     th.m-width {
       width: 270px;
       border-right: 1px dashed #cccccc;
-
+      cursor: pointer;
+      &.collection,
+      &.not-started {
+        pointer-events: none;
+      }
       .assessment-title {
         padding-top: 8px;
         float: left;
