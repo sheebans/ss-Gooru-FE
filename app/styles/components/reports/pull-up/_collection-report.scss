@@ -1,4 +1,4 @@
-.reports.pull-up-assessment-report {
+.reports.pull-up-collection-report {
   position: fixed;
   top: 100%;
   z-index: 1031;
@@ -22,7 +22,7 @@
     opacity: 0.9;
   }
 
-  .assessment-report-container {
+  .collection-report-container {
     background: #ffffff;
     width: 768px;
     max-height: 90vh;
@@ -31,15 +31,18 @@
     .report-header {
       display: flex;
       height: 60px;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 1;
 
       .report-breadcrumb {
-        width: calc(100% - 100px);
+        width: calc(100% - 50px);
         display: flex;
 
         .unit-title {
           display: flex;
           align-items: center;
-          max-width: 190px;
+          max-width: 215px;
 
           p {
             max-width: 170px;
@@ -64,7 +67,7 @@
         .lesson-title {
           display: flex;
           align-items: center;
-          max-width: 190px;
+          max-width: 215px;
 
           .keyboard_arrow_right {
             margin-right: 5px;
@@ -90,7 +93,7 @@
           }
         }
 
-        .assessment-title {
+        .collection-title {
           display: flex;
           align-items: center;
           max-width: 300px;
@@ -105,7 +108,7 @@
             );
           }
 
-          .assessment-icon {
+          .collection-icon {
             width: 40px;
             height: 50px;
             background-image: url("../assets/gooru/images/assessment-gray.svg");
@@ -117,12 +120,13 @@
       }
 
       .report-close-pullup {
-        width: 100px;
+        width: 50px;
 
         .close {
           color: #ccc;
           margin-top: 20px;
-          margin-right: 35px;
+          margin-right: 20px;
+          font-size: 24px;
         }
       }
     }
@@ -136,23 +140,60 @@
     .report-carousel {
       position: relative;
 
-      .assessment-cover-img {
-        width: 100%;
-        background-position: center center;
-        background-size: cover;
-        height: 350px;
+      .loading-spinner {
+        position: absolute;
+        top: 0;
+        left: 45%;
       }
 
-      .left,
-      .right {
-        z-index: 2;
-        display: none;
+      #report-carousel-wrapper {
+        background-image: linear-gradient(#35424b, #35424b);
+        background-blend-mode: multiply;
 
-        i {
-          font-size: 100px;
-          color: #ccc;
-          top: 40%;
-          position: relative;
+        .collection-background-cover {
+          height: 297px;
+          background-image: linear-gradient(#35424b, #35424b);
+          background-blend-mode: multiply;
+        }
+
+        .carousel-control {
+          opacity: 1;
+          background: none;
+          &.in-active {
+            opacity: 0.3;
+            pointer-events: none;
+          }
+          &.left {
+            z-index: 2;
+            width: 45px;
+
+            .arrow-left {
+              width: 25px;
+              height: 56px;
+              display: block;
+              background-image: url("../assets/gooru/images/arrow-left.svg");
+              background-repeat: no-repeat;
+              margin-left: 15px;
+              position: relative;
+              top: 42%;
+            }
+          }
+
+          &.right {
+            z-index: 2;
+            width: 45px;
+
+            .arrow-right {
+              width: 25px;
+              height: 56px;
+              display: block;
+              background-image: url("../assets/gooru/images/arrow-right.svg");
+              background-repeat: no-repeat;
+              margin-left: 10px;
+              position: relative;
+              top: 42%;
+            }
+          }
         }
       }
 
@@ -166,31 +207,39 @@
         background: rgba(0, 0, 0, 0.3);
 
         .report-carousel-content {
-          width: 500px;
+          width: 640px;
           margin: auto;
           position: relative;
-          z-index: 3;
+          display: flex;
 
-          .assessment-performance-average {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            font-size: 40px;
-            color: #fff;
-            line-height: 150px;
-            text-align: center;
-            font-weight: bold;
-            margin-left: 166px;
+          .performance-display-container {
+            margin-right: 15px;
+            margin-top: 15px;
+            width: 190px;
+
+            .collection-performance-average {
+              width: 185px;
+              height: 185px;
+              border-radius: 50%;
+              color: #fff;
+              line-height: 185px;
+              text-align: center;
+              font-weight: bold;
+              text-indent: 10px;
+              font-size: 70px;
+              color: #35424b;
+            }
           }
 
-          .assessment-description {
-            color: #fff;
-            @include ellipsis(
-              $font-size: 18px,
-              $line-height: 1.2,
-              $lines-to-show: 4
-            );
-            margin-top: 15px;
+          .collection-report-chart {
+            display: flex;
+            align-items: center;
+            width: 445px;
+            position: relative;
+
+            .report-bar-chart {
+              margin-left: 28px;
+            }
           }
         }
       }
@@ -205,6 +254,8 @@
         height: 50px;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
         display: flex;
+        position: relative;
+        z-index: 1;
 
         .taxonomy-details {
           width: 278px;
@@ -222,12 +273,16 @@
 
               .standard-tag {
                 width: 200px;
-                display: flex;
-                align-items: center;
                 padding-left: 10px;
                 padding-right: 10px;
+                padding-top: 13px;
+
+                b {
+                  color: #fff;
+                }
               }
             }
+
             .non-visible-tags {
               margin-top: 10px;
               margin-left: 10px;
@@ -334,8 +389,7 @@
             .filter-btns {
               .reaction-icon,
               .timespent-icon {
-                opacity: 0.5;
-                pointer-events: none;
+                visibility: hidden;
               }
             }
           }

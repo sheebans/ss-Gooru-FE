@@ -1,5 +1,5 @@
 {{#each visibleTags as |taxonomyTag|}}
-  {{taxonomy.gru-taxonomy-tag showTitle=showTitle model=taxonomyTag isEditing=isEditing hasTooltip=hasTooltips onRemove=(action 'removeTag' taxonomyTag) onAdd=(action 'addTag' taxonomyTag)}}
+  {{taxonomy.gru-taxonomy-tag model=taxonomyTag isEditing=isEditing hasTooltip=hasTooltips onRemove=(action 'removeTag' taxonomyTag) onAdd=(action 'addTag' taxonomyTag)}}
 {{/each}}
 
 {{#if nonVisibleTags}}
@@ -12,15 +12,14 @@
       model=taxonomyTag
       isEditing=isEditing
       hasTooltip=false
-      showTitle=showTitle
       onRemove=(action 'removeTag' taxonomyTag)
       onAdd=(action 'addTag' taxonomyTag)
       }}
       {{#if showDescription}}
         <div class="panel panel-default description-tag">
-            <div class="panel-body">
-              {{truncate text=taxonomyTag.data.title maxLength=80}}
-            </div>
+          <div class="panel-body">
+            {{truncate text=taxonomyTag.data.title maxLength=80}}
+          </div>
         </div>
       {{/if}}
     {{/each}}

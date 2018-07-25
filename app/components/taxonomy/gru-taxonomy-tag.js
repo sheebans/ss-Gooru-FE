@@ -88,12 +88,6 @@ export default Ember.Component.extend({
    */
   onAdd: null,
 
-  /**
-   * This property takes priority title field to show, by default it's false
-   * @type {Boolean}
-   */
-  showTitle: false,
-
   // -------------------------------------------------------------------------
   // Methods
 

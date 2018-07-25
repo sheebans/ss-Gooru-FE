@@ -1,4 +1,4 @@
-.reports.pull-up-assessment-report-listview {
+.reports.pull-up-collection-report-listview {
   .table-fixed-left {
     border-collapse: collapse;
     width: 300px;
@@ -21,9 +21,16 @@
         border-bottom: 1px solid #cccccc;
         overflow: hidden;
 
+        &.tabular-header {
+          position: relative;
+          background-color: #fff;
+          border-bottom: 0;
+        }
+
         .header-filters {
           height: 40px;
           display: flex;
+          border-bottom: 1px solid #cccccc;
 
           .name-filter {
             height: 40px;
@@ -51,19 +58,13 @@
             }
           }
 
-          .rubric-filter {
+          .avg-filter {
             width: 45px;
             height: 40px;
-
-            .rubric-icon {
-              background-image: url("../assets/gooru/images/navigation_rubric_icon.svg");
-              background-repeat: no-repeat;
-              width: 20px;
-              width: 35px;
-              height: 40px;
-              display: block;
-              background-position: 10px 13px;
-            }
+            padding-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
         }
       }
@@ -77,9 +78,11 @@
           display: flex;
           align-items: center;
           cursor: pointer;
+
           &.not-started {
             pointer-events: none;
           }
+
           .user-profile-img {
             width: 43px;
 
@@ -88,7 +91,17 @@
               border-radius: 50%;
               margin-left: 7px;
               border-color: transparent;
+              height: 29px;
             }
+          }
+
+          .username {
+            width: 200px;
+            @include ellipsis(
+              $font-size: 13px,
+              $line-height: 1.2,
+              $lines-to-show: 1
+            );
           }
         }
       }
@@ -125,10 +138,17 @@
       }
 
       th {
-        .question-header {
+        &.tabular-header {
+          position: relative;
+          background-color: #fff;
+          border-bottom: 0;
+        }
+
+        .content-header {
           width: 200px;
           height: 40px;
           display: flex;
+          border-bottom: 1px solid #cccccc;
 
           .question-icon {
             width: 45px;
@@ -144,7 +164,7 @@
             }
           }
 
-          .question-title {
+          .content-title {
             width: calc(100% - 40px);
             display: flex;
             align-items: center;
@@ -179,7 +199,7 @@
           align-items: center;
           justify-content: center;
 
-          .question-score-value {
+          .content-score-value {
             width: calc(200px / 3);
 
             div {
