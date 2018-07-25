@@ -755,7 +755,7 @@ export default Object.assign(quizzesTranslations, {
       'course-map': {
         'rescope-toggle': 'Show Complete Course Map',
         'rescope-info':
-          'This course has been personalized specifically for you from the Math Foundation course. To see the original course, enable this feature.',
+          'This course has been personalized specifically for you from the Math Foundation course.',
         'custom-msg':
           'We are personalizing this course specifically for you based on your proficiency. Please check back in a little while to see the personalized course map.',
 
