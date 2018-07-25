@@ -22,11 +22,6 @@ export default Ember.Component.extend({
    */
   lessonService: Ember.inject.service('api-sdk/lesson'),
 
-  /**
-   * @requires service:api-sdk/analytics
-   */
-  analyticsService: Ember.inject.service('api-sdk/analytics'),
-
   // -------------------------------------------------------------------------
   // Attributes
 
