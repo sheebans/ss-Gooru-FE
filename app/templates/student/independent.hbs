@@ -27,7 +27,7 @@
         </div>
         <div class="teacher-profile">
           {{#if course.owner}}
-            <div class="title">
+            <div class="title pull-left">
               {{t (if course.sameOwnerAndCreator "common.created-by" "common.remixed-by")}}
             </div>
             {{#link-to 'profile.content.courses' course.owner.id class="pointer pull-left profile-container" tagName="div" }}

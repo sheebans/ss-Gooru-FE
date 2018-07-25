@@ -15,11 +15,9 @@
         width: 75px;
         height: 64px;
         float: $tab-float-dir;
-        border-right: $border-right-side2 #e3e5ea;
-        border-left: $border-left-side2 #e3e5ea;
+        border-right: 2px solid #e3e5ea;
         cursor: pointer;
         .nav-icon-container {
-          margin-right: 20px;
           i {
             margin-left: 32px;
             margin-top: 20px;
@@ -30,8 +28,7 @@
         width: 75px;
         height: 64px;
         float: $tab-float-dir;
-        border-right: $border-right-side2 #e3e5ea;
-        border-left: $border-left-side2 #e3e5ea;
+        border-right: 2px solid #e3e5ea;
         cursor: pointer;
         .nav-icon-container {
           i {
@@ -43,7 +40,6 @@
       .content-title {
         height: 64px;
         width: calc(100% - 75px);
-        float: $tab-float-dir;
         .title {
           $line-height: 1.3;
           $lines-to-show: 2;
@@ -59,11 +55,9 @@
     }
     &.row {
       > [class*="col"] {
-        border-right: $border-right-side2 $light-200;
-        border-left: $border-left-side2 $light-200;
+        border-right: 2px solid $light-200;
         height: 64px;
         background-color: $blue-400;
-        float: $tab-float-dir;
       }
     }
 
@@ -73,7 +67,6 @@
       .suggest-player {
         width: calc(100% - 366px);
         height: 64px;
-        float: $tab-float-dir;
         .carousel-control {
           &.left,
           &.right {
@@ -129,7 +122,6 @@
         .resource-icon {
           display: inline-block;
           margin-right: 10px;
-          margin-left: 10px;
           float: $tab-float-dir;
           position: relative;
           @include translateY(-50%);
@@ -203,13 +195,11 @@
     }
     .performance-completion-take-tour-info {
       width: 366px;
-      float: $tab-float-dir;
       .completion {
         border-left: 2px solid $light-200;
         height: 64px;
         width: 143px;
         border-right: 2px solid $light-200;
-        float: $tab-float-dir;
         .score {
           font-weight: 900;
           font-size: 35px;
@@ -231,7 +221,6 @@
       .performance {
         height: 64px;
         width: 143px;
-        float: $tab-float-dir;
         .score {
           font-weight: 900;
           font-size: 35px;
@@ -253,13 +242,11 @@
       .take-a-tour {
         padding-left: 12px;
         padding-top: 4px;
-        border-left: $border-right-side2 $light-200;
-        border-right: $border-left-side2 $light-200;
+        border-left: 2px solid $light-200;
         width: 80px;
         background: $white;
         height: 64px;
         border-bottom: 1px solid $light-200;
-        float: $tab-float-dir;
         .gru-take-tour {
           display: block !important;
         }
