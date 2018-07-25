@@ -1,19 +1,19 @@
 <div class="report-backdrop" {{action 'onPullUpClose'}}></div>
-<div class="assessment-report-container">
+<div class="collection-report-container">
   <div class="report-header">
     <div class="report-breadcrumb">
       <div class="unit-title">
         <i class="unit-icon"></i>
-        <p>{{unit.title}}</p>
+        <p>{{t 'common.unit'}} {{unit.sequence}} : {{unit.title}}</p>
       </div>
       <div class="lesson-title">
         {{gru-icon name="keyboard_arrow_right"}}
         <i class="lesson-icon"></i>
-        <p>{{lesson.title}}</p>
+        <p>{{t 'common.lesson'}} {{lesson.sequence}} : {{lesson.title}}</p>
       </div>
-      <div class="assessment-title">
+      <div class="collection-title">
         {{gru-icon name="keyboard_arrow_right"}}
-        <i class="assessment-icon"></i>
+        <i class="collection-icon"></i>
         <p>{{selectedCollection.title}}</p>
       </div>
     </div>
@@ -26,28 +26,32 @@
       <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
         <div class="carousel-inner">
           {{#each collections as |collectionItem index|}}
-            {{#if (eq collectionItem.format 'assessment')}}
-              <div data-item-index="{{index}}" class="item {{if (eq collectionItem.id  selectedCollection.id) 'active'}}">
-                <img class="assessment-cover-img" src="{{collectionItem.thumbnailUrl}}" />
-              </div>
-            {{/if}}
+            <div data-item-index="{{index}}" class="item {{if (eq collectionItem.id  selectedCollection.id) 'active'}}">
+              <div class="collection-background-cover" />
+            </div>
           {{/each}}
         </div>
         <!-- Left and right controls -->
         <a class="left carousel-control" data-slide="prev" {{action 'onClickPrev'}}>
-        {{gru-icon name="keyboard_arrow_left"}}
-      </a>
+          <i class="arrow-left"></i>
+        </a>
         <a class="right carousel-control" data-slide="next" {{action 'onClickNext'}}>
-        {{gru-icon name="keyboard_arrow_right"}}
-      </a>
+          <i class="arrow-right"></i>
+        </a>
       </div>
+      {{#if isLoading}}
+        <div class="loading-spinner">
+          {{three-bounce-spinner}}
+        </div>
+      {{/if}}
       <div class="report-carousel-content-container">
         <div class="report-carousel-content">
-          {{#if isLoading}}
-            {{three-bounce-spinner}}
-          {{/if}}
-          <div class="assessment-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedCollection.performance.score))}}>{{selectedCollection.performance.score}}%</div>
-          <div class="assessment-description">{{assessment.learningObjectives}}</div>
+          <div class="performance-display-container">
+            <div class="collection-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedCollection.performance.score))}}>{{selectedCollection.performance.score}}%</div>
+          </div>
+          <div class="collection-report-chart">
+            {{charts.report-bar-chart studentChartReportData=studentChartReportData onClickChart="onClickChart"}}
+          </div>
         </div>
       </div>
     </div>
@@ -56,7 +60,7 @@
       <div class="report-header-container">
         <div class="taxonomy-details">
           {{#if tags.length}}
-            {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1  showTitle=true}}
+            {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 showDescription=true }}
           {{/if}}
         </div>
         <div class="report-action-btns">
@@ -88,19 +92,19 @@
       </div>
       <div class="report-view-container">
         {{#if isGridView}}
-          {{reports.pull-up.assessment-report-gridview
-            questions=assessment.children
-            studentPerformanceData=studentPerformanceData
+          {{reports.pull-up.collection-report-gridview
+            contents=collection.children
+            studentReportData=studentReportData
             selectedCollection=selectedCollection
             studentReport="studentReport"
           }}
         {{else}}
-          {{reports.pull-up.assessment-report-listview
+          {{reports.pull-up.collection-report-listview
             sortByFirstnameEnabled=sortByFirstnameEnabled
             sortByLastnameEnabled=sortByLastnameEnabled
             sortByScoreEnabled=sortByScoreEnabled
-            questions=assessment.children
-            studentPerformanceData=studentPerformanceData
+            contents=collection.children
+            studentReportData=studentReportData
             selectedCollection=selectedCollection
             isReactionFltApplied=isReactionFltApplied
             isTimeSpentFltApplied=isTimeSpentFltApplied

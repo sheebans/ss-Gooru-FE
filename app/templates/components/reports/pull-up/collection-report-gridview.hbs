@@ -1,5 +1,5 @@
 <div class="grid-view-container">
-  {{#each studentPerformanceData as |student|}}
+  {{#each studentReportData as |student|}}
     <div class="grid-view-card">
       <div class="user-profile-summary">
         <div class="user-profile-details {{unless student.hasStarted 'not-started'}}" {{action 'studentReport' selectedCollection student.id}}>
@@ -12,9 +12,9 @@
           </div>
         </div>
       </div>
-      <div class="questions-container">
+      <div class="contents-container">
         {{#each student.userPerformanceData as |userPerformanceData|}}
-          <div class="question-score-value">
+          <div class="content-score-value">
             {{#if userPerformanceData.hasStarted}}
               {{#if userPerformanceData.isSkipped}}
                 <div class="skipped">

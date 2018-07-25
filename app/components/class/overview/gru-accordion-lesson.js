@@ -269,10 +269,10 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
     },
 
     /**
-     * Load the student report data for this assessment
-     * @function actions:StudentAssesmentReportPullup
+     * Load the student report data for this collection
+     * @function actions:StudentCollectionReportPullup
      */
-    teacherAssessmentReport(collection) {
+    teacherCollectionReport(collection) {
       let component = this;
       let currentClass = component.get('currentClass');
       let userId = component.get('session.userId');
@@ -292,8 +292,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         collections: component.get('items'),
         classMembers: component.get('classMembers')
       };
-      component.set('teacherAssessmentReportData', params);
-      component.set('showAssessmentReportPullUp', true);
+      component.set('teacherCollectionReportData', params);
+      component.set('showCollectionReportPullUp', true);
     }
   },
 
