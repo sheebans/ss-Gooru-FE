@@ -16,11 +16,11 @@
               </span>
               <span class="last-header {{if sortByLastnameEnabled 'active'}}" {{action 'sortByLastName'}}>
                 <span>{{t 'common.last'}}</span>
-                {{#if sortByLastnameEnabled}}
-                  {{gru-icon name="keyboard_arrow_up"}}
-                {{else}}
-                  {{gru-icon name="keyboard_arrow_down"}}
-                {{/if}}
+              {{#if sortByLastnameEnabled}}
+                {{gru-icon name="keyboard_arrow_up"}}
+              {{else}}
+                {{gru-icon name="keyboard_arrow_down"}}
+              {{/if}}
               </span>
             </div>
             <div class="avg-filter">
@@ -94,9 +94,9 @@
                 {{#if isTimeSpentFltApplied}}
                   <div class="timespent-value">
                     {{#if userPerformanceData.timeSpent}}
-                    <span>{{format-time userPerformanceData.timeSpent}}</span>
+                      <span>{{format-time userPerformanceData.timeSpent}}</span>
                     {{else}}
-                    <span>--</span>
+                      <span>--</span>
                     {{/if}}
                   </div>
                 {{/if}}
@@ -121,9 +121,11 @@
     </tbody>
   </table>
 </div>
-<span class="scroll-left-arrow scroll-arrow" {{action 'onClickScrollLeftArrow'}}>
-  {{gru-icon name="keyboard_arrow_left"}}
-</span>
-<span class="scroll-right-arrow scroll-arrow" {{action 'onClickScrollRightArrow'}}>
-  {{gru-icon name="keyboard_arrow_right"}}
-</span>
+{{#if (gt contents.length 2)}}
+  <span class="scroll-left-arrow scroll-arrow" {{action 'onClickScrollLeftArrow'}}>
+    {{gru-icon name="keyboard_arrow_left"}}
+  </span>
+  <span class="scroll-right-arrow scroll-arrow" {{action 'onClickScrollRightArrow'}}>
+    {{gru-icon name="keyboard_arrow_right"}}
+  </span>
+{{/if}}
