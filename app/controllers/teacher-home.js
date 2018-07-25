@@ -50,10 +50,10 @@ export default Ember.Controller.extend(ModalMixin, {
     let archivedClasses = this.get('archivedClass')
       ? this.get('archivedClass')
       : this.get('archivedClasses');
-    let classIds = archivedClasses.mapBy('id');
+    let classCourseIds = route.getListOfClassCourseIds(archivedClasses);
     route
       .get('performanceService')
-      .findClassPerformanceSummaryByClassIds(classIds)
+      .findClassPerformanceSummaryByClassIds(classCourseIds)
       .then(function(classPerformanceSummaryItems) {
         archivedClasses.forEach(function(archiveClass) {
           let classId = archiveClass.get('id');
@@ -73,6 +73,24 @@ export default Ember.Controller.extend(ModalMixin, {
         });
       });
   }),
+
+  /**
+   * @function getListOfClassCourseIds
+   * Method to fetch class and course ids from the list of classess
+   */
+  getListOfClassCourseIds(activeClasses) {
+    let listOfActiveClassCourseIds = Ember.A([]);
+    activeClasses.map( activeClass => {
+      if (activeClass.courseId) {
+        let classCourseId = {
+          classId: activeClass.id,
+          courseId: activeClass.courseId
+        };
+        listOfActiveClassCourseIds.push(classCourseId);
+      }
+    });
+    return listOfActiveClassCourseIds;
+  },
 
   /**
    * @function getLastAccessedClassData

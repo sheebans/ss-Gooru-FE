@@ -87,52 +87,59 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     const classId = params.classId;
     const classPromise = route.get('classService').readClassInfo(classId);
     const membersPromise = route.get('classService').readClassMembers(classId);
-    const performanceSummaryPromise = route
-      .get('performanceService')
-      .findClassPerformanceSummaryByClassIds([classId]);
-    return Ember.RSVP
-      .hash({
-        class: classPromise,
-        members: membersPromise,
-        classPerformanceSummaryItems: performanceSummaryPromise
-      })
-      .then(function(hash) {
-        const aClass = hash.class;
-        const members = hash.members;
-        const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
-        aClass.set(
-          'performanceSummary',
-          classPerformanceSummaryItems.findBy('classId', classId)
-        );
+    return classPromise.then(function(classData) {
+      let classCourseId = null;
+      if (classData.courseId) {
+        classCourseId = Ember.A([{classId: classData.id, courseId: classData.courseId}]);
+      }
+      const performanceSummaryPromise = classCourseId ? route
+        .get('performanceService')
+        .findClassPerformanceSummaryByClassIds(classCourseId) : null;
+      return Ember.RSVP
+        .hash({
+          class: classPromise,
+          members: membersPromise,
+          classPerformanceSummaryItems: performanceSummaryPromise
+        })
+        .then(function(hash) {
+          const aClass = hash.class;
+          const members = hash.members;
+          const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
+          let classPerformanceSummaryItem = classPerformanceSummaryItems ? classPerformanceSummaryItems.findBy('classId', classId) : null;
+          aClass.set(
+            'performanceSummary',
+            classPerformanceSummaryItem
+          );
 
-        const courseId = aClass.get('courseId');
-        let visibilityPromise = Ember.RSVP.resolve([]);
-        let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
+          const courseId = aClass.get('courseId');
+          let visibilityPromise = Ember.RSVP.resolve([]);
+          let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
 
-        if (courseId) {
-          visibilityPromise = route
-            .get('classService')
-            .readClassContentVisibility(classId);
-          coursePromise = route.get('courseService').fetchById(courseId);
-        }
-        return Ember.RSVP
-          .hash({
-            contentVisibility: visibilityPromise,
-            course: coursePromise
-          })
-          .then(function(hash) {
-            const contentVisibility = hash.contentVisibility;
-            const course = hash.course;
-            aClass.set('owner', members.get('owner'));
-            aClass.set('collaborators', members.get('collaborators'));
-            aClass.set('members', members.get('members'));
-            return {
-              class: aClass,
-              course,
-              contentVisibility
-            };
-          });
-      });
+          if (courseId) {
+            visibilityPromise = route
+              .get('classService')
+              .readClassContentVisibility(classId);
+            coursePromise = route.get('courseService').fetchById(courseId);
+          }
+          return Ember.RSVP
+            .hash({
+              contentVisibility: visibilityPromise,
+              course: coursePromise
+            })
+            .then(function(hash) {
+              const contentVisibility = hash.contentVisibility;
+              const course = hash.course;
+              aClass.set('owner', members.get('owner'));
+              aClass.set('collaborators', members.get('collaborators'));
+              aClass.set('members', members.get('members'));
+              return {
+                class: aClass,
+                course,
+                contentVisibility
+              };
+            });
+        });
+    });
   },
 
   /**
