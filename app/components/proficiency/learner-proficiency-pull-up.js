@@ -129,5 +129,25 @@ export default Ember.Component.extend({
     let firstName = component.get('student.firstName') || '';
     let lastName = component.get('student.lastName') || '';
     return `${firstName} ${lastName}`;
+  }),
+
+  /**
+   * @property {Date}
+   * Property to store course started date or one year before date
+   */
+  courseStartDate: Ember.computed('course', function() {
+    let component = this;
+    let course = component.get('course');
+    let courseCreatedDate = new Date();
+    if (course && course.createdDate) {
+      courseCreatedDate = new Date(course.createdDate);
+    } else {
+      let curMonth = courseCreatedDate.getMonth();
+      let curYear = courseCreatedDate.getFullYear();
+      let oneYearBeforeFromCurrentDate = courseCreatedDate;
+      courseCreatedDate = new Date(oneYearBeforeFromCurrentDate.setMonth(curMonth - 11));
+      courseCreatedDate = new Date(oneYearBeforeFromCurrentDate.setFullYear(curYear - 1));
+    }
+    return courseCreatedDate;
   })
 });

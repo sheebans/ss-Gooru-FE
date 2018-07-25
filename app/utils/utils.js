@@ -980,3 +980,13 @@ export function getSubjectIdFromSubjectBucket(subjectBucket) {
   }
   return taxonomySubject;
 }
+
+/**
+ * Find number of months between two dates
+ * @return {Number}
+ */
+export function diffMonthBtwTwoDates(date1, date2) {
+  let diff =(date1.getTime() - date2.getTime()) / 1000;
+  diff /= (60 * 60 * 24 * 7 * 4);
+  return (Math.abs(Math.round(diff)) ) - 1;
+}
