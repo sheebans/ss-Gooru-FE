@@ -97,31 +97,29 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
     onClosePullUp() {
       this.set('showLessonReportPullUp', false);
     },
-    /**
-     * Action triggered when the user click the lesson level performance score.
-     **/
-    onOpenLessonLevelReport() {
-      //ToDo: setup perfromance level data to the model> item
-      const component = this;
-      const classId = component.get('currentClass.id');
-      const unitId = component.get('unitId');
-      const lessonId = component.get('model.id');
-      const courseId =
-        component.get('currentClass.courseId') ||
-        component.get('currentCourse.id');
-      component.set('classId', classId);
-      component.set('unitId', unitId);
-      component.set('lessonId', lessonId);
-      component.set('courseId', courseId);
-      component.set('showLessonReportPullUp', true);
-    },
+
     /*
      * @function To open lesson level report
      */
-    onOpenLessonReport: function(model) {
-      let unitId = this.get('unitId');
-      this.sendAction('onOpenLessonReport', model, unitId);
+    onOpenLessonReport: function() {
+      let component = this;
+      let currentClass = component.get('currentClass');
+      let classId = currentClass.get('id');
+      let courseId = currentClass.get('courseId');
+      let unitId = component.get('unitId');
+      let lessonId = component.get('model.id');
+
+      let params = {
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId,
+        lessonId: lessonId,
+        classMembers: component.get('classMembers')
+      };
+      component.set('lessonReportData', params);
+      component.set('showLessonReportPullUp', true);
     },
+
     /**
      * Load the data for this lesson (data should only be loaded once) and trigger
      * the 'onLessonUpdate' event handler
@@ -272,7 +270,7 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
      * Load the student report data for this collection
      * @function actions:StudentCollectionReportPullup
      */
-    teacherCollectionReport(collection) {
+    teacherCollectionReport(collection, collections) {
       let component = this;
       let currentClass = component.get('currentClass');
       let userId = component.get('session.userId');
@@ -280,6 +278,7 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
       let courseId = currentClass.get('courseId');
       let unitId = component.get('unitId');
       let lessonId = component.get('model.id');
+      let items = collections ? collections : component.get('items');
       let params = {
         userId: userId,
         classId: classId,
@@ -289,7 +288,7 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         collection: collection,
         lessonModel: component.get('model'),
         unitModel: component.get('unit'),
-        collections: component.get('items'),
+        collections: items,
         classMembers: component.get('classMembers')
       };
       component.set('teacherCollectionReportData', params);

@@ -46,7 +46,7 @@
      </div>
        </th>
        {{#each tableHeader.collections as |collection|}}
-         <th class="m-width">
+         <th class="m-width {{collection.format}} {{unless collection.performance.hasStarted 'not-started'}}" {{action 'onClickCollectionReport' collection tableHeader.collections}}>
            <div class="score-circle-g" style= {{safe-html (concat "background-color:" (grade-color collection.score))}}>
             <img src='/assets/gooru/lesson_assessment_white.svg' >
            </div>

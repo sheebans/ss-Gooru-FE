@@ -110,6 +110,10 @@ export default Ember.Component.extend({
             .reverse()
         );
       }
+    },
+
+    onClickCollectionReport(collection, collections) {
+      this.sendAction('onClickCollectionReport', collection, collections);
     }
   },
 
@@ -148,25 +152,25 @@ export default Ember.Component.extend({
    * Propery to show class id.
    * @property {classId}
    */
-  classId: '',
+  classId: Ember.computed.alias('context.classId'),
 
   /**
    * Propery to show course id.
    * @property {courseId}
    */
-  courseId: '',
+  courseId: Ember.computed.alias('context.courseId'),
 
   /**
    * Propery to show unit id.
    * @property {unitId}
    */
-  unitId: '',
+  unitId: Ember.computed.alias('context.unitId'),
 
   /**
    * Propery to show lesson id.
    * @property {lessonId}
    */
-  lessonId: '',
+  lessonId: Ember.computed.alias('context.lessonId'),
 
   /**
    * Propery to show collection type.
@@ -187,7 +191,7 @@ export default Ember.Component.extend({
   /**
    * Property to assesslist data
    */
-  classMembers: Ember.A([]),
+  classMembers: Ember.computed.alias('context.classMembers'),
 
   /**
    * Property to member performances data
@@ -305,33 +309,56 @@ export default Ember.Component.extend({
   // Methods
 
   /**
-   * Get the list of class members
-   */
-  getClassMembers() {
-    let component = this;
-    const classId = this.get('classId');
-    return component
-      .get('classService')
-      .readClassMembers(classId)
-      .then(function(members) {
-        return members;
-      });
-  },
-
-  /**
    * Get the list of assessment list
    */
   getListOfAssessments() {
+    const classId = this.get('classId');
     const courseId = this.get('courseId');
     const unitId = this.get('unitId');
     const lessonId = this.get('lessonId');
     let assessmentListPromise = new Ember.RSVP.resolve(
       this.get('lessonService').fetchById(courseId, unitId, lessonId)
     );
+    let classMembers = this.get('classMembers');
     return Ember.RSVP.hash({
-      studentAssessment: assessmentListPromise
+      studentAssessment: assessmentListPromise,
+      performance: this.get(
+        'performanceService'
+      ).findClassPerformanceByUnitAndLesson(
+        classId,
+        courseId,
+        unitId,
+        lessonId,
+        classMembers
+      )
     }).then(function(hash) {
-      return hash.studentAssessment.children;
+      let collections = hash.studentAssessment.children;
+      let performance = hash.performance;
+      collections.map(function(collection) {
+        let collectionId = collection.get('id');
+        const averageScore = performance.calculateAverageScoreByItem(
+          collectionId
+        );
+        const timeSpent = performance.calculateAverageTimeSpentByItem(
+          collectionId
+        );
+        const completionDone = performance.calculateSumCompletionDoneByItem(
+          collectionId
+        );
+        const completionTotal = performance.calculateSumCompletionTotalByItem(
+          collectionId
+        );
+        collection.set(
+          'performance',
+          Ember.Object.create({
+            score: averageScore,
+            hasStarted: averageScore > 0 || timeSpent > 0,
+            isCompleted: completionDone > 0 && completionDone >= completionTotal
+          })
+        );
+        return collection;
+      });
+      return collections;
     });
   },
 
@@ -430,20 +457,16 @@ export default Ember.Component.extend({
    */
   getStudentData() {
     let component = this;
-    let classMembersPromise = component.getClassMembers();
     let performancePromise = component.getPerformances();
     let assessmentListPromise = component.getListOfAssessments();
     return Ember.RSVP.hash({
-      classMembers: classMembersPromise,
       performances: performancePromise,
       assessmentLists: assessmentListPromise
     }).then(function(hash) {
-      let classMembers = hash.classMembers.members;
       let collections = hash.assessmentLists;
       let memberPerformances = hash.performances;
       component.set('memberPerformances', memberPerformances);
       component.set('collections', collections);
-      component.set('classMembers', classMembers);
     });
   },
 

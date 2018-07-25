@@ -117,6 +117,28 @@ export default Ember.Component.extend({
             .reverse()
         );
       }
+    },
+
+    onClickScrollLeftArrow() {
+      let component = this;
+      let scrollLeft = component.$('.table-fixed-right').scrollLeft() - 400;
+      component.$('.table-fixed-right').animate(
+        {
+          scrollLeft: `${scrollLeft}px`
+        },
+        400
+      );
+    },
+
+    onClickScrollRightArrow() {
+      let component = this;
+      let scrollLeft = component.$('.table-fixed-right').scrollLeft() + 400;
+      component.$('.table-fixed-right').animate(
+        {
+          scrollLeft: `${scrollLeft}px`
+        },
+        400
+      );
     }
   }
 });

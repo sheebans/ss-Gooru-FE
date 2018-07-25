@@ -1,4 +1,6 @@
 .reports.pull-up-collection-report-listview {
+  position: relative;
+
   .table-fixed-left {
     border-collapse: collapse;
     width: 300px;
@@ -272,6 +274,53 @@
           }
         }
       }
+    }
+  }
+
+  .scroll-left-arrow {
+    position: absolute;
+    top: 0;
+    background: #fff;
+    height: 39px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
+    width: 20px;
+    left: 300px;
+    cursor: pointer;
+
+    i {
+      margin-top: 8px;
+      margin-left: -2px;
+    }
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+
+  .scroll-right-arrow {
+    position: absolute;
+    height: 39px;
+    right: 0;
+    top: 0;
+    background: #fff;
+    width: 20px;
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+
+    i {
+      margin-top: 8px;
+      margin-left: -2px;
+    }
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+
+  &:hover {
+    .scroll-left-arrow,
+    .scroll-right-arrow {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.3s, visibility 0.3s;
     }
   }
 }
