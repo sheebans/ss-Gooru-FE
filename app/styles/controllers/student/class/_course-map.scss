@@ -292,13 +292,25 @@
         .gru-accordion-course {
           width: 490px;
           .gru-accordion-unit {
+            > .panel-collapse {
+              max-height: 320px;
+              overflow-y: auto;
+            }
             .gru-accordion-lesson {
-              .collections {
-                .panel {
-                  .panel-title {
-                    width: 100%;
-                    .title {
+              .panel-heading {
+                .panel-title {
+                  width: 100%;
+                }
+              }
+              .panel-body {
+                .collections {
+                  .panel {
+                    .panel-title {
                       width: 100%;
+                      .title {
+                        width: 100%;
+                        cursor: default;
+                      }
                     }
                   }
                 }

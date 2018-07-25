@@ -27,7 +27,7 @@ test('findClassPerformanceSummaryByStudentAndClassIds', function(assert) {
     ) {
       let requestBodyJson = JSON.parse(request.requestBody);
       assert.equal(request.queryParams.userId, '23', 'Wrong user id param');
-      assert.deepEqual(requestBodyJson.classIds, [1, 2, 3], 'Wrong classIds');
+      assert.deepEqual(requestBodyJson.classes, [1,2,3], 'Wrong classIds');
       assert.equal(
         request.requestHeaders.Authorization,
         'Token token-api-3',
@@ -64,7 +64,7 @@ test('findClassPerformanceSummaryByClassIds', function(assert) {
     ) {
       let requestBodyJson = JSON.parse(request.requestBody);
       assert.ok(!request.queryParams.userId, 'User id should not be provided');
-      assert.deepEqual(requestBodyJson.classIds, [1, 2, 3], 'Wrong classIds');
+      assert.deepEqual(requestBodyJson.classes, [1, 2, 3], 'Wrong classIds');
       assert.equal(
         request.requestHeaders.Authorization,
         'Token token-api-3',

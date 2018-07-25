@@ -21,16 +21,15 @@
     stroke: white;
     stroke-width: 3px;
   }
-  .tick text{
-    font-size: 10px;
-    text-transform: uppercase;
-    color: $charcoal-grey;
-    opacity: 0.8;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
   .tick {
+    cursor: pointer;
+    text{
+      font-size: 10px;
+      text-transform: uppercase;
+      color: $charcoal-grey;
+      opacity: 0.8;
+      font-weight: bold;
+    }
     &.gray-out {
       opacity: 0.5 !important;
       cursor: default;

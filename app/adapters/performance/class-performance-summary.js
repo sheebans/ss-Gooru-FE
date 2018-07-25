@@ -19,7 +19,7 @@ export default Ember.Object.extend({
    */
   findClassPerformanceSummaryByStudentAndClassIds: function(
     studentId,
-    classIds
+    classCourseIds
   ) {
     const namespace = this.get('namespace');
     const url = `${namespace}/classes/performance?userId=${studentId}`;
@@ -30,7 +30,7 @@ export default Ember.Object.extend({
       processData: false,
       headers: this.defineHeaders(),
       data: JSON.stringify({
-        classIds: classIds
+        classes: classCourseIds
       })
     };
     return new Ember.RSVP.Promise(function(resolve, reject) {
@@ -46,7 +46,7 @@ export default Ember.Object.extend({
    * @param {string[]} classIds
    * @returns {Promise}
    */
-  findClassPerformanceSummaryByClassIds: function(classIds) {
+  findClassPerformanceSummaryByClassIds: function(classCourseIds) {
     const namespace = this.get('namespace');
     const url = `${namespace}/classes/performance`;
     const options = {
@@ -56,7 +56,7 @@ export default Ember.Object.extend({
       processData: false,
       headers: this.defineHeaders(),
       data: JSON.stringify({
-        classIds: classIds
+        classes: classCourseIds
       })
     };
     return new Ember.RSVP.Promise(function(resolve, reject) {

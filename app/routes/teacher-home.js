@@ -290,10 +290,10 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   afterModel(resolvedModel) {
     let route = this;
     let activeClasses = resolvedModel.activeClasses;
-    let classIds = activeClasses.mapBy('id');
+    let classCourseIds = route.getListOfClassCourseIds(activeClasses);
     route
       .get('performanceService')
-      .findClassPerformanceSummaryByClassIds(classIds)
+      .findClassPerformanceSummaryByClassIds(classCourseIds)
       .then(function(classPerformanceSummaryItems) {
         activeClasses.forEach(function(activeClass) {
           let classId = activeClass.get('id');
@@ -328,6 +328,25 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     controller.set('activeClasses', model.activeClasses);
     controller.set('lastAccessedClassData', lastAccessedClassData);
     controller.updateLastAccessedClassPosition(lastAccessedClassData.id);
+  },
+
+
+  /**
+   * @function getListOfClassCourseIds
+   * Method to fetch class and course ids from the list of classess
+   */
+  getListOfClassCourseIds(activeClasses) {
+    let listOfActiveClassCourseIds = Ember.A([]);
+    activeClasses.map( activeClass => {
+      if (activeClass.courseId) {
+        let classCourseId = {
+          classId: activeClass.id,
+          courseId: activeClass.courseId
+        };
+        listOfActiveClassCourseIds.push(classCourseId);
+      }
+    });
+    return listOfActiveClassCourseIds;
   },
 
   /**

@@ -314,9 +314,10 @@ export default Ember.Component.extend(AccordionMixin, {
       .get('courseMapService')
       .getCourseInfo(classId, courseId);
 
+    let classCourseId = Ember.A([{classId, courseId}]);
     const classPerfomance = component
       .get('performanceService')
-      .findClassPerformanceSummaryByClassIds([classId]);
+      .findClassPerformanceSummaryByClassIds(classCourseId);
 
     const studentProfile = component
       .get('profileService')
@@ -324,7 +325,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
     const performanceSummaryPromise = component
       .get('performanceService')
-      .findClassPerformanceSummaryByStudentAndClassIds(studentId, [classId]);
+      .findClassPerformanceSummaryByStudentAndClassIds(studentId, classCourseId);
 
     const collectionType = {
       collectionType: 'assessment'
