@@ -72,11 +72,13 @@ export default Ember.Component.extend({
   didInsertElement() {
     let component = this;
     let route0Suggetions = component.get('route0.userCompetencyRoute.domains');
-    component.getUserBaselineCompetencies().then(function(userBaseLineCompetencies) {
-      component.getCompetencyMatrixCoordinates().then(function(competencyMatrixCoordinates) {
-        component.parseCompetencyData(userBaseLineCompetencies, competencyMatrixCoordinates, route0Suggetions);
+    if (component.get('course.subject')) {
+      component.getUserBaselineCompetencies().then(function(userBaseLineCompetencies) {
+        component.getCompetencyMatrixCoordinates().then(function(competencyMatrixCoordinates) {
+          component.parseCompetencyData(userBaseLineCompetencies, competencyMatrixCoordinates, route0Suggetions);
+        });
       });
-    });
+    }
   },
 
   didRender() {
@@ -113,7 +115,8 @@ export default Ember.Component.extend({
   getCompetencyMatrixCoordinates() {
     let component = this;
     let competencyService = component.get('competencyService');
-    let subjectId = getSubjectIdFromSubjectBucket(component.get('course.subject'));
+    let subjectBucket = component.get('course.subject');
+    let subjectId = getSubjectIdFromSubjectBucket(subjectBucket);
     let domainMatrixCoordinatesPromise = Ember.RSVP.resolve(competencyService.getCompetencyMatrixCoordinates(subjectId));
     return Ember.RSVP.hash({
       domainMatrixCoordinates: domainMatrixCoordinatesPromise

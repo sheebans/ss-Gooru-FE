@@ -198,11 +198,8 @@ export default Ember.Component.extend({
    * Property to store currently selected month and year
    */
   timeLine: Ember.computed(function() {
-    let curDate = new Date();
-    return {
-      month: curDate.getMonth() + 1,
-      year: curDate.getFullYear()
-    };
+    let component = this;
+    return component.getCurMonthYear();
   }),
 
   // -------------------------------------------------------------------------
@@ -211,7 +208,7 @@ export default Ember.Component.extend({
   didInsertElement() {
     let component = this;
     if (component.get('subject')) {
-      component.loadDataBySubject(component.get('subject.id'));
+      component.set('timeLine', component.getCurMonthYear());
     }
   },
 
@@ -582,5 +579,17 @@ export default Ember.Component.extend({
     } else {
       component.reduceChartHeight();
     }
+  },
+
+  /**
+   * @function getCurMonthYear
+   * Method to get current month and year
+   */
+  getCurMonthYear() {
+    let date = new Date();
+    return {
+      month: date.getMonth() + 1,
+      year: date.getFullYear()
+    };
   }
 });

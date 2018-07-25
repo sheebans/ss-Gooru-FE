@@ -20,6 +20,7 @@ export default Ember.Component.extend({
 
   classNames: ['gru-pull-up'],
 
+  classNameBindings: ['pullUpType'],
   // -------------------------------------------------------------------------
   // Actions
 
@@ -63,6 +64,12 @@ export default Ember.Component.extend({
   body: {
     isShowBody: true
   },
+
+  /**
+   * @property {pullUpType}
+   * Property to identify which pull up currently rendering
+   */
+  pullUpType: '',
 
   didInsertElement() {
     this.animatePullUp();
