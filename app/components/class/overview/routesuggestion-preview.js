@@ -5,6 +5,9 @@ export default Ember.Component.extend(AccordionMixin, {
   classNames: ['routesuggestion-preview'],
   actions: {
     routeAction: function(actiontype) {
+      if (actiontype === 'rejected') {
+        Ember.$('.route0-banner').click();
+      }
       this.attrs.routeSuggestAction(actiontype);
     },
     selectUnit: function() {
