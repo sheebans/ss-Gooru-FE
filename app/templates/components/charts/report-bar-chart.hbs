@@ -1,0 +1,42 @@
+<div class="report-bar-chart-container">
+  <div id="report-bar-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
+    <div class="carousel-inner">
+      {{#each dataSet as |data index|}}
+        <div class="item {{if (eq index 0) 'active'}}">
+          <div class="bars-container">
+            {{#each data as |chartData|}}
+              <div class="bar-chart-container {{unless chartData.hasStarted 'not-started'}}">
+                <div class="bar-chart" {{action 'onClickChart' chartData.id}}>
+                  <svg width="10" height="100">
+                    {{#if chartData.hasStarted}}
+                    <rect width="10" height="100" style="fill:#5D666F;" />
+                    {{else}}
+                    <rect width="10" height="100" style="fill:#CCCCCC" />
+                    {{/if}}
+                    {{#if useTimeSpentScore}}
+                    <rect width="10" height="{{chartData.timeSpentScore}}" y="{{chartData.timeSpentDifference}}" style={{safe-html (concat "fill:" (grade-color chartData.timeSpentScore))}} />
+                    {{else}}
+                    <rect width="10" height="{{chartData.score}}" y="{{chartData.difference}}" style={{safe-html (concat "fill:" (grade-color chartData.score))}} />
+                    {{/if}}
+                  </svg>
+                </div>
+                <div class="user-profile-img">
+                  <img src="{{chartData.avatarUrl}}">
+                </div>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+  {{#if (gt dataSet.length 1) }}
+    <!-- Left and right controls -->
+    <a class="left carousel-control" data-slide="prev">
+      <i class="small-arrow-left" {{action 'onClickPrev'}}></i>
+    </a>
+    <a class="right carousel-control" {{action 'onClickNext'}} data-slide="next">
+      <i class="small-arrow-right"></i>
+    </a>
+  {{/if}}
+</div>

@@ -20,6 +20,7 @@ export default Ember.Component.extend({
 
   classNames: ['gru-pull-up'],
 
+  classNameBindings: ['pullUpType'],
   // -------------------------------------------------------------------------
   // Actions
 
@@ -35,6 +36,7 @@ export default Ember.Component.extend({
      **/
     onPullUpClose() {
       this.set('showPullUp', false);
+      this.sendAction('onClosePullUp');
     }
   },
 
@@ -63,6 +65,16 @@ export default Ember.Component.extend({
     isShowBody: true
   },
 
+  /**
+   * @property {pullUpType}
+   * Property to identify which pull up currently rendering
+   */
+  pullUpType: '',
+
+  didInsertElement() {
+    this.animatePullUp();
+  },
+
   //--------------------------------------------------------------------------
   // Observer
   //
@@ -71,6 +83,10 @@ export default Ember.Component.extend({
    * Observer to check the showPullUp property in component
    **/
   onChange: Ember.observer('showPullUp', function() {
+    this.animatePullUp();
+  }),
+
+  animatePullUp() {
     if (this.get('showPullUp')) {
       Ember.$('.gru-pull-up').animate(
         {
@@ -83,5 +99,5 @@ export default Ember.Component.extend({
         top: '100%'
       });
     }
-  })
+  }
 });

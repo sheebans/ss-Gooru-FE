@@ -1,0 +1,9 @@
+<div style="clear:both"></div>
+<div class=''>
+    <ol class=''>
+        {{#each model.route0Content.units as |unit index|}}
+                {{class.overview.unit-suggestions model=unit index=index isPlayer=isPlayer onStudyNow=(action 'studyNow') }}
+        {{/each}}
+    </ol>
+</div>
+            

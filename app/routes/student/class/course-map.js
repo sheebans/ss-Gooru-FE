@@ -37,6 +37,8 @@ export default Ember.Route.extend({
    */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
+  route0Service: Ember.inject.service('api-sdk/route0'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -69,7 +71,13 @@ export default Ember.Route.extend({
       item.set('minScore', currentClass.get('minScore'));
 
       if (type === 'lesson') {
-        route.startLessonStudyPlayer(classId, courseId, unitId, lessonId);
+        route.startLessonStudyPlayer(
+          classId,
+          courseId,
+          unitId,
+          lessonId,
+          item.pathType
+        );
       } else if (type === 'resource') {
         route.startResourceStudyPlayer(classId, courseId, item);
       } else {
@@ -81,6 +89,9 @@ export default Ember.Route.extend({
           item
         );
       }
+    },
+    updateCourseMap: function() {
+      this.refresh(true);
     }
   },
 
@@ -96,141 +107,31 @@ export default Ember.Route.extend({
     const userLocation = route
       .get('analyticsService')
       .getUserCurrentLocation(currentClass.get('id'), userId);
+    var route0Promise = {};
+    let setting = currentClass.get('setting');
+    let premiumCourse = setting
+      ? setting['course.premium'] && setting['course.premium'] === true
+      : false;
+    if (premiumCourse) {
+      route0Promise = route
+        .get('route0Service')
+        .fetchInClass({ courseId: course.id, classId: currentClass.id });
+    } else {
+      route0Promise = new Ember.RSVP.Promise(function(resolve) {
+        resolve({ status: '401' }); // This is a dummy status
+      });
+    }
 
+    /*
+     status: 'pending', //'accepted' , 'regected', 'na= not applicable, already complted' , 'na = not avalible, course does not have anything to offer'
+    */
     return Ember.RSVP.hash({
       userLocation: userLocation,
       course: course,
       units: units,
       currentClass: currentClass,
-      classMembers: classMembers
-    });
-  },
-
-  modela: function(params) {
-    const route = this;
-    var classModelRsvp = this.classModel(params);
-    return classModelRsvp.then(function(hash) {
-      const currentClass = hash.class;
-      const course = hash.course;
-      const units = hash.units;
-      const userId = route.get('session.userId');
-      const classMembers = currentClass.get('members');
-      const userLocation = route
-        .get('analyticsService')
-        .getUserCurrentLocation(currentClass.get('id'), userId);
-
-      return Ember.RSVP.hash({
-        userLocation: userLocation,
-        course: course,
-        units: units,
-        currentClass: currentClass,
-        classMembers: classMembers
-      });
-    });
-  },
-
-  classModel: function() {
-    const route = this;
-    const myId = route.get('session.userId');
-
-    //Steps for Take a Tour functionality
-    let tourSteps = Ember.A([
-      {
-        title: route.get('i18n').t('gru-take-tour.student-class.stepOne.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.student-class.stepOne.description')
-      },
-      {
-        elementSelector: '.student .classroom-information',
-        title: route
-          .get('i18n')
-          .t('gru-take-tour.student-class.stepTopBar.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.student-class.stepTopBar.description')
-      },
-      {
-        elementSelector: '.gru-class-navigation .nav-tabs .class-activities',
-        title: route.get('i18n').t('gru-take-tour.student-class.stepTwo.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.student-class.stepTwo.description')
-      },
-      {
-        elementSelector: '.gru-class-navigation .nav-tabs .course-map',
-        title: route
-          .get('i18n')
-          .t('gru-take-tour.student-class.stepThree.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.student-class.stepThree.description')
-      },
-      {
-        elementSelector: '.gru-class-navigation .nav-tabs .performance',
-        title: route
-          .get('i18n')
-          .t('gru-take-tour.student-class.stepFour.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.student-class.stepFour.description')
-      },
-      {
-        title: route
-          .get('i18n')
-          .t('gru-take-tour.student-class.stepFive.title'),
-        description: route
-          .get('i18n')
-          .t('gru-take-tour.student-class.stepFive.description')
-      }
-    ]);
-
-    const classId = '13ff77c7-3cd2-43c5-8b2c-660746c8cdca';
-    const classPromise = route.get('classService').readClassInfo(classId);
-    const membersPromise = route.get('classService').readClassMembers(classId);
-    const performanceSummaryPromise = route
-      .get('performanceService')
-      .findClassPerformanceSummaryByStudentAndClassIds(myId, [classId]);
-    return Ember.RSVP.hash({
-      class: classPromise,
-      members: membersPromise,
-      classPerformanceSummaryItems: performanceSummaryPromise
-    }).then(function(hash) {
-      const aClass = hash.class;
-      const members = hash.members;
-      const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
-      aClass.set(
-        'performanceSummary',
-        classPerformanceSummaryItems.findBy('classId', classId)
-      );
-      const courseId = aClass.get('courseId');
-      let visibilityPromise = Ember.RSVP.resolve([]);
-      let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
-
-      if (courseId) {
-        visibilityPromise = route
-          .get('classService')
-          .readClassContentVisibility(classId);
-        coursePromise = route.get('courseService').fetchById(courseId);
-      }
-      return Ember.RSVP.hash({
-        contentVisibility: visibilityPromise,
-        course: coursePromise
-      }).then(function(hash) {
-        const contentVisibility = hash.contentVisibility;
-        const course = hash.course;
-        aClass.set('owner', members.get('owner'));
-        aClass.set('collaborators', members.get('collaborators'));
-        aClass.set('members', members.get('members'));
-        return Ember.RSVP.hash({
-          class: aClass,
-          course: course,
-          members: members,
-          units: course.get('children') || [],
-          contentVisibility: contentVisibility,
-          tourSteps: tourSteps
-        });
-      });
+      classMembers: classMembers,
+      route0: route0Promise
     });
   },
   /**
@@ -252,6 +153,7 @@ export default Ember.Route.extend({
     controller.set('units', model.units);
     controller.set('course', model.course);
     controller.set('classMembers', model.classMembers);
+    controller.set('route0', model.route0);
     controller.get('studentClassController').selectMenuItem('course-map');
   },
 
@@ -278,6 +180,7 @@ export default Ember.Route.extend({
     let collectionSubType = collection.get('collectionSubType');
     let minScore = collection.get('minScore');
     let pathId = collection.get('pathId') || 0;
+    let pathType = collection.get('pathType') || '';
     let queryParams = {
       classId,
       unitId,
@@ -290,7 +193,8 @@ export default Ember.Route.extend({
       pathId,
       minScore,
       collectionSource: collection.source || 'course_map',
-      isStudyPlayer: true
+      isStudyPlayer: true,
+      pathType
     };
 
     let suggestionPromise = null;
@@ -306,7 +210,8 @@ export default Ember.Route.extend({
           collectionType,
           collectionSubType,
           pathId,
-          classId
+          classId,
+          pathType
         );
     } else {
       suggestionPromise = route
@@ -317,7 +222,9 @@ export default Ember.Route.extend({
           lessonId,
           collectionId,
           collectionType,
-          classId
+          classId,
+          pathId,
+          pathType
         );
     }
     suggestionPromise.then(() =>
@@ -334,7 +241,13 @@ export default Ember.Route.extend({
    * @param {string} unitId
    * @param {string} lessonId
    */
-  startLessonStudyPlayer: function(classId, courseId, unitId, lessonId) {
+  startLessonStudyPlayer: function(
+    classId,
+    courseId,
+    unitId,
+    lessonId,
+    pathType
+  ) {
     const route = this;
     const role = ROLES.STUDENT;
     const queryParams = {
@@ -342,11 +255,12 @@ export default Ember.Route.extend({
       unitId,
       lessonId,
       role,
-      source: PLAYER_EVENT_SOURCE.COURSE_MAP
+      source: PLAYER_EVENT_SOURCE.COURSE_MAP,
+      pathType
     };
     route
       .get('navigateMapService')
-      .startLesson(courseId, unitId, lessonId, classId)
+      .startLesson(courseId, unitId, lessonId, classId, pathType)
       .then(() =>
         route.transitionTo('study-player', courseId, {
           queryParams
@@ -389,7 +303,8 @@ export default Ember.Route.extend({
       lessonId: resource.get('lessonId'),
       collectionId: resource.get('assessmentId'),
       source: PLAYER_EVENT_SOURCE.COURSE_MAP,
-      pathId: resource.get('pathId')
+      pathId: resource.get('pathId'),
+      pathType: resource.get('pathType') || ''
     };
     route
       .get('navigateMapService')
@@ -400,7 +315,8 @@ export default Ember.Route.extend({
         queryParams.collectionId,
         resource.get('id'),
         queryParams.pathId,
-        classId
+        classId,
+        queryParams.pathType
       )
       .then(function() {
         if (classId) {

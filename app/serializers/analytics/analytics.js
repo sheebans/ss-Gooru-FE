@@ -191,7 +191,7 @@ export default Ember.Object.extend({
     let normalizedClassPerformanceSummary = Ember.A([]);
     if (payload && payload.usageData) {
       let performanceSummary = payload.usageData;
-      performanceSummary.map( performance => {
+      performanceSummary.map(performance => {
         let userPerformanceData = {
           progress: performance.percentCompletion,
           score: performance.percentScore,

@@ -8,7 +8,6 @@ import d3 from 'd3';
  * @augments ember/Component
  */
 export default Ember.Component.extend({
-
   //------------------------------------------------------------------------
   //Dependencies
 
@@ -31,7 +30,6 @@ export default Ember.Component.extend({
       radius: 95
     });
     this.drawchart();
-
   },
 
   /**
@@ -74,24 +72,28 @@ export default Ember.Component.extend({
     let height = component.get('height');
     let data = component.get('data');
     let performanceColor = component.get('performanceColor');
-    let svg = d3.select(component.element)
+    let svg = d3
+      .select(component.element)
       .append('svg')
       .attr('class', 'pie')
       .attr('class', 'performance-chart')
       .attr('width', width)
       .attr('height', height);
 
-    let g = svg.append('g')
-      .attr('transform', `translate(${  width / 2  },${  height / 2  })`);
+    let g = svg
+      .append('g')
+      .attr('transform', `translate(${width / 2},${height / 2})`);
 
-    let text = g.append('svg:foreignObject')
-      .attr('width', 100).attr('height', 100)
+    let text = g
+      .append('svg:foreignObject')
+      .attr('width', 100)
+      .attr('height', 100)
       .attr('x', -50)
       .attr('y', -50);
-    text.append('xhtml:div')
+    text
+      .append('xhtml:div')
       .style('background-color', performanceColor)
-      .attr('class', 'performance-score').text(`${data[0].score  }%`);
-
+      .attr('class', 'performance-score')
+      .text(`${data[0].score}%`);
   }
-
 });

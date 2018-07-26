@@ -257,6 +257,11 @@ export default StudentCollection.extend({
   }),
 
   /**
+   * @property {pathType}
+   */
+  pathType: null,
+
+  /**
    * @property {boolean}
    */
   hasAnySuggestion: Ember.computed(
@@ -421,9 +426,10 @@ export default StudentCollection.extend({
       queryParams.lessonId = context.lessonId;
       queryParams.collectionId = suggestion.get('id');
       queryParams.pathId = suggestion.pathId;
-      queryParams.subtype =   suggestion.subType === 'signature_collection'
-        ? 'signature-collection'
-        : 'signature-assessment';
+      queryParams.subtype =
+        suggestion.subType === 'signature_collection'
+          ? 'signature-collection'
+          : 'signature-assessment';
       this.transitionToRoute('study-player', context.get('courseId'), {
         queryParams
       });

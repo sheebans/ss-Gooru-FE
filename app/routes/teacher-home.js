@@ -219,7 +219,9 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       }
     ]);
 
-    let myClassessPromise = Ember.RSVP.resolve(route.controllerFor('application').loadUserClasses());
+    let myClassessPromise = Ember.RSVP.resolve(
+      route.controllerFor('application').loadUserClasses()
+    );
     let firstCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
     let secondCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
     let thirdCoursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
@@ -256,44 +258,42 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         .fetchById(fourthCourseId);
     }
 
-    return Ember.RSVP
-      .hash({
-        firstCourse: firstCoursePromise,
-        secondCourse: secondCoursePromise,
-        thirdCourse: thirdCoursePromise,
-        fourthCourse: fourthCoursePromise,
-        myClasses: myClassessPromise
-      })
-      .then(function(hash) {
-        const firstFeaturedCourse = hash.firstCourse;
-        const secondFeaturedCourse = hash.secondCourse;
-        const thirdFeaturedCourse = hash.thirdCourse;
-        const fourthFeaturedCourse = hash.fourthCourse;
-        const myClasses = hash.myClasses;
-        const myId = route.get('session.userId');
-        const activeClasses = myClasses.getTeacherActiveClasses(myId);
-        const archivedClasses = myClasses.getTeacherArchivedClasses();
-        featuredCourses.push(firstFeaturedCourse);
-        featuredCourses.push(secondFeaturedCourse);
-        featuredCourses.push(thirdFeaturedCourse);
-        featuredCourses.push(fourthFeaturedCourse);
+    return Ember.RSVP.hash({
+      firstCourse: firstCoursePromise,
+      secondCourse: secondCoursePromise,
+      thirdCourse: thirdCoursePromise,
+      fourthCourse: fourthCoursePromise,
+      myClasses: myClassessPromise
+    }).then(function(hash) {
+      const firstFeaturedCourse = hash.firstCourse;
+      const secondFeaturedCourse = hash.secondCourse;
+      const thirdFeaturedCourse = hash.thirdCourse;
+      const fourthFeaturedCourse = hash.fourthCourse;
+      const myClasses = hash.myClasses;
+      const myId = route.get('session.userId');
+      const activeClasses = myClasses.getTeacherActiveClasses(myId);
+      const archivedClasses = myClasses.getTeacherArchivedClasses();
+      featuredCourses.push(firstFeaturedCourse);
+      featuredCourses.push(secondFeaturedCourse);
+      featuredCourses.push(thirdFeaturedCourse);
+      featuredCourses.push(fourthFeaturedCourse);
 
-        return {
-          activeClasses,
-          archivedClasses,
-          featuredCourses,
-          tourSteps
-        };
-      });
+      return {
+        activeClasses,
+        archivedClasses,
+        featuredCourses,
+        tourSteps
+      };
+    });
   },
 
   afterModel(resolvedModel) {
     let route = this;
     let activeClasses = resolvedModel.activeClasses;
-    let classIds = activeClasses.mapBy('id');
+    let classCourseIds = route.getListOfClassCourseIds(activeClasses);
     route
       .get('performanceService')
-      .findClassPerformanceSummaryByClassIds(classIds)
+      .findClassPerformanceSummaryByClassIds(classCourseIds)
       .then(function(classPerformanceSummaryItems) {
         activeClasses.forEach(function(activeClass) {
           let classId = activeClass.get('id');
@@ -328,6 +328,25 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     controller.set('activeClasses', model.activeClasses);
     controller.set('lastAccessedClassData', lastAccessedClassData);
     controller.updateLastAccessedClassPosition(lastAccessedClassData.id);
+  },
+
+
+  /**
+   * @function getListOfClassCourseIds
+   * Method to fetch class and course ids from the list of classess
+   */
+  getListOfClassCourseIds(activeClasses) {
+    let listOfActiveClassCourseIds = Ember.A([]);
+    activeClasses.map( activeClass => {
+      if (activeClass.courseId) {
+        let classCourseId = {
+          classId: activeClass.id,
+          courseId: activeClass.courseId
+        };
+        listOfActiveClassCourseIds.push(classCourseId);
+      }
+    });
+    return listOfActiveClassCourseIds;
   },
 
   /**

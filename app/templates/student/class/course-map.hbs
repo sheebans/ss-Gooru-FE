@@ -1,18 +1,37 @@
 {{#if class.courseId}}
+  
+  <div class="controller student course-map">
+    <div class="actions">
+      <span class="min-score {{unless class.minScore 'hidden'}}">
+        <i></i> > {{class.minScore}} %</span>
+      <button {{action "locateMe" userLocation}} title="{{t 'class.overview.locate'}}" class="btn btn-info locate" data-toggle="tooltip"
+        data-placement="auto">
+        <span>{{gru-icon name='near_me'}}</span>
+      </button>
+    </div>
+    {{#if hasRouteSuggestion}}
+    <h5>Pre-study for your course</h5>
+    {{!-- ToDo: Move css out of HBS --}}
+      {{class.overview.routesuggestion-preview route0=route0 routeSuggestAction=(action 'courseRouteSuggestAction' ) class=currentClass course=course }}
+    {{/if}}
+    {{#if showRoute0Suggestion}}
+    <h5>Pre-study for your course</h5>
+      {{class.overview.routesuggestion-coursemap route0=route0 routeSuggestAction=(action 'courseRouteSuggestAction'  ) onStudyNow=(action 'studyCoursePlayer' ) }}
+    {{/if}}
 
+    <h5>Your assigned course</h5>
 
     <div class="rescope-section">
       {{#if isPremiumClass}}
-        <div class="rescope-toggle">
-          <div class="action">
+        <div class="rescope-toggle" style="display:flex">
+          <div class="info" style="/*line-height: 67px*/;align-self: flex-start;width: 73%;">
+            <span>{{t 'class.overview.course-map.rescope-info'}}</span>
+          </div>
+          <div class="action" style=" /*border: .2px solid red;*/ text-align: center; ">
             <span>{{t 'class.overview.course-map.rescope-toggle'}}</span>
             {{gru-toggle-button isChecked=isChecked onToggleButton="onToggleRescope" }}
           </div>
-          <div class="info">
-            <span>{{t 'class.overview.course-map.rescope-info'}}</span>
-          </div>
         </div>
-
         {{#if (not isContentAvailable)}}
           <div class="custom-msg">
             <span>
@@ -23,19 +42,10 @@
             </span>
           </div>
         {{/if}}
-
       {{/if}}
-
     </div>
-      <div class="controller student course-map">
-        <div class="actions">
-          <span class="min-score {{unless class.minScore 'hidden'}}">
-            <i></i> > {{class.minScore}} %</span>
-          <button {{action "locateMe" userLocation}} title="{{t 'class.overview.locate'}}" class="btn btn-info locate" data-toggle="tooltip"
-            data-placement="auto">
-            <span>{{gru-icon name='near_me'}}</span>
-          </button>
-        </div>
+
+    
 
     {{class.overview.gru-accordion-course
     currentClass=class

@@ -120,7 +120,8 @@ export default Ember.Service.extend({
     collectionId,
     collectionType,
     classId = undefined,
-    pathId
+    pathId,
+    pathType
   ) {
     const service = this;
     const mapContext = MapContext.create({
@@ -133,13 +134,15 @@ export default Ember.Service.extend({
       itemType: collectionType,
       classId,
       status: 'start',
-      pathId
+      pathId,
+      pathType
     });
     return service.next(mapContext);
   },
 
   /**
    * Starts alternate path taken.
+   * Alternate system path
    * @param options as context params
    */
   startAlternatePathSuggestion: function(options) {
@@ -155,7 +158,8 @@ export default Ember.Service.extend({
       current_item_subtype: options.suggested_content_subtype,
       state: 'start',
       score_percent: options.score || 0,
-      path_id: parseInt(options.pathId)
+      path_id: parseInt(options.pathId),
+      path_type: 'system'
     };
     return service
       .get('adapter')
@@ -257,14 +261,21 @@ export default Ember.Service.extend({
    * @param {string} classId
    * @returns {Promise.<MapLocation>}
    */
-  startLesson: function(courseId, unitId, lessonId, classId = undefined) {
+  startLesson: function(
+    courseId,
+    unitId,
+    lessonId,
+    classId = undefined,
+    pathType
+  ) {
     const service = this;
     const mapContext = MapContext.create({
       courseId,
       unitId,
       lessonId,
       classId,
-      status: 'start'
+      status: 'start',
+      pathType: pathType
     });
     return service.next(mapContext);
   },

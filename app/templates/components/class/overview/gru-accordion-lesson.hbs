@@ -30,7 +30,7 @@
         </button>
           {{/unless}}
         </div>
-        <div class="performance-container pull-right">
+        <div class="performance-container pull-right {{if isStudent 'disable-event'}}" {{action 'onOpenLessonReport'}}>
           {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
         </div>
       {{/if}}
@@ -189,7 +189,7 @@
                                 {{item.performance.score}}%
                                 </span>
                             {{else}}
-                              <span class="score cursor-default " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                              <span class="score" {{action 'teacherCollectionReport' item}} style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                                       {{item.performance.score}}%
                                     </span>
                             {{/if }}
@@ -200,7 +200,7 @@
                                   {{item.performance.score}}%
                                 </span>
                               {{else}}
-                                <span class="score cursor-default" style= {{safe-html (concat "color:" (grade-color item.performance.score) )}}>
+                                <span class="score" {{action 'teacherCollectionReport' item}} style= {{safe-html (concat "color:" (grade-color item.performance.score) )}}>
                                     {{item.performance.score}}%
                                   </span>
                               {{/if }}
@@ -279,7 +279,17 @@
       {{/if}}
     </ol>
   </div>
-  {{#if showReportPullUp}}
-    {{class.gru-report-panel showPullUp=showReportPullUp reportData=studentReportData model=model isStudent=isStudent onClosePullUp="onClosePullUp"}}
-  {{/if}}
 </div>
+{{#if showLessonReportPullUp}}
+  {{#reports.gru-report-pull-up breadcrumb=(concat 'Lesson' model.sequence) title=model.title score=model.performance.score showPullUp=showLessonReportPullUp as |lessonReport| }}
+    {{#if lessonReport.isShowBody}}
+      {{reports.gru-lesson-report-body-pull-up onClosePullUp="onClosePullUp" showPullUp=showLessonReportPullUp context=lessonReportData onClickCollectionReport='teacherCollectionReport'}}
+    {{/if}}
+  {{/reports.gru-report-pull-up}}
+{{/if}}
+{{#if showReportPullUp}}
+  {{class.gru-report-panel showPullUp=showReportPullUp reportData=studentReportData model=model isStudent=isStudent onClosePullUp="onClosePullUp"}}
+{{/if}}
+{{#if showCollectionReportPullUp}}
+  {{reports.pull-up.collection-report context=teacherCollectionReportData showPullUp=showCollectionReportPullUp studentReport="studentReport"}}
+{{/if}}

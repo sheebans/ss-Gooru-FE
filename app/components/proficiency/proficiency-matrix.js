@@ -117,6 +117,14 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * Timeline change will call this function
+   */
+  onChangeTimeLine: Ember.observer('timeLine', function() {
+    let component = this;
+    component.loadDataBySubject(component.get('subject.id'));
+  }),
+
+  /**
    * Trigger whenever reset chart view mode toggle state got changed.
    */
   onChangeResetToggle: Ember.observer('isExpandChartEnabled', function() {
@@ -185,13 +193,22 @@ export default Ember.Component.extend({
    */
   isSkylineEnabled: true,
 
+  /**
+   * @property {JSON}
+   * Property to store currently selected month and year
+   */
+  timeLine: Ember.computed(function() {
+    let component = this;
+    return component.getCurMonthYear();
+  }),
+
   // -------------------------------------------------------------------------
   // Events
 
   didInsertElement() {
     let component = this;
     if (component.get('subject')) {
-      component.loadDataBySubject(component.get('subject.id'));
+      component.set('timeLine', component.getCurMonthYear());
     }
   },
 
@@ -264,11 +281,12 @@ export default Ember.Component.extend({
   loadDataBySubject(subjectId) {
     let component = this;
     let userId = component.get('userId');
+    let timeLine = component.get('timeLine');
     component.set('isLoading', true);
     return Ember.RSVP.hash({
       competencyMatrixs: component
         .get('competencyService')
-        .getCompetencyMatrixDomain(userId, subjectId),
+        .getCompetencyMatrixDomain(userId, subjectId, timeLine),
       competencyMatrixCoordinates: component
         .get('competencyService')
         .getCompetencyMatrixCoordinates(subjectId)
@@ -561,5 +579,17 @@ export default Ember.Component.extend({
     } else {
       component.reduceChartHeight();
     }
+  },
+
+  /**
+   * @function getCurMonthYear
+   * Method to get current month and year
+   */
+  getCurMonthYear() {
+    let date = new Date();
+    return {
+      month: date.getMonth() + 1,
+      year: date.getFullYear()
+    };
   }
 });

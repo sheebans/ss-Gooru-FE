@@ -142,6 +142,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
       creatorId: payload.creator_id,
       originalCourseId: payload.original_course_id,
       originalCreatorId: payload.original_creator_id,
+      createdDate: payload.created_at || null,
       children: serializer
         .get('unitSerializer')
         .normalizeUnits(payload.unit_summary),

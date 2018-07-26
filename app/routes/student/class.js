@@ -87,7 +87,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     let source = PLAYER_EVENT_SOURCE.COURSE_MAP;
     let suggestionPromise = null;
     let courseId = null;
-    let queryParams = null;
+    let queryParams = {};
     let classId = null;
     const controller = route.get('controller');
     if (controller.get('course')) {
@@ -121,7 +121,34 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       .get('navigateMapService')
       .continueCourse(courseId, classId);
 
-    suggestionPromise.then(() => {
+    suggestionPromise.then(navResp => {
+      courseId = navResp.context.courseId;
+      let pathId = navResp.context.pathId;
+      let pathType = navResp.context.pathType;
+      if (!currentLocation || courseId !== navResp.context.courseId) {
+        console.warn('courseId mismatch or currentlocation empty :', courseId); // eslint-disable-line
+      }
+      //Overriding params with that returend by the navigatemap API
+      classId = navResp.context.classId;
+      let unitId = navResp.context.unitId;
+      let lessonId = navResp.context.lessonId;
+      let collectionId = navResp.context.collectionId;
+      let collectionType = navResp.context.collectionType;
+      let collectionSubType = navResp.context.collectionSubType;
+      queryParams = {
+        classId,
+        unitId,
+        lessonId,
+        collectionId,
+        role,
+        source,
+        type: collectionType,
+        subtype: collectionSubType,
+        pathId,
+        pathType,
+        collectionSource: 'course_map'
+      };
+
       if (courseId == null || courseId === '') {
         console.warn('very fast transition aborted'); // eslint-disable-line
         return; //
@@ -196,57 +223,72 @@ export default Ember.Route.extend(PrivateRouteMixin, {
 
     const classId = params.classId;
     const classPromise = route.get('classService').readClassInfo(classId);
+
     const membersPromise = route.get('classService').readClassMembers(classId);
-    const performanceSummaryPromise = route
-      .get('performanceService')
-      .findClassPerformanceSummaryByStudentAndClassIds(myId, [classId]);
-    return Ember.RSVP.hash({
-      class: classPromise,
-      members: membersPromise,
-      classPerformanceSummaryItems: performanceSummaryPromise
-    }).then(function(hash) {
-      const aClass = hash.class;
-      const members = hash.members;
-      const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
-      aClass.set(
-        'performanceSummary',
-        classPerformanceSummaryItems.findBy('classId', classId)
-      );
-      const courseId = aClass.get('courseId');
-      let visibilityPromise = Ember.RSVP.resolve([]);
-      let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
 
-      if (courseId) {
-        visibilityPromise = route
-          .get('classService')
-          .readClassContentVisibility(classId);
-        coursePromise = route.get('courseService').fetchById(courseId);
+    return classPromise.then(function(classData) {
+      let classCourseId = null;
+      if (classData.courseId) {
+        classCourseId = Ember.A([
+          { classId: params.classId, courseId: classData.courseId }
+        ]);
       }
-
-      var userLocationPromise = route
-        .get('analyticsService')
-        .getUserCurrentLocation(classId, myId);
-
+      const performanceSummaryPromise = classCourseId
+        ? route
+          .get('performanceService')
+          .findClassPerformanceSummaryByStudentAndClassIds(
+            myId,
+            classCourseId
+          )
+        : null;
       return Ember.RSVP.hash({
-        contentVisibility: visibilityPromise,
-        course: coursePromise,
-        currentLocation: userLocationPromise
+        class: classPromise,
+        members: membersPromise,
+        classPerformanceSummaryItems: performanceSummaryPromise
       }).then(function(hash) {
-        const contentVisibility = hash.contentVisibility;
-        const course = hash.course;
-        var currentLocation = hash.currentLocation;
-        aClass.set('owner', members.get('owner'));
-        aClass.set('collaborators', members.get('collaborators'));
-        aClass.set('members', members.get('members'));
-        aClass.set('currentLocation', currentLocation);
+        const aClass = hash.class;
+        const members = hash.members;
+        const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
+        let classPerformanceSummary = classPerformanceSummaryItems
+          ? classPerformanceSummaryItems.findBy('classId', classId)
+          : null;
+        aClass.set('performanceSummary', classPerformanceSummary);
+        const courseId = aClass.get('courseId');
+        let visibilityPromise = Ember.RSVP.resolve([]);
+        let coursePromise = Ember.RSVP.resolve(Ember.Object.create({}));
+
+        if (courseId) {
+          visibilityPromise = route
+            .get('classService')
+            .readClassContentVisibility(classId);
+          coursePromise = route.get('courseService').fetchById(courseId);
+        }
+
+        var userLocationPromise = route
+          .get('analyticsService')
+          .getUserCurrentLocation(classId, myId);
+
         return Ember.RSVP.hash({
-          class: aClass,
-          course: course,
-          members: members,
-          units: course.get('children') || [],
-          contentVisibility: contentVisibility,
-          tourSteps: tourSteps,
-          currentLocation: currentLocation
+          contentVisibility: visibilityPromise,
+          course: coursePromise,
+          currentLocation: userLocationPromise
+        }).then(function(hash) {
+          const contentVisibility = hash.contentVisibility;
+          const course = hash.course;
+          var currentLocation = hash.currentLocation;
+          aClass.set('owner', members.get('owner'));
+          aClass.set('collaborators', members.get('collaborators'));
+          aClass.set('members', members.get('members'));
+          aClass.set('currentLocation', currentLocation);
+          return Ember.RSVP.hash({
+            class: aClass,
+            course: course,
+            members: members,
+            units: course.get('children') || [],
+            contentVisibility: contentVisibility,
+            tourSteps: tourSteps,
+            currentLocation: currentLocation
+          });
         });
       });
     });

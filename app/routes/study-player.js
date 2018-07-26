@@ -39,6 +39,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
    */
   suggestService: Ember.inject.service('api-sdk/suggest'),
 
+  route0Service: Ember.inject.service('api-sdk/route0'),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -59,7 +61,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         unitId: controller.get('unitId'),
         contextId,
         source: controller.get('source'),
-        minScore: controller.get('minScore')
+        minScore: controller.get('minScore'),
+        pathType: controller.get('pathType') || ''
       };
       if (classId) {
         queryParams.classId = classId;
@@ -121,16 +124,70 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         params.type =
           mapLocation.get('context.itemType') ||
           mapLocation.get('context.collectionType');
+        params.classId = params.classId || mapLocation.get('context.classId');
         if (params.type === CONTENT_TYPES.EXTERNAL_ASSESSMENT) {
           route.transitionTo('study-player-external');
+        }
+        var unitPromise = null;
+        var lessonPromise = null;
+        if (params.pathType === 'route0') {
+          let route0Model = route
+            .get('route0Service')
+            .getRoute0({ classId: params.classId, courseId: courseId });
+          if (route0Model) {
+            let units = Ember.Object.create(),
+              lessono = Ember.Object.create();
+            route0Model.route0Content.units.forEach(function(unit) {
+              if (unit.unitId === unitId) {
+                units = Ember.Object.create({
+                  id: unitId,
+                  title: unit.unitTitle,
+                  sequence: unit.unitSequence
+                });
+              }
+            });
+
+            route0Model.route0Content.units.forEach(function(unit) {
+              if (unit.unitId === unitId) {
+                unit.lessons.forEach(function(lesson) {
+                  if (lesson.lessonId === lessonId) {
+                    let cols = [];
+                    lesson.collections.forEach(function(col) {
+                      cols.push(
+                        Ember.Object.create({
+                          id: col.collectionId,
+                          title: col.collectionTitle,
+                          sequence: col.collectionSequence
+                        })
+                      );
+                    });
+                    let colobj = Ember.A(cols);
+                    lessono = Ember.Object.create({
+                      id: lessonId,
+                      title: lesson.lessonTitle,
+                      sequence: lesson.lessonSequence,
+                      children: colobj
+                    });
+                  }
+                });
+              }
+            });
+            let unitmodeldata = Ember.Object.create(units);
+            let lessonmodeldata = Ember.Object.create(lessono);
+            unitPromise = Ember.RSVP.Promise.resolve(unitmodeldata);
+            lessonPromise = Ember.RSVP.Promise.resolve(lessonmodeldata);
+          }
+        } else {
+          unitPromise = route.get('unitService').fetchById(courseId, unitId);
+          lessonPromise = route
+            .get('lessonService')
+            .fetchById(courseId, unitId, lessonId);
         }
 
         return Ember.RSVP.hash({
           course: route.get('courseService').fetchById(courseId),
-          unit: route.get('unitService').fetchById(courseId, unitId),
-          lesson: route
-            .get('lessonService')
-            .fetchById(courseId, unitId, lessonId),
+          unit: unitPromise,
+          lesson: lessonPromise,
           suggestedResources:
             collectionId != null
               ? route
@@ -143,7 +200,7 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
         }).then(function(hash) {
           //setting query params using the map location
           params.collectionId = collectionId;
-          params.classId = params.classId || mapLocation.get('context.classId');
+          //params.classId = params.classId || mapLocation.get('context.classId');
           params.unitId = params.unitId || mapLocation.get('context.unitId');
           params.lessonId =
             params.lessonId || mapLocation.get('context.lessonId');
@@ -152,25 +209,26 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
             params.subtype || mapLocation.get('context.collectionSubType');
 
           // Set the correct unit sequence number
-          hash.course.children.find((child, index) => {
-            let found = false;
-            if (child.get('id') === hash.unit.get('id')) {
-              found = true;
-              hash.unit.set('sequence', index + 1);
-            }
-            return found;
-          });
+          if (params.pathType !== 'route0') {
+            hash.course.children.find((child, index) => {
+              let found = false;
+              if (child.get('id') === hash.unit.get('id')) {
+                found = true;
+                hash.unit.set('sequence', index + 1);
+              }
+              return found;
+            });
 
-          // Set the correct lesson sequence number
-          hash.unit.children.find((child, index) => {
-            let found = false;
-            if (child.get('id') === hash.lesson.get('id')) {
-              found = true;
-              hash.lesson.set('sequence', index + 1);
-            }
-            return found;
-          });
-
+            // Set the correct lesson sequence number
+            hash.unit.children.find((child, index) => {
+              let found = false;
+              if (child.get('id') === hash.lesson.get('id')) {
+                found = true;
+                hash.lesson.set('sequence', index + 1);
+              }
+              return found;
+            });
+          }
           //loads the player model if it has no suggestions
           return route.playerModel(params).then(function(model) {
             return Object.assign(model, {

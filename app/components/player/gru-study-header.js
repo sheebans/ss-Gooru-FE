@@ -300,10 +300,11 @@ export default Ember.Component.extend({
     component.set('totalResources', totalResources);
     const courseId = component.get('courseId');
     if (classId) {
+      let classCourseId = Ember.A([{classId, courseId}]);
       Ember.RSVP.hash({
         classPerformanceSummaryItems: component
           .get('performanceService')
-          .findClassPerformanceSummaryByStudentAndClassIds(myId, [classId])
+          .findClassPerformanceSummaryByStudentAndClassIds(myId, classCourseId)
       }).then(({ classPerformanceSummaryItems }) => {
         component.set(
           'performanceSummary',

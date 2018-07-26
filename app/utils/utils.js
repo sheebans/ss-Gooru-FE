@@ -966,3 +966,27 @@ export function getRoutePathFirstOccurrence() {
   let currentLocationPath = window.location.pathname;
   return currentLocationPath.split('/')[2];
 }
+
+
+/**
+ * Extract subject id by ignoring framework code, if available
+ * @return {String}
+ */
+export function getSubjectIdFromSubjectBucket(subjectBucket) {
+  let subjectBucketSize = subjectBucket.split('.');
+  let taxonomySubject = subjectBucket;
+  if (subjectBucketSize.length > 2) {  //subject with framework
+    taxonomySubject = subjectBucket.substring(subjectBucket.indexOf('.') + 1);
+  }
+  return taxonomySubject;
+}
+
+/**
+ * Find number of months between two dates
+ * @return {Number}
+ */
+export function diffMonthBtwTwoDates(date1, date2) {
+  let diff =(date1.getTime() - date2.getTime()) / 1000;
+  diff /= (60 * 60 * 24 * 7 * 4);
+  return (Math.abs(Math.round(diff)) ) - 1;
+}

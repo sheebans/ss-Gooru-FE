@@ -152,6 +152,34 @@ export default Ember.Component.extend(AccordionMixin, {
 
     onSelectItem(contentType) {
       this.sendAction('onSelectItem', contentType);
+    },
+
+    /**
+     * Action triggered when the user click outside of pullup.
+     **/
+    onClosePullUp() {
+      this.set('showPathWayPullUp', false);
+      this.set('showReportPullUp', false);
+      this.set('showLessonReportPullUp', false);
+      this.set('showUnitReportPullUp', false);
+    },
+    /**
+     * Action triggered when the user close the pull up.
+     **/
+    closeAll: function() {
+      this.sendAction('onClosePullUp');
+    },
+
+    onPullUpClose() {
+      this.set('showUnitReportPullUp', false);
+    },
+
+    /**
+     * Action triggered when the user click the unit level performance.
+     **/
+    onOpenUnitLevelReport() {
+      const component = this;
+      component.set('showUnitReportPullUp', true);
     }
   },
 
@@ -237,6 +265,8 @@ export default Ember.Component.extend(AccordionMixin, {
    * @property {Boolean}
    */
   isFromDCA: null,
+
+  showUnitReportPullUp: false,
 
   // -------------------------------------------------------------------------
   // Observers
@@ -327,11 +357,10 @@ export default Ember.Component.extend(AccordionMixin, {
         .get('analyticsService')
         .getUnitPeers(classId, courseId, unitId)
       : Ember.RSVP.resolve(unitPeers);
-    return Ember.RSVP
-      .hash({
-        unit: component.get('unitService').fetchById(courseId, unitId),
-        peers: peersPromise
-      })
+    return Ember.RSVP.hash({
+      unit: component.get('unitService').fetchById(courseId, unitId),
+      peers: peersPromise
+    })
       .then(({ unit, peers }) => {
         lessons = unit.get('children');
         unitPeers = peers;
@@ -358,29 +387,27 @@ export default Ember.Component.extend(AccordionMixin, {
                 );
             Ember.RSVP.resolve(performancePromise).then(resolve, reject);
           } else {
-            Ember.RSVP
-              .hash({
-                assessmentPerformance: component
-                  .get('learnerService')
-                  .fetchPerformanceUnit(
-                    courseId,
-                    unitId,
-                    CONTENT_TYPES.ASSESSMENT
-                  ),
-                collectionPerformance: component
-                  .get('learnerService')
-                  .fetchPerformanceUnit(
-                    courseId,
-                    unitId,
-                    CONTENT_TYPES.COLLECTION
-                  )
-              })
-              .then(({ assessmentPerformance, collectionPerformance }) => {
-                performancePromise = assessmentPerformance.concat(
-                  collectionPerformance
-                );
-                Ember.RSVP.resolve(performancePromise).then(resolve, reject);
-              });
+            Ember.RSVP.hash({
+              assessmentPerformance: component
+                .get('learnerService')
+                .fetchPerformanceUnit(
+                  courseId,
+                  unitId,
+                  CONTENT_TYPES.ASSESSMENT
+                ),
+              collectionPerformance: component
+                .get('learnerService')
+                .fetchPerformanceUnit(
+                  courseId,
+                  unitId,
+                  CONTENT_TYPES.COLLECTION
+                )
+            }).then(({ assessmentPerformance, collectionPerformance }) => {
+              performancePromise = assessmentPerformance.concat(
+                collectionPerformance
+              );
+              Ember.RSVP.resolve(performancePromise).then(resolve, reject);
+            });
           }
         });
       })

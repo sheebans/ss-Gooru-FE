@@ -30,39 +30,30 @@ export default Ember.Controller.extend({
   isFirstLoad: true,
 
   // -------------------------------------------------------------------------
-  // Actions
-
-  actions: {
-    /**
-     * Update 'location' (bound query param)
-     *
-     * @function
-     * @param {String} newLocation - String of the form 'unitId[+lessonId[+resourceId]]'
-     * @returns {undefined}
-     */
-    updateLocation: function(newLocation) {
-      this.set('location', newLocation ? newLocation : null);
-    },
-    /**
-     * Trigger action to update content visibility list
-     */
-    updateContentVisibility: function(contentId, visible) {
-      this.send('updateContentVisible', contentId, visible);
-    },
-
-    /**
-     * Triggered when a close welcome panel button is selected.
-     */
-    toggleHeader: function() {
-      this.set('showWelcome', false);
-    }
-  },
-
-  // -------------------------------------------------------------------------
-  // Events
-
-  // -------------------------------------------------------------------------
   // Properties
+  /**
+   * Propery to show class id.
+   * @property {classId}
+   */
+  classId: '',
+
+  /**
+   * Propery to show course id.
+   * @property {courseId}
+   */
+  courseId: '',
+
+  /**
+   * Propery to show unit id.
+   * @property {unitId}
+   */
+  unitId: '',
+
+  /**
+   * Propery to show lesson id.
+   * @property {lessonId}
+   */
+  lessonId: '',
 
   /**
    * A link to the parent class controller
@@ -108,7 +99,39 @@ export default Ember.Controller.extend({
     const currentClass = controller.get('class');
     let setting = currentClass.get('setting');
     return setting ? setting['course.premium'] : false;
-  })
+  }),
+
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    /**
+     * Update 'location' (bound query param)
+     *
+     * @function
+     * @param {String} newLocation - String of the form 'unitId[+lessonId[+resourceId]]'
+     * @returns {undefined}
+     */
+    updateLocation: function(newLocation) {
+      this.set('location', newLocation ? newLocation : null);
+    },
+    /**
+     * Trigger action to update content visibility list
+     */
+    updateContentVisibility: function(contentId, visible) {
+      this.send('updateContentVisible', contentId, visible);
+    },
+
+    /**
+     * Triggered when a close welcome panel button is selected.
+     */
+    toggleHeader: function() {
+      this.set('showWelcome', false);
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // Events
 
   // -------------------------------------------------------------------------
   // Observers

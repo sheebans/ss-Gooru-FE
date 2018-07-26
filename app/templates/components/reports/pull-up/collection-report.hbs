@@ -1,0 +1,116 @@
+<div class="report-backdrop" {{action 'onPullUpClose'}}></div>
+<div class="collection-report-container">
+  <div class="report-header">
+    <div class="report-breadcrumb">
+      <div class="unit-title">
+        <i class="unit-icon"></i>
+        <p>{{t 'common.unit'}} {{unit.sequence}} : {{unit.title}}</p>
+      </div>
+      <div class="lesson-title">
+        {{gru-icon name="keyboard_arrow_right"}}
+        <i class="lesson-icon"></i>
+        <p>{{t 'common.lesson'}} {{lesson.sequence}} : {{lesson.title}}</p>
+      </div>
+      <div class="collection-title">
+        {{gru-icon name="keyboard_arrow_right"}}
+        <i class="collection-icon"></i>
+        <p>{{selectedCollection.title}}</p>
+      </div>
+    </div>
+    <div class="report-close-pullup" {{action 'onPullUpClose'}}>
+      {{gru-icon name="close" }}
+    </div>
+  </div>
+  <div class="report-content">
+    <div class="report-carousel">
+      <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+          {{#each collections as |collectionItem index|}}
+            <div data-item-index="{{index}}" class="item {{if (eq collectionItem.id  selectedCollection.id) 'active'}}">
+              <div class="collection-background-cover" />
+            </div>
+          {{/each}}
+        </div>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" data-slide="prev" {{action 'onClickPrev'}}>
+          <i class="arrow-left"></i>
+        </a>
+        <a class="right carousel-control" data-slide="next" {{action 'onClickNext'}}>
+          <i class="arrow-right"></i>
+        </a>
+      </div>
+      {{#if isLoading}}
+        <div class="loading-spinner">
+          {{three-bounce-spinner}}
+        </div>
+      {{/if}}
+      <div class="report-carousel-content-container">
+        <div class="report-carousel-content">
+          <div class="performance-display-container">
+            <div class="collection-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedCollection.performance.score))}}>{{selectedCollection.performance.score}}%</div>
+          </div>
+          <div class="collection-report-chart">
+            {{charts.report-bar-chart studentChartReportData=studentChartReportData onClickChart="onClickChart"}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-performance-tabular {{if isGridView 'grid'}}">
+      <div class="report-header-container">
+        <div class="taxonomy-details">
+          {{#if tags.length}}
+            {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 showDescription=true }}
+          {{/if}}
+        </div>
+        <div class="report-action-btns">
+          <div class="view-btn-actions">
+            <div class="grid-view-icon {{if isGridView 'active'}}" {{action "onChooseGridView"}}>
+              {{gru-icon name="view_module"}}
+              <span>{{t 'common.grid'}}</span>
+            </div>
+            <div class="list-view-icon {{if isListView 'active'}}" {{action "onChooseListView"}}>
+              {{gru-icon name="view_list"}}
+              <span>{{t 'common.list'}}</span>
+            </div>
+          </div>
+          <div class="filter-btns">
+            <div class="performance-icon active">
+              {{gru-icon name="done_all"}}
+              <span>{{t 'gru-course-play.performance'}}</span>
+            </div>
+            <div class="timespent-icon {{if isTimeSpentFltApplied 'active'}}" {{action "onToggleTimeSpentFlt"}}>
+              {{gru-icon name="access_time"}}
+              <span>{{t 'common.timeSpent'}}</span>
+            </div>
+            <div class="reaction-icon {{if isReactionFltApplied 'active'}}" {{action "onToggleReactionFlt"}}>
+              {{gru-icon name="insert_emoticon"}}
+              <span>{{t 'reports.gru-table-view.reactions'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="report-view-container">
+        {{#if isGridView}}
+          {{reports.pull-up.collection-report-gridview
+            contents=collection.children
+            studentReportData=studentReportData
+            selectedCollection=selectedCollection
+            studentReport="studentReport"
+          }}
+        {{else}}
+          {{reports.pull-up.collection-report-listview
+            sortByFirstnameEnabled=sortByFirstnameEnabled
+            sortByLastnameEnabled=sortByLastnameEnabled
+            sortByScoreEnabled=sortByScoreEnabled
+            contents=collection.children
+            studentReportData=studentReportData
+            selectedCollection=selectedCollection
+            isReactionFltApplied=isReactionFltApplied
+            isTimeSpentFltApplied=isTimeSpentFltApplied
+            studentReport="studentReport" }}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>

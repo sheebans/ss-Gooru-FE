@@ -302,12 +302,13 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     let route = this;
     let activeClasses = resolvedModel.activeClasses;
     let classIds = activeClasses.mapBy('id');
+    let classCourseIds = route.getListOfClassCourseIds(activeClasses);
     let myId = route.get('session.userId');
 
     Ember.RSVP.hash({
       classPerformanceSummaryItems: route
         .get('performanceService')
-        .findClassPerformanceSummaryByStudentAndClassIds(myId, classIds),
+        .findClassPerformanceSummaryByStudentAndClassIds(myId, classCourseIds),
       classesLocation: route
         .get('analyticsService')
         .getUserCurrentLocationByClassIds(classIds, myId, true)
@@ -326,6 +327,24 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         );
       });
     });
+  },
+
+  /**
+   * @function getListOfClassCourseIds
+   * Method to fetch class and course ids from the list of classess
+   */
+  getListOfClassCourseIds(activeClasses) {
+    let listOfActiveClassCourseIds = Ember.A([]);
+    activeClasses.map( activeClass => {
+      if (activeClass.courseId) {
+        let classCourseId = {
+          classId: activeClass.id,
+          courseId: activeClass.courseId
+        };
+        listOfActiveClassCourseIds.push(classCourseId);
+      }
+    });
+    return listOfActiveClassCourseIds;
   },
 
   setupController: function(controller, model) {

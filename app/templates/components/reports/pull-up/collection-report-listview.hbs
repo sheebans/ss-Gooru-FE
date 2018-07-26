@@ -1,0 +1,131 @@
+<div class="table-fixed-left">
+  <table>
+    <tbody>
+      <tr>
+        <th class="tabular-header">
+          <div class="header-filters">
+            <div class="name-filter">
+              <span class="name-header">{{t 'common.name'}}</span>
+              <span class="first-header {{if sortByFirstnameEnabled 'active'}}" {{action 'sortByFirstName'}}>
+                <span>{{t 'common.first'}}</span>
+              {{#if sortByFirstnameEnabled}}
+                {{gru-icon name="keyboard_arrow_up"}}
+              {{else}}
+                {{gru-icon name="keyboard_arrow_down"}}
+              {{/if}}
+              </span>
+              <span class="last-header {{if sortByLastnameEnabled 'active'}}" {{action 'sortByLastName'}}>
+                <span>{{t 'common.last'}}</span>
+              {{#if sortByLastnameEnabled}}
+                {{gru-icon name="keyboard_arrow_up"}}
+              {{else}}
+                {{gru-icon name="keyboard_arrow_down"}}
+              {{/if}}
+              </span>
+            </div>
+            <div class="avg-filter">
+              <span>{{t 'common.avg'}}</span>
+            </div>
+          </div>
+        </th>
+      </tr>
+      {{#each studentReportData as |student|}}
+        <tr>
+          <th>
+            <div class="user-profile-summary">
+              <div class="user-profile-details {{unless student.hasStarted 'not-started'}}" {{action 'studentReport' selectedCollection student.id}}>
+                <div class="user-profile-img">
+                  <img src="{{student.avatarUrl}}" />
+                </div>
+                <div class="username">
+                  <span>{{student.firstName}}</span>
+                  <span>{{student.lastName}}</span>
+                </div>
+              </div>
+              <div class="score-details">
+                {{#if student.hasStarted}}
+                  <span style= {{safe-html (concat "color:" (grade-color student.overAllScore))}}>{{student.overAllScore}}%</span>
+                {{else}}
+                  <span>--</span>
+                {{/if}}
+              </div>
+            </div>
+          </th>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+<div class="table-fixed-right">
+  <table>
+    <tbody>
+      <tr>
+        {{#each contents as | content |}}
+          <th class="tabular-header">
+            <div class="content-header">
+              <div class="question-icon">
+                <i></i>
+              </div>
+              <div class="content-title">
+                <p>{{safe-html content.title}}</p>
+              </div>
+            </div>
+          </th>
+        {{/each}}
+      </tr>
+      {{#each studentReportData as |student|}}
+        <tr>
+          {{#each student.userPerformanceData as |userPerformanceData|}}
+            <td>
+              <div class="perf-time-react-container">
+                <div class="content-score-value">
+                  {{#if userPerformanceData.hasStarted}}
+                    {{#if userPerformanceData.isSkipped}}
+                      <div class="skipped">
+                        <span>{{userPerformanceData.sequence}}</span> {{gru-icon name="not_interested"}}
+                      </div>
+                    {{else}}
+                      <div class="{{if userPerformanceData.correct 'correct' 'wrong'}}">{{userPerformanceData.sequence}}</div>
+                    {{/if}}
+                  {{else}}
+                    <div class="not-started">{{userPerformanceData.sequence}}</div>
+                  {{/if}}
+                </div>
+                {{#if isTimeSpentFltApplied}}
+                  <div class="timespent-value">
+                    {{#if userPerformanceData.timeSpent}}
+                      <span>{{format-time userPerformanceData.timeSpent}}</span>
+                    {{else}}
+                      <span>--</span>
+                    {{/if}}
+                  </div>
+                {{/if}}
+                {{#if isReactionFltApplied}}
+                  <div class="reaction-value">
+                    <div class="selected-reaction">
+                      {{#if userPerformanceData.reaction_unicode}}
+                        <svg>
+                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/emoji-one/emoji.svg#{{userPerformanceData.reaction_unicode}}"></use>
+                        </svg>
+                      {{else}}
+                        <span>--</span>
+                      {{/if}}
+                    </div>
+                  </div>
+                {{/if}}
+              </div>
+            </td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+{{#if (gt contents.length 2)}}
+  <span class="scroll-left-arrow scroll-arrow" {{action 'onClickScrollLeftArrow'}}>
+    {{gru-icon name="keyboard_arrow_left"}}
+  </span>
+  <span class="scroll-right-arrow scroll-arrow" {{action 'onClickScrollRightArrow'}}>
+    {{gru-icon name="keyboard_arrow_right"}}
+  </span>
+{{/if}}

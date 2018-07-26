@@ -47,6 +47,12 @@ export default Object.assign(quizzesTranslations, {
     relevance: 'Relevance',
     engagement: 'Engagement',
     efficacy: 'Efficacy',
+    grid: 'Grid',
+    list: 'List',
+    first: 'First',
+    last: 'Last',
+    name: 'Name',
+    avg: 'Avg',
     'a-collection': 'a collection',
     'a-course': 'a course',
     'a-question': 'a question',
@@ -750,9 +756,12 @@ export default Object.assign(quizzesTranslations, {
       'course-map': {
         'rescope-toggle': 'Show Complete Course Map',
         'rescope-info':
-          'This course has been personalized specifically for you from the Math Foundation course. To see the original course, enable this feature.',
+          'This course has been personalized specifically for you from the Math Foundation course.',
         'custom-msg':
-          'We are personalizing this course specifically for you based on your proficiency. Please check back in a little while to see the personalized course map.'
+          'We are personalizing this course specifically for you based on your proficiency. Please check back in a little while to see the personalized course map.',
+
+        'route0-bannerdesc':
+          'As per your competency profile, there are some competencies that you need to master so that you can do well in this course. We have a route that we recommend you take to master these competencies. Click here to see the details.'
       }
     },
     analytics: {

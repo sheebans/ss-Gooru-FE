@@ -1,0 +1,31 @@
+{{#if isLoading}}
+  <div class="spinner">
+    {{three-bounce-spinner}}
+  </div>
+{{/if}}
+<div class="chart-area">
+  <div class="matrix-chart">
+    <div class="scrollable-chart">
+      <div id="render-proficiency-matrix"></div>
+    </div>
+    <div class="domain-sequence" style="width:{{width}}px">
+      {{#each taxonomyDomains as |taxonomyDomain index |}}
+        <li class="domain-counts">
+          {{taxonomyDomain.domainSeq}}
+        </li>
+      {{/each}}
+    </div>
+  </div>
+  <div class="domain-list">
+    {{#each taxonomyDomains as |taxonomyDomain |}}
+      <div class="domain">
+        <div class="sequence">
+          {{taxonomyDomain.domainSeq}}.
+        </div>
+        <div class="name">
+          {{taxonomyDomain.domainName}}
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>

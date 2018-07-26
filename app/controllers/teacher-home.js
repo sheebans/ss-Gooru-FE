@@ -50,10 +50,10 @@ export default Ember.Controller.extend(ModalMixin, {
     let archivedClasses = this.get('archivedClass')
       ? this.get('archivedClass')
       : this.get('archivedClasses');
-    let classIds = archivedClasses.mapBy('id');
+    let classCourseIds = route.getListOfClassCourseIds(archivedClasses);
     route
       .get('performanceService')
-      .findClassPerformanceSummaryByClassIds(classIds)
+      .findClassPerformanceSummaryByClassIds(classCourseIds)
       .then(function(classPerformanceSummaryItems) {
         archivedClasses.forEach(function(archiveClass) {
           let classId = archiveClass.get('id');
@@ -75,20 +75,43 @@ export default Ember.Controller.extend(ModalMixin, {
   }),
 
   /**
+   * @function getListOfClassCourseIds
+   * Method to fetch class and course ids from the list of classess
+   */
+  getListOfClassCourseIds(activeClasses) {
+    let listOfActiveClassCourseIds = Ember.A([]);
+    activeClasses.map( activeClass => {
+      if (activeClass.courseId) {
+        let classCourseId = {
+          classId: activeClass.id,
+          courseId: activeClass.courseId
+        };
+        listOfActiveClassCourseIds.push(classCourseId);
+      }
+    });
+    return listOfActiveClassCourseIds;
+  },
+
+  /**
    * @function getLastAccessedClassData
    * Method to get last accessed class data from localStorage/first class
    */
   getLastAccessedClassData() {
     const controller = this;
     let userId = controller.get('session.userId');
-    let lastAccessedClassData = JSON.parse(localStorage.getItem(`${userId}_recent_class`)) || null;
-    let isLastAccessedClassAvailable = lastAccessedClassData ? Object.keys(lastAccessedClassData).length : null;
+    let lastAccessedClassData =
+      JSON.parse(localStorage.getItem(`${userId}_recent_class`)) || null;
+    let isLastAccessedClassAvailable = lastAccessedClassData
+      ? Object.keys(lastAccessedClassData).length
+      : null;
     //If last accessed class available in the local storage
     if (!isLastAccessedClassAvailable) {
       let activeClasses = controller.get('activeClasses');
       lastAccessedClassData = activeClasses ? activeClasses.objectAt(0) : null;
       if (lastAccessedClassData) {
-        lastAccessedClassData = controller.updateLastAccessedClass(lastAccessedClassData);
+        lastAccessedClassData = controller.updateLastAccessedClass(
+          lastAccessedClassData
+        );
       }
     }
     return lastAccessedClassData;
@@ -103,7 +126,9 @@ export default Ember.Controller.extend(ModalMixin, {
     let activeClasses = controller.get('activeClasses');
     let sequencedActiveClass = activeClasses.objectAt(classSeq) || null;
     if (sequencedActiveClass) {
-      sequencedActiveClass = controller.updateLastAccessedClass(sequencedActiveClass);
+      sequencedActiveClass = controller.updateLastAccessedClass(
+        sequencedActiveClass
+      );
     }
     return sequencedActiveClass;
   },
@@ -115,7 +140,9 @@ export default Ember.Controller.extend(ModalMixin, {
   updateLastAccessedClass(classData) {
     const controller = this;
     controller.updateLastAccessedClassPosition(classData.id);
-    return controller.get('teacherClassController').updateLastAccessedClass(classData);
+    return controller
+      .get('teacherClassController')
+      .updateLastAccessedClass(classData);
   },
 
   /**
@@ -182,8 +209,14 @@ export default Ember.Controller.extend(ModalMixin, {
     onChangeAtcClass(actionSequence) {
       const controller = this;
       let currentClassPosition = controller.get('currentClassPosition');
-      let classSeq = actionSequence === 'previous' ? currentClassPosition - 1 : currentClassPosition + 1;
-      controller.set('lastAccessedClassData', controller.getSequencedActiveClass(classSeq));
+      let classSeq =
+        actionSequence === 'previous'
+          ? currentClassPosition - 1
+          : currentClassPosition + 1;
+      controller.set(
+        'lastAccessedClassData',
+        controller.getSequencedActiveClass(classSeq)
+      );
     },
 
     /**
@@ -204,7 +237,10 @@ export default Ember.Controller.extend(ModalMixin, {
   init: function() {
     const controller = this;
     controller._super(...arguments);
-    controller.set('lastAccessedClassData', controller.getLastAccessedClassData());
+    controller.set(
+      'lastAccessedClassData',
+      controller.getLastAccessedClassData()
+    );
     Ember.run.schedule('afterRender', this, function() {
       if (controller.get('showArchivedClasses')) {
         controller.get('archivedClassObject');
@@ -333,9 +369,9 @@ export default Ember.Controller.extend(ModalMixin, {
   },
 
   /**
-  * @property {JSON}
-  * Property to store last accessed class data
-  */
+   * @property {JSON}
+   * Property to store last accessed class data
+   */
   lastAccessedClassData: null,
 
   /**
@@ -359,5 +395,4 @@ export default Ember.Controller.extend(ModalMixin, {
     let classPerformance = controller.get('lastAccessedClassData.performance');
     return classPerformance ? getBarGradeColor(classPerformance.score) : null;
   })
-
 });

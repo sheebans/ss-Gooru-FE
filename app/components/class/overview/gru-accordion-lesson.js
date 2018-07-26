@@ -95,9 +95,31 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
      * Action triggered when the user click outside of pullup.
      **/
     onClosePullUp() {
-      this.set('showPathWayPullUp', false);
-      this.set('showReportPullUp', false);
+      this.set('showLessonReportPullUp', false);
     },
+
+    /*
+     * @function To open lesson level report
+     */
+    onOpenLessonReport: function() {
+      let component = this;
+      let currentClass = component.get('currentClass');
+      let classId = currentClass.get('id');
+      let courseId = currentClass.get('courseId');
+      let unitId = component.get('unitId');
+      let lessonId = component.get('model.id');
+
+      let params = {
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId,
+        lessonId: lessonId,
+        classMembers: component.get('classMembers')
+      };
+      component.set('lessonReportData', params);
+      component.set('showLessonReportPullUp', true);
+    },
+
     /**
      * Load the data for this lesson (data should only be loaded once) and trigger
      * the 'onLessonUpdate' event handler
@@ -218,10 +240,12 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
      * @function actions:CollectionReport
      * @returns {undefined}
      */
-    studentReport: function(collection) {
+    studentReport: function(collection, userId) {
       let component = this;
       let currentClass = component.get('currentClass');
-      let userId = component.get('session.userId');
+      if (!userId) {
+        userId = component.get('session.userId');
+      }
       let classId = currentClass.get('id');
       let courseId = currentClass.get('courseId');
       let unitId = component.get('unitId');
@@ -240,6 +264,35 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
       };
       component.set('studentReportData', params);
       component.set('showReportPullUp', true);
+    },
+
+    /**
+     * Load the student report data for this collection
+     * @function actions:StudentCollectionReportPullup
+     */
+    teacherCollectionReport(collection, collections) {
+      let component = this;
+      let currentClass = component.get('currentClass');
+      let userId = component.get('session.userId');
+      let classId = currentClass.get('id');
+      let courseId = currentClass.get('courseId');
+      let unitId = component.get('unitId');
+      let lessonId = component.get('model.id');
+      let items = collections ? collections : component.get('items');
+      let params = {
+        userId: userId,
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId,
+        lessonId: lessonId,
+        collection: collection,
+        lessonModel: component.get('model'),
+        unitModel: component.get('unit'),
+        collections: items,
+        classMembers: component.get('classMembers')
+      };
+      component.set('teacherCollectionReportData', params);
+      component.set('showCollectionReportPullUp', true);
     }
   },
 
@@ -394,6 +447,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
     }
     return false;
   }),
+
+  showLessonReportPullUp: false,
 
   // -------------------------------------------------------------------------
   // Observers

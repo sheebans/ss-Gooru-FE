@@ -64,6 +64,7 @@ $box-shadow: 1px -1px;
 @import "controllers/reports/student-collection-analytics";
 @import "controllers/reports/study-student-collection";
 @import "controllers/reports/student-open-ended-summary";
+
 @import "controllers/search";
 @import "controllers/sign-in";
 @import "controllers/sign-up";
@@ -168,6 +169,8 @@ $box-shadow: 1px -1px;
 @import "components/charts/gru-radial-chart";
 @import "components/charts/gru-x-bar-chart";
 @import "components/charts/gru-performance-chart";
+@import "components/charts/monthly-time-series-chart";
+@import "components/charts/report-bar-chart";
 
 @import "components/class/gru-class-navigation";
 @import "components/class/gru-class-navbar";
@@ -316,7 +319,11 @@ $box-shadow: 1px -1px;
 @import "components/reports/class-assessment/gru-student-view";
 @import "components/reports/class-assessment/gru-summary";
 @import "components/reports/class-assessment/gru-table-view";
-
+@import "components/reports/pull-up/collection-report";
+@import "components/reports/pull-up/collection-report-listview";
+@import "components/reports/pull-up/collection-report-gridview";
+@import "components/reports/gru-report-pull-up";
+@import "components/reports/gru-lesson-report-body-pull-up";
 @import "components/search/gru-question-options";
 @import "components/search/gru-resource-options";
 
@@ -349,6 +356,9 @@ $box-shadow: 1px -1px;
 @import "components/proficiency/proficiency-course-matrix";
 @import "components/proficiency/competencies-pull-out-body";
 @import "components/proficiency/pull-out-accordion-collection";
+@import "components/proficiency/learner-proficiency-pull-up";
+@import "components/proficiency/learner-proficiency-domain-matrix";
+@import "components/class/overview/route-suggestion-proficiency-matrix";
 
 //ATC View
 @import "components/teacher/class-atc-view";

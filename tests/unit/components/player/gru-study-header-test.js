@@ -56,9 +56,9 @@ test('barChartData', function(assert) {
         performanceService: {
           findClassPerformanceSummaryByStudentAndClassIds: (
             userId,
-            classId
+            [{classId}]
           ) => {
-            assert.equal(classId[0], 'class-1', 'Class id should match');
+            assert.equal(classId, 'class-1', 'Class id should match');
             return Ember.RSVP.resolve(classPerformanceSummary);
           }
         },
