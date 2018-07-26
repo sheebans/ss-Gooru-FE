@@ -95,12 +95,42 @@ export default Ember.Component.extend({
     },
 
     studentReport(collection, userId) {
-      this.sendAction('studentReport', collection, userId);
+      let component = this;
+      if (!userId) {
+        userId = component.get('session.userId');
+      }
+      let params = {
+        userId: userId,
+        classId: component.get('classId'),
+        courseId: component.get('courseId'),
+        unitId: component.get('unit.id'),
+        lessonId: component.get('lesson.id'),
+        collectionId: collection.get('id'),
+        type: collection.get('format'),
+        lesson: component.get('lesson'),
+        isStudent: component.get('isStudent')
+      };
+      this.sendAction('studentReport', params);
     },
 
     onClickChart(userId) {
-      let collection = this.get('selectedCollection');
-      this.sendAction('studentReport', collection, userId);
+      let component = this;
+      if (!userId) {
+        userId = component.get('session.userId');
+      }
+      let collection = component.get('selectedCollection');
+      let params = {
+        userId: userId,
+        classId: component.get('classId'),
+        courseId: component.get('courseId'),
+        unitId: component.get('unit.id'),
+        lessonId: component.get('lesson.id'),
+        collectionId: collection.get('id'),
+        type: collection.get('format'),
+        lesson: component.get('lesson'),
+        isStudent: component.get('isStudent')
+      };
+      this.sendAction('studentReport', params);
     }
   },
 
@@ -262,6 +292,12 @@ export default Ember.Component.extend({
       return TaxonomyTag.getTaxonomyTags(standards);
     }
   }),
+
+  /**
+   * Maintains the state of role.
+   * @type {Boolean}
+   */
+  isStudent: Ember.computed.alias('context.isStduent'),
 
   //--------------------------------------------------------------------------
   // Methods
