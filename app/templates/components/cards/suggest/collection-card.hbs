@@ -1,0 +1,40 @@
+<div class="card-panel-container">
+  <div class="card-panel-header" style="background-image: url({{collection.thumbnailUrl}})">
+    <div class="info">
+      <div class="title">{{collection.title}}</div>
+    </div>
+  </div>
+  <div class="content-count-container">
+    <div class="resource" title="{{t 'common.resource'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
+      <i class="icon"></i>
+      <span>{{collection.resourceCount}}</span>
+    </div>
+    <div class="question" title="{{t 'common.question'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
+      <i class="icon"></i>
+      <span>{{collection.questionCount}}</span>
+    </div>
+  </div>
+  <div class="collection-info-container">
+    <div class="collection-user-info">
+      <div class="created-by">{{t "common.created-by"}}</div>
+      <div class="img-container pull-left">
+        <img class="img-responsive" src="{{collection.owner.avatarUrl}}">
+      </div>
+      <div class="username">{{collection.owner.displayName}}</div>
+    </div>
+    <div class="collection-description">
+      {{safe-html collection.learningObjectives}}
+    </div>
+    <div class="collection-standards">
+      {{#if tags.length}}
+        {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true showDescription=true}}
+      {{/if}}
+    </div>
+
+  </div>
+  <div class="card-panel-footer">
+    <div class="buttons-container">
+      <div class="play-btn" title="Play" data-toggle="tooltip" data-placement="right" {{action "onPlayCollection" collection.id}}>{{gru-icon name="ic_play_arrow"}}</div>
+    </div>
+  </div>
+</div>

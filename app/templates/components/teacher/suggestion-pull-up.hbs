@@ -1,0 +1,54 @@
+<div class="suggestion-backdrop" {{action 'onPullUpClose'}}></div>
+<div class="suggestion-container">
+  <div class="suggestion-header">
+    <div class="suggestion-pullup-close" {{action 'onPullUpClose'}}>
+      {{gru-icon name="arrow_downward"}}
+    </div>
+    <div class="suggestion-explore-icon">
+      {{gru-icon name="explore"}}
+    </div>
+    <div class="suggestion-filter-container">
+      <span>Gooru Suggestions</span>
+    </div>
+    <div class="suggestion-right-menu">
+      <div class="search-input-container">
+        {{input type="text"
+          placeholder=(t "common.search-placeholder")
+          spellcheck="true"
+          id="suggestion-search"
+        }}
+        <div class="search-icon">
+          {{gru-icon name="search"}}
+        </div>
+      </div>
+      <div class="search-filter-icon">
+        {{gru-icon name="filter_list"}}
+      </div>
+    </div>
+  </div>
+  <div class="suggestion-content-type-filter">
+    <div class="filter-by">Filter By</div>
+    <div class="filter-content-types">
+      {{#each filterContentType as |contentType|}}
+        <div class="filter-item {{contentType.format}} {{if (eq contentType.format activeContentType) 'active' }}" {{action 'onSelectFilterBy' contentType.format}}>
+          <i></i>
+          <span>{{t contentType.label}}</span>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+  <div class="search-list-container">
+    <div class="loading-spinner">
+      {{#if isLoading}}
+        {{three-bounce-spinner}}
+      {{/if}}
+    </div>
+    <div class="search-list">
+      {{#each searchResults as |result|}}
+        {{#if (eq activeContentType 'collection') }}
+          {{cards.suggest.collection-card collection=result}} {{else if (eq activeContentType 'assessment')}} {{cards.suggest.assessment-card assessment=result}}
+        {{/if}}
+      {{/each}}
+    </div>
+  </div>
+</div>

@@ -54,6 +54,12 @@ export default Ember.Component.extend({
    */
   sortByScoreEnabled: false,
 
+  /**
+   * Maintains the state of suggestion  pull up
+   * @type {Boolean}
+   */
+  showSuggestionPullup: false,
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -139,6 +145,18 @@ export default Ember.Component.extend({
         },
         400
       );
+    },
+
+    onDeSelectUser(student) {
+      student.set('selectedForSuggestion', false);
+    },
+
+    onSelectUser(student) {
+      student.set('selectedForSuggestion', true);
+    },
+
+    onOpenSuggestionPullup() {
+      this.set('showSuggestionPullup', true);
     }
   }
 });

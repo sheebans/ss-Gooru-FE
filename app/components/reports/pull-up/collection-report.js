@@ -332,19 +332,14 @@ export default Ember.Component.extend({
     let component = this;
     component.$('.report-content').scroll(function() {
       let scrollTop = component.$('.report-content').scrollTop();
-      let headerTabular = component.$(
-        '.report-content .pull-up-collection-report-listview .tabular-header'
-      );
-      let scrollArrow = component.$(
-        '.pull-up-collection-report-listview .scroll-arrow'
+      let scrollFixed = component.$(
+        '.report-content .pull-up-collection-report-listview .on-scroll-fixed'
       );
       if (scrollTop >= 347) {
         let position = scrollTop - 347;
-        component.$(headerTabular).css('top', `${position}px`);
-        component.$(scrollArrow).css('top', `${position}px`);
+        component.$(scrollFixed).css('top', `${position}px`);
       } else {
-        component.$(headerTabular).css('top', '0px');
-        component.$(scrollArrow).css('top', '0px');
+        component.$(scrollFixed).css('top', '0px');
       }
     });
   },
