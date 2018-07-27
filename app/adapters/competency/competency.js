@@ -179,6 +179,33 @@ export default Ember.Object.extend({
     });
   },
 
+  /**
+   * @function getDomainLevelSummary
+   * Method to fetch domain level summary of a class
+   */
+  getDomainLevelSummary(filters) {
+    const adapter = this;
+    const namespace = adapter.get('namespace');
+    const url = `${namespace}/v2/user/competency/report/course`;
+    const options = {
+      type: 'GET',
+      headers: adapter.defineHeaders(),
+      contentType: 'application/json; charset=utf-8',
+      data: filters
+    };
+
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(
+        function(domainLevelSummary) {
+          resolve(domainLevelSummary);
+        },
+        function(error) {
+          reject(error);
+        }
+      );
+    });
+  },
+
   defineHeaders() {
     return {
       Authorization: `Token ${this.get('session.token-api3')}`

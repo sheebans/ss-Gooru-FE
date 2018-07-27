@@ -171,6 +171,7 @@ $box-shadow: 1px -1px;
 @import "components/charts/gru-performance-chart";
 @import "components/charts/monthly-time-series-chart";
 @import "components/charts/report-bar-chart";
+@import "components/charts/domain-competency-chart";
 
 @import "components/class/gru-class-navigation";
 @import "components/class/gru-class-navbar";
@@ -367,3 +368,8 @@ $box-shadow: 1px -1px;
 
 @import "routes/student/class/performance";
 @import "routes/content/rubric/preview";
+
+
+//Pull Up
+@import "components/reports/pull-up/competency-report";
+@import "components/reports/pull-up/course-competency-report";
