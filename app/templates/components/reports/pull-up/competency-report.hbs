@@ -1,0 +1,21 @@
+{{#if showPullUp}}
+<div class="overlay" {{action 'onClosePullUp'}}></div>
+{{/if}}
+<div class="competency-report">
+  <div class="header">
+    <div class="report-info">
+      <div class="type">
+        {{type}}
+      </div>
+      <div class="title">
+        {{title}}
+      </div>
+    </div>
+    <div class="close-pullup" {{action "onClosePullUp"}}>
+      {{gru-icon name="close"}}
+    </div>
+  </div>
+  <div class="body">
+    {{yield}}
+  </div>
+</div>

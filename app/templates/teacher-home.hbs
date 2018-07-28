@@ -50,6 +50,7 @@
             </a>
           </li>
         </ul>
+
         {{#if showActiveClasses}}
         {{#unless hasClasses}}
           <div class="pull-left no-classes-found">
@@ -84,7 +85,13 @@
     </div>
 
     {{#if isShowAtcView}}
-      {{teacher.class-atc-view classPosition=currentClassPosition totalClasses=totalTeachingClasses classData=lastAccessedClassData onChangeAtcClass="onChangeAtcClass" onSelectClassItem="selectMenuItem"}}
+      {{teacher.class-atc-view
+         classPosition=currentClassPosition
+         totalClasses=totalTeachingClasses
+         classData=lastAccessedClassData
+         onChangeAtcClass="onChangeAtcClass"
+         onSelectClassItem="selectMenuItem"
+         }}
     {{else}}
       <div class="content tab-content">
         <div role="tabpanel active-class" class="tab-pane row {{if showActiveClasses 'active'}}" id="active-classes">

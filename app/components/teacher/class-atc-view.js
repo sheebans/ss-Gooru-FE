@@ -42,7 +42,13 @@ export default Ember.Component.extend({
      */
     onSelectClassItem(item, classId) {
       let component = this;
-      component.sendAction('onSelectClassItem', item, classId);
+      //Show competency report when click report
+      if (item === 'performance') {
+
+        component.set('isShowCompetencyReport', true);
+      } else {
+        component.sendAction('onSelectClassItem', item, classId);
+      }
     }
   },
 
@@ -99,5 +105,21 @@ export default Ember.Component.extend({
   isStudentPerformed: Ember.computed('classData', function() {
     let component = this;
     return component.get('classData.courseId') || false;
+  }),
+
+  /**
+   * @property {Boolean}
+   * Property to show/hide competency report pull up
+   */
+  isShowCompetencyReport: false,
+
+  /**
+   * @property {courseSubjectCode}
+   * Property to fetch subject code from subject bucket
+   */
+  courseTitle: Ember.computed('classData', function() {
+    let component = this;
+    let classData = component.get('classData');
+    return classData.courseTitle;
   })
 });

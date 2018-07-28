@@ -28,3 +28,9 @@
     </div>
   </div>
 </div>
+
+{{#if isShowCompetencyReport}}
+  {{#reports.pull-up.competency-report type="Competency Report" title=courseTitle showPullUp=isShowCompetencyReport as |competency-report|}}
+      {{reports.pull-up.course-competency-report classData=classData}}
+  {{/reports.pull-up.competency-report}}
+{{/if}}

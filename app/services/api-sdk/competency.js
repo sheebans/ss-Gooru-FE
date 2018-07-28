@@ -161,5 +161,23 @@ export default Ember.Service.extend({
           );
         }, reject);
     });
+  },
+
+  getDomainLevelSummary(filters) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('competencyAdapter')
+        .getDomainLevelSummary(filters)
+        .then(function(response) {
+          resolve(
+            response
+          );
+        },
+        function(error) {
+          reject(error);
+        }
+        );
+    });
   }
 });

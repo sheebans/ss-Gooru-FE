@@ -5,6 +5,11 @@ export default Ember.Controller.extend({
   // Dependencies
   session: Ember.inject.service('session'),
 
+  /**
+   * @requires service:api-sdk/course
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -114,7 +119,8 @@ export default Ember.Controller.extend({
         courseId: classData.courseId,
         performance: controller.getClassPerformance(
           classData.performanceSummary
-        )
+        ),
+        courseTitle: classData.courseTitle || null
       };
     }
     localStorage.setItem(
