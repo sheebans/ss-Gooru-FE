@@ -44,11 +44,19 @@ export default Ember.Component.extend({
       let component = this;
       //Show competency report when click report
       if (item === 'performance') {
-
         component.set('isShowCompetencyReport', true);
       } else {
         component.sendAction('onSelectClassItem', item, classId);
       }
+    },
+
+    /**
+     * Action triggered when select a domain from pull up
+     */
+    onSelectDomain(domainSet) {
+      let component = this;
+      component.set('selectedDomain', domainSet);
+      component.set('isShowDomainCompetencyReport', true);
     }
   },
 
@@ -112,6 +120,12 @@ export default Ember.Component.extend({
    * Property to show/hide competency report pull up
    */
   isShowCompetencyReport: false,
+
+  /**
+   * @property {Boolean}
+   * Property to show/hide domain competency report pull up
+   */
+  isShowDomainCompetencyReport: false,
 
   /**
    * @property {courseSubjectCode}

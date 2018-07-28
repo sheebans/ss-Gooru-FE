@@ -11,6 +11,10 @@ export default Ember.Component.extend({
     }
   },
 
+  /**
+   * @property {isEnablePlayer}
+   * Property to show/hide player icon in suggestion coursemap
+   */
   isEnablePlayer: true,
 
   taxonomyList: [

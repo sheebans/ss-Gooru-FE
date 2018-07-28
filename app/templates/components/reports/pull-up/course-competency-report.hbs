@@ -8,7 +8,7 @@
       {{#each domainDataSet as |dataSet|}}
         <div class="domain domain-{{dataSet.domainData.domainSeq}}">
           <div class="domain-header">
-            <div class="title ellipsis">
+            <div class="title ellipsis" {{action "onSelectDomain" dataSet}}>
               {{concat dataSet.domainData.domainSeq '.' ' ' dataSet.domainData.domainName}}
             </div>
             <div class="info">
@@ -16,23 +16,23 @@
             </div>
           </div>
           <div class="domain-body">
-            {{#if (gt dataSet.studentCompetencies 13)}}
+            {{#if (gt dataSet.studentCompetencies.length 13)}}
               <div class="arrow previous disabled" {{action "onClickArrow" 'previous' dataSet.domainData.domainSeq}}>
                 {{gru-icon name="keyboard_arrow_left"}}
               </div>
             {{/if}}
             <div class="student-competencies domain-{{dataSet.domainData.domainSeq}}">
-                {{#each dataSet.studentCompetencies as |studentCompetencies index|}}
+                {{#each dataSet.studentCompetencies as |studentCompetency index|}}
                   <div class="student-competency">
                     <div class="competency-chart">
-                      {{charts.domain-competency-chart domainSeq=dataSet.domainData.domainSeq studentSeq=index competencies=studentCompetencies.competencies}}
+                      {{charts.domain-competency-chart domainSeq=dataSet.domainData.domainSeq studentSeq=index competencies=studentCompetency.competencies}}
                     </div>
-                    <div class="student-thumbnail" title="{{studentCompetencies.student.fullName}}" data-toggle="tooltip" style="background-image: url({{studentCompetencies.student.thumbnail}})">
+                    <div class="student-thumbnail" title="{{studentCompetency.fullName}}" data-toggle="tooltip" style="background-image: url({{studentCompetency.thumbnail}})">
                     </div>
                   </div>
                 {{/each}}
             </div>
-            {{#if (gt dataSet.studentCompetencies 13)}}
+            {{#if (gt dataSet.studentCompetencies.length 13)}}
               <div class="arrow next" {{action "onClickArrow" 'next' dataSet.domainData.domainSeq}}>
                 {{gru-icon name="keyboard_arrow_right"}}
               </div>
