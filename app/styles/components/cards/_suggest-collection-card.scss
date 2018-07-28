@@ -6,7 +6,6 @@
     border-radius: 4px;
     background-color: $white;
     box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.07);
-    cursor: pointer;
 
     .card-panel-header {
       width: 220px;
@@ -61,7 +60,7 @@
     .content-count-container {
       height: 25px;
       width: 100%;
-      border-bottom: 1px solid $light-600;
+      border-bottom: 1px solid #f2f2f2;
       display: flex;
 
       .icon {
@@ -141,6 +140,7 @@
 
       .collection-standards {
         padding-top: 5px;
+
         .gru-taxonomy-tag-list {
           .gru-taxonomy-tag {
             max-width: 70%;
@@ -148,6 +148,42 @@
 
             .content {
               margin: 0;
+            }
+            .standard-tag {
+              b {
+                color: #fff;
+              }
+            }
+          }
+
+          .non-visible-tags {
+            width: 30px;
+            height: 29px;
+            background: #37424b;
+            border-radius: 4px;
+            color: #fff;
+            margin-left: 10px;
+            margin-top: 3px;
+          }
+          .popover {
+            background: #fff;
+            margin-left: 5px;
+
+            .arrow::after {
+              border-left-color: #fff;
+              border-right-color: #fff;
+            }
+
+            .popover-content {
+              .gru-taxonomy-tag {
+                max-width: 300px;
+                width: 270px;
+                border-radius: 4px;
+
+                .standard-tag {
+                  width: 270px;
+                }
+              }
             }
           }
         }
@@ -163,17 +199,32 @@
     .card-panel-footer {
       .buttons-container {
         height: 36px;
-        border-bottom: 1px solid #f2f2f2;
+        display: grid;
+        grid-template-columns: auto auto;
 
         .play-btn {
           width: 45px;
           border-right: 1px solid #f2f2f2;
+          cursor: pointer;
 
           i {
             margin-left: -62px;
             margin-top: 7px;
             color: #0072bc;
-            cursor: pointer;
+            pointer-events: none;
+          }
+        }
+
+        .suggest-btn {
+          width: 45px;
+          border-left: 1px solid #f2f2f2;
+          justify-self: end;
+          cursor: pointer;
+
+          .add {
+            margin-left: 8px;
+            margin-top: 6px;
+            pointer-events: none;
           }
         }
       }

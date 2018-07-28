@@ -138,23 +138,23 @@
   </span>
 {{/if}}
 
-<div class="suggest-bar on-scroll-fixed">
+<div class="suggest-bar on-scroll-fixed {{if (gt studentsSelectedForSuggest.length 0) 'active'}}">
   <div class="suggest-bar-container">
-    <div class="close-all-suggestion">
-      {{gru-icon name="close"}}
+    <div class="close-all-suggestion" {{action 'onCloseSuggest'}}>
+      {{gru-icon name="close" }}
     </div>
     <div class="no-of-student-selected">
-      <span>1 Student Selected</span>
+      <span>{{studentsSelectedForSuggest.length}} Student Selected</span>
     </div>
     <div class="suggestion-count-container" {{action 'onOpenSuggestionPullup'}}>
       <span>suggestion</span>
       <div class="suggestion-explore">
         {{gru-icon name="explore"}}
-        <div class="suggestion-count">6</div>
+        <div class="suggestion-count">{{searchResults.length}}</div>
       </div>
     </div>
   </div>
 </div>
 {{#if showSuggestionPullup}}
-  {{teacher.suggestion-pull-up showPullUp=showSuggestionPullup}}
+  {{teacher.suggestion-pull-up showPullUp=showSuggestionPullup students=studentsSelectedForSuggest searchResults=searchResults}}
 {{/if}}

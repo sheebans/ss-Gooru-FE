@@ -5,10 +5,12 @@
     </div>
   </div>
   <div class="content-count-container">
-    <div class="resource" title="{{t 'common.resource'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
-      <i class="icon"></i>
-      <span>{{collection.resourceCount}}</span>
-    </div>
+    {{#if (eq contentType 'collection') }}
+      <div class="resource" title="{{t 'common.resource'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
+        <i class="icon"></i>
+        <span>{{collection.resourceCount}}</span>
+      </div>
+    {{/if}}
     <div class="question" title="{{t 'common.question'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
       <i class="icon"></i>
       <span>{{collection.questionCount}}</span>
@@ -27,14 +29,19 @@
     </div>
     <div class="collection-standards">
       {{#if tags.length}}
-        {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true showDescription=true}}
+        {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1  showDescription=true tagPopoverDefaultPosition='top'}}
       {{/if}}
     </div>
 
   </div>
   <div class="card-panel-footer">
     <div class="buttons-container">
-      <div class="play-btn" title="Play" data-toggle="tooltip" data-placement="right" {{action "onPlayCollection" collection.id}}>{{gru-icon name="ic_play_arrow"}}</div>
+      <div class="play-btn" title="Play" data-toggle="tooltip" data-placement="top" {{action "onPlayCollection" collection.id}}>
+        {{gru-icon name="ic_play_arrow"}}
+      </div>
+      <div class="suggest-btn" title="Suggest" data-toggle="tooltip" data-placement="top" {{action "onSuggestCollection" collection}}>
+        {{gru-icon name="add"}}
+      </div>
     </div>
   </div>
 </div>

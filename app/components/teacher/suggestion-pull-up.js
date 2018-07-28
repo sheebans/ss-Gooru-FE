@@ -57,6 +57,24 @@ export default Ember.Component.extend({
    */
   isLoading: false,
 
+  /**
+   * Maintains list of students selected for  suggest
+   * @type {Array}
+   */
+  students: Ember.A([]),
+
+  /**
+   * Maintains  suggest confirmation state
+   * @type {Boolean}
+   */
+  showSuggestConfirmation: false,
+
+  /**
+   * Suggest selected collection
+   * @type {Collection}
+   */
+  suggestSelectedCollection: null,
+
   // -------------------------------------------------------------------------
   // actions
 
@@ -75,6 +93,14 @@ export default Ember.Component.extend({
     onSelectFilterBy(contentType) {
       this.set('activeContentType', contentType);
       this.loadData();
+    },
+
+    /**
+     * Action get triggered when add suggest icon got clicked
+     */
+    onSuggestCollection(collection) {
+      this.set('suggestSelectedCollection', collection);
+      this.set('showSuggestConfirmation', true);
     }
   },
 
@@ -87,7 +113,6 @@ export default Ember.Component.extend({
   didInsertElement() {
     this.openPullUp();
     this.handleSearchBar();
-    this.loadData();
   },
 
   //--------------------------------------------------------------------------

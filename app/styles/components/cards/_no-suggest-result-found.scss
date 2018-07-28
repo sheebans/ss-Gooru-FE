@@ -1,0 +1,30 @@
+.cards.no-suggest-result-found {
+  margin: auto;
+  width: 279px;
+  display: flex;
+
+  .panel-body {
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+
+    .no-suggest-result-content {
+      .title {
+        font-size: 15px;
+        text-align: center;
+      }
+
+      .icon {
+        text-align: center;
+        padding: 10px;
+        cursor: default;
+
+        i {
+          color: $gray-base;
+          font-size: 86px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

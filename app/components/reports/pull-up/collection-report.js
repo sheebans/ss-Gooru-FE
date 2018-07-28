@@ -27,6 +27,11 @@ export default Ember.Component.extend({
    */
   analyticsService: Ember.inject.service('api-sdk/analytics'),
 
+  /**
+   * @requires service:api-sdk/search
+   */
+  searchService: Ember.inject.service('api-sdk/search'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -299,6 +304,24 @@ export default Ember.Component.extend({
    */
   isStudent: Ember.computed.alias('context.isStduent'),
 
+  /**
+   * Maintains list of students selected for  suggest
+   * @type {Array}
+   */
+  studentsSelectedForSuggest: Ember.A([]),
+
+  /**
+   * Maintains maximum number of search results
+   * @type {Number}
+   */
+  maxSearchResult: 6,
+
+  /**
+   * search result set
+   * @type {Array}
+   */
+  searchResults: Ember.A([]),
+
   //--------------------------------------------------------------------------
   // Methods
 
@@ -372,6 +395,7 @@ export default Ember.Component.extend({
       component.set('collection', collection);
       component.parseClassMemberAndPerformanceData(collection, performance);
       component.set('isLoading', false);
+      component.loadSuggestion();
     });
   },
 
@@ -418,6 +442,8 @@ export default Ember.Component.extend({
     component.set('sortByLastnameEnabled', true);
     component.set('sortByFirstnameEnabled', false);
     component.set('sortByScoreEnabled', false);
+    component.set('studentsSelectedForSuggest', Ember.A([]));
+    component.set('searchResults', Ember.A([]));
     component.set('studentReportData', users);
     let maxTimeSpent = Math.max(...usersTotaltimeSpent);
     component.calculateTimeSpentScore(usersChartData, maxTimeSpent);
@@ -516,5 +542,39 @@ export default Ember.Component.extend({
       data.set('timeSpentScore', timeSpentScore);
       data.set('timeSpentDifference', 100 - timeSpentScore);
     });
+  },
+
+  loadSuggestion() {
+    let component = this;
+    let taxonomies = null;
+    let collection = component.get('selectedCollection');
+    let tags = component.get('tags');
+    if (tags) {
+      taxonomies = tags.map(tag => {
+        return tag.data.id;
+      });
+    }
+    let filters = component.getFilters();
+    filters.taxonomies = taxonomies;
+    let term =
+      taxonomies != null && taxonomies.length > 0
+        ? '*'
+        : collection.get('title');
+
+    component
+      .get('searchService')
+      .searchCollections(term, filters)
+      .then(searchResults => {
+        component.set('searchResults', searchResults);
+      });
+  },
+
+  getFilters() {
+    let component = this;
+    let maxSearchResult = component.get('maxSearchResult');
+    let params = {
+      pageSize: maxSearchResult
+    };
+    return params;
   }
 });

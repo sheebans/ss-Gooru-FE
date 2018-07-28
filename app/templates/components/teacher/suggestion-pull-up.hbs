@@ -43,12 +43,18 @@
         {{three-bounce-spinner}}
       {{/if}}
     </div>
-    <div class="search-list">
-      {{#each searchResults as |result|}}
-        {{#if (eq activeContentType 'collection') }}
-          {{cards.suggest.collection-card collection=result}} {{else if (eq activeContentType 'assessment')}} {{cards.suggest.assessment-card assessment=result}}
-        {{/if}}
-      {{/each}}
-    </div>
+    {{#if (gt searchResults.length 0)}}
+      <div class="search-list">
+        {{#each searchResults as |result|}}
+          {{cards.suggest-collection-card collection=result contentType=activeContentType onSuggestCollection="onSuggestCollection"}}
+        {{/each}}
+      </div>
+    {{else}}
+      {{cards.no-suggest-result-found}}
+    {{/if}}
   </div>
 </div>
+
+{{#if showSuggestConfirmation}}
+ {{cards.suggest-confirmation collection=suggestSelectedCollection students=students contentType=activeContentType}}
+{{/if}}

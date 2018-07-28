@@ -53,6 +53,7 @@ export default Object.assign(quizzesTranslations, {
     last: 'Last',
     name: 'Name',
     avg: 'Avg',
+    'no-suggest-result-message': ' No matching content found',
     'a-collection': 'a collection',
     'a-course': 'a course',
     'a-question': 'a question',

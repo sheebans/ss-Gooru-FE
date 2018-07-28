@@ -110,6 +110,12 @@ export default Ember.Component.extend({
    */
   onAdd: null,
 
+  /**
+   * Maintains the value of popover position
+   * @type {String}
+   */
+  tagPopoverDefaultPosition: 'bottom',
+
   // -------------------------------------------------------------------------
   // Methods
 

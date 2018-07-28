@@ -7,9 +7,6 @@ export default Ember.Component.extend({
   classNames: ['reports', 'pull-up-collection-report-listview'],
 
   // -------------------------------------------------------------------------
-  // Dependencies
-
-  // -------------------------------------------------------------------------
   // Properties
 
   /**
@@ -59,6 +56,18 @@ export default Ember.Component.extend({
    * @type {Boolean}
    */
   showSuggestionPullup: false,
+
+  /**
+   * Maintains list of students selected for  suggest
+   * @type {Array}
+   */
+  studentsSelectedForSuggest: Ember.A([]),
+
+  /**
+   * search result set
+   * @type {Array}
+   */
+  searchResults: Ember.A([]),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -148,15 +157,26 @@ export default Ember.Component.extend({
     },
 
     onDeSelectUser(student) {
+      this.get('studentsSelectedForSuggest').removeObject(student);
       student.set('selectedForSuggestion', false);
     },
 
     onSelectUser(student) {
+      this.get('studentsSelectedForSuggest').pushObject(student);
       student.set('selectedForSuggestion', true);
     },
 
     onOpenSuggestionPullup() {
       this.set('showSuggestionPullup', true);
+    },
+
+    onCloseSuggest() {
+      this.set('studentsSelectedForSuggest', Ember.A());
+      this.get('studentReportData')
+        .filterBy('selectedForSuggestion', true)
+        .map(data => {
+          data.set('selectedForSuggestion', false);
+        });
     }
   }
 });

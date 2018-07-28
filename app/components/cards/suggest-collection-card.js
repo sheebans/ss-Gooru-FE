@@ -40,6 +40,12 @@ export default Ember.Component.extend({
     }
   }),
 
+  /**
+   * Maintains collection type
+   * @type {String}
+   */
+  contentType: null,
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -48,8 +54,13 @@ export default Ember.Component.extend({
      * Action triggered when the user play collection
      * It'll open the player in new tab
      */
-    /*onPlayCollection(collectionId) {
-      // handle logic here
-    }*/
+    onPlayCollection(collectionId) {
+      let collectionUrl = `${window.location.origin}/player/${collectionId}`;
+      window.open(collectionUrl);
+    },
+
+    onSuggestCollection(collection) {
+      this.sendAction('onSuggestCollection', collection);
+    }
   }
 });
