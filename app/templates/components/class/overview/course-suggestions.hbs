@@ -2,7 +2,7 @@
 <div class=''>
     <ol class=''>
         {{#each model.route0Content.units as |unit index|}}
-                {{class.overview.unit-suggestions model=unit index=index isPlayer=isPlayer onStudyNow=(action 'studyNow') }}
+                {{class.overview.unit-suggestions model=unit class=class course=course index=index isPlayer=isPlayer onStudyNow=(action 'studyNow') }}
         {{/each}}
     </ol>
 </div>
