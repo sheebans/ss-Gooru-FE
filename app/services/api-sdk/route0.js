@@ -93,6 +93,33 @@ export default Ember.Service.extend({
         );
     });
   },
+
+  /**
+   * @function fetchInClassByTeacher
+   * Method to fetch route0 contents for a student
+   */
+  fetchInClassByTeacher(filters) {
+    const service = this;
+    const route0Adapter = service.get('route0Adapter');
+    const route0Serializer = service.get('route0Serializer');
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      let route0Promise = route0Adapter.fetchInClassByTeacher(filters);
+      route0Promise.then(
+        function(route0Data) {
+          resolve(route0Serializer.normalizeFetch(route0Data));
+        },
+        function(error) {
+          const status = error.status;
+          if (status === 404) {
+            resolve({ status: '404' });
+          } else {
+            reject(error);
+          }
+        }
+      );
+    });
+  },
+
   updateRouteAction: function(action) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
