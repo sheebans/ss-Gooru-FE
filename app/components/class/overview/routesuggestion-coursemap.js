@@ -10,6 +10,9 @@ export default Ember.Component.extend({
       //ToDo: Add impl on player
     }
   },
+
+  isEnablePlayer: true,
+
   taxonomyList: [
     {
       code: 'D2.Civ.1.K-2',

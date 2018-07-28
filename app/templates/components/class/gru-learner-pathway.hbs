@@ -103,50 +103,29 @@
   {{/if}}
   </div>
 
+  <div class="pathway-body">
 
-  {{#if courseView}}
-    <div class="unit-body">
-      {{#each items as |item index|}}
-        {{class.learner.gru-learner-accordion-unit
-        currentClass=currentClass
-        currentCourse=currentCourse
-        classMembers=classMembers
-        collectionReport="collectionReport"
-        model=item
-        index=index
-        isTeacher=isTeacher
-        toggleLocation=toggleLocation
-        onSelectItem="onSelectItem"}}
-
-  {{else}}
-    <li>{{t "common.contentUnavailable"}}</li>
-      {{/each}}
-    </div>
-  {{else}}
-    <div class="report-data">
-      {{#if isReportLoading}}
-        {{three-bounce-spinner}}
-      {{else}}
-        {{#if assessmentResult}}
-          {{reports.gru-assessment-report
-         areAnswersHidden=areAnswersHidden
-         isAnswerKeyHidden=isAnswerKeyHidden
-         assessmentResult=assessmentResult
-         onSelectAttempt='selectAttempt'
-         onViewOEReport='viewOEReport'
-         isPathway=true
-         profile=profile
-         isTeacher=isTeacher
-         onUpdateQuestionScore='onUpdateQuestionScore'
-         isChangeScoreEnabled=isChangeScoreEnabled
-         showChangeScore=showChangeScore
-         isAssessment=isAssessment
-       }}
-        {{else}}
-          {{t 'common.no-available-results'}}
-        {{/if}}
+      {{#if (and isPremiumClass  isAccepted)}}
+        {{class.overview.routesuggestion-coursemap isEnablePlayer=false route0=route0Contents }}
       {{/if}}
+
+      <div class="unit-body">
+        {{#each items as |item index|}}
+          {{class.learner.gru-learner-accordion-unit
+          currentClass=currentClass
+          currentCourse=currentCourse
+          classMembers=classMembers
+          collectionReport="collectionReport"
+          model=item
+          index=index
+          isTeacher=isTeacher
+          toggleLocation=toggleLocation
+          onSelectItem="onSelectItem"}}
+
+        {{else}}
+          <li>{{t "common.contentUnavailable"}}</li>
+        {{/each}}
+      </div>
     </div>
-  {{/if}}
   {{/if}}
 </ol>

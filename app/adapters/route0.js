@@ -33,19 +33,20 @@ export default ApplicationAdapter.extend({
   /**
    * Method to fetch route0 for given student in class from the API
    * @function fetchInClass
+   * @param {filters.classId} classId
+   * @param {filters.courseId} courseId
+   * @param {filters.userId} userId student id
    * @returns {Promise}
    */
-  fetchInClassByTeacher: function(filter) {
+  fetchInClassByTeacher: function(filters) {
     const adapter = this;
     const namespace = adapter.get('namespace');
-    const url = `${namespace}/rtd/?classId=${filter.classId}&courseId=${
-      filter.courseId
-    }`;
+    const url = `${namespace}/rtd`;
     const options = {
       type: 'GET',
       contentType: 'application/json; charset=utf-8',
       headers: adapter.get('headers'),
-      data: filter
+      data: filters
     };
     return Ember.$.ajax(url, options);
   },
