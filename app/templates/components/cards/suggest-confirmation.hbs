@@ -20,17 +20,35 @@
   <div class="suggestion-made-to">
     <p>Suggestion made to</p>
     <div class="user-details-container">
-      {{#each students as |student|}}
-          <div class="user-profile-details">
-            <div class="user-profile-img">
-              <img src="{{student.avatarUrl}}">
-            </div>
-            <span class="ellipsis">{{student.lastName}}</span>
+      {{#each defaultStudentList as |student|}}
+        <div class="user-profile-details">
+          <div class="user-profile-img">
+            <img src="{{student.avatarUrl}}">
           </div>
+          <span class="ellipsis">{{student.lastName}}</span>
+        </div>
       {{/each}}
     </div>
   </div>
-
+  <div class="suggestion-profile-list">
+    {{#if (gt moreStudentsNumber 0)}}
+      <button data-placement="right" data-toggle="popover">
+      <span>+ {{moreStudentsNumber}} more</span>
+    </button>
+      <div class="hidden" id="suggestion-profile-details">
+        <div class="suggestion-profile-details-popover">
+          {{#each students as |student|}}
+            <div class="user-profile-details">
+              <div class="user-profile-img">
+                <img src="{{student.avatarUrl}}">
+              </div>
+              <span class="ellipsis">{{student.lastName}}&nbsp;&nbsp;&nbsp;{{student.firstName}}</span>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+  </div>
   <div class="card-panel-footer">
     <div class="buttons-container">
       <div class="cancel-btn" {{action "onCancelSuggest"}}>

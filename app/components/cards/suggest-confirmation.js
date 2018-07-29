@@ -9,6 +9,16 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Events
 
+  didInsertElement() {
+    let component = this;
+    component.$('[data-toggle=popover]').popover({
+      html: true,
+      content: function() {
+        return component.$('#suggestion-profile-details').html();
+      }
+    });
+  },
+
   // -------------------------------------------------------------------------
   // Properties
 
@@ -29,6 +39,28 @@ export default Ember.Component.extend({
    * @type {String}
    */
   contentType: null,
+
+  /**
+   * more items number
+   * @type {Number}
+   */
+  moreStudentsNumber: Ember.computed('students', function() {
+    return this.get('students').length - this.get('defaultListStudentNumbers');
+  }),
+
+  /**
+   * default list student count
+   * @type {Number}
+   */
+  defaultListStudentNumbers: 3,
+
+  /**
+   * Defalut list students
+   * @return {Array}
+   */
+  defaultStudentList: Ember.computed('students', function() {
+    return this.get('students').slice(0, this.get('defaultListStudentNumbers'));
+  }),
 
   // -------------------------------------------------------------------------
   // Actions
