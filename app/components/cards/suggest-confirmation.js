@@ -37,14 +37,14 @@ export default Ember.Component.extend({
     /**
      * Trigger when cancel suggest  popup
      */
-    onCancel() {
+    onCancelSuggest() {
       this.sendAction('onCancelSuggest');
     },
 
     /**
      * Trigger when confirm suggest co popup
      */
-    onConfirm() {
+    onConfirmSuggest() {
       this.sendAction('onConfirmSuggest');
     }
   }

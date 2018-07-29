@@ -141,6 +141,12 @@
           grid-template-rows: 30px 30px;
           justify-items: center;
 
+          span {
+            width: 65px;
+            align-self: center;
+            text-align: center;
+          }
+
           .user-profile-img {
             img {
               width: 29px;
@@ -166,6 +172,11 @@
 
         .cancel-btn {
           opacity: 0.3;
+          cursor: pointer;
+        }
+
+        .confirm-btn {
+          cursor: pointer;
         }
       }
     }

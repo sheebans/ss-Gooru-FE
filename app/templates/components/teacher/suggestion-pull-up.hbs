@@ -56,5 +56,11 @@
 </div>
 
 {{#if showSuggestConfirmation}}
- {{cards.suggest-confirmation collection=suggestSelectedCollection students=students contentType=activeContentType}}
+  {{cards.suggest-confirmation
+   collection=suggestSelectedCollection
+   students=students
+   contentType=activeContentType
+   onCancelSuggest="onCancelSuggest"
+   onConfirmSuggest="onConfirmSuggest"
+ }}
 {{/if}}

@@ -156,5 +156,11 @@
   </div>
 </div>
 {{#if showSuggestionPullup}}
-  {{teacher.suggestion-pull-up showPullUp=showSuggestionPullup students=studentsSelectedForSuggest searchResults=searchResults}}
+  {{teacher.suggestion-pull-up
+    showPullUp=showSuggestionPullup
+    students=studentsSelectedForSuggest
+    searchResults=searchResults
+    onCloseSuggest="onCloseSuggest"
+    context=contextParams
+    collection=collection}}
 {{/if}}

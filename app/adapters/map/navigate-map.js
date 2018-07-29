@@ -57,6 +57,29 @@ export default Ember.Object.extend({
     });
   },
 
+  /**
+   * Calls the teacher suggestions navigation api
+   *
+   * @param {Object} context
+   * @returns {Promise|Object}
+   */
+  teacherSuggestions: function(context) {
+    const namespace = this.get('namespace');
+    const url = `${namespace}/teacher/suggestions`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'text',
+      processData: false,
+      headers: this.defineHeaders(),
+      data: JSON.stringify(context)
+    };
+
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      Ember.$.ajax(url, options).then(resolve, reject);
+    });
+  },
+
   defineHeaders: function() {
     return {
       Authorization: `Token ${this.get('session.token-api3')}`

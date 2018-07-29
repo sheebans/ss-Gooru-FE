@@ -411,5 +411,14 @@ export default Ember.Service.extend({
       );
     }
     return mapLocationPromise;
+  },
+
+  /**
+   * Teacher suggestions
+   * @param  context as  params
+   */
+  teacherSuggestions: function(context) {
+    const service = this;
+    return service.get('adapter').teacherSuggestions(context);
   }
 });

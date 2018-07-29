@@ -322,6 +322,12 @@ export default Ember.Component.extend({
    */
   searchResults: Ember.A([]),
 
+  /**
+   * Maintains context data
+   * @type {Object}
+   */
+  context: null,
+
   //--------------------------------------------------------------------------
   // Methods
 
@@ -547,7 +553,6 @@ export default Ember.Component.extend({
   loadSuggestion() {
     let component = this;
     let taxonomies = null;
-    let collection = component.get('selectedCollection');
     let tags = component.get('tags');
     if (tags) {
       taxonomies = tags.map(tag => {
@@ -556,10 +561,7 @@ export default Ember.Component.extend({
     }
     let filters = component.getFilters();
     filters.taxonomies = taxonomies;
-    let term =
-      taxonomies != null && taxonomies.length > 0
-        ? '*'
-        : collection.get('title');
+    let term = '*';
 
     component
       .get('searchService')

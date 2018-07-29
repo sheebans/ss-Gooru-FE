@@ -18,6 +18,11 @@ export default Ember.Component.extend({
    */
   searchService: Ember.inject.service('api-sdk/search'),
 
+  /**
+   * @requires service:api-sdk/navigate-map
+   */
+  navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
+
   // -------------------------------------------------------------------------
   // Properties
 
@@ -75,6 +80,18 @@ export default Ember.Component.extend({
    */
   suggestSelectedCollection: null,
 
+  /**
+   * Maintains the context data
+   * @type {Object}
+   */
+  context: null,
+
+  /**
+   * Collection details
+   * @type {Collection}
+   */
+  collection: null,
+
   // -------------------------------------------------------------------------
   // actions
 
@@ -101,6 +118,43 @@ export default Ember.Component.extend({
     onSuggestCollection(collection) {
       this.set('suggestSelectedCollection', collection);
       this.set('showSuggestConfirmation', true);
+    },
+
+    /**
+     * Trigger when cancel suggest  popup
+     */
+    onCancelSuggest() {
+      this.set('showSuggestConfirmation', false);
+    },
+
+    /**
+     * Trigger when confirm suggest  popup
+     */
+    onConfirmSuggest() {
+      let component = this;
+      let collection = this.get('suggestSelectedCollection');
+      let userIds = this.get('students').map(student => {
+        return student.get('id');
+      });
+      let contextParams = {
+        ctx_user_ids: userIds,
+        ctx_class_id: component.get('context.classId'),
+        ctx_course_id: component.get('context.courseId'),
+        ctx_unit_id: component.get('context.unitId'),
+        ctx_lesson_id: component.get('context.lessonId'),
+        ctx_collection_id: component.get('collection.id'),
+        suggested_content_id: collection.get('id'),
+        suggested_content_type: component.get('activeContentType')
+      };
+      component
+        .get('navigateMapService')
+        .teacherSuggestions(contextParams)
+        .then(() => {
+          component.set('students', Ember.A([]));
+          component.set('showSuggestConfirmation', false);
+          component.set('showPullUp', false);
+          component.sendAction('onCloseSuggest');
+        });
     }
   },
 

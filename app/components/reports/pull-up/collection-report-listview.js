@@ -69,6 +69,22 @@ export default Ember.Component.extend({
    */
   searchResults: Ember.A([]),
 
+  /**
+   * Maintains the context object
+   * @type {Object}
+   */
+  contextParams: Ember.computed('context', function() {
+    let context = this.get('context');
+    let params = Ember.Object.create({
+      classId: context.classId,
+      courseId: context.courseId,
+      unitId: context.unitModel.get('id'),
+      lessonId: context.lessonModel.get('id'),
+      collectionId: context.id
+    });
+    return params;
+  }),
+
   // -------------------------------------------------------------------------
   // Actions
 
