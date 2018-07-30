@@ -150,7 +150,7 @@
       <span>{{t 'common.suggestion'}}</span>
       <div class="suggestion-explore">
         {{gru-icon name="explore"}}
-        <div class="suggestion-count">{{searchResults.length}}</div>
+        <div class="suggestion-count">{{suggestResults.length}}</div>
       </div>
     </div>
   </div>
@@ -160,6 +160,7 @@
     showPullUp=showSuggestionPullup
     students=studentsSelectedForSuggest
     searchResults=searchResults
+    suggestResults=suggestResults
     onCloseSuggest="onCloseSuggest"
     context=contextParams
     collection=collection}}

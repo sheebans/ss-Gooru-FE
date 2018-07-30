@@ -317,10 +317,10 @@ export default Ember.Component.extend({
   maxSearchResult: 6,
 
   /**
-   * search result set
+   * suggest result set
    * @type {Array}
    */
-  searchResults: Ember.A([]),
+  suggestResults: Ember.A([]),
 
   /**
    * Maintains context data
@@ -449,7 +449,7 @@ export default Ember.Component.extend({
     component.set('sortByFirstnameEnabled', false);
     component.set('sortByScoreEnabled', false);
     component.set('studentsSelectedForSuggest', Ember.A([]));
-    component.set('searchResults', Ember.A([]));
+    component.set('suggestResults', Ember.A([]));
     component.set('studentReportData', users);
     let maxTimeSpent = Math.max(...usersTotaltimeSpent);
     component.calculateTimeSpentScore(usersChartData, maxTimeSpent);
@@ -552,6 +552,7 @@ export default Ember.Component.extend({
 
   loadSuggestion() {
     let component = this;
+    let collection = this.get('collection');
     let taxonomies = null;
     let tags = component.get('tags');
     if (tags) {
@@ -561,13 +562,16 @@ export default Ember.Component.extend({
     }
     let filters = component.getFilters();
     filters.taxonomies = taxonomies;
-    let term = '*';
+    let term =
+      taxonomies != null && taxonomies.length > 0
+        ? '*'
+        : collection.get('title');
 
     component
       .get('searchService')
       .searchCollections(term, filters)
-      .then(searchResults => {
-        component.set('searchResults', searchResults);
+      .then(suggestResults => {
+        component.set('suggestResults', suggestResults);
       });
   },
 

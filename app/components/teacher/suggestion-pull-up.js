@@ -54,7 +54,13 @@ export default Ember.Component.extend({
    * Maintains the search result data
    * @type {Array}
    */
-  searchResults: null,
+  searchResults: Ember.A([]),
+
+  /**
+   * suggest result set
+   * @type {Array}
+   */
+  suggestResults: Ember.A([]),
 
   /**
    * Maintains the state of data loading
@@ -92,6 +98,12 @@ export default Ember.Component.extend({
    */
   collection: null,
 
+  /**
+   * Maintains state of the context
+   * @type {Boolean}
+   */
+  isFromSearch: false,
+
   // -------------------------------------------------------------------------
   // actions
 
@@ -109,7 +121,9 @@ export default Ember.Component.extend({
      */
     onSelectFilterBy(contentType) {
       this.set('activeContentType', contentType);
-      this.loadData();
+      if (this.get('isFromSearch')) {
+        this.loadData();
+      }
     },
 
     /**
@@ -159,10 +173,12 @@ export default Ember.Component.extend({
 
     onClickSearch() {
       let component = this;
-      component.$('.search-input-container').addClass('active');
       let term = component.getSearchTerm();
       if (term.length > 0) {
+        component.set('isFromSearch', true);
         component.loadData();
+      } else {
+        component.$('.search-input-container').addClass('active');
       }
     }
   },
@@ -174,6 +190,8 @@ export default Ember.Component.extend({
    * Function to triggered once when the component element is first rendered.
    */
   didInsertElement() {
+    let suggestResults = this.get('suggestResults');
+    this.set('searchResults', suggestResults);
     this.openPullUp();
     this.handleSearchBar();
   },
@@ -218,6 +236,7 @@ export default Ember.Component.extend({
 
     component.$('#suggestion-search').on('keyup', function(e) {
       if (e.which === KEY_CODES.ENTER) {
+        component.set('isFromSearch', true);
         component.loadData();
       }
     });

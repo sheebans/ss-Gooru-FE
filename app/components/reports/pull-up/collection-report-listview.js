@@ -70,6 +70,12 @@ export default Ember.Component.extend({
   searchResults: Ember.A([]),
 
   /**
+   * suggest result set
+   * @type {Array}
+   */
+  suggestResults: Ember.A([]),
+
+  /**
    * Maintains the context object
    * @type {Object}
    */
