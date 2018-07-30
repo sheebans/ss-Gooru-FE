@@ -60,7 +60,7 @@ export default Ember.Component.extend({
     },
 
     /**
-     * Actrion triggered when close all pull ups
+     * Action triggered when close all pull ups
      */
     onCloseCompetencyReportPullUp() {
       let component = this;
