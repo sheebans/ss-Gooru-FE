@@ -43,7 +43,7 @@ export default Ember.Component.extend({
     onSelectClassItem(item, classId) {
       let component = this;
       //Show competency report when click report
-      if (item === 'performance') {
+      if (item === 'performance' && component.get('isPremiumClass')) {
         component.set('isShowCompetencyReport', true);
       } else {
         component.sendAction('onSelectClassItem', item, classId);
@@ -57,6 +57,15 @@ export default Ember.Component.extend({
       let component = this;
       component.set('selectedDomain', domainSet);
       component.set('isShowDomainCompetencyReport', true);
+    },
+
+    /**
+     * Actrion triggered when close all pull ups
+     */
+    onCloseCompetencyReportPullUp() {
+      let component = this;
+      component.set('isShowDomainCompetencyReport', false);
+      component.set('isShowCompetencyReport', false);
     }
   },
 
@@ -131,9 +140,20 @@ export default Ember.Component.extend({
    * @property {courseSubjectCode}
    * Property to fetch subject code from subject bucket
    */
-  courseTitle: Ember.computed('classData', function() {
+  courseSubjectCode: Ember.computed('classData', function() {
     let component = this;
     let classData = component.get('classData');
-    return classData.courseTitle;
+    return classData.courseSubjectCode;
+  }),
+
+  /**
+   * @property {Boolean}
+   * Property to check whether a premium course or not
+   */
+  isPremiumClass: Ember.computed('classData', function() {
+    let component = this;
+    let classData = component.get('classData');
+    let setting = classData.setting;
+    return setting ? setting['course.premium'] : false;
   })
 });

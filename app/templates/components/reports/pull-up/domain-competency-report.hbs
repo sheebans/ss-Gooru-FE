@@ -1,6 +1,6 @@
 <div class="individual-domain-competency-report">
     <div class="student-competencies">
-      <div class="students">
+      <div class="students {{if (gt domainSet.domainData.competencies.length 10) 'competency-slider-visible'}}">
         <div class="name-filter">
           <div class="last-header {{if sortByLastnameEnabled 'active'}}" {{action 'sortByLastName'}}>
             <div>{{t 'common.lastName'}}</div>
@@ -34,7 +34,12 @@
         {{/each}}
       </div>
       <div class="student-competencies-list">
-        <div class="competencies-list">
+        <div class="competencies-list {{if (gt domainSet.domainData.competencies.length 10) 'competency-slider-visible'}}">
+          <div class="competency-codes">
+            {{#each domainSet.domainData.competencies as |competency|}}
+              <div class="rotate-vertical">{{competency.competencyCode}}</div>
+            {{/each}}
+          </div>
           {{#each studentCompetencyData as |studentCompetency|}}
             <div class="competencies">
               {{#each studentCompetency.competencies as |competency|}}
@@ -48,7 +53,7 @@
           {{/each}}
         </div>
         {{#if (gt domainSet.domainData.competencies.length 10)}}
-          <div class="previous disabled" {{action "onClickArrow" 'previous'}}>
+          <div class="previous" {{action "onClickArrow" 'previous'}}>
             {{gru-icon name="keyboard_arrow_left"}}
           </div>
           <div class="next" {{action "onClickArrow" 'next'}}>

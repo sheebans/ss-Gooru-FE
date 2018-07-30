@@ -27,8 +27,11 @@ export default Ember.Component.extend(ConfigurationMixin, {
      * @param item
      */
     selectItem: function(item) {
+      let isPremiumClass = this.get('isPremiumClass');
       if (this.get('onItemSelected')) {
-        this.selectItem(item);
+        if (!(item === 'performance' && isPremiumClass)) {
+          this.selectItem(item);
+        }
         this.sendAction('onItemSelected', item);
         if (item === 'class-info') {
           $('.classroom-information').toggleClass('hide-classroom-information');
