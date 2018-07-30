@@ -3,7 +3,7 @@ import DS from 'ember-data';
 export default DS.JSONAPISerializer.extend({
   fetchInClass: function(data) {
     data.pathType = 'route0';
-    data.pathId = 59;
+    data.pathId = null;
     return data;
   },
 
