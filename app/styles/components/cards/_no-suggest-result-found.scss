@@ -1,6 +1,6 @@
 .cards.no-suggest-result-found {
   margin: auto;
-  width: 279px;
+  width: 200px;
   display: flex;
 
   .panel-body {
@@ -24,6 +24,16 @@
           font-size: 86px;
           text-align: center;
         }
+      }
+
+      .suggest-message {
+        text-align: center;
+        width: 200px;
+      }
+
+      .message {
+        text-align: justify;
+        width: 200px;
       }
     }
   }
