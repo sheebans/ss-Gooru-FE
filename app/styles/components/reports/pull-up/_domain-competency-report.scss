@@ -7,6 +7,11 @@
       width: max-content;
 
       .students {
+        margin-top: 108px;
+
+        &.competency-slider-visible {
+          margin-top: 143px;
+        }
         .name-filter {
           display: flex;
           height: 37px;
@@ -50,18 +55,41 @@
       .student-competencies-list {
         width: 455px;
         position: relative;
-        padding-top: 37px;
-        .competencies-list {
 
+        .competencies-list {
           max-width: 455px;
           overflow-x: auto;
+          padding-top: 100px;
+
+          &.competency-slider-visible {
+            padding-top: 135px;
+          }
+
+          .competency-codes {
+            display: flex;
+            .rotate-vertical {
+              text-align: center;
+              white-space: nowrap;
+              vertical-align: middle;
+              width: 46px;
+              height: 45px;
+              line-height: 45px;
+              font-weight: bold;
+              transform: rotate(-90.0deg);  /* Saf3.1+, Chrome */
+              -moz-transform: rotate(-90.0deg);  /* FF3.5+ */
+              -o-transform: rotate(-90.0deg);  /* Opera 10.5 */
+              -webkit-transform: rotate(-90.0deg);  /* Saf3.1+, Chrome */
+              filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);  /* IE6,IE7 */
+              -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
+            }
+          }
           .competencies {
             display: flex;
-            border-bottom: 1px solid rgba(151, 151, 151, 0.2);
             .competency {
               padding: 0 8px;
-              height: 36px;
+              height: 37px;
               margin-top: 6px;
+              border-bottom: 1px solid rgba(151, 151, 151, 0.2);
             }
           }
 

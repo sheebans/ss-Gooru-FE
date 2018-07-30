@@ -2573,5 +2573,13 @@ export default Object.assign(quizzesTranslations, {
   'gru-performance-chart': {
     'teacher-tooltip':
       'of your students have completed all the assessments in this lesson'
+  },
+
+  'report': {
+    'competency-report': {
+      'title': 'Competency Report',
+      'no-subject': 'No Subject Assigned'
+    },
+    'domain-report': 'Domain Report'
   }
 });

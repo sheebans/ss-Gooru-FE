@@ -46,20 +46,8 @@ export default Ember.Component.extend({
     onClickArrow(direction) {
       let component = this;
       let studentCompetenciesListContainer = component.$('.competencies-list');
-      let numberOfCompetencies = component.$('.competencies').length;
-      let width = 46 * numberOfCompetencies;
       let curPos = studentCompetenciesListContainer.scrollLeft();
       let nextPos = direction === 'previous' ? curPos - 120 : curPos + 120;
-      if (nextPos <= 0) {
-        component.$('.previous').addClass('disabled');
-        component.$('.next').removeClass('disabled');
-      } else if (width <= curPos) {
-        component.$('.previous').removeClass('disabled');
-        component.$('.next').addClass('disabled');
-      } else {
-        component.$('.previous').removeClass('disabled');
-        component.$('.next').removeClass('disabled');
-      }
       studentCompetenciesListContainer.animate({
         scrollLeft: nextPos
       }, 400);
