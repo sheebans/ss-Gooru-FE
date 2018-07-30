@@ -328,6 +328,7 @@ $box-shadow: 1px -1px;
 @import "components/reports/pull-up/collection-report-gridview";
 @import "components/reports/gru-report-pull-up";
 @import "components/reports/gru-lesson-report-body-pull-up";
+@import "components/reports/gru-unit-report-body-pull-up";
 @import "components/search/gru-question-options";
 @import "components/search/gru-resource-options";
 
@@ -372,7 +373,6 @@ $box-shadow: 1px -1px;
 
 @import "routes/student/class/performance";
 @import "routes/content/rubric/preview";
-
 
 //Pull Up
 @import "components/reports/pull-up/competency-report";

@@ -46,6 +46,12 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   loading: false,
 
+  /**
+   * Selected lesson
+   * @property {selected lesson}
+   */
+  selectedUnit: '',
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -117,12 +123,24 @@ export default Ember.Component.extend(AccordionMixin, {
     onSelectItem() {
       this.sendAction('onSelectItem');
     },
-
+    /**
+     * Trigger when unit level  report clicked
+     */
+    onOpenUnitLevelReport(unitInfo) {
+      this.set('selectedUnit', unitInfo);
+      this.set('onOpenUnitLevelReport', unitInfo);
+      this.set('showUnitReportPullUp', true);
+    },
     /**
      * Trigger when lesson level  report clicked
      */
     onOpenLessonReport(params) {
       this.set('lessonReportData', params);
+      this.set('showLessonReportPullUp', true);
+    },
+
+    onOpenLessonReports(lessonInfo) {
+      this.set('lessonReportData', lessonInfo);
       this.set('showLessonReportPullUp', true);
     },
 
