@@ -117,8 +117,11 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       if (item === 'performance') {
         if (isPremiumClass) {
           const controller = route.get('controller');
+          const teacherClassContrller = route.controllerFor('teacher/class');
           controller.set('selectedClass', classData);
           controller.set('isShowCompetencyReport', true);
+          controller.set('lastAccessedClassData', teacherClassContrller.updateLastAccessedClass(classData));
+          controller.updateLastAccessedClassPosition(classData.id);
         } else {
           route.transitionTo('teacher.class.performance', classId, queryParams);
         }
