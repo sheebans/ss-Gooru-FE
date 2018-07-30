@@ -18,7 +18,7 @@
     </div>
   </div>
   <div class="suggestion-made-to">
-    <p>Suggestion made to</p>
+    <p>{{t 'common.suggestion-made-to'}}</p>
     <div class="user-details-container">
       {{#each defaultStudentList as |student|}}
         <div class="user-profile-details">
@@ -33,7 +33,7 @@
   <div class="suggestion-profile-list">
     {{#if (gt moreStudentsNumber 0)}}
       <button data-placement="right" data-toggle="popover">
-      <span>+ {{moreStudentsNumber}} more</span>
+      <span>+ {{moreStudentsNumber}} {{t 'common.more'}}</span>
     </button>
       <div class="hidden" id="suggestion-profile-details">
         <div class="suggestion-profile-details-popover">
@@ -52,10 +52,10 @@
   <div class="card-panel-footer">
     <div class="buttons-container">
       <div class="cancel-btn" {{action "onCancelSuggest"}}>
-        Cancel
+        {{t 'common.cancel'}}
       </div>
       <div class="confirm-btn" {{action "onConfirmSuggest"}}>
-        Confirm
+        {{t 'common.confirm'}}
       </div>
     </div>
   </div>

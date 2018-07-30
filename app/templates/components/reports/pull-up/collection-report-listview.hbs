@@ -144,10 +144,10 @@
       {{gru-icon name="close" }}
     </div>
     <div class="no-of-student-selected">
-      <span>{{studentsSelectedForSuggest.length}} Student Selected</span>
+      <span>{{studentsSelectedForSuggest.length}} {{t 'common.student-selected'}}</span>
     </div>
     <div class="suggestion-count-container" {{action 'onOpenSuggestionPullup'}}>
-      <span>suggestion</span>
+      <span>{{t 'common.suggestion'}}</span>
       <div class="suggestion-explore">
         {{gru-icon name="explore"}}
         <div class="suggestion-count">{{searchResults.length}}</div>
