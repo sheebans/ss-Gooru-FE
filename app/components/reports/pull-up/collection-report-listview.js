@@ -7,9 +7,6 @@ export default Ember.Component.extend({
   classNames: ['reports', 'pull-up-collection-report-listview'],
 
   // -------------------------------------------------------------------------
-  // Dependencies
-
-  // -------------------------------------------------------------------------
   // Properties
 
   /**
@@ -53,6 +50,40 @@ export default Ember.Component.extend({
    * @type {String}
    */
   sortByScoreEnabled: false,
+
+  /**
+   * Maintains the state of suggestion  pull up
+   * @type {Boolean}
+   */
+  showSuggestionPullup: false,
+
+  /**
+   * Maintains list of students selected for  suggest
+   * @type {Array}
+   */
+  studentsSelectedForSuggest: Ember.A([]),
+
+  /**
+   * search result set
+   * @type {Array}
+   */
+  searchResults: Ember.A([]),
+
+  /**
+   * Maintains the context object
+   * @type {Object}
+   */
+  contextParams: Ember.computed('context', function() {
+    let context = this.get('context');
+    let params = Ember.Object.create({
+      classId: context.classId,
+      courseId: context.courseId,
+      unitId: context.unitModel.get('id'),
+      lessonId: context.lessonModel.get('id'),
+      collectionId: context.id
+    });
+    return params;
+  }),
 
   // -------------------------------------------------------------------------
   // Actions
@@ -139,6 +170,29 @@ export default Ember.Component.extend({
         },
         400
       );
+    },
+
+    onDeSelectUser(student) {
+      this.get('studentsSelectedForSuggest').removeObject(student);
+      student.set('selectedForSuggestion', false);
+    },
+
+    onSelectUser(student) {
+      this.get('studentsSelectedForSuggest').pushObject(student);
+      student.set('selectedForSuggestion', true);
+    },
+
+    onOpenSuggestionPullup() {
+      this.set('showSuggestionPullup', true);
+    },
+
+    onCloseSuggest() {
+      this.set('studentsSelectedForSuggest', Ember.A());
+      this.get('studentReportData')
+        .filterBy('selectedForSuggestion', true)
+        .map(data => {
+          data.set('selectedForSuggestion', false);
+        });
     }
   }
 });

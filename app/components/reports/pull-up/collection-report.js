@@ -27,6 +27,11 @@ export default Ember.Component.extend({
    */
   analyticsService: Ember.inject.service('api-sdk/analytics'),
 
+  /**
+   * @requires service:api-sdk/search
+   */
+  searchService: Ember.inject.service('api-sdk/search'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -299,6 +304,30 @@ export default Ember.Component.extend({
    */
   isStudent: Ember.computed.alias('context.isStduent'),
 
+  /**
+   * Maintains list of students selected for  suggest
+   * @type {Array}
+   */
+  studentsSelectedForSuggest: Ember.A([]),
+
+  /**
+   * Maintains maximum number of search results
+   * @type {Number}
+   */
+  maxSearchResult: 6,
+
+  /**
+   * search result set
+   * @type {Array}
+   */
+  searchResults: Ember.A([]),
+
+  /**
+   * Maintains context data
+   * @type {Object}
+   */
+  context: null,
+
   //--------------------------------------------------------------------------
   // Methods
 
@@ -332,19 +361,14 @@ export default Ember.Component.extend({
     let component = this;
     component.$('.report-content').scroll(function() {
       let scrollTop = component.$('.report-content').scrollTop();
-      let headerTabular = component.$(
-        '.report-content .pull-up-collection-report-listview .tabular-header'
-      );
-      let scrollArrow = component.$(
-        '.pull-up-collection-report-listview .scroll-arrow'
+      let scrollFixed = component.$(
+        '.report-content .pull-up-collection-report-listview .on-scroll-fixed'
       );
       if (scrollTop >= 347) {
         let position = scrollTop - 347;
-        component.$(headerTabular).css('top', `${position}px`);
-        component.$(scrollArrow).css('top', `${position}px`);
+        component.$(scrollFixed).css('top', `${position}px`);
       } else {
-        component.$(headerTabular).css('top', '0px');
-        component.$(scrollArrow).css('top', '0px');
+        component.$(scrollFixed).css('top', '0px');
       }
     });
   },
@@ -377,6 +401,7 @@ export default Ember.Component.extend({
       component.set('collection', collection);
       component.parseClassMemberAndPerformanceData(collection, performance);
       component.set('isLoading', false);
+      component.loadSuggestion();
     });
   },
 
@@ -423,6 +448,8 @@ export default Ember.Component.extend({
     component.set('sortByLastnameEnabled', true);
     component.set('sortByFirstnameEnabled', false);
     component.set('sortByScoreEnabled', false);
+    component.set('studentsSelectedForSuggest', Ember.A([]));
+    component.set('searchResults', Ember.A([]));
     component.set('studentReportData', users);
     let maxTimeSpent = Math.max(...usersTotaltimeSpent);
     component.calculateTimeSpentScore(usersChartData, maxTimeSpent);
@@ -521,5 +548,35 @@ export default Ember.Component.extend({
       data.set('timeSpentScore', timeSpentScore);
       data.set('timeSpentDifference', 100 - timeSpentScore);
     });
+  },
+
+  loadSuggestion() {
+    let component = this;
+    let taxonomies = null;
+    let tags = component.get('tags');
+    if (tags) {
+      taxonomies = tags.map(tag => {
+        return tag.data.id;
+      });
+    }
+    let filters = component.getFilters();
+    filters.taxonomies = taxonomies;
+    let term = '*';
+
+    component
+      .get('searchService')
+      .searchCollections(term, filters)
+      .then(searchResults => {
+        component.set('searchResults', searchResults);
+      });
+  },
+
+  getFilters() {
+    let component = this;
+    let maxSearchResult = component.get('maxSearchResult');
+    let params = {
+      pageSize: maxSearchResult
+    };
+    return params;
   }
 });
