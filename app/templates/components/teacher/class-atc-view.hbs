@@ -30,7 +30,13 @@
 </div>
 
 {{#if isShowCompetencyReport}}
-  {{#reports.pull-up.competency-report type="Competency Report" title=courseTitle showPullUp=isShowCompetencyReport as |competency-report|}}
-      {{reports.pull-up.course-competency-report classData=classData}}
+  {{#reports.pull-up.competency-report type="Competency Report" title=courseTitle showPullUp=isShowCompetencyReport}}
+      {{reports.pull-up.course-competency-report classData=classData onSelectDomain="onSelectDomain"}}
+  {{/reports.pull-up.competency-report}}
+{{/if}}
+
+{{#if isShowDomainCompetencyReport}}
+  {{#reports.pull-up.competency-report type="Domain Report" title=selectedDomain.domainData.domainName showPullUp=isShowDomainCompetencyReport}}
+      {{reports.pull-up.domain-competency-report domainSet=selectedDomain}}
   {{/reports.pull-up.competency-report}}
 {{/if}}

@@ -44,6 +44,14 @@ export default Ember.Component.extend({
       domainStudentListContainer.animate({
         scrollLeft: nextPos
       }, 600);
+    },
+
+    /**
+     * Action triggered when select a domain from pull up
+     */
+    onSelectDomain(domainSet) {
+      let component = this;
+      component.sendAction('onSelectDomain', domainSet);
     }
   },
 
@@ -179,15 +187,12 @@ export default Ember.Component.extend({
    * Method to parse student, domain and user competencies data
    */
   parseStudentCompetencyData(student, domainData, studentDomainCompetencies) {
-    let studentData = {
+    let studentDomainCompetencyData = {
       firstName: student.firstName,
       lastName: student.lastName,
       userId: student.id,
       thumbnail: student.avatarUrl,
-      fullName: `${student.lastName  } ${  student.firstName}`
-    };
-    let studentDomainCompetencyData = {
-      student: studentData,
+      fullName: `${student.lastName  } ${  student.firstName}`,
       competencies: Ember.A([])
     };
     if (studentDomainCompetencies) {

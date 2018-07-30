@@ -1,0 +1,95 @@
+.domain-competency-report {
+  overflow: hidden;
+  .individual-domain-competency-report {
+    .student-competencies {
+      display: flex;
+      margin-top: 8px;
+      width: max-content;
+
+      .students {
+        .name-filter {
+          display: flex;
+          height: 37px;
+          .last-header, .first-header {
+            display: flex;
+            width: 50%;
+            cursor: pointer;
+            &.active {
+              cursor: default;
+            }
+          }
+        }
+        .student-info {
+          width: 260px;
+          min-width: 260px;
+          max-width: 260px;
+          margin-top: 4px;
+          display: flex;
+          height: 39px;
+          border-bottom: 1px solid rgba(151, 151, 151, 0.2);
+          .thumbnail {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-size: cover;
+            margin-bottom: 0;
+          }
+          .name {
+            $font-size: 10px;
+            $line-height: 1.2;
+            $lines-to-show: 2;
+            color: #37424b;
+            text-transform: capitalize;
+            margin: 0 5px;
+            @include ellipsis($font-size: $font-size, $line-height: $line-height, $lines-to-show: $lines-to-show);
+            line-height: 3.2;
+          }
+        }
+      }
+
+      .student-competencies-list {
+        width: 455px;
+        position: relative;
+        padding-top: 37px;
+        .competencies-list {
+
+          max-width: 455px;
+          overflow-x: auto;
+          .competencies {
+            display: flex;
+            border-bottom: 1px solid rgba(151, 151, 151, 0.2);
+            .competency {
+              padding: 0 8px;
+              height: 36px;
+              margin-top: 6px;
+            }
+          }
+
+          &::-webkit-scrollbar {
+            background: transparent;
+            width: 0px;
+          }
+        }
+        .previous, .next {
+          position: absolute;
+          top: 0px;
+          cursor: pointer;
+          i {
+            font-size: 30px;
+          }
+          &.disabled {
+            cursor: default;
+            opacity: 0.5;
+          }
+        }
+        .previous {
+          left: 0px;
+        }
+        .next {
+          right: 0px;
+        }
+      }
+
+    }
+  }
+}
