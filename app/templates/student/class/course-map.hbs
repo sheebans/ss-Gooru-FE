@@ -16,7 +16,7 @@
     {{/if}}
     {{#if showRoute0Suggestion}}
     <h5>Pre-study for your course</h5>
-      {{class.overview.routesuggestion-coursemap route0=route0 routeSuggestAction=(action 'courseRouteSuggestAction'  ) onStudyNow=(action 'studyCoursePlayer' ) }}
+      {{class.overview.routesuggestion-coursemap route0=route0  class=class course=course routeSuggestAction=(action 'courseRouteSuggestAction'  ) onStudyNow=(action 'studyCoursePlayer' ) }}
     {{/if}}
 
     <h5>Your assigned course</h5>
