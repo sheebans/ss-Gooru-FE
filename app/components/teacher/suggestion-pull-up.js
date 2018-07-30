@@ -155,6 +155,15 @@ export default Ember.Component.extend({
           component.set('showPullUp', false);
           component.sendAction('onCloseSuggest');
         });
+    },
+
+    onClickSearch() {
+      let component = this;
+      component.$('.search-input-container').addClass('active');
+      let term = component.getSearchTerm();
+      if (term.length > 0) {
+        component.loadData();
+      }
     }
   },
 
@@ -200,17 +209,12 @@ export default Ember.Component.extend({
 
   handleSearchBar() {
     let component = this;
-    component.$('.search-icon .search, #suggestion-search').hover(
-      function() {
-        component.$('.search-input-container').addClass('active');
-      },
-      function() {
-        let searchText = component.$('#suggestion-search').val();
-        if (searchText.length === 0) {
-          component.$('.search-input-container').removeClass('active');
-        }
+    component.$('.search-input-container').mouseleave(function() {
+      let searchText = component.$('#suggestion-search').val();
+      if (searchText.length === 0) {
+        component.$('.search-input-container').removeClass('active');
       }
-    );
+    });
 
     component.$('#suggestion-search').on('keyup', function(e) {
       if (e.which === KEY_CODES.ENTER) {
