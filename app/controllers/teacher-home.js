@@ -108,7 +108,7 @@ export default Ember.Controller.extend(ModalMixin, {
     if (!isLastAccessedClassAvailable) {
       let activeClasses = controller.get('activeClasses');
       lastAccessedClassData = activeClasses ? activeClasses.objectAt(0) : null;
-      let courseId = lastAccessedClassData.courseId;
+      let courseId = lastAccessedClassData ? lastAccessedClassData.courseId : null;
       if (courseId) {
         Ember.RSVP.hash({
           courseData: controller
