@@ -45,6 +45,18 @@
         }
       }
 
+      .suggestion-back {
+        width: 70px;
+
+        .arrow_back {
+          font-size: 26px;
+          color: #fff;
+          margin-top: 13px;
+          margin-left: 22px;
+          cursor: pointer;
+        }
+      }
+
       .suggestion-explore-icon {
         width: 42px;
         height: 42px;
@@ -94,13 +106,15 @@
             opacity: 0;
             transition: opacity 0.3s, visibility 0.3s;
             box-shadow: inset 0 0 7px 1px #fa9053;
+            cursor: default;
           }
 
           &.active {
             #suggestion-search {
               visibility: visible;
               opacity: 1;
-              transition: opacity 0.3s, visibility 0.3s;
+              transition: opacity 0.3s;
+              cursor: text;
             }
 
             .search-icon {

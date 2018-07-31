@@ -3,6 +3,8 @@ import {
   SUGGESTION_FILTER_BY_CONTENT_TYPES,
   KEY_CODES
 } from 'gooru-web/config/config';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -57,12 +59,6 @@ export default Ember.Component.extend({
   searchResults: Ember.A([]),
 
   /**
-   * suggest result set
-   * @type {Array}
-   */
-  suggestResults: Ember.A([]),
-
-  /**
    * Maintains the state of data loading
    * @type {Boolean}
    */
@@ -104,6 +100,26 @@ export default Ember.Component.extend({
    */
   isFromSearch: false,
 
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('collection.standards.[]', function() {
+    let standards = this.get('collection.standards');
+    if (standards) {
+      standards = standards.filter(function(standard) {
+        // Filter out learning targets (they're too long for the card)
+        return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
+      });
+      return TaxonomyTag.getTaxonomyTags(standards);
+    }
+  }),
+
+  /**
+   * defaultSuggestContentType
+   * @type {String}
+   */
+  defaultSuggestContentType: 'collection',
+
   // -------------------------------------------------------------------------
   // actions
 
@@ -121,9 +137,7 @@ export default Ember.Component.extend({
      */
     onSelectFilterBy(contentType) {
       this.set('activeContentType', contentType);
-      if (this.get('isFromSearch')) {
-        this.loadData();
-      }
+      this.loadData();
     },
 
     /**
@@ -171,15 +185,16 @@ export default Ember.Component.extend({
         });
     },
 
-    onClickSearch() {
+    backToSuggestion() {
       let component = this;
-      let term = component.getSearchTerm();
-      if (term.length > 0) {
-        component.set('isFromSearch', true);
-        component.loadData();
-      } else {
-        component.$('.search-input-container').addClass('active');
-      }
+      component.set('isFromSearch', false);
+      component.$('#suggestion-search').val('');
+      component.set(
+        'activeContentType',
+        component.get('defaultSuggestContentType')
+      );
+      component.$('.search-input-container').removeClass('active');
+      component.loadData();
     }
   },
 
@@ -190,8 +205,8 @@ export default Ember.Component.extend({
    * Function to triggered once when the component element is first rendered.
    */
   didInsertElement() {
-    let suggestResults = this.get('suggestResults');
-    this.set('searchResults', suggestResults);
+    this.set('activeContentType', this.get('defaultSuggestContentType'));
+    this.loadData();
     this.openPullUp();
     this.handleSearchBar();
   },
@@ -240,6 +255,16 @@ export default Ember.Component.extend({
         component.loadData();
       }
     });
+
+    component.$('#suggest-search .search').click(function() {
+      let term = component.getSearchTerm();
+      if (term.length > 0) {
+        component.set('isFromSearch', true);
+        component.loadData();
+      } else {
+        component.$('.search-input-container').addClass('active');
+      }
+    });
   },
 
   loadData() {
@@ -256,8 +281,17 @@ export default Ember.Component.extend({
   getSearchServiceByType() {
     let component = this;
     let activeContentType = component.get('activeContentType');
-    let filters = component.getFilters();
-    let term = component.getSearchTerm() ? component.getSearchTerm() : '*';
+    let filters = {};
+    let term = '*';
+    let isFromSearch = component.get('isFromSearch');
+    if (isFromSearch) {
+      filters = component.getFilters();
+      term = component.getSearchTerm() ? component.getSearchTerm() : '*';
+    } else {
+      let suggestFiltersAndTerm = component.getSuggestFiltersAndTerm();
+      filters = suggestFiltersAndTerm.filters;
+      term = suggestFiltersAndTerm.term;
+    }
     if (activeContentType === 'collection') {
       return component.get('searchService').searchCollections(term, filters);
     } else if (activeContentType === 'assessment') {
@@ -278,5 +312,31 @@ export default Ember.Component.extend({
       pageSize: maxSearchResult
     };
     return params;
+  },
+
+  getSuggestFiltersAndTerm() {
+    let component = this;
+    let maxSearchResult = component.get('maxSearchResult');
+    let collection = component.get('collection');
+    let tags = component.get('tags');
+    let taxonomies = null;
+    if (tags) {
+      taxonomies = tags.map(tag => {
+        return tag.data.id;
+      });
+    }
+    let filters = {
+      taxonomies:
+        taxonomies != null && taxonomies.length > 0 ? taxonomies : null,
+      pageSize: maxSearchResult
+    };
+    let term =
+      taxonomies != null && taxonomies.length > 0
+        ? '*'
+        : collection.get('title');
+    return {
+      term: term,
+      filters: filters
+    };
   }
 });

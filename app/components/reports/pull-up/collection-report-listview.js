@@ -70,10 +70,10 @@ export default Ember.Component.extend({
   searchResults: Ember.A([]),
 
   /**
-   * suggest result set
+   * suggest result count
    * @type {Array}
    */
-  suggestResults: Ember.A([]),
+  suggestResultCount: 0,
 
   /**
    * Maintains the context object
@@ -90,6 +90,12 @@ export default Ember.Component.extend({
     });
     return params;
   }),
+
+  /**
+   * defaultSuggestContentType
+   * @type {String}
+   */
+  defaultSuggestContentType: 'collection',
 
   // -------------------------------------------------------------------------
   // Actions

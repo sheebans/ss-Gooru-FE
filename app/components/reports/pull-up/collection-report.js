@@ -317,16 +317,22 @@ export default Ember.Component.extend({
   maxSearchResult: 6,
 
   /**
-   * suggest result set
+   * suggest count
    * @type {Array}
    */
-  suggestResults: Ember.A([]),
+  suggestResultCount: 0,
 
   /**
    * Maintains context data
    * @type {Object}
    */
   context: null,
+
+  /**
+   * defaultSuggestContentType
+   * @type {String}
+   */
+  defaultSuggestContentType: 'collection',
 
   //--------------------------------------------------------------------------
   // Methods
@@ -449,7 +455,8 @@ export default Ember.Component.extend({
     component.set('sortByFirstnameEnabled', false);
     component.set('sortByScoreEnabled', false);
     component.set('studentsSelectedForSuggest', Ember.A([]));
-    component.set('suggestResults', Ember.A([]));
+    component.set('suggestResultCount', 0);
+    component.set('defaultSuggestContentType', 'collection');
     component.set('studentReportData', users);
     let maxTimeSpent = Math.max(...usersTotaltimeSpent);
     component.calculateTimeSpentScore(usersChartData, maxTimeSpent);
@@ -566,12 +573,32 @@ export default Ember.Component.extend({
       taxonomies != null && taxonomies.length > 0
         ? '*'
         : collection.get('title');
-
+    let maxSearchResult = component.get('maxSearchResult');
     component
       .get('searchService')
       .searchCollections(term, filters)
-      .then(suggestResults => {
-        component.set('suggestResults', suggestResults);
+      .then(collectionSuggestResults => {
+        // To show appropriate suggest count, check is their any suggest found in assessment type if count is less than.
+        let collectionSuggestCount = collectionSuggestResults.length;
+        if (collectionSuggestCount >= maxSearchResult) {
+          component.set('suggestResultCount', maxSearchResult);
+        } else {
+          component
+            .get('searchService')
+            .searchAssessments(term, filters)
+            .then(assessmentSuggestResult => {
+              let assessmentSuggestCount = assessmentSuggestResult.length;
+              let suggestCount =
+                assessmentSuggestCount + collectionSuggestCount;
+              if (collectionSuggestCount === 0 && assessmentSuggestCount > 0) {
+                component.set('defaultSuggestContentType', 'assessment');
+              }
+              component.set(
+                'suggestResultCount',
+                suggestCount >= maxSearchResult ? maxSearchResult : suggestCount
+              );
+            });
+        }
       });
   },
 
