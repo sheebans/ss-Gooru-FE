@@ -47,8 +47,8 @@ export default Ember.Component.extend(AccordionMixin, {
   loading: false,
 
   /**
-   * Selected lesson
-   * @property {selected lesson}
+   * Indicates which unit is selected
+   * @property {selectedUnit}
    */
   selectedUnit: '',
 

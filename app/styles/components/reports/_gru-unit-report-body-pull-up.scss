@@ -3,12 +3,12 @@
   table {
     position: relative;
     width: 768px;
-    background-color: #ffffff;
+    background-color: $white;
     overflow: hidden;
     border-collapse: collapse;
 
     tr {
-      border: 1px solid #cccccc;
+      border: 1px solid $gray-80;
     }
     /*thead*/
     thead {
@@ -20,7 +20,7 @@
     }
 
     thead th {
-      background-color: #fff;
+      background-color: $white;
       //min-width: 270px;
       height: 32px;
       font-weight: normal;
@@ -31,12 +31,11 @@
       .student-sort {
         cursor: pointer;
       }
-      .lsn {
+      .lesson-sequence-header {
         width: 30px;
         height: 30px;
         border-radius: 100px;
-        background: #f88c49;
-        color: #ffffff;
+        color: $white;
         display: block;
         cursor: pointer;
         p {
@@ -44,61 +43,25 @@
           text-align: center;
         }
       }
-      .lsn-g {
-        width: 30px;
-        height: 30px;
-        border-radius: 100px;
-        background: #97cca2;
-        color: #ffffff;
-        display: block;
-        p {
-          padding: 4px;
-          text-align: center;
-        }
-      }
-      .lsn-o {
-        width: 30px;
-        height: 30px;
-        border-radius: 100px;
-        background: #ffbf63;
-        color: #ffffff;
-        display: block;
-        p {
-          padding: 4px;
-          text-align: center;
-        }
-      }
-    }
-    .lsn-p {
-      width: 30px;
-      height: 30px;
-      border-radius: 100px;
-      background: #ff5b63;
-      color: #ffffff;
-      display: block;
-      p {
-        padding: 4px;
-        text-align: center;
-      }
     }
 
     th.m-width {
       width: 270px;
-      border-right: 1px dashed #cccccc;
+      border-right: 1px dashed $gray-80;
     }
 
     thead th:nth-child(1) {
       /*first cell in the header*/
       position: relative;
       display: block;
-      background-color: #ffff;
+      background-color: $white;
       color: #ccc;
       min-width: 241px;
       height: 45px;
       text-align: center;
       vertical-align: middle;
       padding-top: 13px;
-      border-right: 1px dashed #cccccc;
+      border-right: 1px dashed $gray-80;
     }
     /*tbody*/
     tbody {
@@ -111,9 +74,13 @@
     }
 
     tbody td {
-      background-color: #fff;
+      background-color: $white;
       height: 47px;
       padding: 8px;
+      .performance-section {
+        width: 34px;
+        text-align: center;
+      }
     }
 
     tbody tr td:nth-child(1) {
@@ -121,10 +88,10 @@
       position: relative;
       display: block;
       height: 47px;
-      background-color: #fff;
+      background-color: $white;
       min-width: 241px;
       padding: 10px;
-      border-right: 1px dashed #cccccc;
+      border-right: 1px dashed $gray-80;
 
       .student-name {
         margin-left: 5px;
@@ -139,9 +106,9 @@
 
     .scatter-text {
       font-size: 13px;
-      background-color: #37424b;
+      background-color: $dark-400;
       border-radius: 3px;
-      color: #ffffff;
+      color: $white;
       padding: 1px 4px;
       margin: 10px;
     }

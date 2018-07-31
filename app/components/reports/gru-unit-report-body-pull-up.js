@@ -31,35 +31,6 @@ export default Ember.Component.extend({
   classNames: ['gru-unit-report-body-pull-up'],
 
   // -------------------------------------------------------------------------
-  // Actions
-  actions: {
-    onPullUpClose() {
-      this.set('showPullUp', false);
-    },
-    /**
-     * Trigger when lesson level  report clicked
-     */
-    onOpenLessonReport(lesson) {
-      let component = this;
-      const selectedUnit = this.get('selectedUnit');
-      const classId = selectedUnit.classId;
-      const courseId = selectedUnit.courseId;
-      const unit = selectedUnit.unit;
-      let unitId = unit.id;
-      let selectedLessonData = {
-        classId,
-        courseId,
-        classMembers: component.get('classMembers'),
-        lesson,
-        lessonId: lesson.id,
-        unit,
-        unitId
-      };
-      component.sendAction('onOpenLessonReport', selectedLessonData);
-    }
-  },
-
-  // -------------------------------------------------------------------------
   // Properties
 
   /**
@@ -118,34 +89,62 @@ export default Ember.Component.extend({
   unitId: '',
 
   // -------------------------------------------------------------------------
+  // Actions
+  actions: {
+    onPullUpClose() {
+      this.set('showPullUp', false);
+    },
+    /**
+     * Trigger when lesson level  report clicked
+     */
+    onOpenLessonReport(lesson) {
+      let component = this;
+      const selectedUnit = this.get('selectedUnit');
+      const classId = selectedUnit.classId;
+      const courseId = selectedUnit.courseId;
+      const unit = selectedUnit.unit;
+      let unitId = unit.id;
+      let selectedLessonData = {
+        classId,
+        courseId,
+        classMembers: component.get('classMembers'),
+        lesson,
+        lessonId: lesson.id,
+        unit,
+        unitId
+      };
+      component.sendAction('onOpenLessonReport', selectedLessonData);
+    }
+  },
+
+  // -------------------------------------------------------------------------
   // Events
   didInsertElement() {
     const component = this;
-
     if (component.get('showPullUp')) {
-      component.getClassMembers();
-      component.getLessonsByUnit();
+      // component.getLessonsByUnit();
       component.getPerformancesByUnit();
     }
   },
 
   didRender() {
     var component = this;
-
-    //For table vertical aand horizondal scroll
+    //For table vertical and horizondal scroll
     component.$('tbody').scroll(function() {
-      //detect a scroll event on the tbody
-      /*
-      Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement
-      of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain 			it's relative position at the left of the table.
-      */
-      component.$('thead').css('left', -component.$('tbody').scrollLeft()); //fix the thead relative to the body scrolling
+      //Detect a scroll event on the tbody
+      /* Setting the thead left value to the negative valule of tbody.scrollLeft will make it track the movement
+      of the tbody element. Setting an elements left value to that of the tbody.scrollLeft left makes it maintain
+      it's relative position at the left of the table.*/
+      //fix the thead relative to the body scrolling
+      component.$('thead').css('left', -component.$('tbody').scrollLeft());
+      //fix the first cell of the header
       component
         .$('thead th:nth-child(1)')
-        .css('left', component.$('tbody').scrollLeft()); //fix the first cell of the header
+        .css('left', component.$('tbody').scrollLeft());
+      //fix the first column of tdbody
       component
         .$('tbody td:nth-child(1)')
-        .css('left', component.$('tbody').scrollLeft()); //fix the first column of tdbody
+        .css('left', component.$('tbody').scrollLeft());
     });
   },
 
@@ -158,8 +157,7 @@ export default Ember.Component.extend({
   pullUpObserver: Ember.observer('showPullUp', function() {
     let component = this;
     if (component.get('showPullUp')) {
-      component.getClassMembers();
-      component.getLessonsByUnit();
+      // component.getLessonsByUnit();
       component.getPerformancesByUnit();
     }
   }),

@@ -191,7 +191,6 @@ export default Ember.Component.extend(AccordionMixin, {
      * Trigger when lesson level  report clicked
      */
     onOpenLessonReport(params) {
-      this.getUnitLevelPerformance();
       this.sendAction('onOpenLessonReport', params);
     },
 
@@ -496,20 +495,5 @@ export default Ember.Component.extend(AccordionMixin, {
         });
         return lessons;
       });
-  },
-
-  getUnitLevelPerformance() {
-    let unitPerformancePromise = new Ember.RSVP.resolve(
-      this.get('analyticsService').getUnitPerformance(
-        '9d3b9516-0c9d-4b15-84a5-ce8af10163de',
-        'cda6ead4-9749-4561-adc8-92491057ec95',
-        'assessment'
-      )
-    );
-    return Ember.RSVP.hash({
-      unitPerformances: unitPerformancePromise
-    }).then(function(hash) {
-      return hash.unitPerformances;
-    });
   }
 });

@@ -1,8 +1,6 @@
 <div class="report-body-content">
   <div class="collapse-text dont-show">
-    <span class="scatter-text">TEKS.SS.4.19</span>
-    <span class="scatter-text">TEKS.SS.4.21</span>
-    <span class="scatter-text">TEKS.SS.4.22</span>
+
   </div>
   <!-- collapse text div ends -->
   <!-- View 3  -->
@@ -15,7 +13,7 @@
             STUDENT
           </th>
           {{#each tableHeader as |lesson|}}
-            <th><span class="lsn" style= {{safe-html (concat "background-color:" (grade-color lesson.performance.score))}} {{action 'onOpenLessonReport' lesson}}><p>{{concat 'L' lesson.sequence}}</p></span></th>
+            <th><span class="lesson-sequence-header" style= {{safe-html (concat "background-color:" (grade-color lesson.performance.score))}} {{action 'onOpenLessonReport' lesson}}><p>{{concat 'L' lesson.sequence}}</p></span></th>
           {{/each}}
 
         </tr>
