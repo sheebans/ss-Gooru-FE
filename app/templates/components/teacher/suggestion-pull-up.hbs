@@ -1,9 +1,15 @@
 <div class="suggestion-backdrop" {{action 'onPullUpClose'}}></div>
 <div class="suggestion-container">
   <div class="suggestion-header">
-    <div class="suggestion-pullup-close" {{action 'onPullUpClose'}}>
-      {{gru-icon name="arrow_downward"}}
-    </div>
+    {{#unless isFromSearch}}
+      <div class="suggestion-pullup-close" {{action 'onPullUpClose'}}>
+        {{gru-icon name="arrow_downward"}}
+      </div>
+      {{else}}
+        <div class="suggestion-back" {{action 'backToSuggestion'}}>
+          {{gru-icon name="arrow_back"}}
+        </div>
+    {{/unless}}
     <div class="suggestion-explore-icon">
       {{gru-icon name="explore"}}
     </div>
@@ -17,9 +23,9 @@
           spellcheck="true"
           id="suggestion-search"
         }}
-        <div class="search-icon" {{action "onClickSearch"}}>
-          {{gru-icon name="search"}}
-        </div>
+        <label for="suggestion-search" id="suggest-search" class="search-icon">
+            {{gru-icon name="search"}}
+        </label>
       </div>
       <div class="search-filter-icon">
         {{gru-icon name="filter_list"}}
@@ -50,7 +56,9 @@
         {{/each}}
       </div>
     {{else}}
-      {{cards.no-suggest-result-found isFromSearch=isFromSearch}}
+      {{#unless isLoading}}
+        {{cards.no-suggest-result-found isFromSearch=isFromSearch}}
+      {{/unless}}
     {{/if}}
   </div>
 </div>
