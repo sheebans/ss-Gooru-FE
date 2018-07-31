@@ -46,6 +46,12 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   loading: false,
 
+  /**
+   * Indicates which unit is selected
+   * @property {selectedUnit}
+   */
+  selectedUnit: '',
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -55,6 +61,7 @@ export default Ember.Component.extend(AccordionMixin, {
     onClosePullUp() {
       this.set('showLessonReportPullUp', false);
       this.set('showReportPullUp', false);
+      this.set('showUnitReportPullUp', false);
       this.set('showCollectionReportPullUp', false);
     },
 
@@ -107,6 +114,7 @@ export default Ember.Component.extend(AccordionMixin, {
         this.get('onLocationUpdate')(newLocation);
       }
     },
+
     /**
      * Trigger action to update content visibility list
      */
@@ -116,6 +124,14 @@ export default Ember.Component.extend(AccordionMixin, {
 
     onSelectItem() {
       this.sendAction('onSelectItem');
+    },
+
+    /**
+     * Trigger when unit level  report clicked
+     */
+    onOpenUnitLevelReport(unitInfo) {
+      this.set('selectedUnit', unitInfo);
+      this.set('showUnitReportPullUp', true);
     },
 
     /**

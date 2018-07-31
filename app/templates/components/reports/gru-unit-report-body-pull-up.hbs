@@ -1,0 +1,46 @@
+<div class="report-body-content">
+  <div class="collapse-text dont-show">
+
+  </div>
+  <!-- collapse text div ends -->
+  <!-- View 3  -->
+  <div class="outer-div">
+    {{#if isLoading}}
+      {{three-bounce-spinner}}
+    {{else}}
+    <!-- testing table -->
+    <table>
+      <thead>
+        <tr>
+          <th>
+            STUDENT
+          </th>
+          {{#each tableHeader as |lesson|}}
+            <th><span class="lesson-sequence-header" style= {{safe-html (concat "background-color:" (grade-color lesson.performance.score))}} {{action 'onOpenLessonReport' lesson}}><p>{{concat 'L' lesson.sequence}}</p></span></th>
+          {{/each}}
+
+        </tr>
+      </thead>
+      <tbody>
+        {{#each tableRow as |studentPerformance|}}
+          <tr>
+            <td class="prof-icon">
+              <span class="student-profile"><img src="{{studentPerformance.student.avatarUrl}}" class="img-circle" width="30" height="30" /></span>
+              <span class="student-name">{{studentPerformance.student.firstName}}</span>
+            </td>
+            {{#each studentPerformance.lessons as |test|}}
+              <td class="r-bdr">
+                <div class="performance-section">{{if test.score (concat test.score '%') '--'}}</div>
+              </td>
+            {{/each}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <!-- testing table ends -->
+{{/if}}
+  </div>
+  <!-- View 3 Ends -->
+
+</div>
+<!-- report body content div ends -->

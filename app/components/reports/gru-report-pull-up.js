@@ -67,14 +67,14 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     if (this.get('showPullUp')) {
-      Ember.$('.gru-report-pull-up').animate(
+      this.$().animate(
         {
           top: '10%'
         },
         400
       );
     } else {
-      Ember.$('.gru-report-pull-up').animate({
+      this.$().animate({
         top: '100%'
       });
     }
@@ -85,14 +85,14 @@ export default Ember.Component.extend({
    **/
   onChange: Ember.observer('showPullUp', function() {
     if (this.get('showPullUp')) {
-      Ember.$('.gru-report-pull-up').animate(
+      this.$().animate(
         {
           top: '10%'
         },
         400
       );
     } else {
-      Ember.$('.gru-report-pull-up').animate({
+      this.$().animate({
         top: '100%'
       });
     }

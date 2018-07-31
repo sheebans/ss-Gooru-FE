@@ -71,6 +71,23 @@ export default Ember.Component.extend(AccordionMixin, {
   // Actions
   actions: {
     /**
+     * Launch an unit report pullup
+     *
+     * @function actions:onOpenUnitLevelReport
+     */
+    onOpenUnitLevelReport(model) {
+      const component = this;
+      let unitInfo = {
+        classId: component.get('currentClass.id'),
+        courseId:
+          component.get('currentClass.courseId') ||
+          component.get('currentCourse.id'),
+        unit: model
+      };
+      component.set('showUnitReportPullUp', true);
+      this.sendAction('onOpenUnitLevelReport', unitInfo);
+    },
+    /**
      * Launch an assessment on-air
      *
      * @function actions:launchOnAir
@@ -196,7 +213,6 @@ export default Ember.Component.extend(AccordionMixin, {
   // Events
   setupComponent: Ember.on('didInsertElement', function() {
     const component = this;
-
     this.$().on('hide.bs.collapse', function(e) {
       e.stopPropagation();
       component.set('isExpanded', false);
