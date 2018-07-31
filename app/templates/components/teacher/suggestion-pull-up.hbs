@@ -1,0 +1,74 @@
+<div class="suggestion-backdrop" {{action 'onPullUpClose'}}></div>
+<div class="suggestion-container">
+  <div class="suggestion-header">
+    {{#unless isFromSearch}}
+      <div class="suggestion-pullup-close" {{action 'onPullUpClose'}}>
+        {{gru-icon name="arrow_downward"}}
+      </div>
+      {{else}}
+        <div class="suggestion-back" {{action 'backToSuggestion'}}>
+          {{gru-icon name="arrow_back"}}
+        </div>
+    {{/unless}}
+    <div class="suggestion-explore-icon">
+      {{gru-icon name="explore"}}
+    </div>
+    <div class="suggestion-filter-container">
+      <span>{{t 'common.gooru-suggestions'}}</span>
+    </div>
+    <div class="suggestion-right-menu">
+      <div class="search-input-container">
+        {{input type="text"
+          placeholder=(t "common.search-placeholder")
+          spellcheck="true"
+          id="suggestion-search"
+        }}
+        <label for="suggestion-search" id="suggest-search" class="search-icon">
+            {{gru-icon name="search"}}
+        </label>
+      </div>
+      <div class="search-filter-icon">
+        {{gru-icon name="filter_list"}}
+      </div>
+    </div>
+  </div>
+  <div class="suggestion-content-type-filter">
+    <div class="filter-by">Filter By</div>
+    <div class="filter-content-types">
+      {{#each filterContentType as |contentType|}}
+        <div class="filter-item {{contentType.format}} {{if (eq contentType.format activeContentType) 'active' }}" {{action 'onSelectFilterBy' contentType.format}}>
+          <i></i>
+          <span>{{t contentType.label}}</span>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+  <div class="search-list-container">
+    <div class="loading-spinner">
+      {{#if isLoading}}
+        {{three-bounce-spinner}}
+      {{/if}}
+    </div>
+    {{#if (gt searchResults.length 0)}}
+      <div class="search-list">
+        {{#each searchResults as |result|}}
+          {{cards.suggest-collection-card collection=result contentType=activeContentType onSuggestCollection="onSuggestCollection"}}
+        {{/each}}
+      </div>
+    {{else}}
+      {{#unless isLoading}}
+        {{cards.no-suggest-result-found isFromSearch=isFromSearch}}
+      {{/unless}}
+    {{/if}}
+  </div>
+</div>
+
+{{#if showSuggestConfirmation}}
+  {{cards.suggest-confirmation
+   collection=suggestSelectedCollection
+   students=students
+   contentType=activeContentType
+   onCancelSuggest="onCancelSuggest"
+   onConfirmSuggest="onConfirmSuggest"
+ }}
+{{/if}}

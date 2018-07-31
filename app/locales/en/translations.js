@@ -52,7 +52,18 @@ export default Object.assign(quizzesTranslations, {
     first: 'First',
     last: 'Last',
     name: 'Name',
+    lastName: 'Lastname',
+    firstName: 'Firstname',
     avg: 'Avg',
+    more: 'more',
+    'gooru-suggestions': 'Gooru Suggestions',
+    'suggestion-made-to': 'Suggestion made to',
+    'student-selected': 'Student Selected',
+    'no-suggest-result-message': ' No matching content found',
+    'no-suggest-results-message':
+      'You can search and  find the related content.',
+    'no-suggest-search-results-message':
+      'Check your spelling. We all make mistakes! Or try searching for a similar word instead.',
     'a-collection': 'a collection',
     'a-course': 'a course',
     'a-question': 'a question',
@@ -2566,5 +2577,13 @@ export default Object.assign(quizzesTranslations, {
   'gru-performance-chart': {
     'teacher-tooltip':
       'of your students have completed all the assessments in this lesson'
+  },
+
+  'report': {
+    'competency-report': {
+      'title': 'Competency Report',
+      'no-subject': 'No Subject Assigned'
+    },
+    'domain-report': 'Domain Report'
   }
 });

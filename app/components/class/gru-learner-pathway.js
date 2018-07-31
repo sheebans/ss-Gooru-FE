@@ -63,6 +63,11 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   rescopeService: Ember.inject.service('api-sdk/rescope'),
 
+  /**
+   * Route0 service to fetch route0 suggestion of a class and course
+   */
+  route0Service: Ember.inject.service('api-sdk/route0'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -195,6 +200,7 @@ export default Ember.Component.extend(AccordionMixin, {
   didInsertElement() {
     let component = this;
     component.loadPathWayData();
+    component.loadRoute0Data();
   },
 
   // -------------------------------------------------------------------------
@@ -364,6 +370,24 @@ export default Ember.Component.extend(AccordionMixin, {
       component.set('profile', hash.profile);
       component.set('isLoading', false);
     });
+  },
+
+  /**
+   * @function loadRoute0Data
+   * Method to load route0 data for a student
+   */
+  loadRoute0Data() {
+    let component = this;
+    let studentPathway = component.get('model');
+    let isPremiumClass = studentPathway.isPremiumClass;
+    if (isPremiumClass) {
+      let route0Promise = component.fetchRoute0Contents();
+      return route0Promise.then(function( route0Contents ) {
+        let isAccepted = route0Contents.status === 'accepted';
+        component.set('isAccepted', isAccepted);
+        component.set('route0Contents', route0Contents);
+      });
+    }
   },
 
   /**
@@ -587,5 +611,26 @@ export default Ember.Component.extend(AccordionMixin, {
       unitId: unitId,
       lessonId: lessonId
     });
+  },
+
+  /**
+   * @function fetchRoute0Contents
+   * Method to fetch route0 cotents for a student
+   */
+  fetchRoute0Contents() {
+    let component = this;
+    let studentPathway = component.get('model');
+    let classId = studentPathway.classId;
+    let courseId = studentPathway.courseId;
+    let userId = studentPathway.userId;
+    let route0Service = component.get('route0Service');
+    let route0Promise = Ember.RSVP.resolve(route0Service.fetchInClassByTeacher({courseId, classId, userId}));
+    return Ember.RSVP.hash({
+      route0Contents: route0Promise
+    })
+      .then(({route0Contents}) => {
+        let status = route0Contents ? route0Contents.status : null;
+        return status === 'accepted' ? route0Contents : Ember.RSVP.resolve({});
+      });
   }
 });

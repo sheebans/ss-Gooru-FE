@@ -1,0 +1,233 @@
+.cards.suggest-collection-card {
+  .card-panel-container {
+    width: 220px;
+    height: 341px;
+    object-fit: contain;
+    border-radius: 4px;
+    background-color: $white;
+    box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.07);
+
+    .card-panel-header {
+      width: 220px;
+      height: 130px;
+      object-fit: contain;
+      background-color: transparent;
+      background-size: cover;
+      background-repeat: no-repeat;
+      padding: 0;
+      position: relative;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+
+      .info {
+        color: $white;
+        position: absolute;
+        z-index: 10;
+
+        .title {
+          padding-left: 10px;
+          padding-right: 10px;
+          width: 100%;
+          height: 42px;
+          margin-top: 88px;
+          font-weight: bold;
+          $line-height: 1.5;
+          $lines-to-show: 2;
+          @include ellipsis(
+            $font-size: 13px,
+            $line-height: $line-height,
+            $lines-to-show: $lines-to-show
+          );
+        }
+      }
+
+      &::after {
+        display: block;
+        position: absolute;
+        z-index: 9;
+        background-image: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0) 0,
+          #000 100%
+        );
+        margin-top: 52px;
+        height: 60%;
+        width: 100%;
+        content: "";
+      }
+    }
+
+    .content-count-container {
+      height: 25px;
+      width: 100%;
+      border-bottom: 1px solid #f2f2f2;
+      display: flex;
+
+      .icon {
+        background-size: 15px 15px;
+        width: 15px;
+        height: 15px;
+        display: block;
+        float: left;
+        margin-right: 6px;
+        margin-top: 5px;
+        margin-left: 10px;
+      }
+
+      span {
+        font-size: 14px;
+      }
+
+      .question {
+        .icon {
+          background-image: url("../assets/gooru/images/add_question.svg");
+        }
+      }
+
+      .resource {
+        .icon {
+          background-image: url("../assets/gooru/images/collections_resource_icon.svg");
+        }
+      }
+    }
+
+    .collection-info-container {
+      height: 150px;
+      border-bottom: 1px solid #f2f2f2;
+      padding: 15px;
+
+      .collection-user-info {
+        height: 30px;
+        cursor: default;
+        @include flexbox;
+
+        .created-by {
+          font-style: italic;
+          width: 60px;
+        }
+
+        .img-container {
+          width: 20px;
+          height: 20px;
+          overflow: hidden;
+          border-radius: 50px;
+          margin-left: 10px;
+
+          img {
+            width: 100%;
+          }
+        }
+
+        .username {
+          margin-left: 10px;
+          max-width: 92px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: block;
+          color: #0072bc;
+        }
+      }
+
+      .collection-description {
+        $line-height: 1.5;
+        $lines-to-show: 3;
+        @include ellipsis(
+          $font-size: 13px,
+          $line-height: $line-height,
+          $lines-to-show: $lines-to-show
+        );
+      }
+
+      .collection-standards {
+        padding-top: 5px;
+
+        .gru-taxonomy-tag-list {
+          .gru-taxonomy-tag {
+            max-width: 70%;
+            background-color: #37424b;
+
+            .content {
+              margin: 0;
+            }
+            .standard-tag {
+              b {
+                color: #fff;
+              }
+            }
+          }
+
+          .non-visible-tags {
+            width: 30px;
+            height: 29px;
+            background: #37424b;
+            border-radius: 4px;
+            color: #fff;
+            margin-left: 10px;
+            margin-top: 3px;
+          }
+          .popover {
+            background: #fff;
+            margin-left: 5px;
+
+            .arrow::after {
+              border-left-color: #fff;
+              border-right-color: #fff;
+            }
+
+            .popover-content {
+              .gru-taxonomy-tag {
+                max-width: 300px;
+                width: 270px;
+                border-radius: 4px;
+
+                .standard-tag {
+                  width: 270px;
+                }
+              }
+            }
+          }
+        }
+
+        .popover-content {
+          .gru-taxonomy-tag {
+            max-width: 100%;
+          }
+        }
+      }
+    }
+
+    .card-panel-footer {
+      .buttons-container {
+        height: 36px;
+        display: grid;
+        grid-template-columns: auto auto;
+
+        .play-btn {
+          width: 45px;
+          border-right: 1px solid #f2f2f2;
+          cursor: pointer;
+
+          i {
+            margin-left: -62px;
+            margin-top: 7px;
+            color: #0072bc;
+            pointer-events: none;
+          }
+        }
+
+        .suggest-btn {
+          width: 45px;
+          border-left: 1px solid #f2f2f2;
+          justify-self: end;
+          cursor: pointer;
+
+          .add {
+            margin-left: 8px;
+            margin-top: 6px;
+            pointer-events: none;
+          }
+        }
+      }
+    }
+  }
+}

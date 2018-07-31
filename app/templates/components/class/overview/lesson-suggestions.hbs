@@ -15,7 +15,7 @@
                     {{gru-icon name='play_arrow'}}
                 </button>
             </div>
-            <div class="performance-container" {{action 'onOpenLessonLevelReport' model}}>
+            <div class="performance-container hidden" {{action 'onOpenLessonLevelReport' model}}>
                  {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
             </div>
         </div>
@@ -87,3 +87,6 @@
         </ol>
     </div>
 </div>
+{{#if showReportPullUp}}
+    {{class.gru-report-panel showPullUp=showReportPullUp reportData=studentReportData model=studentReportData.lesson isStudent=studentReportData.isStudent onClosePullUp="onClosePullUp"}}
+{{/if}}

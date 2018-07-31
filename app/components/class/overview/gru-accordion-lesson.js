@@ -91,13 +91,6 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-    /**
-     * Action triggered when the user click outside of pullup.
-     **/
-    onClosePullUp() {
-      this.set('showLessonReportPullUp', false);
-    },
-
     /*
      * @function To open lesson level report
      */
@@ -114,10 +107,11 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         courseId: courseId,
         unitId: unitId,
         lessonId: lessonId,
+        lesson: component.get('model'),
+        unit: component.get('unit'),
         classMembers: component.get('classMembers')
       };
-      component.set('lessonReportData', params);
-      component.set('showLessonReportPullUp', true);
+      component.sendAction('onOpenLessonReport', params);
     },
 
     /**
@@ -260,10 +254,10 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         lessonId: lessonId,
         collectionId: collectionId,
         type: type,
+        lesson: component.get('model'),
         isStudent: component.get('isStudent')
       };
-      component.set('studentReportData', params);
-      component.set('showReportPullUp', true);
+      component.sendAction('studentReport', params);
     },
 
     /**
@@ -291,8 +285,7 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         collections: items,
         classMembers: component.get('classMembers')
       };
-      component.set('teacherCollectionReportData', params);
-      component.set('showCollectionReportPullUp', true);
+      component.sendAction('teacherCollectionReport', params);
     }
   },
 

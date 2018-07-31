@@ -27,6 +27,11 @@ export default Ember.Component.extend({
    */
   analyticsService: Ember.inject.service('api-sdk/analytics'),
 
+  /**
+   * @requires service:api-sdk/search
+   */
+  searchService: Ember.inject.service('api-sdk/search'),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -95,12 +100,42 @@ export default Ember.Component.extend({
     },
 
     studentReport(collection, userId) {
-      this.sendAction('studentReport', collection, userId);
+      let component = this;
+      if (!userId) {
+        userId = component.get('session.userId');
+      }
+      let params = {
+        userId: userId,
+        classId: component.get('classId'),
+        courseId: component.get('courseId'),
+        unitId: component.get('unit.id'),
+        lessonId: component.get('lesson.id'),
+        collectionId: collection.get('id'),
+        type: collection.get('format'),
+        lesson: component.get('lesson'),
+        isStudent: component.get('isStudent')
+      };
+      this.sendAction('studentReport', params);
     },
 
     onClickChart(userId) {
-      let collection = this.get('selectedCollection');
-      this.sendAction('studentReport', collection, userId);
+      let component = this;
+      if (!userId) {
+        userId = component.get('session.userId');
+      }
+      let collection = component.get('selectedCollection');
+      let params = {
+        userId: userId,
+        classId: component.get('classId'),
+        courseId: component.get('courseId'),
+        unitId: component.get('unit.id'),
+        lessonId: component.get('lesson.id'),
+        collectionId: collection.get('id'),
+        type: collection.get('format'),
+        lesson: component.get('lesson'),
+        isStudent: component.get('isStudent')
+      };
+      this.sendAction('studentReport', params);
     }
   },
 
@@ -263,6 +298,42 @@ export default Ember.Component.extend({
     }
   }),
 
+  /**
+   * Maintains the state of role.
+   * @type {Boolean}
+   */
+  isStudent: Ember.computed.alias('context.isStduent'),
+
+  /**
+   * Maintains list of students selected for  suggest
+   * @type {Array}
+   */
+  studentsSelectedForSuggest: Ember.A([]),
+
+  /**
+   * Maintains maximum number of search results
+   * @type {Number}
+   */
+  maxSearchResult: 6,
+
+  /**
+   * suggest count
+   * @type {Array}
+   */
+  suggestResultCount: 0,
+
+  /**
+   * Maintains context data
+   * @type {Object}
+   */
+  context: null,
+
+  /**
+   * defaultSuggestContentType
+   * @type {String}
+   */
+  defaultSuggestContentType: 'collection',
+
   //--------------------------------------------------------------------------
   // Methods
 
@@ -296,19 +367,14 @@ export default Ember.Component.extend({
     let component = this;
     component.$('.report-content').scroll(function() {
       let scrollTop = component.$('.report-content').scrollTop();
-      let headerTabular = component.$(
-        '.report-content .pull-up-collection-report-listview .tabular-header'
-      );
-      let scrollArrow = component.$(
-        '.pull-up-collection-report-listview .scroll-arrow'
+      let scrollFixed = component.$(
+        '.report-content .pull-up-collection-report-listview .on-scroll-fixed'
       );
       if (scrollTop >= 347) {
         let position = scrollTop - 347;
-        component.$(headerTabular).css('top', `${position}px`);
-        component.$(scrollArrow).css('top', `${position}px`);
+        component.$(scrollFixed).css('top', `${position}px`);
       } else {
-        component.$(headerTabular).css('top', '0px');
-        component.$(scrollArrow).css('top', '0px');
+        component.$(scrollFixed).css('top', '0px');
       }
     });
   },
@@ -341,6 +407,7 @@ export default Ember.Component.extend({
       component.set('collection', collection);
       component.parseClassMemberAndPerformanceData(collection, performance);
       component.set('isLoading', false);
+      component.loadSuggestion();
     });
   },
 
@@ -387,6 +454,9 @@ export default Ember.Component.extend({
     component.set('sortByLastnameEnabled', true);
     component.set('sortByFirstnameEnabled', false);
     component.set('sortByScoreEnabled', false);
+    component.set('studentsSelectedForSuggest', Ember.A([]));
+    component.set('suggestResultCount', 0);
+    component.set('defaultSuggestContentType', 'collection');
     component.set('studentReportData', users);
     let maxTimeSpent = Math.max(...usersTotaltimeSpent);
     component.calculateTimeSpentScore(usersChartData, maxTimeSpent);
@@ -485,5 +555,59 @@ export default Ember.Component.extend({
       data.set('timeSpentScore', timeSpentScore);
       data.set('timeSpentDifference', 100 - timeSpentScore);
     });
+  },
+
+  loadSuggestion() {
+    let component = this;
+    let collection = this.get('collection');
+    let taxonomies = null;
+    let tags = component.get('tags');
+    if (tags) {
+      taxonomies = tags.map(tag => {
+        return tag.data.id;
+      });
+    }
+    let filters = component.getFilters();
+    filters.taxonomies = taxonomies;
+    let term =
+      taxonomies != null && taxonomies.length > 0
+        ? '*'
+        : collection.get('title');
+    let maxSearchResult = component.get('maxSearchResult');
+    component
+      .get('searchService')
+      .searchCollections(term, filters)
+      .then(collectionSuggestResults => {
+        // To show appropriate suggest count, check is their any suggest found in assessment type if count is less than.
+        let collectionSuggestCount = collectionSuggestResults.length;
+        if (collectionSuggestCount >= maxSearchResult) {
+          component.set('suggestResultCount', maxSearchResult);
+        } else {
+          component
+            .get('searchService')
+            .searchAssessments(term, filters)
+            .then(assessmentSuggestResult => {
+              let assessmentSuggestCount = assessmentSuggestResult.length;
+              let suggestCount =
+                assessmentSuggestCount + collectionSuggestCount;
+              if (collectionSuggestCount === 0 && assessmentSuggestCount > 0) {
+                component.set('defaultSuggestContentType', 'assessment');
+              }
+              component.set(
+                'suggestResultCount',
+                suggestCount >= maxSearchResult ? maxSearchResult : suggestCount
+              );
+            });
+        }
+      });
+  },
+
+  getFilters() {
+    let component = this;
+    let maxSearchResult = component.get('maxSearchResult');
+    let params = {
+      pageSize: maxSearchResult
+    };
+    return params;
   }
 });

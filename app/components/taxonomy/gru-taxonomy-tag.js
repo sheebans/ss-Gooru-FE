@@ -88,6 +88,12 @@ export default Ember.Component.extend({
    */
   onAdd: null,
 
+  /**
+   * Maintains the value of popover position
+   * @type {String}
+   */
+  tagPopoverDefaultPosition: 'bottom',
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -95,10 +101,10 @@ export default Ember.Component.extend({
     var component = this;
     var $anchor = this.$('> .content');
     var isMobile = window.matchMedia('only screen and (max-width: 768px)');
-
+    let tagPopoverDefaultPosition = this.get('tagPopoverDefaultPosition');
     $anchor.attr('data-html', 'true');
     $anchor.popover({
-      placement: 'bottom',
+      placement: tagPopoverDefaultPosition,
       content: function() {
         return component.$('.tag-tooltip').html();
       },

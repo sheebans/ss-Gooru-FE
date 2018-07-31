@@ -113,7 +113,19 @@ export default Ember.Component.extend({
     },
 
     onClickCollectionReport(collection, collections) {
-      this.sendAction('onClickCollectionReport', collection, collections);
+      let component = this;
+      let params = {
+        classId: component.get('classId'),
+        courseId: component.get('courseId'),
+        unitId: component.get('unitId'),
+        lessonId: component.get('lessonId'),
+        collection: collection,
+        lessonModel: component.get('lesson'),
+        unitModel: component.get('unit'),
+        collections: collections,
+        classMembers: component.get('classMembers')
+      };
+      this.sendAction('teacherCollectionReport', params);
     }
   },
 
@@ -167,10 +179,22 @@ export default Ember.Component.extend({
   unitId: Ember.computed.alias('context.unitId'),
 
   /**
+   * Propery to show lesson.
+   * @property {unit}
+   */
+  unit: Ember.computed.alias('context.unit'),
+
+  /**
    * Propery to show lesson id.
    * @property {lessonId}
    */
   lessonId: Ember.computed.alias('context.lessonId'),
+
+  /**
+   * Propery to show lesson.
+   * @property {lesson}
+   */
+  lesson: Ember.computed.alias('context.lesson'),
 
   /**
    * Propery to show collection type.

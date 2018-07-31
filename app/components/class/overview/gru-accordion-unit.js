@@ -170,16 +170,25 @@ export default Ember.Component.extend(AccordionMixin, {
       this.sendAction('onClosePullUp');
     },
 
-    onPullUpClose() {
-      this.set('showUnitReportPullUp', false);
+    /**
+     * Trigger when lesson level  report clicked
+     */
+    onOpenLessonReport(params) {
+      this.sendAction('onOpenLessonReport', params);
     },
 
     /**
-     * Action triggered when the user click the unit level performance.
-     **/
-    onOpenUnitLevelReport() {
-      const component = this;
-      component.set('showUnitReportPullUp', true);
+     * Trigger when collection level student report clicked
+     */
+    studentReport(params) {
+      this.sendAction('studentReport', params);
+    },
+
+    /**
+     * Trigger when collection level teacher report clicked
+     */
+    teacherCollectionReport(params) {
+      this.sendAction('teacherCollectionReport', params);
     }
   },
 

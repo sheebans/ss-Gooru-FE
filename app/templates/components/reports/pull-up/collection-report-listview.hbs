@@ -2,7 +2,7 @@
   <table>
     <tbody>
       <tr>
-        <th class="tabular-header">
+        <th class="tabular-header on-scroll-fixed">
           <div class="header-filters">
             <div class="name-filter">
               <span class="name-header">{{t 'common.name'}}</span>
@@ -33,11 +33,19 @@
         <tr>
           <th>
             <div class="user-profile-summary">
-              <div class="user-profile-details {{unless student.hasStarted 'not-started'}}" {{action 'studentReport' selectedCollection student.id}}>
+              <div class="user-profile-details {{unless student.hasStarted 'not-started'}}">
                 <div class="user-profile-img">
-                  <img src="{{student.avatarUrl}}" />
+                  {{#if student.selectedForSuggestion}}
+                    <div class="selected-user-for-suggestion">
+                      {{gru-icon name="done_all"}}
+                      <div class="de-select-user" {{action 'onDeSelectUser' student}}>
+                        {{gru-icon name="close"}}
+                      </div>
+                    </div>
+                  {{/if}}
+                  <img src="{{student.avatarUrl}}" class="{{if student.selectedForSuggestion 'selected'}}" {{action 'onSelectUser' student}} />
                 </div>
-                <div class="username">
+                <div class="username" {{action 'studentReport' selectedCollection student.id}}>
                   <span>{{student.firstName}}</span>
                   <span>{{student.lastName}}</span>
                 </div>
@@ -61,7 +69,7 @@
     <tbody>
       <tr>
         {{#each contents as | content |}}
-          <th class="tabular-header">
+          <th class="tabular-header on-scroll-fixed">
             <div class="content-header">
               <div class="question-icon">
                 <i></i>
@@ -122,10 +130,39 @@
   </table>
 </div>
 {{#if (gt contents.length 2)}}
-  <span class="scroll-left-arrow scroll-arrow" {{action 'onClickScrollLeftArrow'}}>
+  <span class="scroll-left-arrow scroll-arrow on-scroll-fixed" {{action 'onClickScrollLeftArrow'}}>
     {{gru-icon name="keyboard_arrow_left"}}
   </span>
-  <span class="scroll-right-arrow scroll-arrow" {{action 'onClickScrollRightArrow'}}>
+  <span class="scroll-right-arrow scroll-arrow on-scroll-fixed" {{action 'onClickScrollRightArrow'}}>
     {{gru-icon name="keyboard_arrow_right"}}
   </span>
+{{/if}}
+
+<div class="suggest-bar on-scroll-fixed {{if (gt studentsSelectedForSuggest.length 0) 'active'}}">
+  <div class="suggest-bar-container">
+    <div class="close-all-suggestion" {{action 'onCloseSuggest'}}>
+      {{gru-icon name="close" }}
+    </div>
+    <div class="no-of-student-selected">
+      <span>{{studentsSelectedForSuggest.length}} {{t 'common.student-selected'}}</span>
+    </div>
+    <div class="suggestion-count-container" {{action 'onOpenSuggestionPullup'}}>
+      <span>{{t 'common.suggestion'}}</span>
+      <div class="suggestion-explore">
+        {{gru-icon name="explore"}}
+        <div class="suggestion-count">{{suggestResultCount}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+{{#if showSuggestionPullup}}
+  {{teacher.suggestion-pull-up
+    showPullUp=showSuggestionPullup
+    students=studentsSelectedForSuggest
+    searchResults=searchResults
+    onCloseSuggest="onCloseSuggest"
+    context=contextParams
+    collection=collection
+    defaultSuggestContentType=defaultSuggestContentType
+  }}
 {{/if}}

@@ -50,6 +50,15 @@ export default Ember.Component.extend(AccordionMixin, {
   // Actions
   actions: {
     /**
+     * Action triggered when the user click outside of pullup.
+     **/
+    onClosePullUp() {
+      this.set('showLessonReportPullUp', false);
+      this.set('showReportPullUp', false);
+      this.set('showCollectionReportPullUp', false);
+    },
+
+    /**
      * @function goLive
      */
     goLive: function(collectionId) {
@@ -107,6 +116,30 @@ export default Ember.Component.extend(AccordionMixin, {
 
     onSelectItem() {
       this.sendAction('onSelectItem');
+    },
+
+    /**
+     * Trigger when lesson level  report clicked
+     */
+    onOpenLessonReport(params) {
+      this.set('lessonReportData', params);
+      this.set('showLessonReportPullUp', true);
+    },
+
+    /**
+     * Trigger when collection level student report clicked
+     */
+    studentReport(params) {
+      this.set('studentReportData', params);
+      this.set('showReportPullUp', true);
+    },
+
+    /**
+     * Trigger when collection level teacher report clicked
+     */
+    teacherCollectionReport(params) {
+      this.set('teacherCollectionReportData', params);
+      this.set('showCollectionReportPullUp', true);
     }
   },
 
@@ -209,6 +242,24 @@ export default Ember.Component.extend(AccordionMixin, {
    * @property {Boolean}
    */
   isFromDCA: null,
+
+  /**
+   * Maintains the state of collection report pull up
+   * @type {Boolean}
+   */
+  showCollectionReportPullUp: false,
+
+  /**
+   * Maintains the state of lesson report pull up
+   * @type {Boolean}
+   */
+  showLessonReportPullUp: false,
+
+  /**
+   * Maintains the state of student collection  report pull up
+   * @type {Boolean}
+   */
+  showReportPullUp: false,
 
   // -------------------------------------------------------------------------
   // Observers

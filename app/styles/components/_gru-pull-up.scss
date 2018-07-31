@@ -52,11 +52,7 @@
       line-height: 1px;
     }
   }
-  .unit-body {
-    overflow: auto;
-    max-height: calc(90vh - 130px);
-    height: calc(90vh - 130px);
-  }
+
   .gru-learner-pathway .unit-body::-webkit-scrollbar {
     height: 8px;
     width: 8px;

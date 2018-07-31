@@ -280,16 +280,3 @@
     </ol>
   </div>
 </div>
-{{#if showLessonReportPullUp}}
-  {{#reports.gru-report-pull-up breadcrumb=(concat 'Lesson' model.sequence) title=model.title score=model.performance.score showPullUp=showLessonReportPullUp as |lessonReport| }}
-    {{#if lessonReport.isShowBody}}
-      {{reports.gru-lesson-report-body-pull-up onClosePullUp="onClosePullUp" showPullUp=showLessonReportPullUp context=lessonReportData onClickCollectionReport='teacherCollectionReport'}}
-    {{/if}}
-  {{/reports.gru-report-pull-up}}
-{{/if}}
-{{#if showReportPullUp}}
-  {{class.gru-report-panel showPullUp=showReportPullUp reportData=studentReportData model=model isStudent=isStudent onClosePullUp="onClosePullUp"}}
-{{/if}}
-{{#if showCollectionReportPullUp}}
-  {{reports.pull-up.collection-report context=teacherCollectionReportData showPullUp=showCollectionReportPullUp studentReport="studentReport"}}
-{{/if}}

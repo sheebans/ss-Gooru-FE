@@ -88,12 +88,61 @@
           .user-profile-img {
             width: 43px;
 
+            .selected-user-for-suggestion {
+              width: 29px;
+              background: #f98e4e;
+              border-radius: 50%;
+              line-height: 19px;
+              box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+              color: #fff;
+              height: 29px;
+              margin-left: 6px;
+              margin-top: 29px;
+
+              .done_all {
+                position: relative;
+                top: 3px;
+                left: 3px;
+              }
+
+              .de-select-user {
+                position: relative;
+                top: -29px;
+                width: 29px;
+                height: 29px;
+                background: rgba(0, 0, 0, 0.2);
+                border-radius: 50%;
+                line-height: 19px;
+                visibility: hidden;
+                opacity: 0;
+                transition: opacity 0.3s, visibility 0.3s;
+
+                .close {
+                  font-size: 16px;
+                  margin-right: 6px;
+                  margin-top: 3px;
+                }
+              }
+
+              &:hover {
+                .de-select-user {
+                  visibility: visible;
+                  opacity: 1;
+                  transition: opacity 0.3s, visibility 0.3s;
+                }
+              }
+            }
+
             img {
               width: 29px;
               border-radius: 50%;
               margin-left: 7px;
               border-color: transparent;
               height: 29px;
+
+              &.selected {
+                visibility: hidden;
+              }
             }
           }
 
@@ -321,6 +370,97 @@
       visibility: visible;
       opacity: 1;
       transition: opacity 0.3s, visibility 0.3s;
+    }
+  }
+
+  .suggest-bar {
+    width: 100%;
+    height: 40px;
+    background: #f88c49;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    &.active {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .suggest-bar-container {
+      display: flex;
+
+      .close-all-suggestion {
+        width: 50px;
+        height: 40px;
+
+        .close {
+          font-size: 24px;
+          color: #fff;
+          margin-top: 9px;
+          opacity: 1;
+          font-weight: 600;
+        }
+      }
+
+      .no-of-student-selected {
+        width: 527px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        margin-left: 31px;
+        font-size: 16px;
+        color: #fff;
+        font-weight: 600;
+      }
+
+      .suggestion-count-container {
+        width: 145px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        span {
+          text-transform: uppercase;
+          color: #fff;
+          font-size: 12px;
+          font-weight: 600;
+          margin-right: 10px;
+        }
+
+        .suggestion-explore {
+          width: 20px;
+          border-radius: 50%;
+          background: #ffffff57;
+          height: 20px;
+          box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.5);
+          margin-top: 2px;
+          color: #fff;
+          position: relative;
+
+          .explore {
+            transform: rotate(90deg);
+            margin-top: -2px;
+            margin-left: -2px;
+          }
+
+          .suggestion-count {
+            width: 16px;
+            border-radius: 50%;
+            background: #fff;
+            position: absolute;
+            line-height: 14px;
+            top: -5px;
+            height: 16px;
+            left: 14px;
+            color: #37424a;
+            border: 1px solid #37424a;
+            font-size: 9px;
+            text-indent: 4px;
+          }
+        }
+      }
     }
   }
 }

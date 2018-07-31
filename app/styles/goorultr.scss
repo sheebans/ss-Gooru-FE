@@ -162,6 +162,9 @@ $box-shadow: 1px -1px;
 @import "components/cards/gru-bookmark-card";
 @import "components/cards/gru-independent-card";
 @import "components/cards/gru-join-class-card";
+@import "components/cards/suggest-collection-card";
+@import "components/cards/no-suggest-result-found";
+@import "components/cards/suggest-confirmation";
 
 @import "components/charts/gru-bubble-chart";
 @import "components/charts/gru-completion-chart";
@@ -171,6 +174,7 @@ $box-shadow: 1px -1px;
 @import "components/charts/gru-performance-chart";
 @import "components/charts/monthly-time-series-chart";
 @import "components/charts/report-bar-chart";
+@import "components/charts/domain-competency-chart";
 
 @import "components/class/gru-class-navigation";
 @import "components/class/gru-class-navbar";
@@ -336,6 +340,7 @@ $box-shadow: 1px -1px;
 @import "components/student/class/analytics/gru-performance-table";
 
 @import "components/teacher/class/gru-class-statistics";
+@import "components/teacher/suggestion-pull-up";
 
 @import "components/taxonomy/gru-subject-course-picker";
 @import "components/taxonomy/gru-subject-picker";
@@ -367,3 +372,9 @@ $box-shadow: 1px -1px;
 
 @import "routes/student/class/performance";
 @import "routes/content/rubric/preview";
+
+
+//Pull Up
+@import "components/reports/pull-up/competency-report";
+@import "components/reports/pull-up/course-competency-report";
+@import "components/reports/pull-up/domain-competency-report";

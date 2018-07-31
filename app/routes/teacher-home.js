@@ -101,15 +101,30 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
      * @param {string} item
      * @param {string} classId
      */
-    selectMenuItem: function(item, classId) {
+    selectMenuItem: function(item, classId, classData) {
       const route = this;
       const queryParams = {
         queryParams: {
           filterBy: 'assessment'
         }
       };
+      let isPremiumClass = false;
+      if (classData) {
+        let classSetting = classData.setting;
+        isPremiumClass = classSetting ? classSetting['course.premium'] : false;
+      }
+
       if (item === 'performance') {
-        route.transitionTo('teacher.class.performance', classId, queryParams);
+        if (isPremiumClass) {
+          const controller = route.get('controller');
+          const teacherClassContrller = route.controllerFor('teacher/class');
+          controller.set('selectedClass', classData);
+          controller.set('isShowCompetencyReport', true);
+          controller.set('lastAccessedClassData', teacherClassContrller.updateLastAccessedClass(classData));
+          controller.updateLastAccessedClassPosition(classData.id);
+        } else {
+          route.transitionTo('teacher.class.performance', classId, queryParams);
+        }
       } else if (item === 'course-map') {
         route.transitionTo('teacher.class.course-map', classId);
       } else if (item === 'class-activities') {
@@ -321,13 +336,14 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
    * @param model
    */
   setupController: function(controller, model) {
-    let lastAccessedClassData = controller.getLastAccessedClassData();
     controller.set('steps', model.tourSteps);
     controller.set('featuredCourses', model.featuredCourses);
     controller.set('archivedClass', model.archivedClasses);
     controller.set('activeClasses', model.activeClasses);
-    controller.set('lastAccessedClassData', lastAccessedClassData);
-    controller.updateLastAccessedClassPosition(lastAccessedClassData.id);
+    let lastAccessedClassData = controller.getLastAccessedClassData();
+    if (model.activeClasses.length) {
+      controller.updateLastAccessedClassPosition(lastAccessedClassData.id);
+    }
   },
 
 

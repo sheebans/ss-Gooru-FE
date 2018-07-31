@@ -42,7 +42,30 @@ export default Ember.Component.extend({
      */
     onSelectClassItem(item, classId) {
       let component = this;
-      component.sendAction('onSelectClassItem', item, classId);
+      //Show competency report when click report
+      if (item === 'performance' && component.get('isPremiumClass')) {
+        component.set('isShowCompetencyReport', true);
+      } else {
+        component.sendAction('onSelectClassItem', item, classId);
+      }
+    },
+
+    /**
+     * Action triggered when select a domain from pull up
+     */
+    onSelectDomain(domainSet) {
+      let component = this;
+      component.set('selectedDomain', domainSet);
+      component.set('isShowDomainCompetencyReport', true);
+    },
+
+    /**
+     * Action triggered when close all pull ups
+     */
+    onCloseCompetencyReportPullUp() {
+      let component = this;
+      component.set('isShowDomainCompetencyReport', false);
+      component.set('isShowCompetencyReport', false);
     }
   },
 
@@ -99,5 +122,38 @@ export default Ember.Component.extend({
   isStudentPerformed: Ember.computed('classData', function() {
     let component = this;
     return component.get('classData.courseId') || false;
+  }),
+
+  /**
+   * @property {Boolean}
+   * Property to show/hide competency report pull up
+   */
+  isShowCompetencyReport: false,
+
+  /**
+   * @property {Boolean}
+   * Property to show/hide domain competency report pull up
+   */
+  isShowDomainCompetencyReport: false,
+
+  /**
+   * @property {courseSubjectCode}
+   * Property to fetch subject code from subject bucket
+   */
+  courseSubjectCode: Ember.computed('classData', function() {
+    let component = this;
+    let classData = component.get('classData');
+    return classData.courseSubjectCode;
+  }),
+
+  /**
+   * @property {Boolean}
+   * Property to check whether a premium course or not
+   */
+  isPremiumClass: Ember.computed('classData', function() {
+    let component = this;
+    let classData = component.get('classData');
+    let setting = classData.setting;
+    return setting ? setting['course.premium'] : false;
   })
 });
