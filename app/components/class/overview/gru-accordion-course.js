@@ -61,7 +61,7 @@ export default Ember.Component.extend(AccordionMixin, {
     onClosePullUp() {
       this.set('showLessonReportPullUp', false);
       this.set('showReportPullUp', false);
-      this.set('showLessonReportPullUp', false);
+      this.set('showUnitReportPullUp', false);
       this.set('showCollectionReportPullUp', false);
     },
 

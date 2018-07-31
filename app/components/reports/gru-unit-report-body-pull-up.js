@@ -88,6 +88,12 @@ export default Ember.Component.extend({
    */
   unitId: '',
 
+  /**
+   * Indicates the status of the spinner
+   * @property {Boolean}
+   */
+  isLoading: false,
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -122,7 +128,7 @@ export default Ember.Component.extend({
   didInsertElement() {
     const component = this;
     if (component.get('showPullUp')) {
-      // component.getLessonsByUnit();
+      component.set('isLoading', true);
       component.getPerformancesByUnit();
     }
   },
@@ -158,7 +164,7 @@ export default Ember.Component.extend({
     let component = this;
     if (component.get('showPullUp')) {
       // component.getLessonsByUnit();
-      component.getPerformancesByUnit();
+      //component.getPerformancesByUnit();
     }
   }),
 
@@ -271,6 +277,7 @@ export default Ember.Component.extend({
           component.set('tableRow', tableRow);
           component.set('tableHeader', tableHeader);
           component.set('classMembers', students);
+          component.set('isLoading', false);
         });
       });
     });

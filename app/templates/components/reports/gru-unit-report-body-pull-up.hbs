@@ -5,6 +5,9 @@
   <!-- collapse text div ends -->
   <!-- View 3  -->
   <div class="outer-div">
+    {{#if isLoading}}
+      {{three-bounce-spinner}}
+    {{else}}
     <!-- testing table -->
     <table>
       <thead>
@@ -35,7 +38,7 @@
       </tbody>
     </table>
     <!-- testing table ends -->
-
+{{/if}}
   </div>
   <!-- View 3 Ends -->
 
