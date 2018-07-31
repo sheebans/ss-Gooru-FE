@@ -154,20 +154,6 @@ export default Ember.Component.extend({
     });
   },
 
-  //--------------------------------------------------------------------------
-  // Observer
-  //
-  /**
-   * Observer to check the showPullUp property in component
-   **/
-  pullUpObserver: Ember.observer('showPullUp', function() {
-    let component = this;
-    if (component.get('showPullUp')) {
-      // component.getLessonsByUnit();
-      //component.getPerformancesByUnit();
-    }
-  }),
-
   // -------------------------------------------------------------------------
   // Methods
 
