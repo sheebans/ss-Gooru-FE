@@ -38,7 +38,7 @@
   {{/if}}
 </ol>
 {{#if showUnitReportPullUp}}
-{{#reports.gru-report-pull-up breadcrumb=(concat 'Unit' onOpenUnitLevelReport.unit.sequence) title=selectedUnit.unit.title score=selectedUnit.unit.performance.score showPullUp=showUnitReportPullUp  as |unitReport| }}
+{{#reports.gru-report-pull-up breadcrumb=(concat 'Unit' selectedUnit.unit.sequence) title=selectedUnit.unit.title score=selectedUnit.unit.performance.score showPullUp=showUnitReportPullUp  as |unitReport| }}
   {{#if unitReport.isShowBody}}
     {{reports.gru-unit-report-body-pull-up selectedUnit=selectedUnit showPullUp=showUnitReportPullUp onClosePullUp="onClosePullUp" classId=classId courseId=courseId unitId=unitId onOpenLessonReport="onOpenLessonReport"}}
   {{/if}}

@@ -8,6 +8,9 @@
   .hide {
     display: none;
   }
+  .disable-event {
+    pointer-events: none;
+  }
   /***********************************/
   table {
     position: relative;

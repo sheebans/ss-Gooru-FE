@@ -46,8 +46,10 @@ export default Ember.Component.extend({
       component.set('type', type);
       if (type === 'collection') {
         component.$('.performance').addClass('hide');
+        component.$('.time-spent').addClass('disable-event');
       } else {
         component.$('.performance').removeClass('hide');
+        component.$('.time-spent').removeClass('disable-event');
       }
       component.getStudentPerformances();
     },
