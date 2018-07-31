@@ -75,14 +75,14 @@ export default Ember.Component.extend(AccordionMixin, {
      *
      * @function actions:onOpenUnitLevelReport
      */
-    onOpenUnitLevelReport() {
+    onOpenUnitLevelReport(model) {
       const component = this;
       let unitInfo = {
         classId: component.get('currentClass.id'),
         courseId:
           component.get('currentClass.courseId') ||
           component.get('currentCourse.id'),
-        unitId: component.get('model.id')
+        unit: model
       };
       component.set('showUnitReportPullUp', true);
       this.sendAction('onOpenUnitLevelReport', unitInfo);

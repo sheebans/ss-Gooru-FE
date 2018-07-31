@@ -39,16 +39,23 @@ export default Ember.Component.extend({
     /**
      * Trigger when lesson level  report clicked
      */
-    onOpenLessonReport() {
+    onOpenLessonReport(lesson) {
+      let component = this;
       const selectedUnit = this.get('selectedUnit');
-      let lessonInfo = {
-        classId: selectedUnit.classId,
-        courseId: selectedUnit.courseId,
-        unitId: selectedUnit.unitId
+      const classId = selectedUnit.classId;
+      const courseId = selectedUnit.courseId;
+      const unit = selectedUnit.unit;
+      let unitId = unit.id;
+      let selectedLessonData = {
+        classId,
+        courseId,
+        classMembers: component.get('classMembers'),
+        lesson,
+        lessonId: lesson.id,
+        unit,
+        unitId
       };
-      this.set('lessonReportData', lessonInfo);
-      this.set('showLessonReportPullUp', true);
-      this.sendAction('onOpenLessonReports', lessonInfo);
+      component.sendAction('onOpenLessonReport', selectedLessonData);
     }
   },
 
@@ -86,6 +93,11 @@ export default Ember.Component.extend({
    * Property to member performance
    */
   memberPerformances: Ember.A([]),
+
+  /**
+   * Property to member performance
+   */
+  tableHeader: Ember.A([]),
 
   /**
    * Propery to show class id.
@@ -178,7 +190,7 @@ export default Ember.Component.extend({
   getLessonsByUnit() {
     const selectedUnit = this.get('selectedUnit');
     const courseId = selectedUnit.courseId;
-    const unitId = selectedUnit.unitId;
+    const unitId = selectedUnit.unit.id;
     let unitListPromise = new Ember.RSVP.resolve(
       this.get('unitService').fetchById(courseId, unitId)
     );
@@ -196,7 +208,7 @@ export default Ember.Component.extend({
     const selectedUnit = this.get('selectedUnit');
     const classId = selectedUnit.classId;
     const courseId = selectedUnit.courseId;
-    const unitId = selectedUnit.unitId;
+    const unitId = selectedUnit.unit.id;
     component.getClassMembers().then(function(students) {
       component.getLessonsByUnit().then(function(unit) {
         let performancePromise = new Ember.RSVP.resolve(
@@ -214,6 +226,13 @@ export default Ember.Component.extend({
             classPerformanceData,
             'unit'
           );
+          let lessonsAvgPerformance = studentsLessonPerformances.objectAt(0)
+            .performanceData;
+          lessons = component.matchLessonsWithPerformaces(
+            lessons,
+            lessonsAvgPerformance
+          );
+          let tableHeader = lessons || Ember.A([]);
           let tableRow = Ember.A([]);
           students.map(studentData => {
             let userId = studentData.id;
@@ -252,8 +271,17 @@ export default Ember.Component.extend({
             tableRow.push(studentLessonPerformanceInfo);
           });
           component.set('tableRow', tableRow);
+          component.set('tableHeader', tableHeader);
+          component.set('classMembers', students);
         });
       });
     });
+  },
+
+  matchLessonsWithPerformaces(lessons, lessonsAvgPerformance) {
+    lessons.map(lesson => {
+      lesson.performance = lessonsAvgPerformance[lesson.sequence];
+    });
+    return lessons;
   }
 });

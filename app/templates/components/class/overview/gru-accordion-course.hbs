@@ -26,7 +26,6 @@
         onSelectItem="onSelectItem"
         isPremiumClass=isPremiumClass
         onOpenLessonReport="onOpenLessonReport"
-                onOpenLessonReports="onOpenLessonReports"
         teacherCollectionReport="teacherCollectionReport"
         studentReport="studentReport"
         onOpenUnitLevelReport="onOpenUnitLevelReport"
@@ -39,9 +38,9 @@
   {{/if}}
 </ol>
 {{#if showUnitReportPullUp}}
-{{#reports.gru-report-pull-up showPullUp=showUnitReportPullUp  as |unitReport| }}
+{{#reports.gru-report-pull-up breadcrumb=(concat 'Unit' onOpenUnitLevelReport.unit.sequence) title=selectedUnit.unit.title score=selectedUnit.unit.performance.score showPullUp=showUnitReportPullUp  as |unitReport| }}
   {{#if unitReport.isShowBody}}
-    {{reports.gru-unit-report-body-pull-up selectedUnit=selectedUnit showPullUp=showUnitReportPullUp onClosePullUp="onClosePullUp" classId=classId courseId=courseId unitId=unitId}}
+    {{reports.gru-unit-report-body-pull-up selectedUnit=selectedUnit showPullUp=showUnitReportPullUp onClosePullUp="onClosePullUp" classId=classId courseId=courseId unitId=unitId onOpenLessonReport="onOpenLessonReport"}}
   {{/if}}
 {{/reports.gru-report-pull-up}}
 {{/if}}

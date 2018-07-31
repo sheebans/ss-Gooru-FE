@@ -61,6 +61,7 @@ export default Ember.Component.extend(AccordionMixin, {
     onClosePullUp() {
       this.set('showLessonReportPullUp', false);
       this.set('showReportPullUp', false);
+      this.set('showLessonReportPullUp', false);
       this.set('showCollectionReportPullUp', false);
     },
 
@@ -113,6 +114,7 @@ export default Ember.Component.extend(AccordionMixin, {
         this.get('onLocationUpdate')(newLocation);
       }
     },
+
     /**
      * Trigger action to update content visibility list
      */
@@ -123,24 +125,20 @@ export default Ember.Component.extend(AccordionMixin, {
     onSelectItem() {
       this.sendAction('onSelectItem');
     },
+
     /**
      * Trigger when unit level  report clicked
      */
     onOpenUnitLevelReport(unitInfo) {
       this.set('selectedUnit', unitInfo);
-      this.set('onOpenUnitLevelReport', unitInfo);
       this.set('showUnitReportPullUp', true);
     },
+
     /**
      * Trigger when lesson level  report clicked
      */
     onOpenLessonReport(params) {
       this.set('lessonReportData', params);
-      this.set('showLessonReportPullUp', true);
-    },
-
-    onOpenLessonReports(lessonInfo) {
-      this.set('lessonReportData', lessonInfo);
       this.set('showLessonReportPullUp', true);
     },
 

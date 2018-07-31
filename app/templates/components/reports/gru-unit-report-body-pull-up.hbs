@@ -14,8 +14,8 @@
           <th>
             STUDENT
           </th>
-          {{#each tableRow as |lessonInfo sequence|}}
-            <th><span class="lsn" {{action 'onOpenLessonReport' params}}><p>{{sequence}}</p></span></th>
+          {{#each tableHeader as |lesson|}}
+            <th><span class="lsn" style= {{safe-html (concat "background-color:" (grade-color lesson.performance.score))}} {{action 'onOpenLessonReport' lesson}}><p>{{concat 'L' lesson.sequence}}</p></span></th>
           {{/each}}
 
         </tr>
