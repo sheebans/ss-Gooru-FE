@@ -73,7 +73,6 @@
               vertical-align: middle;
               width: 46px;
               height: 45px;
-              line-height: 45px;
               font-weight: bold;
               transform: rotate(-90.0deg);  /* Saf3.1+, Chrome */
               -moz-transform: rotate(-90.0deg);  /* FF3.5+ */
@@ -81,6 +80,16 @@
               -webkit-transform: rotate(-90.0deg);  /* Saf3.1+, Chrome */
               filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);  /* IE6,IE7 */
               -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
+
+              .code {
+                margin-top: 4px;
+              }
+              .desc {
+                background-color: transparent;
+                margin-top: -10px;
+                font-weight: normal;
+                opacity: 0.7;
+              }
             }
           }
           .competencies {

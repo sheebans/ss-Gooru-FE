@@ -2,7 +2,7 @@
   <div class="body">
     {{#if isStudentPerformed}}
       <div id="atc-chart">
-        {{teacher.class.atc-chart classData=classData}}
+        {{teacher.class.atc-chart classData=classData isPremiumClass=isPremiumClass}}
       </div>
     {{else}}
       <div class="not-started">Your students have not yet started studying a course.</div>

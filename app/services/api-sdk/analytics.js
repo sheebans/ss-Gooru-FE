@@ -341,5 +341,25 @@ export default Ember.Service.extend({
           );
         }, reject);
     });
+  },
+
+  /**
+   * @function getAtcPerformanceSummaryPremiumClass
+   * Method to fetch performance summary of a premium class for ATC view
+   */
+  getAtcPerformanceSummaryPremiumClass(classId, courseId, subjectCode) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('analyticsAdapter')
+        .getAtcPerformanceSummaryPremiumClass(classId, courseId, subjectCode)
+        .then(function(classSummary) {
+          resolve(
+            service
+              .get('analyticsSerializer')
+              .normalizeAtcPerformanceSummaryPremiumClass(classSummary)
+          );
+        }, reject);
+    });
   }
 });

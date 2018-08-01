@@ -62,9 +62,10 @@ export default Ember.Component.extend({
 
   /**
    * @type {Number}
-   * Height of individual cell
+   * Height of matrix chart
    */
-  cellHeight: 15,
+
+  maxHeightOfChart: 340,
 
   //------------------------------------------------------------------------
   //Events
@@ -131,7 +132,7 @@ export default Ember.Component.extend({
    */
   parseCompetencyData(userBaseLineCompetencies, competencyDomains, route0Suggetions) {
     let component = this;
-    const cellHeight = component.get('cellHeight');
+    let maxHeightOfChart = component.get('maxHeightOfChart');
     let taxonomyDomains = Ember.A();
     let currentXaxis = 1;
     let resultSet = Ember.A();
@@ -204,10 +205,10 @@ export default Ember.Component.extend({
         currentXaxis = currentXaxis + 1;
       }
     });
-    component.set('height', cellHeight * Math.max(...numberOfCellsInEachColumn));
+    component.set('height', maxHeightOfChart);
+    component.set('cellHeight', maxHeightOfChart / Math.max(...numberOfCellsInEachColumn));
     component.set('taxonomyDomains', taxonomyDomains);
     component.drawChart(resultSet);
-
   },
 
   /**
