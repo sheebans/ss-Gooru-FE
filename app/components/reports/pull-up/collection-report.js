@@ -184,14 +184,23 @@ export default Ember.Component.extend({
   collectionId: Ember.computed.alias('context.collectionId'),
 
   /**
+   * By default it will show both assessment and collections
+   * @type {String}
+   */
+  filterByContentType: null,
+
+  /**
    * List of collection mapped to lesson.
    * @type {Array}
    */
   collections: Ember.computed('context.collections', function() {
     let collections = this.get('context.collections');
-    return collections
-      .filterBy('format', 'assessment')
-      .filterBy('performance.hasStarted', true);
+    let filterByContentType = this.get('filterByContentType');
+    let collectionList = collections.filterBy('performance.hasStarted', true);
+    if (filterByContentType) {
+      collectionList = collections.filterBy('format', filterByContentType);
+    }
+    return collectionList;
   }),
 
   /**
@@ -277,12 +286,6 @@ export default Ember.Component.extend({
    * @type {String}
    */
   sortByLastnameEnabled: true,
-
-  /**
-   * Maintain the status of sort by overAllScore
-   * @type {String}
-   */
-  sortByScoreEnabled: false,
 
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
@@ -388,6 +391,9 @@ export default Ember.Component.extend({
     let courseId = component.get('courseId');
     let classId = component.get('classId');
     component.set('isLoading', true);
+    if (format === 'collection') {
+      component.set('isTimeSpentFltApplied', true);
+    }
     return Ember.RSVP.hash({
       collection:
         format === 'assessment'
@@ -439,6 +445,8 @@ export default Ember.Component.extend({
       user.set('userPerformanceData', resultSet.userPerformanceData);
       user.set('overAllScore', resultSet.overAllScore);
       user.set('hasStarted', resultSet.hasStarted);
+      user.set('totalTimeSpent', resultSet.totalTimeSpent);
+      user.set('isGraded', resultSet.isGraded);
       userChartData.set('hasStarted', resultSet.hasStarted);
       userChartData.set('score', resultSet.overAllScore);
       userChartData.set('totalTimeSpent', resultSet.totalTimeSpent);
@@ -448,12 +456,13 @@ export default Ember.Component.extend({
       usersTotaltimeSpent.push(resultSet.totalTimeSpent);
     });
     users = users.sortBy(component.get('defaultSortCriteria'));
+    users = users.sortBy('isGraded');
     usersChartData = usersChartData.sortBy(
       component.get('defaultSortCriteria')
     );
+    usersChartData = usersChartData.sortBy('isGraded');
     component.set('sortByLastnameEnabled', true);
     component.set('sortByFirstnameEnabled', false);
-    component.set('sortByScoreEnabled', false);
     component.set('studentsSelectedForSuggest', Ember.A([]));
     component.set('suggestResultCount', 0);
     component.set('defaultSuggestContentType', 'collection');
@@ -469,11 +478,13 @@ export default Ember.Component.extend({
     let numberOfCorrectAnswers = 0;
     let totalTimeSpent = 0;
     let hasStarted = false;
+    let isGraded = true;
     contents.forEach((content, index) => {
       let contentId = content.get('id');
       let performanceData = Ember.Object.create({
         id: content.get('id'),
-        sequence: index + 1
+        sequence: index + 1,
+        isGraded: true
       });
       if (userPerformance) {
         performanceData.set('hasStarted', true);
@@ -481,6 +492,13 @@ export default Ember.Component.extend({
         let resourceResults = userPerformance.get('resourceResults');
         let resourceResult = resourceResults.findBy('resourceId', contentId);
         if (resourceResult) {
+          if (
+            resourceResult.get('questionType') === 'OE' &&
+            !resourceResult.get('isGraded')
+          ) {
+            isGraded = false;
+            performanceData.set('isGraded', false);
+          }
           let reaction = resourceResult.get('reaction');
           performanceData.set('reaction', reaction);
           if (reaction > 0) {
@@ -495,11 +513,13 @@ export default Ember.Component.extend({
           performanceData.set('timeSpent', resourceResult.get('timeSpent'));
           performanceData.set('isSkipped', !resourceResult.get('userAnswer'));
         } else {
-          performanceData.set('isSkipped', true);
+          performanceData.set('hasStarted', false);
         }
       } else {
         performanceData.set('hasStarted', false);
       }
+      performanceData.set('format', content.get('format'));
+
       userPerformanceData.pushObject(performanceData);
     });
 
@@ -511,7 +531,8 @@ export default Ember.Component.extend({
       userPerformanceData: userPerformanceData,
       overAllScore: overAllScore,
       hasStarted: hasStarted,
-      totalTimeSpent: totalTimeSpent
+      totalTimeSpent: totalTimeSpent,
+      isGraded: isGraded
     };
     return resultSet;
   },

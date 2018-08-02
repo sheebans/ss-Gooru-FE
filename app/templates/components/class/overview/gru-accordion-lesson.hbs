@@ -223,7 +223,7 @@
                                 {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
                             </span>
                             {{else}}
-                              <span class="time-spent cursor-default">
+                              <span class="time-spent" {{action 'teacherCollectionReport' item}}>
                               {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
                             </span>
                             {{/if }}
