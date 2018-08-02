@@ -5,8 +5,8 @@
         <div class="item {{if (eq index 0) 'active'}}">
           <div class="bars-container">
             {{#each data as |chartData|}}
-              <div class="bar-chart-container {{unless chartData.hasStarted 'not-started'}}">
-                <div class="bar-chart" {{action 'onClickChart' chartData.id}}>
+              <div class="bar-chart-container {{unless chartData.hasStarted 'not-started'}}" {{action 'onClickChart' chartData.id}}>
+                <div class="bar-chart">
                   <svg width="10" height="100">
                     {{#if chartData.hasStarted}}
                     <rect width="10" height="100" style="fill:#5D666F;" />
