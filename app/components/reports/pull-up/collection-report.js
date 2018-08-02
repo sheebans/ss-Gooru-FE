@@ -321,7 +321,7 @@ export default Ember.Component.extend({
 
   /**
    * suggest count
-   * @type {Array}
+   * @type {Number}
    */
   suggestResultCount: 0,
 
@@ -456,11 +456,13 @@ export default Ember.Component.extend({
       usersTotaltimeSpent.push(resultSet.totalTimeSpent);
     });
     users = users.sortBy(component.get('defaultSortCriteria'));
-    users = users.sortBy('isGraded');
     usersChartData = usersChartData.sortBy(
       component.get('defaultSortCriteria')
     );
-    usersChartData = usersChartData.sortBy('isGraded');
+    if (component.get('selectedCollection').get('format') === 'assessment') {
+      users = users.sortBy('isGraded');
+      usersChartData = usersChartData.sortBy('isGraded');
+    }
     component.set('sortByLastnameEnabled', true);
     component.set('sortByFirstnameEnabled', false);
     component.set('studentsSelectedForSuggest', Ember.A([]));
