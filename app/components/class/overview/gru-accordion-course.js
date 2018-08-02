@@ -130,32 +130,27 @@ export default Ember.Component.extend(AccordionMixin, {
      * Trigger when unit level  report clicked
      */
     onOpenUnitLevelReport(unitInfo) {
-      this.set('selectedUnit', unitInfo);
-      this.set('showUnitReportPullUp', true);
+      this.sendAction('onOpenUnitLevelReport', unitInfo);
     },
-
     /**
      * Trigger when lesson level  report clicked
      */
     onOpenLessonReport(params) {
-      this.set('lessonReportData', params);
-      this.set('showLessonReportPullUp', true);
+      this.sendAction('onOpenLessonReport', params);
     },
 
     /**
      * Trigger when collection level student report clicked
      */
     studentReport(params) {
-      this.set('studentReportData', params);
-      this.set('showReportPullUp', true);
+      this.sendAction('studentReport', params);
     },
 
     /**
      * Trigger when collection level teacher report clicked
      */
     teacherCollectionReport(params) {
-      this.set('teacherCollectionReportData', params);
-      this.set('showCollectionReportPullUp', true);
+      this.sendAction('teacherCollectionReport', params);
     }
   },
 
@@ -264,12 +259,6 @@ export default Ember.Component.extend(AccordionMixin, {
    * @type {Boolean}
    */
   showCollectionReportPullUp: false,
-
-  /**
-   * Maintains the state of lesson report pull up
-   * @type {Boolean}
-   */
-  showLessonReportPullUp: false,
 
   /**
    * Maintains the state of student collection  report pull up

@@ -21,6 +21,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+    onOpenCourseReport() {
+      this.sendAction('onOpenCourseReport');
+    },
     /**
      *
      * Triggered when an menu item is selected

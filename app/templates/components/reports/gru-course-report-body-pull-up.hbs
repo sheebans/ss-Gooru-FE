@@ -6,7 +6,7 @@
         <div class="carousel-inner">
         <div class="item active">
           <div class="report-avrg">
-                <span class="dummy-avg" style= {{safe-html (concat "background-color:" (grade-color selectedUnit.unit.performance.score))}}><p>{{selectedUnit.unit.performance.score}}%</p></span>
+                <span class="dummy-avg" style= {{safe-html (concat "background-color:" (grade-color coursePerformance.score))}}><p>{{coursePerformance.score}}%</p></span>
           </div>
           <div class="report-desc pull-left dont-show">
             <span class="desc-head">Description</span>
@@ -45,6 +45,7 @@
     {{#if isLoading}}
       {{three-bounce-spinner}}
     {{else}}
+
     <!-- testing table -->
     <table>
       <thead>
@@ -52,22 +53,22 @@
           <th>
             STUDENT
           </th>
-          {{#each tableHeader as |lesson|}}
-            <th><span class="lesson-sequence-header" style= {{safe-html (concat "background-color:" (grade-color lesson.performance.score))}} {{action 'onOpenLessonReport' lesson}}><p>{{concat 'L' lesson.sequence}}</p></span></th>
-          {{/each}}
-
+            {{#each tableHeader as |unit|}}
+              <th><span class="lesson-sequence-header" style= {{safe-html (concat "background-color:" (grade-color unit.performance.score))}} {{action 'onOpenUnitReport' unit}}><p>{{concat 'U' unit.sequence}}</p></span></th>
+            {{/each}}
         </tr>
       </thead>
       <tbody>
-        {{#each tableRow as |studentPerformance|}}
+        {{#each tableRows as |tableRow|}}
           <tr>
             <td class="prof-icon">
-              <span class="student-profile"><img src="{{studentPerformance.student.avatarUrl}}" class="img-circle" width="30" height="30" /></span>
-              <span class="student-name">{{studentPerformance.student.firstName}}</span>
+              <span class="student-profile"><img src="{{tableRow.student.avatarUrl}}" class="img-circle" width="30" height="30" /></span>
+              <span class="student-name">{{tableRow.student.firstName}}</span>
             </td>
-            {{#each studentPerformance.lessons as |test|}}
+
+            {{#each tableRows as |test|}}
               <td class="r-bdr">
-                <div class="performance-section">{{if test.score (concat test.score '%') '--'}}</div>
+                <div class="performance-section">{{if test.unit.score (concat test.unit.score '%') '--'}}</div>
               </td>
             {{/each}}
           </tr>
