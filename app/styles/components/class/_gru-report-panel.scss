@@ -10,6 +10,7 @@
   cursor: pointer;
   opacity: 0.9;
 }
+
 &.student-report-overlay {
   background-color: #434c5a;
   position: fixed;
@@ -36,13 +37,16 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
+
   .gru-learner-pathway {
     width: 99.3%;
-    margin-left: 0px;
+    margin-left: 0;
   }
+
   .close {
     display: none !important;
   }
+
   .pullup-close {
     position: absolute;
     right: 2%;
@@ -52,6 +56,7 @@
     text-align: center;
     cursor: pointer;
     height: 56px;
+
     i {
       font-size: 35px;
       margin-left: -105px;
@@ -59,6 +64,50 @@
 
     div {
       line-height: 1px;
+    }
+  }
+
+  .teacher-suggestion {
+    position: absolute;
+    top: 5%;
+    right: 70px;
+    width: 63px;
+    height: 56px;
+
+    .suggestion-count-container {
+      cursor: pointer;
+
+      .suggestion-explore {
+        position: relative;
+        width: 35px;
+        height: 31px;
+        margin-left: 15px;
+        color: #f88c49;
+
+        .explore {
+          font-size: 35px;
+          transform: rotate(90deg);
+        }
+
+        .suggestion-count {
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          color: #37424a;
+          top: 0;
+          right: 0;
+          border: 1px solid #37424a;
+          background: #fff;
+          font-size: 10px;
+          line-height: 13px;
+          text-align: center;
+        }
+      }
+
+      span {
+        color: #f88c49;
+      }
     }
   }
 
@@ -289,23 +338,28 @@
       }
     }
   }
+
   .reports.gru-assessment-report {
     max-height: calc(90vh - 130px);
     height: calc(90vh - 130px);
     overflow: auto;
+
     .desc-align {
       position: relative !important;
     }
   }
+
   .reports.gru-assessment-report::-webkit-scrollbar {
     height: 8px;
     width: 8px;
     background: #bbbbbb;
   }
+
   .report-panel-container {
     background: #ffffff !important;
     max-height: calc(90vh - 130px);
     height: calc(90vh - 130px);
+
     .reports.assessment.gru-questions
       .summary-report-questions
       .questions-header {

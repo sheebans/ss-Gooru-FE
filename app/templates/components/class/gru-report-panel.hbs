@@ -1,50 +1,61 @@
 {{#if showPullUp}}
-<div class="overlay-report {{if isStudent 'student-report-overlay'}}" {{action 'closeAll'}}></div>
+  <div class="overlay-report {{if isStudent 'student-report-overlay'}}" {{action 'closeAll'}}></div>
 {{/if}}
 <div class="report-panel-container">
 
-{{#if isLoading}}
-  {{three-bounce-spinner}}
-{{else}}
-<div class="pullup-close pull-right" {{action 'onPullUpClose'}}>
-  {{gru-icon name='ic_close'}}
-  <div>Close</div>
-</div>
-<div class="user-course-info">
-  <div class="user-profile-info">
-    <div class="profile">
-      <div class="img-container pull-left">
-        <img class="img-responsive" src="{{if courseView course.thumbnailUrl assessmentResult.collection.thumbnailUrl}}">
-      </div>
+  {{#if isLoading}}
+    {{three-bounce-spinner}}
+  {{else}}
+    <div class="pullup-close pull-right" {{action 'onPullUpClose'}}>
+      {{gru-icon name='ic_close'}}
+      <div>Close</div>
     </div>
-  </div>
-    <span class="assessment-name"> {{assessmentResult.collection.title}} </span>
-    <div class="information">
-      {{#if collections.isAssessment}}
-        <span class="attempt">
+    {{#if showSuggestion}}
+      <div class="teacher-suggestion">
+          <div class="suggestion-count-container" {{action 'onOpenSuggestionPullup'}}>
+            <div class="suggestion-explore">
+              {{gru-icon name="explore"}}
+              <div class="suggestion-count">{{suggestResultCount}}</div>
+            </div>
+            <span>{{t 'common.suggestion'}}</span>
+          </div>
+      </div>
+    {{/if}}
+    <div class="user-course-info">
+      <div class="user-profile-info">
+        <div class="profile">
+          <div class="img-container pull-left">
+            <img class="img-responsive" src="{{if courseView course.thumbnailUrl assessmentResult.collection.thumbnailUrl}}">
+          </div>
+        </div>
+      </div>
+      <span class="assessment-name"> {{assessmentResult.collection.title}} </span>
+      <div class="information">
+        {{#if collections.isAssessment}}
+          <span class="attempt">
           {{#if showAttempts}}
               <span class="title">{{t "common.attempt"}}</span>
-        <span class="attempt-selector">
+          <span class="attempt-selector">
                 <span class="dropdown current-attempt">
                 <button class="btn btn-default dropdown-toggle" type="button"
                     data-toggle="dropdown">{{selectedAttempt}}<span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          {{#each attempts as |attempt|}}
-            <li><a {{action 'selectAttempt' attempt.value}}>{{attempt.label}}</a></li>
-          {{/each}}
-        </ul>
-        </span>
-        <span>{{t "common.of"}}</span>
-        <span class="total-attempts">{{assessmentResult.totalAttempts}}</span>
-        </span>
-      {{else}}
-        {{#if isRealTime}}
-          <span class="title current">{{t "common.current-attempt"}}</span>
+          <ul class="dropdown-menu">
+            {{#each attempts as |attempt|}}
+              <li><a {{action 'selectAttempt' attempt.value}}>{{attempt.label}}</a></li>
+            {{/each}}
+          </ul>
+          </span>
+          <span>{{t "common.of"}}</span>
+          <span class="total-attempts">{{assessmentResult.totalAttempts}}</span>
+          </span>
         {{else}}
-          <span class="title latest">{{t "common.latest-attempt"}}</span>
+          {{#if isRealTime}}
+            <span class="title current">{{t "common.current-attempt"}}</span>
+          {{else}}
+            <span class="title latest">{{t "common.latest-attempt"}}</span>
+          {{/if}}
         {{/if}}
-      {{/if}}
-      </span>
+        </span>
   {{/if}}
   {{#if assessmentResult.submittedAt}}
     <span class="date">
@@ -58,31 +69,30 @@
   <div class="class-performance">
     <span class="student-name"> {{profile.firstName}} {{profile.lastName}} </span>
   </div>
-
-    <div {{action 'closeReport'}} class="close report">
-      <a class="material-icons clear-button">clear</a>
-      <span class="text"> Close </span>
-    </div>
+  <div {{action 'closeReport'}} class="close report">
+    <a class="material-icons clear-button">clear</a>
+    <span class="text"> Close </span>
+  </div>
 
   <div class="performance">
 
-      <div class="class">
-        <div class="class-performance">
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="{{collectionColorStyle}} {{collectionAverage}}">
-            </div>
-            <span class="score-text" style="color: {{classColor}}"> {{assessmentResult.score}} % </span>
+    <div class="class">
+      <div class="class-performance">
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="{{collectionColorStyle}} {{collectionAverage}}">
           </div>
+          <span class="score-text" style="color: {{classColor}}"> {{assessmentResult.score}} % </span>
         </div>
       </div>
+    </div>
 
   </div>
 
-</div>
-<div>
+  </div>
+  <div>
 
-  {{#if assessmentResult}}
-    {{reports.gru-assessment-report
+    {{#if assessmentResult}}
+      {{reports.gru-assessment-report
      areAnswersHidden=areAnswersHidden
      isAnswerKeyHidden=isAnswerKeyHidden
      assessmentResult=assessmentResult
@@ -96,10 +106,21 @@
      showChangeScore=showChangeScore
      isAssessment=isAssessment
    }}
-  {{else}}
-    {{t 'common.no-available-results'}}
-  {{/if}}
+    {{else}}
+      {{t 'common.no-available-results'}}
+    {{/if}}
 
+  </div>
+  {{/if}}
 </div>
+
+{{#if showSuggestionPullup}}
+  {{teacher.suggestion-pull-up
+    showPullUp=showSuggestionPullup
+    students=studentsSelectedForSuggest
+    onCloseSuggest="onCloseSuggest"
+    context=suggestContextParams
+    collection=collections
+    defaultSuggestContentType=defaultSuggestContentType
+  }}
 {{/if}}
-</div>

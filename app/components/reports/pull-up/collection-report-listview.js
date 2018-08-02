@@ -46,12 +46,6 @@ export default Ember.Component.extend({
   sortByLastnameEnabled: true,
 
   /**
-   * Maintain the status of sort by overAllScore
-   * @type {String}
-   */
-  sortByScoreEnabled: false,
-
-  /**
    * Maintains the state of suggestion  pull up
    * @type {Boolean}
    */
@@ -62,12 +56,6 @@ export default Ember.Component.extend({
    * @type {Array}
    */
   studentsSelectedForSuggest: Ember.A([]),
-
-  /**
-   * search result set
-   * @type {Array}
-   */
-  searchResults: Ember.A([]),
 
   /**
    * suggest result count
@@ -138,25 +126,6 @@ export default Ember.Component.extend({
           component
             .get('studentReportData')
             .sortBy('lastName')
-            .reverse()
-        );
-      }
-    },
-
-    sortByScore() {
-      let component = this;
-      component.toggleProperty('sortByScoreEnabled');
-      if (component.get('sortByScoreEnabled')) {
-        component.set(
-          'studentReportData',
-          component.get('studentReportData').sortBy('overAllScore')
-        );
-      } else {
-        component.set(
-          'studentReportData',
-          component
-            .get('studentReportData')
-            .sortBy('overAllScore')
             .reverse()
         );
       }
