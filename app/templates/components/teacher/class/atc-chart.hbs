@@ -5,4 +5,8 @@
 {{#if isZoomInView}}
   <div class="reset" {{action "onClearZoom"}}>Zoom Out</div>
 {{/if}}
+
+{{#if (and (not subjectCode) isPremiumClass)}}
+  <div class="no-subject">{{t 'report.competency-report.no-subject'}}</div>
+{{/if}}
 <!-- Chart will be rendered through JS -->

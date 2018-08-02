@@ -187,6 +187,10 @@ export default Ember.Object.extend({
     return result;
   },
 
+  /**
+   * @function normalizeAtcPerformanceSummary
+   * Normalize method for classic course atc view chart
+   */
   normalizeAtcPerformanceSummary(payload) {
     let normalizedClassPerformanceSummary = Ember.A([]);
     if (payload && payload.usageData) {
@@ -195,6 +199,28 @@ export default Ember.Object.extend({
         let userPerformanceData = {
           progress: performance.percentCompletion,
           score: performance.percentScore,
+          userId: performance.userId
+        };
+        normalizedClassPerformanceSummary.push(userPerformanceData);
+      });
+    }
+    return normalizedClassPerformanceSummary;
+  },
+
+  /**
+   * @function normalizeAtcPerformanceSummaryPremiumClass
+   * Normalize method for premium course atc view chart
+   */
+  normalizeAtcPerformanceSummaryPremiumClass(payload) {
+    let normalizedClassPerformanceSummary = Ember.A([]);
+    if (payload && payload.pvc) {
+      let performanceSummary = payload.pvc;
+      performanceSummary.map(performance => {
+        let userPerformanceData = {
+          progress: performance.percentCompletion || 0,
+          score: performance.percentScore || 0,
+          totalCompetency: performance.totalCompetencies || 0,
+          completedCompetency: performance.completedCompetencies || 0,
           userId: performance.userId
         };
         normalizedClassPerformanceSummary.push(userPerformanceData);
