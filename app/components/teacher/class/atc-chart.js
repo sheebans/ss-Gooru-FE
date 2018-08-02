@@ -96,7 +96,7 @@ export default Ember.Component.extend({
 
   /**
    * @function loadPremiumAtcChartData
-   * Method to load classic course atc view chart data
+   * Method to load premium course atc view chart data
    */
   loadPremiumAtcChartData() {
     const component = this;
