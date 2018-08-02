@@ -37,7 +37,7 @@ export default Ember.Component.extend({
   classDataObserver: Ember.observer('classData', function() {
     let component = this;
     d3.select('svg.atc-chart').remove();
-    d3.select('div.tooltip').remove();
+    d3.select('div.atc-tooltip').remove();
     if (component.get('isPremiumClass')) {
       component.loadPremiumAtcChartData();
     } else {
@@ -51,7 +51,7 @@ export default Ember.Component.extend({
   chartDataObserver: Ember.observer('chartData', function() {
     const component = this;
     d3.select('svg.atc-chart').remove();
-    d3.select('div.tooltip').remove();
+    d3.select('div.atc-tooltip').remove();
     component.drawchart();
   }),
 
@@ -65,7 +65,7 @@ export default Ember.Component.extend({
     onClearZoom() {
       const component = this;
       d3.select('svg.atc-chart').remove();
-      d3.select('div.tooltip').remove();
+      d3.select('div.atc-tooltip').remove();
       component.drawchart();
       component.set('isZoomInView', false);
     }
