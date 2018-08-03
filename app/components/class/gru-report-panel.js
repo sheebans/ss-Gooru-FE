@@ -388,7 +388,7 @@ export default Ember.Component.extend({
         ? component.get('userSessionService').getCompletedSessions(context)
         : component.get('learnerService').fetchLearnerSessions(context);
 
-    return Ember.RSVP.hash({
+    return Ember.RSVP.hashSettled({
       collection: collectionPromise,
       completedSessions: completedSessionsPromise,
       lesson: lessonPromise,
@@ -397,10 +397,24 @@ export default Ember.Component.extend({
           ? component.get('profileService').readUserProfile(context.userId)
           : {}
     }).then(function(hash) {
-      component.set('profile', hash.profile);
-      component.set('collection', hash.collection);
-      component.set('completedSessions', hash.completedSessions);
-      var completedSessions = hash.completedSessions;
+      component.set(
+        'profile',
+        hash.profile.state === 'fulfilled' ? hash.profile.value : null
+      );
+      component.set(
+        'collection',
+        hash.collection.state === 'fulfilled' ? hash.collection.value : null
+      );
+      component.set(
+        'completedSessions',
+        hash.completedSessions.state === 'fulfilled'
+          ? hash.completedSessions.value
+          : null
+      );
+      var completedSessions =
+        hash.completedSessions.state === 'fulfilled'
+          ? hash.completedSessions.value
+          : null;
       const totalSessions = completedSessions.length;
       const session = totalSessions
         ? completedSessions[totalSessions - 1]
