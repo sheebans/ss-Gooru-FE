@@ -49,6 +49,11 @@ export default Ember.Controller.extend({
       this.openLessonReport(lesson);
     },
 
+    onOpenUnitReport(unit) {
+      let controller = this;
+      controller.openUnitReport(unit);
+    },
+
     teacherCollectionReport(params) {
       this.openTeacherCollectionReport(params);
     }

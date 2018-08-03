@@ -39,23 +39,23 @@ export default Ember.Component.extend({
     onOpenCourseReport() {
       let component = this;
       component.sendAction('onOpenLessonReport');
-    }
+    },
 
     /* Trigger to open unit report from course
     */
-    // onOpenUnitReport(unit) {
-    //   let component = this;
-    //   let classId = component.get('classData.id');
-    //   let courseId = component.get('courseData.id');
-    //   let selectedUnitData = {
-    //     classId,
-    //     courseId,
-    //     classMembers: component.get('classMembers'),
-    //     unit,
-    //     unitId: unit.id
-    //   };
-    //   component.sendAction(onOpenUnitReport, selectedUnitData);
-    // }
+    onOpenUnitReport(unit) {
+      let component = this;
+      let classId = component.get('classData.id');
+      let courseId = component.get('courseData.id');
+      let selectedUnitData = {
+        classId,
+        courseId,
+        classMembers: component.get('classMembers'),
+        unit,
+        unitId: unit.id
+      };
+      component.sendAction('onOpenUnitReport', selectedUnitData);
+    }
   },
 
   // -------------------------------------------------------------------------
