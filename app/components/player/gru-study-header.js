@@ -168,7 +168,6 @@ export default Ember.Component.extend({
               .find('.segment')
               .width() - 50;
           component.$('.popover').css({
-            top: '84px',
             left: `${left}px`
           });
         })

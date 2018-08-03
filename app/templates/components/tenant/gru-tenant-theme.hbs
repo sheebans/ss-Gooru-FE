@@ -18,17 +18,22 @@
     {{/if}}
 
     {{#if theme.header.logo}}
-    .gru-header .container-fluid .navbar-default .navbar-header .navbar-brand {
-        background: url("{{theme.header.logo.url}}");
-        height: 55px;
-        padding: 0;
-        width: 140px;
-        background-size: 140px 55px;
-    }
+      .gru-header .container-fluid .navbar-default .navbar-header .navbar-brand {
+          background: url("{{theme.header.logo.url}}");
+          height: 55px;
+          padding: 0;
+          width: 140px;
+          background-size: 140px 55px;
+      }
 
-    .content.modals.gru-welcome-message .modal-body .last-text p .logo {
-        background: url("{{theme.header.logo.url}}") no-repeat;
-        background-size: contain;
-    }
+      .content.modals.gru-welcome-message .modal-body .last-text p .logo {
+          background: url("{{theme.header.logo.url}}") no-repeat;
+          background-size: contain;
+      }
+
+      .gru-study-navbar .study-player-brand {
+        background-image: url("{{theme.header.logo.url}}");
+        background-size: 110px 51px;
+      }
     {{/if}}
 </style>

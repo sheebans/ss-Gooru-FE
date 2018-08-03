@@ -191,6 +191,12 @@ export default PlayerController.extend({
   suggestedResources: null,
 
   /**
+   * @property {Boolean} isFullScreen
+   * Property to enable/disable fullscreen mode
+   */
+  isFullScreen: false,
+
+  /**
    * Steps for Take a Tour functionality
    * @property {Array}
    */
