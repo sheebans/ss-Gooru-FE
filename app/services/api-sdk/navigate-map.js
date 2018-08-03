@@ -357,6 +357,7 @@ export default Ember.Service.extend({
     const resourceId = params.resourceId;
     const continueCourse = !unitId;
     const startLesson = lessonId && !collectionId;
+    const pathType = params.pathType || null;
     const navigateMapService = this;
 
     let mapLocationPromise = null;
@@ -376,7 +377,7 @@ export default Ember.Service.extend({
         lessonId,
         classId
       );
-    } else if (collectionSubType) {
+    } else if (collectionSubType && collectionSubType !== 'null') {
       mapLocationPromise = navigateMapService.startSuggestion(
         courseId,
         unitId,
@@ -407,7 +408,8 @@ export default Ember.Service.extend({
         collectionId,
         collectionType,
         classId,
-        parseInt(pathId)
+        parseInt(pathId),
+        pathType
       );
     }
     return mapLocationPromise;

@@ -430,11 +430,13 @@ export default StudentCollection.extend({
         suggestion.subType === 'signature_collection'
           ? 'signature-collection'
           : 'signature-assessment';
+      queryParams.pathType = 'system';
       this.transitionToRoute('study-player', context.get('courseId'), {
         queryParams
       });
     } else {
-      queryParams.pathId = 0;
+      queryParams.pathId = context.pathId || 0;
+      queryParams.pathType = context.pathType || null;
       this.transitionToRoute('study-player', context.get('courseId'), {
         queryParams
       });
