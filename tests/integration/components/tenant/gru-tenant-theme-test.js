@@ -75,6 +75,11 @@ test('Layout', function(assert) {
         background: url("http://www.edify.cr/images/logo-EDIFY.png") no-repeat;
         background-size: contain;
     }
+
+    .gru-study-navbar .study-player-brand {
+      background-image: url("http://www.edify.cr/images/logo-EDIFY.png");
+      background-size: 110px 51px;
+    }
 `;
   assert.equal($style.text(), expedtedStyle, 'Wrong style body');
 });

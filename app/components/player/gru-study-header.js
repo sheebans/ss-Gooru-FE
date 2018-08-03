@@ -168,7 +168,6 @@ export default Ember.Component.extend({
               .find('.segment')
               .width() - 50;
           component.$('.popover').css({
-            top: '84px',
             left: `${left}px`
           });
         })
@@ -283,6 +282,11 @@ export default Ember.Component.extend({
    */
   courseVersion: null,
 
+  /**
+   * @property {Boolean} isStudyPlayer
+   * Property to find out whether the study player is loaded or not
+   */
+  isStudyPlayer: false,
   // -------------------------------------------------------------------------
   // Methods
 
