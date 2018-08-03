@@ -14,6 +14,14 @@ export default Ember.Controller.extend({
   // Actions
   actions: {
     /**
+     *  Action to trigger the course level report
+     */
+    onOpenCourseReport() {
+      this.set('isShowCourseReport', true);
+      this.set('showCourseReportPullUp', true);
+    },
+
+    /**
      * Collapses the header section
      * @param {boolean} state
      */
@@ -38,6 +46,28 @@ export default Ember.Controller.extend({
       let classId = controller.get('class.id');
       localStorage.setItem('classId', classId);
       this.transitionToRoute(`/${teacherId}/about?classId=${classId}`);
+    },
+
+    /**
+     *  Triggered the lesson report from inside unit report
+     */
+    onOpenLessonReport(lesson) {
+      this.openLessonReport(lesson);
+    },
+
+    /**
+     *  Triggered the unit report from inside course report
+     */
+    onOpenUnitReport(unit) {
+      let controller = this;
+      controller.openUnitReport(unit);
+    },
+
+    /**
+     *  Triggered the collection report from lesson report
+     */
+    teacherCollectionReport(params) {
+      this.openTeacherCollectionReport(params);
     },
 
     /**
@@ -72,6 +102,9 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  isShowCourseReport: false,
+
   /**
    * The class presented to the user
    * @property {Class}
@@ -111,6 +144,14 @@ export default Ember.Controller.extend({
    */
   hasStudents: Ember.computed.gt('class.countMembers', 0),
 
+  isShowUnitReportPullUp: false,
+
+  isShowLessonReportPullUp: false,
+
+  isShowStudentReport: false,
+
+  isShowCollectionReportPullUp: false,
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -137,7 +178,9 @@ export default Ember.Controller.extend({
     let userId = controller.get('session.userId');
     let lastAccessedClassData = {};
     if (classData) {
-      let courseSubjectCode = classData.course ? classData.course.subject || null : null;
+      let courseSubjectCode = classData.course
+        ? classData.course.subject || null
+        : null;
       lastAccessedClassData = {
         id: classData.id,
         title: classData.title,
@@ -172,5 +215,29 @@ export default Ember.Controller.extend({
       };
     }
     return classPerformance;
+  },
+
+  openUnitReport(unit) {
+    let controller = this;
+    controller.set('isShowUnitReportPullUp', true);
+    controller.set('unitPullUpData', unit);
+  },
+
+  openLessonReport(params) {
+    let controller = this;
+    controller.set('isShowLessonReportPullUp', true);
+    controller.set('lessonReportData', params);
+  },
+
+  openStudentReport(params) {
+    let controller = this;
+    controller.set('isShowStudentReport', true);
+    controller.set('studentReportData', params);
+  },
+
+  openTeacherCollectionReport(params) {
+    let controller = this;
+    controller.set('isShowCollectionReportPullUp', true);
+    controller.set('teacherCollectionReportData', params);
   }
 });
