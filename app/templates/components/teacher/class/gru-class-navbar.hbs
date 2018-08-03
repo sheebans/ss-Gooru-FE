@@ -75,8 +75,8 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
         {{#if (not isPremiumClass)}}
-        <div class="">
-            {{charts/gru-performance-chart performanceSummary=class.performanceSummary routeToGo="teacher.class.performance"}}
+        <div class="" {{action 'onOpenCourseReport'}}>
+            {{charts/gru-performance-chart performanceSummary=class.performanceSummary }}
         </div>
         {{/if}}
         </li>

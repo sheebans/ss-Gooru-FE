@@ -1,7 +1,7 @@
 <div class="teacher class"> {{gru-take-tour steps=steps containerClass='class-view-tour'}}
 
    {{teacher.class.gru-class-navbar navTitle= class.title class=class onItemSelected="selectMenuItem" selectedMenuItem=menuItem
-  isPremiumClass = isPremiumClass }}
+  isPremiumClass = isPremiumClass onOpenCourseReport="onOpenCourseReport"}}
 
   <div class="header clearfix">
     <div class="go-back-container">
@@ -110,3 +110,34 @@
 
 
 </div>
+{{#if showCourseReportPullUp}}
+  {{#reports.gru-report-pull-up  breadcrumb=(concat 'Course') title=course.title  showPullUp=showCourseReportPullUp  as |courseReport| }}
+    {{#if courseReport.isShowBody}}
+        {{reports.gru-course-report-body-pull-up courseData=course  classData=class showPullUp=showCourseReportPullUp onClosePullUp="onClosePullUp" onOpenUnitReport="onOpenUnitReport"}}
+    {{/if}}
+  {{/reports.gru-report-pull-up}}
+{{/if}}
+
+{{#if isShowUnitReportPullUp}}
+{{#reports.gru-report-pull-up breadcrumb=(concat 'Unit' unitPullUpData.unit.sequence) title=unitPullUpData.unit.title score=unitPullUpData.unit.performance.score showPullUp=isShowUnitReportPullUp  as |unitReport| }}
+  {{#if unitReport.isShowBody}}
+    {{reports.gru-unit-report-body-pull-up selectedUnit=unitPullUpData showPullUp=isShowUnitReportPullUp onClosePullUp="onClosePullUp" classId=classId courseId=courseId unitId=unitId onOpenLessonReport="onOpenLessonReport"}}
+  {{/if}}
+{{/reports.gru-report-pull-up}}
+{{/if}}
+
+{{#if isShowLessonReportPullUp}}
+  {{#reports.gru-report-pull-up breadcrumb=(concat 'Lesson' lessonReportData.lesson.sequence) title=lessonReportData.lesson.title score=lessonReportData.lesson.performance.score showPullUp=isShowLessonReportPullUp as |lessonReport| }}
+    {{#if lessonReport.isShowBody}}
+      {{reports.gru-lesson-report-body-pull-up onClosePullUp="onClosePullUp" showPullUp=isShowLessonReportPullUp context=lessonReportData teacherCollectionReport='teacherCollectionReport'}}
+    {{/if}}
+  {{/reports.gru-report-pull-up}}
+{{/if}}
+
+{{#if isShowStudentReport}}
+  {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportData model=studentReportData.lesson isStudent=studentReportData.isStudent onClosePullUp="onClosePullUp"}}
+{{/if}}
+
+{{#if isShowCollectionReportPullUp}}
+  {{reports.pull-up.collection-report context=teacherCollectionReportData showPullUp=isShowCollectionReportPullUp studentReport="studentReport"}}
+{{/if}}
