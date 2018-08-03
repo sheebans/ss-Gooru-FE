@@ -108,12 +108,24 @@ export default Ember.Controller.extend(ModalMixin, {
     if (!isLastAccessedClassAvailable) {
       let activeClasses = controller.get('activeClasses');
       lastAccessedClassData = activeClasses ? activeClasses.objectAt(0) : null;
-      if (lastAccessedClassData) {
-        lastAccessedClassData = controller.updateLastAccessedClass(
-          lastAccessedClassData
-        );
+      let courseId = lastAccessedClassData ? lastAccessedClassData.courseId : null;
+      if (courseId) {
+        Ember.RSVP.hash({
+          courseData: controller
+            .get('courseService')
+            .fetchByIdWithOutProfile(courseId)
+        })
+          .then(({courseData}) => {
+            lastAccessedClassData.course = courseData;
+            if (lastAccessedClassData) {
+              lastAccessedClassData = controller.updateLastAccessedClass(
+                lastAccessedClassData
+              );
+            }
+          });
       }
     }
+    controller.set('lastAccessedClassData', lastAccessedClassData);
     return lastAccessedClassData;
   },
 
@@ -229,6 +241,24 @@ export default Ember.Controller.extend(ModalMixin, {
         isShowAtcView = false;
       }
       controller.set('isShowAtcView', isShowAtcView);
+    },
+
+    /**
+     * Action triggered when select a domain from pull up
+     */
+    onSelectDomain(domainSet) {
+      let controller = this;
+      controller.set('selectedDomain', domainSet);
+      controller.set('isShowDomainCompetencyReport', true);
+    },
+
+    /**
+     * Action triggered when close all competency report pull ups
+     */
+    onCloseCompetencyReportPullUp() {
+      let controller = this;
+      controller.set('isShowDomainCompetencyReport', false);
+      controller.set('isShowCompetencyReport', false);
     }
   },
 
@@ -237,10 +267,7 @@ export default Ember.Controller.extend(ModalMixin, {
   init: function() {
     const controller = this;
     controller._super(...arguments);
-    controller.set(
-      'lastAccessedClassData',
-      controller.getLastAccessedClassData()
-    );
+    controller.getLastAccessedClassData();
     Ember.run.schedule('afterRender', this, function() {
       if (controller.get('showArchivedClasses')) {
         controller.get('archivedClassObject');

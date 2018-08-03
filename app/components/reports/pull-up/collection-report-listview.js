@@ -46,12 +46,6 @@ export default Ember.Component.extend({
   sortByLastnameEnabled: true,
 
   /**
-   * Maintain the status of sort by overAllScore
-   * @type {String}
-   */
-  sortByScoreEnabled: false,
-
-  /**
    * Maintains the state of suggestion  pull up
    * @type {Boolean}
    */
@@ -64,10 +58,10 @@ export default Ember.Component.extend({
   studentsSelectedForSuggest: Ember.A([]),
 
   /**
-   * search result set
+   * suggest result count
    * @type {Array}
    */
-  searchResults: Ember.A([]),
+  suggestResultCount: 0,
 
   /**
    * Maintains the context object
@@ -84,6 +78,12 @@ export default Ember.Component.extend({
     });
     return params;
   }),
+
+  /**
+   * defaultSuggestContentType
+   * @type {String}
+   */
+  defaultSuggestContentType: 'collection',
 
   // -------------------------------------------------------------------------
   // Actions
@@ -126,25 +126,6 @@ export default Ember.Component.extend({
           component
             .get('studentReportData')
             .sortBy('lastName')
-            .reverse()
-        );
-      }
-    },
-
-    sortByScore() {
-      let component = this;
-      component.toggleProperty('sortByScoreEnabled');
-      if (component.get('sortByScoreEnabled')) {
-        component.set(
-          'studentReportData',
-          component.get('studentReportData').sortBy('overAllScore')
-        );
-      } else {
-        component.set(
-          'studentReportData',
-          component
-            .get('studentReportData')
-            .sortBy('overAllScore')
             .reverse()
         );
       }

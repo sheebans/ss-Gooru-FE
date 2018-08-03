@@ -68,6 +68,24 @@ export default Ember.Controller.extend({
      */
     teacherCollectionReport(params) {
       this.openTeacherCollectionReport(params);
+    },
+    
+    /**
+     * Action triggered when select a domain from pull up
+     */
+    onSelectDomain(domainSet) {
+      let controller = this;
+      controller.set('selectedDomain', domainSet);
+      controller.set('isShowDomainCompetencyReport', true);
+    },
+
+    /**
+     * Action triggered when close all competency report pull ups
+     */
+    onCloseCompetencyReportPullUp() {
+      let controller = this;
+      controller.set('isShowDomainCompetencyReport', false);
+      controller.set('isShowCompetencyReport', false);
     }
   },
 
@@ -106,8 +124,8 @@ export default Ember.Controller.extend({
   menuItem: null,
 
   /**
-   * The class is rescoped
-   * @property {String}
+   * The class is premium or not
+   * @property {Boolean}
    */
   isPremiumClass: Ember.computed('class', function() {
     let controller = this;
@@ -142,7 +160,13 @@ export default Ember.Controller.extend({
    * @param {string} item
    */
   selectMenuItem: function(item) {
-    this.set('menuItem', item);
+    let controller = this;
+    let isPremiumClass = controller.get('isPremiumClass');
+    if (isPremiumClass && item === 'performance') {
+      controller.set('isShowCompetencyReport', true);
+    } else {
+      controller.set('menuItem', item);
+    }
   },
 
   /**
@@ -154,6 +178,7 @@ export default Ember.Controller.extend({
     let userId = controller.get('session.userId');
     let lastAccessedClassData = {};
     if (classData) {
+      let courseSubjectCode = classData.course ? classData.course.subject || null : null;
       lastAccessedClassData = {
         id: classData.id,
         title: classData.title,
@@ -161,7 +186,9 @@ export default Ember.Controller.extend({
         performance: controller.getClassPerformance(
           classData.performanceSummary
         ),
-        courseTitle: classData.courseTitle || null
+        setting: classData.setting,
+        courseTitle: classData.courseTitle || null,
+        courseSubjectCode: courseSubjectCode
       };
     }
     localStorage.setItem(

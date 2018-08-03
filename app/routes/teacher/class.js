@@ -48,14 +48,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
       const route = this;
       const controller = route.get('controller');
       const currentItem = controller.get('menuItem');
-
+      const isPremiumClass = controller.get('isPremiumClass');
       if (item !== currentItem) {
         controller.selectMenuItem(item);
         if (item === 'class-management') {
           route.transitionTo('teacher.class.class-management');
         } else if (item === 'course-map') {
           route.transitionTo('teacher.class.course-map');
-        } else if (item === 'performance') {
+        } else if (item === 'performance' && !isPremiumClass) {
           route.transitionTo('teacher.class.performance');
         } else if (item === 'class-activities') {
           route.transitionTo('teacher.class.class-activities');
@@ -226,6 +226,8 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     controller.set('contentVisibility', model.contentVisibility);
     controller.set('steps', model.tourSteps);
     controller.set('router', this.get('router'));
-    controller.updateLastAccessedClass(model.class);
+    let classData = model.class;
+    classData.course = model.course;
+    controller.updateLastAccessedClass(classData);
   }
 });

@@ -5,6 +5,8 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus-insights/v2',
 
+  dsUsersNamespace: '/api/ds/users/v2',
+
   queryRecord: function(query) {
     const namespace = this.get('namespace');
     const classId = query.classId;
@@ -89,6 +91,26 @@ export default Ember.Object.extend({
       data: {
         classId,
         courseId
+      }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * @function getAtcPerformanceSummaryPremiumClass
+   * Method to fetch performance summary of a premium class for ATC view
+   */
+  getAtcPerformanceSummaryPremiumClass(classId, courseId, subjectCode) {
+    const adapter = this;
+    const namespace = this.get('dsUsersNamespace');
+    const url = `${namespace}/nc/atc/pvc`;
+    const options = {
+      type: 'GET',
+      headers: adapter.defineHeaders(),
+      data: {
+        classId,
+        courseId,
+        subjectCode
       }
     };
     return Ember.$.ajax(url, options);

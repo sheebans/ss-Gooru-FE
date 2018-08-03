@@ -112,6 +112,9 @@ export default Ember.Component.extend(AccordionMixin, {
   },
   setLessonItemForReport() {
     const component = this;
+    if (!component.get('class')) {
+      return;
+    }
     let collections = component.get('model.collections'); // This holds collection which gets set to items for perfromace control display
     collections = component.getCollection(
       collections,

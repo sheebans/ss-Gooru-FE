@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import d3 from 'd3';
+import {getGradeColor, getSubjectIdFromSubjectBucket} from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -23,31 +24,25 @@ export default Ember.Component.extend({
 
   didInsertElement() {
     let component = this;
-    let performanceSummaryPromise = component.getAtcPerformanceSummary();
-    performanceSummaryPromise.then(function(performanceSummary) {
-      component.getClassMembers().then(function(classMembers) {
-        component.set(
-          'chartData',
-          component.getStudentWisePerformance(classMembers, performanceSummary)
-        );
-      });
-    });
+    if (component.get('isPremiumClass')) {
+      component.loadPremiumAtcChartData();
+    } else {
+      component.loadClassicAtcChartData();
+    }
   },
 
   /**
    * Observer to watch class data changes
    */
   classDataObserver: Ember.observer('classData', function() {
-    const component = this;
-    let performanceSummaryPromise = component.getAtcPerformanceSummary();
-    performanceSummaryPromise.then(function(performanceSummary) {
-      component.getClassMembers().then(function(classMembers) {
-        component.set(
-          'chartData',
-          component.getStudentWisePerformance(classMembers, performanceSummary)
-        );
-      });
-    });
+    let component = this;
+    d3.select('svg.atc-chart').remove();
+    d3.select('div.atc-tooltip').remove();
+    if (component.get('isPremiumClass')) {
+      component.loadPremiumAtcChartData();
+    } else {
+      component.loadClassicAtcChartData();
+    }
   }),
 
   /**
@@ -56,6 +51,7 @@ export default Ember.Component.extend({
   chartDataObserver: Ember.observer('chartData', function() {
     const component = this;
     d3.select('svg.atc-chart').remove();
+    d3.select('div.atc-tooltip').remove();
     component.drawchart();
   }),
 
@@ -69,6 +65,7 @@ export default Ember.Component.extend({
     onClearZoom() {
       const component = this;
       d3.select('svg.atc-chart').remove();
+      d3.select('div.atc-tooltip').remove();
       component.drawchart();
       component.set('isZoomInView', false);
     }
@@ -77,17 +74,74 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Methods
 
+
   /**
-   * @function getAtcPerformanceSummary
+   * @function loadClassicAtcChartData
+   * Method to load classic course atc view chart data
+   */
+  loadClassicAtcChartData() {
+    const component = this;
+    component.set('isLoading', true);
+    let performanceSummaryPromise = component.getClassicAtcPerformanceSummary();
+    performanceSummaryPromise.then(function(performanceSummary) {
+      component.getClassMembers().then(function(classMembers) {
+        component.set(
+          'chartData',
+          component.getStudentWisePerformance(classMembers, performanceSummary)
+        );
+        component.set('isShowChart', true);
+      });
+    });
+  },
+
+  /**
+   * @function loadPremiumAtcChartData
+   * Method to load premium course atc view chart data
+   */
+  loadPremiumAtcChartData() {
+    const component = this;
+    component.set('isLoading', true);
+    if (component.get('subjectCode')) {
+      let performanceSummaryPromise = component.getPremiumAtcPerformanceSummary();
+      performanceSummaryPromise.then(function(performanceSummary) {
+        component.getClassMembers().then(function(classMembers) {
+          component.set(
+            'chartData',
+            component.getStudentWisePerformance(classMembers, performanceSummary)
+          );
+        });
+      });
+    } else {
+      component.set('isLoading', false);
+    }
+  },
+
+  /**
+   * @function getClassicAtcPerformanceSummary
    * Method to fetch class performance for the ATC view
    */
-  getAtcPerformanceSummary() {
+  getClassicAtcPerformanceSummary() {
     const component = this;
     const analyticsService = component.get('analyticsService');
     let classId = component.get('classId');
     let courseId = component.get('courseId');
     return Ember.RSVP.resolve(
       analyticsService.getAtcPerformanceSummary(classId, courseId)
+    );
+  },
+
+  /**
+   * @function getPremiumAtcPerformanceSummary
+   * Method to fetch premium class performance for the ATC view
+   */
+  getPremiumAtcPerformanceSummary() {
+    const component = this;
+    const analyticsService = component.get('analyticsService');
+    let classId = component.get('classId');
+    let courseId = component.get('courseId');
+    let subjectCode = component.get('subjectCode');
+    return Ember.RSVP.resolve(
+      analyticsService.getAtcPerformanceSummaryPremiumClass(classId, courseId, subjectCode)
     );
   },
 
@@ -123,12 +177,13 @@ export default Ember.Component.extend({
           id: student.id,
           thumbnail: student.avatarUrl,
           identity: component.getStudentIdentity(student),
-          score: 0,
-          progress: 0
+          score: studentPerformance ? Math.round(studentPerformance.score * 100) / 100 || 0 : 0,
+          progress: studentPerformance ? Math.round(studentPerformance.progress * 100) / 100 || 0 : 0,
+          fullName: `${student.lastName  } ${  student.firstName}`
         };
-        if (studentPerformance) {
-          studentData.score = studentPerformance.score || 0;
-          studentData.progress = studentPerformance.progress || 0;
+        if (component.get('isPremiumClass') && studentPerformance) {
+          studentData.totalComptency = studentPerformance.totalCompetency || 0;
+          studentData.completedCompetency = studentPerformance.completedCompetency || 0;
         }
         studentsPerformanceData.push(studentData);
       });
@@ -146,8 +201,8 @@ export default Ember.Component.extend({
       if (student.firstName || student.lastName) {
         let firstName = student.firstName;
         let lastName = student.lastName;
-        identity = `${firstName ? firstName.charAt(0) : ''} ${
-          lastName ? lastName.charAt(0) : ''
+        identity = `${lastName ? lastName.charAt(0) : ''} ${
+          firstName ? firstName.charAt(0) : ''
         }`;
       } else if (student.email) {
         let validEmailChars = student.email.split('@')[0];
@@ -165,7 +220,6 @@ export default Ember.Component.extend({
    */
   drawchart() {
     let component = this;
-
     var margin = { top: 20, right: 100, bottom: 50, left: 100 },
       width = 960 - margin.left - margin.right,
       height = 450 - margin.top - margin.bottom;
@@ -234,14 +288,10 @@ export default Ember.Component.extend({
           .on('zoom', function() {
             svg.select('.x.axis').call(xAxis);
             svg.select('.y.axis').call(yAxis);
-            svg.selectAll('.student-profile').attr('x', function(d) {
-              return xScale(d.progress);
-            }).attr('y', function(d) {
-              return yScale(d.score);
-            });
-            svg.selectAll('.student-info')
-              .attr('y', function(d) { return yScale(d.score)+ 40; })
-              .attr('x', function(d) { return xScale(d.progress) + 7; });
+            svg.selectAll('.node-point')
+              .attr('transform', function(d) {
+                return `translate(${ xScale(d.progress) }, ${ yScale(d.score) })`;
+              });
             component.cleanUpChart();
             component.set('isZoomInView', true);
           })
@@ -276,35 +326,70 @@ export default Ember.Component.extend({
       .attr('y', height)
       .text('Progress');
 
-    var images = svg.selectAll('.student-profiles').data(dataset);
-    images
+    var tooltip = d3.select('body')
+      .append('div')
+      .attr('class', 'atc-tooltip')
+      .style('position', 'absolute')
+      .style('z-index', '9999')
+      .style('visibility', 'hidden');
+
+
+    var studentNodes = svg.selectAll('.student-nodes')
+      .data(dataset)
       .enter()
+      .append('g')
+      .attr('transform', function(d) {
+        return `translate(${ xScale(d.progress) }, ${ yScale(d.score) })`;
+      })
+      .attr('class', 'node-point')
+      .on('mouseover', function(d){
+        var tooltipHtml = `<div class="name"><span>Name: </span>${ d.fullName  }</div>`;
+        tooltipHtml += `<div class="score"><span>Performance: </span>${ d.score  }</div>`;
+        tooltipHtml += `<div class="completion"><span>Progress: </span>${ d.progress  }</div>`;
+        if (component.get('isPremiumClass')) {
+          tooltipHtml += `<div class="total-competency"><span>Total Competencies: </span>${ d.totalComptency  }</div>`;
+          tooltipHtml += `<div class="completed-competency"><span>Completed Competencies: </span>${ d.completedCompetency  }</div>`;
+        }
+        tooltip.html(tooltipHtml)
+          .style('left', `${d3.event.pageX  }px`)
+          .style('top', `${d3.event.pageY - 28  }px`)
+          .style('margin-left', '30px');
+        return tooltip.style('visibility', 'visible');
+      })
+      .on('mouseout', function(){return tooltip.style('visibility', 'hidden');});
+
+    studentNodes
+      .append('circle')
+      .attr('cx', 5)
+      .attr('cy', 5)
+      .attr('r', 16)
+      .style('fill', function(d) {
+        return getGradeColor(d.score);
+      });
+
+
+    studentNodes
       .append('svg:image')
       .attr('class', 'student-profile')
-      .attr('y', function(d) { return yScale(d.score); })
-      .attr('x', function(d) { return xScale(d.progress); })
-      .style('clip-path', 'circle(50.0% at 50% 50%)')
+      .attr('x', -7)
+      .attr('y', -7)
       .attr({
         'xlink:href': function(d) {
           return d.thumbnail;
         },
-        width: 30,
-        height: 30
+        width: 24,
+        height: 24
       });
 
-    images
-      .enter()
+    studentNodes
       .append('text')
       .attr('class', 'student-info')
-      .attr('y', function(d) {
-        return yScale(d.score) + 42;
-      })
-      .attr('x', function(d) {
-        return xScale(d.progress) + 7;
-      })
+      .attr('x', -3)
+      .attr('y', 30)
       .text(function(d) {
         return d.identity;
       });
+
     component.cleanUpChart();
     component.set('isLoading', false);
   },
@@ -350,14 +435,28 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * @property {String}
+   * Property to store active class's course subject
+   */
+  subjectCode: Ember.computed('classData', function() {
+    let component = this;
+    let classData = component.get('classData');
+    let courseSubjectCode = classData.courseSubjectCode;
+    return courseSubjectCode ? getSubjectIdFromSubjectBucket(courseSubjectCode) : null;
+  }),
+
+  /**
    * @property {Boolean}
    * Property to show/hide loading spinner
    */
-  isLoading: true,
+  isLoading: false,
 
   /**
    * @property {Boolean}
    * Property to show/hide reset chart
    */
-  isZoomInView: false
+  isZoomInView: false,
+
+  isShowChart: true
+
 });

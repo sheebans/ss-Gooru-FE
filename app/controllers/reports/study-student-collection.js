@@ -45,6 +45,12 @@ export default StudentCollection.extend({
    */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
+  /**
+   * @type {AttemptService} attemptService
+   * @property {Ember.Service} Service to send attempt related events
+   */
+  quizzesAttemptService: Ember.inject.service('quizzes/attempt'),
+
   session: Ember.inject.service('session'),
 
   /**
@@ -61,12 +67,41 @@ export default StudentCollection.extend({
      */
     next: function() {
       let controller = this;
-      let suggestedContent = controller.get('suggestedContent');
-      if (suggestedContent) {
-        controller.set('isShowSuggestion', true);
-      } else {
-        controller.checknPlayNext();
-      }
+      let contextId = controller.get('contextId');
+      let profileId = controller.get('session.userData.gooruUId');
+      const navigateMapService = controller.get('navigateMapService');
+      controller
+        .get('quizzesAttemptService')
+        .getAttemptIds(contextId, profileId)
+        .then(
+          attemptIds =>
+            !attemptIds || !attemptIds.length
+              ? {}
+              : this.get('quizzesAttemptService').getAttemptData(
+                attemptIds[attemptIds.length - 1]
+              )
+        )
+        .then(attemptData =>
+          Ember.RSVP.hash({
+            attemptData,
+            mapLocationNxt: navigateMapService.getStoredNext()
+          })
+        )
+        .then(({ mapLocationNxt, attemptData }) => {
+          mapLocationNxt.context.set('score', attemptData.get('averageScore'));
+          return navigateMapService.next(mapLocationNxt.context);
+        })
+        .then(({ context, suggestions, hasContent }) => {
+          controller.set('mapLocation.context', context);
+          controller.set('mapLocation.suggestions', suggestions);
+          controller.set('mapLocation.hasContent', hasContent);
+          let suggestedContent = controller.get('suggestedContent');
+          if (suggestedContent) {
+            controller.set('isShowSuggestion', true);
+          } else {
+            controller.checknPlayNext();
+          }
+        });
     },
     /**
      * If the user want to continue playing the post-test suggestion
@@ -435,6 +470,7 @@ export default StudentCollection.extend({
       });
     } else {
       queryParams.pathId = 0;
+      queryParams.pathType = '';
       this.transitionToRoute('study-player', context.get('courseId'), {
         queryParams
       });
@@ -461,8 +497,8 @@ export default StudentCollection.extend({
       .then(nextContext => this.playGivenContent(nextContext));
   },
 
-  playGivenContent: function(mapLocation) {
-    let status = (mapLocation.get('context.status') || '').toLowerCase();
+  playGivenContent: function(context) {
+    let status = (context.get('status') || '').toLowerCase();
     if (status !== 'done') {
       this.toPlayer();
     } else {
@@ -504,6 +540,7 @@ export default StudentCollection.extend({
       .then(({ context, pathId }) => {
         context.collectionId = suggestion.id; // Setting new collection id
         context.pathId = pathId;
+        //context.pathtype = "system"; //set system path only if required
         suggestion.pathId = pathId;
         return navigateMapService.startAlternatePathSuggestion(context);
       })
