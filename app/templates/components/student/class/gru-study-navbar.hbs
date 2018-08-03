@@ -1,12 +1,41 @@
 <div class="panel">
     <div class="nav-body">
         <ul class="nav nav-pills" role="tablist">
+          {{#if isStudyPlayer}}
             <li class="study-player-brand tab">
               {{#link-to 'index' class="navbar-brand home-link"}}  {{/link-to}}
             </li>
+          {{else}}
+            <li role="separator" class="divider"></li>
+            <li class="closetab tab">
+                {{#if (or (eq sourceType 'ILActivity') (eq ILActivity 'true') ) }}
+                 {{#link-to 'student-independent-learning.learning-base'
+                     title="{{t 'student-landing.class.back-to-independent"  data-toggle="tooltip"}}
+                        {{gru-icon name='clear'}}
+                    {{/link-to}}
+                {{else}}
+                    {{#if backUrls}}
+                        <a {{action 'selectItem' 'close'}} title="{{t 'common.back-to-report'}}" role="tab" data-toggle="tooltip">
+                            {{gru-icon name='clear'}}
+                        </a>
+                    {{else}}
+                        {{#if class.isArchived}}
+                            {{#link-to 'student-home' (query-params showArchivedClasses="true" showActiveClasses="false" ) class="back-to" data-toggle="tooltip"
+                                title='Back to Classrooms' }} {{gru-icon name='clear'}} {{/link-to}}
+                        {{else}}
+                            {{#link-to 'student-home' class="back-to" data-toggle="tooltip" title='Back to Classrooms' }}
+                                {{gru-icon name='clear'}}
+                            {{/link-to}}
+                        {{/if}}
+                    {{/if}}
+                {{/if}}
+            </li>
+          {{/if}}
+
             {{#unless class.isArchived}}
                 {{#if (not (eq sourceType 'ILActivity')) }}
                     {{#if (not (eq ILActivity 'true')) }}
+                        <li role="separator" class="divider {{if isStudyPlayer 'hide'}}"></li>
                         <li class="class-activities tab">
                             <a {{action 'selectItem' 'class-activities'}} title="{{t 'teacher-landing.class.class-activities'}}" role="tab" data-toggle="tooltip">
                                 <img src='/assets/gooru/pin-white.png'>
@@ -17,7 +46,7 @@
                         </li>
                     {{/if}}
                 {{/if}}
-                <li role="separator" class="divider"></li>
+                <li role="separator" class="divider {{if (and isStudyPlayer (eq sourceType 'ILActivity')) 'hide'}}"></li>
                 <li class="course-map study-player tab">
                     {{#if (eq selectedMenuItem 'course-map')}}
                         <a {{action 'selectItem' 'study-player'}} role="tab" data-toggle="tooltip" title="{{t 'student-landing.study-player'}}">
