@@ -71,6 +71,13 @@ export default Ember.Controller.extend({
     },
 
     /**
+     *  Triggered the collection student report from collection report
+     */
+    studentReport(params) {
+      this.openStudentReport(params);
+    },
+
+    /**
      * Action triggered when select a domain from pull up
      */
     onSelectDomain(domainSet) {
