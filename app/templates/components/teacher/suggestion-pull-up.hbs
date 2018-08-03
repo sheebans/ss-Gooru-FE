@@ -44,21 +44,18 @@
     </div>
   </div>
   <div class="search-list-container">
-    <div class="loading-spinner">
-      {{#if isLoading}}
-        {{three-bounce-spinner}}
-      {{/if}}
-    </div>
-    {{#if (gt searchResults.length 0)}}
-      <div class="search-list">
-        {{#each searchResults as |result|}}
-          {{cards.suggest-collection-card collection=result contentType=activeContentType onSuggestCollection="onSuggestCollection"}}
-        {{/each}}
-      </div>
+    {{#if isLoading}}
+      {{three-bounce-spinner}}
     {{else}}
-      {{#unless isLoading}}
-        {{cards.no-suggest-result-found isFromSearch=isFromSearch}}
-      {{/unless}}
+      {{#if (gt searchResults.length 0)}}
+        <div class="search-list">
+          {{#each searchResults as |result|}}
+            {{cards.suggest-collection-card collection=result contentType=activeContentType onSuggestCollection="onSuggestCollection"}}
+          {{/each}}
+        </div>
+      {{else}}
+          {{cards.no-suggest-result-found isFromSearch=isFromSearch}}
+      {{/if}}
     {{/if}}
   </div>
 </div>
