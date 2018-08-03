@@ -129,8 +129,8 @@ export default Ember.Component.extend(AccordionMixin, {
     /**
      * Trigger when unit level  report clicked
      */
-    onOpenUnitLevelReport(unitInfo) {
-      this.sendAction('onOpenUnitLevelReport', unitInfo);
+    onOpenUnitLevelReport(params) {
+      this.sendAction('onOpenUnitLevelReport', params);
     },
     /**
      * Trigger when lesson level  report clicked

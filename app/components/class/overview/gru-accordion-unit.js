@@ -77,7 +77,7 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     onOpenUnitLevelReport(model) {
       const component = this;
-      let unitInfo = {
+      let params = {
         classId: component.get('currentClass.id'),
         courseId:
           component.get('currentClass.courseId') ||
@@ -85,7 +85,7 @@ export default Ember.Component.extend(AccordionMixin, {
         unit: model
       };
       component.set('showUnitReportPullUp', true);
-      this.sendAction('onOpenUnitLevelReport', unitInfo);
+      this.sendAction('onOpenUnitLevelReport', params);
     },
     /**
      * Launch an assessment on-air

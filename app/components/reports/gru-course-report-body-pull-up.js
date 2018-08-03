@@ -20,8 +20,6 @@ export default Ember.Component.extend({
 
   classNames: ['gru-course-report-body-pull-up'],
 
-  showCourseReportPullUp: false,
-
   /**
    * Indicates the status of the spinner
    * @property {Boolean}
@@ -33,7 +31,6 @@ export default Ember.Component.extend({
   actions: {
     onPullUpClose() {
       this.set('showPullUp', false);
-      this.set('showCourseReportPullUp', false);
     },
 
     onOpenCourseReport() {
@@ -41,8 +38,9 @@ export default Ember.Component.extend({
       component.sendAction('onOpenLessonReport');
     },
 
-    /* Trigger to open unit report from course
-    */
+    /**
+     ** Trigger to open unit report from course
+     **/
     onOpenUnitReport(unit) {
       let component = this;
       let classId = component.get('classData.id');
@@ -68,6 +66,9 @@ export default Ember.Component.extend({
     }
   },
 
+  /**
+   * Get the table vertical and horizondal scroll with left column fixed
+   */
   didRender() {
     var component = this;
     //For table vertical and horizondal scroll
@@ -89,8 +90,11 @@ export default Ember.Component.extend({
     });
   },
   // -------------------------------------------------------------------------
-  //
+  //Methods
 
+  /**
+   * Get the class performance based on  class members
+   */
   loadCoursePerformanceData() {
     let component = this;
     let classMembersPromise = component.getClassMembers();
@@ -119,6 +123,9 @@ export default Ember.Component.extend({
     });
   },
 
+  /**
+   * Generate table header to show the list for units in that course
+   */
   generateTableHeader(units, classPerformanceData) {
     let component = this;
     let coursePerformance = null;
@@ -137,6 +144,9 @@ export default Ember.Component.extend({
     component.set('isLoading', false);
   },
 
+  /**
+   * Generate the table body to show the unit performance
+   */
   generateTableBody(units, students, classPerformanceData) {
     let component = this;
     let tableRows = Ember.A([]);
@@ -185,6 +195,9 @@ export default Ember.Component.extend({
     });
   },
 
+  /**
+   * Get the class performance by students
+   */
   getClassPerformance(students) {
     let component = this;
     let classId = component.get('classData.id');

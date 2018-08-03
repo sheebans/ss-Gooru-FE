@@ -13,6 +13,9 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+    /**
+     *  Action to trigger the course level report
+     */
     onOpenCourseReport() {
       this.set('isShowCourseReport', true);
       this.set('showCourseReportPullUp', true);
@@ -45,15 +48,24 @@ export default Ember.Controller.extend({
       this.transitionToRoute(`/${teacherId}/about?classId=${classId}`);
     },
 
+    /**
+     *  Triggered the lesson report from inside unit report
+     */
     onOpenLessonReport(lesson) {
       this.openLessonReport(lesson);
     },
 
+    /**
+     *  Triggered the unit report from inside course report
+     */
     onOpenUnitReport(unit) {
       let controller = this;
       controller.openUnitReport(unit);
     },
 
+    /**
+     *  Triggered the collection report from lesson report
+     */
     teacherCollectionReport(params) {
       this.openTeacherCollectionReport(params);
     }
