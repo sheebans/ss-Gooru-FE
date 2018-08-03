@@ -69,7 +69,7 @@ export default Ember.Controller.extend({
     teacherCollectionReport(params) {
       this.openTeacherCollectionReport(params);
     },
-    
+
     /**
      * Action triggered when select a domain from pull up
      */
@@ -178,7 +178,9 @@ export default Ember.Controller.extend({
     let userId = controller.get('session.userId');
     let lastAccessedClassData = {};
     if (classData) {
-      let courseSubjectCode = classData.course ? classData.course.subject || null : null;
+      let courseSubjectCode = classData.course
+        ? classData.course.subject || null
+        : null;
       lastAccessedClassData = {
         id: classData.id,
         title: classData.title,
