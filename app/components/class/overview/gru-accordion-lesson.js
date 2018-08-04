@@ -787,6 +787,7 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
           }
 
           collection.set('isResource', isResource);
+          collection.set('isAssessment', isAssessment);
 
           const collectionPerformanceData = performance.findBy(
             'id',
