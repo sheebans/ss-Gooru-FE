@@ -127,11 +127,7 @@
 {{/if}}
 
 {{#if isShowLessonReportPullUp}}
-  {{#reports.gru-report-pull-up breadcrumb=(concat 'Lesson' lessonReportData.lesson.sequence) title=lessonReportData.lesson.title score=lessonReportData.lesson.performance.score showPullUp=isShowLessonReportPullUp as |lessonReport| }}
-    {{#if lessonReport.isShowBody}}
-      {{reports.gru-lesson-report-body-pull-up onClosePullUp="onClosePullUp" showPullUp=isShowLessonReportPullUp context=lessonReportData teacherCollectionReport='teacherCollectionReport'}}
-    {{/if}}
-  {{/reports.gru-report-pull-up}}
+  {{reports.pull-up.lesson-report context=lessonReportData showPullUp=isShowLessonReportPullUp teacherCollectionReport="teacherCollectionReport"}}
 {{/if}}
 
 {{#if isShowCollectionReportPullUp}}

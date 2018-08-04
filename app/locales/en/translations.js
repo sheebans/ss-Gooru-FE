@@ -54,6 +54,7 @@ export default Object.assign(quizzesTranslations, {
     name: 'Name',
     lastName: 'Lastname',
     firstName: 'Firstname',
+    'filter-by': 'Filter By',
     more: 'more',
     'gooru-suggestions': 'Gooru Suggestions',
     'suggestion-made-to': 'Suggestion made to',
