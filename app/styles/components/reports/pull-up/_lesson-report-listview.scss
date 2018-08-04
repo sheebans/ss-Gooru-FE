@@ -70,11 +70,6 @@
           width: 225px;
           display: flex;
           align-items: center;
-          cursor: pointer;
-
-          &.not-started {
-            pointer-events: none;
-          }
 
           .user-profile-img {
             width: 43px;
