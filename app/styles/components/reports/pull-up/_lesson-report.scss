@@ -1,4 +1,4 @@
-.reports.pull-up-collection-report {
+.reports.pull-up-lesson-report {
   position: fixed;
   top: 100%;
   z-index: 1031;
@@ -22,7 +22,7 @@
     opacity: 0.9;
   }
 
-  .collection-report-container {
+  .lesson-report-container {
     background: #ffffff;
     width: 768px;
     max-height: 90vh;
@@ -42,10 +42,10 @@
         .unit-title {
           display: flex;
           align-items: center;
-          max-width: 215px;
+          max-width: calc(100% / 2);
 
           p {
-            max-width: 170px;
+            max-width: calc(100% - 45px);
             margin: 0;
             @include ellipsis(
               $font-size: 14px,
@@ -67,7 +67,7 @@
         .lesson-title {
           display: flex;
           align-items: center;
-          max-width: 215px;
+          max-width: calc(100% / 2);
 
           .keyboard_arrow_right {
             margin-right: 5px;
@@ -75,7 +75,7 @@
 
           p {
             margin: 0;
-            max-width: 170px;
+            max-width: calc(100% - 45px);
             @include ellipsis(
               $font-size: 14px,
               $line-height: 1.2,
@@ -90,36 +90,6 @@
             background-repeat: no-repeat;
             background-size: 30px 30px;
             background-position: 0 11px;
-          }
-        }
-
-        .collection-title {
-          display: flex;
-          align-items: center;
-          max-width: 300px;
-
-          p {
-            margin: 0;
-            max-width: 260px;
-            @include ellipsis(
-              $font-size: 14px,
-              $line-height: 1.2,
-              $lines-to-show: 2
-            );
-          }
-
-          .collection-icon {
-            width: 40px;
-            height: 50px;
-            background-repeat: no-repeat;
-            background-size: 30px 30px;
-            background-position: 0 12px;
-            &.assessment {
-              background-image: url("../assets/gooru/images/assessment-gray.svg");
-            }
-            &.collection {
-              background-image: url("../assets/gooru/images/collection_gray.svg");
-            }
           }
         }
       }
@@ -155,7 +125,7 @@
         background-image: linear-gradient(#35424b, #35424b);
         background-blend-mode: multiply;
 
-        .collection-background-cover {
+        .lesson-background-cover {
           height: 297px;
           background-image: linear-gradient(#35424b, #35424b);
           background-blend-mode: multiply;
@@ -164,10 +134,12 @@
         .carousel-control {
           opacity: 1;
           background: none;
+
           &.in-active {
             opacity: 0.3;
             pointer-events: none;
           }
+
           &.left {
             z-index: 2;
             width: 45px;
@@ -222,7 +194,7 @@
             margin-top: 15px;
             width: 190px;
 
-            .collection-performance-average {
+            .lesson-performance-average {
               width: 185px;
               height: 185px;
               border-radius: 50%;
@@ -234,7 +206,7 @@
               color: #fff;
             }
 
-            .collection-performance-timespent {
+            .lesson-performance-timespent {
               width: 185px;
               height: 185px;
               border-radius: 50%;
@@ -248,7 +220,7 @@
             }
           }
 
-          .collection-report-chart {
+          .lesson-report-chart {
             display: flex;
             align-items: center;
             width: 445px;
@@ -270,136 +242,122 @@
         width: 100%;
         height: 50px;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
-        display: flex;
+        display: inline-grid;
+        grid-template-columns: 150px 160px auto;
         position: relative;
         z-index: 1;
+        align-items: center;
 
-        .taxonomy-details {
-          width: 278px;
-          height: 50px;
+        .filter-by {
+          width: 150px;
+          color: #4b5667;
+          font-weight: bold;
+          padding-left: 20px;
+          text-transform: uppercase;
+          font-size: 12px;
+        }
 
-          .gru-taxonomy-tag-list {
-            .gru-taxonomy-tag {
-              max-width: 200px;
-              width: 200px;
-              border: none;
-              background-color: #37434d;
-              border-radius: 0;
-              color: #fff;
-              height: 50px;
+        .view-btn-actions {
+          display: inline-grid;
+          grid-template-columns: 80px 80px;
+          justify-items: center;
+          align-items: center;
+          width: 160px;
 
-              .standard-tag {
-                width: 200px;
-                padding-left: 10px;
-                padding-right: 10px;
-                padding-top: 13px;
+          i {
+            width: 20px;
+            height: 15px;
+            background-repeat: no-repeat;
+            display: block;
+            margin: 0 auto;
+          }
 
-                b {
-                  color: #fff;
-                }
-              }
+          .collection-icon {
+            height: 30px;
+            opacity: 0.5;
+            cursor: pointer;
+            &.no-collection {
+              pointer-events: none;
             }
 
-            .non-visible-tags {
-              margin-top: 10px;
-              margin-left: 10px;
-              background: #37434d;
-              width: 35px;
-              color: #fff;
-              border-radius: 4px;
+            i {
+              background-image: url("../assets/gooru/images/collection_gray.svg");
             }
 
-            .popover {
-              background: #fff;
-              margin-left: 5px;
+            &.active {
+              color: #00a1e7;
+              opacity: 1;
 
-              .arrow::after {
-                border-left-color: #fff;
-                border-right-color: #fff;
+              i {
+                background-image: url("../assets/gooru/images/collection-blue.svg");
               }
+            }
+          }
 
-              .popover-content {
-                .gru-taxonomy-tag {
-                  max-width: 300px;
-                  width: 270px;
-                  border-radius: 4px;
+          .assessment-icon {
+            height: 30px;
+            opacity: 0.5;
+            cursor: pointer;
+            &.no-assessment {
+              pointer-events: none;
+            }
 
-                  .standard-tag {
-                    width: 270px;
-                  }
-                }
+            i {
+              background-image: url("../assets/gooru/images/assessment-gray.svg");
+            }
+
+            &.active {
+              color: #00a1e7;
+              opacity: 1;
+
+              i {
+                background-image: url("../assets/gooru/images/assessment-blue.svg");
               }
             }
           }
         }
 
-        .report-action-btns {
-          display: flex;
+        .filter-btns {
+          display: inline-grid;
+          width: 190px;
+          grid-template-columns: 80px 80px;
+          justify-self: end;
 
-          .view-btn-actions {
-            display: flex;
-            width: 220px;
+          span {
+            display: block;
+            margin-top: -10px;
+          }
 
-            i {
-              margin-top: 5px;
-            }
+          i {
+            margin-top: 3px;
+          }
 
-            span {
-              display: block;
-              margin-top: -10px;
-            }
+          .performance-icon,
+          .reaction-icon,
+          .timespent-icon {
+            width: 80px;
+            text-align: center;
+            opacity: 0.5;
+            cursor: pointer;
 
-            .grid-view-icon,
-            .list-view-icon {
-              width: 40px;
-              text-align: center;
-              opacity: 0.5;
-              cursor: pointer;
-
-              &.active {
-                color: #00a1e7;
-                opacity: 1;
-              }
+            &.active {
+              opacity: 1;
             }
           }
 
-          .filter-btns {
-            display: flex;
-
-            span {
-              display: block;
-              margin-top: -10px;
-            }
-
-            i {
-              margin-top: 5px;
-            }
-
-            .performance-icon,
-            .reaction-icon,
-            .timespent-icon {
-              width: 80px;
-              text-align: center;
-              opacity: 0.5;
-              cursor: pointer;
-              &.active {
-                opacity: 1;
-              }
-            }
-
-            .timespent-icon {
-              &.collection {
-                pointer-events: none;
-                cursor: default;
-              }
-            }
-
-            .performance-icon {
+          .timespent-icon {
+            &.lesson {
               pointer-events: none;
               cursor: default;
-              &.collection {
-                visibility: hidden;
-              }
+            }
+          }
+
+          .performance-icon {
+            pointer-events: none;
+            cursor: default;
+
+            &.lesson {
+              visibility: hidden;
             }
           }
         }
@@ -409,13 +367,15 @@
         margin-bottom: 100px;
       }
 
-      &.grid {
+      &.collection-view {
         .report-header-container {
-          .report-action-btns {
-            .filter-btns {
-              .reaction-icon,
-              .timespent-icon {
-                visibility: hidden;
+          .filter-btns {
+            .performance-icon {
+              visibility: hidden;
+            }
+            .timespent-icon {
+              &.collection {
+                pointer-events: none;
               }
             }
           }

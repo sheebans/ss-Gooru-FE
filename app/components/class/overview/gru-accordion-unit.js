@@ -191,6 +191,7 @@ export default Ember.Component.extend(AccordionMixin, {
      * Trigger when lesson level  report clicked
      */
     onOpenLessonReport(params) {
+      params.lessons = this.get('items');
       this.sendAction('onOpenLessonReport', params);
     },
 
