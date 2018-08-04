@@ -4,7 +4,7 @@
   .app-container {
     padding: 0;
   }
-  .gru-header,
+
   .gru-footer {
     display: none;
   }
@@ -61,5 +61,8 @@
       z-index: 888;
       opacity: 0.4;
     }
+  }
+  .bar-charts {
+    top: 116px !important;
   }
 }

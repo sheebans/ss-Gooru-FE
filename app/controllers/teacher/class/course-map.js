@@ -126,15 +126,6 @@ export default Ember.Controller.extend({
     },
 
     /**
-     * Trigger when collection level student report clicked
-     */
-    studentReport(params) {
-      const controller = this;
-      const classController = controller.get('classController');
-      classController.openStudentReport(params);
-    },
-
-    /**
      * Trigger when collection level teacher report clicked
      */
     teacherCollectionReport(params) {

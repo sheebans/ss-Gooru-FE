@@ -73,6 +73,11 @@ export default Ember.Component.extend({
    */
   searchService: Ember.inject.service('api-sdk/search'),
 
+  /**
+   * @requires service:api-sdk/learner
+   */
+  learnerService: Ember.inject.service('api-sdk/learner'),
+
   // -------------------------------------------------------------------------
   // Properties
 
