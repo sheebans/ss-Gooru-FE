@@ -98,5 +98,33 @@ export default DS.JSONAPISerializer.extend({
       id: id + serializer.getModelId(result),
       type: serializer.getModelType()
     };
+  },
+
+  /**
+   * Normalized data of user performance resource in  assessments
+   * @return {Object}
+   */
+  normalizeUserPerformanceResourceInAssessment: function(response) {
+    let resultSet = Ember.A();
+    response = Ember.A(response.resources);
+    response.forEach(data => {
+      let result = Ember.Object.create(data);
+      resultSet.pushObject(result);
+    });
+    return resultSet;
+  },
+
+  /**
+   * Normalized data of user performance resource in  collections
+   * @return {Object}
+   */
+  normalizeUserPerformanceResourceInCollection: function(response) {
+    let resultSet = Ember.A();
+    response = Ember.A(response.resources);
+    response.forEach(data => {
+      let result = Ember.Object.create(data);
+      resultSet.pushObject(result);
+    });
+    return resultSet;
   }
 });

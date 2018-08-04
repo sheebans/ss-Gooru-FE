@@ -58,8 +58,8 @@ export default Ember.Component.extend({
     }
     let domainStartMonth = domainStartDate.getMonth();
     let domainStartYear = domainStartDate.getFullYear();
-    //show thre more months if required
-    let addOnMonths = diffMonthBtwTwoDate <= 5 ? 3 : 0;
+    //add default addon months if required
+    let addOnMonths = diffMonthBtwTwoDate <= 5 ? 5 - (diffMonthBtwTwoDate - 1) : 0;
     // Define d3 xScale
     let xScale = d3.time.scale()
       .domain([new Date(domainStartYear, domainStartMonth - addOnMonths), new Date(domainEndYear, domainEndMonth)])

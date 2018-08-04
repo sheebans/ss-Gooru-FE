@@ -48,7 +48,7 @@
               {{#each studentCompetency.competencies as |competency|}}
                 <div class="competency">
                   <svg width="30" height="30">
-                    <rect fill="{{competency-color competency.status}}" width="30" height="30"></rect>
+                    <rect fill="{{competency-color competency.status}}" {{action 'onSelectCompetency' competency studentCompetency.userId}} width="30" height="30"></rect>
                   </svg>
                 </div>
               {{/each}}

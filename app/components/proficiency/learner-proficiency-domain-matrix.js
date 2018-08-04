@@ -596,6 +596,7 @@ export default Ember.Component.extend({
           component.joinBaseLinePoints(cellIndex, linePoint);
           cellIndex++;
         });
+        component.sendAction('onShownBaseLine', userProficiencyBaseLine.lastUpdated);
         component.set('isBaseLineDrawn', true);
       });
     }

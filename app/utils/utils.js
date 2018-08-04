@@ -988,5 +988,6 @@ export function getSubjectIdFromSubjectBucket(subjectBucket) {
 export function diffMonthBtwTwoDates(date1, date2) {
   let diff =(date1.getTime() - date2.getTime()) / 1000;
   diff /= (60 * 60 * 24 * 7 * 4);
-  return (Math.abs(Math.round(diff)) ) - 1;
+  let monthsDiff = Math.abs(Math.round(diff));
+  return monthsDiff > 0 ? monthsDiff - 1 : monthsDiff;
 }

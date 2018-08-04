@@ -100,7 +100,13 @@
 
     {{#if isShowDomainCompetencyReport}}
       {{#reports.pull-up.competency-report type=(t 'report.domain-report') title=selectedDomain.domainData.domainName showPullUp=isShowDomainCompetencyReport onClosePullUp="onCloseCompetencyReportPullUp"}}
-          {{reports.pull-up.domain-competency-report domainSet=selectedDomain}}
+          {{reports.pull-up.domain-competency-report domainSet=selectedDomain onSelectCompetency="onSelectCompetency"}}
+      {{/reports.pull-up.competency-report}}
+    {{/if}}
+
+    {{#if isShowCompetencyContentReport}}
+      {{#reports.pull-up.competency-report type=selectedCompetency.competencyCode title=selectedCompetency.competencyStudentDesc showPullUp=isShowCompetencyContentReport onClosePullUp="onCloseCompetencyReportPullUp" competency=selectedCompetency}}
+        {{reports.pull-up.competency-content-report competency=selectedCompetency userId=selectedStudentUserId}}
       {{/reports.pull-up.competency-report}}
     {{/if}}
 

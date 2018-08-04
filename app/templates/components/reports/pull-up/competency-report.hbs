@@ -4,12 +4,19 @@
 <div class="competency-report">
   <div class="header">
     <div class="report-info">
-      <div class="type">
-        {{type}}
+      <div class="title-section {{if competency 'content'}}">
+        <div class="type">
+          {{type}}
+        </div>
+        <div class="title">
+          {{title}}
+        </div>
       </div>
-      <div class="title">
-        {{title}}
-      </div>
+      {{#if competency}}
+        <div class="competency-status">
+          {{competencyStatus}}
+        </div>
+      {{/if}}
     </div>
     <div class="close-pullup" {{action "onClosePullUp"}}>
       {{gru-icon name="close"}}

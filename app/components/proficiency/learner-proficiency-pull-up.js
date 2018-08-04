@@ -49,6 +49,15 @@ export default Ember.Component.extend({
     onSelectSubject(subject) {
       let component = this;
       component.set('activeSubject', subject);
+    },
+
+    /**
+     * Action triggered at once the baseline is drawn
+     */
+    onShownBaseLine(createdDate) {
+      let component = this;
+      component.set('timeSeriesStartDate', createdDate ? new Date(createdDate) : component.get('courseStartDate'));
+      component.set('isShowTimeSeries', true);
     }
   },
 
@@ -149,5 +158,15 @@ export default Ember.Component.extend({
       courseCreatedDate = new Date(oneYearBeforeFromCurrentDate.setFullYear(curYear - 1));
     }
     return courseCreatedDate;
-  })
+  }),
+
+  /**
+   * @property {Boolean} isShowTimeSeries
+   */
+  isShowTimeSeries: false,
+
+  /**
+   * @property {Date} timeSeriesStartDate
+   */
+  timeSeriesStartDate: null
 });
