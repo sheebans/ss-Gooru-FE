@@ -1,0 +1,61 @@
+<div class="external-assessment-landing-page">
+  <div class="external-assessment-card">
+    <div class="header">
+      <div class="title">
+        {{assessment.title}}
+      </div>
+      <div class="taxonomy">
+        {{#if tags.length}}
+          {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true showDescription=true}}
+        {{/if}}
+      </div>
+    </div>
+    <div class="body">
+      <div class="description">
+        {{assessment.learningObjectives}}
+      </div>
+      {{#if isScoreEntered}}
+        <div class="score-entered">
+          <div class="score">
+            {{score}}
+          </div>
+          <div class="score-label">
+            Your Score
+          </div>
+        </div>
+      {{else}}
+        <div class="score-editor {{if isDisableScoreEditor 'disabled'}}">
+          {{input
+            type="text"
+            class="score-value"
+            id="score-value"
+            value=scoreValue}}
+          <div class="score-label">
+            Enter your score here
+          </div>
+        </div>
+      {{/if}}
+    </div>
+    <div class="footer">
+      <div class="actions">
+        <div class="btn cancel">
+          {{t 'common.cancel'}}
+        </div>
+        {{#if (not isScoreEntered)}}
+          {{#if isDisableScoreEditor}}
+            <div class="btn start" {{action "onStart"}}>
+              {{t 'gru-assessment-confirmation.start'}}
+            </div>
+          {{else}}
+          <div class="btn submit" {{action "onSubmit"}}>
+            {{t 'gru-assessment-confirmation.submit'}}
+          </div>
+          {{/if}}
+        {{/if}}
+        <div class="btn next" {{action 'playNext'}}>
+          {{t "common.next"}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

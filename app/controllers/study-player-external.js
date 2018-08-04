@@ -41,7 +41,7 @@ export default Ember.Controller.extend({
     /**
      * Action triggered for the next button
      */
-    next: function() {
+    playNext: function() {
       this.playNextContent();
     }
   },

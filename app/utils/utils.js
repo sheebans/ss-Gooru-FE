@@ -990,3 +990,19 @@ export function diffMonthBtwTwoDates(date1, date2) {
   diff /= (60 * 60 * 24 * 7 * 4);
   return (Math.abs(Math.round(diff)) ) - 1;
 }
+
+export function validatePercentage(number) {
+  let x = parseFloat(number);
+  let isValidPercentage = true;
+  if (isNaN(x) || x < 0 || x > 100) {
+    isValidPercentage = false;
+  } else {
+    let decimalSeparator='.';
+    let val=`${x}`;
+    if(val.indexOf(decimalSeparator)<val.length-3)
+    {
+      isValidPercentage = false;
+    }
+  }
+  return isValidPercentage;
+}
