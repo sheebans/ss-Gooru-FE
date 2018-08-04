@@ -134,10 +134,6 @@
   {{/reports.gru-report-pull-up}}
 {{/if}}
 
-{{#if isShowStudentReport}}
-  {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportData model=studentReportData.lesson isStudent=studentReportData.isStudent onClosePullUp="onClosePullUp"}}
-{{/if}}
-
 {{#if isShowCollectionReportPullUp}}
   {{reports.pull-up.collection-report context=teacherCollectionReportData showPullUp=isShowCollectionReportPullUp studentReport="studentReport"}}
 {{/if}}

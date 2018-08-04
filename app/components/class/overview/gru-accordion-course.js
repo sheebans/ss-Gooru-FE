@@ -142,8 +142,10 @@ export default Ember.Component.extend(AccordionMixin, {
     /**
      * Trigger when collection level student report clicked
      */
-    studentReport(params) {
-      this.sendAction('studentReport', params);
+    onOpenStudentReport(params) {
+      let component = this;
+      component.set('isShowStudentReport', true);
+      component.set('studentReportData', params);
     },
 
     /**

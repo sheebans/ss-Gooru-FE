@@ -71,13 +71,6 @@ export default Ember.Controller.extend({
     },
 
     /**
-     *  Triggered the collection student report from collection report
-     */
-    studentReport(params) {
-      this.openStudentReport(params);
-    },
-
-    /**
      * Action triggered when select a domain from pull up
      */
     onSelectDomain(domainSet) {
@@ -234,12 +227,6 @@ export default Ember.Controller.extend({
     let controller = this;
     controller.set('isShowLessonReportPullUp', true);
     controller.set('lessonReportData', params);
-  },
-
-  openStudentReport(params) {
-    let controller = this;
-    controller.set('isShowStudentReport', true);
-    controller.set('studentReportData', params);
   },
 
   openTeacherCollectionReport(params) {

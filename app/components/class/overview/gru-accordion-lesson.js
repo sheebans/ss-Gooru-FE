@@ -237,11 +237,12 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
     studentReport: function(collection, userId) {
       let component = this;
       let currentClass = component.get('currentClass');
+      let currentCourse = component.get('currentCourse');
       if (!userId) {
         userId = component.get('session.userId');
       }
-      let classId = currentClass.get('id');
-      let courseId = currentClass.get('courseId');
+      let classId = currentClass ? currentClass.get('id') : null;
+      let courseId = currentClass ? currentClass.get('courseId') : currentCourse ? currentCourse.get('id') : null;
       let unitId = component.get('unitId');
       let lessonId = component.get('model.id');
       let collectionId = collection.get('id');
