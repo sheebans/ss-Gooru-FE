@@ -128,3 +128,7 @@
     </div>
   </div>
 </div>
+
+{{#if isShowStudentReport}}
+  {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportContextData model=studentReportContextData.lesson isStudent=studentReportContextData.isStudent onClosePullUp="onClosePullUp"}}
+{{/if}}

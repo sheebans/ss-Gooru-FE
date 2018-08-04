@@ -115,7 +115,8 @@ export default Ember.Component.extend({
         lesson: component.get('lesson'),
         isStudent: component.get('isStudent')
       };
-      this.sendAction('studentReport', params);
+      component.set('studentReportContextData', params);
+      component.set('isShowStudentReport', true);
     },
 
     onClickChart(userId) {
@@ -135,7 +136,8 @@ export default Ember.Component.extend({
         lesson: component.get('lesson'),
         isStudent: component.get('isStudent')
       };
-      this.sendAction('studentReport', params);
+      component.set('studentReportContextData', params);
+      component.set('isShowStudentReport', true);
     }
   },
 
@@ -336,6 +338,12 @@ export default Ember.Component.extend({
    * @type {String}
    */
   defaultSuggestContentType: 'collection',
+
+  /**
+   * Maintains the state of student report pullup
+   * @type {Boolean}
+   */
+  isShowStudentReport: false,
 
   //--------------------------------------------------------------------------
   // Methods
