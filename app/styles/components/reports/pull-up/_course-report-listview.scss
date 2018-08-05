@@ -1,4 +1,4 @@
-.reports.pull-up-lesson-report-listview {
+.reports.pull-up-course-report-listview {
   position: relative;
 
   .table-fixed-left {
@@ -144,37 +144,13 @@
             margin-right: 5px;
             margin-top: 5px;
 
-            i {
-              background-repeat: no-repeat;
-              width: 30px;
-              height: 30px;
-              display: block;
-              background-position: 6px 7px;
-              background-size: 18px 18px;
+            span {
+              color: #fff;
+              margin-left: 8px;
+              font-size: 12px;
+              font-weight: bold;
+              line-height: 31px;
             }
-
-            &.collection {
-              i {
-                background-image: url("../assets/gooru/images/add_collection.svg");
-                background-position: 5px 6px;
-              }
-              border: 1px solid #37424b;
-            }
-
-            &.assessment {
-              i {
-                background-image: url("../assets/gooru/images/assessment-white.svg");
-              }
-            }
-          }
-
-          &.not-started {
-            .content-icon {
-              &.collection {
-                opacity: 0.5;
-              }
-            }
-            pointer-events: none;
           }
 
           .content-title {
@@ -213,12 +189,6 @@
           justify-content: center;
 
           .content-score-value {
-            width: calc(200px / 2);
-            text-align: center;
-            line-height: 40px;
-          }
-
-          .timespent-value {
             width: calc(200px / 2);
             text-align: center;
             line-height: 40px;
