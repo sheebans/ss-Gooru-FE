@@ -1,0 +1,68 @@
+<div class="report-backdrop" {{action 'onPullUpClose'}}></div>
+<div class="course-report-container">
+  <div class="report-header">
+    <div class="report-breadcrumb">
+      <div class="course-title">
+        <i class="course-icon"></i>
+        <p>{{t 'common.course'}} : {{course.title}}</p>
+      </div>
+    </div>
+    <div class="report-close-pullup" {{action 'onPullUpClose'}}>
+      {{gru-icon name="close" }}
+    </div>
+  </div>
+  <div class="report-content">
+    <div class="report-carousel">
+      <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+            <div data-item-index="{{index}}" class="item active">
+              <div class="course-background-cover" />
+            </div>
+        </div>
+      </div>
+      {{#if isLoading}}
+        <div class="loading-spinner">
+          {{three-bounce-spinner}}
+        </div>
+      {{/if}}
+      <div class="report-carousel-content-container">
+        <div class="report-carousel-content">
+          <div class="performance-display-container">
+            <div class="course-performance-average" style= {{safe-html (concat "background-color:" (grade-color class.performanceSummary.score))}}>
+              {{#if class.performanceSummary.score}}
+                {{class.performanceSummary.score}}%
+              {{else}}
+                --
+              {{/if}}
+            </div>
+          </div>
+          <div class="course-report-chart">
+            {{charts.report-bar-chart useTimeSpentScore=false studentChartReportData=studentChartReportData onClickChart="onClickChart"}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-performance-tabular">
+      <div class="report-header-container">
+        <div class="filter-btns">
+          <div class="performance-icon">
+            {{gru-icon name="done_all"}}
+            <span>{{t 'gru-course-play.performance'}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-view-container">
+        {{reports.pull-up.course-report-listview
+          sortByFirstnameEnabled=sortByFirstnameEnabled
+          sortByLastnameEnabled=sortByLastnameEnabled
+          contents=units
+          studentReportData=studentReportData
+          course=course
+          openUnitReport="openUnitReport"
+        }}
+      </div>
+    </div>
+  </div>
+</div>

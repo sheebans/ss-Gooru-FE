@@ -110,12 +110,8 @@
 
 
 </div>
-{{#if showCourseReportPullUp}}
-  {{#reports.gru-report-pull-up  breadcrumb=(concat 'Course') title=course.title  showPullUp=showCourseReportPullUp  as |courseReport| }}
-    {{#if courseReport.isShowBody}}
-        {{reports.gru-course-report-body-pull-up courseData=course  classData=class showPullUp=showCourseReportPullUp onClosePullUp="onClosePullUp" onOpenUnitReport="onOpenUnitReport"}}
-    {{/if}}
-  {{/reports.gru-report-pull-up}}
+{{#if isShowCourseReport}}
+    {{reports.pull-up.course-report context=courseReportData showPullUp=isShowCourseReport onOpenUnitReport="onOpenUnitReport"}}
 {{/if}}
 
 {{#if isShowUnitReportPullUp}}
