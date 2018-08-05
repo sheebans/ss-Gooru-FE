@@ -4,25 +4,13 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'pull-up-lesson-report-listview'],
+  classNames: ['reports', 'pull-up-unit-report-listview'],
 
   // -------------------------------------------------------------------------
   // Properties
 
   /**
-   * This property will get change based on filter selection.
-   * @type {Boolean}
-   */
-  isPerformanceFltApplied: false,
-
-  /**
-   * This property will get change based on filter selection, by default timespent filter off.
-   * @type {Boolean}
-   */
-  isTimeSpentFltApplied: false,
-
-  /**
-   * List of contents associated with lesson
+   * List of contents associated with unit
    * @type {Array}
    */
   contents: Ember.A(),
@@ -50,15 +38,45 @@ export default Ember.Component.extend({
 
   actions: {
     sortByFirstName() {
-      this.sendAction('sortByFirstName');
+      let component = this;
+      component.toggleProperty('sortByFirstnameEnabled');
+      if (component.get('sortByFirstnameEnabled')) {
+        component.set(
+          'studentReportData',
+          component.get('studentReportData').sortBy('firstName')
+        );
+      } else {
+        component.set(
+          'studentReportData',
+          component
+            .get('studentReportData')
+            .sortBy('firstName')
+            .reverse()
+        );
+      }
     },
 
     sortByLastName() {
-      this.sendAction('sortByLastName');
+      let component = this;
+      component.toggleProperty('sortByLastnameEnabled');
+      if (component.get('sortByLastnameEnabled')) {
+        component.set(
+          'studentReportData',
+          component.get('studentReportData').sortBy('lastName')
+        );
+      } else {
+        component.set(
+          'studentReportData',
+          component
+            .get('studentReportData')
+            .sortBy('lastName')
+            .reverse()
+        );
+      }
     },
 
-    openCollectionReport(collection, collections) {
-      this.sendAction('openCollectionReport', collection, collections);
+    openLessonReport(lesson, lessons) {
+      this.sendAction('openLessonReport', lesson, lessons);
     },
 
     onClickScrollLeftArrow() {

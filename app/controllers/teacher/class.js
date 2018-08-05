@@ -217,10 +217,10 @@ export default Ember.Controller.extend({
     return classPerformance;
   },
 
-  openUnitReport(unit) {
+  openUnitReport(params) {
     let controller = this;
     controller.set('isShowUnitReportPullUp', true);
-    controller.set('unitPullUpData', unit);
+    controller.set('unitReportData', params);
   },
 
   openLessonReport(params) {

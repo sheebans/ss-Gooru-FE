@@ -43,7 +43,13 @@
         <div class="report-carousel-content">
           <div class="performance-display-container">
             {{#unless hasLessonContainsCollectionOnly}}
-              <div class="lesson-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedLesson.performance.score))}}>{{selectedLesson.performance.score}}%</div>
+              <div class="lesson-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedLesson.performance.score))}}>
+                {{#if (gt selectedLesson.performance.score -1)}}
+                  {{selectedLesson.performance.score}}%
+                {{else}}
+                  --
+                {{/if}}
+              </div>
               {{else}}
                 <div class="lesson-performance-timespent">{{format-time selectedLesson.performance.timeSpent}}</div>
             {{/unless}}
