@@ -1,8 +1,7 @@
 <div class="profile-navigation col-md-12">
   <div class="category-menu col-md-12 col-sm-12 col-xs-12">
     <ul class="nav nav-tabs category-options">
-
-      <li class="profile-menu-item about" {{action 'selectItem' 'about'}}>
+      <li class="profile-menu-item about {{if (eq source 'study-player') 'hide'}}" {{action 'selectItem' 'about'}}>
         <a href='{{view.href}}' class="btn btn-category">
           {{#if isMyProfile}}
             <span>{{t "profile.gru-navigation.about-me"}}</span>

@@ -18,7 +18,7 @@
                         </li>
                     {{/if}}
                 {{/if}}
-                <li role="separator" class="divider {{if (not isStudyPlayer) 'hide'}}"></li>
+                <li role="separator" class="divider {{if (and (not isStudyPlayer) (eq ILActivity 'true')) 'hide'}}"></li>
                 <li class="course-map study-player tab">
                     {{#if (eq selectedMenuItem 'course-map')}}
                         <a {{action 'selectItem' 'study-player'}} role="tab" data-toggle="tooltip" title="{{t 'student-landing.study-player'}}">
@@ -39,6 +39,15 @@
             {{/unless}}
             <li role="separator" class="divider"></li>
             <li class="performance tab">
+                <a {{action 'selectItem' 'profile'}} role="tab" data-toggle="tooltip" title="{{t 'common.myProfile'}} ">
+                    {{gru-icon name='account_circle'}}
+                    <span class="my-profile">
+                      &nbsp; {{t 'common.myProfile'}}
+                    </span>
+                </a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li class="performance tab">
                 <a {{action 'selectItem' 'performance'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.report'}} ">
                     {{gru-icon name='insert_chart'}}
                 </a>
@@ -57,15 +66,13 @@
                 <li role="separator" class="divider hidden"></li>
             {{/unless}}
             {{#if navTitle}}
-            <ul class="nav navbar-nav navbar-center">
-                <li class="studyplayer-title">
-                    <a style=" opacity:1; ">
-                         <span>
-                     {{navTitle}}
-                     </span>
-                    </a>
-                </li>
-            </ul>
+              <li class="studyplayer-title">
+                  <a class="ellipsis" style=" opacity:1; ">
+                       <span>
+                   {{navTitle}}
+                   </span>
+                  </a>
+              </li>
             {{/if}}
             <ul class="nav navbar-nav navbar-right">
                 {{#if hasClassInfo }}

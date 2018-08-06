@@ -2,6 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   classNames: ['gru-study-navbar'],
+
+  session: Ember.inject.service('session'),
+
+
   actions: {
     /**
      *
@@ -9,12 +13,19 @@ export default Ember.Component.extend({
      * @param item
      */
     selectItem: function(item) {
+      let component = this;
       if (this.get('onItemSelected')) {
-        this.selectItem(item);
-        if (item === 'class-info') {
-          $('.classroom-information').toggle({ direction: 'left' }, 1000);
+        if (item === 'profile') {
+          let userId = component.get('session.userId');
+          Ember.$('body').removeClass('fullscreen').removeClass('fullscreen-exit');
+          component.get('router').transitionTo(`/${userId}/proficiency?source=study-player`);
         } else {
-          this.sendAction('onItemSelected', item);
+          this.selectItem(item);
+          if (item === 'class-info') {
+            $('.classroom-information').toggle({ direction: 'left' }, 1000);
+          } else {
+            this.sendAction('onItemSelected', item);
+          }
         }
       }
     },

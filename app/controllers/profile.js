@@ -17,7 +17,7 @@ export default Ember.Controller.extend({
 
   aboutController: Ember.inject.controller('profile/about'),
 
-  queryParams: ['classId'],
+  queryParams: ['classId', 'source'],
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -140,6 +140,12 @@ export default Ember.Controller.extend({
    * User selected class id
    */
   classId: null,
+
+  /**
+   * @type {String}
+   * From where the profile is initiated
+   */
+  source: null,
 
   // -------------------------------------------------------------------------
   // Observers

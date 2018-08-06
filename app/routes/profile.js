@@ -8,6 +8,9 @@ export default Ember.Route.extend({
   queryParams: {
     classId: {
       refreshModel: true
+    },
+    source: {
+      refreshModel: true
     }
   },
   /**
@@ -70,6 +73,7 @@ export default Ember.Route.extend({
     ]);
 
     let userId = params.userId;
+    let source = params.source;
     if (userId) {
       let isUsername = !/-.*-/.exec(userId);
       let profilePromise = isUsername
@@ -92,15 +96,16 @@ export default Ember.Route.extend({
         return Ember.RSVP.hash({
           profile: editProfile,
           tourSteps: tourSteps,
-          loginUserProfile: loginUserProfile
+          loginUserProfile: loginUserProfile,
+          source
         });
       });
     }
-
     return Ember.RSVP.hash({
       profile: null,
       tourSteps: tourSteps,
-      loginUserProfile: null
+      loginUserProfile: null,
+      source
     });
   },
 
@@ -113,6 +118,7 @@ export default Ember.Route.extend({
     controller.set('profile', model.profile);
     controller.set('steps', model.tourSteps);
     controller.set('currentLoginUser', model.loginUserProfile);
+    controller.set('profileSource', model.source);
   },
 
   // -------------------------------------------------------------------------
