@@ -297,6 +297,20 @@ export default Ember.Component.extend(AccordionMixin, {
 
   showUnitReportPullUp: false,
 
+  /**
+   * rescoped class average performance hide for teacher's
+   * @property {Ember.Array}
+   */
+  isPremiumClassForTeacher: Ember.computed('isPremiumClass', function() {
+    let component = this;
+    let isPremiumClass = component.get('isPremiumClass');
+    let isTeacher = component.get('isTeacher');
+    if (isPremiumClass && isTeacher) {
+      return true;
+    }
+    return false;
+  }),
+
   // -------------------------------------------------------------------------
   // Observers
 
