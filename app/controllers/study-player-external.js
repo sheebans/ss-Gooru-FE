@@ -30,6 +30,8 @@ export default Ember.Controller.extend({
    */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
+  studyPlayerController: Ember.inject.controller('study-player'),
+
   /**
    * @dependency {i18nService} Service to retrieve translations information
    */
@@ -42,7 +44,10 @@ export default Ember.Controller.extend({
      * Action triggered for the next button
      */
     next: function() {
-      this.playNextContent();
+      let controller = this;
+      let studyPlayerController = controller.get('studyPlayerController');
+      studyPlayerController.toggleScreenMode();
+      controller.playNextContent();
     }
   },
 

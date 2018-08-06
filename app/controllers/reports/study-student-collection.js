@@ -54,6 +54,11 @@ export default StudentCollection.extend({
   session: Ember.inject.service('session'),
 
   /**
+   * @requires studyPlayerController
+   */
+  studyPlayerController: Ember.inject.controller('study-player'),
+
+  /**
    * @dependency {i18nService} Service to retrieve translations information
    */
   i18n: Ember.inject.service(),
@@ -101,6 +106,7 @@ export default StudentCollection.extend({
           } else {
             controller.checknPlayNext();
           }
+          controller.toggleScreenMode();
         });
     },
     /**
@@ -160,6 +166,22 @@ export default StudentCollection.extend({
       let controller = this;
       controller.playNextContent();
       controller.set('isShowSuggestion', false);
+    },
+
+    /**
+     * Action triggered when toggle screen mode
+     */
+    onToggleScreen() {
+      let controller = this;
+      let studyPlayerController = controller.get('studyPlayerController');
+      let isFullScreen = studyPlayerController.get('isFullScreen');
+      studyPlayerController.set('isFullScreen', !isFullScreen);
+      controller.set('isFullScreen', !isFullScreen);
+      if (isFullScreen) {
+        Ember.$('body').removeClass('fullscreen').addClass('fullscreen-exit');
+      } else {
+        Ember.$('body').removeClass('fullscreen-exit').addClass('fullscreen');
+      }
     }
   },
 
@@ -439,6 +461,16 @@ export default StudentCollection.extend({
    */
   isShowSuggestion: false,
 
+  /**
+   * @property {Boolean} isFullScreen
+   */
+  isFullScreen: Ember.computed(function() {
+    let controller = this;
+    let studyPlayerController = controller.get('studyPlayerController');
+    let isFullScreen = studyPlayerController.get('isFullScreen');
+    return isFullScreen;
+  }),
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -566,5 +598,15 @@ export default StudentCollection.extend({
       collectionId: null,
       type: null
     });
+  },
+
+  /**
+   * @function toggleScreenMode
+   * Method to toggle screen mode
+   */
+  toggleScreenMode() {
+    let controller = this;
+    let studyPlayerController = controller.get('studyPlayerController');
+    studyPlayerController.toggleScreenMode();
   }
 });

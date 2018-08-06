@@ -369,14 +369,18 @@
 }
 
 .gru-study-navbar .study-player-brand {
-  background-image: url("gooru/images/gooru-logo.svg");
-  background-repeat: no-repeat;
+  padding: 0 8px;
   background-color: $white;
-  width: 110px;
-  height: 51px !important;
-  background-size: 110px 51px;
   a {
-    width: 100%;
-    height: 100%;
+    background-image: url("gooru/images/gooru-logo.svg");
+    background-repeat: no-repeat;
+    background-color: $white;
+    width: 110px;
+    height: 50px !important;
+    background-size: 110px 50px;
+    opacity: 1 !important;
+    &:hover, &:focus {
+      background-color: $white !important;
+    }
   }
 }

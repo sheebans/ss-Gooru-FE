@@ -27,6 +27,13 @@ export default Ember.Component.extend({
       if (this.onCollapseExpandClicked) {
         this.sendAction('onCollapseExpandClicked', this.get('toggleState'));
       }
+    },
+
+    /**
+     * Action triggered when click brand logo
+     */
+    onClickBrand() {
+      Ember.$('body').removeClass('fullscreen').removeClass('fullscreen-exit');
     }
   },
 
@@ -37,14 +44,18 @@ export default Ember.Component.extend({
    * DidInsertElement ember event
    */
   didInsertElement: function() {
-    var item = this.get('selectedMenuItem');
-    this.selectItem(item);
-    if (
-      Ember.$('.gru-study-navbar').length > 0 &&
-      Ember.$('.student-independent-container').length > 0
-    ) {
-      Ember.$('.student-independent-container').css({ 'padding-top': '64px' });
+    let component = this;
+    var item = component.get('selectedMenuItem');
+    component.selectItem(item);
+    if (component.get('isStudyPlayer')) {
+      Ember.$('body').removeClass('fullscreen-exit');
+      if (component.get('isFullScreen')) {
+        Ember.$('body').addClass('fullscreen');
+      }
+    } else {
+      Ember.$('body').addClass('fullscreen-exit');
     }
+
   },
 
   willDestroyElement() {
