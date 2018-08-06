@@ -46,6 +46,18 @@ export default Ember.Component.extend({
   sortByLastnameEnabled: true,
 
   /**
+   * Maintain the status of sort by score
+   * @type {String}
+   */
+  sortByScoreEnabled: false,
+
+  /**
+   * Maintain the status of sort by Time spent
+   * @type {String}
+   */
+  sortByTimeSpentEnabled: false,
+
+  /**
    * Maintains the state of suggestion  pull up
    * @type {Boolean}
    */
@@ -129,6 +141,40 @@ export default Ember.Component.extend({
             .reverse()
         );
       }
+    },
+
+    sortByScore() {
+      let component = this;
+      component.toggleProperty('sortByScoreEnabled');
+      let studentReportData;
+      if (component.get('sortByScoreEnabled')) {
+        studentReportData = component
+          .get('studentReportData')
+          .sortBy('score-use-for-sort')
+          .reverse();
+      } else {
+        studentReportData = component
+          .get('studentReportData')
+          .sortBy('score-use-for-sort');
+      }
+      component.set('studentReportData', studentReportData);
+    },
+
+    sortByTimeSpent() {
+      let component = this;
+      component.toggleProperty('sortByTimeSpentEnabled');
+      let studentReportData;
+      if (component.get('sortByTimeSpentEnabled')) {
+        studentReportData = component
+          .get('studentReportData')
+          .sortBy('totalTimeSpent')
+          .reverse();
+      } else {
+        studentReportData = component
+          .get('studentReportData')
+          .sortBy('totalTimeSpent');
+      }
+      component.set('studentReportData', studentReportData);
     },
 
     onClickScrollLeftArrow() {

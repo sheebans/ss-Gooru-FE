@@ -56,9 +56,9 @@
           </div>
           <div class="lesson-report-chart">
             {{#if hasLessonContainsCollectionOnly }}
-              {{charts.report-bar-chart useTimeSpentScore=true studentChartReportData=collectionStudentChartReportData onClickChart="onClickChart"}}
+              {{charts.report-bar-chart useTimeSpentScore=true studentChartReportData=collectionStudentReportData onClickChart="onClickChart"}}
             {{else}}
-              {{charts.report-bar-chart useTimeSpentScore=false studentChartReportData=assessmentStudentChartReportData onClickChart="onClickChart"}}
+              {{charts.report-bar-chart useTimeSpentScore=false studentChartReportData=assessmentStudentReportData onClickChart="onClickChart"}}
             {{/if}}
           </div>
         </div>

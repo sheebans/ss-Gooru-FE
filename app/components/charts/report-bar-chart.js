@@ -49,8 +49,8 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-    onClickChart(userId) {
-      this.sendAction('onClickChart', userId);
+    onClickChart(userId, showReport) {
+      this.sendAction('onClickChart', userId, showReport);
     },
 
     onClickPrev() {
@@ -60,8 +60,16 @@ export default Ember.Component.extend({
     onClickNext() {
       this.$('#report-bar-carousel-wrapper').carousel('next');
     }
-  }
+  },
 
   // -------------------------------------------------------------------------
   // Events
+
+  didRender() {
+    const component = this;
+    component.$('[data-toggle="tooltip"]').tooltip({
+      trigger: 'hover',
+      container: 'body'
+    });
+  }
 });

@@ -23,13 +23,25 @@
               {{/if}}
               </span>
             </div>
-            <div class="score-timespent">
-              {{#if (eq selectedCollection.format 'assessment')}}
+            {{#if (eq selectedCollection.format 'assessment')}}
+              <div class="score-timespent {{if sortByScoreEnabled 'active'}}" {{action 'sortByScore'}}>
                 <span>{{t 'common.score'}}</span>
-              {{else}}
+                {{#if sortByScoreEnabled}}
+                  {{gru-icon name="keyboard_arrow_up"}}
+                {{else}}
+                  {{gru-icon name="keyboard_arrow_down"}}
+                {{/if}}
+              </div>
+            {{else}}
+              <div class="score-timespent {{if sortByTimeSpentEnabled 'active'}}" {{action 'sortByTimeSpent'}}>
                 <span>{{t 'gru-performance-summary.time-spent'}}</span>
-              {{/if}}
-            </div>
+                {{#if sortByTimeSpentEnabled}}
+                  {{gru-icon name="keyboard_arrow_up"}}
+                {{else}}
+                  {{gru-icon name="keyboard_arrow_down"}}
+                {{/if}}
+              </div>
+            {{/if}}
           </div>
         </th>
       </tr>
