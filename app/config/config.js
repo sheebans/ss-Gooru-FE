@@ -332,3 +332,13 @@ export const SUGGESTION_FILTER_BY_CONTENT_TYPES = [
     label: 'search-filter.assessments'
   }
 ];
+
+//Competency status
+export const COMPETENCY_STATUS = [
+  'Not Started',
+  'In progress',
+  'Inferred',
+  'Inferred',
+  'Mastered',
+  'Mastered'
+];

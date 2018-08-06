@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import {COMPETENCY_STATUS} from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
 
@@ -45,6 +46,15 @@ export default Ember.Component.extend({
    * Property to store pull up type
    */
   type: '',
+
+  /**
+   * @property {String} competencyStatus
+   */
+  competencyStatus: Ember.computed('competency', function() {
+    let component = this;
+    let competency = component.get('competency');
+    return COMPETENCY_STATUS[competency.status];
+  }),
 
 
   // -------------------------------------------------------------------------

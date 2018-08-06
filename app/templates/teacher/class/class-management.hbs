@@ -261,9 +261,16 @@
            subjectBucket=subjectBucket
            class=class
            course=course
+           onSelectCompetency="onSelectCompetency"
            }}
       {{/if}}
     {{/gru-pull-up}}
+  {{/if}}
+
+  {{#if isShowCompetencyContentReport}}
+    {{#reports.pull-up.competency-report type=selectedCompetency.competencyCode title=selectedCompetency.competencyStudentDesc showPullUp=isShowCompetencyContentReport onClosePullUp="onClosePullUp" competency=selectedCompetency}}
+      {{reports.pull-up.competency-content-report competency=selectedCompetency userId=selectedStudent.id}}
+    {{/reports.pull-up.competency-report}}
   {{/if}}
 
 </div>

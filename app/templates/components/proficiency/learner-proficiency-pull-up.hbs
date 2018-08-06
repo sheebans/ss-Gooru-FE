@@ -25,10 +25,12 @@
   </div>
   <div class="body">
     <div class="proficiency-chart">
-        {{proficiency.learner-proficiency-domain-matrix subjectBucket=subjectBucket timeLine=timeLine userId=student.id subject=activeSubject class=class}}
+        {{proficiency.learner-proficiency-domain-matrix subjectBucket=subjectBucket timeLine=timeLine userId=student.id subject=activeSubject class=class onShownBaseLine="onShownBaseLine" onSelectCompetency="onSelectCompetency"}}
     </div>
-    <div class="time-series">
-      {{charts.monthly-time-series-chart onSelectMonth="onSelectMonth" startDate=courseStartDate}}
-    </div>
+    {{#if isShowTimeSeries}}
+      <div class="time-series">
+        {{charts.monthly-time-series-chart onSelectMonth="onSelectMonth" startDate=timeSeriesStartDate}}
+      </div>
+    {{/if}}
   </div>
 </div>

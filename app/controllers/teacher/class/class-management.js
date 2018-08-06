@@ -30,6 +30,7 @@ export default Ember.Controller.extend(ModalMixin, {
       this.set('showPathWayPullUp', false);
       this.set('showReportPullUp', false);
       this.set('isShowProficiencyPullup', false);
+      this.set('isShowCompetencyContentReport', false);
     },
     /**
      * Archive class
@@ -222,12 +223,20 @@ export default Ember.Controller.extend(ModalMixin, {
      * Method to show student report in pathway pullup
      */
     onOpenStudentReport(reportData, model) {
-      let component = this;
       let controller = this;
       controller.set('showReportPullUp', true);
       controller.set('reportData', reportData);
       controller.set('model', model);
-      component.set('isLoading', true);
+      controller.set('isLoading', true);
+    },
+
+    /**
+     * Action triggered when select a competency
+     */
+    onSelectCompetency(competency) {
+      let controller = this;
+      controller.set('selectedCompetency', competency);
+      controller.set('isShowCompetencyContentReport', true);
     }
   },
 
@@ -346,6 +355,11 @@ export default Ember.Controller.extend(ModalMixin, {
     let isCourseAssigned = classData ? classData.courseId || false : false;
     return isCourseAssigned;
   }),
+
+  /**
+   * @property {Boolean} isShowCompetencyContentReport
+   */
+  isShowCompetencyContentReport: false,
 
   // -------------------------------------------------------------------------
   // Observers

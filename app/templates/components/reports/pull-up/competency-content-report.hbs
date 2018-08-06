@@ -1,0 +1,10 @@
+<div class="competency-performance">
+  <div class="competency-name">
+    {{competency.competencyName}}
+  </div>
+  <div class="collections-accordion">
+    {{#each collectionPerformances as |collectionPerformance|}}
+      {{reports.pull-up.accordion.collection-accordion collection=collectionPerformance userId=userId}}
+    {{/each}}
+  </div>
+</div>

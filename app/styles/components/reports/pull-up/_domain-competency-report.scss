@@ -99,6 +99,9 @@
               height: 37px;
               margin-top: 6px;
               border-bottom: 1px solid rgba(151, 151, 151, 0.2);
+              rect {
+                cursor: pointer;
+              }
             }
           }
 
