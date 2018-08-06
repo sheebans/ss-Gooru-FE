@@ -338,7 +338,7 @@ export const COMPETENCY_STATUS = [
   'Not Started',
   'In progress',
   'Inferred',
-  'Asserted',
-  'Earned',
-  'Demonstrated'
+  'Inferred',
+  'Mastered',
+  'Mastered'
 ];

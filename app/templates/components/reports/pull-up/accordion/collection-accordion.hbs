@@ -5,16 +5,9 @@
     </div>
     <div class="collection-info">
       <div class="title">
-        <div class="clickable" {{action "onClickCollectionTitle" collection}}>
+        <div class="clickable">
           <div class="title-text ellipsis">
             {{safe-html collection.title}}
-          </div>
-          <div class="arrow-icon">
-            {{#if isExpanded}}
-              {{gru-icon name="arrow_drop_up"}}
-            {{else}}
-              {{gru-icon name="arrow_drop_down"}}
-            {{/if}}
           </div>
         </div>
       </div>

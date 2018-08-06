@@ -58,6 +58,14 @@ export default Ember.Component.extend({
       let component = this;
       component.set('timeSeriesStartDate', createdDate ? new Date(createdDate) : component.get('courseStartDate'));
       component.set('isShowTimeSeries', true);
+    },
+
+    /**
+     * Action triggered when select a competency
+     */
+    onSelectCompetency(competency) {
+      let component = this;
+      component.sendAction('onSelectCompetency', competency);
     }
   },
 

@@ -25,7 +25,7 @@
   </div>
   <div class="body">
     <div class="proficiency-chart">
-        {{proficiency.learner-proficiency-domain-matrix subjectBucket=subjectBucket timeLine=timeLine userId=student.id subject=activeSubject class=class onShownBaseLine="onShownBaseLine"}}
+        {{proficiency.learner-proficiency-domain-matrix subjectBucket=subjectBucket timeLine=timeLine userId=student.id subject=activeSubject class=class onShownBaseLine="onShownBaseLine" onSelectCompetency="onSelectCompetency"}}
     </div>
     {{#if isShowTimeSeries}}
       <div class="time-series">

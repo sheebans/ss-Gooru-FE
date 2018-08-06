@@ -231,6 +231,9 @@ export default Ember.Component.extend({
       })
       .attr('width', cellWidth)
       .attr('height', cellHeight)
+      .on('click', function(d) {
+        component.sendAction('onSelectCompetency', d);
+      })
       .attr('yaxis-seq', d => d.yAxisSeq)
       .style('fill', '#EAEAEA')
       .transition()
@@ -308,6 +311,7 @@ export default Ember.Component.extend({
             competencyCode: competencyCode,
             competencyName: competencyName,
             competencySeq: competencySeq,
+            competencyStudentDesc: competency.get('competencyStudentDesc'),
             status: status
           });
           if (status === 2 || status === 3 || status === 4 || status === 5) {
