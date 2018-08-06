@@ -297,5 +297,19 @@ export default PlayerController.extend({
       type: null,
       isStudyPlayer: true
     });
+  },
+
+  /**
+   * @function toggleScreenMode
+   * Method to toggle screen mode
+   */
+  toggleScreenMode() {
+    let controller = this;
+    let isFullScreen = controller.get('isFullScreen');
+    if (isFullScreen) {
+      Ember.$('body').addClass('fullscreen');
+    } else {
+      Ember.$('body').removeClass('fullscreen');
+    }
   }
 });

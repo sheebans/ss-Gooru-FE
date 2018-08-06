@@ -25,6 +25,14 @@ export default Ember.Component.extend({
      */
     parentNext: function() {
       this.sendAction('parents');
+    },
+
+    /**
+     * Action triggered when toggle screen mode
+     */
+    onToggleScreen() {
+      let component = this;
+      component.sendAction('onToggleScreen');
     }
   }
 });

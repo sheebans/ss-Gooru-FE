@@ -5,12 +5,12 @@
     padding: 0;
   }
 
-  .gru-footer {
+  .gru-header, .gru-footer {
     display: none;
   }
 
   .report-container {
-    padding-top: 104px;
+    padding-top: 50px;
     // height: 100vh;
     // overflow: auto;
     .suggestion-panel {
@@ -62,7 +62,18 @@
       opacity: 0.4;
     }
   }
-  .bar-charts {
-    top: 116px !important;
+}
+
+body.reports_study-student-collection {
+  &.fullscreen {
+    .gru-study-navbar {
+      display: none;
+    }
+    .bar-charts {
+      top: 0 !important;
+    }
+    .report-container {
+      padding-top: 0;
+    }
   }
 }
