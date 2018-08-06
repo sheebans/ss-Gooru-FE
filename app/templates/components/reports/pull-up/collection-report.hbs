@@ -55,9 +55,9 @@
           </div>
           <div class="collection-report-chart">
             {{#if (eq selectedCollection.format 'assessment') }}
-              {{charts.report-bar-chart useTimeSpentScore=false studentChartReportData=studentChartReportData onClickChart="onClickChart"}}
+              {{charts.report-bar-chart useTimeSpentScore=false studentChartReportData=studentReportData onClickChart="onClickChart"}}
             {{else}}
-              {{charts.report-bar-chart useTimeSpentScore=true studentChartReportData=studentChartReportData onClickChart="onClickChart"}}
+              {{charts.report-bar-chart useTimeSpentScore=true studentChartReportData=studentReportData onClickChart="onClickChart"}}
             {{/if}}
           </div>
         </div>
@@ -111,6 +111,7 @@
             sortByFirstnameEnabled=sortByFirstnameEnabled
             sortByLastnameEnabled=sortByLastnameEnabled
             sortByScoreEnabled=sortByScoreEnabled
+            sortByTimeSpentEnabled=sortByTimeSpentEnabled
             contents=collection.children
             studentReportData=studentReportData
             selectedCollection=selectedCollection

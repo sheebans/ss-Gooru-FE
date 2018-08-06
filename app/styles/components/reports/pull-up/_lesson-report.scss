@@ -230,7 +230,9 @@
               margin-left: 28px;
             }
             .bar-chart-container {
-              pointer-events: none;
+              .bar-chart {
+                cursor: default;
+              }
             }
           }
         }
@@ -378,6 +380,7 @@
             .timespent-icon {
               &.collection {
                 pointer-events: none;
+                opacity: 1;
               }
             }
           }

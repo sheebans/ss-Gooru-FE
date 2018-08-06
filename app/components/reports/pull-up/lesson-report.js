@@ -15,11 +15,6 @@ export default Ember.Component.extend({
   performanceService: Ember.inject.service('api-sdk/performance'),
 
   /**
-   * @type {ClassService} Service to retrieve class information
-   */
-  classService: Ember.inject.service('api-sdk/class'),
-
-  /**
    * @type {LessonService} Service to retrieve lesson information
    */
   lessonService: Ember.inject.service('api-sdk/lesson'),
@@ -253,22 +248,10 @@ export default Ember.Component.extend({
   collectionStudentReportData: Ember.A([]),
 
   /**
-   * Collection Stutent  chart report data
-   * @type {Object}
-   */
-  collectionStudentChartReportData: Ember.A([]),
-
-  /**
    * Assessment Stutent  report data
    * @type {Object}
    */
   assessmentStudentReportData: Ember.A([]),
-
-  /**
-   * Assessment Stutent  chart report data
-   * @type {Object}
-   */
-  assessmentStudentChartReportData: Ember.A([]),
 
   /**
    * It maintains the state of loading
@@ -501,11 +484,9 @@ export default Ember.Component.extend({
     let component = this;
     let classMembers = component.get('classMembers');
     let users = Ember.A([]);
-    let usersChartData = Ember.A([]);
     let usersTotaltimeSpent = Ember.A([]);
     classMembers.forEach(member => {
       let user = component.createUser(member);
-      let userChartData = component.createUser(member);
       let collections = component
         .get('collections')
         .filterBy('format', collectionType);
@@ -521,26 +502,19 @@ export default Ember.Component.extend({
       user.set('overAllScore', resultSet.overAllScore);
       user.set('hasStarted', resultSet.hasStarted);
       user.set('totalTimeSpent', resultSet.totalTimeSpent);
+      user.set('score', resultSet.overAllScore);
+      user.set('difference', 100 - resultSet.overAllScore);
       users.pushObject(user);
-      userChartData.set('score', resultSet.overAllScore);
-      userChartData.set('totalTimeSpent', resultSet.totalTimeSpent);
-      userChartData.set('difference', 100 - resultSet.overAllScore);
-      userChartData.set('hasStarted', resultSet.hasStarted);
-      usersChartData.pushObject(userChartData);
       usersTotaltimeSpent.push(resultSet.totalTimeSpent);
     });
     users = users.sortBy(component.get('defaultSortCriteria'));
-    usersChartData = usersChartData.sortBy(
-      component.get('defaultSortCriteria')
-    );
+
     if (collectionType === 'collection') {
-      component.set('collectionStudentReportData', users);
       let maxTimeSpent = Math.max(...usersTotaltimeSpent);
-      component.calculateTimeSpentScore(usersChartData, maxTimeSpent);
-      component.set('collectionStudentChartReportData', usersChartData);
+      component.calculateTimeSpentScore(users, maxTimeSpent);
+      component.set('collectionStudentReportData', users);
     } else if (collectionType === 'assessment') {
       component.set('assessmentStudentReportData', users);
-      component.set('assessmentStudentChartReportData', usersChartData);
     }
   },
 
@@ -634,8 +608,8 @@ export default Ember.Component.extend({
     }
   },
 
-  calculateTimeSpentScore(usersChartData, maxTimeSpent) {
-    usersChartData.forEach(data => {
+  calculateTimeSpentScore(users, maxTimeSpent) {
+    users.forEach(data => {
       let timeSpentScore = Math.round(
         (data.get('totalTimeSpent') / maxTimeSpent) * 100
       );

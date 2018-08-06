@@ -116,12 +116,6 @@ export default Ember.Component.extend({
   studentReportData: Ember.A([]),
 
   /**
-   * Stutent  chart report data
-   * @type {Object}
-   */
-  studentChartReportData: Ember.A([]),
-
-  /**
    * It maintains the state of loading
    * @type {Boolean}
    */
@@ -241,10 +235,8 @@ export default Ember.Component.extend({
     let component = this;
     let classMembers = component.get('classMembers');
     let users = Ember.A([]);
-    let usersChartData = Ember.A([]);
     classMembers.forEach(member => {
       let user = component.createUser(member);
-      let userChartData = component.createUser(member);
       let units = component.get('units');
       let performanceData = performance.get('studentPerformanceData');
       let userId = member.get('id');
@@ -257,18 +249,12 @@ export default Ember.Component.extend({
       user.set('userPerformanceData', resultSet.userPerformanceData);
       user.set('overAllScore', resultSet.overAllScore);
       user.set('hasStarted', resultSet.hasStarted);
+      user.set('score', resultSet.overAllScore);
+      user.set('difference', 100 - resultSet.overAllScore);
       users.pushObject(user);
-      userChartData.set('score', resultSet.overAllScore);
-      userChartData.set('difference', 100 - resultSet.overAllScore);
-      userChartData.set('hasStarted', resultSet.hasStarted);
-      usersChartData.pushObject(userChartData);
     });
     users = users.sortBy(component.get('defaultSortCriteria'));
-    usersChartData = usersChartData.sortBy(
-      component.get('defaultSortCriteria')
-    );
     component.set('studentReportData', users);
-    component.set('studentChartReportData', usersChartData);
   },
 
   createUser(user) {

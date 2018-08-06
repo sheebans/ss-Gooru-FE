@@ -5,7 +5,7 @@
         <div class="item {{if (eq index 0) 'active'}}">
           <div class="bars-container">
             {{#each data as |chartData|}}
-              <div class="bar-chart-container {{unless chartData.hasStarted 'not-started'}}" {{action 'onClickChart' chartData.id}}>
+              <div class="bar-chart-container {{unless chartData.hasStarted 'not-started'}}" {{action 'onClickChart' chartData.id chartData.hasStarted}}>
                 <div class="bar-chart">
                   <svg width="10" height="100">
                     {{#if chartData.hasStarted}}
@@ -20,7 +20,7 @@
                     {{/if}}
                   </svg>
                 </div>
-                <div class="user-profile-img">
+                <div class="user-profile-img" title="{{chartData.firstName}} {{chartData.lastName}}" data-toggle="tooltip" data-placement="bottom" data-trigger="hover">
                   <img src="{{chartData.avatarUrl}}">
                 </div>
               </div>

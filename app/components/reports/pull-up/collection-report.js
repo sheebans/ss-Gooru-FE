@@ -119,25 +119,27 @@ export default Ember.Component.extend({
       component.set('isShowStudentReport', true);
     },
 
-    onClickChart(userId) {
-      let component = this;
-      if (!userId) {
-        userId = component.get('session.userId');
+    onClickChart(userId, showReport) {
+      if (showReport) {
+        let component = this;
+        if (!userId) {
+          userId = component.get('session.userId');
+        }
+        let collection = component.get('selectedCollection');
+        let params = {
+          userId: userId,
+          classId: component.get('classId'),
+          courseId: component.get('courseId'),
+          unitId: component.get('unit.id'),
+          lessonId: component.get('lesson.id'),
+          collectionId: collection.get('id'),
+          type: collection.get('format'),
+          lesson: component.get('lesson'),
+          isStudent: component.get('isStudent')
+        };
+        component.set('studentReportContextData', params);
+        component.set('isShowStudentReport', true);
       }
-      let collection = component.get('selectedCollection');
-      let params = {
-        userId: userId,
-        classId: component.get('classId'),
-        courseId: component.get('courseId'),
-        unitId: component.get('unit.id'),
-        lessonId: component.get('lesson.id'),
-        collectionId: collection.get('id'),
-        type: collection.get('format'),
-        lesson: component.get('lesson'),
-        isStudent: component.get('isStudent')
-      };
-      component.set('studentReportContextData', params);
-      component.set('isShowStudentReport', true);
     }
   },
 
@@ -260,12 +262,6 @@ export default Ember.Component.extend({
   studentReportData: Ember.A([]),
 
   /**
-   * Stutent  chart report data
-   * @type {Object}
-   */
-  studentChartReportData: Ember.A([]),
-
-  /**
    * It maintains the state of loading
    * @type {Boolean}
    */
@@ -288,6 +284,18 @@ export default Ember.Component.extend({
    * @type {String}
    */
   sortByLastnameEnabled: true,
+
+  /**
+   * Maintain the status of sort by score
+   * @type {String}
+   */
+  sortByScoreEnabled: false,
+
+  /**
+   * Maintain the status of sort by timeSpent
+   * @type {String}
+   */
+  sortByTimeSpentEnabled: false,
 
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
@@ -431,21 +439,9 @@ export default Ember.Component.extend({
     let component = this;
     let classMembers = component.get('classMembers');
     let users = Ember.A([]);
-    let usersChartData = Ember.A([]);
     let usersTotaltimeSpent = Ember.A([]);
     classMembers.forEach(member => {
-      let user = Ember.Object.create({
-        id: member.id,
-        firstName: member.firstName,
-        lastName: member.lastName,
-        avatarUrl: member.avatarUrl
-      });
-      let userChartData = Ember.Object.create({
-        id: member.id,
-        firstName: member.firstName,
-        lastName: member.lastName,
-        avatarUrl: member.avatarUrl
-      });
+      let user = component.createUser(member);
       let contents = collection.get('children');
       let userPerformance = performance.findBy('user', member.id);
       let resultSet = component.parsePerformanceContentAndUserData(
@@ -457,31 +453,34 @@ export default Ember.Component.extend({
       user.set('hasStarted', resultSet.hasStarted);
       user.set('totalTimeSpent', resultSet.totalTimeSpent);
       user.set('isGraded', resultSet.isGraded);
-      userChartData.set('hasStarted', resultSet.hasStarted);
-      userChartData.set('score', resultSet.overAllScore);
-      userChartData.set('totalTimeSpent', resultSet.totalTimeSpent);
-      userChartData.set('difference', 100 - resultSet.overAllScore);
+      user.set('difference', 100 - resultSet.overAllScore);
+      user.set('score', resultSet.overAllScore);
+      // Reform score value and store in score-use-for-sort field, to handle sort.
+      // -2 defines not started, -1 defines not graded.
+      if (!resultSet.hasStarted) {
+        user.set('score-use-for-sort', -2);
+      } else if (!resultSet.isGraded) {
+        user.set('score-use-for-sort', -1);
+      } else {
+        user.set('score-use-for-sort', resultSet.overAllScore);
+      }
       users.pushObject(user);
-      usersChartData.pushObject(userChartData);
       usersTotaltimeSpent.push(resultSet.totalTimeSpent);
     });
     users = users.sortBy(component.get('defaultSortCriteria'));
-    usersChartData = usersChartData.sortBy(
-      component.get('defaultSortCriteria')
-    );
     if (component.get('selectedCollection').get('format') === 'assessment') {
       users = users.sortBy('isGraded');
-      usersChartData = usersChartData.sortBy('isGraded');
     }
     component.set('sortByLastnameEnabled', true);
     component.set('sortByFirstnameEnabled', false);
+    component.set('sortByScoreEnabled', false);
+    component.set('sortByTimeSpentEnabled', false);
     component.set('studentsSelectedForSuggest', Ember.A([]));
     component.set('suggestResultCount', 0);
     component.set('defaultSuggestContentType', 'collection');
     component.set('studentReportData', users);
     let maxTimeSpent = Math.max(...usersTotaltimeSpent);
-    component.calculateTimeSpentScore(usersChartData, maxTimeSpent);
-    component.set('studentChartReportData', usersChartData);
+    component.calculateTimeSpentScore(users, maxTimeSpent);
     component.handleCarouselControl();
   },
 
@@ -580,13 +579,22 @@ export default Ember.Component.extend({
     }
   },
 
-  calculateTimeSpentScore(usersChartData, maxTimeSpent) {
-    usersChartData.forEach(data => {
+  calculateTimeSpentScore(users, maxTimeSpent) {
+    users.forEach(data => {
       let timeSpentScore = Math.round(
         (data.get('totalTimeSpent') / maxTimeSpent) * 100
       );
       data.set('timeSpentScore', timeSpentScore);
       data.set('timeSpentDifference', 100 - timeSpentScore);
+    });
+  },
+
+  createUser(user) {
+    return Ember.Object.create({
+      id: user.get('id'),
+      firstName: user.get('firstName'),
+      lastName: user.get('lastName'),
+      avatarUrl: user.get('avatarUrl')
     });
   },
 
