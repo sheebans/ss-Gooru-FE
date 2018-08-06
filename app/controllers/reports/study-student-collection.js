@@ -496,12 +496,12 @@ export default StudentCollection.extend({
     const context = this.get('mapLocation.context');
     navigateMapService.next(context).then(nextContext => {
       component.set('mapLocation', nextContext);
-      component.playGivenContent(nextContext);
+      component.playGivenContent(nextContext.context);
     });
   },
 
   playGivenContent: function(context) {
-    let status = (context.context.get('status') || '').toLowerCase();
+    let status = (context.get('status') || '').toLowerCase();
     if (status !== 'done') {
       this.toPlayer();
     } else {
