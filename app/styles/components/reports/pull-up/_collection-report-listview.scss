@@ -260,6 +260,7 @@
             p {
               white-space: normal;
               margin-bottom: 0;
+              padding-right: 8px;
               @include ellipsis(
                 $font-size: 13px,
                 $line-height: 1.2,
