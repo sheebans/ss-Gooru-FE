@@ -66,14 +66,33 @@
 
 body.reports_study-student-collection {
   &.fullscreen {
+    @mixin fullscreenStyle {
+      background-color: #353e47 !important;
+    }
+    @include fullscreenStyle;
+    .qz-assessment-report {
+      @include fullscreenStyle;
+    }
     .gru-study-navbar {
       display: none;
     }
     .bar-charts {
       top: 0 !important;
+      @include fullscreenStyle;
     }
     .report-container {
       padding-top: 0;
+    }
+    .gru-player-summary-footer {
+      @include fullscreenStyle;
+      .resource-title {
+        color: $white;
+      }
+      .toggle-screen {
+        i {
+          color: $white;
+        }
+      }
     }
   }
 }

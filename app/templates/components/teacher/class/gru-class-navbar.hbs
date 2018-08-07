@@ -6,10 +6,9 @@
       </li>
 
         {{#unless class.isArchived}}
-        <li role="separator" class="divider"></li>
         <li class="class-activities tab">
-            <a {{action 'selectItem' 'class-activities'}} title= "{{t 'teacher-landing.class.class-activities'}}" role="tab" data-toggle="tooltip">
-                <img src='/assets/gooru/pin.png'>
+            <a {{action 'selectItem' 'class-activities'}} class="dca" title= "{{t 'teacher-landing.class.class-activities'}}" role="tab" data-toggle="tooltip">
+                <span class="dca-pin"></span>
                 <span class="add-info">
                  &nbsp; {{t 'teacher-landing.class.class-activities'}}
                 </span>
@@ -61,9 +60,10 @@
         {{/if}}
 
         <ul class="nav navbar-nav navbar-right">
+          <li role="separator" class="divider"></li>
             <li>
         {{#if (not isPremiumClass)}}
-        <div class="" {{action 'onOpenCourseReport'}}>
+        <div class="navbar-performance" {{action 'onOpenCourseReport'}}>
             {{charts/gru-performance-chart performanceSummary=class.performanceSummary }}
         </div>
         {{/if}}
@@ -71,7 +71,7 @@
         <li role="separator" class="divider"></li>
         <li class="class-info">
             <a {{action 'selectItem' 'class-info'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.class-management-tab.class-information'}}">
-                <img src='/assets/gooru/information-outline-1.png'>
+                <img src='/assets/gooru/info-outline-white.png'>
             </a>
         </li>
         <li role="separator" class="divider"></li>

@@ -374,10 +374,10 @@
   a {
     background-image: url("gooru/images/gooru-logo.svg");
     background-repeat: no-repeat;
-    background-color: $white;
-    width: 110px;
-    height: 50px !important;
-    background-size: 110px 50px;
+    background-size: contain;
+    width: 56px;
+    height: 30px !important;
+    top: 18px;
     opacity: 1 !important;
     &:hover, &:focus {
       background-color: $white !important;
