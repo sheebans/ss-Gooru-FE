@@ -1,6 +1,6 @@
 .gru-class-navbar {
   position: absolute;
-  top: 63px;
+  top: 0;
   left: 0;
   width: 100%;
 
@@ -40,7 +40,7 @@
       }
     }
 
-    /* 
+    /*
               ##Device = Tablets, Ipads (landscape)
               ##Screen = B/w 768px to 1024px
             */
@@ -52,7 +52,7 @@
       }
     }
 
-    /* 
+    /*
               ##Device = Low Resolution Tablets, Mobiles (Landscape)
               ##Screen = B/w 481px to 767px
             */
@@ -63,7 +63,7 @@
       }
     }
 
-    /* 
+    /*
               ##Device = Most of the Smartphones Mobiles (Portrait)
               ##Screen = B/w 320px to 479px
             */
@@ -81,6 +81,23 @@
       font-size: 16px;
       font-weight: bold;
       pointer-events: none;
+    }
+
+    .app-brand {
+      padding: 0 8px;
+      background-color: $white;
+      a {
+        background-image: url("gooru/images/gooru-logo.svg");
+        background-repeat: no-repeat;
+        background-color: $white;
+        width: 110px;
+        height: 50px !important;
+        background-size: 110px 50px;
+        opacity: 1 !important;
+        &:hover, &:focus {
+          background-color: $white !important;
+        }
+      }
     }
   }
 
@@ -186,8 +203,6 @@
 
 div.teacher.class {
   div.header.clearfix {
-    margin-top: 55px;
-
     > div.go-back-container {
       display: none;
     }
@@ -196,10 +211,6 @@ div.teacher.class {
 
 .hide-classroom-information {
   display: none;
-}
-
-.controller.teacher.class.course-map {
-  margin-top: 50px !important;
 }
 
 .start-tour {

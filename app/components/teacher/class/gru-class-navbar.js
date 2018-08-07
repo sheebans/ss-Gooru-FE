@@ -62,11 +62,13 @@ export default Ember.Component.extend(ConfigurationMixin, {
   didInsertElement: function() {
     var item = this.get('selectedMenuItem');
     this.selectItem(item);
+    Ember.$('header.gru-header').hide();
   },
 
   willDestroyElement() {
     this._super(...arguments);
     this.set('selectedMenuItem', null);
+    Ember.$('header.gru-header').show();
   },
 
   // -------------------------------------------------------------------------
