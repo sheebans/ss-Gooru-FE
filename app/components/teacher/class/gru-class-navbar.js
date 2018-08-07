@@ -124,14 +124,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
         this.$(itemElement).removeClass('vactive');
         return false;
       } else {
-        let eleScr = this.$('li.class-activities.vactive a > img');
-        eleScr.attr('src', '/assets/gooru/pin.png'); // disselect all
         this.$('.tab').removeClass('vactive');
         this.$(itemElement).addClass('vactive');
-        let eleScr1 = this.$('li.class-activities.vactive a > img');
-        if (item === 'class-activities') {
-          eleScr1.attr('src', '/assets/gooru/pin-sel.png');
-        }
       }
     }
   }

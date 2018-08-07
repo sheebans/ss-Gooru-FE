@@ -78,12 +78,10 @@ test('Layout', function(assert) {
 
     .gru-study-navbar .study-player-brand a {
       background-image: url("http://www.edify.cr/images/logo-EDIFY.png");
-      background-size: 110px 51px;
     }
 
     .gru-class-navbar .app-brand a {
       background-image: url("http://www.edify.cr/images/logo-EDIFY.png");
-      background-size: 110px 51px;
     }
 `;
   assert.equal($style.text(), expedtedStyle, 'Wrong style body');
