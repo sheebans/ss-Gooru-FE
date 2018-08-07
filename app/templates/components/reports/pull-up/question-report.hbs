@@ -1,0 +1,71 @@
+<div class="report-backdrop" {{action 'onPullUpClose'}}></div>
+<div class="question-report-container">
+  <div class="report-header">
+    <div class="report-breadcrumb">
+      <div class="unit-title">
+        <i class="unit-icon"></i>
+        <p>{{t 'common.unit'}} {{unit.sequence}} : {{unit.title}}</p>
+      </div>
+      <div class="lesson-title">
+        {{gru-icon name="keyboard_arrow_right"}}
+        <i class="lesson-icon"></i>
+        <p>{{t 'common.lesson'}} {{lesson.sequence}} : {{lesson.title}}</p>
+      </div>
+      <div class="collection-title">
+        {{gru-icon name="keyboard_arrow_right"}}
+        <i class="collection-icon {{collection.format}}"></i>
+        <p>{{collection.title}}</p>
+      </div>
+    </div>
+    <div class="report-close-pullup" {{action 'onPullUpClose'}}>
+      {{gru-icon name="close" }}
+    </div>
+  </div>
+  <div class="report-content">
+    <div class="report-info-chart-container">
+      <div class="report-info-container">
+        <i class="quesion-icon"></i>
+        <span>Question #{{selectedQuestion.order}}</span>
+      </div>
+      <div class="report-chart-container" style="grid-template-columns: 20% 80% 20%;">
+        <div class="wrong"></div>
+        <div class="correct"></div>
+        <div class="not-started"></div>
+      </div>
+    </div>
+    <div class="report-carousel">
+      <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+          {{#each questions as |question index|}}
+            <div data-item-index="{{index}}" class="item {{if (eq index 0) 'active'}}">
+              <div class="question-background-cover">
+                <div class="question-content-container">
+                  {{#if question.thumbnail}}
+                    <div class="question-image-container">
+                      <img src="{{question.thumbnail}}" />
+                    </div>
+                  {{/if}}
+                  <div class="question-title-desc">
+                    <div class="question-title">
+                      {{question.title}}
+                    </div>
+                    <div class="question-desc">
+                      {{question.text}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" data-slide="prev" {{action 'onClickPrev'}}>
+        <i class="arrow-left"></i>
+      </a>
+        <a class="right carousel-control" data-slide="next" {{action 'onClickNext'}}>
+        <i class="arrow-right"></i>
+      </a>
+      </div>
+    </div>
+  </div>
+</div>
