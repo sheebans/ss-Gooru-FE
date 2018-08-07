@@ -10,7 +10,7 @@
       {{gru-icon name='ic_close'}}
       <div>Close</div>
     </div>
-    {{#if showSuggestion}}
+    {{#if (and (not isStudent showSuggestion))}}
       <div class="teacher-suggestion">
           <div class="suggestion-count-container" {{action 'onOpenSuggestionPullup'}}>
             <div class="suggestion-explore">
