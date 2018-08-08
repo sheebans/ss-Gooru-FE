@@ -40,7 +40,7 @@
       }
     }
 
-    /* 
+    /*
               ##Device = Tablets, Ipads (landscape)
               ##Screen = B/w 768px to 1024px
             */
@@ -52,7 +52,7 @@
       }
     }
 
-    /* 
+    /*
               ##Device = Low Resolution Tablets, Mobiles (Landscape)
               ##Screen = B/w 481px to 767px
             */
@@ -63,7 +63,7 @@
       }
     }
 
-    /* 
+    /*
               ##Device = Most of the Smartphones Mobiles (Portrait)
               ##Screen = B/w 320px to 479px
             */
@@ -156,10 +156,14 @@
   }
 
   .charts.gru-performance-chart {
+    cursor: pointer;
     min-width: 59px;
 
     > .container-box {
       height: 51px;
+      .percentage {
+        cursor: pointer;
+      }
     }
   }
 
