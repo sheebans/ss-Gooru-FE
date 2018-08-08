@@ -73,6 +73,7 @@ export default Ember.Component.extend({
   didInsertElement() {
     this.openPullUp();
     this.slideToSelectedQuestion();
+    this.initialize();
     this.loadData();
   },
   // -------------------------------------------------------------------------
@@ -165,6 +166,131 @@ export default Ember.Component.extend({
     let selectedQuestion = component.get('selectedQuestion');
     let selectedIndex = questions.indexOf(selectedQuestion);
     component.$('#report-carousel-wrapper').carousel(selectedIndex);
+  },
+
+  initialize: function() {
+    const component = this;
+    const classId = component.get('classId');
+    const courseId = component.get('courseId');
+    const unitId = component.get('unit.id');
+    const lessonId = component.get('lesson.id');
+    const collectionId = component.get('collection.id');
+    const collectionType = component.get('collection.format');
+    return component
+      .get('analyticsService')
+      .findResourcesByCollection(
+        classId,
+        courseId,
+        unitId,
+        lessonId,
+        collectionId,
+        collectionType
+      )
+      .then(function(userResourcesResults) {
+        let questions = component.get('questions');
+        let classMembers = component.get('classMembers');
+        let resultSet = Ember.A();
+        questions.forEach(question => {
+          let questionId = question.get('id');
+          let result = Ember.Object.create({
+            id: questionId
+          });
+          let correctAnswers = Ember.A([]);
+          let wrongAnswers = Ember.A([]);
+          let notAnswerUsers = Ember.A([]);
+          classMembers.forEach(member => {
+            let memberId = member.get('id');
+            let userResourcesResult = userResourcesResults.findBy(
+              'user',
+              memberId
+            );
+            let user = component.createUser(member);
+            if (userResourcesResult) {
+              let resourceResults = userResourcesResult.get('resourceResults');
+              let resourceResult = resourceResults.findBy(
+                'resourceId',
+                questionId
+              );
+              if (resourceResult) {
+                let isCorrect = resourceResult.get('correct');
+                let userAnswer = resourceResult.get('userAnswer');
+                if (userAnswer) {
+                  let answerObj = resourceResult.get('answerObject');
+                  let answerId = component.getAnswerId(userAnswer);
+                  let answer = answerObj.findBy('answerId', userAnswer);
+                  if (isCorrect) {
+                    component.answerGroup(
+                      answerId,
+                      answer,
+                      answerObj,
+                      correctAnswers,
+                      userAnswer,
+                      user
+                    );
+                  } else {
+                    component.answerGroup(
+                      answerId,
+                      answer,
+                      answerObj,
+                      wrongAnswers,
+                      userAnswer,
+                      user
+                    );
+                  }
+                } else {
+                  notAnswerUsers.pushObject(user);
+                }
+              } else {
+                notAnswerUsers.pushObject(user);
+              }
+            } else {
+              notAnswerUsers.pushObject(user);
+            }
+          });
+          result.set('notAnswered', notAnswerUsers);
+          result.set('correct', correctAnswers);
+          result.set('wrong', wrongAnswers);
+          resultSet.pushObject(result);
+        });
+      });
+  },
+
+  answerGroup(answerId, answer, answerObj, answerGroups, userAnswer, user) {
+    let answerGroup = answerGroups.findBy('id', answerId);
+    if (!answerGroup) {
+      answerGroup = Ember.Object.create({
+        id: answerId,
+        answer: answer ? answer : answerObj,
+        userAnswer: userAnswer,
+        users: Ember.A([])
+      });
+      answerGroups.pushObject(answerGroup);
+    }
+    answerGroup.get('users').pushObject(user);
+  },
+
+  createUser(user) {
+    return Ember.Object.create({
+      id: user.get('id'),
+      firstName: user.get('firstName'),
+      lastName: user.get('lastName'),
+      avatarUrl: user.get('avatarUrl')
+    });
+  },
+
+  getAnswerId(userAnswer) {
+    let answerId = userAnswer;
+    if (Array.isArray(userAnswer)) {
+      let id = userAnswer.map(answer => {
+        if (answer instanceof Object) {
+          return answer.selection ? '1' : '0';
+        } else {
+          return answer.toLowerCase();
+        }
+      });
+      answerId = btoa(id.join('-'));
+    }
+    return answerId;
   },
 
   loadData() {

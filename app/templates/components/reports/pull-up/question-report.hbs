@@ -45,13 +45,8 @@
                       <img src="{{question.thumbnail}}" />
                     </div>
                   {{/if}}
-                  <div class="question-title-desc">
-                    <div class="question-title">
-                      {{question.title}}
-                    </div>
-                    <div class="question-desc">
-                      {{question.text}}
-                    </div>
+                  <div class="question-text">
+                    {{gru-math-text text=(if question.isFIB question.fibText question.text)}}
                   </div>
                 </div>
               </div>
