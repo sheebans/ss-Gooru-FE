@@ -242,7 +242,9 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         userId = component.get('session.userId');
       }
       let classId = currentClass ? currentClass.get('id') : null;
-      let courseId = currentClass ? currentClass.get('courseId') : currentCourse ? currentCourse.get('id') : null;
+      let courseId = currentClass
+        ? currentClass.get('courseId')
+        : currentCourse ? currentCourse.get('id') : null;
       let unitId = component.get('unitId');
       let lessonId = component.get('model.id');
       let collectionId = collection.get('id');
@@ -984,10 +986,7 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
   },
   setVisibility: function(collection) {
     if (this.get('currentClass')) {
-      const isAssessment = collection.get('isAssessment');
-      const visible = isAssessment
-        ? this.get('contentVisibility').isVisible(collection.id)
-        : true;
+      const visible = this.get('contentVisibility').isVisible(collection.id);
       collection.set('visible', visible);
     } else {
       collection.set('visible', true);
