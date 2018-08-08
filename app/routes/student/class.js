@@ -90,10 +90,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     let queryParams = {};
     let classId = null;
     const controller = route.get('controller');
-    if (controller.get('course')) {
-      courseId = controller.get('course').id;
-      classId = controller.get('class').id;
-    }
+
     if (currentLocation) {
       courseId = currentLocation.get('courseId');
       classId = currentLocation.get('classId');
@@ -105,6 +102,7 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         'collection.collectionSubType'
       );
       let pathId = currentLocation.get('collection.pathId') || 0;
+      // Re-create these queryparams when we have correct location from location API
       queryParams = {
         classId,
         unitId,
@@ -117,6 +115,16 @@ export default Ember.Route.extend(PrivateRouteMixin, {
         pathId
       };
     }
+    if (controller.get('course') && courseId !== controller.get('course').id) {
+      // eslint-disable-next-line
+      console.warn(
+        'courseId mismatch overriding location courseId :',
+        courseId
+      );
+      courseId = controller.get('course').id;
+      classId = controller.get('class').id;
+    }
+
     suggestionPromise = route
       .get('navigateMapService')
       .continueCourse(courseId, classId);
