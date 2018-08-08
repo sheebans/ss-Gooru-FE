@@ -108,6 +108,8 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
   // -------------------------------------------------------------------------
   // Methods
   model: function(params) {
+    //eslint-disable-next-line
+    console.log('study-player > model :: params supplied:', params);
     const route = this;
     return route
       .get('navigateMapService')
@@ -190,6 +192,9 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
   },
 
   setupController(controller, model) {
+    //eslint-disable-next-line
+    console.log('study-player::setupController:model', model);
+
     this._super(...arguments);
     const isAnonymous = model.isAnonymous;
     const mapLocation = model.mapLocation;
