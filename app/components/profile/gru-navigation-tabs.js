@@ -106,9 +106,10 @@ export default Ember.Component.extend({
     let isStudentProfile = component.get('isStudent');
     let isFromLearnerProfile = component.get('isFromLearnerProfile');
     let loggedInUser = component.get('currentLoginUser');
+    let source = component.get('source');
     if (loggedInUser) {
       let isTeacher = loggedInUser.get('role') === 'teacher';
-      if (isStudentProfile && isTeacher && isFromLearnerProfile) {
+      if ((isStudentProfile && isTeacher && isFromLearnerProfile) || (source === 'study-player')) {
         isTabsVisible = false;
       }
     }

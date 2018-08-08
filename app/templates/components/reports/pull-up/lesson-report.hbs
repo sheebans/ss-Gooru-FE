@@ -1,0 +1,128 @@
+<div class="report-backdrop" {{action 'onPullUpClose'}}></div>
+<div class="lesson-report-container">
+  <div class="report-header">
+    <div class="report-breadcrumb">
+      <div class="unit-title">
+        <i class="unit-icon"></i>
+        <p>{{t 'common.unit'}} {{unit.sequence}} : {{unit.title}}</p>
+      </div>
+      <div class="lesson-title">
+        {{gru-icon name="keyboard_arrow_right"}}
+        <i class="lesson-icon"></i>
+        <p>{{t 'common.lesson'}} {{lesson.sequence}} : {{lesson.title}}</p>
+      </div>
+    </div>
+    <div class="report-close-pullup" {{action 'onPullUpClose'}}>
+      {{gru-icon name="close" }}
+    </div>
+  </div>
+  <div class="report-content">
+    <div class="report-carousel">
+      <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+          {{#each lessons as |lessonItem index|}}
+            <div data-item-index="{{index}}" class="item {{if (eq lessonItem.id  selectedLesson.id) 'active'}}">
+              <div class="lesson-background-cover" />
+            </div>
+          {{/each}}
+        </div>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" data-slide="prev" {{action 'onClickPrev'}}>
+          <i class="arrow-left"></i>
+        </a>
+        <a class="right carousel-control" data-slide="next" {{action 'onClickNext'}}>
+          <i class="arrow-right"></i>
+        </a>
+      </div>
+      {{#if isLoading}}
+        <div class="loading-spinner">
+          {{three-bounce-spinner}}
+        </div>
+      {{/if}}
+      <div class="report-carousel-content-container">
+        <div class="report-carousel-content">
+          <div class="performance-display-container">
+            {{#unless hasLessonContainsCollectionOnly}}
+              <div class="lesson-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedLesson.performance.score))}}>
+                {{#if (gt selectedLesson.performance.score -1)}}
+                  {{selectedLesson.performance.score}}%
+                {{else}}
+                  --
+                {{/if}}
+              </div>
+              {{else}}
+                <div class="lesson-performance-timespent">{{format-time selectedLesson.performance.timeSpent}}</div>
+            {{/unless}}
+          </div>
+          <div class="lesson-report-chart">
+            {{#if hasLessonContainsCollectionOnly }}
+              {{charts.report-bar-chart useTimeSpentScore=true studentChartReportData=collectionStudentReportData onClickChart="onClickChart"}}
+            {{else}}
+              {{charts.report-bar-chart useTimeSpentScore=false studentChartReportData=assessmentStudentReportData onClickChart="onClickChart"}}
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-performance-tabular {{if (eq filterByCollectionType 'collection') 'collection-view'}}">
+      <div class="report-header-container">
+        <div class="filter-by">
+          {{t 'common.filter-by'}}
+        </div>
+        <div class="view-btn-actions">
+          <div class="collection-icon {{if hasLessonContainsAssessmentOnly 'no-collection'}} {{if (eq filterByCollectionType 'collection') 'active'}}" {{action "onChooseCollectionView"}}>
+            <i></i>
+            <span>{{t 'common.collection'}}</span>
+          </div>
+          <div class="assessment-icon {{if hasLessonContainsCollectionOnly 'no-assessment'}} {{if (eq filterByCollectionType 'assessment') 'active'}}" {{action "onChooseAssessmentView"}}>
+            <i></i>
+            <span>{{t 'common.assessment'}}</span>
+          </div>
+        </div>
+        <div class="filter-btns">
+          <div class="performance-icon {{filterByCollectionType}} active">
+            {{gru-icon name="done_all"}}
+            <span>{{t 'gru-course-play.performance'}}</span>
+          </div>
+          <div class="timespent-icon {{filterByCollectionType}} {{if isTimeSpentFltApplied 'active'}}" {{action "onToggleTimeSpentFlt"}}>
+            {{gru-icon name="access_time"}}
+            <span>{{t 'common.timeSpent'}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-view-container">
+        {{#if (eq filterByCollectionType 'assessment')}}
+          {{reports.pull-up.lesson-report-listview
+          sortByFirstnameEnabled=sortByFirstnameEnabled
+          sortByLastnameEnabled=sortByLastnameEnabled
+          contents=assessmentList
+          studentReportData=assessmentStudentReportData
+          selectedLesson=selectedLesson
+          isTimeSpentFltApplied=isTimeSpentFltApplied
+          isPerformanceFltApplied=true
+          sortByLastName="sortByLastName"
+          sortByFirstName="sortByFirstName"
+          openCollectionReport="openCollectionReport"
+          collectionType="assessment"
+        }}
+        {{else}}
+          {{reports.pull-up.lesson-report-listview
+          sortByFirstnameEnabled=sortByFirstnameEnabled
+          sortByLastnameEnabled=sortByLastnameEnabled
+          contents=collectionList
+          studentReportData=collectionStudentReportData
+          selectedLesson=selectedLesson
+          isTimeSpentFltApplied=true
+          isPerformanceFltApplied=false
+          sortByLastName="sortByLastName"
+          sortByFirstName="sortByFirstName"
+          openCollectionReport="openCollectionReport"
+          collectionType="collection"
+        }}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>

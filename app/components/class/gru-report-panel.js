@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import { getBarGradeColor, toLocal } from 'gooru-web/utils/utils';
 import Context from 'gooru-web/models/result/context';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -66,6 +68,16 @@ export default Ember.Component.extend({
    */
   analyticsService: Ember.inject.service('api-sdk/analytics'),
 
+  /**
+   * @requires service:api-sdk/search
+   */
+  searchService: Ember.inject.service('api-sdk/search'),
+
+  /**
+   * @requires service:api-sdk/learner
+   */
+  learnerService: Ember.inject.service('api-sdk/learner'),
+
   // -------------------------------------------------------------------------
   // Properties
 
@@ -80,6 +92,12 @@ export default Ember.Component.extend({
    * @property {Boolean}
    */
   isReportLoading: false,
+
+  /**
+   * Indicates the status of suggestion  loading  is completed or not
+   * @property {Boolean}
+   */
+  isSuggestionLoading: false,
 
   /**
    * switch between the course  and report page
@@ -183,7 +201,6 @@ export default Ember.Component.extend({
 
   showPullUp: false,
 
-
   /**
    * @property {Boolean}
    * Property to show/hide change score button
@@ -205,6 +222,50 @@ export default Ember.Component.extend({
     return !this.get('isStudent');
   }),
 
+  /**
+   * suggest count
+   * @type {Number}
+   */
+  suggestResultCount: 0,
+
+  /**
+   * Maintains maximum number of search results
+   * @type {Number}
+   */
+  maxSearchResult: 6,
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('collectionService.standards.[]', function() {
+    let standards = this.get('collections.standards');
+    if (standards) {
+      standards = standards.filter(function(standard) {
+        // Filter out learning targets (they're too long for the card)
+        return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
+      });
+      return TaxonomyTag.getTaxonomyTags(standards);
+    }
+  }),
+
+  /**
+   * This attribute will decide to show suggestion or not
+   * @type {Boolean}
+   */
+  showSuggestion: false,
+
+  /**
+   * Maintains the state of show Suggestion pullup
+   * @type {Boolean}
+   */
+  showSuggestionPullup: false,
+
+  /**
+   * defaultSuggestContentType
+   * @type {String}
+   */
+  defaultSuggestContentType: 'collection',
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -225,6 +286,31 @@ export default Ember.Component.extend({
      */
     onUpdateQuestionScore: function(data) {
       this.updateQuestionScore(data);
+    },
+
+    /**
+     * Trigger when suggestion button got clicked
+     */
+    onOpenSuggestionPullup() {
+      let component = this;
+      let studentsSelectedForSuggest = Ember.A([]);
+      let context = component.getContext(component.get('reportData'));
+      let suggestContextParams = Ember.Object.create({
+        classId: context.get('classId'),
+        courseId: context.get('courseId'),
+        unitId: context.get('unitId'),
+        lessonId: context.get('lessonId'),
+        collectionId: context.get('collectionId')
+      });
+      studentsSelectedForSuggest.pushObject(component.get('profile'));
+      component.set('suggestContextParams', suggestContextParams);
+      component.set('studentsSelectedForSuggest', studentsSelectedForSuggest);
+      component.set('showSuggestionPullup', true);
+    },
+
+    onCloseSuggest() {
+      // on close suggest callback
+      return true;
     }
   },
 
@@ -307,7 +393,7 @@ export default Ember.Component.extend({
         ? component.get('userSessionService').getCompletedSessions(context)
         : component.get('learnerService').fetchLearnerSessions(context);
 
-    return Ember.RSVP.hash({
+    return Ember.RSVP.hashSettled({
       collection: collectionPromise,
       completedSessions: completedSessionsPromise,
       lesson: lessonPromise,
@@ -316,10 +402,24 @@ export default Ember.Component.extend({
           ? component.get('profileService').readUserProfile(context.userId)
           : {}
     }).then(function(hash) {
-      component.set('profile', hash.profile);
-      component.set('collection', hash.collection);
-      component.set('completedSessions', hash.completedSessions);
-      var completedSessions = hash.completedSessions;
+      component.set(
+        'profile',
+        hash.profile.state === 'fulfilled' ? hash.profile.value : null
+      );
+      component.set(
+        'collection',
+        hash.collection.state === 'fulfilled' ? hash.collection.value : null
+      );
+      component.set(
+        'completedSessions',
+        hash.completedSessions.state === 'fulfilled'
+          ? hash.completedSessions.value
+          : null
+      );
+      var completedSessions =
+        hash.completedSessions.state === 'fulfilled'
+          ? hash.completedSessions.value
+          : null;
       const totalSessions = completedSessions.length;
       const session = totalSessions
         ? completedSessions[totalSessions - 1]
@@ -336,6 +436,10 @@ export default Ember.Component.extend({
           .findAssessmentResultByCollectionAndStudent(context, loadStandards)
           .then(function(assessmentResult) {
             component.setAssessmentResult(assessmentResult);
+            if (component.get('isTeacher')) {
+              component.set('showSuggestion', true);
+              component.loadSuggestion();
+            }
           });
       } else {
         const learnerService = component.get('learnerService');
@@ -426,7 +530,6 @@ export default Ember.Component.extend({
       .get('analyticsService')
       .updateQuestionScore(data)
       .then(() => {
-
         component
           .loadSession(session)
           .then(() => component.set('isChangeScoreEnabled', false));
@@ -473,5 +576,64 @@ export default Ember.Component.extend({
       content_source: 'coursemap' // TO-DO Have to replace actual content source, right now default set as coursemap
     });
     return updateData;
+  },
+
+  loadSuggestion: function() {
+    let component = this;
+    component.set('isSuggestionLoading', true);
+    let collection = this.get('collections');
+    let taxonomies = null;
+    let tags = component.get('tags');
+    if (tags) {
+      taxonomies = tags.map(tag => {
+        return tag.data.id;
+      });
+    }
+    let maxSearchResult = component.get('maxSearchResult');
+    let filters = {
+      pageSize: maxSearchResult,
+      taxonomies: taxonomies
+    };
+    let term =
+      taxonomies != null && taxonomies.length > 0
+        ? '*'
+        : collection.get('title');
+    component
+      .get('searchService')
+      .searchCollections(term, filters)
+      .then(collectionSuggestResults => {
+        if (!component.isDestroyed) {
+          // To show appropriate suggest count, check is their any suggest found in assessment type if count is less than.
+          let collectionSuggestCount = collectionSuggestResults.length;
+          if (collectionSuggestCount >= maxSearchResult) {
+            component.set('isSuggestionLoading', false);
+            component.set('suggestResultCount', maxSearchResult);
+          } else {
+            component
+              .get('searchService')
+              .searchAssessments(term, filters)
+              .then(assessmentSuggestResult => {
+                if (!component.isDestroyed) {
+                  let assessmentSuggestCount = assessmentSuggestResult.length;
+                  let suggestCount =
+                    assessmentSuggestCount + collectionSuggestCount;
+                  if (
+                    collectionSuggestCount === 0 &&
+                    assessmentSuggestCount > 0
+                  ) {
+                    component.set('defaultSuggestContentType', 'assessment');
+                  }
+                  component.set('isSuggestionLoading', false);
+                  component.set(
+                    'suggestResultCount',
+                    suggestCount >= maxSearchResult
+                      ? maxSearchResult
+                      : suggestCount
+                  );
+                }
+              });
+          }
+        }
+      });
   }
 });

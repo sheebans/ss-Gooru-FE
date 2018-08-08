@@ -19,19 +19,46 @@
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
       .report-info {
         width: 96%;
-        font-size: 16px;
-        color: #37424b;
-        .type {
-          text-transform: uppercase;
+        display: flex;
+        .title-section {
+          width: 73%;
+          font-size: 16px;
+          color: #37424b;
+          .type {
+            text-transform: uppercase;
+          }
+          .title {
+            text-transform: capitalize;
+          }
+          .type, .title {
+            height: 21px;
+            line-height: 21px;
+          }
+          &.content {
+            .type {
+              font-size: 20px;
+              font-weight: bold;
+              color: #36424a;
+            }
+          }
         }
-        .title {
-          text-transform: capitalize;
-        }
-        .type, .title {
-          height: 21px;
-          line-height: 21px;
+        .competency-status {
+          width: 27%;
+          color: #37424b;
+          font-size: 16px;
+          .badge {
+            background-image: url("gooru/gooru-edu-rights-badge.png");
+            width: 69px;
+            height: 60px;
+            background-size: cover;
+            background-color: $white;
+            margin-left: 15px;
+            margin-top: -8px;
+          }
         }
       }
+
+
 
       .close-pullup {
         padding-top: 10px;

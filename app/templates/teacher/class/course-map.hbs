@@ -24,6 +24,7 @@
     </div>
     {{class.overview.gru-accordion-course
     currentClass=class
+    currentCourse=course
     classMembers=classMembers
     onSelectResource="playResource"
     onLocationUpdate=(action 'updateLocation')
@@ -34,6 +35,9 @@
     onUpdateContentVisibility="updateContentVisibility"
     isTeacher=true
     isNUCourse=isNUCourse
+    onOpenUnitLevelReport="onOpenUnitLevelReport"
+    onOpenLessonReport="onOpenLessonReport"
+    teacherCollectionReport="teacherCollectionReport"
     isPremiumClass=isPremiumClass}}
   </div>
 {{else}}

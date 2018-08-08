@@ -1,7 +1,7 @@
 <div class="teacher class"> {{gru-take-tour steps=steps containerClass='class-view-tour'}}
 
    {{teacher.class.gru-class-navbar navTitle= class.title class=class onItemSelected="selectMenuItem" selectedMenuItem=menuItem
-  isPremiumClass = isPremiumClass }}
+  isPremiumClass = isPremiumClass onOpenCourseReport="onOpenCourseReport"}}
 
   <div class="header clearfix">
     <div class="go-back-container">
@@ -100,7 +100,13 @@
 
     {{#if isShowDomainCompetencyReport}}
       {{#reports.pull-up.competency-report type=(t 'report.domain-report') title=selectedDomain.domainData.domainName showPullUp=isShowDomainCompetencyReport onClosePullUp="onCloseCompetencyReportPullUp"}}
-          {{reports.pull-up.domain-competency-report domainSet=selectedDomain}}
+          {{reports.pull-up.domain-competency-report domainSet=selectedDomain onSelectCompetency="onSelectCompetency"}}
+      {{/reports.pull-up.competency-report}}
+    {{/if}}
+
+    {{#if isShowCompetencyContentReport}}
+      {{#reports.pull-up.competency-report type=selectedCompetency.competencyCode title=selectedCompetency.competencyStudentDesc showPullUp=isShowCompetencyContentReport onClosePullUp="onCloseCompetencyReportPullUp" competency=selectedCompetency}}
+        {{reports.pull-up.competency-content-report competency=selectedCompetency userId=selectedStudentUserId}}
       {{/reports.pull-up.competency-report}}
     {{/if}}
 
@@ -110,3 +116,18 @@
 
 
 </div>
+{{#if isShowCourseReport}}
+    {{reports.pull-up.course-report context=courseReportData showPullUp=isShowCourseReport onOpenUnitReport="onOpenUnitReport"}}
+{{/if}}
+
+{{#if isShowUnitReportPullUp}}
+    {{reports.pull-up.unit-report context=unitReportData showPullUp=isShowUnitReportPullUp onOpenLessonReport="onOpenLessonReport"}}
+{{/if}}
+
+{{#if isShowLessonReportPullUp}}
+  {{reports.pull-up.lesson-report context=lessonReportData showPullUp=isShowLessonReportPullUp teacherCollectionReport="teacherCollectionReport"}}
+{{/if}}
+
+{{#if isShowCollectionReportPullUp}}
+  {{reports.pull-up.collection-report context=teacherCollectionReportData showPullUp=isShowCollectionReportPullUp}}
+{{/if}}

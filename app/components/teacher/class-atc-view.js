@@ -66,6 +66,16 @@ export default Ember.Component.extend({
       let component = this;
       component.set('isShowDomainCompetencyReport', false);
       component.set('isShowCompetencyReport', false);
+    },
+
+    /**
+     * Action triggered when select a competency from competency report
+     */
+    onSelectCompetency(competency, userId) {
+      let component = this;
+      component.set('selectedCompetency', competency);
+      component.set('selectedStudentUserId', userId);
+      component.set('isShowCompetencyContentReport', true);
     }
   },
 

@@ -9,6 +9,13 @@ export default Ember.Route.extend({
    */
   session: Ember.inject.service('session'),
   /**
+
+  /**
+   * @type {Service} performance service
+   */
+  performanceService: Ember.inject.service('api-sdk/performance'),
+  /**
+
    * @type {Service} i18n
    */
   i18n: Ember.inject.service(),
@@ -105,6 +112,7 @@ export default Ember.Route.extend({
     const course = route.modelFor('teacher.class').course;
     const units = course.get('children') || [];
     const classMembers = currentClass.get('members');
+    route.getUnitLevelPerformance(units, classMembers);
     return Ember.RSVP.hash({
       course: course,
       units: units,
@@ -113,6 +121,48 @@ export default Ember.Route.extend({
     });
   },
 
+  /**
+   **   Method to get unit level performance
+   **/
+  getUnitLevelPerformance(units, classMembers) {
+    let component = this;
+    let currentClass = component.modelFor('teacher.class');
+    let classId = currentClass.class.id;
+    let courseId = currentClass.course.id;
+    let unitPerformancePromise = new Ember.RSVP.resolve(
+      this.get('performanceService').findClassPerformance(
+        classId,
+        courseId,
+        classMembers
+      )
+    );
+    return Ember.RSVP.hash({
+      unitPerformances: unitPerformancePromise
+    }).then(function(hash) {
+      let classPerformance = hash.unitPerformances;
+      units.map(unit => {
+        let unitId = unit.id;
+        let score = classPerformance.calculateAverageScoreByItem(unitId);
+        let timeSpent = classPerformance.calculateAverageTimeSpentByItem(
+          unitId
+        );
+        let completionDone = classPerformance.calculateSumCompletionDoneByItem(
+          unitId
+        );
+        let completionTotal = classPerformance.calculateSumCompletionTotalByItem(
+          unitId
+        );
+        let performance = {
+          score,
+          timeSpent,
+          completionDone,
+          completionTotal
+        };
+        unit.performance = performance;
+      });
+      return units;
+    });
+  },
   /**
    * Set all controller properties from the model
    * @param controller

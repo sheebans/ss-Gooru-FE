@@ -46,10 +46,16 @@ export default Ember.Component.extend({
   sortByLastnameEnabled: true,
 
   /**
-   * Maintain the status of sort by overAllScore
+   * Maintain the status of sort by score
    * @type {String}
    */
   sortByScoreEnabled: false,
+
+  /**
+   * Maintain the status of sort by Time spent
+   * @type {String}
+   */
+  sortByTimeSpentEnabled: false,
 
   /**
    * Maintains the state of suggestion  pull up
@@ -62,12 +68,6 @@ export default Ember.Component.extend({
    * @type {Array}
    */
   studentsSelectedForSuggest: Ember.A([]),
-
-  /**
-   * search result set
-   * @type {Array}
-   */
-  searchResults: Ember.A([]),
 
   /**
    * suggest result count
@@ -146,20 +146,35 @@ export default Ember.Component.extend({
     sortByScore() {
       let component = this;
       component.toggleProperty('sortByScoreEnabled');
+      let studentReportData;
       if (component.get('sortByScoreEnabled')) {
-        component.set(
-          'studentReportData',
-          component.get('studentReportData').sortBy('overAllScore')
-        );
+        studentReportData = component
+          .get('studentReportData')
+          .sortBy('score-use-for-sort')
+          .reverse();
       } else {
-        component.set(
-          'studentReportData',
-          component
-            .get('studentReportData')
-            .sortBy('overAllScore')
-            .reverse()
-        );
+        studentReportData = component
+          .get('studentReportData')
+          .sortBy('score-use-for-sort');
       }
+      component.set('studentReportData', studentReportData);
+    },
+
+    sortByTimeSpent() {
+      let component = this;
+      component.toggleProperty('sortByTimeSpentEnabled');
+      let studentReportData;
+      if (component.get('sortByTimeSpentEnabled')) {
+        studentReportData = component
+          .get('studentReportData')
+          .sortBy('totalTimeSpent')
+          .reverse();
+      } else {
+        studentReportData = component
+          .get('studentReportData')
+          .sortBy('totalTimeSpent');
+      }
+      component.set('studentReportData', studentReportData);
     },
 
     onClickScrollLeftArrow() {

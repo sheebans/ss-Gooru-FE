@@ -1,5 +1,4 @@
 .gru-study-header {
-  top: 64px;
   width: 100%;
   position: fixed;
   height: 104px;
@@ -327,7 +326,7 @@
     width: 100%;
     height: 40px;
     position: fixed;
-    top: 116px;
+    top: 52px;
     left: 0px;
     background-color: $white;
     display: inline-block;
@@ -345,15 +344,10 @@
 }
 
 .gru-study-navbar {
-  //top: 63px;
   .panel {
     margin-bottom: 1px;
     background-color: #0072bc;
   }
-}
-
-.gru-header {
-  display: block !important;
 }
 
 .gru-study-navbar ul.nav-pills li a,
@@ -372,4 +366,21 @@
 .gru-study-navbar ul.nav-bar li.vactive a {
   color: white !important;
   opacity: 1;
+}
+
+.gru-study-navbar .study-player-brand {
+  padding: 0 8px;
+  background-color: $white;
+  a {
+    background-image: url("gooru/images/gooru-logo.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 56px;
+    height: 30px !important;
+    top: 18px;
+    opacity: 1 !important;
+    &:hover, &:focus {
+      background-color: $white !important;
+    }
+  }
 }

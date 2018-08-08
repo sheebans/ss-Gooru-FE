@@ -115,27 +115,31 @@ export default Ember.Component.extend({
         lesson: component.get('lesson'),
         isStudent: component.get('isStudent')
       };
-      this.sendAction('studentReport', params);
+      component.set('studentReportContextData', params);
+      component.set('isShowStudentReport', true);
     },
 
-    onClickChart(userId) {
-      let component = this;
-      if (!userId) {
-        userId = component.get('session.userId');
+    onClickChart(userId, showReport) {
+      if (showReport) {
+        let component = this;
+        if (!userId) {
+          userId = component.get('session.userId');
+        }
+        let collection = component.get('selectedCollection');
+        let params = {
+          userId: userId,
+          classId: component.get('classId'),
+          courseId: component.get('courseId'),
+          unitId: component.get('unit.id'),
+          lessonId: component.get('lesson.id'),
+          collectionId: collection.get('id'),
+          type: collection.get('format'),
+          lesson: component.get('lesson'),
+          isStudent: component.get('isStudent')
+        };
+        component.set('studentReportContextData', params);
+        component.set('isShowStudentReport', true);
       }
-      let collection = component.get('selectedCollection');
-      let params = {
-        userId: userId,
-        classId: component.get('classId'),
-        courseId: component.get('courseId'),
-        unitId: component.get('unit.id'),
-        lessonId: component.get('lesson.id'),
-        collectionId: collection.get('id'),
-        type: collection.get('format'),
-        lesson: component.get('lesson'),
-        isStudent: component.get('isStudent')
-      };
-      this.sendAction('studentReport', params);
     }
   },
 
@@ -184,14 +188,23 @@ export default Ember.Component.extend({
   collectionId: Ember.computed.alias('context.collectionId'),
 
   /**
+   * By default it will show both assessment and collections
+   * @type {String}
+   */
+  filterByContentType: null,
+
+  /**
    * List of collection mapped to lesson.
    * @type {Array}
    */
   collections: Ember.computed('context.collections', function() {
     let collections = this.get('context.collections');
-    return collections
-      .filterBy('format', 'assessment')
-      .filterBy('performance.hasStarted', true);
+    let filterByContentType = this.get('filterByContentType');
+    let collectionList = collections.filterBy('performance.hasStarted', true);
+    if (filterByContentType) {
+      collectionList = collections.filterBy('format', filterByContentType);
+    }
+    return collectionList;
   }),
 
   /**
@@ -249,12 +262,6 @@ export default Ember.Component.extend({
   studentReportData: Ember.A([]),
 
   /**
-   * Stutent  chart report data
-   * @type {Object}
-   */
-  studentChartReportData: Ember.A([]),
-
-  /**
    * It maintains the state of loading
    * @type {Boolean}
    */
@@ -279,10 +286,16 @@ export default Ember.Component.extend({
   sortByLastnameEnabled: true,
 
   /**
-   * Maintain the status of sort by overAllScore
+   * Maintain the status of sort by score
    * @type {String}
    */
   sortByScoreEnabled: false,
+
+  /**
+   * Maintain the status of sort by timeSpent
+   * @type {String}
+   */
+  sortByTimeSpentEnabled: false,
 
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
@@ -318,7 +331,7 @@ export default Ember.Component.extend({
 
   /**
    * suggest count
-   * @type {Array}
+   * @type {Number}
    */
   suggestResultCount: 0,
 
@@ -333,6 +346,12 @@ export default Ember.Component.extend({
    * @type {String}
    */
   defaultSuggestContentType: 'collection',
+
+  /**
+   * Maintains the state of student report pullup
+   * @type {Boolean}
+   */
+  isShowStudentReport: false,
 
   //--------------------------------------------------------------------------
   // Methods
@@ -388,6 +407,9 @@ export default Ember.Component.extend({
     let courseId = component.get('courseId');
     let classId = component.get('classId');
     component.set('isLoading', true);
+    if (format === 'collection') {
+      component.set('isTimeSpentFltApplied', true);
+    }
     return Ember.RSVP.hash({
       collection:
         format === 'assessment'
@@ -404,10 +426,12 @@ export default Ember.Component.extend({
           format
         )
     }).then(({ collection, performance }) => {
-      component.set('collection', collection);
-      component.parseClassMemberAndPerformanceData(collection, performance);
-      component.set('isLoading', false);
-      component.loadSuggestion();
+      if (!component.isDestroyed) {
+        component.set('collection', collection);
+        component.parseClassMemberAndPerformanceData(collection, performance);
+        component.set('isLoading', false);
+        component.loadSuggestion();
+      }
     });
   },
 
@@ -415,21 +439,9 @@ export default Ember.Component.extend({
     let component = this;
     let classMembers = component.get('classMembers');
     let users = Ember.A([]);
-    let usersChartData = Ember.A([]);
     let usersTotaltimeSpent = Ember.A([]);
     classMembers.forEach(member => {
-      let user = Ember.Object.create({
-        id: member.id,
-        firstName: member.firstName,
-        lastName: member.lastName,
-        avatarUrl: member.avatarUrl
-      });
-      let userChartData = Ember.Object.create({
-        id: member.id,
-        firstName: member.firstName,
-        lastName: member.lastName,
-        avatarUrl: member.avatarUrl
-      });
+      let user = component.createUser(member);
       let contents = collection.get('children');
       let userPerformance = performance.findBy('user', member.id);
       let resultSet = component.parsePerformanceContentAndUserData(
@@ -439,28 +451,36 @@ export default Ember.Component.extend({
       user.set('userPerformanceData', resultSet.userPerformanceData);
       user.set('overAllScore', resultSet.overAllScore);
       user.set('hasStarted', resultSet.hasStarted);
-      userChartData.set('hasStarted', resultSet.hasStarted);
-      userChartData.set('score', resultSet.overAllScore);
-      userChartData.set('totalTimeSpent', resultSet.totalTimeSpent);
-      userChartData.set('difference', 100 - resultSet.overAllScore);
+      user.set('totalTimeSpent', resultSet.totalTimeSpent);
+      user.set('isGraded', resultSet.isGraded);
+      user.set('difference', 100 - resultSet.overAllScore);
+      user.set('score', resultSet.overAllScore);
+      // Reform score value and store in score-use-for-sort field, to handle sort.
+      // -2 defines not started, -1 defines not graded.
+      if (!resultSet.hasStarted) {
+        user.set('score-use-for-sort', -2);
+      } else if (!resultSet.isGraded) {
+        user.set('score-use-for-sort', -1);
+      } else {
+        user.set('score-use-for-sort', resultSet.overAllScore);
+      }
       users.pushObject(user);
-      usersChartData.pushObject(userChartData);
       usersTotaltimeSpent.push(resultSet.totalTimeSpent);
     });
     users = users.sortBy(component.get('defaultSortCriteria'));
-    usersChartData = usersChartData.sortBy(
-      component.get('defaultSortCriteria')
-    );
+    if (component.get('selectedCollection').get('format') === 'assessment') {
+      users = users.sortBy('isGraded');
+    }
     component.set('sortByLastnameEnabled', true);
     component.set('sortByFirstnameEnabled', false);
     component.set('sortByScoreEnabled', false);
+    component.set('sortByTimeSpentEnabled', false);
     component.set('studentsSelectedForSuggest', Ember.A([]));
     component.set('suggestResultCount', 0);
     component.set('defaultSuggestContentType', 'collection');
     component.set('studentReportData', users);
     let maxTimeSpent = Math.max(...usersTotaltimeSpent);
-    component.calculateTimeSpentScore(usersChartData, maxTimeSpent);
-    component.set('studentChartReportData', usersChartData);
+    component.calculateTimeSpentScore(users, maxTimeSpent);
     component.handleCarouselControl();
   },
 
@@ -469,11 +489,13 @@ export default Ember.Component.extend({
     let numberOfCorrectAnswers = 0;
     let totalTimeSpent = 0;
     let hasStarted = false;
+    let isGraded = true;
     contents.forEach((content, index) => {
       let contentId = content.get('id');
       let performanceData = Ember.Object.create({
         id: content.get('id'),
-        sequence: index + 1
+        sequence: index + 1,
+        isGraded: true
       });
       if (userPerformance) {
         performanceData.set('hasStarted', true);
@@ -481,6 +503,13 @@ export default Ember.Component.extend({
         let resourceResults = userPerformance.get('resourceResults');
         let resourceResult = resourceResults.findBy('resourceId', contentId);
         if (resourceResult) {
+          if (
+            resourceResult.get('questionType') === 'OE' &&
+            !resourceResult.get('isGraded')
+          ) {
+            isGraded = false;
+            performanceData.set('isGraded', false);
+          }
           let reaction = resourceResult.get('reaction');
           performanceData.set('reaction', reaction);
           if (reaction > 0) {
@@ -495,11 +524,13 @@ export default Ember.Component.extend({
           performanceData.set('timeSpent', resourceResult.get('timeSpent'));
           performanceData.set('isSkipped', !resourceResult.get('userAnswer'));
         } else {
-          performanceData.set('isSkipped', true);
+          performanceData.set('hasStarted', false);
         }
       } else {
         performanceData.set('hasStarted', false);
       }
+      performanceData.set('format', content.get('format'));
+
       userPerformanceData.pushObject(performanceData);
     });
 
@@ -511,7 +542,8 @@ export default Ember.Component.extend({
       userPerformanceData: userPerformanceData,
       overAllScore: overAllScore,
       hasStarted: hasStarted,
-      totalTimeSpent: totalTimeSpent
+      totalTimeSpent: totalTimeSpent,
+      isGraded: isGraded
     };
     return resultSet;
   },
@@ -547,13 +579,22 @@ export default Ember.Component.extend({
     }
   },
 
-  calculateTimeSpentScore(usersChartData, maxTimeSpent) {
-    usersChartData.forEach(data => {
+  calculateTimeSpentScore(users, maxTimeSpent) {
+    users.forEach(data => {
       let timeSpentScore = Math.round(
         (data.get('totalTimeSpent') / maxTimeSpent) * 100
       );
       data.set('timeSpentScore', timeSpentScore);
       data.set('timeSpentDifference', 100 - timeSpentScore);
+    });
+  },
+
+  createUser(user) {
+    return Ember.Object.create({
+      id: user.get('id'),
+      firstName: user.get('firstName'),
+      lastName: user.get('lastName'),
+      avatarUrl: user.get('avatarUrl')
     });
   },
 
@@ -578,26 +619,35 @@ export default Ember.Component.extend({
       .get('searchService')
       .searchCollections(term, filters)
       .then(collectionSuggestResults => {
-        // To show appropriate suggest count, check is their any suggest found in assessment type if count is less than.
-        let collectionSuggestCount = collectionSuggestResults.length;
-        if (collectionSuggestCount >= maxSearchResult) {
-          component.set('suggestResultCount', maxSearchResult);
-        } else {
-          component
-            .get('searchService')
-            .searchAssessments(term, filters)
-            .then(assessmentSuggestResult => {
-              let assessmentSuggestCount = assessmentSuggestResult.length;
-              let suggestCount =
-                assessmentSuggestCount + collectionSuggestCount;
-              if (collectionSuggestCount === 0 && assessmentSuggestCount > 0) {
-                component.set('defaultSuggestContentType', 'assessment');
-              }
-              component.set(
-                'suggestResultCount',
-                suggestCount >= maxSearchResult ? maxSearchResult : suggestCount
-              );
-            });
+        if (!component.isDestroyed) {
+          // To show appropriate suggest count, check is their any suggest found in assessment type if count is less than.
+          let collectionSuggestCount = collectionSuggestResults.length;
+          if (collectionSuggestCount >= maxSearchResult) {
+            component.set('suggestResultCount', maxSearchResult);
+          } else {
+            component
+              .get('searchService')
+              .searchAssessments(term, filters)
+              .then(assessmentSuggestResult => {
+                if (!component.isDestroyed) {
+                  let assessmentSuggestCount = assessmentSuggestResult.length;
+                  let suggestCount =
+                    assessmentSuggestCount + collectionSuggestCount;
+                  if (
+                    collectionSuggestCount === 0 &&
+                    assessmentSuggestCount > 0
+                  ) {
+                    component.set('defaultSuggestContentType', 'assessment');
+                  }
+                  component.set(
+                    'suggestResultCount',
+                    suggestCount >= maxSearchResult
+                      ? maxSearchResult
+                      : suggestCount
+                  );
+                }
+              });
+          }
         }
       });
   },

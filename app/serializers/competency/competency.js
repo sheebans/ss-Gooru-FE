@@ -102,7 +102,7 @@ export default Ember.Object.extend({
     }
     resultSet = {
       domains: domains,
-      lastUpdated: response.lastUpdated || null
+      lastUpdated: response.lastUpdated || response.createdAt
     };
     return resultSet;
   },

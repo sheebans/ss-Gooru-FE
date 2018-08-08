@@ -45,7 +45,18 @@ export default StudentCollection.extend({
    */
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
+  /**
+   * @type {AttemptService} attemptService
+   * @property {Ember.Service} Service to send attempt related events
+   */
+  quizzesAttemptService: Ember.inject.service('quizzes/attempt'),
+
   session: Ember.inject.service('session'),
+
+  /**
+   * @requires studyPlayerController
+   */
+  studyPlayerController: Ember.inject.controller('study-player'),
 
   /**
    * @dependency {i18nService} Service to retrieve translations information
@@ -61,12 +72,42 @@ export default StudentCollection.extend({
      */
     next: function() {
       let controller = this;
-      let suggestedContent = controller.get('suggestedContent');
-      if (suggestedContent) {
-        controller.set('isShowSuggestion', true);
-      } else {
-        controller.checknPlayNext();
-      }
+      let contextId = controller.get('contextId');
+      let profileId = controller.get('session.userData.gooruUId');
+      const navigateMapService = controller.get('navigateMapService');
+      controller
+        .get('quizzesAttemptService')
+        .getAttemptIds(contextId, profileId)
+        .then(
+          attemptIds =>
+            !attemptIds || !attemptIds.length
+              ? {}
+              : this.get('quizzesAttemptService').getAttemptData(
+                attemptIds[attemptIds.length - 1]
+              )
+        )
+        .then(attemptData =>
+          Ember.RSVP.hash({
+            attemptData,
+            mapLocationNxt: navigateMapService.getStoredNext()
+          })
+        )
+        .then(({ mapLocationNxt, attemptData }) => {
+          mapLocationNxt.context.set('score', attemptData.get('averageScore'));
+          return navigateMapService.next(mapLocationNxt.context);
+        })
+        .then(({ context, suggestions, hasContent }) => {
+          controller.set('mapLocation.context', context);
+          controller.set('mapLocation.suggestions', suggestions);
+          controller.set('mapLocation.hasContent', hasContent);
+          let suggestedContent = controller.get('suggestedContent');
+          if (suggestedContent) {
+            controller.set('isShowSuggestion', true);
+          } else {
+            controller.checknPlayNext();
+          }
+          controller.toggleScreenMode();
+        });
     },
     /**
      * If the user want to continue playing the post-test suggestion
@@ -125,6 +166,22 @@ export default StudentCollection.extend({
       let controller = this;
       controller.playNextContent();
       controller.set('isShowSuggestion', false);
+    },
+
+    /**
+     * Action triggered when toggle screen mode
+     */
+    onToggleScreen() {
+      let controller = this;
+      let studyPlayerController = controller.get('studyPlayerController');
+      let isFullScreen = studyPlayerController.get('isFullScreen');
+      studyPlayerController.set('isFullScreen', !isFullScreen);
+      controller.set('isFullScreen', !isFullScreen);
+      if (isFullScreen) {
+        Ember.$('body').removeClass('fullscreen').addClass('fullscreen-exit');
+      } else {
+        Ember.$('body').removeClass('fullscreen-exit').addClass('fullscreen');
+      }
     }
   },
 
@@ -404,6 +461,16 @@ export default StudentCollection.extend({
    */
   isShowSuggestion: false,
 
+  /**
+   * @property {Boolean} isFullScreen
+   */
+  isFullScreen: Ember.computed(function() {
+    let controller = this;
+    let studyPlayerController = controller.get('studyPlayerController');
+    let isFullScreen = studyPlayerController.get('isFullScreen');
+    return isFullScreen;
+  }),
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -430,11 +497,13 @@ export default StudentCollection.extend({
         suggestion.subType === 'signature_collection'
           ? 'signature-collection'
           : 'signature-assessment';
+      queryParams.pathType = 'system';
       this.transitionToRoute('study-player', context.get('courseId'), {
         queryParams
       });
     } else {
-      queryParams.pathId = 0;
+      queryParams.pathId = context.pathId || 0;
+      queryParams.pathType = context.pathType || null;
       this.transitionToRoute('study-player', context.get('courseId'), {
         queryParams
       });
@@ -454,15 +523,17 @@ export default StudentCollection.extend({
   },
 
   playNextContent: function() {
+    const component = this;
     const navigateMapService = this.get('navigateMapService');
     const context = this.get('mapLocation.context');
-    navigateMapService
-      .next(context)
-      .then(nextContext => this.playGivenContent(nextContext));
+    navigateMapService.next(context).then(nextContext => {
+      component.set('mapLocation', nextContext);
+      component.playGivenContent(nextContext.context);
+    });
   },
 
-  playGivenContent: function(mapLocation) {
-    let status = (mapLocation.get('context.status') || '').toLowerCase();
+  playGivenContent: function(context) {
+    let status = (context.get('status') || '').toLowerCase();
     if (status !== 'done') {
       this.toPlayer();
     } else {
@@ -504,6 +575,7 @@ export default StudentCollection.extend({
       .then(({ context, pathId }) => {
         context.collectionId = suggestion.id; // Setting new collection id
         context.pathId = pathId;
+        //context.pathtype = "system"; //set system path only if required
         suggestion.pathId = pathId;
         return navigateMapService.startAlternatePathSuggestion(context);
       })
@@ -526,5 +598,15 @@ export default StudentCollection.extend({
       collectionId: null,
       type: null
     });
+  },
+
+  /**
+   * @function toggleScreenMode
+   * Method to toggle screen mode
+   */
+  toggleScreenMode() {
+    let controller = this;
+    let studyPlayerController = controller.get('studyPlayerController');
+    studyPlayerController.toggleScreenMode();
   }
 });

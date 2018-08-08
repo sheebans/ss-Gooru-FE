@@ -37,7 +37,10 @@
         <div class="competencies-list {{if (gt domainSet.domainData.competencies.length 10) 'competency-slider-visible'}}">
           <div class="competency-codes">
             {{#each domainSet.domainData.competencies as |competency|}}
-              <div class="rotate-vertical">{{competency.competencyCode}}</div>
+              <div class="rotate-vertical">
+                <div class="code">{{competency.competencyCode}}</div>
+                <div class="desc">{{competency.competencyStudentDesc}}</div>
+              </div>
             {{/each}}
           </div>
           {{#each studentCompetencyData as |studentCompetency|}}
@@ -45,7 +48,7 @@
               {{#each studentCompetency.competencies as |competency|}}
                 <div class="competency">
                   <svg width="30" height="30">
-                    <rect fill="{{competency-color competency.status}}" width="30" height="30"></rect>
+                    <rect fill="{{competency-color competency.status}}" {{action 'onSelectCompetency' competency studentCompetency.userId}} width="30" height="30"></rect>
                   </svg>
                 </div>
               {{/each}}

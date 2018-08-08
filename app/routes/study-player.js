@@ -29,12 +29,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
   navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
 
   /**
-   * @type {AttemptService} attemptService
-   * @property {Ember.Service} Service to send attempt related events
-   */
-  quizzesAttemptService: Ember.inject.service('quizzes/attempt'),
-
-  /**
    * @type {suggestService} Service to retrieve suggest resources
    */
   suggestService: Ember.inject.service('api-sdk/suggest'),
@@ -49,7 +43,6 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
      */
     onFinish: function() {
       let controller = this.get('controller');
-      let profileId = this.get('session.userData.gooruUId');
       let contextId = controller.get('contextResult.contextId');
       let classId = controller.get('classId');
       let queryParams = {
@@ -67,32 +60,12 @@ export default PlayerRoute.extend(PrivateRouteMixin, {
       if (classId) {
         queryParams.classId = classId;
       }
-      const navigateMapService = this.get('navigateMapService');
-      this.get('quizzesAttemptService')
-        .getAttemptIds(contextId, profileId)
-        .then(
-          attemptIds =>
-            !attemptIds || !attemptIds.length
-              ? {}
-              : this.get('quizzesAttemptService').getAttemptData(
-                attemptIds[attemptIds.length - 1]
-              )
-        )
-        .then(attemptData =>
-          Ember.RSVP.hash({
-            attemptData,
-            mapLocation: navigateMapService.getStoredNext()
-          })
-        )
-        .then(({ mapLocation, attemptData }) => {
-          mapLocation.context.set('score', attemptData.get('averageScore'));
-          return navigateMapService.next(mapLocation.context);
-        })
-        .then(() =>
-          this.transitionTo('reports.study-student-collection', {
-            queryParams
-          })
-        );
+      /**@description { next calls moves from on finish and goes into report next }
+       * @see study-student-collection > next
+       */
+      this.transitionTo('reports.study-student-collection', {
+        queryParams
+      });
     },
 
     /**

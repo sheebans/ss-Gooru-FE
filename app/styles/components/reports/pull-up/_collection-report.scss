@@ -111,10 +111,15 @@
           .collection-icon {
             width: 40px;
             height: 50px;
-            background-image: url("../assets/gooru/images/assessment-gray.svg");
             background-repeat: no-repeat;
             background-size: 30px 30px;
             background-position: 0 12px;
+            &.assessment {
+              background-image: url("../assets/gooru/images/assessment-gray.svg");
+            }
+            &.collection {
+              background-image: url("../assets/gooru/images/collection_gray.svg");
+            }
           }
         }
       }
@@ -221,13 +226,25 @@
               width: 185px;
               height: 185px;
               border-radius: 50%;
-              color: #fff;
               line-height: 185px;
               text-align: center;
               font-weight: bold;
               text-indent: 10px;
-              font-size: 70px;
-              color: #35424b;
+              font-size: 60px;
+              color: #fff;
+            }
+
+            .collection-performance-timespent {
+              width: 185px;
+              height: 185px;
+              border-radius: 50%;
+              line-height: 185px;
+              text-align: center;
+              font-weight: bold;
+              text-indent: 10px;
+              font-size: 30px;
+              color: #fff;
+              background-color: #0072bc;
             }
           }
 
@@ -365,15 +382,24 @@
               text-align: center;
               opacity: 0.5;
               cursor: pointer;
-
               &.active {
                 opacity: 1;
+              }
+            }
+
+            .timespent-icon {
+              &.collection {
+                pointer-events: none;
+                cursor: default;
               }
             }
 
             .performance-icon {
               pointer-events: none;
               cursor: default;
+              &.collection {
+                visibility: hidden;
+              }
             }
           }
         }

@@ -894,5 +894,37 @@ export default Ember.Service.extend({
           );
         }, reject);
     });
+  },
+
+  /**
+   * Get performance of user  resource in assessments
+   * @returns {Promise.<[]>}
+   */
+  getUserPerformanceResourceInAssessment: function(userId, courseId, unitId, lessonId, collectionId, sessionId, classId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('performanceAdapter')
+        .getUserPerformanceResourceInAssessment(userId, courseId, unitId, lessonId, collectionId, sessionId, classId)
+        .then(function(response) {
+          resolve(service.get('performanceSerializer').normalizeUserPerformanceResourceInAssessment(response));
+        }, reject);
+    });
+  },
+
+  /**
+   * Get performance of user  resource in collection
+   * @returns {Promise.<[]>}
+   */
+  getUserPerformanceResourceInCollection: function(userId, courseId, unitId, lessonId, collectionId, sessionId, classId) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('performanceAdapter')
+        .getUserPerformanceResourceInCollection(userId, courseId, unitId, lessonId, collectionId, sessionId, classId)
+        .then(function(response) {
+          resolve(service.get('performanceSerializer').normalizeUserPerformanceResourceInCollection(response));
+        }, reject);
+    });
   }
 });

@@ -1,6 +1,6 @@
 .gru-class-navbar {
   position: absolute;
-  top: 63px;
+  top: 0;
   left: 0;
   width: 100%;
 
@@ -40,7 +40,7 @@
       }
     }
 
-    /* 
+    /*
               ##Device = Tablets, Ipads (landscape)
               ##Screen = B/w 768px to 1024px
             */
@@ -52,7 +52,7 @@
       }
     }
 
-    /* 
+    /*
               ##Device = Low Resolution Tablets, Mobiles (Landscape)
               ##Screen = B/w 481px to 767px
             */
@@ -63,7 +63,7 @@
       }
     }
 
-    /* 
+    /*
               ##Device = Most of the Smartphones Mobiles (Portrait)
               ##Screen = B/w 320px to 479px
             */
@@ -82,6 +82,24 @@
       font-weight: bold;
       pointer-events: none;
     }
+
+    .app-brand {
+      padding: 0 8px;
+      background-color: $white;
+      a {
+        background-image: url("gooru/images/gooru-logo.svg");
+        background-repeat: no-repeat;
+        background-color: $white;
+        background-size: contain;
+        width: 56px;
+        height: 30px;
+        top: 18px;
+        opacity: 1 !important;
+        &:hover, &:focus {
+          background-color: $white !important;
+        }
+      }
+    }
   }
 
   /* @media (min-width: $screen-sm) {
@@ -93,6 +111,7 @@
 
   ul.nav-pills,
   ul.nav-bar {
+    background-color: rgba(77, 152, 64, 1);
     .nav-item {
       border-left: $border-right-side $light-200;
       border-right: $border-left-side $light-200;
@@ -108,15 +127,20 @@
 
       &.vactive {
         display: block;
-        color: $blue-400;
+        color: $gray-base;
 
         a {
-          color: $blue-400;
+          color: $gray-base;
+        }
+        .dca {
+          .dca-pin {
+            background-image: url("gooru/pin.png")
+          }
         }
       }
 
       a {
-        color: $gray-base;
+        color: $white;
         height: 100%;
         padding-top: 12px;
         padding-bottom: 8px;
@@ -125,6 +149,26 @@
 
         .gru-icon {
           vertical-align: middle;
+        }
+        &.dca {
+          .dca-pin {
+            background-image: url("gooru/pin-white.png");
+            background-repeat: no-repeat;
+            width: 24px;
+            height: 25px;
+            background-size: 24px 25px;
+            display: block;
+            margin-top: 2px;
+          }
+          display: flex;
+        }
+
+        &:hover {
+          background-color: rgba(77, 152, 64, 1);
+          color: $gray-base;
+          .dca-pin {
+            background-image: url("gooru/pin.png");
+          }
         }
       }
 
@@ -153,6 +197,17 @@
 
   .navbar-right {
     margin-right: 0px;
+  }
+
+  .navbar-performance {
+    .container-box {
+      border-bottom: 1px solid $white;
+    }
+    .gru-performance-chart {
+      .percentage {
+        margin-top: 8px;
+      }
+    }
   }
 
   .charts.gru-performance-chart {
@@ -186,8 +241,6 @@
 
 div.teacher.class {
   div.header.clearfix {
-    margin-top: 55px;
-
     > div.go-back-container {
       display: none;
     }
@@ -196,10 +249,6 @@ div.teacher.class {
 
 .hide-classroom-information {
   display: none;
-}
-
-.controller.teacher.class.course-map {
-  margin-top: 50px !important;
 }
 
 .start-tour {

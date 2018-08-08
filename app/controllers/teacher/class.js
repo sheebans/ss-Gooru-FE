@@ -14,6 +14,22 @@ export default Ember.Controller.extend({
   // Actions
   actions: {
     /**
+     *  Action to trigger the course level report
+     */
+    onOpenCourseReport() {
+      let controller = this;
+      let params = {
+        course: controller.get('course'),
+        class: controller.get('class'),
+        classId: controller.get('class.id'),
+        courseId: controller.get('course.id'),
+        classMembers: controller.get('class.members')
+      };
+      this.set('isShowCourseReport', true);
+      this.set('courseReportData', params);
+    },
+
+    /**
      * Collapses the header section
      * @param {boolean} state
      */
@@ -41,6 +57,28 @@ export default Ember.Controller.extend({
     },
 
     /**
+     *  Triggered the lesson report from inside unit report
+     */
+    onOpenLessonReport(lesson) {
+      this.openLessonReport(lesson);
+    },
+
+    /**
+     *  Triggered the unit report from inside course report
+     */
+    onOpenUnitReport(unit) {
+      let controller = this;
+      controller.openUnitReport(unit);
+    },
+
+    /**
+     *  Triggered the collection report from lesson report
+     */
+    teacherCollectionReport(params) {
+      this.openTeacherCollectionReport(params);
+    },
+
+    /**
      * Action triggered when select a domain from pull up
      */
     onSelectDomain(domainSet) {
@@ -56,6 +94,16 @@ export default Ember.Controller.extend({
       let controller = this;
       controller.set('isShowDomainCompetencyReport', false);
       controller.set('isShowCompetencyReport', false);
+    },
+
+    /**
+     * Action triggered when select a competency from competency report
+     */
+    onSelectCompetency(competency, userId) {
+      let controller = this;
+      controller.set('selectedCompetency', competency);
+      controller.set('selectedStudentUserId', userId);
+      controller.set('isShowCompetencyContentReport', true);
     }
   },
 
@@ -72,6 +120,9 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
+  isShowCourseReport: false,
+
   /**
    * The class presented to the user
    * @property {Class}
@@ -111,6 +162,14 @@ export default Ember.Controller.extend({
    */
   hasStudents: Ember.computed.gt('class.countMembers', 0),
 
+  isShowUnitReportPullUp: false,
+
+  isShowLessonReportPullUp: false,
+
+  isShowStudentReport: false,
+
+  isShowCollectionReportPullUp: false,
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -137,7 +196,9 @@ export default Ember.Controller.extend({
     let userId = controller.get('session.userId');
     let lastAccessedClassData = {};
     if (classData) {
-      let courseSubjectCode = classData.course ? classData.course.subject || null : null;
+      let courseSubjectCode = classData.course
+        ? classData.course.subject || null
+        : null;
       lastAccessedClassData = {
         id: classData.id,
         title: classData.title,
@@ -172,5 +233,23 @@ export default Ember.Controller.extend({
       };
     }
     return classPerformance;
+  },
+
+  openUnitReport(params) {
+    let controller = this;
+    controller.set('isShowUnitReportPullUp', true);
+    controller.set('unitReportData', params);
+  },
+
+  openLessonReport(params) {
+    let controller = this;
+    controller.set('isShowLessonReportPullUp', true);
+    controller.set('lessonReportData', params);
+  },
+
+  openTeacherCollectionReport(params) {
+    let controller = this;
+    controller.set('isShowCollectionReportPullUp', true);
+    controller.set('teacherCollectionReportData', params);
   }
 });

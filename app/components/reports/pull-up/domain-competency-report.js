@@ -51,6 +51,14 @@ export default Ember.Component.extend({
       studentCompetenciesListContainer.animate({
         scrollLeft: nextPos
       }, 400);
+    },
+
+    /**
+     * Action triggered when select a competency from competency report
+     */
+    onSelectCompetency(competency, userId) {
+      let component = this;
+      component.sendAction('onSelectCompetency', competency, userId);
     }
   },
 

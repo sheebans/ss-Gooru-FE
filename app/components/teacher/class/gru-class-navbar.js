@@ -21,6 +21,9 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+    onOpenCourseReport() {
+      this.sendAction('onOpenCourseReport');
+    },
     /**
      *
      * Triggered when an menu item is selected
@@ -59,11 +62,13 @@ export default Ember.Component.extend(ConfigurationMixin, {
   didInsertElement: function() {
     var item = this.get('selectedMenuItem');
     this.selectItem(item);
+    Ember.$('header.gru-header').hide();
   },
 
   willDestroyElement() {
     this._super(...arguments);
     this.set('selectedMenuItem', null);
+    Ember.$('header.gru-header').show();
   },
 
   // -------------------------------------------------------------------------
@@ -119,14 +124,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
         this.$(itemElement).removeClass('vactive');
         return false;
       } else {
-        let eleScr = this.$('li.class-activities.vactive a > img');
-        eleScr.attr('src', '/assets/gooru/pin.png'); // disselect all
         this.$('.tab').removeClass('vactive');
         this.$(itemElement).addClass('vactive');
-        let eleScr1 = this.$('li.class-activities.vactive a > img');
-        if (item === 'class-activities') {
-          eleScr1.attr('src', '/assets/gooru/pin-sel.png');
-        }
       }
     }
   }

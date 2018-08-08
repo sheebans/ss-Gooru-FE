@@ -2,7 +2,6 @@
   {{#if loading}}
     {{three-bounce-spinner}}
   {{else}}
-
     {{#each items as |item index|}}
 
       {{class.overview.gru-accordion-unit
@@ -25,9 +24,10 @@
         toggleLocation=toggleLocation
         onSelectItem="onSelectItem"
         isPremiumClass=isPremiumClass
-        onOpenLessonReport="onOpenLessonReport"
         teacherCollectionReport="teacherCollectionReport"
-        studentReport="studentReport"
+        studentReport="onOpenStudentReport"
+        onOpenUnitLevelReport="onOpenUnitLevelReport"
+        onOpenLessonReport="onOpenLessonReport"
       }}
 
     {{else}}
@@ -36,16 +36,7 @@
 
   {{/if}}
 </ol>
-{{#if showLessonReportPullUp}}
-  {{#reports.gru-report-pull-up breadcrumb=(concat 'Lesson' lessonReportData.lesson.sequence) title=lessonReportData.lesson.title score=lessonReportData.lesson.performance.score showPullUp=showLessonReportPullUp as |lessonReport| }}
-    {{#if lessonReport.isShowBody}}
-      {{reports.gru-lesson-report-body-pull-up onClosePullUp="onClosePullUp" showPullUp=showLessonReportPullUp context=lessonReportData teacherCollectionReport='teacherCollectionReport'}}
-    {{/if}}
-  {{/reports.gru-report-pull-up}}
-{{/if}}
-{{#if showReportPullUp}}
-  {{class.gru-report-panel showPullUp=showReportPullUp reportData=studentReportData model=studentReportData.lesson isStudent=studentReportData.isStudent onClosePullUp="onClosePullUp"}}
-{{/if}}
-{{#if showCollectionReportPullUp}}
-  {{reports.pull-up.collection-report context=teacherCollectionReportData showPullUp=showCollectionReportPullUp studentReport="studentReport"}}
+
+{{#if isShowStudentReport}}
+  {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportData model=studentReportData.lesson isStudent=studentReportData.isStudent onClosePullUp="onClosePullUp"}}
 {{/if}}

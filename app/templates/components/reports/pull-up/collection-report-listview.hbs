@@ -23,9 +23,25 @@
               {{/if}}
               </span>
             </div>
-            <div class="avg-filter">
-              <span>{{t 'common.avg'}}</span>
-            </div>
+            {{#if (eq selectedCollection.format 'assessment')}}
+              <div class="score-timespent {{if sortByScoreEnabled 'active'}}" {{action 'sortByScore'}}>
+                <span>{{t 'common.score'}}</span>
+                {{#if sortByScoreEnabled}}
+                  {{gru-icon name="keyboard_arrow_up"}}
+                {{else}}
+                  {{gru-icon name="keyboard_arrow_down"}}
+                {{/if}}
+              </div>
+            {{else}}
+              <div class="score-timespent {{if sortByTimeSpentEnabled 'active'}}" {{action 'sortByTimeSpent'}}>
+                <span>{{t 'gru-performance-summary.time-spent'}}</span>
+                {{#if sortByTimeSpentEnabled}}
+                  {{gru-icon name="keyboard_arrow_up"}}
+                {{else}}
+                  {{gru-icon name="keyboard_arrow_down"}}
+                {{/if}}
+              </div>
+            {{/if}}
           </div>
         </th>
       </tr>
@@ -52,7 +68,15 @@
               </div>
               <div class="score-details">
                 {{#if student.hasStarted}}
-                  <span style= {{safe-html (concat "color:" (grade-color student.overAllScore))}}>{{student.overAllScore}}%</span>
+                  {{#if (eq selectedCollection.format 'assessment')}}
+                    {{#unless student.isGraded}}
+                      <div class="not-graded">{{gru-icon name="visibility"}}</div>
+                  {{else}}
+                    <span style= {{safe-html (concat "color:" (grade-color student.overAllScore))}}>{{student.overAllScore}}%</span>
+                    {{/unless}}
+                  {{else}}
+                    <span>{{format-time student.totalTimeSpent}}</span>
+                  {{/if}}
                 {{else}}
                   <span>--</span>
                 {{/if}}
@@ -71,8 +95,8 @@
         {{#each contents as | content |}}
           <th class="tabular-header on-scroll-fixed">
             <div class="content-header">
-              <div class="question-icon">
-                <i></i>
+              <div class="resource-icon">
+                <i class="{{content.format}}"></i>
               </div>
               <div class="content-title">
                 <p>{{safe-html content.title}}</p>
@@ -86,19 +110,25 @@
           {{#each student.userPerformanceData as |userPerformanceData|}}
             <td>
               <div class="perf-time-react-container">
-                <div class="content-score-value">
-                  {{#if userPerformanceData.hasStarted}}
-                    {{#if userPerformanceData.isSkipped}}
-                      <div class="skipped">
-                        <span>{{userPerformanceData.sequence}}</span> {{gru-icon name="not_interested"}}
-                      </div>
+                {{#if (eq userPerformanceData.format 'question')}}
+                  {{#unless userPerformanceData.isGraded}}
+                    <div class="not-graded">{{gru-icon name="visibility"}}</div>
+                {{else}}
+                  <div class="content-score-value">
+                    {{#if userPerformanceData.hasStarted}}
+                      {{#if userPerformanceData.isSkipped}}
+                        <div class="skipped">
+                          <span>{{userPerformanceData.sequence}}</span> {{gru-icon name="not_interested"}}
+                        </div>
+                      {{else}}
+                        <div class="{{if userPerformanceData.correct 'correct' 'wrong'}}">{{userPerformanceData.sequence}}</div>
+                      {{/if}}
                     {{else}}
-                      <div class="{{if userPerformanceData.correct 'correct' 'wrong'}}">{{userPerformanceData.sequence}}</div>
+                      <div class="not-started">{{userPerformanceData.sequence}}</div>
                     {{/if}}
-                  {{else}}
-                    <div class="not-started">{{userPerformanceData.sequence}}</div>
-                  {{/if}}
-                </div>
+                  </div>
+                  {{/unless}}
+                {{/if}}
                 {{#if isTimeSpentFltApplied}}
                   <div class="timespent-value">
                     {{#if userPerformanceData.timeSpent}}
@@ -159,7 +189,6 @@
   {{teacher.suggestion-pull-up
     showPullUp=showSuggestionPullup
     students=studentsSelectedForSuggest
-    searchResults=searchResults
     onCloseSuggest="onCloseSuggest"
     context=contextParams
     collection=collection

@@ -31,6 +31,7 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Properties
+
   /**
    * Propery to show class id.
    * @property {classId}
@@ -101,10 +102,38 @@ export default Ember.Controller.extend({
     return setting ? setting['course.premium'] : false;
   }),
 
+  isShowCoursePullup: false,
+
   // -------------------------------------------------------------------------
   // Actions
 
   actions: {
+    /**
+     * Trigger when unit level  report clicked
+     */
+    onOpenUnitLevelReport(unit) {
+      const controller = this;
+      const classController = controller.get('classController');
+      classController.openUnitReport(unit);
+    },
+    /**
+     * Trigger when lesson level  report clicked
+     */
+    onOpenLessonReport(params) {
+      const controller = this;
+      const classController = controller.get('classController');
+      classController.openLessonReport(params);
+    },
+
+    /**
+     * Trigger when collection level teacher report clicked
+     */
+    teacherCollectionReport(params) {
+      const controller = this;
+      const classController = controller.get('classController');
+      classController.openTeacherCollectionReport(params);
+    },
+
     /**
      * Update 'location' (bound query param)
      *

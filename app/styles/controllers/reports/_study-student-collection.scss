@@ -4,13 +4,13 @@
   .app-container {
     padding: 0;
   }
-  .gru-header,
-  .gru-footer {
+
+  .gru-header, .gru-footer {
     display: none;
   }
 
   .report-container {
-    padding-top: 104px;
+    padding-top: 50px;
     // height: 100vh;
     // overflow: auto;
     .suggestion-panel {
@@ -60,6 +60,39 @@
       background-color: #37424b;
       z-index: 888;
       opacity: 0.4;
+    }
+  }
+}
+
+body.reports_study-student-collection {
+  &.fullscreen {
+    @mixin fullscreenStyle {
+      background-color: #353e47 !important;
+    }
+    @include fullscreenStyle;
+    .qz-assessment-report {
+      @include fullscreenStyle;
+    }
+    .gru-study-navbar {
+      display: none;
+    }
+    .bar-charts {
+      top: 0 !important;
+      @include fullscreenStyle;
+    }
+    .report-container {
+      padding-top: 0;
+    }
+    .gru-player-summary-footer {
+      @include fullscreenStyle;
+      .resource-title {
+        color: $white;
+      }
+      .toggle-screen {
+        i {
+          color: $white;
+        }
+      }
     }
   }
 }

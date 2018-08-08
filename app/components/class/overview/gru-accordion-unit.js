@@ -71,6 +71,26 @@ export default Ember.Component.extend(AccordionMixin, {
   // Actions
   actions: {
     /**
+     * Launch an unit report pullup
+     *
+     * @function actions:onOpenUnitLevelReport
+     */
+    onOpenUnitLevelReport(model) {
+      const component = this;
+      let params = {
+        classId: component.get('currentClass.id'),
+        courseId:
+          component.get('currentClass.courseId') ||
+          component.get('currentCourse.id'),
+        unit: model,
+        course: component.get('currentCourse'),
+        unitId: model.get('id'),
+        classMembers: component.get('classMembers')
+      };
+      component.set('showUnitReportPullUp', true);
+      this.sendAction('onOpenUnitLevelReport', params);
+    },
+    /**
      * Launch an assessment on-air
      *
      * @function actions:launchOnAir
@@ -174,6 +194,7 @@ export default Ember.Component.extend(AccordionMixin, {
      * Trigger when lesson level  report clicked
      */
     onOpenLessonReport(params) {
+      params.lessons = this.get('items');
       this.sendAction('onOpenLessonReport', params);
     },
 
@@ -196,7 +217,6 @@ export default Ember.Component.extend(AccordionMixin, {
   // Events
   setupComponent: Ember.on('didInsertElement', function() {
     const component = this;
-
     this.$().on('hide.bs.collapse', function(e) {
       e.stopPropagation();
       component.set('isExpanded', false);
@@ -276,6 +296,20 @@ export default Ember.Component.extend(AccordionMixin, {
   isFromDCA: null,
 
   showUnitReportPullUp: false,
+
+  /**
+   * rescoped class average performance hide for teacher's
+   * @property {Ember.Array}
+   */
+  isPremiumClassForTeacher: Ember.computed('isPremiumClass', function() {
+    let component = this;
+    let isPremiumClass = component.get('isPremiumClass');
+    let isTeacher = component.get('isTeacher');
+    if (isPremiumClass && isTeacher) {
+      return true;
+    }
+    return false;
+  }),
 
   // -------------------------------------------------------------------------
   // Observers

@@ -1,0 +1,93 @@
+<div class="table-fixed-left">
+  <table>
+    <tbody>
+      <tr>
+        <th class="tabular-header on-scroll-fixed">
+          <div class="header-filters">
+            <div class="name-filter">
+              <span class="name-header">{{t 'common.name'}}</span>
+              <span class="first-header {{if sortByFirstnameEnabled 'active'}}" {{action 'sortByFirstName'}}>
+                <span>{{t 'common.first'}}</span>
+              {{#if sortByFirstnameEnabled}}
+                {{gru-icon name="keyboard_arrow_up"}}
+              {{else}}
+                {{gru-icon name="keyboard_arrow_down"}}
+              {{/if}}
+              </span>
+              <span class="last-header {{if sortByLastnameEnabled 'active'}}" {{action 'sortByLastName'}}>
+                <span>{{t 'common.last'}}</span>
+              {{#if sortByLastnameEnabled}}
+                {{gru-icon name="keyboard_arrow_up"}}
+              {{else}}
+                {{gru-icon name="keyboard_arrow_down"}}
+              {{/if}}
+              </span>
+            </div>
+          </div>
+        </th>
+      </tr>
+      {{#each studentReportData as |student|}}
+        <tr>
+          <th>
+            <div class="user-profile-summary">
+              <div class="user-profile-details">
+                <div class="user-profile-img">
+                  <img src="{{student.avatarUrl}}" />
+                </div>
+                <div class="username">
+                  <span>{{student.firstName}}</span>
+                  <span>{{student.lastName}}</span>
+                </div>
+              </div>
+            </div>
+          </th>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+<div class="table-fixed-right">
+  <table>
+    <tbody>
+      <tr>
+        {{#each contents as | content |}}
+          <th class="tabular-header on-scroll-fixed">
+            <div class="content-header {{unless content.performance.hasStarted 'not-started'}}" {{action 'openUnitReport' content contents}}>
+              <div style= {{safe-html (concat "background-color:" (grade-color content.performance.score))}} class="content-icon">
+                <span>U{{content.sequence}}</span>
+              </div>
+              <div class="content-title">
+                <p>{{safe-html content.title}}</p>
+              </div>
+            </div>
+          </th>
+        {{/each}}
+      </tr>
+      {{#each studentReportData as |student|}}
+        <tr>
+          {{#each student.userPerformanceData as |userPerformanceData|}}
+            <td>
+              <div class="perf-time-container">
+                <div class="content-score-value">
+                  {{#if userPerformanceData.hasStarted}}
+                    <span style= {{safe-html (concat "color:" (grade-color userPerformanceData.score))}}>{{userPerformanceData.score}}%</span>
+                  {{else}}
+                    <span>--</span>
+                  {{/if}}
+                </div>
+              </div>
+            </td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+{{#if (gt contents.length 2)}}
+  <span class="scroll-left-arrow scroll-arrow on-scroll-fixed" {{action 'onClickScrollLeftArrow'}}>
+    {{gru-icon name="keyboard_arrow_left"}}
+  </span>
+  <span class="scroll-right-arrow scroll-arrow on-scroll-fixed" {{action 'onClickScrollRightArrow'}}>
+    {{gru-icon name="keyboard_arrow_right"}}
+  </span>
+{{/if}}

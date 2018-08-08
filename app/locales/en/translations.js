@@ -54,7 +54,7 @@ export default Object.assign(quizzesTranslations, {
     name: 'Name',
     lastName: 'Lastname',
     firstName: 'Firstname',
-    avg: 'Avg',
+    'filter-by': 'Filter By',
     more: 'more',
     'gooru-suggestions': 'Gooru Suggestions',
     'suggestion-made-to': 'Suggestion made to',
@@ -424,6 +424,7 @@ export default Object.assign(quizzesTranslations, {
     'more-details': 'More Details',
     move: 'Move',
     myContent: 'My Content',
+    myProfile: 'My Profile',
     library: 'Library',
     myPerformance: 'My Performance',
     'edit-narration': 'Edit Narration',
@@ -2579,9 +2580,9 @@ export default Object.assign(quizzesTranslations, {
       'of your students have completed all the assessments in this lesson'
   },
 
-  'report': {
+  report: {
     'competency-report': {
-      'title': 'Competency Report',
+      title: 'Competency Report',
       'no-subject': 'No Subject Assigned'
     },
     'domain-report': 'Domain Report'
