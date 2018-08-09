@@ -155,6 +155,7 @@
         }
       }
       .performance-container {
+        cursor: pointer;
         width: 76px;
         display: inline-block;
         height: 67px;
@@ -162,6 +163,9 @@
 
         .container-box {
           height: 67px;
+          .percentage {
+            cursor: pointer;
+          }
         }
       }
     }
