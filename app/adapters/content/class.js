@@ -12,6 +12,8 @@ export default Ember.Object.extend({
 
   reportNamespace: '/api/nucleus-download-reports/v1',
 
+  demoNamespace: '/api/demo/v1',
+
   /**
    * Archive class
    *
@@ -295,6 +297,25 @@ export default Ember.Object.extend({
       headers: adapter.defineHeaders(),
       data: JSON.stringify({
         collaborator: collaborator
+      })
+    };
+    return Ember.$.ajax(url, options);
+  },
+
+  /**
+   * @function joinCoTeacherIntoClass
+   * Method to join as a co-teacher into a class
+   */
+  joinCoTeacherIntoClass(classCode) {
+    const adapter = this;
+    const namespace = this.get('demoNamespace');
+    const url = `${namespace}/coteacher`;
+    const options = {
+      type: 'POST',
+      contentType: 'application/json',
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify({
+        code: classCode
       })
     };
     return Ember.$.ajax(url, options);
