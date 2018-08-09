@@ -264,9 +264,13 @@ export default Ember.Route.extend(PrivateRouteMixin, {
           coursePromise = route.get('courseService').fetchById(courseId);
         }
 
+        //Pass courseId as query param for student current location
+        let locationQueryParam = {
+          courseId
+        };
         var userLocationPromise = route
           .get('analyticsService')
-          .getUserCurrentLocation(classId, myId);
+          .getUserCurrentLocation(classId, myId, locationQueryParam);
 
         return Ember.RSVP.hash({
           contentVisibility: visibilityPromise,

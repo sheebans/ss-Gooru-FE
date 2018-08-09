@@ -47,12 +47,12 @@ export default Ember.Service.extend({
    * Get user performance competency collections
    * @returns {Promise.<[]>}
    */
-  getUserPerformanceCompetencyCollections: function(userId, competencyCode) {
+  getUserPerformanceCompetencyCollections: function(userId, competencyCode, status) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service
         .get('competencyAdapter')
-        .getUserPerformanceCompetencyCollections(userId, competencyCode)
+        .getUserPerformanceCompetencyCollections(userId, competencyCode, status)
         .then(function(response) {
           resolve(
             service

@@ -38,7 +38,7 @@ export default Ember.Object.extend({
    * Get user performance competency collections
    * @returns {Promise.<[]>}
    */
-  getUserPerformanceCompetencyCollections(user, gutCode) {
+  getUserPerformanceCompetencyCollections(user, gutCode, status) {
     const adapter = this;
     const namespace = adapter.get('namespace');
     const url = `${namespace}/v2/user/performance/competency/collections`;
@@ -48,7 +48,8 @@ export default Ember.Object.extend({
       contentType: 'application/json; charset=utf-8',
       data: {
         user,
-        gutCode
+        gutCode,
+        status
       }
     };
     return Ember.RSVP.hashSettled({

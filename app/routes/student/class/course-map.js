@@ -104,9 +104,14 @@ export default Ember.Route.extend({
     const units = route.modelFor('student.class').units;
     const userId = route.get('session.userId');
     const classMembers = currentClass.get('members');
+    const courseId = course.get('id');
+    //Pass courseId as query param for student current location
+    let locationQueryParam = {
+      courseId
+    };
     const userLocation = route
       .get('analyticsService')
-      .getUserCurrentLocation(currentClass.get('id'), userId);
+      .getUserCurrentLocation(currentClass.get('id'), userId, locationQueryParam);
     var route0Promise = {};
     let setting = currentClass.get('setting');
     let premiumCourse = setting

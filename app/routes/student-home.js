@@ -301,7 +301,6 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   afterModel(resolvedModel) {
     let route = this;
     let activeClasses = resolvedModel.activeClasses;
-    let classIds = activeClasses.mapBy('id');
     let classCourseIds = route.getListOfClassCourseIds(activeClasses);
     let myId = route.get('session.userId');
 
@@ -311,7 +310,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         .findClassPerformanceSummaryByStudentAndClassIds(myId, classCourseIds),
       classesLocation: route
         .get('analyticsService')
-        .getUserCurrentLocationByClassIds(classIds, myId, true)
+        .getUserCurrentLocationByClassIds(classCourseIds, myId, true)
     }).then(function(hash) {
       const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
       const classesLocation = hash.classesLocation;
