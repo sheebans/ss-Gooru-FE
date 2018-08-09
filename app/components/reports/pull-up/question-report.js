@@ -41,7 +41,7 @@ export default Ember.Component.extend({
       }
       component.set('selectedQuestion', questions.objectAt(selectedIndex));
       component.$('#report-carousel-wrapper').carousel('prev');
-      component.loadData();
+      component.handleCarouselControl();
     },
 
     onClickNext() {
@@ -60,7 +60,51 @@ export default Ember.Component.extend({
       }
       component.set('selectedQuestion', questions.objectAt(selectedIndex));
       component.$('#report-carousel-wrapper').carousel('next');
-      component.loadData();
+      component.handleCarouselControl();
+    },
+
+    /**
+     * Trigger handle toggle sections, based on element id.
+     */
+    onToggleAnswerSection(element) {
+      let component = this;
+      if (!component.$(element).hasClass('slide-up')) {
+        component
+          .$(element)
+          .find('.user-answer-list')
+          .slideUp();
+        component.$(element).addClass('slide-up');
+      } else {
+        component
+          .$(element)
+          .find('.user-answer-list')
+          .slideDown();
+        component.$(element).removeClass('slide-up');
+      }
+    },
+
+    /**
+     * Trigger handle when show more button clicked
+     */
+    showMore() {
+      let component = this;
+      component.set('showMore', false);
+      component.set('showLess', true);
+      component
+        .$('#report-carousel-wrapper .active .question-background-cover')
+        .addClass('show-all');
+    },
+
+    /**
+     * Trigger handle when show less button clicked
+     */
+    showLess() {
+      let component = this;
+      component.set('showMore', true);
+      component.set('showLess', false);
+      component
+        .$('#report-carousel-wrapper .active .question-background-cover')
+        .removeClass('show-all');
     }
   },
 
@@ -74,7 +118,6 @@ export default Ember.Component.extend({
     this.openPullUp();
     this.slideToSelectedQuestion();
     this.initialize();
-    this.loadData();
   },
   // -------------------------------------------------------------------------
   // Properties
@@ -128,10 +171,19 @@ export default Ember.Component.extend({
   selectedQuestion: Ember.computed.alias('context.selectedQuestion'),
 
   /**
+   * List of contents mapped to collection.
+   * @type {Array}
+   */
+  contents: Ember.computed.alias('context.contents'),
+
+  /**
    * List of questions mapped to collection.
    * @type {Array}
    */
-  questions: Ember.computed.alias('context.questions'),
+  questions: Ember.computed('context.contents', function() {
+    let contents = this.get('context.contents');
+    return contents.filterBy('format', 'question');
+  }),
 
   /**
    * Propery to hide the default pullup.
@@ -157,6 +209,33 @@ export default Ember.Component.extend({
    */
   isLoading: false,
 
+  /**
+   * This will have details about selected question report
+   * @return {Object}
+   */
+  selectedQuestionReport: Ember.computed(
+    'studentReportData',
+    'selectedQuestion',
+    function() {
+      let component = this;
+      let studentReportData = component.get('studentReportData');
+      let selectedQuestionId = component.get('selectedQuestion.id');
+      return studentReportData.findBy('id', selectedQuestionId);
+    }
+  ),
+
+  /**
+   * Maintains the state of show more button
+   * @type {Boolean}
+   */
+  showMore: false,
+
+  /**
+   * Maintains the state of show less button
+   * @type {Boolean}
+   */
+  showLess: false,
+
   //--------------------------------------------------------------------------
   // Methods
 
@@ -170,6 +249,8 @@ export default Ember.Component.extend({
 
   initialize: function() {
     const component = this;
+    component.slideToSelectedQuestion();
+    component.set('isLoading', true);
     const classId = component.get('classId');
     const courseId = component.get('courseId');
     const unitId = component.get('unit.id');
@@ -187,72 +268,115 @@ export default Ember.Component.extend({
         collectionType
       )
       .then(function(userResourcesResults) {
-        let questions = component.get('questions');
-        let classMembers = component.get('classMembers');
-        let resultSet = Ember.A();
-        questions.forEach(question => {
-          let questionId = question.get('id');
-          let result = Ember.Object.create({
-            id: questionId
-          });
-          let correctAnswers = Ember.A([]);
-          let wrongAnswers = Ember.A([]);
-          let notAnswerUsers = Ember.A([]);
-          classMembers.forEach(member => {
-            let memberId = member.get('id');
-            let userResourcesResult = userResourcesResults.findBy(
-              'user',
-              memberId
-            );
-            let user = component.createUser(member);
-            if (userResourcesResult) {
-              let resourceResults = userResourcesResult.get('resourceResults');
-              let resourceResult = resourceResults.findBy(
-                'resourceId',
-                questionId
-              );
-              if (resourceResult) {
-                let isCorrect = resourceResult.get('correct');
-                let userAnswer = resourceResult.get('userAnswer');
-                if (userAnswer) {
-                  let answerObj = resourceResult.get('answerObject');
-                  let answerId = component.getAnswerId(userAnswer);
-                  let answer = answerObj.findBy('answerId', userAnswer);
-                  if (isCorrect) {
-                    component.answerGroup(
-                      answerId,
-                      answer,
-                      answerObj,
-                      correctAnswers,
-                      userAnswer,
-                      user
-                    );
-                  } else {
-                    component.answerGroup(
-                      answerId,
-                      answer,
-                      answerObj,
-                      wrongAnswers,
-                      userAnswer,
-                      user
-                    );
-                  }
+        if (!component.isDestroyed) {
+          component.parseUserResourceResults(userResourcesResults);
+          component.handleCarouselControl();
+          component.set('isLoading', false);
+        }
+      });
+  },
+
+  parseUserResourceResults(userResourcesResults) {
+    let component = this;
+    let questions = component.get('questions');
+    let classMembers = component.get('classMembers');
+    let resultSet = Ember.A();
+    questions.forEach(question => {
+      let questionId = question.get('id');
+      let result = Ember.Object.create({
+        id: questionId,
+        question: question
+      });
+      let correctAnswers = Ember.A([]);
+      let wrongAnswers = Ember.A([]);
+      let notAnswerUsers = Ember.A([]);
+      let notGradedUsers = Ember.A([]);
+      let correctAnswerUserCount = 0;
+      let wrongAnswerUserCount = 0;
+      let notGradedAnswerUserCount = 0;
+      classMembers.forEach(member => {
+        let memberId = member.get('id');
+        let userResourcesResult = userResourcesResults.findBy('user', memberId);
+        let user = component.createUser(member);
+        if (userResourcesResult) {
+          let resourceResults = userResourcesResult.get('resourceResults');
+          let resourceResult = resourceResults.findBy('resourceId', questionId);
+          if (resourceResult) {
+            let isCorrect = resourceResult.get('correct');
+            let isGraded = resourceResult.get('isGraded');
+            let questionType = resourceResult.get('questionType');
+            let userAnswer = resourceResult.get('userAnswer');
+            if (userAnswer) {
+              let answerObj = resourceResult.get('answerObject');
+              let answerId = component.getAnswerId(userAnswer);
+              let answer = answerObj.findBy('answerId', userAnswer);
+              if (questionType !== 'OE' || isGraded) {
+                if (isCorrect) {
+                  component.answerGroup(
+                    answerId,
+                    answer,
+                    answerObj,
+                    correctAnswers,
+                    userAnswer,
+                    user
+                  );
+                  correctAnswerUserCount++;
                 } else {
-                  notAnswerUsers.pushObject(user);
+                  component.answerGroup(
+                    answerId,
+                    answer,
+                    answerObj,
+                    wrongAnswers,
+                    userAnswer,
+                    user
+                  );
+                  wrongAnswerUserCount++;
                 }
               } else {
-                notAnswerUsers.pushObject(user);
+                component.answerGroup(
+                  answerId,
+                  answer,
+                  answerObj,
+                  notGradedUsers,
+                  userAnswer,
+                  user
+                );
+                notGradedAnswerUserCount++;
               }
             } else {
               notAnswerUsers.pushObject(user);
             }
-          });
-          result.set('notAnswered', notAnswerUsers);
-          result.set('correct', correctAnswers);
-          result.set('wrong', wrongAnswers);
-          resultSet.pushObject(result);
-        });
+          } else {
+            notAnswerUsers.pushObject(user);
+          }
+        } else {
+          notAnswerUsers.pushObject(user);
+        }
       });
+      result.set('notAnswered', notAnswerUsers);
+      result.set('correct', correctAnswers);
+      result.set('wrong', wrongAnswers);
+      result.set('notGraded', notGradedUsers);
+      let memberCount = classMembers.length;
+      result.set(
+        'notAnswerUserPrecentage',
+        Math.round((notAnswerUsers.length / memberCount) * 100)
+      );
+      result.set(
+        'correctAnswerUserPrecentage',
+        Math.round((correctAnswerUserCount / memberCount) * 100)
+      );
+      result.set(
+        'wrongAnswerUserPrecentage',
+        Math.round((wrongAnswerUserCount / memberCount) * 100)
+      );
+      result.set(
+        'notGradedUserPrecentage',
+        Math.round((notGradedAnswerUserCount / memberCount) * 100)
+      );
+      resultSet.pushObject(result);
+    });
+    component.set('studentReportData', resultSet);
   },
 
   answerGroup(answerId, answer, answerObj, answerGroups, userAnswer, user) {
@@ -288,14 +412,9 @@ export default Ember.Component.extend({
           return answer.toLowerCase();
         }
       });
-      answerId = btoa(id.join('-'));
+      answerId = id.join('-');
     }
-    return answerId;
-  },
-
-  loadData() {
-    let component = this;
-    component.handleCarouselControl();
+    return window.md5(answerId);
   },
 
   /**
@@ -352,6 +471,27 @@ export default Ember.Component.extend({
           .$('#report-carousel-wrapper .carousel-control.right')
           .removeClass('in-active');
       }
+    }
+    // handle show more in carousel
+    component
+      .$('#report-carousel-wrapper .question-background-cover')
+      .removeClass('show-all');
+    let height = component
+      .$(
+        `#report-carousel-wrapper .question-background-cover:eq(${currentIndex})`
+      )
+      .height();
+    let scrollHeight = component
+      .$(
+        `#report-carousel-wrapper .question-background-cover:eq(${currentIndex})`
+      )
+      .prop('scrollHeight');
+    if (scrollHeight > height) {
+      component.set('showMore', true);
+      component.set('showLess', false);
+    } else {
+      component.set('showMore', false);
+      component.set('showLess', false);
     }
   }
 });

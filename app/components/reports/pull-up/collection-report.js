@@ -142,7 +142,7 @@ export default Ember.Component.extend({
       }
     },
 
-    openQuestionReport(question, questions) {
+    openQuestionReport(question, contents) {
       let component = this;
       let params = {
         classId: component.get('classId'),
@@ -151,7 +151,7 @@ export default Ember.Component.extend({
         lesson: component.get('lesson'),
         collection: component.get('selectedCollection'),
         selectedQuestion: question,
-        questions: questions,
+        contents: contents,
         classMembers: component.get('classMembers')
       };
       component.set('studentQuestionReportContextData', params);

@@ -2,24 +2,33 @@
   ul {
     display: inline-block;
     padding-left: 0;
+
     li {
       list-style: none;
       position: relative;
+      display: grid;
+      grid-template-columns: 10px auto;
+      grid-template-rows: 25px auto;
+      overflow: hidden;
+      align-items: center;
+      grid-column-gap: 10px;
 
       span.correct {
         color: $brand-success;
       }
+
       span.incorrect {
         color: $brand-incorrect;
       }
-      span.incorrect.anonymous,
-      span.correct.anonymous {
+
+      span.correct.anonymous,
+      span.incorrect.anonymous {
         color: $brand-anonymous;
       }
     }
+
     li span.answer-text {
       display: inline-block;
-      margin-left: 1.5em;
       word-wrap: break-word;
       overflow: auto;
       max-width: 10em;
@@ -29,6 +38,7 @@
       @media (min-width: $screen-lg-min) {
         max-width: 18em;
       }
+
       p {
         display: inline-block;
         margin: 0;
