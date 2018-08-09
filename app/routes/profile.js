@@ -41,6 +41,15 @@ export default Ember.Route.extend({
    */
   model: function(params) {
     let route = this;
+    let loggedUserId = route.get('currentLoginId');
+    if (loggedUserId === 'anonymous') {
+      route.transitionTo('profile.about');
+    } else if (loggedUserId === 'student') {
+      route.transitionTo('profile.proficiency');
+    } else {
+      route.transitionTo('profile.about');
+    }
+
     //Steps for Take a Tour functionality
     const tourSteps = Ember.A([
       {
@@ -134,7 +143,6 @@ export default Ember.Route.extend({
       const controller = route.get('controller');
       const currentMenuItem = controller.get('menuItem');
       controller.selectMenuItem(item);
-
       if (currentMenuItem !== item) {
         if (item === 'content') {
           route.transitionTo(`profile.${item}.courses`);
