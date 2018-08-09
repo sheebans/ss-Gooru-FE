@@ -176,6 +176,11 @@ module.exports = function(defaults) {
     production: 'bower_components/intro.js/minified/introjs.min.css'
   });
 
+  app.import({
+    development: 'bower_components/blueimp-md5/js/md5.js',
+    production: 'bower_components/blueimp-md5/js/md5.min.js'
+  });
+
   if (EmberApp.env() === 'test') {
     app.import('vendor/wysihtml-dummy.js');
   } else {
