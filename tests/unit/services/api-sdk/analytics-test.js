@@ -206,7 +206,7 @@ test('getUserCurrentLocation fetchAll-true currentLocation-null', function(
 });
 
 test('getUserCurrentLocation fetchAll-true', function(assert) {
-  assert.expect(4);
+  assert.expect(3);
 
   const service = this.subject({
     loadCurrentLocationData: function(currentLocation) {

@@ -167,16 +167,16 @@ export default Ember.Service.extend({
    * @returns {Ember.RSVP.Promise.<CurrentLocation>}
    */
   getUserCurrentLocationByClassIds: function(
-    classIds,
+    classCourseIds,
     userId,
     fetchAll = false
   ) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      if (classIds && classIds.length) {
+      if (classCourseIds && classCourseIds.length) {
         service
           .get('currentLocationAdapter')
-          .getUserCurrentLocationByClassIds(classIds, userId)
+          .getUserCurrentLocationByClassIds(classCourseIds, userId)
           .then(function(response) {
             const currentLocations = service
               .get('currentLocationSerializer')
@@ -205,12 +205,12 @@ export default Ember.Service.extend({
    * @param {boolean} fetchAll when true load dependencies for current location
    * @returns {Ember.RSVP.Promise.<CurrentLocation>}
    */
-  getUserCurrentLocation: function(classId, userId, fetchAll = false) {
+  getUserCurrentLocation: function(classId, userId, queryParams, fetchAll = false) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service
         .get('currentLocationAdapter')
-        .getUserCurrentLocation(classId, userId)
+        .getUserCurrentLocation(classId, userId, queryParams)
         .then(function(response) {
           const currentLocation = service
             .get('currentLocationSerializer')
