@@ -424,7 +424,6 @@ export default Ember.Component.extend({
       const session = totalSessions
         ? completedSessions[totalSessions - 1]
         : null;
-      const loadStandards = session;
       if (session) {
         //collections has no session
         context.set('sessionId', session.sessionId);
@@ -433,7 +432,7 @@ export default Ember.Component.extend({
       if (context.get('classId')) {
         const performanceService = component.get('performanceService');
         return performanceService
-          .findAssessmentResultByCollectionAndStudent(context, loadStandards)
+          .findAssessmentResultByCollectionAndStudent(context)
           .then(function(assessmentResult) {
             component.setAssessmentResult(assessmentResult);
             if (component.get('isTeacher')) {
@@ -444,7 +443,7 @@ export default Ember.Component.extend({
       } else {
         const learnerService = component.get('learnerService');
         return learnerService
-          .fetchCollectionPerformance(context, loadStandards)
+          .fetchCollectionPerformance(context)
           .then(function(assessmentResult) {
             component.setAssessmentResult(assessmentResult);
           });
@@ -548,9 +547,8 @@ export default Ember.Component.extend({
       context.set('sessionId', session.sessionId);
     }
     const performanceService = component.get('performanceService');
-    const loadStandards = session && context.get('isInContext');
     return performanceService
-      .findAssessmentResultByCollectionAndStudent(context, loadStandards)
+      .findAssessmentResultByCollectionAndStudent(context)
       .then(function(assessmentResult) {
         component.setAssessmentResult(assessmentResult, session);
       });

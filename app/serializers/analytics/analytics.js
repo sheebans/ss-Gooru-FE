@@ -4,7 +4,6 @@ import UserResourcesResult from 'gooru-web/models/result/user-resources';
 import ResourceResult from 'gooru-web/models/result/resource';
 import QuestionResult from 'gooru-web/models/result/question';
 import AnswerObject from 'gooru-web/utils/question/answer-object';
-import LearningTarget from 'gooru-web/models/result/learning-target';
 import { getQuestionUtil } from 'gooru-web/config/question';
 import { toLocal } from 'gooru-web/utils/utils';
 
@@ -147,34 +146,6 @@ export default Ember.Object.extend({
       }
       return AnswerObject.create(answerObject);
     });
-  },
-
-  normalizeGetStandardsSummary: function(payload) {
-    var result = [];
-    const serializer = this;
-    const content = payload.content;
-    if (Ember.isArray(content)) {
-      result = content.map(function(standard) {
-        //standard score  set -1 if all questions is skipped
-        let skippedQuestioncount = 0;
-        standard.questions.forEach(function(questionsStatus) {
-          if (questionsStatus.answerStatus === 'skipped') {
-            skippedQuestioncount = skippedQuestioncount + 1;
-          }
-        });
-        // minus one (-1) consider as not score
-        if (skippedQuestioncount === standard.questions.length) {
-          standard.score = -1;
-        }
-        return LearningTarget.create({
-          id: standard.standardsId || standard.learningTargetId,
-          standard: standard.displayCode,
-          mastery: standard.score,
-          relatedQuestions: serializer.normalizeQuestions(standard.questions)
-        });
-      });
-    }
-    return result;
   },
 
   normalizeQuestions: function(payload) {
