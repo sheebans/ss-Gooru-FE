@@ -42,10 +42,12 @@ export default Ember.Component.extend(ConfigurationMixin, {
     const configuration = component.get('configurationService.configuration');
     let classService = component.get('classService');
     let classCode = configuration.get('demoClass.code');
+    let classId = configuration.get('demoClass.id');
     let joinActionPromise = classService.joinCoTeacherIntoClass(classCode);
     return joinActionPromise.then(function() {
       component.set('status', component.get('i18n').t('teacher-landing.navigator-banner.success-message'));
       component.set('isJoinedSuccessfully', true);
+      component.sendAction('updateClass', classId);
     }).catch(function() {
       component.set('status', component.get('i18n').t('teacher-landing.navigator-banner.error-message'));
       component.set('isJoinedSuccessfully', false);
