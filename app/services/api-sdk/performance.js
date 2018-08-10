@@ -274,10 +274,13 @@ export default Ember.Service.extend({
     }
   ) {
     const service = this;
-    service.get('store').unloadAll('performance/collection-performance');
+    let routeType = options.routeType || '';
+    service
+      .get('store')
+      .unloadAll(`performance/${routeType}collection-performance`);
     return service
       .get('store')
-      .query('performance/collection-performance', {
+      .query(`performance/${routeType}collection-performance`, {
         userUid: userId,
         collectionType: options.collectionType,
         classId: classId,
@@ -289,7 +292,8 @@ export default Ember.Service.extend({
         return service.matchCourseMapWithPerformances(
           collections,
           collectionPerformances,
-          'collection'
+          'collection',
+          routeType
         );
       });
   },
@@ -322,7 +326,8 @@ export default Ember.Service.extend({
   matchCourseMapWithPerformances: function(
     objectsWithTitle,
     performances,
-    type
+    type,
+    routeType
   ) {
     const service = this;
     return objectsWithTitle.map(function(object) {
@@ -331,7 +336,11 @@ export default Ember.Service.extend({
         objectWithTitle.set('title', object.get('title'));
         objectWithTitle.set('model', object);
       } else {
-        objectWithTitle = service.getPerformanceRecordByType(type, object);
+        objectWithTitle = service.getPerformanceRecordByType(
+          type,
+          object,
+          routeType
+        );
         objectWithTitle.set('model', object);
       }
       return objectWithTitle;
@@ -344,7 +353,7 @@ export default Ember.Service.extend({
    * @param object
    * @returns {Promise.<performance[]>}
    */
-  getPerformanceRecordByType: function(type, object) {
+  getPerformanceRecordByType: function(type, object, routeType) {
     const id = object.get('id');
     const store = this.get('store');
     let modelName = null;
@@ -355,7 +364,7 @@ export default Ember.Service.extend({
     } else if (type === 'lesson') {
       modelName = 'performance/lesson-performance';
     } else {
-      modelName = 'performance/collection-performance';
+      modelName = `performance/${routeType}collection-performance`;
     }
 
     const found = store.recordIsLoaded(modelName, id);

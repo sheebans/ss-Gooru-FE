@@ -35,6 +35,7 @@ export default Ember.Component.extend(AccordionMixin, {
   actions: {
     selectLesson: function(modelid) {
       this.updateAccordionById(modelid);
+      this.setLessonItemForReport();
     },
     /**
      * Observe changes to 'parsedLocation' to update the accordion's status
@@ -107,9 +108,9 @@ export default Ember.Component.extend(AccordionMixin, {
       this.set('showCollectionReportPullUp', false);
     }
   },
-  didInsertElement() {
+  /*  didInsertElement() {
     this.setLessonItemForReport();
-  },
+  }, */
   setLessonItemForReport() {
     const component = this;
     if (!component.get('class')) {
@@ -171,7 +172,7 @@ export default Ember.Component.extend(AccordionMixin, {
           unitId,
           lessonId,
           collections,
-          { collectionType: CONTENT_TYPES.ASSESSMENT }
+          { collectionType: CONTENT_TYPES.ASSESSMENT, routeType: 'route0' }
         ),
         performanceCollection: perfSvc.findStudentPerformanceByLesson(
           userId,
@@ -180,7 +181,7 @@ export default Ember.Component.extend(AccordionMixin, {
           unitId,
           lessonId,
           collections,
-          { collectionType: CONTENT_TYPES.COLLECTION }
+          { collectionType: CONTENT_TYPES.COLLECTION, routeType: 'route0' }
         )
       }).then(({ performanceAssessment, performanceCollection }) => {
         let assessments = performanceAssessment.filterBy('type', 'assessment');
