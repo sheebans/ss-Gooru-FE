@@ -79,41 +79,6 @@ test('findResourcesByCollection', function(assert) {
     });
 });
 
-test('getStandardsSummary', function(assert) {
-  const service = this.subject();
-  assert.expect(3);
-
-  service.set(
-    'analyticsAdapter',
-    Ember.Object.create({
-      getStandardsSummary: function(sessionId, userId) {
-        assert.equal(sessionId, 12345, 'wrong session id');
-        assert.equal(userId, 123, 'wrong user id');
-        return Ember.RSVP.resolve('fake response');
-      }
-    })
-  );
-
-  service.set(
-    'analyticsSerializer',
-    Ember.Object.create({
-      normalizeGetStandardsSummary: function(payload) {
-        assert.equal(
-          payload,
-          'fake response',
-          'wrong payload, should match adapter response'
-        );
-        return [];
-      }
-    })
-  );
-
-  var done = assert.async();
-  service.getStandardsSummary(12345, 123).then(function() {
-    done();
-  });
-});
-
 test('getUserCurrentLocation fetchAll-default-value', function(assert) {
   assert.expect(3);
 
@@ -159,9 +124,7 @@ test('getUserCurrentLocation fetchAll-default-value', function(assert) {
   });
 });
 
-test('getUserCurrentLocation fetchAll-true currentLocation-null', function(
-  assert
-) {
+test('getUserCurrentLocation fetchAll-true currentLocation-null', function(assert) {
   assert.expect(3);
 
   const service = this.subject({
@@ -250,9 +213,7 @@ test('getUserCurrentLocation fetchAll-true', function(assert) {
   });
 });
 
-test('getUserCurrentLocationByClassIds fetchAll-default-value', function(
-  assert
-) {
+test('getUserCurrentLocationByClassIds fetchAll-default-value', function(assert) {
   assert.expect(3);
 
   const service = this.subject({
