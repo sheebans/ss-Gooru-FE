@@ -205,7 +205,12 @@ export default Ember.Service.extend({
    * @param {boolean} fetchAll when true load dependencies for current location
    * @returns {Ember.RSVP.Promise.<CurrentLocation>}
    */
-  getUserCurrentLocation: function(classId, userId, queryParams, fetchAll = false) {
+  getUserCurrentLocation: function(
+    classId,
+    userId,
+    queryParams,
+    fetchAll = false
+  ) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service
@@ -282,27 +287,6 @@ export default Ember.Service.extend({
           }
         }
       );
-    });
-  },
-
-  getStandardsSummary: function(sessionId, userId) {
-    const service = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      service
-        .get('analyticsAdapter')
-        .getStandardsSummary(sessionId, userId)
-        .then(
-          function(response) {
-            resolve(
-              service
-                .get('analyticsSerializer')
-                .normalizeGetStandardsSummary(response)
-            );
-          },
-          function(error) {
-            reject(error);
-          }
-        );
     });
   },
 

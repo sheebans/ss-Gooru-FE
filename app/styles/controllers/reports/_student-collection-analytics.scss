@@ -1,41 +1,13 @@
 .controller.analytics.collection.student {
-  padding: 0px 160px 0px 180px;
+  padding: 0 160px 0 180px;
+
   .navigation {
     padding: 10px 25px;
-
     @media (min-width: $screen-xs) {
       padding: 10px 15px;
     }
-
     @media (min-width: $screen-md) {
-      padding: 15px 15px;
-    }
-  }
-  .gru-assessment-report {
-    .gru-learning-target {
-      .learning-target {
-        width: 100%;
-        padding: 25px 20px 0 40px;
-
-        .header-content {
-          .learning-target-description {
-            width: 75%;
-          }
-        }
-        .resource-cards-section {
-          margin-bottom: 20px;
-
-          .gru-resource-result-card {
-            .card-icon {
-              i {
-                background-size: 25px 25px;
-                height: 25px;
-                width: 25px;
-              }
-            }
-          }
-        }
-      }
+      padding: 15px;
     }
   }
 }

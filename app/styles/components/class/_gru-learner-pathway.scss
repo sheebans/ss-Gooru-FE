@@ -242,6 +242,7 @@
   .pathway-body {
     height: calc(90vh - 130px);
     overflow-y: auto;
+
     &::-webkit-scrollbar {
       height: 8px;
       width: 8px;
@@ -256,27 +257,32 @@
     .routesuggestion-coursemap {
       margin: 15px;
       box-shadow: 0 0 4px 2px #ef8f2f;
+
       .route-suggestions-container {
         .gru-accordion-course {
           a {
             text-decoration: none;
           }
           padding-top: 0;
+
           .gru-accordion-unit {
             .unit {
               padding-left: 0;
             }
+
             .gru-accordion-lesson {
               .panel-heading {
-                 .panel-title {
+                .panel-title {
                   width: 100%;
                 }
               }
+
               .panel-body {
                 .collections {
                   .panel {
                     .panel-heading.student {
-                      padding-top: 0px;
+                      padding-top: 0;
+
                       .panel-title .title {
                         cursor: default;
                       }
@@ -289,7 +295,6 @@
         }
       }
     }
-
   }
 
   .unit-body {
@@ -314,31 +319,6 @@
         .gru-summary {
           .summary-container {
             pointer-events: none;
-          }
-        }
-
-        .gru-mastery {
-          .standard-root {
-            .gru-learning-target {
-              .learning-target {
-                .header-content {
-                  .learning-target-description {
-                    .description {
-                      width: 300px;
-
-                      .desc-align {
-                        width: 290px;
-                        position: inherit;
-                      }
-                    }
-
-                    .question {
-                      padding: 0 1px 0 10px;
-                    }
-                  }
-                }
-              }
-            }
           }
         }
       }
