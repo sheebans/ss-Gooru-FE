@@ -4,7 +4,11 @@ import UserResourcesResult from 'gooru-web/models/result/user-resources';
 import ResourceResult from 'gooru-web/models/result/resource';
 import QuestionResult from 'gooru-web/models/result/question';
 import AnswerObject from 'gooru-web/utils/question/answer-object';
-import { getQuestionUtil } from 'gooru-web/config/question';
+import {
+  getQuestionUtil,
+  QUESTION_TYPES,
+  getQuestionTypeByApiType
+} from 'gooru-web/config/question';
 import { toLocal } from 'gooru-web/utils/utils';
 
 export default Ember.Object.extend({
@@ -48,6 +52,12 @@ export default Ember.Object.extend({
 
   normalizeResourceResult: function(payload) {
     let qtype = payload.questionType;
+    if (Object.values(QUESTION_TYPES).indexOf(qtype) <= -1) {
+      let questionType = getQuestionTypeByApiType(qtype);
+      if (questionType) {
+        qtype = questionType;
+      }
+    }
     if (qtype === 'unknown') {
       qtype = payload.resourceType;
     }
