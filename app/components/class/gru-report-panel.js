@@ -237,7 +237,7 @@ export default Ember.Component.extend({
   /**
    * @property {TaxonomyTag[]} List of taxonomy tags
    */
-  tags: Ember.computed('collectionService.standards.[]', function() {
+  tags: Ember.computed('collections.standards.[]', function() {
     let standards = this.get('collections.standards');
     if (standards) {
       standards = standards.filter(function(standard) {

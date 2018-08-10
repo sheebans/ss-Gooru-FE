@@ -19,6 +19,12 @@
   }}
   {{/if}}
 
+  {{#if tags.length}}
+    <div class="standard-tags">
+      {{taxonomy.gru-taxonomy-tag-list tags=tags  showDescription=true }}
+    </div>
+  {{/if}}
+
   {{#if (and (not isTeacher) areAnswersHidden)}}
     <div class="hidden-report">
       <span>{{t "gru-assessment-report.hidden-report"}}</span>
