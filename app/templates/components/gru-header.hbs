@@ -154,7 +154,7 @@
                 </li>
               {{/unless}}
                 <li class="navbar-nav-list visible-md visible-lg profile-link">
-                  {{#link-to (if profile.isStudent 'profile.proficiency' 'profile.content.courses') session.userData.gooruUId class="profile"}}
+                  {{#link-to (if profile.isStudent 'profile.proficiency' 'profile.content.courses') session.userData.gooruUId (query-params source="direct") class="profile"}}
                     <div class="img-container pull-left">
                       <img class="img-responsive" src="{{session.userData.avatarUrl}}"/>
                     </div>
@@ -213,7 +213,7 @@
                     </li>
                   {{/unless}}
                   <li class="navbar-nav-list">
-                    {{#link-to (if profile.isStudent 'profile.proficiency' 'profile.content.courses') session.userData.gooruUId class="navbar-link"}}
+                    {{#link-to (if profile.isStudent 'profile.proficiency' 'profile.content.courses') session.userData.gooruUId (query-params source="direct") class="navbar-link"}}
                       <span class="">{{t "common.profile"}}</span>
                     {{/link-to}}
                   </li>
