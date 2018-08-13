@@ -33,6 +33,12 @@ export default Ember.Component.extend({
    */
   sortByLastnameEnabled: true,
 
+  /**
+   * Maintain the status of sort by score
+   * @type {String}
+   */
+  sortByScoreEnabled: false,
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -73,6 +79,23 @@ export default Ember.Component.extend({
             .reverse()
         );
       }
+    },
+
+    sortByScore() {
+      let component = this;
+      component.toggleProperty('sortByScoreEnabled');
+      let studentReportData;
+      if (component.get('sortByScoreEnabled')) {
+        studentReportData = component
+          .get('studentReportData')
+          .sortBy('score-use-for-sort')
+          .reverse();
+      } else {
+        studentReportData = component
+          .get('studentReportData')
+          .sortBy('score-use-for-sort');
+      }
+      component.set('studentReportData', studentReportData);
     },
 
     openLessonReport(lesson, lessons) {

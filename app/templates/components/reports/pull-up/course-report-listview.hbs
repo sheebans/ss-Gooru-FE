@@ -23,6 +23,14 @@
               {{/if}}
               </span>
             </div>
+            <div class="score-timespent {{if sortByScoreEnabled 'active'}}" {{action 'sortByScore'}}>
+              <span>{{t 'common.avg-score'}}</span>
+              {{#if sortByScoreEnabled}}
+                {{gru-icon name="keyboard_arrow_up"}}
+              {{else}}
+                {{gru-icon name="keyboard_arrow_down"}}
+              {{/if}}
+            </div>
           </div>
         </th>
       </tr>
@@ -38,6 +46,13 @@
                   <span>{{student.firstName}}</span>
                   <span>{{student.lastName}}</span>
                 </div>
+              </div>
+              <div class="score-details">
+                {{#if student.hasStarted}}
+                    <span style= {{safe-html (concat "color:" (grade-color student.score))}}>{{student.score}}%</span>
+                {{else}}
+                  <span>--</span>
+                {{/if}}
               </div>
             </div>
           </th>

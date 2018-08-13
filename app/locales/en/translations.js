@@ -56,6 +56,7 @@ export default Object.assign(quizzesTranslations, {
     firstName: 'Firstname',
     'filter-by': 'Filter By',
     more: 'more',
+    'avg-score': 'Avg Score',
     'gooru-suggestions': 'Gooru Suggestions',
     'suggestion-made-to': 'Suggestion made to',
     'student-selected': 'Student Selected',
@@ -1153,9 +1154,11 @@ export default Object.assign(quizzesTranslations, {
     'create-classroom': 'Create a classroom, assign contents, invite students',
     'navigator-banner': {
       title: 'Navigator for Math',
-      description: 'Utilizing this GPS for Learning technology, we have designed Navigator for Math to ensure that every student can gain confidence and accelerate their learning in math.<br/>Navigator for Math is a course of study covering all math concepts from grades 2-12. Students are routed and rerouted through an individualized pathway designed to build on their current knowledge, as well as fill gaps in their understanding. Through this comprehensive and personalized learning experience, every student can become fully prepared for more advanced math.',
+      description:
+        'Utilizing this GPS for Learning technology, we have designed Navigator for Math to ensure that every student can gain confidence and accelerate their learning in math.<br/>Navigator for Math is a course of study covering all math concepts from grades 2-12. Students are routed and rerouted through an individualized pathway designed to build on their current knowledge, as well as fill gaps in their understanding. Through this comprehensive and personalized learning experience, every student can become fully prepared for more advanced math.',
       join: 'Join Demo Class',
-      'success-message': 'You have successfully joined as a co-teacher of the Navigator class',
+      'success-message':
+        'You have successfully joined as a co-teacher of the Navigator class',
       'error-message': 'Problem with joining class'
     },
     class: {
