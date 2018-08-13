@@ -59,6 +59,25 @@
               }
             }
           }
+
+          .score-timespent {
+            width: 70px;
+            height: 40px;
+            padding-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0.5;
+
+            &.active {
+              opacity: 1;
+            }
+
+            i {
+              margin-right: 10px;
+            }
+          }
         }
       }
 
@@ -95,6 +114,13 @@
               $lines-to-show: 1
             );
           }
+        }
+
+        .score-details {
+          width: 70px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }

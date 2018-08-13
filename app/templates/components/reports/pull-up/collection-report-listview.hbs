@@ -25,7 +25,7 @@
             </div>
             {{#if (eq selectedCollection.format 'assessment')}}
               <div class="score-timespent {{if sortByScoreEnabled 'active'}}" {{action 'sortByScore'}}>
-                <span>{{t 'common.score'}}</span>
+                <span>{{t 'common.avg-score'}}</span>
                 {{#if sortByScoreEnabled}}
                   {{gru-icon name="keyboard_arrow_up"}}
                 {{else}}
@@ -72,7 +72,7 @@
                     {{#unless student.isGraded}}
                       <div class="not-graded">{{gru-icon name="visibility"}}</div>
                   {{else}}
-                    <span style= {{safe-html (concat "color:" (grade-color student.overAllScore))}}>{{student.overAllScore}}%</span>
+                    <span style= {{safe-html (concat "color:" (grade-color student.score))}}>{{student.score}}%</span>
                     {{/unless}}
                   {{else}}
                     <span>{{format-time student.totalTimeSpent}}</span>

@@ -102,6 +102,7 @@ export default Ember.Component.extend({
   didInsertElement() {
     this.handleScrollToFixHeader();
     this.openPullUp();
+    this.slideToSelectedUnit();
     this.loadData();
   },
   // -------------------------------------------------------------------------
@@ -197,6 +198,12 @@ export default Ember.Component.extend({
    */
   sortByLastnameEnabled: true,
 
+  /**
+   * Maintain the status of sort by score
+   * @type {String}
+   */
+  sortByScoreEnabled: false,
+
   //--------------------------------------------------------------------------
   // Methods
 
@@ -242,6 +249,14 @@ export default Ember.Component.extend({
     });
   },
 
+  slideToSelectedUnit() {
+    let component = this;
+    let units = component.get('units');
+    let selectedUnit = component.get('selectedUnit');
+    let selectedIndex = units.indexOf(selectedUnit);
+    component.$('#report-carousel-wrapper').carousel(selectedIndex);
+  },
+
   loadData() {
     let component = this;
     const classId = this.get('classId');
@@ -266,6 +281,7 @@ export default Ember.Component.extend({
           component.parseClassMemberAndPerformanceData(performance);
           component.set('sortByLastnameEnabled', true);
           component.set('sortByFirstnameEnabled', false);
+          component.set('sortByScoreEnabled', false);
           component.set('isLoading', false);
           component.handleCarouselControl();
         }
@@ -315,9 +331,15 @@ export default Ember.Component.extend({
         userPerformance
       );
       user.set('userPerformanceData', resultSet.userPerformanceData);
-      user.set('overAllScore', resultSet.overAllScore);
       user.set('hasStarted', resultSet.hasStarted);
       user.set('score', resultSet.overAllScore);
+      // Reform score value and store in score-use-for-sort field, to handle sort.
+      // -1 defines not started.
+      if (!resultSet.hasStarted) {
+        user.set('score-use-for-sort', -1);
+      } else {
+        user.set('score-use-for-sort', resultSet.overAllScore);
+      }
       user.set('difference', 100 - resultSet.overAllScore);
       users.pushObject(user);
     });
@@ -348,10 +370,10 @@ export default Ember.Component.extend({
         sequence: index + 1
       });
       if (userPerformance) {
-        performanceData.set('hasStarted', true);
-        hasStarted = true;
         let lessonResult = lessonResults.findBy('id', `${userId}@${lessonId}`);
         if (lessonResult) {
+          performanceData.set('hasStarted', true);
+          hasStarted = true;
           let score = lessonResult.get('score') ? lessonResult.get('score') : 0;
           performanceData.set('timeSpent', lessonResult.get('timeSpent'));
           performanceData.set('score', score);
@@ -381,9 +403,9 @@ export default Ember.Component.extend({
 
   handleCarouselControl() {
     let component = this;
-    let selectedElement = component.$('#report-carousel-wrapper .item.active');
+    let selectedUnit = component.get('selectedUnit');
     let units = component.get('units');
-    let currentIndex = selectedElement.data('item-index');
+    let currentIndex = units.indexOf(selectedUnit);
     if (units.length - 1 === 0) {
       component
         .$('#report-carousel-wrapper .carousel-control')

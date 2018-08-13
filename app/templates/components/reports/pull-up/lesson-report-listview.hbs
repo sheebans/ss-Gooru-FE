@@ -23,6 +23,25 @@
               {{/if}}
               </span>
             </div>
+            {{#if (eq collectionType 'assessment')}}
+              <div class="score-timespent {{if sortByScoreEnabled 'active'}}" {{action 'sortByScore'}}>
+                <span>{{t 'common.avg-score'}}</span>
+                {{#if sortByScoreEnabled}}
+                  {{gru-icon name="keyboard_arrow_up"}}
+                {{else}}
+                  {{gru-icon name="keyboard_arrow_down"}}
+                {{/if}}
+              </div>
+            {{else}}
+              <div class="score-timespent {{if sortByTimeSpentEnabled 'active'}}" {{action 'sortByTimeSpent'}}>
+                <span>{{t 'gru-performance-summary.time-spent'}}</span>
+                {{#if sortByTimeSpentEnabled}}
+                  {{gru-icon name="keyboard_arrow_up"}}
+                {{else}}
+                  {{gru-icon name="keyboard_arrow_down"}}
+                {{/if}}
+              </div>
+            {{/if}}
           </div>
         </th>
       </tr>
@@ -38,6 +57,17 @@
                   <span>{{student.firstName}}</span>
                   <span>{{student.lastName}}</span>
                 </div>
+              </div>
+              <div class="score-details">
+                {{#if student.hasStarted}}
+                  {{#if (eq collectionType 'assessment')}}
+                    <span style= {{safe-html (concat "color:" (grade-color student.score))}}>{{student.score}}%</span>
+                  {{else}}
+                    <span>{{format-time student.totalTimeSpent}}</span>
+                  {{/if}}
+                {{else}}
+                  <span>--</span>
+                {{/if}}
               </div>
             </div>
           </th>
