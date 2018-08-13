@@ -13,27 +13,19 @@ steps=steps
 }}
 <div class="player-container  external-assessment">
   <div class="player">
-    <div class="qz-main" role="main">
-      <div class="panel panel-default external-resource">
-        <div class="panel-header">
-          <p class="title">
-            {{t 'player.gru-viewer.not-iframe-url.header_external_assessment_1'}}<br> {{t 'player.gru-viewer.not-iframe-url.header_2'}}
-          </p>
-        </div>
-        <div class="panel-body">
-          {{new-cards.gru-resource-card allowProfileNavigation=allowProfileNavigation resource=content externalAssessment=true editEnabled=false}}
-        </div>
-        <div class="panel-footer">
-          <p class="title">
-            {{t 'player.gru-viewer.not-iframe-url.footer_1'}}
-          </p>
-          <p class="description">
-            {{t 'player.gru-viewer.not-iframe-url.footer_2'}}<br> {{t 'player.gru-viewer.not-iframe-url.footer_3'}}
-            <br> {{t 'player.gru-viewer.not-iframe-url.footer_4'}}
-          </p>
-        </div>
-      </div>
-      <button class="btn btn-primary btn-next" {{action 'next'}}><span>{{t "common.next"}}</span></button>
-    </div>
+    {{player.gru-external-assessment-page
+      assessment=collection
+      mapLocation=mapLocation
+      source=source
+      isNewPlayer=isNewPlayer
+    }}
+  </div>
+  <div class="footer">
+    {{player.gru-external-assessment-footer
+      assessment=collection
+      playNext="playNext"
+      isFullScreen=isFullScreen
+      onToggleScreen="onToggleScreen"
+    }}
   </div>
 </div>

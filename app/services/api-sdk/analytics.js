@@ -361,5 +361,17 @@ export default Ember.Service.extend({
           );
         }, reject);
     });
+  },
+
+  studentSelfReporting(dataParams) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('analyticsAdapter')
+        .studentSelfReporting(dataParams)
+        .then(function(selfReportStatus) {
+          resolve(selfReportStatus);
+        }, reject);
+    });
   }
 });

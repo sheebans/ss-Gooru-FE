@@ -116,6 +116,22 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * @function studentSelfReporting
+   * Method to update external assessment score
+   */
+  studentSelfReporting(dataParams) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/self-report`;
+    const options = {
+      type: 'POST',
+      headers: adapter.defineHeaders(),
+      data: JSON.stringify(dataParams)
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       Authorization: `Token ${this.get('session.token-api3')}`

@@ -1307,7 +1307,8 @@ export default Object.assign(quizzesTranslations, {
     'unlimited-attempts': 'You have unlimited attempts',
     cancel: 'Cancel',
     continue: 'Continue',
-    start: 'Start!'
+    start: 'Start!',
+    submit: 'Submit!'
   },
   'gru-submit-confirmation': {
     title: 'Finish this quiz and submit all',
@@ -2593,5 +2594,12 @@ export default Object.assign(quizzesTranslations, {
       'no-subject': 'No Subject Assigned'
     },
     'domain-report': 'Domain Report'
+  },
+
+  'self-report': {
+    'your-score': 'Your Score',
+    'update-error': 'Problem with updating score',
+    'validation-error': 'Enter valid score',
+    'enter-score': 'Enter your score here'
   }
 });
