@@ -31,8 +31,8 @@ test('logged in as a teacher and home-link button navigation', function(
     andThen(function() {
       assert.equal(
         currentURL(),
-        '/id-for-pochita/content/courses',
-        'Navigating to profile should display "/id-for-pochita/content/courses"'
+        '/id-for-pochita/content/courses?source=direct',
+        'Navigating to profile should display "/id-for-pochita/content/courses?source=direct"'
       );
       const $navHeader = find('.gru-header .navbar-header');
       click($navHeader.find('.home-link'));
