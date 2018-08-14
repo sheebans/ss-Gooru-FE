@@ -314,7 +314,7 @@ export default Ember.Component.extend(AccordionMixin, {
     let component = this;
     let classId = component.get('model.classId');
     let courseId = component.get('model.courseId');
-    let studentId = component.get('model.userId');
+    let studentId = component.get('model.userId') || component.get('studentId');
     component.set('currentClass', component.get('model'));
     const coursePromise = component
       .get('courseMapService')

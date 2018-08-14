@@ -53,7 +53,7 @@
               </div>
             </li>
           {{else}}
-            <li class="panel {{if item.isAssessment 'assessment' 'collection'}}
+            <li class="panel {{concat (if item.isAssessment 'a-' 'c-') item.id}} {{if item.isAssessment 'assessment' 'collection'}}
               {{if item.isSubmitted 'submitted'}}
               {{if (and (eq currentResource item.id) showLocation) 'selected'}}
               {{if item.isOnAir 'on-air'}}

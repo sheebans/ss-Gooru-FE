@@ -152,11 +152,13 @@ export default Ember.Route.extend({
         let completionTotal = classPerformance.calculateSumCompletionTotalByItem(
           unitId
         );
+        let numberOfStudents = classPerformance.findNumberOfStudentsByItem(unitId);
         let performance = {
           score,
           timeSpent,
           completionDone,
-          completionTotal
+          completionTotal,
+          numberOfStudents
         };
         unit.performance = performance;
       });
@@ -175,5 +177,6 @@ export default Ember.Route.extend({
     controller.set('showWelcome', true);
     controller.set('currentClass', model.currentClass);
     controller.get('classController').selectMenuItem('course-map');
+    controller.set('isStudentCourseMap', false);
   }
 });
