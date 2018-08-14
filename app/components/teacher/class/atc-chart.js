@@ -260,22 +260,17 @@ export default Ember.Component.extend({
     var yAxisDomain = [0, 100];
 
     if (component.get('isPremiumClass')) {
-      xAxisDomain = [0, totalCompetencyCount];
+      if (maxProgress === totalCompetencyCount || minProgress === 0) {
+        xAxisDomain = [-10, totalCompetencyCount + 10];
+      } else {
+        xAxisDomain = [0, totalCompetencyCount];
+      }
+    } else if (maxProgress === 100 || minProgress === 0) {
+      xAxisDomain = [-10, 110];
     }
 
     if (maxScore === 100 || minScore === 0) {
       yAxisDomain = [-10, 110];
-    }
-
-    if (maxProgress === 100 || minProgress === 0) {
-      xAxisDomain = [-10, 110];
-    }
-
-    if (
-      component.get('isPremiumClass') &&
-      (maxProgress === totalCompetencyCount || minProgress === 0)
-    ) {
-      xAxisDomain = [-10, totalCompetencyCount + 10];
     }
 
     var xScale = d3.scale
