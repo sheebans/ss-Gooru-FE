@@ -194,10 +194,9 @@ export default Ember.Service.extend({
   /**
    * Fetches the performance summary data of each resource/question in Collection/Assessment.
    * @param context
-   * @param loadStandards
    * @returns {Promise.<AssessmentResult>}
    */
-  fetchCollectionPerformance: function(context, loadStandards) {
+  fetchCollectionPerformance: function(context) {
     const service = this;
 
     const params = {
@@ -221,16 +220,7 @@ export default Ember.Service.extend({
             const assessmentResult = service
               .get('studentCollectionPerformanceSerializer')
               .normalizeStudentCollection(payload);
-            if (loadStandards) {
-              service
-                .get('performanceService')
-                .loadStandardsSummary(assessmentResult, context)
-                .then(function() {
-                  resolve(assessmentResult);
-                });
-            } else {
-              resolve(assessmentResult);
-            }
+            resolve(assessmentResult);
           },
           function() {
             resolve();

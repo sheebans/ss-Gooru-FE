@@ -26,7 +26,7 @@
       <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
         <div class="carousel-inner">
           {{#each collections as |collectionItem index|}}
-            <div data-item-index="{{index}}" class="item {{if (eq collectionItem.id  selectedCollection.id) 'active'}}">
+            <div data-item-index="{{index}}" class="item {{if (eq index 0) 'active'}}">
               <div class="collection-background-cover" />
             </div>
           {{/each}}
@@ -118,6 +118,7 @@
             isReactionFltApplied=isReactionFltApplied
             isTimeSpentFltApplied=isTimeSpentFltApplied
             studentReport="studentReport"
+            openQuestionReport="openQuestionReport"
             suggestResultCount=suggestResultCount
             studentsSelectedForSuggest=studentsSelectedForSuggest
             context=context
@@ -132,4 +133,8 @@
 
 {{#if isShowStudentReport}}
   {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportContextData model=studentReportContextData.lesson isStudent=studentReportContextData.isStudent onClosePullUp="onClosePullUp"}}
+{{/if}}
+
+{{#if isShowQuestionReport}}
+  {{reports.pull-up.question-report showPullUp=isShowQuestionReport  context=studentQuestionReportContextData}}
 {{/if}}

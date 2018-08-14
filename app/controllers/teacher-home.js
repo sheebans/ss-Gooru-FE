@@ -171,6 +171,20 @@ export default Ember.Controller.extend(ModalMixin, {
     return classPosition;
   },
 
+  /**
+   * @function checkIsPartOfPremiumClass
+   * Method to check is the teacher part of any premium class
+   */
+  checkIsPartOfPremiumClass(activeClasses) {
+    let isPartOfPremiumClass = false;
+    activeClasses.some( function(classData){
+      let setting = classData.get('setting');
+      isPartOfPremiumClass = setting ? setting['course.premium'] : false;
+      return isPartOfPremiumClass;
+    });
+    return isPartOfPremiumClass;
+  },
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -432,5 +446,11 @@ export default Ember.Controller.extend(ModalMixin, {
     let controller = this;
     let classPerformance = controller.get('lastAccessedClassData.performance');
     return classPerformance ? getBarGradeColor(classPerformance.score) : null;
+  }),
+
+  isShowNavigatorBanner: Ember.computed('activeClasses', function() {
+    let controller = this;
+    let activeClasses = controller.get('activeClasses');
+    return !controller.checkIsPartOfPremiumClass(activeClasses);
   })
 });

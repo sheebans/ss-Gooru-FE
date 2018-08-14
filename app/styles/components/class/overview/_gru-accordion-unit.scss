@@ -40,6 +40,7 @@
       }
     }
     .performance-container {
+      cursor: pointer;
       padding-top: 0px;
       margin-top: -10px;
       width: 85px;
@@ -47,6 +48,7 @@
         .container-box {
           height: 77px;
           .percentage {
+            cursor: pointer;
             margin: 19px 0 0;
           }
         }

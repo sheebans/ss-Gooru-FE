@@ -16,7 +16,7 @@
       <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
         <div class="carousel-inner">
           {{#each units as |unitItem index|}}
-            <div data-item-index="{{index}}" class="item {{if (eq unitItem.id  selectedUnit.id) 'active'}}">
+            <div data-item-index="{{index}}" class="item {{if (eq index 0) 'active'}}">
               <div class="unit-background-cover" />
             </div>
           {{/each}}
@@ -66,6 +66,7 @@
         {{reports.pull-up.unit-report-listview
           sortByFirstnameEnabled=sortByFirstnameEnabled
           sortByLastnameEnabled=sortByLastnameEnabled
+          sortByScoreEnabled=sortByScoreEnabled
           contents=lessons
           studentReportData=studentReportData
           selectedUnit=selectedUnit

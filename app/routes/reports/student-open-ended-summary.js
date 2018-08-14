@@ -125,7 +125,7 @@ export default Ember.Route.extend({
 
     const performanceService = route.get('performanceService');
     return performanceService
-      .findAssessmentResultByCollectionAndStudent(context, session)
+      .findAssessmentResultByCollectionAndStudent(context)
       .then(function(assessmentResult) {
         const questionResults = assessmentResult.resourceResults;
         const questionResult = questionResults.findBy('resourceId', questionId);

@@ -25,7 +25,7 @@
             </div>
             {{#if (eq selectedCollection.format 'assessment')}}
               <div class="score-timespent {{if sortByScoreEnabled 'active'}}" {{action 'sortByScore'}}>
-                <span>{{t 'common.score'}}</span>
+                <span>{{t 'common.avg-score'}}</span>
                 {{#if sortByScoreEnabled}}
                   {{gru-icon name="keyboard_arrow_up"}}
                 {{else}}
@@ -72,7 +72,7 @@
                     {{#unless student.isGraded}}
                       <div class="not-graded">{{gru-icon name="visibility"}}</div>
                   {{else}}
-                    <span style= {{safe-html (concat "color:" (grade-color student.overAllScore))}}>{{student.overAllScore}}%</span>
+                    <span style= {{safe-html (concat "color:" (grade-color student.score))}}>{{student.score}}%</span>
                     {{/unless}}
                   {{else}}
                     <span>{{format-time student.totalTimeSpent}}</span>
@@ -94,7 +94,7 @@
       <tr>
         {{#each contents as | content |}}
           <th class="tabular-header on-scroll-fixed">
-            <div class="content-header">
+            <div class="content-header {{unless (eq content.format 'question') 'not-question'}}" {{action 'openQuestionReport' content contents}}>
               <div class="resource-icon">
                 <i class="{{content.format}}"></i>
               </div>
@@ -114,8 +114,8 @@
                   {{#unless userPerformanceData.isGraded}}
                     <div class="not-graded">{{gru-icon name="visibility"}}</div>
                 {{else}}
-                  <div class="content-score-value">
-                    {{#if userPerformanceData.hasStarted}}
+                  {{#if userPerformanceData.hasStarted}}
+                    <div class="content-score-value">
                       {{#if userPerformanceData.isSkipped}}
                         <div class="skipped">
                           <span>{{userPerformanceData.sequence}}</span> {{gru-icon name="not_interested"}}
@@ -123,10 +123,10 @@
                       {{else}}
                         <div class="{{if userPerformanceData.correct 'correct' 'wrong'}}">{{userPerformanceData.sequence}}</div>
                       {{/if}}
-                    {{else}}
-                      <div class="not-started">{{userPerformanceData.sequence}}</div>
-                    {{/if}}
-                  </div>
+                    </div>
+                  {{else}}
+                    <div class="not-started">--</div>
+                  {{/if}}
                   {{/unless}}
                 {{/if}}
                 {{#if isTimeSpentFltApplied}}

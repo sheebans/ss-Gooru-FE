@@ -156,7 +156,6 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     var completedSessions = model.completedSessions;
     const totalSessions = completedSessions.length;
     const session = totalSessions ? completedSessions[totalSessions - 1] : null;
-    const loadStandards = session;
 
     if (session) {
       //collections has no session
@@ -166,14 +165,14 @@ export default Ember.Route.extend(PrivateRouteMixin, {
     if (context.get('classId')) {
       const performanceService = controller.get('performanceService');
       return performanceService
-        .findAssessmentResultByCollectionAndStudent(context, loadStandards)
+        .findAssessmentResultByCollectionAndStudent(context)
         .then(function(assessmentResult) {
           model.assessmentResult = assessmentResult;
         });
     } else {
       const learnerService = controller.get('learnerService');
       return learnerService
-        .fetchCollectionPerformance(context, loadStandards)
+        .fetchCollectionPerformance(context)
         .then(function(assessmentResult) {
           model.assessmentResult = assessmentResult;
         });

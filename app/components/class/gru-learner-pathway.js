@@ -320,7 +320,7 @@ export default Ember.Component.extend(AccordionMixin, {
       .get('courseMapService')
       .getCourseInfo(classId, courseId);
 
-    let classCourseId = Ember.A([{classId, courseId}]);
+    let classCourseId = Ember.A([{ classId, courseId }]);
     const classPerfomance = component
       .get('performanceService')
       .findClassPerformanceSummaryByClassIds(classCourseId);
@@ -331,7 +331,10 @@ export default Ember.Component.extend(AccordionMixin, {
 
     const performanceSummaryPromise = component
       .get('performanceService')
-      .findClassPerformanceSummaryByStudentAndClassIds(studentId, classCourseId);
+      .findClassPerformanceSummaryByStudentAndClassIds(
+        studentId,
+        classCourseId
+      );
 
     const collectionType = {
       collectionType: 'assessment'
@@ -382,7 +385,7 @@ export default Ember.Component.extend(AccordionMixin, {
     let isPremiumClass = studentPathway.isPremiumClass;
     if (isPremiumClass) {
       let route0Promise = component.fetchRoute0Contents();
-      return route0Promise.then(function( route0Contents ) {
+      return route0Promise.then(function(route0Contents) {
         let isAccepted = route0Contents.status === 'accepted';
         component.set('isAccepted', isAccepted);
         component.set('route0Contents', route0Contents);
@@ -437,7 +440,6 @@ export default Ember.Component.extend(AccordionMixin, {
       const session = totalSessions
         ? completedSessions[totalSessions - 1]
         : null;
-      const loadStandards = session;
       if (session) {
         //collections has no session
         context.set('sessionId', session.sessionId);
@@ -446,14 +448,14 @@ export default Ember.Component.extend(AccordionMixin, {
       if (context.get('classId')) {
         const performanceService = component.get('performanceService');
         return performanceService
-          .findAssessmentResultByCollectionAndStudent(context, loadStandards)
+          .findAssessmentResultByCollectionAndStudent(context)
           .then(function(assessmentResult) {
             component.setAssessmentResult(assessmentResult);
           });
       } else {
         const learnerService = component.get('learnerService');
         return learnerService
-          .fetchCollectionPerformance(context, loadStandards)
+          .fetchCollectionPerformance(context)
           .then(function(assessmentResult) {
             component.setAssessmentResult(assessmentResult);
           });
@@ -624,13 +626,14 @@ export default Ember.Component.extend(AccordionMixin, {
     let courseId = studentPathway.courseId;
     let userId = studentPathway.userId;
     let route0Service = component.get('route0Service');
-    let route0Promise = Ember.RSVP.resolve(route0Service.fetchInClassByTeacher({courseId, classId, userId}));
+    let route0Promise = Ember.RSVP.resolve(
+      route0Service.fetchInClassByTeacher({ courseId, classId, userId })
+    );
     return Ember.RSVP.hash({
       route0Contents: route0Promise
-    })
-      .then(({route0Contents}) => {
-        let status = route0Contents ? route0Contents.status : null;
-        return status === 'accepted' ? route0Contents : Ember.RSVP.resolve({});
-      });
+    }).then(({ route0Contents }) => {
+      let status = route0Contents ? route0Contents.status : null;
+      return status === 'accepted' ? route0Contents : Ember.RSVP.resolve({});
+    });
   }
 });

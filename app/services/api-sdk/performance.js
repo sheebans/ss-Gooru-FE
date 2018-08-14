@@ -141,7 +141,7 @@ export default Ember.Service.extend({
    * @param loadStandards
    * @returns {Promise.<AssessmentResult>}
    */
-  findAssessmentResultByCollectionAndStudent: function(context, loadStandards) {
+  findAssessmentResultByCollectionAndStudent: function(context) {
     const service = this;
 
     const params = {
@@ -165,58 +165,12 @@ export default Ember.Service.extend({
             const assessmentResult = service
               .get('studentCollectionPerformanceSerializer')
               .normalizeStudentCollection(payload);
-            if (loadStandards) {
-              service
-                .loadStandardsSummary(assessmentResult, context)
-                .then(function() {
-                  resolve(assessmentResult);
-                });
-            } else {
-              resolve(assessmentResult);
-            }
+            resolve(assessmentResult);
           },
           function() {
             resolve(undefined);
           }
         );
-    });
-  },
-
-  loadStandardsSummary: function(assessmentResult, context) {
-    const service = this;
-    const analyticsService = service.get('analyticsService');
-    const taxonomyService = service.get('taxonomyService');
-    return new Ember.RSVP.Promise(function(resolve) {
-      analyticsService
-        .getStandardsSummary(context.get('sessionId'), context.get('userId'))
-        .then(function(standardsSummary) {
-          assessmentResult.set('mastery', standardsSummary);
-          let standardsIds = standardsSummary.map(function(standardSummary) {
-            return standardSummary.get('id');
-          });
-          if (standardsIds.length) {
-            //if it has standards
-            taxonomyService
-              .fetchCodesByIds(standardsIds)
-              .then(function(taxonomyStandards) {
-                const promises = [];
-                standardsSummary.forEach(function(standardSummary) {
-                  const taxonomyStandard = taxonomyStandards.findBy(
-                    'id',
-                    standardSummary.get('id')
-                  );
-                  if (taxonomyStandard) {
-                    standardSummary.set('description', taxonomyStandard.title);
-                  }
-                });
-                Ember.RSVP.all(promises).then(function() {
-                  resolve(assessmentResult);
-                });
-              });
-          } else {
-            resolve(assessmentResult);
-          }
-        });
     });
   },
 
@@ -234,7 +188,9 @@ export default Ember.Service.extend({
     classId,
     courseId,
     units,
-    options = { collectionType: 'assessment' }
+    options = {
+      collectionType: 'assessment'
+    }
   ) {
     const service = this;
     service.get('store').unloadAll('performance/unit-performance');
@@ -271,7 +227,9 @@ export default Ember.Service.extend({
     courseId,
     unitId,
     lessons,
-    options = { collectionType: 'assessment' }
+    options = {
+      collectionType: 'assessment'
+    }
   ) {
     const service = this;
     service.get('store').unloadAll('performance/lesson-performance');
@@ -311,13 +269,18 @@ export default Ember.Service.extend({
     unitId,
     lessonId,
     collections,
-    options = { collectionType: 'assessment' }
+    options = {
+      collectionType: 'assessment'
+    }
   ) {
     const service = this;
-    service.get('store').unloadAll('performance/collection-performance');
+    let routeType = options.routeType || '';
+    service
+      .get('store')
+      .unloadAll(`performance/${routeType}collection-performance`);
     return service
       .get('store')
-      .query('performance/collection-performance', {
+      .query(`performance/${routeType}collection-performance`, {
         userUid: userId,
         collectionType: options.collectionType,
         classId: classId,
@@ -329,7 +292,8 @@ export default Ember.Service.extend({
         return service.matchCourseMapWithPerformances(
           collections,
           collectionPerformances,
-          'collection'
+          'collection',
+          routeType
         );
       });
   },
@@ -362,7 +326,8 @@ export default Ember.Service.extend({
   matchCourseMapWithPerformances: function(
     objectsWithTitle,
     performances,
-    type
+    type,
+    routeType
   ) {
     const service = this;
     return objectsWithTitle.map(function(object) {
@@ -371,7 +336,11 @@ export default Ember.Service.extend({
         objectWithTitle.set('title', object.get('title'));
         objectWithTitle.set('model', object);
       } else {
-        objectWithTitle = service.getPerformanceRecordByType(type, object);
+        objectWithTitle = service.getPerformanceRecordByType(
+          type,
+          object,
+          routeType
+        );
         objectWithTitle.set('model', object);
       }
       return objectWithTitle;
@@ -384,7 +353,7 @@ export default Ember.Service.extend({
    * @param object
    * @returns {Promise.<performance[]>}
    */
-  getPerformanceRecordByType: function(type, object) {
+  getPerformanceRecordByType: function(type, object, routeType) {
     const id = object.get('id');
     const store = this.get('store');
     let modelName = null;
@@ -395,7 +364,7 @@ export default Ember.Service.extend({
     } else if (type === 'lesson') {
       modelName = 'performance/lesson-performance';
     } else {
-      modelName = 'performance/collection-performance';
+      modelName = `performance/${routeType}collection-performance`;
     }
 
     const found = store.recordIsLoaded(modelName, id);
@@ -441,7 +410,9 @@ export default Ember.Service.extend({
     classId,
     courseId,
     students,
-    options = { collectionType: 'assessment' }
+    options = {
+      collectionType: 'assessment'
+    }
   ) {
     const service = this;
     service.get('store').unloadAll('performance/student-performance');
@@ -472,7 +443,9 @@ export default Ember.Service.extend({
     courseId,
     unitId,
     students,
-    options = { collectionType: 'assessment' }
+    options = {
+      collectionType: 'assessment'
+    }
   ) {
     const service = this;
     service.get('store').unloadAll('performance/student-performance');
@@ -505,7 +478,9 @@ export default Ember.Service.extend({
     classId,
     courseId,
     unitId,
-    options = { collectionType: 'assessment' }
+    options = {
+      collectionType: 'assessment'
+    }
   ) {
     const service = this;
     service.get('store').unloadAll('performance/student-performance');
@@ -539,7 +514,9 @@ export default Ember.Service.extend({
     unitId,
     lessonId,
     students,
-    options = { collectionType: 'assessment' }
+    options = {
+      collectionType: 'assessment'
+    }
   ) {
     const service = this;
     service.get('store').unloadAll('performance/student-performance');
@@ -575,7 +552,9 @@ export default Ember.Service.extend({
     courseId,
     unitId,
     lessonId,
-    options = { collectionType: 'assessment' }
+    options = {
+      collectionType: 'assessment'
+    }
   ) {
     const service = this;
     service.get('store').unloadAll('performance/student-performance');
@@ -687,7 +666,9 @@ export default Ember.Service.extend({
     const found = store.recordIsLoaded(modelName, id);
     return found
       ? store.recordForId(modelName, id)
-      : store.createRecord(modelName, { id: id });
+      : store.createRecord(modelName, {
+        id: id
+      });
   },
 
   /**
@@ -900,14 +881,34 @@ export default Ember.Service.extend({
    * Get performance of user  resource in assessments
    * @returns {Promise.<[]>}
    */
-  getUserPerformanceResourceInAssessment: function(userId, courseId, unitId, lessonId, collectionId, sessionId, classId) {
+  getUserPerformanceResourceInAssessment: function(
+    userId,
+    courseId,
+    unitId,
+    lessonId,
+    collectionId,
+    sessionId,
+    classId
+  ) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service
         .get('performanceAdapter')
-        .getUserPerformanceResourceInAssessment(userId, courseId, unitId, lessonId, collectionId, sessionId, classId)
+        .getUserPerformanceResourceInAssessment(
+          userId,
+          courseId,
+          unitId,
+          lessonId,
+          collectionId,
+          sessionId,
+          classId
+        )
         .then(function(response) {
-          resolve(service.get('performanceSerializer').normalizeUserPerformanceResourceInAssessment(response));
+          resolve(
+            service
+              .get('performanceSerializer')
+              .normalizeUserPerformanceResourceInAssessment(response)
+          );
         }, reject);
     });
   },
@@ -916,14 +917,34 @@ export default Ember.Service.extend({
    * Get performance of user  resource in collection
    * @returns {Promise.<[]>}
    */
-  getUserPerformanceResourceInCollection: function(userId, courseId, unitId, lessonId, collectionId, sessionId, classId) {
+  getUserPerformanceResourceInCollection: function(
+    userId,
+    courseId,
+    unitId,
+    lessonId,
+    collectionId,
+    sessionId,
+    classId
+  ) {
     const service = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
       service
         .get('performanceAdapter')
-        .getUserPerformanceResourceInCollection(userId, courseId, unitId, lessonId, collectionId, sessionId, classId)
+        .getUserPerformanceResourceInCollection(
+          userId,
+          courseId,
+          unitId,
+          lessonId,
+          collectionId,
+          sessionId,
+          classId
+        )
         .then(function(response) {
-          resolve(service.get('performanceSerializer').normalizeUserPerformanceResourceInCollection(response));
+          resolve(
+            service
+              .get('performanceSerializer')
+              .normalizeUserPerformanceResourceInCollection(response)
+          );
         }, reject);
     });
   }

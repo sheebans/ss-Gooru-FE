@@ -128,9 +128,7 @@ test('findAssessmentVisibilityById', function(assert) {
   );
 });
 
-test('isVisible when content visibility is not all visible and the assessment is on', function(
-  assert
-) {
+test('isVisible when content visibility is not all visible and the assessment is on', function(assert) {
   let model = this.subject({
     contentVisibility: 'visible_collections',
     course: {
@@ -173,9 +171,7 @@ test('isVisible when content visibility is not all visible and the assessment is
     'The assessment should  be visible'
   );
 });
-test('isVisible when content visibility is not all visible and the assessment is off', function(
-  assert
-) {
+test('isVisible when content visibility is not all visible and the assessment is off', function(assert) {
   let model = this.subject({
     contentVisibility: 'visible_collections',
     course: {
@@ -218,21 +214,17 @@ test('isVisible when content visibility is not all visible and the assessment is
     'The assessment should not be visible'
   );
 });
-test('isVisible when content visibility is not all visible and the assessment is not on the course visibility', function(
-  assert
-) {
+test('isVisible when content visibility is not all visible and the assessment is not on the course visibility', function(assert) {
   let model = this.subject({
     contentVisibility: 'visible_collections'
   });
   assert.equal(
     model.isVisible('59f7b7df-cef2-4f09-8012-1e58cb27b95a'),
-    false,
-    'The assessment should not be visible'
+    true,
+    'The assessment should be visible'
   );
 });
-test('isVisible when content visibility is all visible and the assessment is on', function(
-  assert
-) {
+test('isVisible when content visibility is all visible and the assessment is on', function(assert) {
   let model = this.subject({
     contentVisibility: 'visible_all',
     course: {
@@ -275,9 +267,7 @@ test('isVisible when content visibility is all visible and the assessment is on'
     'The assessment should  be visible'
   );
 });
-test('isVisible when content visibility is all visible and the assessment is off', function(
-  assert
-) {
+test('isVisible when content visibility is all visible and the assessment is off', function(assert) {
   let model = this.subject({
     contentVisibility: 'visible_all',
     course: {
@@ -321,9 +311,7 @@ test('isVisible when content visibility is all visible and the assessment is off
   );
 });
 
-test('isVisible when content visibility is all visible and the assessment is not on the course visibility', function(
-  assert
-) {
+test('isVisible when content visibility is all visible and the assessment is not on the course visibility', function(assert) {
   let model = this.subject({
     contentVisibility: 'visible_all'
   });
@@ -506,9 +494,7 @@ test('getTotals', function(assert) {
   );
 });
 
-test('getTotalAssessmentsByUnit and getTotalAssessmentsByUnitAndLesson', function(
-  assert
-) {
+test('getTotalAssessmentsByUnit and getTotalAssessmentsByUnitAndLesson', function(assert) {
   let model = this.subject({
     course: {
       id: 'course-1',
@@ -595,9 +581,7 @@ test('getTotalAssessmentsByUnit and getTotalAssessmentsByUnitAndLesson', functio
   );
 });
 
-test('getTotalCollectionsByUnit and getTotalCollectionsByUnitAndLesson', function(
-  assert
-) {
+test('getTotalCollectionsByUnit and getTotalCollectionsByUnitAndLesson', function(assert) {
   let model = this.subject({
     course: {
       id: 'course-1',

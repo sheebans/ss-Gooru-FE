@@ -296,10 +296,10 @@ $box-shadow: 1px -1px;
 @import "components/player/gru-suggest-test";
 @import "components/player/gru-player-done";
 @import "components/player/gru-player-summary-footer.scss";
+@import "components/player/gru-external-assessment-page";
+@import "components/player/gru-external-assessment-footer";
 
 @import "components/reports/gru-assessment-report";
-@import "components/reports/assessment/gru-learning-target";
-@import "components/reports/assessment/gru-mastery";
 @import "components/reports/assessment/gru-questions";
 @import "components/reports/assessment/gru-resources";
 @import "components/reports/assessment/gru-questions-xs";
@@ -333,6 +333,7 @@ $box-shadow: 1px -1px;
 @import "components/reports/pull-up/collection-report";
 @import "components/reports/pull-up/collection-report-listview";
 @import "components/reports/pull-up/collection-report-gridview";
+@import "components/reports/pull-up/question-report";
 @import "components/search/gru-question-options";
 @import "components/search/gru-resource-options";
 
@@ -346,6 +347,7 @@ $box-shadow: 1px -1px;
 
 @import "components/teacher/class/gru-class-statistics";
 @import "components/teacher/suggestion-pull-up";
+@import "components/teacher/navigator-math-banner";
 
 @import "components/taxonomy/gru-subject-course-picker";
 @import "components/taxonomy/gru-subject-picker";

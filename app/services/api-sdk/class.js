@@ -484,5 +484,19 @@ export default Ember.Service.extend({
         .removeCoTeacherFromClass(classId, collaborator)
         .then(resolve, reject);
     });
+  },
+
+  /**
+   * @function joinCoTeacherIntoClass
+   * Method to join as co-teacher into a class
+   */
+  joinCoTeacherIntoClass(classCode) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('classAdapter')
+        .joinCoTeacherIntoClass(classCode)
+        .then(resolve, reject);
+    });
   }
 });

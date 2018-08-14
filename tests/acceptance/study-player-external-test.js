@@ -57,7 +57,5 @@ test('Layout', function(assert) {
     const $playerContainer = find('.player-container');
     T.exists(assert, $playerContainer, 'Missing external player component');
 
-    const $next = find('.player-container .btn-next');
-    T.exists(assert, $next, 'Missing next button');
   });
 });

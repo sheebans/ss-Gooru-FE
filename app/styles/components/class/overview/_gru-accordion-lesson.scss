@@ -155,6 +155,7 @@
         }
       }
       .performance-container {
+        cursor: pointer;
         width: 76px;
         display: inline-block;
         height: 67px;
@@ -168,6 +169,7 @@
         .charts.gru-students-performance-chart {
           .percentage {
             padding-top: 10px;
+            cursor: pointer;
           }
         }
       }

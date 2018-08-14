@@ -59,6 +59,25 @@
               }
             }
           }
+
+          .score-timespent {
+            width: 70px;
+            height: 40px;
+            padding-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0.5;
+
+            &.active {
+              opacity: 1;
+            }
+
+            i {
+              margin-right: 10px;
+            }
+          }
         }
       }
 
@@ -95,6 +114,13 @@
               $lines-to-show: 1
             );
           }
+        }
+
+        .score-details {
+          width: 70px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }
@@ -143,13 +169,18 @@
             margin-left: 5px;
             margin-right: 5px;
             margin-top: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
             span {
               color: #fff;
-              margin-left: 8px;
               font-size: 12px;
               font-weight: bold;
               line-height: 31px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
             }
           }
 

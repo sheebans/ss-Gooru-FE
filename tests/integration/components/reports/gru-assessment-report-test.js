@@ -58,7 +58,6 @@ test('Layout when answer results are shown', function(assert) {
   );
   assert.ok($component.length, 'Component');
   assert.ok($component.find('> .gru-summary').length, 'Top Summary');
-  assert.ok($component.find('> .gru-mastery').length, 'Mastery Summary');
   assert.ok($component.find('> .gru-questions').length, 'Questions Summary');
 });
 
@@ -102,10 +101,6 @@ test('Layout when answer results are not shown', function(assert) {
   assert.ok($component.length, 'Component');
   assert.ok($component.find('> .gru-summary').length, 'Top Summary');
   assert.ok($component.find('> .hidden-report').length, 'Top Summary');
-  assert.notOk(
-    $component.find('> .gru-mastery').length,
-    'Mastery Summary -hidden'
-  );
   assert.notOk(
     $component.find('> .gru-questions').length,
     'Questions Summary -hidden'
