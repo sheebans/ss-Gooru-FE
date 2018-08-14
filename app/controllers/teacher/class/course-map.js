@@ -190,6 +190,9 @@ export default Ember.Controller.extend({
       this.set('showWelcome', false);
     },
 
+    /**
+     * Action triggered when select entire class
+     */
     onSelectAll() {
       let controller = this;
       controller.set('isLoading', true);
@@ -200,6 +203,9 @@ export default Ember.Controller.extend({
       Ember.$('.teacher.list').addClass('active');
     },
 
+    /**
+     * Action triggered when select single student
+     */
     onSelectStudent(student, index) {
       let controller = this;
       controller.set('isStudentCourseMap', true);
@@ -229,12 +235,18 @@ export default Ember.Controller.extend({
       }
     },
 
+    /**
+     * Action triggered when open collection report
+     */
     collectionReport(params) {
       let controller = this;
       controller.set('studentReportContextData', params);
       controller.set('isShowStudentReport', true);
     },
 
+    /**
+     * Action triggered when close collection report pull up
+     */
     onClosePullUp() {
       let controller = this;
       controller.set('isShowStudentReport', false);
@@ -298,6 +310,10 @@ export default Ember.Controller.extend({
     });
   },
 
+  /**
+   * @function getRescopedData
+   * Method to get rescoped data
+   */
   getRescopedData() {
     let controller = this;
     let isPremiumClass = controller.get('isPremiumClass');

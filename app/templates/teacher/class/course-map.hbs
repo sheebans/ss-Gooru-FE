@@ -35,7 +35,7 @@
       <div class="course-map-body">
         <div class="students">
           <div class="header">
-            Students
+            {{t 'class.info.students'}}
           </div>
           <div class="students-list">
             <div class="teacher list active" {{action "onSelectAll"}}>
@@ -55,7 +55,7 @@
             {{three-bounce-spinner}}
           {{else}}
             <div class="header">
-              Course Map
+              {{t 'common.course-map'}}
             </div>
             {{#if isStudentCourseMap}}
               {{#if (and isPremiumClass  isAccepted)}}
