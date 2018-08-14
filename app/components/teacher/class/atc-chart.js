@@ -186,19 +186,25 @@ export default Ember.Component.extend({
           id: student.id,
           thumbnail: student.avatarUrl,
           identity: component.getStudentIdentity(student),
-          score: studentPerformance
-            ? Math.round(studentPerformance.score * 100) / 100 || 0
-            : 0,
-          progress: studentPerformance
-            ? Math.round(studentPerformance.progress * 100) / 100 || 0
-            : 0,
+          score: 0,
+          progress: 0,
           fullName: `${student.lastName} ${student.firstName}`
         };
+
         if (component.get('isPremiumClass') && studentPerformance) {
           studentData.totalComptency = studentPerformance.totalCompetency || 0;
           studentData.completedCompetency =
             studentPerformance.completedCompetency || 0;
+          studentData.progress = studentPerformance.completedCompetency;
+          studentData.score =
+            Math.round(studentPerformance.score * 100) / 100 || 0;
+        } else if (studentPerformance) {
+          studentData.progress =
+            Math.round(studentPerformance.progress * 100) / 100 || 0;
+          studentData.score =
+            Math.round(studentPerformance.score * 100) / 100 || 0;
         }
+
         studentsPerformanceData.push(studentData);
       });
     }
@@ -252,9 +258,10 @@ export default Ember.Component.extend({
     var minProgress = d3.min(dataset, function(d) {
       return d.progress;
     });
-    var totalCompetencyCount = d3.min(dataset, function(d) {
-      return d.totalComptency;
-    });
+    var totalCompetencyCount =
+      d3.min(dataset, function(d) {
+        return d.totalComptency;
+      }) || 100;
 
     var xAxisDomain = [0, 100];
     var yAxisDomain = [0, 100];
@@ -287,6 +294,7 @@ export default Ember.Component.extend({
       .axis()
       .scale(xScale)
       .orient('bottom')
+      .tickValues(d3.range(xAxisDomain[0], xAxisDomain[1], 10))
       .innerTickSize(-height)
       .outerTickSize(-380)
       .tickPadding(10);
@@ -295,6 +303,7 @@ export default Ember.Component.extend({
       .axis()
       .scale(yScale)
       .orient('left')
+      .tickValues(d3.range(yAxisDomain[0], yAxisDomain[1], 10))
       .innerTickSize(-width)
       .outerTickSize(-760)
       .tickPadding(10);
@@ -382,12 +391,15 @@ export default Ember.Component.extend({
           d.progress
         } %</td> </tr>`;
         if (component.get('isPremiumClass')) {
-          tooltipHtml += `<tr> <td>Total Competencies:</td> <td> &nbsp; ${
+          tooltipHtml += `<tr><td>Total Competencies:</td><td>&nbsp;${
             d.totalComptency
-          }</td> </tr>`;
-          tooltipHtml += `<tr> <td>Competencies Completed:</td> <td> &nbsp; ${
+          }</td></tr>`;
+          tooltipHtml += `<tr><td>Total Competencies:</td><td>&nbsp;${
+            d.totalComptency
+          }</td></tr>`;
+          tooltipHtml += `<tr><td>Competencies Completed:</td><td>&nbsp;${
             d.completedCompetency
-          }</td> </tr>`;
+          }</td></tr>`;
         }
         tooltipHtml += '</table>';
 
@@ -446,7 +458,8 @@ export default Ember.Component.extend({
     const axes = ['x', 'y'];
     axes.map(axis => {
       var axisContainer = d3.selectAll(`.${axis}.axis .tick`);
-      axisContainer.attr('style', function(d, i) {
+      //axisContainer.attr('style', function(d, i) {
+      axisContainer.attr('style', function() {
         var curAxisElement = d3.select(this);
         var curAxisText = curAxisElement.select('text');
         if (component.get('isPremiumClass') && axis === 'x') {
@@ -454,9 +467,9 @@ export default Ember.Component.extend({
         } else {
           curAxisText.text(`${curAxisText.text()}%`);
         }
-        if (i % 2 !== 0 || i === 0) {
-          curAxisElement.remove();
-        }
+        //if (i % 2 !== 0 || i === 0) {
+        //  curAxisElement.remove();
+        //}
       });
     });
   },
