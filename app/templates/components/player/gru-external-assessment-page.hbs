@@ -1,0 +1,88 @@
+<div class="external-assessment-landing-page">
+  <div class="external-assessment-card">
+    <div class="header">
+      <div class="title">
+        {{assessment.title}}
+      </div>
+      <div class="taxonomy">
+        {{#if tags.length}}
+          {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=1 isInCard=true showDescription=true}}
+        {{/if}}
+      </div>
+    </div>
+    <div class="body">
+      <div class="description">
+        {{assessment.learningObjectives}}
+      </div>
+      {{#if isScoreEntered}}
+        {{#if score}}
+          <div class="score-entered">
+            <div class="score">
+              {{score}}
+            </div>
+            <div class="score-label">
+              {{t 'self-report.your-score'}}
+            </div>
+          </div>
+        {{else}}
+          <div class="not-updated">{{t 'self-report.update-error'}}</div>
+        {{/if}}
+      {{else}}
+        <div class="score-type-selector {{if isDisableScoreEditor 'disabled'}}">
+          <div class="percentage">
+            <span> <input type="radio" class="score-type" name="score-type" id="percentage-selector" checked="checked" onchange={{action "onChangeScoreType" 'percentage'}} /> <span> Percentage </span></span>
+          </div>
+          <div class="fraction">
+            <span> <input type="radio" class="score-type" name="score-type" id="fraction-selector" onchange={{action "onChangeScoreType" 'fraction'}} /> <span> Fraction </span></span>
+          </div>
+        </div>
+        <div class="score-editor {{if isDisableScoreEditor 'disabled'}}">
+          {{#if (eq defaultScoreType 'percentage')}}
+            <div class="percentage-editor">
+              <span>
+                <input class="score-value" type="text" id="percentage-score" value=""/>
+              </span>
+              <span class="percentage-symbol">
+                %
+              </span>
+            </div>
+          {{else}}
+            <div class="fraction-editor">
+              <span>
+                <input class="score-value" type="text" id="fraction-score" value=""/>
+              </span>
+              <span class="fraction-of">of</span>
+              <span>
+                <input class="score-value" type="text" id="fraction-max-score" value=""/>
+              </span>
+            </div>
+            {{/if}}
+            {{#if (and isTyping (not isValidScore))}}
+              <div class="error">{{t 'self-report.validation-error'}}</div>
+            {{/if}}
+          <div class="score-label">
+            {{t 'self-report.enter-score'}}
+          </div>
+        </div>
+      {{/if}}
+    </div>
+    <div class="footer">
+      <div class="actions">
+        <div class="btn cancel {{if isScoreEntered 'score-entered'}}" {{action "onCancel"}}>
+          {{t 'common.cancel'}}
+        </div>
+        {{#if (not isScoreEntered)}}
+          {{#if isDisableScoreEditor}}
+            <div class="btn start" {{action "onStart"}}>
+              {{t 'gru-assessment-confirmation.start'}}
+            </div>
+          {{else}}
+          <div class="btn submit {{unless isValidScore 'disabled'}}" {{action "onSubmit"}}>
+            {{t 'gru-assessment-confirmation.submit'}}
+          </div>
+          {{/if}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
