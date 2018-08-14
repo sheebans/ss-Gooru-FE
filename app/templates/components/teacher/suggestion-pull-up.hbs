@@ -44,18 +44,14 @@
     </div>
   </div>
   <div class="search-list-container">
-    {{#if isLoading}}
-      {{three-bounce-spinner}}
+    {{#if (gt searchResults.length 0)}}
+      <div class="search-list">
+        {{#each searchResults as |result|}}
+          {{cards.suggest-collection-card collection=result contentType=activeContentType onSuggestCollection="onSuggestCollection"}}
+        {{/each}}
+      </div>
     {{else}}
-      {{#if (gt searchResults.length 0)}}
-        <div class="search-list">
-          {{#each searchResults as |result|}}
-            {{cards.suggest-collection-card collection=result contentType=activeContentType onSuggestCollection="onSuggestCollection"}}
-          {{/each}}
-        </div>
-      {{else}}
-          {{cards.no-suggest-result-found isFromSearch=isFromSearch}}
-      {{/if}}
+      {{cards.no-suggest-result-found isFromSearch=isFromSearch}}
     {{/if}}
   </div>
 </div>
@@ -68,4 +64,9 @@
    onCancelSuggest="onCancelSuggest"
    onConfirmSuggest="onConfirmSuggest"
  }}
+{{/if}}
+{{#if isLoading}}
+  <div class="loading-spinner">
+    {{three-bounce-spinner}}
+  </div>
 {{/if}}

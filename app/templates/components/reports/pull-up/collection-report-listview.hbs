@@ -114,8 +114,8 @@
                   {{#unless userPerformanceData.isGraded}}
                     <div class="not-graded">{{gru-icon name="visibility"}}</div>
                 {{else}}
-                  <div class="content-score-value">
-                    {{#if userPerformanceData.hasStarted}}
+                  {{#if userPerformanceData.hasStarted}}
+                    <div class="content-score-value">
                       {{#if userPerformanceData.isSkipped}}
                         <div class="skipped">
                           <span>{{userPerformanceData.sequence}}</span> {{gru-icon name="not_interested"}}
@@ -123,10 +123,10 @@
                       {{else}}
                         <div class="{{if userPerformanceData.correct 'correct' 'wrong'}}">{{userPerformanceData.sequence}}</div>
                       {{/if}}
-                    {{else}}
-                      <div class="not-started">{{userPerformanceData.sequence}}</div>
-                    {{/if}}
-                  </div>
+                    </div>
+                  {{else}}
+                    <div class="not-started">--</div>
+                  {{/if}}
                   {{/unless}}
                 {{/if}}
                 {{#if isTimeSpentFltApplied}}
