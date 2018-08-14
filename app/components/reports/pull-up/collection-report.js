@@ -520,6 +520,7 @@ export default Ember.Component.extend({
     let totalTimeSpent = 0;
     let hasStarted = false;
     let isGraded = true;
+    let numberOfQuestionsStarted = 0;
     contents.forEach((content, index) => {
       let contentId = content.get('id');
       let performanceData = Ember.Object.create({
@@ -528,11 +529,12 @@ export default Ember.Component.extend({
         isGraded: true
       });
       if (userPerformance) {
-        performanceData.set('hasStarted', true);
-        hasStarted = true;
         let resourceResults = userPerformance.get('resourceResults');
         let resourceResult = resourceResults.findBy('resourceId', contentId);
         if (resourceResult) {
+          performanceData.set('hasStarted', true);
+          hasStarted = true;
+          numberOfQuestionsStarted++;
           if (
             resourceResult.get('questionType') === 'OE' &&
             !resourceResult.get('isGraded')
@@ -565,7 +567,7 @@ export default Ember.Component.extend({
     });
 
     let overAllScore = Math.round(
-      (numberOfCorrectAnswers / contents.length) * 100
+      (numberOfCorrectAnswers / numberOfQuestionsStarted) * 100
     );
 
     let resultSet = {
