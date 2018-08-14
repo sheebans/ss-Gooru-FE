@@ -51,7 +51,9 @@
         {{/each}}
       </div>
     {{else}}
-      {{cards.no-suggest-result-found isFromSearch=isFromSearch}}
+      {{#unless isLoading}}
+        {{cards.no-suggest-result-found isFromSearch=isFromSearch}}
+      {{/unless}}
     {{/if}}
   </div>
 </div>
