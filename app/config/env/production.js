@@ -4,13 +4,13 @@
 export default {
   appRootPath: '/', //default is root
   endpoint: {
-    url: 'https://www.gooru.org',
-    secureUrl: 'https://www.gooru.org',
+    url: 'https://gooru.org',
+    secureUrl: 'https://gooru.org',
     tenantUrl: 'https://s3-us-west-1.amazonaws.com/nile-tenants/prod'
   },
 
   realTime: {
-    webServiceUrl: 'https://www.gooru.org',
+    webServiceUrl: 'https://gooru.org',
     webServiceUri: '/nucleus/realtime',
     webSocketUrl: 'https://rt.gooru.org',
     webSocketUri: '/ws/realtime'
@@ -41,15 +41,15 @@ export default {
 
   'quizzes-addon': {
     endpoint: {
-      url: 'https://qa.api.quizzes.edify.cr',
-      secureUrl: 'https://qa.api.quizzes.edify.cr',
-      providerUrl: 'https://nile-qa.gooru.org'
+      url: 'http://gooru.org',
+      secureUrl: 'https://gooru.org',
+      providerUrl: 'http://gooru.org'
     },
 
     realTime: {
-      webServiceUrl: 'https://qa.api.quizzes.edify.cr',
+      webServiceUrl: 'https://gooru.org',
       webServiceUri: '/',
-      webSocketUrl: 'https://qa.api.quizzes.edify.cr',
+      webSocketUrl: 'https://gooru.org',
       webSocketUri: '/ws/quizzes-realtime'
     }
   },
