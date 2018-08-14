@@ -34,7 +34,7 @@
           <div class="class-title ellipsis">
             {{lastAccessedClassData.title}}
           </div>
-          {{#if (and lastAccessedClassData.performance lastAccessedClassData.performance.score)}}
+          {{#if (and lastAccessedClassData (not lastAccessedClassData.isPremiumClass) ) }}
             <div class="atc-class-performance" style="background-color: {{classPerformanceColor}};">
               {{concat lastAccessedClassData.performance.score '%'}}
             </div>

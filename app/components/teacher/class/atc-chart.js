@@ -1,6 +1,9 @@
 import Ember from 'ember';
 import d3 from 'd3';
-import {getGradeColor, getSubjectIdFromSubjectBucket} from 'gooru-web/utils/utils';
+import {
+  getGradeColor,
+  getSubjectIdFromSubjectBucket
+} from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -74,7 +77,6 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Methods
 
-
   /**
    * @function loadClassicAtcChartData
    * Method to load classic course atc view chart data
@@ -85,10 +87,11 @@ export default Ember.Component.extend({
     let performanceSummaryPromise = component.getClassicAtcPerformanceSummary();
     performanceSummaryPromise.then(function(performanceSummary) {
       component.getClassMembers().then(function(classMembers) {
-        component.set(
-          'chartData',
-          component.getStudentWisePerformance(classMembers, performanceSummary)
+        let studentData = component.getStudentWisePerformance(
+          classMembers,
+          performanceSummary
         );
+        component.set('chartData', studentData);
         component.set('isShowChart', true);
       });
     });
@@ -105,10 +108,12 @@ export default Ember.Component.extend({
       let performanceSummaryPromise = component.getPremiumAtcPerformanceSummary();
       performanceSummaryPromise.then(function(performanceSummary) {
         component.getClassMembers().then(function(classMembers) {
-          component.set(
-            'chartData',
-            component.getStudentWisePerformance(classMembers, performanceSummary)
+          let studentData = component.getStudentWisePerformance(
+            classMembers,
+            performanceSummary
           );
+          component.set('chartData', studentData);
+          component.set('isShowChart', true);
         });
       });
     } else {
@@ -141,7 +146,11 @@ export default Ember.Component.extend({
     let courseId = component.get('courseId');
     let subjectCode = component.get('subjectCode');
     return Ember.RSVP.resolve(
-      analyticsService.getAtcPerformanceSummaryPremiumClass(classId, courseId, subjectCode)
+      analyticsService.getAtcPerformanceSummaryPremiumClass(
+        classId,
+        courseId,
+        subjectCode
+      )
     );
   },
 
@@ -177,13 +186,18 @@ export default Ember.Component.extend({
           id: student.id,
           thumbnail: student.avatarUrl,
           identity: component.getStudentIdentity(student),
-          score: studentPerformance ? Math.round(studentPerformance.score * 100) / 100 || 0 : 0,
-          progress: studentPerformance ? Math.round(studentPerformance.progress * 100) / 100 || 0 : 0,
-          fullName: `${student.lastName  } ${  student.firstName}`
+          score: studentPerformance
+            ? Math.round(studentPerformance.score * 100) / 100 || 0
+            : 0,
+          progress: studentPerformance
+            ? Math.round(studentPerformance.progress * 100) / 100 || 0
+            : 0,
+          fullName: `${student.lastName} ${student.firstName}`
         };
         if (component.get('isPremiumClass') && studentPerformance) {
           studentData.totalComptency = studentPerformance.totalCompetency || 0;
-          studentData.completedCompetency = studentPerformance.completedCompetency || 0;
+          studentData.completedCompetency =
+            studentPerformance.completedCompetency || 0;
         }
         studentsPerformanceData.push(studentData);
       });
@@ -238,24 +252,40 @@ export default Ember.Component.extend({
     var minProgress = d3.min(dataset, function(d) {
       return d.progress;
     });
-    var axisDomain = [0, 100];
+    var totalCompetencyCount = d3.min(dataset, function(d) {
+      return d.totalComptency;
+    });
+
+    var xAxisDomain = [0, 100];
+    var yAxisDomain = [0, 100];
+
+    if (component.get('isPremiumClass')) {
+      xAxisDomain = [0, totalCompetencyCount];
+    }
+
+    if (maxScore === 100 || minScore === 0) {
+      yAxisDomain = [-10, 110];
+    }
+
+    if (maxProgress === 100 || minProgress === 0) {
+      xAxisDomain = [-10, 110];
+    }
 
     if (
-      maxScore === 100 ||
-      maxProgress === 100 ||
-      minScore === 0 ||
-      minProgress === 0
+      component.get('isPremiumClass') &&
+      (maxProgress === totalCompetencyCount || minProgress === 0)
     ) {
-      axisDomain = [-10, 110];
+      xAxisDomain = [-10, totalCompetencyCount + 10];
     }
+
     var xScale = d3.scale
       .linear()
-      .domain(axisDomain)
+      .domain(xAxisDomain)
       .range([0, width]);
 
     var yScale = d3.scale
       .linear()
-      .domain(axisDomain)
+      .domain(yAxisDomain)
       .range([height, 0]);
 
     var xAxis = d3.svg
@@ -266,7 +296,8 @@ export default Ember.Component.extend({
       .outerTickSize(-380)
       .tickPadding(10);
 
-    var yAxis = d3.svg.axis()
+    var yAxis = d3.svg
+      .axis()
       .scale(yScale)
       .orient('left')
       .innerTickSize(-width)
@@ -288,10 +319,9 @@ export default Ember.Component.extend({
           .on('zoom', function() {
             svg.select('.x.axis').call(xAxis);
             svg.select('.y.axis').call(yAxis);
-            svg.selectAll('.node-point')
-              .attr('transform', function(d) {
-                return `translate(${ xScale(d.progress) }, ${ yScale(d.score) })`;
-              });
+            svg.selectAll('.node-point').attr('transform', function(d) {
+              return `translate(${xScale(d.progress)}, ${yScale(d.score)})`;
+            });
             component.cleanUpChart();
             component.set('isZoomInView', true);
           })
@@ -310,7 +340,8 @@ export default Ember.Component.extend({
       .attr('class', 'y axis')
       .call(yAxis);
 
-    svg.append('g')
+    svg
+      .append('g')
       .attr('transform', 'translate(-498, 270) rotate(-90)')
       .append('text')
       .attr('class', 'placeholder')
@@ -318,7 +349,8 @@ export default Ember.Component.extend({
       .attr('y', '445')
       .text('Performance');
 
-    svg.append('g')
+    svg
+      .append('g')
       .attr('transform', 'translate(350, 40) rotate(0)')
       .append('text')
       .attr('class', 'placeholder')
@@ -326,37 +358,54 @@ export default Ember.Component.extend({
       .attr('y', height)
       .text('Progress');
 
-    var tooltip = d3.select('body')
+    var tooltip = d3
+      .select('body')
       .append('div')
       .attr('class', 'atc-tooltip')
       .style('position', 'absolute')
       .style('z-index', '9999')
       .style('visibility', 'hidden');
 
-
-    var studentNodes = svg.selectAll('.student-nodes')
+    var studentNodes = svg
+      .selectAll('.student-nodes')
       .data(dataset)
       .enter()
       .append('g')
       .attr('transform', function(d) {
-        return `translate(${ xScale(d.progress) }, ${ yScale(d.score) })`;
+        return `translate(${xScale(d.progress)}, ${yScale(d.score)})`;
       })
       .attr('class', 'node-point')
-      .on('mouseover', function(d){
-        var tooltipHtml = `<div class="name"><span>Name: </span>${ d.fullName  }</div>`;
-        tooltipHtml += `<div class="score"><span>Performance: </span>${ d.score  }</div>`;
-        tooltipHtml += `<div class="completion"><span>Progress: </span>${ d.progress  }</div>`;
+      .on('mouseover', function(d) {
+        var tooltipHtml = '<table>';
+        tooltipHtml += `<tr> <td>Name:</td> <td> &nbsp; ${
+          d.fullName
+        }</td> </tr>`;
+        tooltipHtml += `<tr> <td>Performance:</td> <td> &nbsp; ${
+          d.score
+        } %</td> </tr>`;
+        tooltipHtml += `<tr> <td>Progress:</td> <td> &nbsp; ${
+          d.progress
+        } %</td> </tr>`;
         if (component.get('isPremiumClass')) {
-          tooltipHtml += `<div class="total-competency"><span>Total Competencies: </span>${ d.totalComptency  }</div>`;
-          tooltipHtml += `<div class="completed-competency"><span>Completed Competencies: </span>${ d.completedCompetency  }</div>`;
+          tooltipHtml += `<tr> <td>Total Competencies:</td> <td> &nbsp; ${
+            d.totalComptency
+          }</td> </tr>`;
+          tooltipHtml += `<tr> <td>Competencies Completed:</td> <td> &nbsp; ${
+            d.completedCompetency
+          }</td> </tr>`;
         }
-        tooltip.html(tooltipHtml)
-          .style('left', `${d3.event.pageX  }px`)
-          .style('top', `${d3.event.pageY - 28  }px`)
+        tooltipHtml += '</table>';
+
+        tooltip
+          .html(tooltipHtml)
+          .style('left', `${d3.event.pageX}px`)
+          .style('top', `${d3.event.pageY - 28}px`)
           .style('margin-left', '30px');
         return tooltip.style('visibility', 'visible');
       })
-      .on('mouseout', function(){return tooltip.style('visibility', 'hidden');});
+      .on('mouseout', function() {
+        return tooltip.style('visibility', 'hidden');
+      });
 
     studentNodes
       .append('circle')
@@ -366,7 +415,6 @@ export default Ember.Component.extend({
       .style('fill', function(d) {
         return getGradeColor(d.score);
       });
-
 
     studentNodes
       .append('svg:image')
@@ -399,13 +447,18 @@ export default Ember.Component.extend({
    * Method to clean up chart views as per requirement
    */
   cleanUpChart() {
+    let component = this;
     const axes = ['x', 'y'];
     axes.map(axis => {
       var axisContainer = d3.selectAll(`.${axis}.axis .tick`);
       axisContainer.attr('style', function(d, i) {
         var curAxisElement = d3.select(this);
         var curAxisText = curAxisElement.select('text');
-        curAxisText.text(`${curAxisText.text()}%`);
+        if (component.get('isPremiumClass') && axis === 'x') {
+          curAxisText.text(`${curAxisText.text()}`);
+        } else {
+          curAxisText.text(`${curAxisText.text()}%`);
+        }
         if (i % 2 !== 0 || i === 0) {
           curAxisElement.remove();
         }
@@ -442,7 +495,9 @@ export default Ember.Component.extend({
     let component = this;
     let classData = component.get('classData');
     let courseSubjectCode = classData.courseSubjectCode;
-    return courseSubjectCode ? getSubjectIdFromSubjectBucket(courseSubjectCode) : null;
+    return courseSubjectCode
+      ? getSubjectIdFromSubjectBucket(courseSubjectCode)
+      : null;
   }),
 
   /**
@@ -458,5 +513,4 @@ export default Ember.Component.extend({
   isZoomInView: false,
 
   isShowChart: true
-
 });

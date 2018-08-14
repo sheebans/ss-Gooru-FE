@@ -208,7 +208,10 @@ export default Ember.Controller.extend({
         ),
         setting: classData.setting,
         courseTitle: classData.courseTitle || null,
-        courseSubjectCode: courseSubjectCode
+        courseSubjectCode: courseSubjectCode,
+        isPremiumClass: classData.setting
+          ? classData.setting['course.premium']
+          : false
       };
     }
     localStorage.setItem(
