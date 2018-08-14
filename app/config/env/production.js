@@ -68,5 +68,10 @@ export default {
 
   researcher: {
     url: 'http://research.gooru.org/'
+  },
+
+  demoClass: {
+    code: 'DGNTIKN',
+    id: '71bfbc07-1b87-4e8e-a98a-1839e834cd20'
   }
 };
