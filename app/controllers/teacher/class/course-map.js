@@ -29,6 +29,11 @@ export default Ember.Controller.extend({
    */
   rescopeService: Ember.inject.service('api-sdk/rescope'),
 
+  /**
+   * Route0 service to fetch route0 suggestion of a class and course
+   */
+  route0Service: Ember.inject.service('api-sdk/route0'),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -100,9 +105,9 @@ export default Ember.Controller.extend({
    * Property to find out is owner of the course or not
    */
   isOwner: Ember.computed('course', function() {
-    let component = this;
-    let loggedInUserId = component.get('session.userId');
-    let courseOwnerId = component.get('course.owner.id');
+    let controller = this;
+    let loggedInUserId = controller.get('session.userId');
+    let courseOwnerId = controller.get('course.owner.id');
     return loggedInUserId === courseOwnerId;
   }),
 
@@ -202,6 +207,7 @@ export default Ember.Controller.extend({
       controller.set('units', Ember.A([]));
       controller.set('activeStudent', student);
       controller.getStudentCourseMap(student.id);
+      controller.loadRoute0Data();
       if (controller.get('isPremiumClass')) {
         controller.getRescopedData();
       }
@@ -213,20 +219,20 @@ export default Ember.Controller.extend({
      * Action triggered when the user click an accordion item
      */
     onSelectItem() {
-      let component = this;
-      if (component.get('isPremiumClass')) {
-        let skippedContents = component.get('skippedContents');
-        let isContentAvailable = component.get('isContentAvailable');
+      let controller = this;
+      if (controller.get('isPremiumClass')) {
+        let skippedContents = controller.get('skippedContents');
+        let isContentAvailable = controller.get('isContentAvailable');
         if (skippedContents && isContentAvailable) {
-          component.toggleSkippedContents(skippedContents);
+          controller.toggleSkippedContents(skippedContents);
         }
       }
     },
 
     collectionReport(params) {
-      let component = this;
-      component.set('studentReportContextData', params);
-      component.set('isShowStudentReport', true);
+      let controller = this;
+      controller.set('studentReportContextData', params);
+      controller.set('isShowStudentReport', true);
     },
 
     onClosePullUp() {
@@ -293,25 +299,25 @@ export default Ember.Controller.extend({
   },
 
   getRescopedData() {
-    let component = this;
-    let isPremiumClass = component.get('isPremiumClass');
+    let controller = this;
+    let isPremiumClass = controller.get('isPremiumClass');
     //Initially load rescope data
     if (isPremiumClass) {
-      component.set('isPremiumClass', isPremiumClass);
-      component.getSkippedContents().then(function(skippedContents) {
+      controller.set('isPremiumClass', isPremiumClass);
+      controller.getSkippedContents().then(function(skippedContents) {
         let isContentAvailable;
         if (skippedContents) {
-          isContentAvailable = component.isSkippedContentsEmpty(
+          isContentAvailable = controller.isSkippedContentsEmpty(
             skippedContents
           );
-          component.set('isContentAvailable', isContentAvailable);
+          controller.set('isContentAvailable', isContentAvailable);
         }
 
         if (skippedContents && isContentAvailable) {
-          component.toggleSkippedContents(skippedContents);
-          component.set('isChecked', false);
+          controller.toggleSkippedContents(skippedContents);
+          controller.set('isChecked', false);
         } else {
-          component.set('isChecked', true);
+          controller.set('isChecked', true);
         }
       });
     }
@@ -348,12 +354,12 @@ export default Ember.Controller.extend({
    * Method to get formatted content type
    */
   getFormattedContentsByType(contents, types) {
-    let component = this;
+    let controller = this;
     let formattedContents = Ember.A([]);
     types.map(type => {
       let flag = type.charAt(0);
       formattedContents = formattedContents.concat(
-        component.parseSkippedContents(contents[`${type}`], flag)
+        controller.parseSkippedContents(contents[`${type}`], flag)
       );
     });
     return formattedContents;
@@ -376,13 +382,13 @@ export default Ember.Controller.extend({
    * Method to toggle skippedContents
    */
   toggleSkippedContents(skippedContents) {
-    let component = this;
+    let controller = this;
     let contentTypes = Object.keys(skippedContents);
-    let formattedContents = component.getFormattedContentsByType(
+    let formattedContents = controller.getFormattedContentsByType(
       skippedContents,
       contentTypes
     );
-    component.toggleContentVisibility(formattedContents);
+    controller.toggleContentVisibility(formattedContents);
   },
 
   /**
@@ -390,13 +396,13 @@ export default Ember.Controller.extend({
    * Method to toggle content visibility
    */
   toggleContentVisibility(contentClassnames) {
-    let component = this;
-    let isChecked = component.get('isChecked');
-    const $contentComponent = Ember.$(contentClassnames.join());
+    let controller = this;
+    let isChecked = controller.get('isChecked');
+    const $contentcontroller = Ember.$(contentClassnames.join());
     if (isChecked) {
-      $contentComponent.show().addClass('rescoped-content');
+      $contentcontroller.show().addClass('rescoped-content');
     } else {
-      $contentComponent.hide();
+      $contentcontroller.hide();
     }
   },
 
@@ -462,5 +468,45 @@ export default Ember.Controller.extend({
       });
       controller.set('units', units);
     });
+  },
+
+  /**
+   * @function loadRoute0Data
+   * Method to load route0 data for a student
+   */
+  loadRoute0Data() {
+    let controller = this;
+    let isPremiumClass = controller.get('isPremiumClass');
+    if (isPremiumClass) {
+      let route0Promise = controller.fetchRoute0Contents();
+      return route0Promise.then(function( route0Contents ) {
+        let isAccepted = route0Contents.status === 'accepted';
+        controller.set('isAccepted', isAccepted);
+        controller.set('route0Contents', route0Contents);
+      });
+    } else {
+      controller.set('route0Contents', null);
+    }
+  },
+
+  /**
+   * @function fetchRoute0Contents
+   * Method to fetch route0 cotents for a student
+   */
+  fetchRoute0Contents() {
+    let controller = this;
+    let currentClass = controller.get('currentClass');
+    let classId = currentClass.get('id');
+    let courseId = currentClass.get('courseId');
+    let userId = controller.get('activeStudent.id');
+    let route0Service = controller.get('route0Service');
+    let route0Promise = Ember.RSVP.resolve(route0Service.fetchInClassByTeacher({courseId, classId, userId}));
+    return Ember.RSVP.hash({
+      route0Contents: route0Promise
+    })
+      .then(({route0Contents}) => {
+        let status = route0Contents ? route0Contents.status : null;
+        return status === 'accepted' ? route0Contents : Ember.RSVP.resolve({});
+      });
   }
 });

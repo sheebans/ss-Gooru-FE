@@ -177,5 +177,6 @@ export default Ember.Route.extend({
     controller.set('showWelcome', true);
     controller.set('currentClass', model.currentClass);
     controller.get('classController').selectMenuItem('course-map');
+    controller.set('isStudentCourseMap', false);
   }
 });

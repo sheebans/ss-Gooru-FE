@@ -58,6 +58,9 @@
               Course Map
             </div>
             {{#if isStudentCourseMap}}
+              {{#if (and isPremiumClass  isAccepted)}}
+                {{class.overview.routesuggestion-coursemap isEnablePlayer=false route0=route0Contents }}
+              {{/if}}
               <div class="student-coursemap">
                 {{#each units as |unit index|}}
                   {{class.learner.gru-learner-accordion-unit
