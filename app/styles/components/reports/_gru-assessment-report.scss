@@ -1,20 +1,41 @@
 .reports.gru-assessment-report {
   width: 100%;
   background-color: $white;
-
   /* Small devices (tablets, 768px and up) */
   @media (min-width: $screen-sm-min) {
   }
-
   /* Medium devices (desktops, 992px and up) */
   @media (min-width: $screen-md-min) {
+  }
+
+  .standard-tags {
+    padding: 15px 15px 0;
+    background: #fff;
+
+    .gru-taxonomy-tag {
+      border: none;
+      max-width: 150px;
+
+      .standard-tag {
+        background: #37424b;
+        padding: 4px;
+        border-radius: 4px;
+
+        .tag-caption,
+        .tag-label {
+          color: #fff;
+        }
+      }
+    }
   }
 
   .gru-assessment-summary {
     width: 100%;
     background: $white;
+
     .reports-owner {
       border-bottom: 1px solid $light-200;
+
       span {
         margin-left: 16px;
       }

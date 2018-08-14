@@ -43,7 +43,8 @@ export default Ember.Component.extend({
     let competencyService = component.get('competencyService');
     let userId = component.get('userId');
     let competencyCode = component.get('competency.competencyCode');
-    return new Ember.RSVP.resolve(competencyService.getUserPerformanceCompetencyCollections(userId, competencyCode));
+    let status = component.get('competency.status');
+    return new Ember.RSVP.resolve(competencyService.getUserPerformanceCompetencyCollections(userId, competencyCode, status));
   },
 
   // -------------------------------------------------------------------------

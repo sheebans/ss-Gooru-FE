@@ -10,7 +10,7 @@ export default Ember.Object.extend({
 
   namespace: '/api/nucleus-insights/v2',
 
-  getUserCurrentLocation: function(classId, userId) {
+  getUserCurrentLocation: function(classId, userId, queryParams) {
     const adapter = this;
     const namespace = this.get('namespace');
     const url = `${namespace}/class/${classId}/user/${userId}/current/location`;
@@ -19,6 +19,9 @@ export default Ember.Object.extend({
       contentType: 'application/json; charset=utf-8',
       headers: adapter.defineHeaders()
     };
+    if (queryParams) {
+      options.data = queryParams;
+    }
     return Ember.$.ajax(url, options);
   },
 
@@ -28,18 +31,17 @@ export default Ember.Object.extend({
    * @param {string} userId
    * @returns {*}
      */
-  getUserCurrentLocationByClassIds: function(classIds, userId) {
+  getUserCurrentLocationByClassIds: function(classCourseIds, userId) {
     const adapter = this;
     const namespace = adapter.get('namespace');
-    const url = `${namespace}/classes/location`;
+    const url = `${namespace}/classes/location?userId=${userId}`;
     const options = {
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
       headers: this.defineHeaders(),
       data: JSON.stringify({
-        classIds: classIds,
-        userId: userId
+        classes: classCourseIds
       })
     };
     return Ember.$.ajax(url, options);

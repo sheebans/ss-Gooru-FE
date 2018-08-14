@@ -94,7 +94,7 @@
       <tr>
         {{#each contents as | content |}}
           <th class="tabular-header on-scroll-fixed">
-            <div class="content-header">
+            <div class="content-header {{unless (eq content.format 'question') 'not-question'}}" {{action 'openQuestionReport' content contents}}>
               <div class="resource-icon">
                 <i class="{{content.format}}"></i>
               </div>

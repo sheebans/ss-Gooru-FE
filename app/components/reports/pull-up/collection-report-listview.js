@@ -105,6 +105,10 @@ export default Ember.Component.extend({
       this.sendAction('studentReport', collection, userId);
     },
 
+    openQuestionReport(question, questions) {
+      this.sendAction('openQuestionReport', question, questions);
+    },
+
     sortByFirstName() {
       let component = this;
       component.toggleProperty('sortByFirstnameEnabled');

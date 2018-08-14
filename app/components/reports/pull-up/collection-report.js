@@ -140,6 +140,22 @@ export default Ember.Component.extend({
         component.set('studentReportContextData', params);
         component.set('isShowStudentReport', true);
       }
+    },
+
+    openQuestionReport(question, contents) {
+      let component = this;
+      let params = {
+        classId: component.get('classId'),
+        courseId: component.get('courseId'),
+        unit: component.get('unit'),
+        lesson: component.get('lesson'),
+        collection: component.get('selectedCollection'),
+        selectedQuestion: question,
+        contents: contents,
+        classMembers: component.get('classMembers')
+      };
+      component.set('studentQuestionReportContextData', params);
+      this.set('isShowQuestionReport', true);
     }
   },
 
@@ -352,6 +368,12 @@ export default Ember.Component.extend({
    * @type {Boolean}
    */
   isShowStudentReport: false,
+
+  /**
+   * Maintains the state of question report pullup
+   * @type {Boolean}
+   */
+  isShowQuestionReport: false,
 
   //--------------------------------------------------------------------------
   // Methods

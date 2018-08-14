@@ -1,0 +1,187 @@
+<div class="report-backdrop" {{action 'onPullUpClose'}}></div>
+<div class="question-report-container">
+  <div class="report-header">
+    <div class="report-breadcrumb">
+      <div class="unit-title">
+        <i class="unit-icon"></i>
+        <p>{{t 'common.unit'}} {{unit.sequence}} : {{unit.title}}</p>
+      </div>
+      <div class="lesson-title">
+        {{gru-icon name="keyboard_arrow_right"}}
+        <i class="lesson-icon"></i>
+        <p>{{t 'common.lesson'}} {{lesson.sequence}} : {{lesson.title}}</p>
+      </div>
+      <div class="collection-title">
+        {{gru-icon name="keyboard_arrow_right"}}
+        <i class="collection-icon {{collection.format}}"></i>
+        <p>{{collection.title}}</p>
+      </div>
+    </div>
+    <div class="report-close-pullup" {{action 'onPullUpClose'}}>
+      {{gru-icon name="close" }}
+    </div>
+  </div>
+  <div class="report-content">
+    <div class="report-info-chart-container">
+      {{#if isLoading}}
+        {{three-bounce-spinner}}
+      {{else}}
+        <div class="report-info-container">
+          <i class="quesion-icon"></i>
+          <span>{{t 'common.question'}} #{{selectedQuestion.order}}</span>
+        </div>
+        <div class="report-chart-container">
+          <div style="width:{{selectedQuestionReport.wrongAnswerUserPrecentage}}%; {{if (eq selectedQuestionReport.wrongAnswerUserPrecentage 0) 'border-width: 0px;'}}" class="wrong"></div>
+          <div style="width:{{selectedQuestionReport.correctAnswerUserPrecentage}}%" class="correct"></div>
+          <div style="width:{{selectedQuestionReport.notGradedUserPrecentage}}%" class="not-graded"></div>
+          <div style="width:{{selectedQuestionReport.notAnswerUserPrecentage}}%" class="not-answered"></div>
+        </div>
+      {{/if}}
+    </div>
+    <div class="report-carousel">
+      <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+          {{#each questions as |question index|}}
+            <div data-item-index="{{index}}" class="item {{if (eq index 0) 'active'}}">
+              <div class="question-background-cover">
+                <div class="question-content-container">
+                  {{#if question.thumbnail}}
+                    <div class="question-image-container">
+                      <img src="{{question.thumbnail}}" />
+                    </div>
+                  {{/if}}
+                  <div class="question-text">
+                    {{gru-math-text text=(if question.isFIB question.fibText question.text)}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" data-slide="prev" {{action 'onClickPrev'}}>
+        <i class="arrow-left"></i>
+      </a>
+        <a class="right carousel-control" data-slide="next" {{action 'onClickNext'}}>
+        <i class="arrow-right"></i>
+      </a>
+      </div>
+      {{#if showMore}}
+        <p class="show-more" {{action "showMore"}}>{{t 'student-independent-learning.show-more'}}</p>
+      {{/if}}
+      {{#if showLess}}
+        <p class="show-less" {{action "showLess"}}>{{t 'student-independent-learning.show-less'}}</p>
+      {{/if}}
+    </div>
+    <div class="answer-report-group">
+      {{#if selectedQuestionReport.correct}}
+        <div class="correct-answer-list-container">
+          <div class="correct-answer-section answer-section" {{action "onToggleAnswerSection" ".correct-answer-list-container"}}>
+            <span>{{t 'common.correct-answers'}}</span> {{gru-icon name="keyboard_arrow_up"}}
+          </div>
+          <div class="user-answer-list">
+            {{#each selectedQuestionReport.correct as |correct|}}
+              <div class="correct-answer-list">
+                <div class="correct-answers">
+                  {{{component (question-config selectedQuestionReport.question.questionType 'component.answer')
+                question=selectedQuestionReport.question
+                userAnswer=correct.userAnswer
+                anonymous=false}}}
+                </div>
+                <div class="answer-users">
+                  {{#each correct.users as |student|}}
+                    <div class="user-profile-details">
+                      <div class="user-profile-img">
+                        <img src="{{student.avatarUrl}}">
+                      </div>
+                      <span class="ellipsis">{{student.firstName}}</span>
+                      <span class="ellipsis">{{student.lastName}}</span>
+                    </div>
+                  {{/each}}
+                </div>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      {{/if}}
+      {{#if selectedQuestionReport.wrong}}
+        <div class="wrong-answer-list-container">
+          <div class="wrong-answer-section answer-section" {{action "onToggleAnswerSection" ".wrong-answer-list-container"}}>
+            <span>{{t 'common.incorrect-answers'}}</span> {{gru-icon name="keyboard_arrow_up"}}
+          </div>
+          <div class="user-answer-list">
+            {{#each selectedQuestionReport.wrong as |wrong|}}
+              <div class="wrong-answer-list">
+                <div class="wrong-answers">
+                  {{{component (question-config selectedQuestionReport.question.questionType 'component.answer')
+                question=selectedQuestionReport.question
+                userAnswer=wrong.userAnswer
+                anonymous=false}}}
+                </div>
+                <div class="answer-users">
+                  {{#each wrong.users as |student|}}
+                    <div class="user-profile-details">
+                      <div class="user-profile-img">
+                        <img src="{{student.avatarUrl}}">
+                      </div>
+                      <span class="ellipsis">{{student.firstName}}</span>
+                      <span class="ellipsis">{{student.lastName}}</span>
+                    </div>
+                  {{/each}}
+                </div>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      {{/if}}
+      {{#if selectedQuestionReport.notGraded}}
+        <div class="not-graded-list-container">
+          <div class="not-graded-answer-section answer-section" {{action "onToggleAnswerSection" ".not-graded-list-container"}}>
+            <span>{{t 'common.not-graded'}}</span> {{gru-icon name="keyboard_arrow_up"}}
+          </div>
+          <div class="user-answer-list">
+            {{#each selectedQuestionReport.notGraded as |notGraded|}}
+              <div class="not-graded-answer-list">
+                <div class="not-graded-answers">
+                  {{{component (question-config selectedQuestionReport.question.questionType 'component.answer')
+                question=selectedQuestionReport.question
+                userAnswer=notGraded.userAnswer
+                anonymous=false}}}
+                </div>
+                <div class="answer-users">
+                  {{#each notGraded.users as |student|}}
+                    <div class="user-profile-details">
+                      <div class="user-profile-img">
+                        <img src="{{student.avatarUrl}}">
+                      </div>
+                      <span class="ellipsis">{{student.firstName}}</span>
+                      <span class="ellipsis">{{student.lastName}}</span>
+                    </div>
+                  {{/each}}
+                </div>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      {{/if}}
+      {{#if selectedQuestionReport.notAnswered}}
+        <div class="not-answer-list-container">
+          <div class="not-answer-section answer-section" {{action "onToggleAnswerSection" ".not-answer-list-container"}}>
+            <span>{{t 'common.not-answered'}}</span> {{gru-icon name="keyboard_arrow_up"}}
+          </div>
+          <div class="user-answer-list answer-users">
+            {{#each selectedQuestionReport.notAnswered as |student|}}
+              <div class="user-profile-details">
+                <div class="user-profile-img">
+                  <img src="{{student.avatarUrl}}">
+                </div>
+                <span class="ellipsis">{{student.firstName}}</span>
+                <span class="ellipsis">{{student.lastName}}</span>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</div>

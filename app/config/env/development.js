@@ -72,5 +72,10 @@ export default {
       '95a744e1-631e-4642-875d-8b07a5e3b421',
       'df956d5f-b7b2-43ae-98a1-c90a12eacaf9'
     ]
+  },
+
+  demoClass: {
+    code: 'FZRC834',
+    id: '002b0b27-1b51-4343-a51f-76fae80534f8'
   }
 };

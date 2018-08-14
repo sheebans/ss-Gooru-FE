@@ -48,15 +48,14 @@ test('getUserCurrentLocation', function(assert) {
 
 test('getUserCurrentLocationByClassIds', function(assert) {
   const adapter = this.subject();
-  assert.expect(4);
+  assert.expect(3);
   const routes = function() {
     this.post(
       '/api/nucleus-insights/v2/classes/location',
       function(request) {
         let requestBodyJson = JSON.parse(request.requestBody);
-        assert.equal(requestBodyJson.userId, 456, 'Wrong user id');
         assert.deepEqual(
-          requestBodyJson.classIds,
+          requestBodyJson.classes,
           [123, 321],
           'Wrong class ids'
         );

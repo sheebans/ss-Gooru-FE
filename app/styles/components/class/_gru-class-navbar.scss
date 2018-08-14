@@ -211,10 +211,14 @@
   }
 
   .charts.gru-performance-chart {
+    cursor: pointer;
     min-width: 59px;
 
     > .container-box {
       height: 51px;
+      .percentage {
+        cursor: pointer;
+      }
     }
   }
 

@@ -118,6 +118,7 @@
             isReactionFltApplied=isReactionFltApplied
             isTimeSpentFltApplied=isTimeSpentFltApplied
             studentReport="studentReport"
+            openQuestionReport="openQuestionReport"
             suggestResultCount=suggestResultCount
             studentsSelectedForSuggest=studentsSelectedForSuggest
             context=context
@@ -132,4 +133,8 @@
 
 {{#if isShowStudentReport}}
   {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportContextData model=studentReportContextData.lesson isStudent=studentReportContextData.isStudent onClosePullUp="onClosePullUp"}}
+{{/if}}
+
+{{#if isShowQuestionReport}}
+  {{reports.pull-up.question-report showPullUp=isShowQuestionReport  context=studentQuestionReportContextData}}
 {{/if}}

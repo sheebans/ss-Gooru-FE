@@ -74,6 +74,12 @@ const ClassContentVisibility = Ember.Object.extend({
   assessments: Ember.A([]),
 
   /**
+   * All collections ids
+   * @property [string]
+   */
+  collections: Ember.A([]),
+
+  /**
    * Indicates if all content within this class is visible
    * @property {boolean}
    */
@@ -96,6 +102,7 @@ const ClassContentVisibility = Ember.Object.extend({
   onInit: Ember.on('init', function() {
     this.set('totals', this.getTotals());
     this.set('assessments', this.getAssessments());
+    this.set('collections', this.getCollections());
   }),
 
   // Methods
@@ -117,11 +124,35 @@ const ClassContentVisibility = Ember.Object.extend({
     return assessments;
   },
   /**
+   * Return a list of visible or non visible collections
+   */
+  getCollections: function() {
+    let units = this.get('course.units') || Ember.A([]);
+    let collections = Ember.A([]);
+    let lessons = Ember.A([]);
+    units.forEach(function(unit) {
+      lessons.addObjects(unit.lessons);
+      lessons.forEach(function(lesson) {
+        if (lesson.collections) {
+          collections.addObjects(lesson.collections);
+        }
+      });
+    });
+    return collections;
+  },
+  /**
    * Find assessment visibility by assessment id
    */
   findAssessmentVisibilityById: function(assessmentId) {
     let assessments = this.get('assessments');
     return assessments.findBy('id', assessmentId);
+  },
+  /**
+   * Find collection visibility by collectionId
+   */
+  findCollectionVisibilityById: function(collectionId) {
+    let collections = this.get('collections');
+    return collections.findBy('id', collectionId);
   },
   /**
    * Set assessment visibility
@@ -139,16 +170,23 @@ const ClassContentVisibility = Ember.Object.extend({
    */
   isVisible: function(contentId) {
     let isAllVisible = this.get('isAllContentVisible');
-    let assessment = this.findAssessmentVisibilityById(contentId);
-    if (!assessment) {
-      Ember.Logger.warn(`No content visibility found for id: ${contentId}`);
+    let contentItem = this.findAssessmentVisibilityById(contentId);
+    if (!contentItem) {
+      contentItem = this.findCollectionVisibilityById(contentId);
+      if (!contentItem) {
+        Ember.Logger.warn(`No content visibility found for id: ${contentId}`);
+      }
     }
-    let enabled = assessment && assessment.visible === 'on';
-    let disabled = !assessment || assessment.visible === 'off';
+
+    //
+    // if content is not found in either bucket, we let visibility be ON as fallback
+    //
+    let enabled = !contentItem || (contentItem && contentItem.visible === 'on');
+    let disabled = contentItem && contentItem.visible === 'off';
 
     return (
+      (isAllVisible && enabled) ||
       (isAllVisible && !disabled) ||
-      (isAllVisible && !assessment) ||
       (!isAllVisible && enabled) ||
       (!isAllVisible && !disabled)
     );
@@ -157,7 +195,7 @@ const ClassContentVisibility = Ember.Object.extend({
   /**
    * Return the content total counts
    * @returns {*}
-     */
+   */
   getTotals: function() {
     const units = this.get('course.units') || [];
     const totals = Ember.Object.create({
