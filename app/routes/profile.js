@@ -41,6 +41,7 @@ export default Ember.Route.extend({
    */
   model: function(params) {
     let route = this;
+    this.loadAboutPageIfRouteNotExist();
     //Steps for Take a Tour functionality
     const tourSteps = Ember.A([
       {
@@ -107,6 +108,15 @@ export default Ember.Route.extend({
       loginUserProfile: null,
       source
     });
+  },
+
+  loadAboutPageIfRouteNotExist() {
+    const route = this;
+    let pathname = window.location.pathname;
+    let routeLocationPath = pathname.split('/')[2];
+    if (!routeLocationPath) {
+      route.transitionTo('profile.about');
+    }
   },
 
   /**

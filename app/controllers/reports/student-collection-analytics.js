@@ -204,9 +204,8 @@ export default Ember.Controller.extend(ConfigurationMixin, {
       context.set('sessionId', session.sessionId);
     }
     const performanceService = controller.get('performanceService');
-    const loadStandards = session && context.get('isInContext');
     return performanceService
-      .findAssessmentResultByCollectionAndStudent(context, loadStandards)
+      .findAssessmentResultByCollectionAndStudent(context)
       .then(function(assessmentResult) {
         controller.setAssessmentResult(assessmentResult, session);
       });

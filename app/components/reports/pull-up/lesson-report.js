@@ -158,6 +158,40 @@ export default Ember.Component.extend({
             .reverse()
         );
       }
+    },
+
+    sortByScore() {
+      let component = this;
+      component.toggleProperty('sortByScoreEnabled');
+      let assessmentStudentReportData;
+      if (component.get('sortByScoreEnabled')) {
+        assessmentStudentReportData = component
+          .get('assessmentStudentReportData')
+          .sortBy('score-use-for-sort')
+          .reverse();
+      } else {
+        assessmentStudentReportData = component
+          .get('assessmentStudentReportData')
+          .sortBy('score-use-for-sort');
+      }
+      component.set('assessmentStudentReportData', assessmentStudentReportData);
+    },
+
+    sortByTimeSpent() {
+      let component = this;
+      component.toggleProperty('sortByTimeSpentEnabled');
+      let collectionStudentReportData;
+      if (component.get('sortByTimeSpentEnabled')) {
+        collectionStudentReportData = component
+          .get('collectionStudentReportData')
+          .sortBy('totalTimeSpent')
+          .reverse();
+      } else {
+        collectionStudentReportData = component
+          .get('collectionStudentReportData')
+          .sortBy('totalTimeSpent');
+      }
+      component.set('collectionStudentReportData', collectionStudentReportData);
     }
   },
 
@@ -170,6 +204,7 @@ export default Ember.Component.extend({
   didInsertElement() {
     this.handleScrollToFixHeader();
     this.openPullUp();
+    this.slideToSelectedLesson();
     this.loadData();
   },
   // -------------------------------------------------------------------------
@@ -278,6 +313,18 @@ export default Ember.Component.extend({
   sortByLastnameEnabled: true,
 
   /**
+   * Maintain the status of sort by score
+   * @type {String}
+   */
+  sortByScoreEnabled: false,
+
+  /**
+   * Maintain the status of sort by Time spent
+   * @type {String}
+   */
+  sortByTimeSpentEnabled: false,
+
+  /**
    * Maintains the state of role.
    * @type {Boolean}
    */
@@ -370,6 +417,14 @@ export default Ember.Component.extend({
     });
   },
 
+  slideToSelectedLesson() {
+    let component = this;
+    let lessons = component.get('lessons');
+    let selectedLesson = component.get('selectedLesson');
+    let selectedIndex = lessons.indexOf(selectedLesson);
+    component.$('#report-carousel-wrapper').carousel(selectedIndex);
+  },
+
   loadData() {
     let component = this;
     const classId = this.get('classId');
@@ -436,6 +491,8 @@ export default Ember.Component.extend({
             }
             component.set('sortByLastnameEnabled', true);
             component.set('sortByFirstnameEnabled', false);
+            component.set('sortByScoreEnabled', false);
+            component.set('sortByTimeSpentEnabled', false);
             component.set('isLoading', false);
             component.handleCarouselControl();
           }
@@ -449,7 +506,6 @@ export default Ember.Component.extend({
     let collections = component
       .get('collections')
       .filterBy('format', collectionType);
-    let totalTimeSpent = 0;
     collections.map(function(collection) {
       let collectionId = collection.get('id');
       const averageScore = performance.calculateAverageScoreByItem(
@@ -458,7 +514,6 @@ export default Ember.Component.extend({
       const timeSpent = performance.calculateAverageTimeSpentByItem(
         collectionId
       );
-      totalTimeSpent = totalTimeSpent + timeSpent;
       const completionDone = performance.calculateSumCompletionDoneByItem(
         collectionId
       );
@@ -476,8 +531,6 @@ export default Ember.Component.extend({
       );
       return collection;
     });
-    let averageTimeSpent = Math.round(totalTimeSpent / collections.length);
-    component.set('selectedLesson.performance.timeSpent', averageTimeSpent);
   },
 
   parseClassMemberAndPerformanceData(performance, collectionType) {
@@ -485,6 +538,7 @@ export default Ember.Component.extend({
     let classMembers = component.get('classMembers');
     let users = Ember.A([]);
     let usersTotaltimeSpent = Ember.A([]);
+    let totalTimeSpent = 0;
     classMembers.forEach(member => {
       let user = component.createUser(member);
       let collections = component
@@ -499,10 +553,17 @@ export default Ember.Component.extend({
         userPerformance
       );
       user.set('userPerformanceData', resultSet.userPerformanceData);
-      user.set('overAllScore', resultSet.overAllScore);
       user.set('hasStarted', resultSet.hasStarted);
       user.set('totalTimeSpent', resultSet.totalTimeSpent);
+      totalTimeSpent = totalTimeSpent + resultSet.totalTimeSpent;
       user.set('score', resultSet.overAllScore);
+      // Reform score value and store in score-use-for-sort field, to handle sort.
+      // -1 defines not started.
+      if (!resultSet.hasStarted) {
+        user.set('score-use-for-sort', -1);
+      } else {
+        user.set('score-use-for-sort', resultSet.overAllScore);
+      }
       user.set('difference', 100 - resultSet.overAllScore);
       users.pushObject(user);
       usersTotaltimeSpent.push(resultSet.totalTimeSpent);
@@ -513,6 +574,7 @@ export default Ember.Component.extend({
       let maxTimeSpent = Math.max(...usersTotaltimeSpent);
       component.calculateTimeSpentScore(users, maxTimeSpent);
       component.set('collectionStudentReportData', users);
+      component.set('selectedLesson.performance.timeSpent', totalTimeSpent);
     } else if (collectionType === 'assessment') {
       component.set('assessmentStudentReportData', users);
     }
@@ -541,13 +603,13 @@ export default Ember.Component.extend({
         sequence: index + 1
       });
       if (userPerformance) {
-        performanceData.set('hasStarted', true);
-        hasStarted = true;
         let collectionResult = collectionResults.findBy(
           'id',
           `${userId}@${collectionId}`
         );
         if (collectionResult) {
+          performanceData.set('hasStarted', true);
+          hasStarted = true;
           let score = collectionResult.get('score')
             ? collectionResult.get('score')
             : 0;
@@ -579,9 +641,9 @@ export default Ember.Component.extend({
 
   handleCarouselControl() {
     let component = this;
-    let selectedElement = component.$('#report-carousel-wrapper .item.active');
+    let selectedLesson = component.get('selectedLesson');
     let lessons = component.get('lessons');
-    let currentIndex = selectedElement.data('item-index');
+    let currentIndex = lessons.indexOf(selectedLesson);
     if (lessons.length - 1 === 0) {
       component
         .$('#report-carousel-wrapper .carousel-control')

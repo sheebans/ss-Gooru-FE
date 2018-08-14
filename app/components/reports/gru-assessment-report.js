@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -216,5 +218,29 @@ export default Ember.Component.extend({
    * check question list  has answered items
    * @type {Boolean}
    */
-  hasAnsweredQuestions: false
+  hasAnsweredQuestions: false,
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('collections.standards.[]', function() {
+    let standards = this.get('collections.standards');
+    if (standards) {
+      standards = standards.filter(function(standard) {
+        // Filter out learning targets (they're too long for the card)
+        return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
+      });
+      return TaxonomyTag.getTaxonomyTags(standards);
+    }
+  }),
+
+  /**
+   * @property {collections[]}
+   */
+  collections: Ember.computed('assessmentResult', function() {
+    let component = this;
+    if (component.get('assessmentResult')) {
+      return component.get('assessmentResult.collection');
+    }
+  })
 });

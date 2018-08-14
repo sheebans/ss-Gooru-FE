@@ -991,3 +991,25 @@ export function diffMonthBtwTwoDates(date1, date2) {
   let monthsDiff = Math.abs(Math.round(diff));
   return monthsDiff > 0 ? monthsDiff - 1 : monthsDiff;
 }
+
+/**
+ * Validate percentage should be between 0 and 100 and decimals should not be more than two digits
+ * @return {Boolean}
+ */
+export function validatePercentage(number) {
+  let isValidPercentValue = false;
+  let isNumber = !isNaN(number);
+  if (isNumber) {
+    let parsedNumber = parseFloat(number);
+    let isValidPercent = (parsedNumber >= 0) && (parsedNumber <= 100);
+    if (isValidPercent) {
+      isValidPercentValue = true;
+      let isDecimalNumberAvailable = number.indexOf('.');
+      if (isDecimalNumberAvailable > 0) {
+        let decimalNumbers = number.substring(isDecimalNumberAvailable + 1);
+        isValidPercentValue = (decimalNumbers.length > 0) && (decimalNumbers.length < 3);
+      }
+    }
+  }
+  return isValidPercentValue;
+}

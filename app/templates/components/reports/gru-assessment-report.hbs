@@ -19,18 +19,17 @@
   }}
   {{/if}}
 
+  {{#if tags.length}}
+    <div class="standard-tags">
+      {{taxonomy.gru-taxonomy-tag-list tags=tags  showDescription=true }}
+    </div>
+  {{/if}}
+
   {{#if (and (not isTeacher) areAnswersHidden)}}
     <div class="hidden-report">
       <span>{{t "gru-assessment-report.hidden-report"}}</span>
     </div>
   {{else}}
-    {{#if assessmentResult.hasMastery}}
-      {{reports.assessment.gru-mastery
-        pathway=pathway
-    learningTargets=assessmentResult.mastery
-    assessmentResult=assessmentResult
-    onBubbleSelect='bubbleSelect'}}
-    {{/if}}
     {{#if orderedQuestions.length}}
       {{reports.assessment.gru-questions
       isAnswerKeyHidden=isAnswerKeyHidden

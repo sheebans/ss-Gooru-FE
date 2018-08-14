@@ -21,7 +21,7 @@
       <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
         <div class="carousel-inner">
           {{#each lessons as |lessonItem index|}}
-            <div data-item-index="{{index}}" class="item {{if (eq lessonItem.id  selectedLesson.id) 'active'}}">
+            <div data-item-index="{{index}}" class="item {{if (eq index 0) 'active'}}">
               <div class="lesson-background-cover" />
             </div>
           {{/each}}
@@ -42,7 +42,7 @@
       <div class="report-carousel-content-container">
         <div class="report-carousel-content">
           <div class="performance-display-container">
-            {{#unless hasLessonContainsCollectionOnly}}
+            {{#if (eq filterByCollectionType 'assessment')}}
               <div class="lesson-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedLesson.performance.score))}}>
                 {{#if (gt selectedLesson.performance.score -1)}}
                   {{selectedLesson.performance.score}}%
@@ -50,15 +50,15 @@
                   --
                 {{/if}}
               </div>
-              {{else}}
-                <div class="lesson-performance-timespent">{{format-time selectedLesson.performance.timeSpent}}</div>
-            {{/unless}}
+            {{else}}
+              <div class="lesson-performance-timespent">{{format-time selectedLesson.performance.timeSpent}}</div>
+            {{/if}}
           </div>
           <div class="lesson-report-chart">
-            {{#if hasLessonContainsCollectionOnly }}
-              {{charts.report-bar-chart useTimeSpentScore=true studentChartReportData=collectionStudentReportData onClickChart="onClickChart"}}
-            {{else}}
+            {{#if (eq filterByCollectionType 'assessment')}}
               {{charts.report-bar-chart useTimeSpentScore=false studentChartReportData=assessmentStudentReportData onClickChart="onClickChart"}}
+            {{else}}
+              {{charts.report-bar-chart useTimeSpentScore=true studentChartReportData=collectionStudentReportData onClickChart="onClickChart"}}
             {{/if}}
           </div>
         </div>
@@ -97,6 +97,7 @@
           {{reports.pull-up.lesson-report-listview
           sortByFirstnameEnabled=sortByFirstnameEnabled
           sortByLastnameEnabled=sortByLastnameEnabled
+          sortByScoreEnabled=sortByScoreEnabled
           contents=assessmentList
           studentReportData=assessmentStudentReportData
           selectedLesson=selectedLesson
@@ -104,6 +105,7 @@
           isPerformanceFltApplied=true
           sortByLastName="sortByLastName"
           sortByFirstName="sortByFirstName"
+          sortByScore="sortByScore"
           openCollectionReport="openCollectionReport"
           collectionType="assessment"
         }}
@@ -111,6 +113,7 @@
           {{reports.pull-up.lesson-report-listview
           sortByFirstnameEnabled=sortByFirstnameEnabled
           sortByLastnameEnabled=sortByLastnameEnabled
+          sortByTimeSpentEnabled=sortByTimeSpentEnabled
           contents=collectionList
           studentReportData=collectionStudentReportData
           selectedLesson=selectedLesson
@@ -118,6 +121,7 @@
           isPerformanceFltApplied=false
           sortByLastName="sortByLastName"
           sortByFirstName="sortByFirstName"
+          sortByTimeSpent="sortByTimeSpent"
           openCollectionReport="openCollectionReport"
           collectionType="collection"
         }}

@@ -93,9 +93,14 @@ export default Ember.Route.extend({
     const classMembers = currentClass.get('members');
     let userLocation = null;
     if (!isTeacher) {
+      let courseId = course.get('id');
+      //Pass courseId as query param for student current location
+      let locationQueryParam = {
+        courseId
+      };
       userLocation = route
         .get('analyticsService')
-        .getUserCurrentLocation(currentClass.get('id'), userId);
+        .getUserCurrentLocation(currentClass.get('id'), userId, locationQueryParam);
     }
 
     const tourSteps = Ember.A([

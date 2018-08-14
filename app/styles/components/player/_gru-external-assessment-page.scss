@@ -1,0 +1,175 @@
+.gru-external-assessment-page {
+  background-image: url("gooru/assessment-start-page.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: calc(100vh);
+  background-position: inherit;
+  .external-assessment-landing-page {
+
+    .external-assessment-card {
+      width: 499px;
+      min-height: 315px;
+      opacity: 0.9;
+      border-radius: 4px;
+      background-color: $white;
+      position: absolute;
+      top: 137px;
+      left: 75px;
+      padding: 30px;
+      .header {
+        max-height: 155px;
+        .title {
+          $font-size: 34px;
+          $line-height: 1.09;
+          $lines-to-show: 2;
+          color: $dark-500;
+          margin-bottom: 15px;
+          @include ellipsis($font-size: $font-size, $line-height: $line-height, $lines-to-show: $lines-to-show);
+        }
+        .taxonomy {
+          .gru-taxonomy-tag {
+            background-color: $charcoal-grey;
+            cursor: pointer;
+            .standard-tag {
+              color: $white;
+            }
+          }
+        }
+      }
+      .body {
+        padding-top: 15px;
+        position: relative;
+        min-height: 80px;
+        .description {
+          $font-size: 12px;
+          $line-height: 1.5;
+          $lines-to-show: 4;
+          color: $charcoal-grey-two;
+          @include ellipsis($font-size: $font-size, $line-height: $line-height, $lines-to-show: $lines-to-show);
+        }
+        .score-type-selector {
+          display: flex;
+          padding: 8px 0;
+          .percentage {
+            margin-right: 15px;
+          }
+          &.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+          }
+        }
+        .score-editor {
+          &.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+            input {
+              pointer-events: none;
+            }
+          }
+
+          .percentage-editor {
+            input {
+              height: 37px;
+              width: 100px;
+              opacity: 0.8;
+              font-size: 35px;
+              font-weight: bold;
+              text-align: center;
+              color: $charcoal-grey-two;
+              &:focus {
+                outline: none;
+              }
+            }
+            .percentage-symbol {
+              font-size: 35px;
+              text-align: right;
+              font-weight: bold;
+              color: $dark-400;
+            }
+          }
+
+          .fraction-editor {
+            display: flex;
+            input {
+              width: 80px;
+              opacity: 0.4;
+              font-size: 35px;
+              font-weight: bold;
+              text-align: center;
+              color: $charcoal-grey-two;
+              &:focus {
+                outline: none;
+              }
+            }
+            .fraction-of {
+              height: 64px;
+              line-height: 100px;
+              font-size: 20px;
+              text-align: center;
+              color: $charcoal-grey-two;
+              border-bottom: 1px solid rgba(151,151,151, 0.3);
+            }
+          }
+          .score-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: $charcoal-grey-two;
+            text-transform: uppercase;
+            margin-top: 4px;
+          }
+          .error {
+            color: $red-400;
+            font-size: 10px;
+          }
+        }
+        .score-entered {
+          .score {
+            font-size: 80px;
+            font-weight: bold;
+            text-align: center;
+            color: $charcoal-grey-two;
+            height: 80px;
+            line-height: 80px;
+            span {
+              font-weight: normal;
+            }
+          }
+          .score-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: $charcoal-grey-two;
+            text-transform: uppercase;
+            margin-top: 4px;
+            text-align: center;
+          }
+        }
+      }
+      .footer {
+        padding-top: 15px;
+        .actions {
+          display: flex;
+          .btn {
+            width: 76px;
+            height: 36px;
+            border-radius: 3px;
+            margin: 8px;
+          }
+          .cancel {
+            margin-left: 130px;
+            background-color: $light-200;
+
+            &.score-entered {
+              margin-left: 180px;
+            }
+          }
+          .start, .submit {
+            background-color: $blue-400;
+            color: $white;
+          }
+        }
+
+      }
+    }
+  }
+}

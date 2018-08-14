@@ -139,6 +139,12 @@ export default Ember.Component.extend({
    */
   sortByLastnameEnabled: true,
 
+  /**
+   * Maintain the status of sort by score
+   * @type {String}
+   */
+  sortByScoreEnabled: false,
+
   //--------------------------------------------------------------------------
   // Methods
 
@@ -200,6 +206,7 @@ export default Ember.Component.extend({
         component.parseClassMemberAndPerformanceData(performance);
         component.set('sortByLastnameEnabled', true);
         component.set('sortByFirstnameEnabled', false);
+        component.set('sortByScoreEnabled', false);
         component.set('isLoading', false);
       }
     });
@@ -247,9 +254,15 @@ export default Ember.Component.extend({
         userPerformance
       );
       user.set('userPerformanceData', resultSet.userPerformanceData);
-      user.set('overAllScore', resultSet.overAllScore);
       user.set('hasStarted', resultSet.hasStarted);
       user.set('score', resultSet.overAllScore);
+      // Reform score value and store in score-use-for-sort field, to handle sort.
+      // -1 defines not started.
+      if (!resultSet.hasStarted) {
+        user.set('score-use-for-sort', -1);
+      } else {
+        user.set('score-use-for-sort', resultSet.overAllScore);
+      }
       user.set('difference', 100 - resultSet.overAllScore);
       users.pushObject(user);
     });
@@ -280,10 +293,10 @@ export default Ember.Component.extend({
         sequence: index + 1
       });
       if (userPerformance) {
-        performanceData.set('hasStarted', true);
-        hasStarted = true;
         let unitResult = unitResults.findBy('id', `${userId}@${unitId}`);
         if (unitResult) {
+          performanceData.set('hasStarted', true);
+          hasStarted = true;
           let score = unitResult.get('score') ? unitResult.get('score') : 0;
           performanceData.set('timeSpent', unitResult.get('timeSpent'));
           performanceData.set('score', score);

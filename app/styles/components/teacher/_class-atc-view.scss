@@ -2,6 +2,7 @@
   .teacher.class-atc-view {
     margin-bottom: 30px;
     .class-view {
+      color: $dark-400;
       min-height: 320px;
       border-radius: 4px;
       background-color: $white;
@@ -13,6 +14,10 @@
         .not-started {
           text-align: center;
           font-size: 15px;
+        }
+
+        .no-subject  {
+          color: $dark-400;
         }
 
         .class-nav {

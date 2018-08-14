@@ -1,0 +1,30 @@
+<div class="nav-player-container">
+  <div class="prev disabled">
+    {{gru-icon name="ic_skip_previous"}}
+    <span>{{t "qz-question-viewer.previous"}}</span>
+  </div>
+
+
+  <div class="player-container">
+    <div class="player-info">
+      <div class="pull-left resource-title">
+        <span>{{assessment.title}}</span>
+      </div>
+    </div>
+  </div>
+
+<div class="next-action">
+  <div {{action 'playNext'}} class="next" data-toggle="tooltip" title="{{ t 'common.next'}}">
+    <span>{{t 'common.next'}}</span> {{gru-icon name="skip_next"}}
+  </div>
+</div>
+
+<div class="toggle-screen pull-right" {{action 'onToggleScreen'}}>
+  {{#if isFullScreen}}
+    {{gru-icon name="fullscreen_exit"}}
+  {{else}}
+    {{gru-icon name="fullscreen"}}
+  {{/if}}
+</div>
+
+</div>

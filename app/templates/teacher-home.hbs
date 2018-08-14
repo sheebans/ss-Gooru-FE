@@ -1,6 +1,11 @@
 <div class="controller teacher-landing row {{if isShowAtcView 'atc-landing'}}">
   <iframe id="download_iframe" style="display:none;"></iframe>
   {{gru-take-tour steps=steps containerClass='home-tour'}}
+  {{#if isShowNavigatorBanner}}
+    <div class="landing-banner">
+      {{teacher.navigator-math-banner updateClass="updateClass"}}
+    </div>
+  {{/if}}
   <div class="teacher-panel">
     <div class="greetings  hide">
       <div class="title">
@@ -22,13 +27,14 @@
           }}
       </div>
     {{/unless}}
+
     <div class="teacher-navigator">
       {{#if isShowAtcView}}
         <div class="atc-view nav">
           <div class="class-title ellipsis">
             {{lastAccessedClassData.title}}
           </div>
-          {{#if (and lastAccessedClassData.performance lastAccessedClassData.performance.score)}}
+          {{#if (and lastAccessedClassData (not lastAccessedClassData.isPremiumClass) ) }}
             <div class="atc-class-performance" style="background-color: {{classPerformanceColor}};">
               {{concat lastAccessedClassData.performance.score '%'}}
             </div>

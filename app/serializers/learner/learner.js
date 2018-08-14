@@ -55,7 +55,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
       status: payload.status,
       currentId: payload.courseId ? payload.collectionId : null,
       currentTitle: payload.courseId ? payload.collectionTitle : null,
-      currentType: payload.courseId ? payload.collectionType : null
+      currentType: payload.courseId ? payload.collectionType : null,
+      pathType: payload.pathType || null,
+      pathId: payload.pathId || 0
     });
   },
 
@@ -222,7 +224,9 @@ export default Ember.Object.extend(ConfigurationMixin, {
       unitId: payload.unitId,
       lessonId: payload.lessonId,
       collectionId: payload.collectionId || payload.assessmentId,
-      title: payload.collectionTitle || payload.assessmentTitle
+      title: payload.collectionTitle || payload.assessmentTitle,
+      pathId: payload.pathId || 0,
+      pathType: payload.pathType || null
     });
   }
 });

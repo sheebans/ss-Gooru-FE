@@ -280,7 +280,6 @@ export default Ember.Component.extend(AccordionMixin, {
         .get('analyticsService')
         .getLessonPeers(classId, courseId, unitId, lessonId)
       : Ember.RSVP.resolve(lessonPeers);
-
     return Ember.RSVP.hash({
       lesson: component
         .get('courseMapService')
@@ -297,7 +296,6 @@ export default Ember.Component.extend(AccordionMixin, {
       .then(({ lesson, peers }) => {
         collections = lesson.get('children');
         lessonPeers = peers;
-
         let loadDataPromise = Ember.RSVP.resolve();
         if (classId) {
           isTeacher
@@ -513,6 +511,7 @@ export default Ember.Component.extend(AccordionMixin, {
         let performance = assessments.concat(collection);
         const promises = collections.map(function(collection) {
           const collectionId = collection.get('id');
+          const isAssessment = collection.get('format') === 'assessment';
           const isResource =
             collection.get('format') !== 'assessment' &&
             collection.get('format') !== 'assessment-external' &&
@@ -528,6 +527,7 @@ export default Ember.Component.extend(AccordionMixin, {
           }
 
           collection.set('isResource', isResource);
+          collection.set('isAssessment', isAssessment);
 
           const collectionPerformanceData = performance.findBy(
             'id',
