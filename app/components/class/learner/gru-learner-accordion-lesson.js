@@ -109,9 +109,9 @@ export default Ember.Component.extend(AccordionMixin, {
     studentReport: function(collection) {
       let component = this;
       let currentClass = component.get('currentClass');
-      let userId = currentClass.userId;
-      let classId = currentClass.classId;
-      let courseId = currentClass.courseId;
+      let userId = currentClass.userId || component.get('studentId');
+      let classId = currentClass.classId || component.get('currentClass.id');
+      let courseId = currentClass.courseId || component.get('currentCourse.id');
       let unitId = component.get('unitId');
       let lessonId = component.get('model.id');
       let collectionId = collection.get('id');
@@ -260,8 +260,8 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   loadData: function(lesson) {
     const component = this;
-    const userId = component.get('currentClass.userId');
-    const classId = component.get('currentClass.classId');
+    const userId = component.get('currentClass.userId') || component.get('studentId');
+    const classId = component.get('currentClass.classId') || component.get('currentClass.id');
     const courseId =
       component.get('currentClass.courseId') ||
       component.get('currentCourse.id');

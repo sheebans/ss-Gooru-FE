@@ -152,11 +152,13 @@ export default Ember.Route.extend({
         let completionTotal = classPerformance.calculateSumCompletionTotalByItem(
           unitId
         );
+        let numberOfStudents = classPerformance.findNumberOfStudentsByItem(unitId);
         let performance = {
           score,
           timeSpent,
           completionDone,
-          completionTotal
+          completionTotal,
+          numberOfStudents
         };
         unit.performance = performance;
       });

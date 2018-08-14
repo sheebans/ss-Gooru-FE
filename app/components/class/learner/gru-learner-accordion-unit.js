@@ -274,8 +274,8 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   getLessons: function(unitIds) {
     const component = this;
-    const userId = component.get('currentClass.userId');
-    const classId = component.get('currentClass.classId');
+    const userId = component.get('currentClass.userId') || component.get('studentId');
+    const classId = component.get('currentClass.classId') || component.get('currentClass.id');
     const courseId =
       component.get('currentClass.courseId') ||
       component.get('currentCourse.id');
@@ -284,7 +284,6 @@ export default Ember.Component.extend(AccordionMixin, {
     const isTeacher = component.get('isTeacher');
     let lessons = Ember.A();
     let unitPeers = Ember.A();
-
     let peersPromise = classId
       ? component
         .get('analyticsService')

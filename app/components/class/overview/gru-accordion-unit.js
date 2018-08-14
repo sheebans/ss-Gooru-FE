@@ -465,11 +465,13 @@ export default Ember.Component.extend(AccordionMixin, {
               const averageScore = performance.calculateAverageScoreByItem(
                 lesson.get('id')
               );
+              let numberOfStudents = performance.findNumberOfStudentsByItem(lesson.get('id'));
               lesson.set(
                 'performance',
                 Ember.Object.create({
                   score: averageScore,
-                  hasStarted: averageScore >= 0
+                  hasStarted: averageScore >= 0,
+                  numberOfStudents
                 })
               );
             } else {

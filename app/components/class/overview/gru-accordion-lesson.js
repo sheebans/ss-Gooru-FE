@@ -651,6 +651,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
               const completionTotal = performance.calculateSumCompletionTotalByItem(
                 collectionId
               );
+
+              const numberOfStudents = performance.findNumberOfStudentsByItem(collectionId);
               collection.set(
                 'performance',
                 Ember.Object.create({
@@ -660,7 +662,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
                     ? !assessmentData.get('classroom_play_enabled')
                     : undefined,
                   isCompleted:
-                    completionDone > 0 && completionDone >= completionTotal
+                    completionDone > 0 && completionDone >= completionTotal,
+                  numberOfStudents
                 })
               );
 

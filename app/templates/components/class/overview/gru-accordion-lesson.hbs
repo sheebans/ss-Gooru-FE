@@ -22,7 +22,11 @@
           {{/if}}
         </div>
       {{/if}}
-      {{#if (not isPremiumClassForTeacher )}}
+      {{#if isPremiumClassForTeacher }}
+        <div class="performance-container pull-right" {{action 'onOpenLessonReport'}}>
+          {{charts/gru-students-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
+        </div>
+      {{else}}
         <div class= {{if isTeacher 'controls' 'play-btn'}}>
           {{#unless isTeacher}}
             <button class="btn btn-info study-now" disabled= {{if (or studyNowDisabled (not isExpanded)) 'true' ''}} {{action "studyNow" 'lesson' model}} data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.play"}}">
@@ -235,6 +239,10 @@
                             {{/if}}
                           {{/if}}
                         {{/if}}
+                      </div>
+                    {{else}}
+                      <div class="performance chart" {{action 'teacherCollectionReport' item}}>
+                        {{charts/gru-students-performance-chart performanceSummary=item.performance hasStarted=true isTeacher=isTeacher assessmentCount=item.assessmentCount}}
                       </div>
                     {{/if}}
                   </div>
