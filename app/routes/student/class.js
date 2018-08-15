@@ -1,6 +1,11 @@
 import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 import { ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
+import {
+  hasSuggestions,
+  createStudyPlayerQueryParams,
+  currentLocationToMapContext
+} from 'gooru-web/utils/navigation-util';
 
 export default Ember.Route.extend(PrivateRouteMixin, {
   queryParams: {
@@ -80,91 +85,69 @@ export default Ember.Route.extend(PrivateRouteMixin, {
    *
    * @function actions:playItem
    * @param {string} currentLocation - All the params for the currentLocation
+   * @summary
+   * 1.  Current location null or Empty > Next call with 'continue' (continue on courseId, classId ) > Study player
+   * 1.1 Handle suggestions when 'continue' and there is a teacher suggestion > Send suggestion to study player (should prompt for start dialog )
+   * 2.  Current location with status not complete > NO next call, launch study player directly
+   * 3.  Current location with status complete. Next call with 'content-served' (start on courseId, classId, pathId, pathType, ...  +SCORE) > Study Player
+   * 3.1 Handle suggestions when 'content-served' and there is a suggestion > Send suggestion to Study Player (should prompt for accept/ignore dialog )
    */
   studyPlayer: function(currentLocation) {
     const route = this;
-    let role = ROLES.STUDENT;
-    let source = PLAYER_EVENT_SOURCE.COURSE_MAP;
-    let suggestionPromise = null;
-    let courseId = null;
-    let queryParams = {};
-    let classId = null;
     const controller = route.get('controller');
-
-    if (currentLocation) {
-      courseId = currentLocation.get('courseId');
-      classId = currentLocation.get('classId');
-      let unitId = currentLocation.get('unitId');
-      let lessonId = currentLocation.get('lessonId');
-      let collectionId = currentLocation.get('collectionId');
-      let collectionType = currentLocation.get('collectionType');
-      let collectionSubType = currentLocation.get(
-        'collection.collectionSubType'
+    const navMapServc = route.get('navigateMapService');
+    let options = {
+        role: ROLES.STUDENT,
+        source: PLAYER_EVENT_SOURCE.COURSE_MAP,
+        courseId: controller.get('course').id,
+        classId: controller.get('class').id
+      },
+      nextPromise = null;
+    if (currentLocation == null || currentLocation === '') {
+      nextPromise = navMapServc.continueCourse(
+        options.courseId,
+        options.classId
+      ); //Complete
+    } else if (currentLocation.get('status') === 'complete') {
+      //content_served
+      nextPromise = navMapServc.contentServedResource(
+        currentLocationToMapContext(currentLocation)
       );
-      let pathId = currentLocation.get('collection.pathId') || 0;
-      // Re-create these queryparams when we have correct location from location API
-      queryParams = {
-        classId,
-        unitId,
-        lessonId,
-        collectionId,
-        role,
-        source,
-        type: collectionType,
-        subtype: collectionSubType,
-        pathId
-      };
-    }
-    if (controller.get('course') && courseId !== controller.get('course').id) {
-      // eslint-disable-next-line
-      console.warn(
-        'courseId mismatch overriding location courseId :',
-        courseId
+    } else {
+      // Next not required, get the params from current location
+      nextPromise = route.nextPromiseHandler(
+        currentLocationToMapContext(currentLocation)
       );
-      courseId = controller.get('course').id;
-      classId = controller.get('class').id;
     }
 
-    suggestionPromise = route
-      .get('navigateMapService')
-      .continueCourse(courseId, classId);
-
-    suggestionPromise.then(navResp => {
-      courseId = navResp.context.courseId;
-      let pathId = navResp.context.pathId;
-      let pathType = navResp.context.pathType;
-      if (!currentLocation || courseId !== navResp.context.courseId) {
-        console.warn('courseId mismatch or currentlocation empty :', courseId); // eslint-disable-line
-      }
-      //Overriding params with that returend by the navigatemap API
-      classId = navResp.context.classId;
-      let unitId = navResp.context.unitId;
-      let lessonId = navResp.context.lessonId;
-      let collectionId = navResp.context.collectionId;
-      let collectionType = navResp.context.collectionType;
-      let collectionSubType = navResp.context.collectionSubType;
-      queryParams = {
-        classId,
-        unitId,
-        lessonId,
-        collectionId,
-        role,
-        source,
-        type: collectionType,
-        subtype: collectionSubType,
-        pathId,
-        pathType,
-        collectionSource: 'course_map'
-      };
-
-      if (courseId == null || courseId === '') {
-        console.warn('very fast transition aborted'); // eslint-disable-line
-        return; //
-      }
-      return route.transitionTo('study-player', courseId, {
-        queryParams
-      });
+    nextPromise.then(route.nextPromiseHandler).then(parsedOptions => {
+      return route.launchStudyPlayer(parsedOptions);
     });
+  },
+
+  /** returns options promise chain resolving response
+   * @param
+   */
+  nextPromiseHandler(resp) {
+    let queryParams = {
+      role: ROLES.STUDENT,
+      source: PLAYER_EVENT_SOURCE.COURSE_MAP
+    };
+    queryParams = createStudyPlayerQueryParams(
+      hasSuggestions(resp) ? resp.suggestions : resp.context || resp,
+      queryParams
+    );
+    return Ember.RSVP.resolve(queryParams);
+  },
+
+  /**
+   * launches study player
+   * @param options {object} is the queryParams required to launch study-player
+   */
+  launchStudyPlayer(queryParams) {
+    console.log('launchStudyPlayer', queryParams); //eslint-disable-line
+    const route = this;
+    route.transitionTo('study-player', queryParams.courseId, { queryParams });
   },
 
   // -------------------------------------------------------------------------

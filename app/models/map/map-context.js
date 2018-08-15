@@ -38,6 +38,7 @@ const MapContextModel = Ember.Object.extend({
 
   /**
    * @property {string} collectionSubType pre-test/post-test/benchmark
+   * @deprecated this is no longer used
    */
   collectionSubType: null,
 
