@@ -59,31 +59,31 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * ClassId belongs to this unit report.
+   * ClassId belongs to this course report.
    * @type {String}
    */
   classId: Ember.computed.alias('context.classId'),
 
   /**
-   * Class belongs to this unit report.
+   * Class belongs to this course report.
    * @type {String}
    */
   class: Ember.computed.alias('context.class'),
 
   /**
-   * CourseId belongs to this unit report.
+   * CourseId belongs to this course report.
    * @type {String}
    */
   courseId: Ember.computed.alias('context.courseId'),
 
   /**
-   * Course belongs to this unit report.
+   * Course belongs to this course report.
    * @type {String}
    */
   course: Ember.computed.alias('context.course'),
 
   /**
-   * Unit Id belongs to this unit report.
+   * Unit Id belongs to this course report.
    * @type {String}
    */
   unitId: Ember.computed.alias('context.unitId'),

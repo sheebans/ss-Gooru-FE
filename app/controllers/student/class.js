@@ -20,6 +20,22 @@ export default Ember.Controller.extend({
       } else {
         $panels.slideDown();
       }
+    },
+
+    /**
+     * Trigger the event to open student course report
+     */
+    openCourseReport: function() {
+      let controller = this;
+      controller.set('showCourseReport', true);
+      let params = Ember.Object.create({
+        userId: controller.get('session.userId'),
+        classId: controller.get('class.id'),
+        class: controller.get('class'),
+        courseId: controller.get('course.id'),
+        course: controller.get('course')
+      });
+      controller.set('studentCourseReportContext', params);
     }
   },
 
@@ -80,7 +96,7 @@ export default Ember.Controller.extend({
     let scoreColor = getBarGradeColor(score);
     const completed = this.get('class.performanceSummary.totalCompleted');
     const total = this.get('class.performanceSummary.total');
-    const percentage = completed ? completed / total * 100 : 0;
+    const percentage = completed ? (completed / total) * 100 : 0;
     return [
       {
         color: scoreColor,
@@ -92,6 +108,13 @@ export default Ember.Controller.extend({
     let data = this.get('barChartData').objectAt(0);
     return data.percentage.toFixed(0);
   }),
+
+  /**
+   * Maintains the state of course report visibility
+   * @type {Boolean}
+   */
+  showCourseReport: false,
+
   // -------------------------------------------------------------------------
   // Methods
 

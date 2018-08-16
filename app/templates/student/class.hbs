@@ -66,7 +66,7 @@
     </div>
   </div>
   {{#if class}}
-      {{student.class.gru-study-navbar navTitle=class.title class=class onItemSelected="selectMenuItem" selectedMenuItem=menuItem isPremiumClass = isPremiumClass studyCurrent=studyPlayer hasClassInfo = 'true' }}
+      {{student.class.gru-study-navbar navTitle=class.title class=class onItemSelected="selectMenuItem" selectedMenuItem=menuItem isPremiumClass = isPremiumClass studyCurrent=studyPlayer hasClassInfo = 'true' openCourseReport='openCourseReport'}}
   {{else}}
   {{student.class.gru-class-navigation
     class=class
@@ -78,3 +78,6 @@
     {{outlet}}
   </div>
 </div>
+{{#if showCourseReport}}
+  {{reports.pull-up.student-course-report context=studentCourseReportContext showPullUp=showCourseReport onOpenUnitReport="onOpenUnitReport"}}
+{{/if}}

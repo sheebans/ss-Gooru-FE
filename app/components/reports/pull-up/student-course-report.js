@@ -1,0 +1,198 @@
+import Ember from 'ember';
+import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
+import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
+
+export default Ember.Component.extend({
+  // -------------------------------------------------------------------------
+  // Attributes
+
+  classNames: ['reports', 'pull-up-student-course-report'],
+
+  // -------------------------------------------------------------------------
+  // Dependencies
+
+  /**
+   * @type {PerformanceService}
+   */
+  performanceService: Ember.inject.service('api-sdk/performance'),
+
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    /**
+     * Action triggered when the user invoke the pull up.
+     **/
+    onPullUpClose() {
+      this.closePullUp();
+    },
+
+    openUnitReport(unit, units) {
+      let component = this;
+      let params = {
+        classId: component.get('classId'),
+        courseId: component.get('courseId'),
+        unitId: unit.get('id'),
+        lessonId: component.get('lessonId'),
+        unit: unit,
+        units: units,
+        classMembers: component.get('classMembers')
+      };
+      this.sendAction('onOpenUnitReport', params);
+    }
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  /**
+   * Function to triggered once when the component element is first rendered.
+   */
+  didInsertElement() {
+    this.handleScrollToFixHeader();
+    this.openPullUp();
+    this.loadData();
+  },
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * ClassId belongs to this course report.
+   * @type {String}
+   */
+  classId: Ember.computed.alias('context.classId'),
+
+  /**
+   * Class belongs to this course report.
+   * @type {String}
+   */
+  class: Ember.computed.alias('context.class'),
+
+  /**
+   * CourseId belongs to this course report.
+   * @type {String}
+   */
+  courseId: Ember.computed.alias('context.courseId'),
+
+  /**
+   * Course belongs to this course report.
+   * @type {String}
+   */
+  course: Ember.computed.alias('context.course'),
+
+  /**
+   * Maintains list of course items.
+   * @type {Array}
+   */
+  units: Ember.computed('context.course', function() {
+    let units = this.get('context.course.children');
+    return units;
+  }),
+
+  /**
+   * Propery to hide the default pullup.
+   * @property {showPullUp}
+   */
+  showPullUp: false,
+
+  /**
+   * Student user id
+   * @type {Object}
+   */
+  userId: Ember.computed.alias('context.userId'),
+
+  /**
+   * It maintains the state of loading
+   * @type {Boolean}
+   */
+  isLoading: false,
+
+  /**
+   * @property {TaxonomyTag[]} List of taxonomy tags
+   */
+  tags: Ember.computed('course.taxonomy.[]', function() {
+    let standards = this.get('course.taxonomy');
+    if (standards) {
+      standards = standards.filter(function(standard) {
+        // Filter out learning targets (they're too long for the card)
+        return !TaxonomyTagData.isMicroStandardId(standard.get('id'));
+      });
+      return TaxonomyTag.getTaxonomyTags(standards);
+    }
+  }),
+
+  //--------------------------------------------------------------------------
+  // Methods
+
+  /**
+   * Function to animate the  pullup from bottom to top
+   */
+  openPullUp() {
+    let component = this;
+    component.$().animate(
+      {
+        top: '10%'
+      },
+      400
+    );
+  },
+
+  closePullUp() {
+    let component = this;
+    component.$().animate(
+      {
+        top: '100%'
+      },
+      400,
+      function() {
+        component.set('showPullUp', false);
+      }
+    );
+  },
+
+  handleScrollToFixHeader() {
+    let component = this;
+    component.$('.report-content').scroll(function() {
+      let scrollTop = component.$('.report-content').scrollTop();
+      let scrollFixed = component.$(
+        '.report-content .pull-up-course-report-listview .on-scroll-fixed'
+      );
+      if (scrollTop >= 347) {
+        let position = scrollTop - 347;
+        component.$(scrollFixed).css('top', `${position}px`);
+      } else {
+        component.$(scrollFixed).css('top', '0px');
+      }
+    });
+  },
+
+  loadData() {
+    let component = this;
+    const classId = this.get('classId');
+    let courseId = component.get('courseId');
+    let userId = component.get('userId');
+    let units = component.get('units');
+    component.set('isLoading', true);
+    return Ember.RSVP.hash({
+      unitsPerformance: component
+        .get('performanceService')
+        .findStudentPerformanceByCourse(userId, classId, courseId, units)
+    }).then(({ unitsPerformance }) => {
+      if (!component.isDestroyed) {
+        component.renderUnitsPerformance(unitsPerformance);
+        component.set('isLoading', false);
+      }
+    });
+  },
+
+  renderUnitsPerformance(unitsPerformance) {
+    let component = this;
+    let units = component.get('units');
+    units.forEach(unit => {
+      let unitPerformance = unitsPerformance.findBy('id', unit.get('id'));
+      if (unitPerformance) {
+        unit.set('performance', unitPerformance);
+      }
+    });
+  }
+});

@@ -105,25 +105,34 @@ export default Ember.Route.extend({
     const userId = route.get('session.userId');
     const classMembers = currentClass.get('members');
     const courseId = course.get('id');
+    const classId = currentClass.get('id');
+    route.fetchUnitsPerformance(userId, classId, courseId, units);
     //Pass courseId as query param for student current location
     let locationQueryParam = {
       courseId
     };
     const userLocation = route
       .get('analyticsService')
-      .getUserCurrentLocation(currentClass.get('id'), userId, locationQueryParam);
+      .getUserCurrentLocation(
+        currentClass.get('id'),
+        userId,
+        locationQueryParam
+      );
     var route0Promise = {};
     let setting = currentClass.get('setting');
     let premiumCourse = setting
       ? setting['course.premium'] && setting['course.premium'] === true
       : false;
     if (premiumCourse) {
-      route0Promise = route
-        .get('route0Service')
-        .fetchInClass({ courseId: course.id, classId: currentClass.id });
+      route0Promise = route.get('route0Service').fetchInClass({
+        courseId: course.id,
+        classId: currentClass.id
+      });
     } else {
       route0Promise = new Ember.RSVP.Promise(function(resolve) {
-        resolve({ status: '401' }); // This is a dummy status
+        resolve({
+          status: '401'
+        }); // This is a dummy status
       });
     }
 
@@ -329,6 +338,21 @@ export default Ember.Route.extend({
         }
         route.transitionTo('resource-player', courseId, resource.id, {
           queryParams
+        });
+      });
+  },
+
+  fetchUnitsPerformance(userId, classId, courseId, units) {
+    let route = this;
+    route
+      .get('performanceService')
+      .findStudentPerformanceByCourse(userId, classId, courseId, units)
+      .then(unitsPerformance => {
+        units.forEach(unit => {
+          let unitPerformance = unitsPerformance.findBy('id', unit.get('id'));
+          if (unitPerformance) {
+            unit.set('performance', unitPerformance);
+          }
         });
       });
   }

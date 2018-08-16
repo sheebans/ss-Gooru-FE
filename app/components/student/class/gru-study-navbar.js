@@ -5,7 +5,6 @@ export default Ember.Component.extend({
 
   session: Ember.inject.service('session'),
 
-
   actions: {
     /**
      *
@@ -17,8 +16,12 @@ export default Ember.Component.extend({
       if (this.get('onItemSelected')) {
         if (item === 'profile') {
           let userId = component.get('session.userId');
-          Ember.$('body').removeClass('fullscreen').removeClass('fullscreen-exit');
-          component.get('router').transitionTo(`/${userId}/proficiency?source=study-player`);
+          Ember.$('body')
+            .removeClass('fullscreen')
+            .removeClass('fullscreen-exit');
+          component
+            .get('router')
+            .transitionTo(`/${userId}/proficiency?source=study-player`);
         } else {
           this.selectItem(item);
           if (item === 'class-info') {
@@ -44,7 +47,16 @@ export default Ember.Component.extend({
      * Action triggered when click brand logo
      */
     onClickBrand() {
-      Ember.$('body').removeClass('fullscreen').removeClass('fullscreen-exit');
+      Ember.$('body')
+        .removeClass('fullscreen')
+        .removeClass('fullscreen-exit');
+    },
+
+    /**
+     * Trigger the event to open student course report
+     */
+    openCourseReport() {
+      this.sendAction('openCourseReport');
     }
   },
 
@@ -66,7 +78,6 @@ export default Ember.Component.extend({
     } else {
       Ember.$('body').addClass('fullscreen-exit');
     }
-
   },
 
   willDestroyElement() {
