@@ -70,7 +70,7 @@ export default Ember.Component.extend({
   },
 
   // -------------------------------------------------------------------------
-  // Actions
+  // Methods
   /**
    * @function fetchSubjectsByCategory
    * @param subjectCategory

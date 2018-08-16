@@ -213,9 +213,9 @@ export default Ember.Controller.extend({
       controller.set('units', Ember.A([]));
       controller.set('activeStudent', student);
       controller.getStudentCourseMap(student.id);
-      controller.loadRoute0Data();
       if (controller.get('isPremiumClass')) {
         controller.getRescopedData();
+        controller.loadRoute0Data();
       }
       Ember.$('.list').removeClass('active');
       Ember.$(`.student-${index}`).addClass('active');
@@ -319,7 +319,6 @@ export default Ember.Controller.extend({
     let isPremiumClass = controller.get('isPremiumClass');
     //Initially load rescope data
     if (isPremiumClass) {
-      controller.set('isPremiumClass', isPremiumClass);
       controller.getSkippedContents().then(function(skippedContents) {
         let isContentAvailable;
         if (skippedContents) {
@@ -346,9 +345,11 @@ export default Ember.Controller.extend({
   getSkippedContents() {
     let controller = this;
     let currentClass = controller.get('currentClass');
+    let student = controller.get('activeStudent');
     let filter = {
       classId: currentClass.get('id'),
-      courseId: currentClass.get('courseId')
+      courseId: currentClass.get('courseId'),
+      userId: student.get('id')
     };
     let skippedContentsPromise = Ember.RSVP.resolve(
       controller.get('rescopeService').getSkippedContents(filter)
@@ -472,13 +473,13 @@ export default Ember.Controller.extend({
           unitId
         );
 
-        let numberOfStudnts = classPerformance.findNumberOfStudentsByItem(unitId);
+        let numberOfStudents = classPerformance.findNumberOfStudentsByItem(unitId);
         let performance = {
           score,
           timeSpent,
           completionDone,
           completionTotal,
-          numberOfStudnts
+          numberOfStudents
         };
         unit.set('performance', performance);
       });

@@ -166,6 +166,9 @@
           .start, .submit {
             background-color: $blue-400;
             color: $white;
+            &.disabled {
+              pointer-events: none;
+            }
           }
         }
 
