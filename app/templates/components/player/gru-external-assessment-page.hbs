@@ -25,6 +25,7 @@
             </div>
           </div>
         {{else}}
+          {{three-bounce-spinner}}
           <div class="not-updated">{{t 'self-report.update-error'}}</div>
         {{/if}}
       {{else}}
@@ -68,10 +69,10 @@
     </div>
     <div class="footer">
       <div class="actions">
-        <div class="btn cancel {{if isScoreEntered 'score-entered'}}" {{action "onCancel"}}>
-          {{t 'common.cancel'}}
-        </div>
         {{#if (not isScoreEntered)}}
+          <div class="btn cancel {{if isScoreEntered 'score-entered'}}" {{action "onCancel"}}>
+            {{t 'common.cancel'}}
+          </div>
           {{#if isDisableScoreEditor}}
             <div class="btn start" {{action "onStart"}}>
               {{t 'gru-assessment-confirmation.start'}}
