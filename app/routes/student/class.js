@@ -131,10 +131,11 @@ export default Ember.Route.extend(PrivateRouteMixin, {
   nextPromiseHandler(resp) {
     let queryParams = {
       role: ROLES.STUDENT,
-      source: PLAYER_EVENT_SOURCE.COURSE_MAP
+      source: PLAYER_EVENT_SOURCE.COURSE_MAP,
+      courseId: hasSuggestions(resp) ? resp.context.courseId : resp.courseId // Only in case of suggestions we dont have courseId in suggestion
     };
     queryParams = createStudyPlayerQueryParams(
-      hasSuggestions(resp) ? resp.suggestions : resp.context || resp,
+      hasSuggestions(resp) ? resp.suggestions[0] : resp.context || resp,
       queryParams
     );
     return Ember.RSVP.resolve(queryParams);

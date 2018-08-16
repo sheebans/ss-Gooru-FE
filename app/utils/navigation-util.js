@@ -4,7 +4,11 @@
  * @returns {queryParams}
  */
 export function createStudyPlayerQueryParams(context, options) {
-  let queryParams = { role: options.role, source: options.source };
+  let queryParams = {
+    role: options.role,
+    source: options.source,
+    courseId: options.courseId
+  };
   Object.assign(queryParams, context);
   return queryParams;
 }
