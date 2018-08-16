@@ -253,6 +253,28 @@ export default Ember.Service.extend({
   },
 
   /**
+   * Next call when assesment / collection is complete and content served.
+   * To be used when user left off after completing without playing next, and is not explicitly starting
+   * Here the use case is played from top nav bar.
+   * @param {string} courseId
+   * @param {string} unitId
+   * @param {string} lessonId
+   * @param {string} collectionId
+   * @param {string} resourceId
+   * @param {string} pathId
+   * @param {string} pathType
+   * @param {string} classId
+   * @returns {Promise.<MapLocation>}
+   */
+  contentServedResource: function(options) {
+    const service = this;
+    options.pathId = +options.pathId;
+    options.status = 'content-served';
+    const mapContext = MapContext.create(options);
+    return service.next(mapContext);
+  },
+
+  /**
    * Starts a lesson
    *
    * @param {string} courseId
