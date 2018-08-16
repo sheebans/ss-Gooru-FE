@@ -304,7 +304,7 @@ export default DS.Model.extend({
    * Method to find number of students have performed in an item
    */
   findNumberOfStudentsByItem(itemId) {
-    let numberOfStudnts = 0;
+    let numberOfStudents = 0;
     const studentPerformanceData = this.get('studentPerformanceData') || [];
     if (studentPerformanceData && studentPerformanceData.length > 0) {
       studentPerformanceData.forEach(function(studentPerformance) {
@@ -312,10 +312,10 @@ export default DS.Model.extend({
           .get('performanceData')
           .findBy('realId', itemId);
         if (performanceData) {
-          numberOfStudnts++;
+          numberOfStudents++;
         }
       });
     }
-    return numberOfStudnts;
+    return numberOfStudents;
   }
 });
