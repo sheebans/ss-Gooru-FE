@@ -39,8 +39,25 @@ export default Ember.Component.extend({
       this.sendAction('onOpenUnitReport', params);
     },
 
-    onClickChart(userId) {
-      return userId;
+    /**
+     * Trigger the event to open student course report
+     */
+    openStudentCourseReport: function(userId) {
+      let component = this;
+      let classes = Ember.Object.create({
+        id: component.get('classId'),
+        performanceSummary: component.getClassPerformanceForClassMember(userId)
+      });
+
+      let params = Ember.Object.create({
+        userId: userId,
+        classId: component.get('classId'),
+        courseId: component.get('courseId'),
+        course: component.get('course'),
+        class: classes
+      });
+      component.set('showStudentCourseReport', true);
+      component.set('studentCourseReportContext', params);
     }
   },
 
@@ -181,8 +198,11 @@ export default Ember.Component.extend({
       let scrollFixed = component.$(
         '.report-content .pull-up-course-report-listview .on-scroll-fixed'
       );
-      if (scrollTop >= 347) {
-        let position = scrollTop - 347;
+      let height =
+        component.$('.report-carousel').height() +
+        component.$('.report-header-container').height();
+      if (scrollTop >= height) {
+        let position = scrollTop - height;
         component.$(scrollFixed).css('top', `${position}px`);
       } else {
         component.$(scrollFixed).css('top', '0px');
@@ -236,6 +256,18 @@ export default Ember.Component.extend({
       );
       return unit;
     });
+  },
+
+  getClassPerformanceForClassMember(userId) {
+    let component = this;
+    let studentReportData = component.get('studentReportData');
+    let userPerformance = studentReportData.findBy('id', userId);
+    if (userPerformance.get('hasStarted')) {
+      return Ember.Object.create({
+        score: userPerformance.get('score'),
+        hasStarted: userPerformance.get('hasStarted')
+      });
+    }
   },
 
   parseClassMemberAndPerformanceData(performance) {

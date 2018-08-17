@@ -1,3 +1,328 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({});
+export default Ember.Component.extend({
+  // -------------------------------------------------------------------------
+  // Attributes
+
+  classNames: ['reports', 'pull-up-student-lesson-report'],
+
+  // -------------------------------------------------------------------------
+  // Dependencies
+
+  /**
+   * @type {PerformanceService}
+   */
+  performanceService: Ember.inject.service('api-sdk/performance'),
+
+  /**
+   * @requires service:api-sdk/course-map
+   */
+  courseMapService: Ember.inject.service('api-sdk/course-map'),
+
+  // -------------------------------------------------------------------------
+  // Actions
+
+  actions: {
+    /**
+     * Action triggered when the user invoke the pull up.
+     **/
+    onPullUpClose() {
+      this.closePullUp();
+    },
+
+    onClickPrev() {
+      let component = this;
+      component
+        .$('#report-carousel-wrapper .carousel-control')
+        .addClass('in-active');
+      let lessons = component.get('lessons');
+      let selectedElement = component.$(
+        '#report-carousel-wrapper .item.active'
+      );
+      let currentIndex = selectedElement.data('item-index');
+      let selectedIndex = selectedElement.data('item-index') - 1;
+      if (currentIndex === 0) {
+        selectedIndex = lessons.length - 1;
+      }
+      component.set('selectedLesson', lessons.objectAt(selectedIndex));
+      component.$('#report-carousel-wrapper').carousel('prev');
+      component.loadData();
+    },
+
+    onClickNext() {
+      let component = this;
+      component
+        .$('#report-carousel-wrapper .carousel-control')
+        .addClass('in-active');
+      let lessons = component.get('lessons');
+      let selectedElement = component.$(
+        '#report-carousel-wrapper .item.active'
+      );
+      let currentIndex = selectedElement.data('item-index');
+      let selectedIndex = currentIndex + 1;
+      if (lessons.length - 1 === currentIndex) {
+        selectedIndex = 0;
+      }
+      component.set('selectedLesson', lessons.objectAt(selectedIndex));
+      component.$('#report-carousel-wrapper').carousel('next');
+      component.loadData();
+    },
+
+    openCollectionReport(collection) {
+      let component = this;
+      let params = {
+        userId: component.get('userId'),
+        classId: component.get('classId'),
+        courseId: component.get('courseId'),
+        unitId: component.get('unit.id'),
+        lessonId: component.get('lesson.id'),
+        collectionId: collection.get('id'),
+        type: collection.get('format'),
+        lesson: component.get('lesson'),
+        isStudent: true
+      };
+      component.set('studentCollectionReportContext', params);
+      component.set('showCollectionReport', true);
+    }
+  },
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  /**
+   * Function to triggered once when the component element is first rendered.
+   */
+  didInsertElement() {
+    this.handleScrollToFixHeader();
+    this.openPullUp();
+    this.slideToSelectedLesson();
+    this.loadData();
+  },
+
+  // -------------------------------------------------------------------------
+  // Properties
+
+  /**
+   * ClassId belongs to this lesson report.
+   * @type {String}
+   */
+  classId: Ember.computed.alias('context.classId'),
+
+  /**
+   * CourseId belongs to this lesson report.
+   * @type {String}
+   */
+  courseId: Ember.computed.alias('context.courseId'),
+
+  /**
+   * Course belongs to this lesson report.
+   * @type {String}
+   */
+  course: Ember.computed.alias('context.course'),
+
+  /**
+   * Unit Id belongs to this lesson report.
+   * @type {String}
+   */
+  unitId: Ember.computed.alias('context.unit.id'),
+
+  /**
+   * Unit  belongs to this lesson report.
+   * @type {String}
+   */
+  unit: Ember.computed.alias('context.unit'),
+
+  /**
+   * Unit  belongs to this lesson report.
+   * @type {String}
+   */
+  lessons: Ember.computed.alias('context.lessons'),
+
+  /**
+   * Maintains list of lesson items.
+   * @type {Array}
+   */
+  collections: Ember.A([]),
+
+  /**
+   * Selected Lesson.
+   * @type {Object}
+   */
+  selectedLesson: Ember.computed.alias('context.lesson'),
+
+  /**
+   * Property to hide the default pullup.
+   * @property {showPullUp}
+   */
+  showPullUp: false,
+
+  /**
+   * UserId of student report
+   * @type {Object}
+   */
+  userId: Ember.computed.alias('context.userId'),
+
+  /**
+   * It maintains the state of loading
+   * @type {Boolean}
+   */
+  isLoading: false,
+
+  /**
+   * Maintains the state of collection report pull up
+   * @type {Boolean}
+   */
+  showCollectionReport: false,
+
+  //--------------------------------------------------------------------------
+  // Methods
+
+  /**
+   * Function to animate the  pullup from bottom to top
+   */
+  openPullUp() {
+    let component = this;
+    component.$().animate(
+      {
+        top: '10%'
+      },
+      400
+    );
+  },
+
+  closePullUp() {
+    let component = this;
+    component.$().animate(
+      {
+        top: '100%'
+      },
+      400,
+      function() {
+        component.set('showPullUp', false);
+      }
+    );
+  },
+
+  handleScrollToFixHeader() {
+    let component = this;
+    component.$('.report-content').scroll(function() {
+      let scrollTop = component.$('.report-content').scrollTop();
+      let scrollFixed = component.$('.report-content .on-scroll-fixed');
+      let reportCarouselTagsHeight =
+        component.$('.report-content .report-carousel-tags').height() + 15;
+      if (scrollTop >= reportCarouselTagsHeight) {
+        let position = scrollTop - reportCarouselTagsHeight;
+        component.$(scrollFixed).css('top', `${position}px`);
+      } else {
+        component.$(scrollFixed).css('top', '0px');
+      }
+    });
+  },
+
+  slideToSelectedLesson() {
+    let component = this;
+    let lessons = component.get('lessons');
+    let selectedLesson = component.get('selectedLesson');
+    let selectedIndex = lessons.indexOf(selectedLesson);
+    component.$('#report-carousel-wrapper').carousel(selectedIndex);
+  },
+
+  loadData() {
+    let component = this;
+    const classId = this.get('classId');
+    let courseId = component.get('courseId');
+    let unitId = component.get('unitId');
+    let lessonId = component.get('selectedLesson.id');
+    let userId = component.get('userId');
+    component.set('isLoading', true);
+    return Ember.RSVP.hash({
+      lesson: component
+        .get('courseMapService')
+        .getLessonInfo(classId, courseId, unitId, lessonId, false)
+    }).then(({ lesson }) => {
+      if (!component.isDestroyed) {
+        component.set('lesson', lesson);
+        component.set('collections', lesson.get('children'));
+      }
+      return Ember.RSVP.hash({
+        collectionsPerformance: component
+          .get('performanceService')
+          .findStudentPerformanceByLesson(
+            userId,
+            classId,
+            courseId,
+            unitId,
+            lessonId,
+            component.get('collections').filterBy('format', 'assessment')
+          ),
+        assessmentsPerformance: component
+          .get('performanceService')
+          .findStudentPerformanceByLesson(
+            userId,
+            classId,
+            courseId,
+            unitId,
+            lessonId,
+            component.get('collections').filterBy('format', 'collection'),
+            {
+              collectionType: 'collection'
+            }
+          )
+      }).then(({ collectionsPerformance, assessmentsPerformance }) => {
+        if (!component.isDestroyed) {
+          let performances = assessmentsPerformance.concat(
+            collectionsPerformance
+          );
+          component.renderCollectionsPerformance(performances);
+          component.set('isLoading', false);
+          component.handleCarouselControl();
+        }
+      });
+    });
+  },
+
+  renderCollectionsPerformance(collectionsPerformance) {
+    let component = this;
+    let collections = component.get('collections');
+    collections.forEach(collection => {
+      let collectionPerformance = collectionsPerformance.findBy(
+        'id',
+        collection.get('id')
+      );
+      if (collectionPerformance) {
+        collection.set('performance', collectionPerformance);
+      }
+    });
+  },
+
+  handleCarouselControl() {
+    let component = this;
+    let selectedLesson = component.get('selectedLesson');
+    let lessons = component.get('lessons');
+    let currentIndex = lessons.indexOf(selectedLesson);
+    if (lessons.length - 1 === 0) {
+      component
+        .$('#report-carousel-wrapper .carousel-control')
+        .addClass('in-active');
+    } else {
+      if (currentIndex === 0) {
+        component
+          .$('#report-carousel-wrapper .carousel-control.left')
+          .addClass('in-active');
+      } else {
+        component
+          .$('#report-carousel-wrapper .carousel-control.left')
+          .removeClass('in-active');
+      }
+      if (currentIndex === lessons.length - 1) {
+        component
+          .$('#report-carousel-wrapper .carousel-control.right')
+          .addClass('in-active');
+      } else {
+        component
+          .$('#report-carousel-wrapper .carousel-control.right')
+          .removeClass('in-active');
+      }
+    }
+  }
+});

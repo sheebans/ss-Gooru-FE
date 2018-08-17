@@ -15,11 +15,6 @@ export default Ember.Component.extend({
   performanceService: Ember.inject.service('api-sdk/performance'),
 
   /**
-   * @type {ClassService} Service to retrieve class information
-   */
-  classService: Ember.inject.service('api-sdk/class'),
-
-  /**
    * @type {UnitService} Service to retrieve unitService information
    */
   unitService: Ember.inject.service('api-sdk/unit'),

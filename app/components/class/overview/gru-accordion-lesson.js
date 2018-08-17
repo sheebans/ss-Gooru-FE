@@ -96,22 +96,11 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
      */
     onOpenLessonReport: function() {
       let component = this;
-      let currentClass = component.get('currentClass');
-      let classId = currentClass.get('id');
-      let courseId = currentClass.get('courseId');
-      let unitId = component.get('unitId');
-      let lessonId = component.get('model.id');
-
-      let params = {
-        classId: classId,
-        courseId: courseId,
-        unitId: unitId,
-        lessonId: lessonId,
-        lesson: component.get('model'),
-        unit: component.get('unit'),
-        classMembers: component.get('classMembers')
-      };
-      component.sendAction('onOpenLessonReport', params);
+      if (component.get('isTeacher')) {
+        component.openTeacherLessonReport();
+      } else {
+        component.openStudentLessonReport();
+      }
     },
 
     /**
@@ -244,7 +233,9 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
       let classId = currentClass ? currentClass.get('id') : null;
       let courseId = currentClass
         ? currentClass.get('courseId')
-        : currentCourse ? currentCourse.get('id') : null;
+        : currentCourse
+          ? currentCourse.get('id')
+          : null;
       let unitId = component.get('unitId');
       let lessonId = component.get('model.id');
       let collectionId = collection.get('id');
@@ -654,7 +645,9 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
                 collectionId
               );
 
-              const numberOfStudents = performance.findNumberOfStudentsByItem(collectionId);
+              const numberOfStudents = performance.findNumberOfStudentsByItem(
+                collectionId
+              );
               collection.set(
                 'performance',
                 Ember.Object.create({
@@ -994,5 +987,41 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
     } else {
       collection.set('visible', true);
     }
+  },
+
+  openTeacherLessonReport() {
+    let component = this;
+    let currentClass = component.get('currentClass');
+    let classId = currentClass.get('id');
+    let courseId = currentClass.get('courseId');
+    let unitId = component.get('unitId');
+    let lessonId = component.get('model.id');
+
+    let params = {
+      classId: classId,
+      courseId: courseId,
+      unitId: unitId,
+      lessonId: lessonId,
+      lesson: component.get('model'),
+      unit: component.get('unit'),
+      classMembers: component.get('classMembers')
+    };
+    component.sendAction('onOpenLessonReport', params);
+  },
+
+  openStudentLessonReport() {
+    let component = this;
+    let params = {
+      classId: component.get('currentClass.id'),
+      courseId: component.get('currentClass.courseId'),
+      unitId: component.get('unit.id'),
+      lessonId: component.get('model.id'),
+      lesson: component.get('model'),
+      unit: component.get('unit'),
+      lessons: component.get('lessons'),
+      userId: component.get('session.userId')
+    };
+    component.set('showStudentLessonReport', true);
+    component.set('studentLessonReportContext', params);
   }
 });

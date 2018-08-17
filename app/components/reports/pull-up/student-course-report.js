@@ -27,18 +27,23 @@ export default Ember.Component.extend({
       this.closePullUp();
     },
 
+    /**
+     * Action triggered when click unit report.
+     * @param  {Unit} unit
+     * @param  {Units} units
+     */
     openUnitReport(unit, units) {
       let component = this;
       let params = {
         classId: component.get('classId'),
         courseId: component.get('courseId'),
         unitId: unit.get('id'),
-        lessonId: component.get('lessonId'),
         unit: unit,
         units: units,
-        classMembers: component.get('classMembers')
+        userId: component.get('userId')
       };
-      this.sendAction('onOpenUnitReport', params);
+      component.set('showUnitReport', true);
+      component.set('studentUnitReportContext', params);
     }
   },
 
@@ -90,7 +95,7 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * Propery to hide the default pullup.
+   * Property to hide the default pullup.
    * @property {showPullUp}
    */
   showPullUp: false,
@@ -120,6 +125,12 @@ export default Ember.Component.extend({
       return TaxonomyTag.getTaxonomyTags(standards);
     }
   }),
+
+  /**
+   * Maintains the state of unit report.
+   * @type {Boolean}
+   */
+  showUnitReport: false,
 
   //--------------------------------------------------------------------------
   // Methods
@@ -154,11 +165,11 @@ export default Ember.Component.extend({
     let component = this;
     component.$('.report-content').scroll(function() {
       let scrollTop = component.$('.report-content').scrollTop();
-      let scrollFixed = component.$(
-        '.report-content .pull-up-course-report-listview .on-scroll-fixed'
-      );
-      if (scrollTop >= 347) {
-        let position = scrollTop - 347;
+      let scrollFixed = component.$('.report-content  .on-scroll-fixed');
+      let reportCarouselTagsHeight =
+        component.$('.report-content .report-carousel-tags').height() + 15;
+      if (scrollTop >= reportCarouselTagsHeight) {
+        let position = scrollTop - reportCarouselTagsHeight;
         component.$(scrollFixed).css('top', `${position}px`);
       } else {
         component.$(scrollFixed).css('top', '0px');

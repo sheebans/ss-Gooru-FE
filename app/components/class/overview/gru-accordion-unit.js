@@ -76,19 +76,12 @@ export default Ember.Component.extend(AccordionMixin, {
      * @function actions:onOpenUnitLevelReport
      */
     onOpenUnitLevelReport(model) {
-      const component = this;
-      let params = {
-        classId: component.get('currentClass.id'),
-        courseId:
-          component.get('currentClass.courseId') ||
-          component.get('currentCourse.id'),
-        unit: model,
-        course: component.get('currentCourse'),
-        unitId: model.get('id'),
-        classMembers: component.get('classMembers')
-      };
-      component.set('showUnitReportPullUp', true);
-      this.sendAction('onOpenUnitLevelReport', params);
+      let component = this;
+      if (component.get('isTeacher')) {
+        component.onOpenTeacherUnitLevelReport(model);
+      } else {
+        component.onOpenStudentUnitLevelReport(model);
+      }
     },
     /**
      * Launch an assessment on-air
@@ -465,7 +458,9 @@ export default Ember.Component.extend(AccordionMixin, {
               const averageScore = performance.calculateAverageScoreByItem(
                 lesson.get('id')
               );
-              let numberOfStudents = performance.findNumberOfStudentsByItem(lesson.get('id'));
+              let numberOfStudents = performance.findNumberOfStudentsByItem(
+                lesson.get('id')
+              );
               lesson.set(
                 'performance',
                 Ember.Object.create({
@@ -515,5 +510,37 @@ export default Ember.Component.extend(AccordionMixin, {
         });
         return lessons;
       });
+  },
+
+  onOpenTeacherUnitLevelReport(model) {
+    const component = this;
+    let params = {
+      classId: component.get('currentClass.id'),
+      courseId:
+        component.get('currentClass.courseId') ||
+        component.get('currentCourse.id'),
+      unit: model,
+      course: component.get('currentCourse'),
+      unitId: model.get('id'),
+      classMembers: component.get('classMembers')
+    };
+    component.set('showUnitReportPullUp', true);
+    this.sendAction('onOpenUnitLevelReport', params);
+  },
+
+  onOpenStudentUnitLevelReport(model) {
+    let component = this;
+    let params = {
+      classId: component.get('currentClass.id'),
+      courseId:
+        component.get('currentClass.courseId') ||
+        component.get('currentCourse.id'),
+      unitId: model.get('id'),
+      unit: model,
+      units: component.get('units'),
+      userId: component.get('session.userId')
+    };
+    component.set('showStudentUnitReport', true);
+    component.set('studentUnitReportContext', params);
   }
 });

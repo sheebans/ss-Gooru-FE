@@ -97,7 +97,7 @@
         background-blend-mode: multiply;
 
         .course-background-cover {
-          height: 297px;
+          height: 251px;
           background-image: linear-gradient(#35424b, #35424b);
           background-blend-mode: multiply;
         }
@@ -110,7 +110,7 @@
         right: 0;
         bottom: 0;
         display: flex;
-        background: rgba(0, 0, 0, 0.3);
+        align-items: center;
 
         .report-carousel-content {
           width: 640px;
@@ -120,7 +120,6 @@
 
           .performance-display-container {
             margin-right: 15px;
-            margin-top: 15px;
             width: 190px;
 
             .course-performance-average {
@@ -148,7 +147,7 @@
 
             .bar-chart-container {
               .bar-chart {
-                cursor: default;
+                cursor: pointer;
               }
             }
           }

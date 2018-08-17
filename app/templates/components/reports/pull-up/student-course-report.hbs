@@ -12,49 +12,46 @@
     </div>
   </div>
   <div class="report-content">
-    <div class="report-carousel">
-      <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
-        <div class="carousel-inner">
-          <div class="item active">
-            <div class="course-background-cover">
-              <div class="report-carousel-content">
-                <div class="performance-display-container">
-                  <div class="course-performance-average" style= {{safe-html (concat "background-color:" (grade-color class.performanceSummary.score))}}>
-                    {{#if class.performanceSummary.score}}
-                      {{class.performanceSummary.score}}%
-                    {{else}}
-                      --
-                    {{/if}}
+    <div class="report-carousel-tags">
+      <div class="report-carousel">
+        <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
+          <div class="carousel-inner">
+            <div class="item active">
+              <div class="course-background-cover">
+                <div class="report-carousel-content">
+                  <div class="performance-display-container">
+                    <div class="course-performance-average" style= {{safe-html (concat "background-color:" (grade-color class.performanceSummary.score))}}>
+                      {{#if class.performanceSummary.score}}
+                        {{class.performanceSummary.score}}%
+                      {{else}}
+                        --
+                      {{/if}}
+                    </div>
                   </div>
-                </div>
-                <div class="course-description">
-                  <p class="header-desc">Description</p>
-                  <p class="text-desc">
-                    {{#if course.description}}
-                      {{course.description}}
-                    {{else}}
-                      {{course.title}}
-                    {{/if}}
-                  </p>
+                  <div class="course-description">
+                    <p class="header-desc">Description</p>
+                    <p class="text-desc">
+                      {{#if course.description}}
+                        {{course.description}}
+                      {{else}}
+                        {{course.title}}
+                      {{/if}}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {{#if isLoading}}
-        <div class="loading-spinner">
-          {{three-bounce-spinner}}
+      {{#if tags.length}}
+        <div class="report-standard-tags">
+          {{taxonomy.gru-taxonomy-tag-list tags=tags  showDescription=true }}
         </div>
       {{/if}}
     </div>
-    {{#if tags.length}}
-      <div class="report-standard-tags">
-        {{taxonomy.gru-taxonomy-tag-list tags=tags  showDescription=true }}
-      </div>
-    {{/if}}
     <div class="report-performance-tabular">
-      <div class="report-performance-header">
+      <div class="report-performance-header on-scroll-fixed">
         <div class="content-name">
           <span>content Name</span>
         </div>
@@ -84,7 +81,7 @@
           <div class="completion">
             {{#if unit.performance.hasStarted}}
               <div class="completion-bar">
-                <div class="segment {{if (eq unit.performance.completionValue 100) 'completed'}}" style="width:{{unit.performance.completionValue}}%; {{safe-html (concat "background-color:" (grade-color unit.performance.completionValue))}}"></div>
+                <div class="segment {{if (eq unit.performance.score 100) 'completed'}}" style="width:{{unit.performance.score}}%; {{safe-html (concat "background-color:" (grade-color unit.performance.score))}}"></div>
               </div>
             {{else}}
               <span>--</span>
@@ -92,7 +89,7 @@
           </div>
           <div class="report">
             {{#if unit.performance.hasStarted}}
-              <svg>
+              <svg {{action 'openUnitReport' unit units}}>
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/performance-report/report.svg#{{grade-range unit.performance.score}}"></use>
             </svg>
             {{else}}
@@ -104,3 +101,13 @@
     </div>
   </div>
 </div>
+
+{{#if isLoading}}
+  <div class="loading-spinner">
+    {{three-bounce-spinner}}
+  </div>
+{{/if}}
+
+{{#if showUnitReport}}
+  {{reports.pull-up.student-unit-report context=studentUnitReportContext showPullUp=showUnitReport}}
+{{/if}}

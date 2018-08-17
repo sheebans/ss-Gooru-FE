@@ -34,7 +34,7 @@
         </button>
           {{/unless}}
         </div>
-        <div class="performance-container pull-right {{if isStudent 'disable-event' 'enable-event'}}" {{action 'onOpenLessonReport'}}>
+        <div class="performance-container pull-right" {{action 'onOpenLessonReport'}}>
           {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
         </div>
       {{/if}}
@@ -288,3 +288,7 @@
     </ol>
   </div>
 </div>
+
+{{#if showStudentLessonReport}}
+  {{reports.pull-up.student-lesson-report context=studentLessonReportContext showPullUp=showStudentLessonReport}}
+{{/if}}
