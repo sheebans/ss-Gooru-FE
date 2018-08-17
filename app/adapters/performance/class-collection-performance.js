@@ -25,7 +25,7 @@ export default ApplicationAdapter.extend({
     delete query.unitId;
     delete query.lessonId;
 
-    if (type === 'collection' || type === 'assessment') {
+    if (type === 'collection') {
       return `${namespace}/class/${classId}/course/${courseId}/unit/${unitId}/lesson/${lessonId}/performance`;
     } else {
       return `${namespace}/study/assessment/performance?courseId=${courseId}&classId=${classId}&unitId=${unitId}`;
