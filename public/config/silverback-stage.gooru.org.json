@@ -36,6 +36,11 @@
     "fourthCourseId": "781c3e76-a382-4652-86ae-079b92f57a9d"
   },
 
+  "demoClass": {
+    "code": "FZRC834",
+    "id": "002b0b27-1b51-4343-a51f-76fae80534f8"
+  },
+
   "languageSetting": {
     "defaultLang": "en",
     "showDropMenu": false
