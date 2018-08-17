@@ -96,8 +96,26 @@ export default Ember.Component.extend({
       this.sendAction('teacherCollectionReport', params);
     },
 
-    onClickChart(userId) {
-      return userId;
+    openStudentLessonReport(userId) {
+      let component = this;
+      let lesson = Ember.Object.create({
+        id: component.get('lesson.id'),
+        title: component.get('lesson.title'),
+        description: component.get('lesson.description'),
+        performance: component.getLessonPerformanceForClassMember(userId)
+      });
+      let params = {
+        classId: component.get('classId'),
+        courseId: component.get('courseId'),
+        unitId: component.get('unitId'),
+        lessonId: component.get('lessonId'),
+        lesson: lesson,
+        unit: component.get('unit'),
+        lessons: component.get('lessons'),
+        userId: userId
+      };
+      component.set('showStudentLessonReport', true);
+      component.set('studentLessonReportContext', params);
     },
 
     sortByFirstName() {
@@ -372,6 +390,12 @@ export default Ember.Component.extend({
     return this.get('collections').filterBy('format', 'collection');
   }),
 
+  /**
+   * Maintains the state of student lesson report
+   * @type {Boolean}
+   */
+  showStudentLessonReport: false,
+
   //--------------------------------------------------------------------------
   // Methods
 
@@ -628,7 +652,7 @@ export default Ember.Component.extend({
     });
     let overAllScore =
       numberCollectionStarted > 0
-        ? Math.round(totalScore / numberCollectionStarted)
+        ? Math.floor(totalScore / numberCollectionStarted)
         : 0;
     let resultSet = {
       userPerformanceData: userPerformanceData,
@@ -678,5 +702,21 @@ export default Ember.Component.extend({
       data.set('timeSpentScore', timeSpentScore);
       data.set('timeSpentDifference', 100 - timeSpentScore);
     });
+  },
+
+  getLessonPerformanceForClassMember(userId) {
+    let component = this;
+    let filterByCollectionType = component.get('filterByCollectionType');
+    let studentReportData =
+      filterByCollectionType === 'collection'
+        ? component.get('collectionStudentReportData')
+        : component.get('assessmentStudentReportData');
+    let userPerformance = studentReportData.findBy('id', userId);
+    if (userPerformance.get('hasStarted')) {
+      return Ember.Object.create({
+        score: userPerformance.get('score'),
+        hasStarted: userPerformance.get('hasStarted')
+      });
+    }
   }
 });

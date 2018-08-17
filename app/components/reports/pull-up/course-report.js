@@ -44,10 +44,11 @@ export default Ember.Component.extend({
      */
     openStudentCourseReport: function(userId) {
       let component = this;
-      let classes = Ember.Object.create({
-        id: component.get('classId'),
-        performanceSummary: component.getClassPerformanceForClassMember(userId)
-      });
+      let classes = this.get('class').copy();
+      classes.set(
+        'performanceSummary',
+        component.getClassPerformanceForClassMember(userId)
+      );
 
       let params = Ember.Object.create({
         userId: userId,
@@ -161,6 +162,12 @@ export default Ember.Component.extend({
    * @type {String}
    */
   sortByScoreEnabled: false,
+
+  /**
+   * Maintains the state of student unit report
+   * @type {Boolean}
+   */
+  showStudentCourseReport: false,
 
   //--------------------------------------------------------------------------
   // Methods
@@ -344,7 +351,7 @@ export default Ember.Component.extend({
       userPerformanceData.pushObject(performanceData);
     });
     let overAllScore =
-      numberunitstarted > 0 ? Math.round(totalScore / numberunitstarted) : 0;
+      numberunitstarted > 0 ? Math.floor(totalScore / numberunitstarted) : 0;
     let resultSet = {
       userPerformanceData: userPerformanceData,
       overAllScore: overAllScore,

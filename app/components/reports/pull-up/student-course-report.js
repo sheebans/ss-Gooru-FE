@@ -16,6 +16,11 @@ export default Ember.Component.extend({
    */
   performanceService: Ember.inject.service('api-sdk/performance'),
 
+  /**
+   * @type {Session}
+   */
+  session: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -34,8 +39,13 @@ export default Ember.Component.extend({
      */
     openUnitReport(unit, units) {
       let component = this;
+      let isTeacher = component.get('class')
+        ? component.get('class').isTeacher(component.get('session.userId'))
+        : false;
       let params = {
         classId: component.get('classId'),
+        isTeacher: isTeacher,
+        isStduent: !isTeacher,
         courseId: component.get('courseId'),
         unitId: unit.get('id'),
         unit: unit,
@@ -199,11 +209,13 @@ export default Ember.Component.extend({
   renderUnitsPerformance(unitsPerformance) {
     let component = this;
     let units = component.get('units');
+    let unitList = Ember.A([]);
     units.forEach(unit => {
+      let unitCopy = unit.copy();
       let unitPerformance = unitsPerformance.findBy('id', unit.get('id'));
-      if (unitPerformance) {
-        unit.set('performance', unitPerformance);
-      }
+      unitCopy.set('performance', unitPerformance);
+      unitList.pushObject(unitCopy);
     });
+    component.set('units', unitList);
   }
 });

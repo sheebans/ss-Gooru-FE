@@ -80,7 +80,9 @@ export default Ember.Component.extend({
         lesson: lesson,
         unit: component.get('unit'),
         lessons: lessons,
-        userId: component.get('userId')
+        userId: component.get('userId'),
+        isStudent: component.get('isStudent'),
+        isTeacher: component.get('isTeacher')
       };
       component.set('showLessonReport', true);
       component.set('studentLessonReportContext', params);
@@ -97,7 +99,7 @@ export default Ember.Component.extend({
     this.handleScrollToFixHeader();
     this.openPullUp();
     this.slideToSelectedUnit();
-    this.loadData();
+    this.initialize();
   },
 
   // -------------------------------------------------------------------------
@@ -108,6 +110,18 @@ export default Ember.Component.extend({
    * @type {String}
    */
   classId: Ember.computed.alias('context.classId'),
+
+  /**
+   * Maintains state of user is teacher.
+   * @type {Boolean}
+   */
+  isTeacher: Ember.computed.alias('context.isTeacher'),
+
+  /**
+   * Maintains state of user is student.
+   * @type {Boolean}
+   */
+  isStudent: Ember.computed.alias('context.isStudent'),
 
   /**
    * CourseId belongs to this unit report.
@@ -273,18 +287,20 @@ export default Ember.Component.extend({
   renderLessonsPerformance(lessonsPerformance) {
     let component = this;
     let lessons = component.get('lessons');
+    let lessonList = Ember.A([]);
     lessons.forEach(lesson => {
+      let lessonCopy = lesson.copy();
       let lessonPerformance = lessonsPerformance.findBy('id', lesson.get('id'));
-      if (lessonPerformance) {
-        lesson.set('performance', lessonPerformance);
-      }
+      lessonCopy.set('performance', lessonPerformance);
+      lessonList.pushObject(lessonCopy);
     });
+    component.set('lessons', lessonList);
   },
 
   handleCarouselControl() {
     let component = this;
-    let selectedUnit = component.get('selectedUnit');
     let units = component.get('units');
+    let selectedUnit = units.findBy('id', component.get('selectedUnit.id'));
     let currentIndex = units.indexOf(selectedUnit);
     if (units.length - 1 === 0) {
       component
@@ -310,5 +326,36 @@ export default Ember.Component.extend({
           .removeClass('in-active');
       }
     }
+  },
+
+  initialize() {
+    let component = this;
+    const classId = this.get('classId');
+    let courseId = component.get('courseId');
+    let userId = component.get('userId');
+    let units = component.get('units');
+    return Ember.RSVP.hash({
+      unitsPerformance: component
+        .get('performanceService')
+        .findStudentPerformanceByCourse(userId, classId, courseId, units)
+    }).then(({ unitsPerformance }) => {
+      if (!component.isDestroyed) {
+        component.renderUnitsPerformance(unitsPerformance);
+        component.loadData();
+      }
+    });
+  },
+
+  renderUnitsPerformance(unitsPerformance) {
+    let component = this;
+    let units = component.get('units');
+    let unitList = Ember.A([]);
+    units.forEach(unit => {
+      let unitCopy = unit.copy();
+      let unitPerformance = unitsPerformance.findBy('id', unit.get('id'));
+      unitCopy.set('performance', unitPerformance);
+      unitList.pushObject(unitCopy);
+    });
+    component.set('units', unitList);
   }
 });

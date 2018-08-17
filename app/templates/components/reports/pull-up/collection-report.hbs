@@ -39,11 +39,6 @@
           <i class="arrow-right"></i>
         </a>
       </div>
-      {{#if isLoading}}
-        <div class="loading-spinner">
-          {{three-bounce-spinner}}
-        </div>
-      {{/if}}
       <div class="report-carousel-content-container">
         <div class="report-carousel-content">
           <div class="performance-display-container">
@@ -137,4 +132,9 @@
 
 {{#if isShowQuestionReport}}
   {{reports.pull-up.question-report showPullUp=isShowQuestionReport  context=studentQuestionReportContextData}}
+{{/if}}
+{{#if isLoading}}
+  <div class="loading-spinner">
+    {{three-bounce-spinner}}
+  </div>
 {{/if}}

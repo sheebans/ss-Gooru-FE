@@ -79,7 +79,8 @@ export default Ember.Component.extend({
         collectionId: collection.get('id'),
         type: collection.get('format'),
         lesson: component.get('lesson'),
-        isStudent: true
+        isStudent: component.get('isStudent'),
+        isTeacher: component.get('isTeacher')
       };
       component.set('studentCollectionReportContext', params);
       component.set('showCollectionReport', true);
@@ -96,7 +97,7 @@ export default Ember.Component.extend({
     this.handleScrollToFixHeader();
     this.openPullUp();
     this.slideToSelectedLesson();
-    this.loadData();
+    this.initialize();
   },
 
   // -------------------------------------------------------------------------
@@ -107,6 +108,18 @@ export default Ember.Component.extend({
    * @type {String}
    */
   classId: Ember.computed.alias('context.classId'),
+
+  /**
+   * Maintains state of user is teacher.
+   * @type {Boolean}
+   */
+  isTeacher: Ember.computed.alias('context.isTeacher'),
+
+  /**
+   * Maintains state of user is student.
+   * @type {Boolean}
+   */
+  isStudent: Ember.computed.alias('context.isStudent'),
 
   /**
    * CourseId belongs to this lesson report.
@@ -284,6 +297,7 @@ export default Ember.Component.extend({
   renderCollectionsPerformance(collectionsPerformance) {
     let component = this;
     let collections = component.get('collections');
+    //let collectionList = Ember.A([]);
     collections.forEach(collection => {
       let collectionPerformance = collectionsPerformance.findBy(
         'id',
@@ -324,5 +338,42 @@ export default Ember.Component.extend({
           .removeClass('in-active');
       }
     }
+  },
+
+  initialize() {
+    let component = this;
+    const classId = this.get('classId');
+    let courseId = component.get('courseId');
+    let userId = component.get('userId');
+    let unitId = component.get('unitId');
+    return Ember.RSVP.hash({
+      lessonsPerformance: component
+        .get('performanceService')
+        .findStudentPerformanceByUnit(
+          userId,
+          classId,
+          courseId,
+          unitId,
+          component.get('lessons')
+        )
+    }).then(({ lessonsPerformance }) => {
+      if (!component.isDestroyed) {
+        component.renderLessonsPerformance(lessonsPerformance);
+        component.loadData();
+      }
+    });
+  },
+
+  renderLessonsPerformance(lessonsPerformance) {
+    let component = this;
+    let lessons = component.get('lessons');
+    let lessonList = Ember.A([]);
+    lessons.forEach(lesson => {
+      let lessonCopy = lesson.copy();
+      let lessonPerformance = lessonsPerformance.findBy('id', lesson.get('id'));
+      lessonCopy.set('performance', lessonPerformance);
+      lessonList.pushObject(lessonCopy);
+    });
+    component.set('lessons', lessonList);
   }
 });

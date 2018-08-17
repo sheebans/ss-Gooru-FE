@@ -34,11 +34,6 @@
           <i class="arrow-right"></i>
         </a>
       </div>
-      {{#if isLoading}}
-        <div class="loading-spinner">
-          {{three-bounce-spinner}}
-        </div>
-      {{/if}}
       <div class="report-carousel-content-container">
         <div class="report-carousel-content">
           <div class="performance-display-container">
@@ -56,9 +51,9 @@
           </div>
           <div class="lesson-report-chart">
             {{#if (eq filterByCollectionType 'assessment')}}
-              {{charts.report-bar-chart useTimeSpentScore=false studentChartReportData=assessmentStudentReportData onClickChart="onClickChart"}}
+              {{charts.report-bar-chart useTimeSpentScore=false studentChartReportData=assessmentStudentReportData onClickChart="openStudentLessonReport"}}
             {{else}}
-              {{charts.report-bar-chart useTimeSpentScore=true studentChartReportData=collectionStudentReportData onClickChart="onClickChart"}}
+              {{charts.report-bar-chart useTimeSpentScore=true studentChartReportData=collectionStudentReportData onClickChart="openStudentLessonReport"}}
             {{/if}}
           </div>
         </div>
@@ -108,6 +103,7 @@
           sortByScore="sortByScore"
           openCollectionReport="openCollectionReport"
           collectionType="assessment"
+          openStudentLessonReport="openStudentLessonReport"
         }}
         {{else}}
           {{reports.pull-up.lesson-report-listview
@@ -123,6 +119,7 @@
           sortByFirstName="sortByFirstName"
           sortByTimeSpent="sortByTimeSpent"
           openCollectionReport="openCollectionReport"
+          openStudentLessonReport="openStudentLessonReport"
           collectionType="collection"
         }}
         {{/if}}
@@ -130,3 +127,12 @@
     </div>
   </div>
 </div>
+{{#if isLoading}}
+  <div class="loading-spinner">
+    {{three-bounce-spinner}}
+  </div>
+{{/if}}
+
+{{#if showStudentLessonReport}}
+  {{reports.pull-up.student-lesson-report context=studentLessonReportContext showPullUp=showStudentLessonReport}}
+{{/if}}

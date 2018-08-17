@@ -83,8 +83,24 @@ export default Ember.Component.extend({
       this.sendAction('onOpenLessonReport', params);
     },
 
-    onClickChart(userId) {
-      return userId;
+    openStudentUnitReport(userId) {
+      let component = this;
+      let unit = Ember.Object.create({
+        id: component.get('unit.id'),
+        title: component.get('unit.title'),
+        bigIdeas: component.get('unit.bigIdeas'),
+        performance: component.getUnitPerformanceForClassMember(userId)
+      });
+      let params = {
+        classId: component.get('classId'),
+        courseId: component.get('courseId'),
+        unitId: component.get('unit.id'),
+        unit: unit,
+        units: component.get('units'),
+        userId: userId
+      };
+      component.set('showStudentUnitReport', true);
+      component.set('studentUnitReportContext', params);
     }
   },
 
@@ -198,6 +214,12 @@ export default Ember.Component.extend({
    * @type {String}
    */
   sortByScoreEnabled: false,
+
+  /**
+   * Maintains the state of student unit report
+   * @type {Boolean}
+   */
+  showStudentUnitReport: false,
 
   //--------------------------------------------------------------------------
   // Methods
@@ -385,7 +407,7 @@ export default Ember.Component.extend({
     });
     let overAllScore =
       numberlessonstarted > 0
-        ? Math.round(totalScore / numberlessonstarted)
+        ? Math.floor(totalScore / numberlessonstarted)
         : 0;
     let resultSet = {
       userPerformanceData: userPerformanceData,
@@ -424,6 +446,18 @@ export default Ember.Component.extend({
           .$('#report-carousel-wrapper .carousel-control.right')
           .removeClass('in-active');
       }
+    }
+  },
+
+  getUnitPerformanceForClassMember(userId) {
+    let component = this;
+    let studentReportData = component.get('studentReportData');
+    let userPerformance = studentReportData.findBy('id', userId);
+    if (userPerformance.get('hasStarted')) {
+      return Ember.Object.create({
+        score: userPerformance.get('score'),
+        hasStarted: userPerformance.get('hasStarted')
+      });
     }
   }
 });

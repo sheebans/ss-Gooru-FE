@@ -20,11 +20,6 @@
             </div>
         </div>
       </div>
-      {{#if isLoading}}
-        <div class="loading-spinner">
-          {{three-bounce-spinner}}
-        </div>
-      {{/if}}
       <div class="report-carousel-content-container">
         <div class="report-carousel-content">
           <div class="performance-display-container">
@@ -70,4 +65,9 @@
 </div>
 {{#if showStudentCourseReport}}
   {{reports.pull-up.student-course-report context=studentCourseReportContext showPullUp=showStudentCourseReport}}
+{{/if}}
+{{#if isLoading}}
+  <div class="loading-spinner">
+    {{three-bounce-spinner}}
+  </div>
 {{/if}}

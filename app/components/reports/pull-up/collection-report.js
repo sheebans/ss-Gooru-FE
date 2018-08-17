@@ -566,7 +566,7 @@ export default Ember.Component.extend({
       userPerformanceData.pushObject(performanceData);
     });
 
-    let overAllScore = Math.round(
+    let overAllScore = Math.floor(
       (numberOfCorrectAnswers / numberOfQuestionsStarted) * 100
     );
 
