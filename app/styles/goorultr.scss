@@ -87,6 +87,7 @@ $box-shadow: 1px -1px;
 @import "controllers/student/performance";
 @import "controllers/student/class/course-map";
 @import "controllers/student/class/class-activities";
+@import "controllers/student/class/profile";
 
 @import "controllers/teacher/class";
 @import "controllers/teacher/class/class-activities";
@@ -172,6 +173,7 @@ $box-shadow: 1px -1px;
 @import "components/charts/gru-radial-chart";
 @import "components/charts/gru-x-bar-chart";
 @import "components/charts/gru-performance-chart";
+@import "components/charts/gru-students-performance-chart";
 @import "components/charts/monthly-time-series-chart";
 @import "components/charts/report-bar-chart";
 @import "components/charts/domain-competency-chart";
@@ -295,6 +297,8 @@ $box-shadow: 1px -1px;
 @import "components/player/gru-suggest-test";
 @import "components/player/gru-player-done";
 @import "components/player/gru-player-summary-footer.scss";
+@import "components/player/gru-external-assessment-page";
+@import "components/player/gru-external-assessment-footer";
 
 @import "components/reports/gru-assessment-report";
 @import "components/reports/assessment/gru-questions";

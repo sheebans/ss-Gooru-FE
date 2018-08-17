@@ -91,7 +91,6 @@ export default Ember.Component.extend({
       const classId = this.get('classId') || null;
       const component = this;
       const currentItem = component.get('menuItem');
-
       if (item !== currentItem) {
         component.setMenuItem(item);
         const queryParams = {
@@ -130,6 +129,8 @@ export default Ember.Component.extend({
           }
         } else if (item === 'class-activities') {
           route.transitionTo('student.class.class-activities', classId);
+        } else if (item === 'profile') {
+          route.transitionTo('student.class.profile', classId);
         } else {
           route.transitionTo('student.class');
         }

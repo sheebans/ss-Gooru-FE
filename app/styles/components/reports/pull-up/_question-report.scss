@@ -146,7 +146,7 @@
 
       .report-info-chart-container {
         display: inline-grid;
-        grid-template-columns: 130px auto;
+        grid-template-columns: 130px 420px 100px;
         height: 80px;
         align-items: center;
         border-bottom: 1px solid #ccc;
@@ -167,6 +167,10 @@
             display: block;
             background-size: 35px 35px;
             background-image: url("../assets/gooru/images/add_question.svg");
+
+            &.free-response-question {
+              background-image: url("../assets/gooru/images/add_rubric.svg");
+            }
             opacity: 0.5;
             background-position: 0 4px;
           }
@@ -190,17 +194,23 @@
             border: 2px solid #f46360;
           }
 
-          .correct {
+          .correct,
+          .graded {
             background-color: #4b9740;
           }
 
           .not-graded {
-            background-color: #cccccc;
+            background-color: #525e65;
           }
 
           .not-answered {
             background-color: #e5e5e5;
           }
+        }
+
+        .responses {
+          color: #666;
+          font-size: 13px;
         }
       }
 
@@ -425,33 +435,25 @@
           }
         }
 
-        .not-graded-list-container {
-          .not-graded-answer-list {
-            border-bottom: 1px solid #ccc;
-
-            .not-graded-answers {
-              padding-top: 20px;
-              margin-left: 40px;
-              margin-bottom: 10px;
-              color: #37424b;
-
-              .questions {
-                width: 100%;
-                max-width: 100%;
-              }
-            }
-          }
-
-          .not-graded-answer-list:last-child {
-            border: none;
-          }
-
-          .not-graded-answer-section {
+        .graded-list-container {
+          .graded-answer-section {
             @extend %answer-section;
-            background-color: #cccccc;
+            background-color: #4b9740;
+            color: #fff;
 
             span {
               font-weight: bold;
+              text-indent: 30px;
+            }
+          }
+        }
+
+        .not-graded-list-container {
+          .not-graded-answer-section {
+            @extend %answer-section;
+            background-color: #525e65;
+            color: #fff;
+            span {
               text-indent: 30px;
             }
           }

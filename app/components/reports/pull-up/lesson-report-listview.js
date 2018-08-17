@@ -45,6 +45,18 @@ export default Ember.Component.extend({
    */
   sortByLastnameEnabled: true,
 
+  /**
+   * Maintain the status of sort by score
+   * @type {String}
+   */
+  sortByScoreEnabled: false,
+
+  /**
+   * Maintain the status of sort by Time spent
+   * @type {String}
+   */
+  sortByTimeSpentEnabled: false,
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -55,6 +67,14 @@ export default Ember.Component.extend({
 
     sortByLastName() {
       this.sendAction('sortByLastName');
+    },
+
+    sortByScore() {
+      this.sendAction('sortByScore');
+    },
+
+    sortByTimeSpent() {
+      this.sendAction('sortByTimeSpent');
     },
 
     openCollectionReport(collection, collections) {

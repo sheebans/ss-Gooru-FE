@@ -43,11 +43,25 @@ export default Ember.Controller.extend({
     /**
      * Action triggered for the next button
      */
-    next: function() {
+    playNext: function() {
+      let controller = this;
+      controller.playNextContent();
+    },
+
+    /**
+     * Action triggered when toggle screen view
+     */
+    onToggleScreen() {
       let controller = this;
       let studyPlayerController = controller.get('studyPlayerController');
-      studyPlayerController.toggleScreenMode();
-      controller.playNextContent();
+      let isFullScreen = studyPlayerController.get('isFullScreen');
+      studyPlayerController.set('isFullScreen', !isFullScreen);
+      controller.set('isFullScreen', !isFullScreen);
+      if (isFullScreen) {
+        Ember.$('body').removeClass('fullscreen').addClass('fullscreen-exit');
+      } else {
+        Ember.$('body').removeClass('fullscreen-exit').addClass('fullscreen');
+      }
     }
   },
 
@@ -187,6 +201,16 @@ export default Ember.Controller.extend({
       }
     ]);
     return steps;
+  }),
+
+  /**
+   * @property {Boolean} isFullScreen
+   */
+  isFullScreen: Ember.computed(function() {
+    let controller = this;
+    let studyPlayerController = controller.get('studyPlayerController');
+    let isFullScreen = studyPlayerController.get('isFullScreen');
+    return isFullScreen;
   }),
 
   // -------------------------------------------------------------------------

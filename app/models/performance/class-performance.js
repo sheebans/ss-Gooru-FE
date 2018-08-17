@@ -297,5 +297,25 @@ export default DS.Model.extend({
       });
     }
     return filteredPerformanceData;
+  },
+
+  /**
+   * @function findNumberOfStudentsByItem
+   * Method to find number of students have performed in an item
+   */
+  findNumberOfStudentsByItem(itemId) {
+    let numberOfStudents = 0;
+    const studentPerformanceData = this.get('studentPerformanceData') || [];
+    if (studentPerformanceData && studentPerformanceData.length > 0) {
+      studentPerformanceData.forEach(function(studentPerformance) {
+        const performanceData = studentPerformance
+          .get('performanceData')
+          .findBy('realId', itemId);
+        if (performanceData) {
+          numberOfStudents++;
+        }
+      });
+    }
+    return numberOfStudents;
   }
 });

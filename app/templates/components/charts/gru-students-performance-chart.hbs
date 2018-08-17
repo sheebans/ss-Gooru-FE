@@ -1,0 +1,17 @@
+<div class="container-box" style="background-color:{{grade-color (if hasStarted scoreVal 'NA')}}">
+  {{#if hasStarted}}
+    <div class="percentage">
+      {{scoreText}}
+    </div>
+    {{#if (gt performanceSummary.numberOfStudents 0)}}
+      <div class="students-count">
+        <div class="count">{{performanceSummary.numberOfStudents}}</div>
+        <div class="avatar">{{gru-icon name="account_circle"}}</div>
+      </div>
+    {{/if}}
+  {{else}}
+    <label class="not-started">
+      {{t "common.notStarted"}}
+    </label>
+  {{/if}}
+</div>

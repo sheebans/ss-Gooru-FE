@@ -11,9 +11,9 @@
 
 
     <div class="panel panel-default panel-primary welcome {{if showWelcome 'visible' 'hidden'}}">
-      <div class="panel-body">
+      <div class="panel-body {{if isPremiumClass 'premium-class'}}">
         {{#if isPremiumClass}}
-          <div class="description">{{t "teacher-landing.welcome-rescoped-course-map"}}</div>
+          <div class="description">{{t "teacher-landing.welcome-premium-course-map"}}</div>
         {{else}}
           <div class="description">{{t "teacher-landing.welcome-course-map"}}</div>
         {{/if}}
@@ -22,24 +22,92 @@
         </div>
       </div>
     </div>
-    {{class.overview.gru-accordion-course
-    currentClass=class
-    currentCourse=course
-    classMembers=classMembers
-    onSelectResource="playResource"
-    onLocationUpdate=(action 'updateLocation')
-    onLaunchOnAir="launchOnAir"
-    location=location
-    units=units
-    contentVisibility=contentVisibility
-    onUpdateContentVisibility="updateContentVisibility"
-    isTeacher=true
-    isNUCourse=isNUCourse
-    onOpenUnitLevelReport="onOpenUnitLevelReport"
-    onOpenLessonReport="onOpenLessonReport"
-    teacherCollectionReport="teacherCollectionReport"
-    isPremiumClass=isPremiumClass}}
+    <div class="course-map-container">
+      {{#if isStudentCourseMap}}
+        <div class="active-student">
+          <div class="student-thumbnail" style="background-image: url({{activeStudent.avatarUrl}})"></div>
+          <div class="student-name">{{activeStudent.fullName}}</div>
+          <div class="student-close" {{action "onSelectAll"}}>
+            {{gru-icon name="clear"}}
+          </div>
+        </div>
+      {{/if}}
+      <div class="course-map-body">
+        <div class="students">
+          <div class="header">
+            {{t 'class.info.students'}}
+          </div>
+          <div class="students-list">
+            <div class="teacher list active" {{action "onSelectAll"}}>
+              <div class="thumbnail" data-toggle="tooltip" title="Entire Class">
+              </div>
+            </div>
+            {{#each sortedStudents as |student index|}}
+              <div class="student list student-{{index}}" {{action "onSelectStudent" student index}}>
+                <div class="thumbnail" title="{{student.fullName}}" data-toggle="tooltip" style="background-image: url({{student.avatarUrl}})">
+                </div>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+        <div class="render-course-map">
+          {{#if isLoading}}
+            {{three-bounce-spinner}}
+          {{else}}
+            <div class="header">
+              {{t 'common.course-map'}}
+            </div>
+            {{#if isStudentCourseMap}}
+              {{#if (and isPremiumClass  isAccepted)}}
+                {{class.overview.routesuggestion-coursemap isEnablePlayer=false route0=route0Contents }}
+              {{/if}}
+              <div class="student-coursemap">
+                {{#each units as |unit index|}}
+                  {{class.learner.gru-learner-accordion-unit
+                  currentClass=class
+                  studentId=activeStudent.id
+                  currentCourse=course
+                  classMembers=classMembers
+                  collectionReport="collectionReport"
+                  model=unit
+                  index=index
+                  isTeacher=false
+                  toggleLocation=toggleLocation
+                  onSelectItem="onSelectItem"}}
+                {{else}}
+                  <li>{{t "common.contentUnavailable"}}</li>
+                {{/each}}
+              </div>
+            {{else}}
+              <div class="teacher-coursemap">
+                {{class.overview.gru-accordion-course
+                currentClass=class
+                currentCourse=course
+                classMembers=classMembers
+                onSelectResource="playResource"
+                onLocationUpdate=(action 'updateLocation')
+                onLaunchOnAir="launchOnAir"
+                location=location
+                units=units
+                contentVisibility=contentVisibility
+                onUpdateContentVisibility="updateContentVisibility"
+                isTeacher=true
+                isNUCourse=isNUCourse
+                onOpenUnitLevelReport="onOpenUnitLevelReport"
+                onOpenLessonReport="onOpenLessonReport"
+                teacherCollectionReport="teacherCollectionReport"
+                isPremiumClass=isPremiumClass}}
+              </div>
+            {{/if}}
+          {{/if}}
+        </div>
+      </div>
+    </div>
   </div>
 {{else}}
   <div class="no-content">This classroom does not have a related course and it has no content</div>
+{{/if}}
+
+{{#if isShowStudentReport}}
+  {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportContextData model=studentReportContextData.lesson isStudent=studentReportContextData.isStudent onClosePullUp="onClosePullUp"}}
 {{/if}}

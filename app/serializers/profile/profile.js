@@ -145,7 +145,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
       rosterId: payload.roster_id,
       followers: payload.followers,
       followings: payload.followings,
-      isFollowing: !!payload.isFollowing
+      isFollowing: !!payload.isFollowing,
+      fullName: `${payload.last_name  } ${  payload.first_name}`
     });
   },
 

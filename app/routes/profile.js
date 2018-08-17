@@ -8,9 +8,6 @@ export default Ember.Route.extend({
   queryParams: {
     classId: {
       refreshModel: true
-    },
-    source: {
-      refreshModel: true
     }
   },
   /**
@@ -41,6 +38,7 @@ export default Ember.Route.extend({
    */
   model: function(params) {
     let route = this;
+    this.loadAboutPageIfRouteNotExist();
     //Steps for Take a Tour functionality
     const tourSteps = Ember.A([
       {
@@ -73,7 +71,6 @@ export default Ember.Route.extend({
     ]);
 
     let userId = params.userId;
-    let source = params.source;
     if (userId) {
       let isUsername = !/-.*-/.exec(userId);
       let profilePromise = isUsername
@@ -96,17 +93,24 @@ export default Ember.Route.extend({
         return Ember.RSVP.hash({
           profile: editProfile,
           tourSteps: tourSteps,
-          loginUserProfile: loginUserProfile,
-          source
+          loginUserProfile: loginUserProfile
         });
       });
     }
     return Ember.RSVP.hash({
       profile: null,
       tourSteps: tourSteps,
-      loginUserProfile: null,
-      source
+      loginUserProfile: null
     });
+  },
+
+  loadAboutPageIfRouteNotExist() {
+    const route = this;
+    let pathname = window.location.pathname;
+    let routeLocationPath = pathname.split('/')[2];
+    if (!routeLocationPath) {
+      route.transitionTo('profile.about');
+    }
   },
 
   /**
@@ -118,7 +122,6 @@ export default Ember.Route.extend({
     controller.set('profile', model.profile);
     controller.set('steps', model.tourSteps);
     controller.set('currentLoginUser', model.loginUserProfile);
-    controller.set('profileSource', model.source);
   },
 
   // -------------------------------------------------------------------------

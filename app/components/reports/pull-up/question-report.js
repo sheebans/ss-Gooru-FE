@@ -287,13 +287,14 @@ export default Ember.Component.extend({
         id: questionId,
         question: question
       });
+      let questionType = question.get('type');
       let correctAnswers = Ember.A([]);
       let wrongAnswers = Ember.A([]);
       let notAnswerUsers = Ember.A([]);
       let notGradedUsers = Ember.A([]);
+      let gradedUsers = Ember.A([]);
       let correctAnswerUserCount = 0;
       let wrongAnswerUserCount = 0;
-      let notGradedAnswerUserCount = 0;
       classMembers.forEach(member => {
         let memberId = member.get('id');
         let userResourcesResult = userResourcesResults.findBy('user', memberId);
@@ -304,13 +305,12 @@ export default Ember.Component.extend({
           if (resourceResult) {
             let isCorrect = resourceResult.get('correct');
             let isGraded = resourceResult.get('isGraded');
-            let questionType = resourceResult.get('questionType');
             let userAnswer = resourceResult.get('userAnswer');
             if (userAnswer) {
               let answerObj = resourceResult.get('answerObject');
               let answerId = component.getAnswerId(userAnswer);
               let answer = answerObj.findBy('answerId', userAnswer);
-              if (questionType !== 'OE' || isGraded) {
+              if (questionType !== 'OE') {
                 if (isCorrect) {
                   component.answerGroup(
                     answerId,
@@ -333,15 +333,11 @@ export default Ember.Component.extend({
                   wrongAnswerUserCount++;
                 }
               } else {
-                component.answerGroup(
-                  answerId,
-                  answer,
-                  answerObj,
-                  notGradedUsers,
-                  userAnswer,
-                  user
-                );
-                notGradedAnswerUserCount++;
+                if (isGraded) {
+                  gradedUsers.pushObject(user);
+                } else {
+                  notGradedUsers.pushObject(user);
+                }
               }
             } else {
               notAnswerUsers.pushObject(user);
@@ -357,6 +353,7 @@ export default Ember.Component.extend({
       result.set('correct', correctAnswers);
       result.set('wrong', wrongAnswers);
       result.set('notGraded', notGradedUsers);
+      result.set('graded', gradedUsers);
       let memberCount = classMembers.length;
       result.set(
         'notAnswerUserPrecentage',
@@ -372,8 +369,17 @@ export default Ember.Component.extend({
       );
       result.set(
         'notGradedUserPrecentage',
-        Math.round((notGradedAnswerUserCount / memberCount) * 100)
+        Math.round((notGradedUsers.length / memberCount) * 100)
       );
+      result.set(
+        'gradedUserPrecentage',
+        Math.round((gradedUsers.length / memberCount) * 100)
+      );
+      if (questionType === 'OE') {
+        result.set('responses', notGradedUsers.length + gradedUsers.length);
+      } else {
+        result.set('responses', correctAnswerUserCount + wrongAnswerUserCount);
+      }
       resultSet.pushObject(result);
     });
     component.set('studentReportData', resultSet);

@@ -56,6 +56,9 @@ export default Object.assign(quizzesTranslations, {
     firstName: 'Firstname',
     'filter-by': 'Filter By',
     more: 'more',
+    'avg-score': 'Avg Score',
+    frq: 'FRQ',
+    responses: 'Responses',
     'gooru-suggestions': 'Gooru Suggestions',
     'suggestion-made-to': 'Suggestion made to',
     'student-selected': 'Student Selected',
@@ -199,8 +202,10 @@ export default Object.assign(quizzesTranslations, {
     'correct-answer': 'Correct Answer',
     'correct-answers': 'Correct Answer(s)',
     'incorrect-answers': 'InCorrect Answer(s)',
-    'not-graded': 'Not Graded',
+    'rubric-graded': 'Rubric Graded',
+    'rubric-needs-grading': 'Rubric Needs Grading',
     'not-answered': 'Not Answered',
+    'rubric-not-answered': 'Rubric Not Answered',
     country: 'Country',
     'course-map': 'Course Map',
     course: 'Course',
@@ -1153,9 +1158,11 @@ export default Object.assign(quizzesTranslations, {
     'create-classroom': 'Create a classroom, assign contents, invite students',
     'navigator-banner': {
       title: 'Navigator for Math',
-      description: 'Utilizing this GPS for Learning technology, we have designed Navigator for Math to ensure that every student can gain confidence and accelerate their learning in math.<br/>Navigator for Math is a course of study covering all math concepts from grades 2-12. Students are routed and rerouted through an individualized pathway designed to build on their current knowledge, as well as fill gaps in their understanding. Through this comprehensive and personalized learning experience, every student can become fully prepared for more advanced math.',
+      description:
+        'Utilizing this GPS for Learning technology, we have designed Navigator for Math to ensure that every student can gain confidence and accelerate their learning in math.<br/>Navigator for Math is a course of study covering all math concepts from grades 2-12. Students are routed and rerouted through an individualized pathway designed to build on their current knowledge, as well as fill gaps in their understanding. Through this comprehensive and personalized learning experience, every student can become fully prepared for more advanced math.',
       join: 'Join Demo Class',
-      'success-message': 'You have successfully joined as a co-teacher of the Navigator class',
+      'success-message':
+        'You have successfully joined as a co-teacher of the Navigator class',
       'error-message': 'Problem with joining class'
     },
     class: {
@@ -1226,7 +1233,8 @@ export default Object.assign(quizzesTranslations, {
     'welcome-course-map':
       'This is your Course Map where you can view course content, turn assessments on or off and launch assessments in real-time. You can also view overall class performance and completion. For a detailed view of class performance, visit your classroom\'s Report tab.',
     'welcome-rescoped-course-map':
-      'This course has been personalized for each student in the class. You can view each student’s course map in the Class Management page by clicking on the student’s learning pathway (characters - and >)'
+      'This course has been personalized for each student in the class. You can view each student’s course map in the Class Management page by clicking on the student’s learning pathway (characters - and >)',
+    'welcome-premium-course-map': 'Navigate Math is an outcomes-proven course with hundreds of students across Leadership Public Schools\' high school campuses growing nearly 3 years in mathematics in 1 school year as measured by NWEA MAP. Navigate Math is an intervention course and approach that accelerates academic growth and empowers students to direct their own learning. Navigate Math helps students develop the foundational knowledge, skills, and thought processes required to be successful in pre-Algebra and Algebra.'
   },
   goals: {
     manage: {
@@ -1311,7 +1319,8 @@ export default Object.assign(quizzesTranslations, {
     'unlimited-attempts': 'You have unlimited attempts',
     cancel: 'Cancel',
     continue: 'Continue',
-    start: 'Start!'
+    start: 'Start!',
+    submit: 'Submit!'
   },
   'gru-submit-confirmation': {
     title: 'Finish this quiz and submit all',
@@ -2597,5 +2606,12 @@ export default Object.assign(quizzesTranslations, {
       'no-subject': 'No Subject Assigned'
     },
     'domain-report': 'Domain Report'
+  },
+
+  'self-report': {
+    'your-score': 'Your Score',
+    'update-error': 'Problem with updating score',
+    'validation-error': 'Enter valid score',
+    'enter-score': 'Enter your score here'
   }
 });

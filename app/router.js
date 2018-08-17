@@ -132,6 +132,7 @@ Router.map(function() {
       this.route('course-map');
       this.route('class-activities');
       this.route('performance');
+      this.route('profile');
     });
     this.route('independent', { path: '/course/:courseId' }, function() {
       this.route('course-map');

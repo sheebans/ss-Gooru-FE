@@ -163,14 +163,16 @@
 
         .container-box {
           height: 67px;
+          border-bottom: 1px solid $white;
+        }
+
+        .charts.gru-students-performance-chart {
           .percentage {
+            padding-top: 10px;
             cursor: pointer;
           }
         }
       }
-    }
-    .isPremiumClassForTeacher {
-      padding: 15px;
     }
   }
 
@@ -597,6 +599,10 @@
 
             .not-started-external {
               font-size: 18px;
+            }
+
+            &.chart {
+              padding: 0;
             }
           }
         }

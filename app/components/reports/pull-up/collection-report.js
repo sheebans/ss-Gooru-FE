@@ -168,6 +168,7 @@ export default Ember.Component.extend({
   didInsertElement() {
     this.handleScrollToFixHeader();
     this.openPullUp();
+    this.slideToSelectedCollection();
     this.loadData();
   },
   // -------------------------------------------------------------------------
@@ -420,6 +421,14 @@ export default Ember.Component.extend({
     });
   },
 
+  slideToSelectedCollection() {
+    let component = this;
+    let collections = component.get('collections');
+    let selectedCollection = component.get('selectedCollection');
+    let selectedIndex = collections.indexOf(selectedCollection);
+    component.$('#report-carousel-wrapper').carousel(selectedIndex);
+  },
+
   loadData() {
     let component = this;
     let collectionId = component.get('selectedCollection.id');
@@ -471,7 +480,6 @@ export default Ember.Component.extend({
         userPerformance
       );
       user.set('userPerformanceData', resultSet.userPerformanceData);
-      user.set('overAllScore', resultSet.overAllScore);
       user.set('hasStarted', resultSet.hasStarted);
       user.set('totalTimeSpent', resultSet.totalTimeSpent);
       user.set('isGraded', resultSet.isGraded);
@@ -512,6 +520,7 @@ export default Ember.Component.extend({
     let totalTimeSpent = 0;
     let hasStarted = false;
     let isGraded = true;
+    let numberOfQuestionsStarted = 0;
     contents.forEach((content, index) => {
       let contentId = content.get('id');
       let performanceData = Ember.Object.create({
@@ -520,11 +529,12 @@ export default Ember.Component.extend({
         isGraded: true
       });
       if (userPerformance) {
-        performanceData.set('hasStarted', true);
-        hasStarted = true;
         let resourceResults = userPerformance.get('resourceResults');
         let resourceResult = resourceResults.findBy('resourceId', contentId);
         if (resourceResult) {
+          performanceData.set('hasStarted', true);
+          hasStarted = true;
+          numberOfQuestionsStarted++;
           if (
             resourceResult.get('questionType') === 'OE' &&
             !resourceResult.get('isGraded')
@@ -557,7 +567,7 @@ export default Ember.Component.extend({
     });
 
     let overAllScore = Math.round(
-      (numberOfCorrectAnswers / contents.length) * 100
+      (numberOfCorrectAnswers / numberOfQuestionsStarted) * 100
     );
 
     let resultSet = {
@@ -572,9 +582,9 @@ export default Ember.Component.extend({
 
   handleCarouselControl() {
     let component = this;
-    let selectedElement = component.$('#report-carousel-wrapper .item.active');
+    let selectedCollection = component.get('selectedCollection');
     let collections = component.get('collections');
-    let currentIndex = selectedElement.data('item-index');
+    let currentIndex = collections.indexOf(selectedCollection);
     if (collections.length - 1 === 0) {
       component
         .$('#report-carousel-wrapper .carousel-control')
