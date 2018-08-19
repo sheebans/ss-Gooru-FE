@@ -10,7 +10,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['teacher-suggestion-pull-up'],
+  classNames: ['backdrop-pull-ups', 'teacher-suggestion-pull-up'],
 
   // -------------------------------------------------------------------------
   // Dependencies

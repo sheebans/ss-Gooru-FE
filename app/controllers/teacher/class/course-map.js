@@ -250,6 +250,22 @@ export default Ember.Controller.extend({
     onClosePullUp() {
       let controller = this;
       controller.set('isShowStudentReport', false);
+    },
+
+    /**
+     * Trigger when student unit level  report clicked
+     */
+    onOpenStudentUnitLevelReport(params) {
+      this.set('showStudentUnitReport', true);
+      this.set('studentUnitReportContext', params);
+    },
+
+    /**
+     * Trigger when student lesson   report clicked
+     */
+    onOpenStudentLessonReport(params) {
+      this.set('showStudentLessonReport', true);
+      this.set('studentLessonReportContext', params);
     }
   },
 
@@ -305,7 +321,7 @@ export default Ember.Controller.extend({
           unit.set('performance', unPerformedUnit);
         }
       });
-      controller.set('units', units );
+      controller.set('units', units);
       controller.set('isLoading', false);
     });
   },
@@ -436,7 +452,6 @@ export default Ember.Controller.extend({
     return isContentAvailable;
   },
 
-
   /**
    **   Method to get unit level performance
    **/
@@ -472,7 +487,9 @@ export default Ember.Controller.extend({
           unitId
         );
 
-        let numberOfStudnts = classPerformance.findNumberOfStudentsByItem(unitId);
+        let numberOfStudnts = classPerformance.findNumberOfStudentsByItem(
+          unitId
+        );
         let performance = {
           score,
           timeSpent,
@@ -495,7 +512,7 @@ export default Ember.Controller.extend({
     let isPremiumClass = controller.get('isPremiumClass');
     if (isPremiumClass) {
       let route0Promise = controller.fetchRoute0Contents();
-      return route0Promise.then(function( route0Contents ) {
+      return route0Promise.then(function(route0Contents) {
         let isAccepted = route0Contents.status === 'accepted';
         controller.set('isAccepted', isAccepted);
         controller.set('route0Contents', route0Contents);
@@ -516,13 +533,14 @@ export default Ember.Controller.extend({
     let courseId = currentClass.get('courseId');
     let userId = controller.get('activeStudent.id');
     let route0Service = controller.get('route0Service');
-    let route0Promise = Ember.RSVP.resolve(route0Service.fetchInClassByTeacher({courseId, classId, userId}));
+    let route0Promise = Ember.RSVP.resolve(
+      route0Service.fetchInClassByTeacher({ courseId, classId, userId })
+    );
     return Ember.RSVP.hash({
       route0Contents: route0Promise
-    })
-      .then(({route0Contents}) => {
-        let status = route0Contents ? route0Contents.status : null;
-        return status === 'accepted' ? route0Contents : Ember.RSVP.resolve({});
-      });
+    }).then(({ route0Contents }) => {
+      let status = route0Contents ? route0Contents.status : null;
+      return status === 'accepted' ? route0Contents : Ember.RSVP.resolve({});
+    });
   }
 });

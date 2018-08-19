@@ -4,7 +4,11 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'pull-up-collection-report-listview'],
+  classNames: [
+    'reports',
+    'backdrop-pull-ups',
+    'pull-up-collection-report-listview'
+  ],
 
   // -------------------------------------------------------------------------
   // Properties

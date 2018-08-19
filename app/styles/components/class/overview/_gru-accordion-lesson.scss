@@ -160,6 +160,9 @@
         .container-box {
           height: 67px;
           border-bottom: 1px solid $white;
+          .percentage {
+            cursor: pointer;
+          }
         }
 
         .charts.gru-students-performance-chart {

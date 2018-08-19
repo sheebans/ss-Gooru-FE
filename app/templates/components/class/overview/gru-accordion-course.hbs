@@ -29,6 +29,8 @@
         studentReport="onOpenStudentReport"
         onOpenUnitLevelReport="onOpenUnitLevelReport"
         onOpenLessonReport="onOpenLessonReport"
+        onOpenStudentUnitLevelReport="onOpenStudentUnitLevelReport"
+        onOpenStudentLessonReport="onOpenStudentLessonReport"
       }}
 
     {{else}}
@@ -37,6 +39,14 @@
 
   {{/if}}
 </ol>
+
+{{#if showStudentUnitReport}}
+  {{reports.pull-up.student-unit-report context=studentUnitReportContext showPullUp=showStudentUnitReport}}
+{{/if}}
+
+{{#if showStudentLessonReport}}
+  {{reports.pull-up.student-lesson-report context=studentLessonReportContext showPullUp=showStudentLessonReport}}
+{{/if}}
 
 {{#if isShowStudentReport}}
   {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportData model=studentReportData.lesson isStudent=studentReportData.isStudent onClosePullUp="onClosePullUp"}}

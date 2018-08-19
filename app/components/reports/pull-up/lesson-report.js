@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'pull-up-lesson-report'],
+  classNames: ['reports', 'backdrop-pull-ups', 'pull-up-lesson-report'],
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -45,11 +45,13 @@ export default Ember.Component.extend({
     onClickPrev() {
       let component = this;
       component
-        .$('#report-carousel-wrapper .carousel-control')
+        .$(
+          '.lesson-report-container #report-carousel-wrapper .carousel-control'
+        )
         .addClass('in-active');
       let lessons = component.get('lessons');
       let selectedElement = component.$(
-        '#report-carousel-wrapper .item.active'
+        '.lesson-report-container #report-carousel-wrapper .item.active'
       );
       let currentIndex = selectedElement.data('item-index');
       let selectedIndex = selectedElement.data('item-index') - 1;
@@ -57,18 +59,22 @@ export default Ember.Component.extend({
         selectedIndex = lessons.length - 1;
       }
       component.set('selectedLesson', lessons.objectAt(selectedIndex));
-      component.$('#report-carousel-wrapper').carousel('prev');
+      component
+        .$('.lesson-report-container #report-carousel-wrapper')
+        .carousel('prev');
       component.loadData();
     },
 
     onClickNext() {
       let component = this;
       component
-        .$('#report-carousel-wrapper .carousel-control')
+        .$(
+          '.lesson-report-container #report-carousel-wrapper .carousel-control'
+        )
         .addClass('in-active');
       let lessons = component.get('lessons');
       let selectedElement = component.$(
-        '#report-carousel-wrapper .item.active'
+        '.lesson-report-container #report-carousel-wrapper .item.active'
       );
       let currentIndex = selectedElement.data('item-index');
       let selectedIndex = currentIndex + 1;
@@ -76,7 +82,9 @@ export default Ember.Component.extend({
         selectedIndex = 0;
       }
       component.set('selectedLesson', lessons.objectAt(selectedIndex));
-      component.$('#report-carousel-wrapper').carousel('next');
+      component
+        .$('.lesson-report-container #report-carousel-wrapper')
+        .carousel('next');
       component.loadData();
     },
 
@@ -427,13 +435,24 @@ export default Ember.Component.extend({
 
   handleScrollToFixHeader() {
     let component = this;
-    component.$('.report-content').scroll(function() {
-      let scrollTop = component.$('.report-content').scrollTop();
+    component.$('.lesson-report-container .report-content').scroll(function() {
+      let scrollTop = component
+        .$('.lesson-report-container .report-content')
+        .scrollTop();
       let scrollFixed = component.$(
-        '.report-content .pull-up-lesson-report-listview .on-scroll-fixed'
+        '.lesson-report-container .report-content .pull-up-lesson-report-listview .on-scroll-fixed'
       );
-      if (scrollTop >= 347) {
-        let position = scrollTop - 347;
+      let height =
+        component
+          .$('.lesson-report-container .report-content .report-carousel')
+          .height() +
+        component
+          .$(
+            '.lesson-report-container .report-content .report-header-container'
+          )
+          .height();
+      if (scrollTop >= height) {
+        let position = scrollTop - height;
         component.$(scrollFixed).css('top', `${position}px`);
       } else {
         component.$(scrollFixed).css('top', '0px');
@@ -446,7 +465,9 @@ export default Ember.Component.extend({
     let lessons = component.get('lessons');
     let selectedLesson = component.get('selectedLesson');
     let selectedIndex = lessons.indexOf(selectedLesson);
-    component.$('#report-carousel-wrapper').carousel(selectedIndex);
+    component
+      .$('.lesson-report-container #report-carousel-wrapper')
+      .carousel(selectedIndex);
   },
 
   loadData() {
@@ -670,25 +691,35 @@ export default Ember.Component.extend({
     let currentIndex = lessons.indexOf(selectedLesson);
     if (lessons.length - 1 === 0) {
       component
-        .$('#report-carousel-wrapper .carousel-control')
+        .$(
+          '.lesson-report-container #report-carousel-wrapper .carousel-control'
+        )
         .addClass('in-active');
     } else {
       if (currentIndex === 0) {
         component
-          .$('#report-carousel-wrapper .carousel-control.left')
+          .$(
+            '.lesson-report-container #report-carousel-wrapper .carousel-control.left'
+          )
           .addClass('in-active');
       } else {
         component
-          .$('#report-carousel-wrapper .carousel-control.left')
+          .$(
+            '.lesson-report-container #report-carousel-wrapper .carousel-control.left'
+          )
           .removeClass('in-active');
       }
       if (currentIndex === lessons.length - 1) {
         component
-          .$('#report-carousel-wrapper .carousel-control.right')
+          .$(
+            '.lesson-report-container #report-carousel-wrapper .carousel-control.right'
+          )
           .addClass('in-active');
       } else {
         component
-          .$('#report-carousel-wrapper .carousel-control.right')
+          .$(
+            '.lesson-report-container #report-carousel-wrapper .carousel-control.right'
+          )
           .removeClass('in-active');
       }
     }

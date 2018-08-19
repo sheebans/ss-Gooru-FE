@@ -6,7 +6,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'pull-up-student-course-report'],
+  classNames: ['reports', 'backdrop-pull-ups', 'pull-up-student-course-report'],
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -173,18 +173,28 @@ export default Ember.Component.extend({
 
   handleScrollToFixHeader() {
     let component = this;
-    component.$('.report-content').scroll(function() {
-      let scrollTop = component.$('.report-content').scrollTop();
-      let scrollFixed = component.$('.report-content  .on-scroll-fixed');
-      let reportCarouselTagsHeight =
-        component.$('.report-content .report-carousel-tags').height() + 15;
-      if (scrollTop >= reportCarouselTagsHeight) {
-        let position = scrollTop - reportCarouselTagsHeight;
-        component.$(scrollFixed).css('top', `${position}px`);
-      } else {
-        component.$(scrollFixed).css('top', '0px');
-      }
-    });
+    component
+      .$('.student-course-report-container .report-content')
+      .scroll(function() {
+        let scrollTop = component
+          .$('.student-course-report-container .report-content')
+          .scrollTop();
+        let scrollFixed = component.$(
+          '.student-course-report-container .report-content  .on-scroll-fixed'
+        );
+        let reportCarouselTagsHeight =
+          component
+            .$(
+              '.student-course-report-container .report-content .report-carousel-tags'
+            )
+            .height() + 15;
+        if (scrollTop >= reportCarouselTagsHeight) {
+          let position = scrollTop - reportCarouselTagsHeight;
+          component.$(scrollFixed).css('top', `${position}px`);
+        } else {
+          component.$(scrollFixed).css('top', '0px');
+        }
+      });
   },
 
   loadData() {

@@ -1021,7 +1021,6 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
       lessons: component.get('lessons'),
       userId: component.get('session.userId')
     };
-    component.set('showStudentLessonReport', true);
-    component.set('studentLessonReportContext', params);
+    component.sendAction('onOpenStudentLessonReport', params);
   }
 });

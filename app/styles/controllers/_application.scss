@@ -17,6 +17,13 @@
     padding-top: 63px;
   }
 
+  > .backdrop-pull-ups .backdrop {
+    background: none !important;
+  }
+  > .backdrop-pull-ups:last-child .backdrop {
+    background-color: #000 !important;
+  }
+
   > .controller {
     @include flexbox;
     @include flex-direction(column);

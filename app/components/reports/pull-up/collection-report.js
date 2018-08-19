@@ -7,7 +7,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'pull-up-collection-report'],
+  classNames: ['reports', 'backdrop-pull-ups', 'pull-up-collection-report'],
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -64,11 +64,13 @@ export default Ember.Component.extend({
     onClickPrev() {
       let component = this;
       component
-        .$('#report-carousel-wrapper .carousel-control')
+        .$(
+          '.collection-report-container #report-carousel-wrapper .carousel-control'
+        )
         .addClass('in-active');
       let collections = component.get('collections');
       let selectedElement = component.$(
-        '#report-carousel-wrapper .item.active'
+        '.collection-report-container #report-carousel-wrapper .item.active'
       );
       let currentIndex = selectedElement.data('item-index');
       let selectedIndex = selectedElement.data('item-index') - 1;
@@ -76,18 +78,22 @@ export default Ember.Component.extend({
         selectedIndex = collections.length - 1;
       }
       component.set('selectedCollection', collections.objectAt(selectedIndex));
-      component.$('#report-carousel-wrapper').carousel('prev');
+      component
+        .$('.collection-report-container #report-carousel-wrapper')
+        .carousel('prev');
       component.loadData();
     },
 
     onClickNext() {
       let component = this;
       component
-        .$('#report-carousel-wrapper .carousel-control')
+        .$(
+          '.collection-report-container #report-carousel-wrapper .carousel-control'
+        )
         .addClass('in-active');
       let collections = component.get('collections');
       let selectedElement = component.$(
-        '#report-carousel-wrapper .item.active'
+        '.collection-report-container #report-carousel-wrapper .item.active'
       );
       let currentIndex = selectedElement.data('item-index');
       let selectedIndex = currentIndex + 1;
@@ -95,7 +101,9 @@ export default Ember.Component.extend({
         selectedIndex = 0;
       }
       component.set('selectedCollection', collections.objectAt(selectedIndex));
-      component.$('#report-carousel-wrapper').carousel('next');
+      component
+        .$('.collection-report-container #report-carousel-wrapper')
+        .carousel('next');
       component.loadData();
     },
 
@@ -407,18 +415,31 @@ export default Ember.Component.extend({
 
   handleScrollToFixHeader() {
     let component = this;
-    component.$('.report-content').scroll(function() {
-      let scrollTop = component.$('.report-content').scrollTop();
-      let scrollFixed = component.$(
-        '.report-content .pull-up-collection-report-listview .on-scroll-fixed'
-      );
-      if (scrollTop >= 347) {
-        let position = scrollTop - 347;
-        component.$(scrollFixed).css('top', `${position}px`);
-      } else {
-        component.$(scrollFixed).css('top', '0px');
-      }
-    });
+    component
+      .$('.collection-report-container .report-content')
+      .scroll(function() {
+        let scrollTop = component
+          .$('.collection-report-container .report-content')
+          .scrollTop();
+        let scrollFixed = component.$(
+          '.collection-report-container .report-content .pull-up-collection-report-listview .on-scroll-fixed'
+        );
+        let height =
+          component
+            .$('.collection-report-container .report-content .report-carousel')
+            .height() +
+          component
+            .$(
+              '.collection-report-container .report-content .report-header-container'
+            )
+            .height();
+        if (scrollTop >= height) {
+          let position = scrollTop - height;
+          component.$(scrollFixed).css('top', `${position}px`);
+        } else {
+          component.$(scrollFixed).css('top', '0px');
+        }
+      });
   },
 
   slideToSelectedCollection() {
@@ -426,7 +447,9 @@ export default Ember.Component.extend({
     let collections = component.get('collections');
     let selectedCollection = component.get('selectedCollection');
     let selectedIndex = collections.indexOf(selectedCollection);
-    component.$('#report-carousel-wrapper').carousel(selectedIndex);
+    component
+      .$('.collection-report-container #report-carousel-wrapper')
+      .carousel(selectedIndex);
   },
 
   loadData() {
@@ -587,25 +610,35 @@ export default Ember.Component.extend({
     let currentIndex = collections.indexOf(selectedCollection);
     if (collections.length - 1 === 0) {
       component
-        .$('#report-carousel-wrapper .carousel-control')
+        .$(
+          '.collection-report-container #report-carousel-wrapper .carousel-control'
+        )
         .addClass('in-active');
     } else {
       if (currentIndex === 0) {
         component
-          .$('#report-carousel-wrapper .carousel-control.left')
+          .$(
+            '.collection-report-container #report-carousel-wrapper .carousel-control.left'
+          )
           .addClass('in-active');
       } else {
         component
-          .$('#report-carousel-wrapper .carousel-control.left')
+          .$(
+            '.collection-report-container #report-carousel-wrapper .carousel-control.left'
+          )
           .removeClass('in-active');
       }
       if (currentIndex === collections.length - 1) {
         component
-          .$('#report-carousel-wrapper .carousel-control.right')
+          .$(
+            '.collection-report-container #report-carousel-wrapper .carousel-control.right'
+          )
           .addClass('in-active');
       } else {
         component
-          .$('#report-carousel-wrapper .carousel-control.right')
+          .$(
+            '.collection-report-container #report-carousel-wrapper .carousel-control.right'
+          )
           .removeClass('in-active');
       }
     }

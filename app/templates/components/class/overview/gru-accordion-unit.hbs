@@ -56,6 +56,7 @@
           onOpenLessonReport="onOpenLessonReport"
           teacherCollectionReport="teacherCollectionReport"
           studentReport="studentReport"
+          onOpenStudentLessonReport="onOpenStudentLessonReport"
         }}
         {{else}}
           <li>{{t "common.contentUnavailable"}}</li>
@@ -64,7 +65,3 @@
     </ol>
   </div>
 </div>
-
-{{#if showStudentUnitReport}}
-  {{reports.pull-up.student-unit-report context=studentUnitReportContext showPullUp=showStudentUnitReport}}
-{{/if}}

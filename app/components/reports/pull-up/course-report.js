@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'pull-up-course-report'],
+  classNames: ['reports', 'backdrop-pull-ups', 'pull-up-course-report'],
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -200,14 +200,22 @@ export default Ember.Component.extend({
 
   handleScrollToFixHeader() {
     let component = this;
-    component.$('.report-content').scroll(function() {
-      let scrollTop = component.$('.report-content').scrollTop();
+    component.$('.course-report-container .report-content').scroll(function() {
+      let scrollTop = component
+        .$('.course-report-container .report-content')
+        .scrollTop();
       let scrollFixed = component.$(
-        '.report-content .pull-up-course-report-listview .on-scroll-fixed'
+        '.course-report-container .report-content .pull-up-course-report-listview .on-scroll-fixed'
       );
       let height =
-        component.$('.report-carousel').height() +
-        component.$('.report-header-container').height();
+        component
+          .$('.course-report-container .report-content .report-carousel')
+          .height() +
+        component
+          .$(
+            '.course-report-container .report-content .report-header-container'
+          )
+          .height();
       if (scrollTop >= height) {
         let position = scrollTop - height;
         component.$(scrollFixed).css('top', `${position}px`);
@@ -242,7 +250,9 @@ export default Ember.Component.extend({
   calcluateUnitPerformance(performance) {
     let component = this;
     let units = component.get('units');
-    units.map(function(unit) {
+    let unitList = Ember.A([]);
+    units.forEach(function(unit) {
+      let unitCopy = unit.copy();
       let unitId = unit.get('id');
       const averageScore = performance.calculateAverageScoreByItem(unitId);
       const timeSpent = performance.calculateAverageTimeSpentByItem(unitId);
@@ -252,7 +262,7 @@ export default Ember.Component.extend({
       const completionTotal = performance.calculateSumCompletionTotalByItem(
         unitId
       );
-      unit.set(
+      unitCopy.set(
         'performance',
         Ember.Object.create({
           score: averageScore,
@@ -261,8 +271,9 @@ export default Ember.Component.extend({
           isCompleted: completionDone > 0 && completionDone >= completionTotal
         })
       );
-      return unit;
+      unitList.pushObject(unitCopy);
     });
+    component.set('units', unitList);
   },
 
   getClassPerformanceForClassMember(userId) {

@@ -80,9 +80,10 @@ export default Ember.Component.extend(AccordionMixin, {
       if (component.get('isTeacher')) {
         component.onOpenTeacherUnitLevelReport(model);
       } else {
-        component.onOpenStudentUnitLevelReport(model);
+        component.onOpenStudentUnitReport(model);
       }
     },
+
     /**
      * Launch an assessment on-air
      *
@@ -189,6 +190,13 @@ export default Ember.Component.extend(AccordionMixin, {
     onOpenLessonReport(params) {
       params.lessons = this.get('items');
       this.sendAction('onOpenLessonReport', params);
+    },
+
+    /**
+     * Trigger when student lesson level  report clicked
+     */
+    onOpenStudentLessonReport(params) {
+      this.sendAction('onOpenStudentLessonReport', params);
     },
 
     /**
@@ -528,7 +536,7 @@ export default Ember.Component.extend(AccordionMixin, {
     this.sendAction('onOpenUnitLevelReport', params);
   },
 
-  onOpenStudentUnitLevelReport(model) {
+  onOpenStudentUnitReport(model) {
     let component = this;
     let params = {
       classId: component.get('currentClass.id'),
@@ -540,7 +548,6 @@ export default Ember.Component.extend(AccordionMixin, {
       units: component.get('units'),
       userId: component.get('session.userId')
     };
-    component.set('showStudentUnitReport', true);
-    component.set('studentUnitReportContext', params);
+    component.sendAction('onOpenStudentUnitLevelReport', params);
   }
 });
