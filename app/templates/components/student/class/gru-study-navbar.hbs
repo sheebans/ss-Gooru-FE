@@ -78,7 +78,7 @@
                 {{#if hasClassInfo }}
                     <li>
                         {{#if (not isPremiumClass)}}
-                            <div {{action 'openCourseReport'}}>
+                            <div class="performance-chart" {{action 'openCourseReport'}}>
                                 {{charts/gru-performance-chart performanceSummary=class.performanceSummary }}
                             </div>
                         {{/if}}

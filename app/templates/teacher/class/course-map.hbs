@@ -69,7 +69,10 @@
                   currentCourse=course
                   classMembers=classMembers
                   collectionReport="collectionReport"
+                  onOpenStudentUnitLevelReport="onOpenStudentUnitLevelReport"
+                  onOpenStudentLessonReport="onOpenStudentLessonReport"
                   model=unit
+                  units=units
                   index=index
                   isTeacher=false
                   toggleLocation=toggleLocation
@@ -96,7 +99,8 @@
                 onOpenUnitLevelReport="onOpenUnitLevelReport"
                 onOpenLessonReport="onOpenLessonReport"
                 teacherCollectionReport="teacherCollectionReport"
-                isPremiumClass=isPremiumClass}}
+                isPremiumClass=isPremiumClass
+              }}
               </div>
             {{/if}}
           {{/if}}
@@ -106,6 +110,14 @@
   </div>
 {{else}}
   <div class="no-content">This classroom does not have a related course and it has no content</div>
+{{/if}}
+
+{{#if showStudentUnitReport}}
+  {{reports.pull-up.student-unit-report context=studentUnitReportContext showPullUp=showStudentUnitReport}}
+{{/if}}
+
+{{#if showStudentLessonReport}}
+  {{reports.pull-up.student-lesson-report context=studentLessonReportContext showPullUp=showStudentLessonReport}}
 {{/if}}
 
 {{#if isShowStudentReport}}
