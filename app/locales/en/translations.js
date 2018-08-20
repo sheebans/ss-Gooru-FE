@@ -777,7 +777,7 @@ export default Object.assign(quizzesTranslations, {
       'course-map': {
         'rescope-toggle': 'Show Complete Course Map',
         'rescope-info':
-          'This course has been personalized specifically for you from the Math Foundation course.',
+          'This course has been personalized specifically for you to support accelerated learning.',
         'custom-msg':
           'We are personalizing this course specifically for you based on your proficiency. Please check back in a little while to see the personalized course map.',
 
@@ -1233,8 +1233,9 @@ export default Object.assign(quizzesTranslations, {
     'welcome-course-map':
       'This is your Course Map where you can view course content, turn assessments on or off and launch assessments in real-time. You can also view overall class performance and completion. For a detailed view of class performance, visit your classroom\'s Report tab.',
     'welcome-rescoped-course-map':
-      'This course has been personalized for each student in the class. You can view each student’s course map in the Class Management page by clicking on the student’s learning pathway (characters - and >)',
-    'welcome-premium-course-map': 'Navigate Math is an outcomes-proven course with hundreds of students across Leadership Public Schools\' high school campuses growing nearly 3 years in mathematics in 1 school year as measured by NWEA MAP. Navigate Math is an intervention course and approach that accelerates academic growth and empowers students to direct their own learning. Navigate Math helps students develop the foundational knowledge, skills, and thought processes required to be successful in pre-Algebra and Algebra.'
+      'This course has been personalized for each student in the class. You can view each student’s course map in the Class Management page by clicking on the student’s learning pathway ("->")',
+    'welcome-premium-course-map':
+      'This is a highly curated course designed to help students aim to be at a certain grade level in an accelerated timeframe, irrespective of their current level. This course will be personalized for each student in the class. You can view each student’s course map by selecting the student from the list of students.'
   },
   goals: {
     manage: {
