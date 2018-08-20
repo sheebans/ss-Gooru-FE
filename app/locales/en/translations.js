@@ -52,6 +52,7 @@ export default Object.assign(quizzesTranslations, {
     first: 'First',
     last: 'Last',
     name: 'Name',
+    'content-name': 'Content Name',
     lastName: 'Lastname',
     firstName: 'Firstname',
     'filter-by': 'Filter By',

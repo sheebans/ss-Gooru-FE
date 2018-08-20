@@ -126,6 +126,30 @@ export default Ember.Component.extend(AccordionMixin, {
         type: type
       };
       this.sendAction('collectionReport', params);
+    },
+
+    /*
+     * @function To open lesson level report
+     */
+    onOpenStudentLessonReport: function() {
+      let component = this;
+      let currentClass = component.get('currentClass');
+      let userId = currentClass.userId || component.get('studentId');
+      let classId = currentClass.classId || component.get('currentClass.id');
+      let courseId = currentClass.courseId || component.get('currentCourse.id');
+      let unitId = component.get('unitId');
+      let lessonId = component.get('model.id');
+      let params = {
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId,
+        lessonId: lessonId,
+        lesson: component.get('model'),
+        unit: component.get('unit'),
+        lessons: component.get('lessons'),
+        userId: userId
+      };
+      component.sendAction('onOpenStudentLessonReport', params);
     }
   },
 
@@ -260,8 +284,10 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   loadData: function(lesson) {
     const component = this;
-    const userId = component.get('currentClass.userId') || component.get('studentId');
-    const classId = component.get('currentClass.classId') || component.get('currentClass.id');
+    const userId =
+      component.get('currentClass.userId') || component.get('studentId');
+    const classId =
+      component.get('currentClass.classId') || component.get('currentClass.id');
     const courseId =
       component.get('currentClass.courseId') ||
       component.get('currentCourse.id');

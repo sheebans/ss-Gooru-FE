@@ -89,6 +89,7 @@
           width: 225px;
           display: flex;
           align-items: center;
+          cursor: pointer;
 
           .user-profile-img {
             width: 43px;
@@ -261,7 +262,6 @@
     background: #fff;
     height: 39px;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
-    width: 20px;
     left: 300px;
     cursor: pointer;
 
@@ -280,7 +280,6 @@
     right: 0;
     top: 0;
     background: #fff;
-    width: 20px;
     box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.25);
     cursor: pointer;
 

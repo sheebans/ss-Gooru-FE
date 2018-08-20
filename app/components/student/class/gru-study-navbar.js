@@ -5,7 +5,6 @@ export default Ember.Component.extend({
 
   session: Ember.inject.service('session'),
 
-
   actions: {
     /**
      *
@@ -38,7 +37,16 @@ export default Ember.Component.extend({
      * Action triggered when click brand logo
      */
     onClickBrand() {
-      Ember.$('body').removeClass('fullscreen').removeClass('fullscreen-exit');
+      Ember.$('body')
+        .removeClass('fullscreen')
+        .removeClass('fullscreen-exit');
+    },
+
+    /**
+     * Trigger the event to open student course report
+     */
+    openCourseReport() {
+      this.sendAction('openCourseReport');
     }
   },
 
@@ -60,7 +68,6 @@ export default Ember.Component.extend({
     } else {
       Ember.$('body').addClass('fullscreen-exit');
     }
-
   },
 
   willDestroyElement() {
