@@ -18,6 +18,9 @@ export default Ember.Controller.extend({
      */
     onOpenCourseReport() {
       let controller = this;
+      if (!controller.get('course.id')) {
+        return false;
+      }
       let params = {
         course: controller.get('course'),
         class: controller.get('class'),
