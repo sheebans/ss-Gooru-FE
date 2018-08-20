@@ -35,7 +35,9 @@ export default Ember.Route.extend({
       const currentClass = this.modelFor('teacher.class').class;
       const classId = currentClass.get('id');
       const queryParams = {
-        queryParams: { source: PLAYER_EVENT_SOURCE.COURSE_MAP }
+        queryParams: {
+          source: PLAYER_EVENT_SOURCE.COURSE_MAP
+        }
       };
       this.transitionTo(
         'reports.collection',
@@ -79,7 +81,10 @@ export default Ember.Route.extend({
           lessonId,
           collection.get('id'),
           {
-            queryParams: { role: role, type: collection.get('collectionType') }
+            queryParams: {
+              role: role,
+              type: collection.get('collectionType')
+            }
           }
         );
       }
@@ -90,8 +95,12 @@ export default Ember.Route.extend({
      * @param {Content/Course}
      */
     editContent: function(id, classId) {
-      let queryParams = { classId: classId };
-      this.transitionTo('content.courses.edit', id, { queryParams });
+      let queryParams = {
+        classId: classId
+      };
+      this.transitionTo('content.courses.edit', id, {
+        queryParams
+      });
     }
   },
 
@@ -152,7 +161,9 @@ export default Ember.Route.extend({
         let completionTotal = classPerformance.calculateSumCompletionTotalByItem(
           unitId
         );
-        let numberOfStudents = classPerformance.findNumberOfStudentsByItem(unitId);
+        let numberOfStudents = classPerformance.findNumberOfStudentsByItem(
+          unitId
+        );
         let performance = {
           score,
           timeSpent,
@@ -178,5 +189,10 @@ export default Ember.Route.extend({
     controller.set('currentClass', model.currentClass);
     controller.get('classController').selectMenuItem('course-map');
     controller.set('isStudentCourseMap', false);
+    controller.init();
+  },
+
+  resetController(controller) {
+    controller.set('tab', null);
   }
 });

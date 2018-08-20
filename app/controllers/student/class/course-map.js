@@ -23,7 +23,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  queryParams: ['location'],
+  queryParams: ['location', 'tab'],
 
   /**
    * Combination of unit, lesson and resource (collection or assessment)
@@ -32,6 +32,8 @@ export default Ember.Controller.extend({
    * location='uId001+lId002+cId003'
    */
   location: null,
+
+  tab: null,
 
   isFirstLoad: true,
 
@@ -121,10 +123,16 @@ export default Ember.Controller.extend({
   // Events
 
   init: function() {
-    this._super(...arguments);
-    Ember.run.scheduleOnce('afterRender', this, function() {
+    const controller = this;
+    controller._super(...arguments);
+    Ember.run.scheduleOnce('afterRender', controller, function() {
       $('[data-toggle="tooltip"]').tooltip();
     });
+    let tab = controller.get('tab');
+    if (tab && tab === 'report') {
+      const studentClassController = controller.get('studentClassController');
+      studentClassController.openStudentCourseReport();
+    }
   },
 
   // -------------------------------------------------------------------------

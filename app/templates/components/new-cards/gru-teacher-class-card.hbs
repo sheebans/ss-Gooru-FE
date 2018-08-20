@@ -84,7 +84,7 @@
             <div class="icon-performance">
               <i class="icon"> </i>
             </div>
-            <a {{action 'selectItem' 'performance'}}>
+            <a {{action 'selectItem' 'report'}}>
               <span>{{t 'teacher-landing.class.report'}}</span>
             </a>
           </li>
@@ -96,9 +96,9 @@
             <div class="title">{{t 'student-landing.class-code'}}</div>
             <div class="class-code">{{class.code}}</div>
           </div>
-          {{#link-to 'teacher.class.performance' class.id class="pointer percentage" tagName="div" }}
+          <div class="pointer percentage" {{action 'selectItem' 'report'}}>
             {{scorePercentage}}
-          {{/link-to}}
+          </div>
         </div>
       {{else}}
         {{#if (eq class.performanceSummary.score 0)}}
@@ -107,9 +107,9 @@
               <div class="title">{{t 'student-landing.class-code'}}</div>
               <div class="class-code">{{class.code}}</div>
             </div>
-            {{#link-to 'teacher.class.performance' class.id class="pointer percentage" tagName="div" }}
+            <div class="pointer percentage" {{action 'selectItem' 'report'}}>
               {{scorePercentage}}
-            {{/link-to}}
+            </div>
           </div>
         {{else}}
           <div class="no-performance">
@@ -117,9 +117,9 @@
               <div class="title">{{t 'student-landing.class-code'}}</div>
               <div class="class-code">{{class.code}}</div>
             </div>
-            {{#link-to 'teacher.class.performance' class.id class="pointer percentage no-percentage" tagName="div" }}
+            <div class="pointer percentage no-percentage" {{action 'selectItem' 'report'}}>
               <i class="icon"> </i>
-            {{/link-to}}
+            </div>
           </div>
         {{/if}}
       {{/if}}
@@ -178,7 +178,7 @@
             <div class="icon-performance">
               <i class="icon"> </i>
             </div>
-            <a {{action 'selectItem' 'performance'}}>
+            <a {{action 'selectItem' 'report'}}>
               <span>{{t 'teacher-landing.class.report'}}</span>
             </a>
           </li>
@@ -189,9 +189,9 @@
           <div class="title">{{t 'student-landing.class-code'}}</div>
           <div class="class-code no-percentage-code">{{class.code}}</div>
         </div>
-        {{#link-to 'teacher.class.performance' class.id class="pointer percentage no-percentage" tagName="div" }}
+        <div class="pointer percentage no-percentage" {{action 'selectItem' 'report'}}>
           <i class="icon"> </i>
-        {{/link-to}}
+        </div>
       </div>
     </div>
   {{/if}}

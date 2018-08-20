@@ -26,16 +26,7 @@ export default Ember.Controller.extend({
      * Trigger the event to open student course report
      */
     openCourseReport: function() {
-      let controller = this;
-      controller.set('showCourseReport', true);
-      let params = Ember.Object.create({
-        userId: controller.get('session.userId'),
-        classId: controller.get('class.id'),
-        class: controller.get('class'),
-        courseId: controller.get('course.id'),
-        course: controller.get('course')
-      });
-      controller.set('studentCourseReportContext', params);
+      this.openStudentCourseReport();
     }
   },
 
@@ -124,5 +115,20 @@ export default Ember.Controller.extend({
    */
   selectMenuItem: function(item) {
     this.set('menuItem', item);
+  },
+
+  openStudentCourseReport() {
+    let controller = this;
+    controller.set('showCourseReport', true);
+    let params = Ember.Object.create({
+      userId: controller.get('session.userId'),
+      classId: controller.get('class.id'),
+      class: controller.get('class'),
+      courseId: controller.get('course.id'),
+      course: controller.get('course'),
+      isTeacher: false,
+      isStudent: true
+    });
+    controller.set('studentCourseReportContext', params);
   }
 });

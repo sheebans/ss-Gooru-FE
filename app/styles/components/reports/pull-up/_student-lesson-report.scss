@@ -278,6 +278,7 @@
           .content-name {
             display: flex;
             align-items: center;
+            cursor: pointer;
 
             .collection-icon {
               background-image: url("../assets/gooru/images/collection_gray.svg");
