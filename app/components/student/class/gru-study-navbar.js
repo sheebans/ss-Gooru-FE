@@ -46,7 +46,10 @@ export default Ember.Component.extend({
      * Trigger the event to open student course report
      */
     openCourseReport() {
-      this.sendAction('openCourseReport');
+      let classo = this.get('class');
+      if (classo && classo.courseId) {
+        this.sendAction('openCourseReport');
+      }
     }
   },
 
