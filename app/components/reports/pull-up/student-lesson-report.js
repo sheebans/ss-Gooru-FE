@@ -37,7 +37,7 @@ export default Ember.Component.extend({
           '.student-lesson-report-container #report-carousel-wrapper .carousel-control'
         )
         .addClass('in-active');
-      let lessons = component.get('lessons');
+      let lessons = component.get('lessonsHasPerformance');
       let selectedElement = component.$(
         '.student-lesson-report-container #report-carousel-wrapper .item.active'
       );
@@ -60,7 +60,7 @@ export default Ember.Component.extend({
           '.student-lesson-report-container #report-carousel-wrapper .carousel-control'
         )
         .addClass('in-active');
-      let lessons = component.get('lessons');
+      let lessons = component.get('lessonsHasPerformance');
       let selectedElement = component.$(
         '.student-lesson-report-container #report-carousel-wrapper .item.active'
       );
@@ -158,6 +158,15 @@ export default Ember.Component.extend({
    * @type {String}
    */
   lessons: Ember.computed.alias('context.lessons'),
+
+  /**
+   * Maintains list of lessons has performance.
+   * @type {Array}
+   */
+  lessonsHasPerformance: Ember.computed('lessons', function() {
+    let lessons = this.get('lessons');
+    return lessons.filterBy('performance.hasStarted', true);
+  }),
 
   /**
    * Maintains list of lesson items.
@@ -331,7 +340,7 @@ export default Ember.Component.extend({
 
   handleCarouselControl() {
     let component = this;
-    let lessons = component.get('lessons');
+    let lessons = component.get('lessonsHasPerformance');
     let selectedLesson = lessons.findBy(
       'id',
       component.get('selectedLesson.id')

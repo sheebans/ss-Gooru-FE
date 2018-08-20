@@ -39,7 +39,7 @@ export default Ember.Component.extend({
           '.student-unit-report-container #report-carousel-wrapper .carousel-control'
         )
         .addClass('in-active');
-      let units = component.get('units');
+      let units = component.get('unitsHasPerformance');
       let selectedElement = component.$(
         '.student-unit-report-container #report-carousel-wrapper .item.active'
       );
@@ -62,7 +62,7 @@ export default Ember.Component.extend({
           '.student-unit-report-container #report-carousel-wrapper .carousel-control'
         )
         .addClass('in-active');
-      let units = component.get('units');
+      let units = component.get('unitsHasPerformance');
       let selectedElement = component.$(
         '.student-unit-report-container #report-carousel-wrapper .item.active'
       );
@@ -154,6 +154,15 @@ export default Ember.Component.extend({
    * @type {Array}
    */
   units: Ember.computed.alias('context.units'),
+
+  /**
+   * Maintains list of units has performance.
+   * @type {Array}
+   */
+  unitsHasPerformance: Ember.computed('units', function() {
+    let units = this.get('units');
+    return units.filterBy('performance.hasStarted', true);
+  }),
 
   /**
    * Maintains list of unit items.
@@ -319,7 +328,7 @@ export default Ember.Component.extend({
 
   handleCarouselControl() {
     let component = this;
-    let units = component.get('units');
+    let units = component.get('unitsHasPerformance');
     let selectedUnit = units.findBy('id', component.get('selectedUnit.id'));
     let currentIndex = units.indexOf(selectedUnit);
     if (units.length - 1 === 0) {
