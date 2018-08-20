@@ -233,6 +233,34 @@
               }
             }
           }
+          .non-visible-tags {
+            margin-left: 10px;
+            background: #37434d;
+            width: 35px;
+            color: #fff;
+            border-radius: 4px;
+          }
+          .popover {
+            background: #fff;
+            margin-left: 5px;
+
+            .arrow::after {
+              border-left-color: #fff;
+              border-right-color: #fff;
+            }
+
+            .popover-content {
+              .gru-taxonomy-tag {
+                max-width: 300px;
+                width: 270px;
+                border-radius: 4px;
+
+                .standard-tag {
+                  width: 270px;
+                }
+              }
+            }
+          }
         }
       }
 
@@ -241,7 +269,7 @@
 
         .report-performance-header {
           display: inline-grid;
-          grid-template-columns: 40% 10% 40% 10%;
+          grid-template-columns: 50% 10% 40%;
           width: 100%;
           align-items: center;
           text-transform: uppercase;
@@ -260,7 +288,7 @@
 
         .report-performance-list {
           display: inline-grid;
-          grid-template-columns: 40% 10% 40% 10%;
+          grid-template-columns: 50% 10% 40%;
           width: 100%;
           align-items: center;
           color: #666;
@@ -270,6 +298,10 @@
           .content-name {
             display: flex;
             align-items: center;
+            cursor: pointer;
+            &.not-started {
+              pointer-events: none;
+            }
 
             .lesson-icon {
               background-image: url("../assets/gooru/images/lesson-dark.svg");
@@ -306,21 +338,6 @@
                   border-radius: 3px;
                 }
               }
-            }
-          }
-
-          .report {
-            svg {
-              width: 20px;
-              height: 20px;
-              display: inline-block;
-              margin-left: 10px;
-              margin-top: 10px;
-              cursor: pointer;
-            }
-
-            span {
-              margin-left: 10px;
             }
           }
         }

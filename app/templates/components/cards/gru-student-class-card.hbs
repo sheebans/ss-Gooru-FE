@@ -37,17 +37,17 @@
               <span>{{t 'student-landing.class.course-map'}}</span>
             </a>
           </li>
-          <li class="performance">
-            <a {{action 'selectItem' 'performance'}}>
+          <li class="performance {{unless hasStarted 'not-started'}}">
+            <a {{action 'selectItem' 'report'}}>
               <span>{{t 'student-landing.class.my-report'}}</span>
             </a>
           </li>
         </ul>
       </div>
-      <div class="performance" style="background-color:{{grade-color class.performanceSummary.score}}">
-        {{#link-to 'student.class.performance' class.id class="pointer percentage" tagName="div"}}
+      <div class="performance pointer {{unless hasStarted 'not-started'}}" style="background-color:{{grade-color class.performanceSummary.score}}" {{action 'selectItem' 'report'}}>
+        <div class="percentage">
           {{scorePercentage}}
-        {{/link-to}}
+        </div>
         <div class="completion-chart">
           {{charts/gru-x-bar-chart data=barChartData }}
           <label>{{completedPercentage}}</label>
@@ -94,16 +94,14 @@
             </a>
           </li>
           <li class="performance">
-            <a {{action 'selectItem' 'performance'}}>
               <span>{{t 'student-landing.class.my-report'}}</span>
-            </a>
           </li>
         </ul>
       </div>
       <div class="performance">
-        {{#link-to 'student.class.performance' class.id class="pointer percentage" tagName="div"}}
+        <div class="percentage" >
           {{scorePercentage}}
-        {{/link-to}}
+        </div>
         <div class="completion-chart">
           {{charts/gru-x-bar-chart data=barChartData }}
           <label>{{completedPercentage}}</label>

@@ -438,9 +438,28 @@ export default Ember.Component.extend({
           .findAssessmentResultByCollectionAndStudent(context)
           .then(function(assessmentResult) {
             component.setAssessmentResult(assessmentResult);
-            if (component.get('isTeacher')) {
-              component.set('showSuggestion', true);
-              component.loadSuggestion();
+            if (!component.get('isStudent')) {
+              component
+                .get('courseMapService')
+                .getLessonInfo(
+                  context.get('classId'),
+                  context.get('courseId'),
+                  context.get('unitId'),
+                  context.get('lessonId'),
+                  true,
+                  context.get('userId')
+                )
+                .then(lesson => {
+                  let collections = lesson.get('children');
+                  let collection = collections.findBy(
+                    'id',
+                    context.get('collectionId')
+                  );
+                  if (!collection.get('isSuggestedContent')) {
+                    component.set('showSuggestion', true);
+                    component.loadSuggestion();
+                  }
+                });
             }
           });
       } else {

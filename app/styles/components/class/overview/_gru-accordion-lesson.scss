@@ -156,6 +156,9 @@
         display: inline-block;
         height: 67px;
         vertical-align: middle;
+        &.not-started {
+          pointer-events: none;
+        }
 
         .container-box {
           height: 67px;

@@ -39,13 +39,10 @@ export default Ember.Component.extend({
      */
     openUnitReport(unit, units) {
       let component = this;
-      let isTeacher = component.get('class')
-        ? component.get('class').isTeacher(component.get('session.userId'))
-        : false;
       let params = {
         classId: component.get('classId'),
-        isTeacher: isTeacher,
-        isStduent: !isTeacher,
+        isTeacher: component.get('isTeacher'),
+        isStudent: component.get('isStudent'),
         courseId: component.get('courseId'),
         unitId: unit.get('id'),
         unit: unit,
@@ -142,6 +139,24 @@ export default Ember.Component.extend({
    */
   showUnitReport: false,
 
+  /**
+   * Maintains state of user is teacher.
+   * @type {Boolean}
+   */
+  isTeacher: Ember.computed.alias('context.isTeacher'),
+
+  /**
+   * Maintains state of user is student.
+   * @type {Boolean}
+   */
+  isStudent: Ember.computed.alias('context.isStudent'),
+
+  /**
+   * It will decided the necessity of load units performance
+   * @type {Boolean}
+   */
+  loadUnitsPerformance: Ember.computed.alias('context.loadUnitsPerformance'),
+
   //--------------------------------------------------------------------------
   // Methods
 
@@ -199,21 +214,23 @@ export default Ember.Component.extend({
 
   loadData() {
     let component = this;
-    const classId = this.get('classId');
-    let courseId = component.get('courseId');
-    let userId = component.get('userId');
-    let units = component.get('units');
-    component.set('isLoading', true);
-    return Ember.RSVP.hash({
-      unitsPerformance: component
-        .get('performanceService')
-        .findStudentPerformanceByCourse(userId, classId, courseId, units)
-    }).then(({ unitsPerformance }) => {
-      if (!component.isDestroyed) {
-        component.renderUnitsPerformance(unitsPerformance);
-        component.set('isLoading', false);
-      }
-    });
+    if (component.get('loadUnitsPerformance')) {
+      const classId = this.get('classId');
+      let courseId = component.get('courseId');
+      let userId = component.get('userId');
+      let units = component.get('units');
+      component.set('isLoading', true);
+      return Ember.RSVP.hash({
+        unitsPerformance: component
+          .get('performanceService')
+          .findStudentPerformanceByCourse(userId, classId, courseId, units)
+      }).then(({ unitsPerformance }) => {
+        if (!component.isDestroyed) {
+          component.renderUnitsPerformance(unitsPerformance);
+          component.set('isLoading', false);
+        }
+      });
+    }
   },
 
   renderUnitsPerformance(unitsPerformance) {

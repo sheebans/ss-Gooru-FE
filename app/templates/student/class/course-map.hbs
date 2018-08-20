@@ -1,5 +1,5 @@
 {{#if class.courseId}}
-  
+
   <div class="controller student course-map">
     <div class="actions">
       <span class="min-score {{unless class.minScore 'hidden'}}">
@@ -45,7 +45,7 @@
       {{/if}}
     </div>
 
-    
+
 
     {{class.overview.gru-accordion-course
     currentClass=class
@@ -59,9 +59,14 @@
     contentVisibility=contentVisibility
     showLocation=showLocation
     isTeacher=false
+    isStudent=true
     toggleLocation=toggleLocation
     onSelectItem="onSelectItem"}}
   </div>
 {{else}}
   <div class="no-content">{{t 'student-landing.no-content-classrooms'}}</div>
+{{/if}}
+
+{{#if showCourseReport}}
+  {{reports.pull-up.student-course-report context=studentCourseReportContext showPullUp=showCourseReport}}
 {{/if}}

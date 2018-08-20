@@ -119,6 +119,15 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * @property {Boolean}
+   * Computed property  to identify class is started or not
+   */
+  hasStarted: Ember.computed('class.performanceSummary', function() {
+    const scorePercentage = this.get('class.performanceSummary.score');
+    return scorePercentage !== null && scorePercentage >= 0;
+  }),
+
+  /**
    * @property {Number} completed percentage
    * Computed property for performance completed percentage
    */
@@ -128,7 +137,7 @@ export default Ember.Component.extend({
       completed > this.get('class.performanceSummary.total')
         ? completed
         : this.get('class.performanceSummary.total');
-    const percentage = completed ? parseInt(completed / total * 100) : 0;
+    const percentage = completed ? parseInt((completed / total) * 100) : 0;
 
     return this.get('class.performanceSummary') !== null && percentage
       ? `${percentage}% ${this.get('i18n').t('common.completed').string}`
@@ -146,7 +155,7 @@ export default Ember.Component.extend({
       let scoreColor = getBarGradeColor(score);
       const completed = this.get('class.performanceSummary.totalCompleted');
       const total = this.get('class.performanceSummary.total');
-      const percentage = completed ? completed / total * 100 : 0;
+      const percentage = completed ? (completed / total) * 100 : 0;
       return [
         {
           color: scoreColor,

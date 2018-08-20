@@ -202,13 +202,13 @@
               <td class="last-name datacolumn"><span>{{student.lastName}}</span></td>
               <td class="first-name datacolumn"><span>{{student.firstName}}</span></td>
               <td class="student-id datacolumn"><span>{{student.studentId}}</span></td>
-              <td class="student-actions">
+              <td class="student-actions {{if (not isCourseAssigned) 'disabled'}}">
                 <span class='Shape' data-toggle="tooltip" title='Proficiency' {{action
                   'proficiencyStudent' student}}>
                     <img src='/assets/gooru/proficiency_new.png' >
                 </span>
               </td>
-              <td class="student-actions">
+              <td class="student-actions {{if (not isCourseAssigned) 'disabled'}}">
                 <span class='Shape' data-toggle="tooltip" title='Profile' {{action
                   'profileStudent' student}}>
                    {{gru-icon name='account_circle'}}

@@ -16,7 +16,7 @@
       <div class="report-carousel">
         <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
           <div class="carousel-inner">
-            {{#each units as |unitItem index|}}
+            {{#each unitsHasPerformance as |unitItem index|}}
               <div data-item-index="{{index}}" class="item {{if (eq index 0) 'active'}}">
                 <div class="unit-background-cover" />
               </div>
@@ -42,7 +42,7 @@
               </div>
             </div>
             <div class="unit-description">
-              <p class="header-desc">Big Ideas</p>
+              <p class="header-desc">{{t 'common.big-ideas' }}</p>
               <p class="text-desc">
                 {{#if unit.bigIdeas}}
                   {{unit.bigIdeas}}
@@ -56,7 +56,7 @@
       </div>
       {{#if tags.length}}
         <div class="report-standard-tags">
-          {{taxonomy.gru-taxonomy-tag-list tags=tags  showDescription=true }}
+          {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=4  showDescription=true }}
         </div>
       {{/if}}
     </div>
@@ -71,13 +71,10 @@
         <div class="completion">
           <span>{{t 'gru-performance-metrics.completion'}}</span>
         </div>
-        <div class="report">
-          <span>{{t 'gru-performance-metrics.report'}}</span>
-        </div>
       </div>
       {{#each lessons as |lesson|}}
         <div class="report-performance-list">
-          <div class="content-name">
+          <div class="content-name {{unless lesson.performance.hasStarted 'not-started'}}" {{action 'openLessonReport' lesson lessons}}>
             <i class="lesson-icon"></i>
             <span>Lesson {{lesson.sequence}} : {{lesson.title}}</span>
           </div>
@@ -93,15 +90,6 @@
               <div class="completion-bar">
                 <div class="segment {{if (eq lesson.performance.score 100) 'completed'}}" style="width:{{lesson.performance.score}}%; {{safe-html (concat "background-color:" (grade-color lesson.performance.score))}}"></div>
               </div>
-            {{else}}
-              <span>--</span>
-            {{/if}}
-          </div>
-          <div class="report">
-            {{#if lesson.performance.hasStarted}}
-              <svg {{action 'openLessonReport' lesson lessons}}>
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/performance-report/report.svg#{{grade-range lesson.performance.score}}"></use>
-            </svg>
             {{else}}
               <span>--</span>
             {{/if}}

@@ -21,7 +21,7 @@
       <div class="report-carousel">
         <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
           <div class="carousel-inner">
-            {{#each lessons as |lessonItem index|}}
+            {{#each lessonsHasPerformance as |lessonItem index|}}
               <div data-item-index="{{index}}" class="item {{if (eq index 0) 'active'}}">
                 <div class="lesson-background-cover" />
               </div>
@@ -47,7 +47,7 @@
               </div>
             </div>
             <div class="lesson-description">
-              <p class="header-desc">Description</p>
+              <p class="header-desc">{{t 'common.description'}}</p>
               <p class="text-desc">
                 {{#if lesson.description}}
                   {{lesson.description}}
@@ -71,13 +71,10 @@
         <div class="completion">
           <span>{{t 'gru-performance-metrics.completion'}}</span>
         </div>
-        <div class="report">
-          <span>{{t 'gru-performance-metrics.report'}}</span>
-        </div>
       </div>
       {{#each collections as |collection|}}
         <div class="report-performance-list">
-          <div class="content-name {{if collection.isSuggestedContent 'suggested-content'}}">
+          <div class="content-name {{unless collection.performance.hasStarted 'not-started'}} {{if collection.isSuggestedContent 'suggested-content'}}" {{action 'openCollectionReport' collection}}>
             <i class="{{collection.format}}-icon"></i>
             <span>{{collection.title}}</span>
             {{#if collection.isSuggestedContent}}
@@ -104,15 +101,6 @@
               <span>--</span>
             {{/if}}
           </div>
-          <div class="report">
-            {{#if collection.performance.hasStarted}}
-              <svg {{action 'openCollectionReport' collection}}>
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/performance-report/report.svg#{{grade-range collection.performance.score}}"></use>
-            </svg>
-            {{else}}
-              <span>--</span>
-            {{/if}}
-          </div>
         </div>
       {{/each}}
     </div>
@@ -125,5 +113,5 @@
 {{/if}}
 
 {{#if showCollectionReport}}
-  {{class.gru-report-panel showPullUp=showCollectionReport reportData=studentCollectionReportContext model=studentCollectionReportContext.lesson isStudent=studentCollectionReportContext.isStduent onClosePullUp="onClosePullUp"}}
+  {{class.gru-report-panel showPullUp=showCollectionReport reportData=studentCollectionReportContext model=studentCollectionReportContext.lesson isStudent=studentCollectionReportContext.isStudent onClosePullUp="onClosePullUp"}}
 {{/if}}

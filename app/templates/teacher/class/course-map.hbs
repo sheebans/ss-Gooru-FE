@@ -78,6 +78,7 @@
                   units=units
                   index=index
                   isTeacher=false
+                  isStudent=true
                   toggleLocation=toggleLocation
                   onSelectItem="onSelectItem"}}
                 {{else}}
@@ -98,6 +99,7 @@
                 contentVisibility=contentVisibility
                 onUpdateContentVisibility="updateContentVisibility"
                 isTeacher=true
+                isStudent=false
                 isNUCourse=isNUCourse
                 onOpenUnitLevelReport="onOpenUnitLevelReport"
                 onOpenLessonReport="onOpenLessonReport"
@@ -132,5 +134,5 @@
 {{/if}}
 
 {{#if isShowStudentReport}}
-  {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportContextData model=studentReportContextData.lesson isStudent=studentReportContextData.isStudent onClosePullUp="onClosePullUp"}}
+  {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportContextData model=studentReportContextData.lesson isStudent=false onClosePullUp="onClosePullUp"}}
 {{/if}}
