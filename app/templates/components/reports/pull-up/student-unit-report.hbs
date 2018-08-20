@@ -16,7 +16,7 @@
       <div class="report-carousel">
         <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
           <div class="carousel-inner">
-            {{#each units as |unitItem index|}}
+            {{#each unitsHasPerformance as |unitItem index|}}
               <div data-item-index="{{index}}" class="item {{if (eq index 0) 'active'}}">
                 <div class="unit-background-cover" />
               </div>
