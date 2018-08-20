@@ -130,8 +130,7 @@ export default Ember.Controller.extend({
     });
     let tab = controller.get('tab');
     if (tab && tab === 'report') {
-      const studentClassController = controller.get('studentClassController');
-      studentClassController.openStudentCourseReport();
+      controller.openStudentCourseReport();
     }
   },
 
@@ -364,5 +363,21 @@ export default Ember.Controller.extend({
       return isContentAvailable;
     });
     return isContentAvailable;
+  },
+
+  openStudentCourseReport() {
+    let controller = this;
+    controller.set('showCourseReport', true);
+    let params = Ember.Object.create({
+      userId: controller.get('session.userId'),
+      classId: controller.get('class.id'),
+      class: controller.get('class'),
+      courseId: controller.get('course.id'),
+      course: controller.get('course'),
+      isTeacher: false,
+      isStudent: true,
+      loadUnitsPerformance: false
+    });
+    controller.set('studentCourseReportContext', params);
   }
 });

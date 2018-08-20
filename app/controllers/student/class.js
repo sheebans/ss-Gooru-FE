@@ -127,7 +127,8 @@ export default Ember.Controller.extend({
       courseId: controller.get('course.id'),
       course: controller.get('course'),
       isTeacher: false,
-      isStudent: true
+      isStudent: true,
+      loadUnitsPerformance: true
     });
     controller.set('studentCourseReportContext', params);
   }

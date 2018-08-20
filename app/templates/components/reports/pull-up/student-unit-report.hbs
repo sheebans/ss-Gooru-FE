@@ -74,7 +74,7 @@
       </div>
       {{#each lessons as |lesson|}}
         <div class="report-performance-list">
-          <div class="content-name" {{action 'openLessonReport' lesson lessons}}>
+          <div class="content-name {{unless lesson.performance.hasStarted 'not-started'}}" {{action 'openLessonReport' lesson lessons}}>
             <i class="lesson-icon"></i>
             <span>Lesson {{lesson.sequence}} : {{lesson.title}}</span>
           </div>

@@ -74,7 +74,7 @@
       </div>
       {{#each collections as |collection|}}
         <div class="report-performance-list">
-          <div class="content-name {{if collection.isSuggestedContent 'suggested-content'}}" {{action 'openCollectionReport' collection}}>
+          <div class="content-name {{unless collection.performance.hasStarted 'not-started'}} {{if collection.isSuggestedContent 'suggested-content'}}" {{action 'openCollectionReport' collection}}>
             <i class="{{collection.format}}-icon"></i>
             <span>{{collection.title}}</span>
             {{#if collection.isSuggestedContent}}

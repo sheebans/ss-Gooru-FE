@@ -37,14 +37,14 @@
               <span>{{t 'student-landing.class.course-map'}}</span>
             </a>
           </li>
-          <li class="performance">
+          <li class="performance {{unless hasStarted 'not-started'}}">
             <a {{action 'selectItem' 'report'}}>
               <span>{{t 'student-landing.class.my-report'}}</span>
             </a>
           </li>
         </ul>
       </div>
-      <div class="performance pointer" style="background-color:{{grade-color class.performanceSummary.score}}" {{action 'selectItem' 'report'}}>
+      <div class="performance pointer {{unless hasStarted 'not-started'}}" style="background-color:{{grade-color class.performanceSummary.score}}" {{action 'selectItem' 'report'}}>
         <div class="percentage">
           {{scorePercentage}}
         </div>
@@ -94,13 +94,11 @@
             </a>
           </li>
           <li class="performance">
-            <a {{action 'selectItem' 'report'}}>
               <span>{{t 'student-landing.class.my-report'}}</span>
-            </a>
           </li>
         </ul>
       </div>
-      <div class="performance pointer" {{action 'selectItem' 'report'}}>
+      <div class="performance">
         <div class="percentage" >
           {{scorePercentage}}
         </div>

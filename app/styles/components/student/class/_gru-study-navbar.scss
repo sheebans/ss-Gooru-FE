@@ -98,9 +98,15 @@
     }
     .performance-chart {
       cursor: pointer;
+      &.not-started {
+        pointer-events: none;
+      }
     }
 
     li {
+      &.not-started {
+        pointer-events: none;
+      }
       &.divider {
         border-left: 1px solid $panel-default-border;
         height: 50px;

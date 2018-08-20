@@ -279,6 +279,9 @@
             display: flex;
             align-items: center;
             cursor: pointer;
+            &.not-started {
+              pointer-events: none;
+            }
 
             .collection-icon {
               background-image: url("../assets/gooru/images/collection_gray.svg");

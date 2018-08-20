@@ -66,3 +66,7 @@
 {{else}}
   <div class="no-content">{{t 'student-landing.no-content-classrooms'}}</div>
 {{/if}}
+
+{{#if showCourseReport}}
+  {{reports.pull-up.student-course-report context=studentCourseReportContext showPullUp=showCourseReport}}
+{{/if}}

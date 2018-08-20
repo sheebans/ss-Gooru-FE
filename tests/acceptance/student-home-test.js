@@ -168,25 +168,6 @@ test('Go to course map from class card', function(assert) {
   });
 });
 
-test('Go to performance from class card', function(assert) {
-  visit('/student-home');
-
-  andThen(function() {
-    assert.equal(currentURL(), '/student-home');
-    const $card = find(
-      '.gru-student-class-card:eq(0) .performance .percentage'
-    );
-    click($card);
-    andThen(function() {
-      assert.equal(
-        currentURL(),
-        '/student/class/class-for-pochita-as-student/performance?lessonId=637e7599-96de-4459-83cb-c72bd47ae4b0&unitId=first-unit-id',
-        'Wrong route'
-      );
-    });
-  });
-});
-
 test('Class order', function(assert) {
   visit('/student-home');
 
