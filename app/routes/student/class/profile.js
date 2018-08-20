@@ -22,11 +22,16 @@ export default Ember.Route.extend({
   setupController(controller, model) {
     controller.set('currentClass', model.get('currentClass'));
     controller.set('course', model.get('course'));
+    controller.set(
+      'courseId',
+      model.get('course') && model.get('course').id
+        ? model.get('course').id
+        : null
+    );
     controller.set('userId', model.get('userId'));
     let activeCategory = controller.get('activeCategory');
     if (activeCategory) {
       controller.fetchSubjectsByCategory(activeCategory);
     }
   }
-
 });
