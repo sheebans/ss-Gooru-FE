@@ -105,6 +105,9 @@ export default Ember.Route.extend({
     const userId = route.get('session.userId');
     const classMembers = currentClass.get('members');
     const courseId = course.get('id');
+    if (!courseId) {
+      return false;
+    }
     const classId = currentClass.get('id');
     route.fetchUnitsPerformance(userId, classId, courseId, units);
     //Pass courseId as query param for student current location
