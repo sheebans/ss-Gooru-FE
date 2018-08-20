@@ -20,7 +20,7 @@
     <div class="report-carousel">
       <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
         <div class="carousel-inner">
-          {{#each lessons as |lessonItem index|}}
+          {{#each lessonsHasPerformance as |lessonItem index|}}
             <div data-item-index="{{index}}" class="item {{if (eq index 0) 'active'}}">
               <div class="lesson-background-cover" />
             </div>
@@ -51,9 +51,9 @@
           </div>
           <div class="lesson-report-chart">
             {{#if (eq filterByCollectionType 'assessment')}}
-              {{charts.report-bar-chart useTimeSpentScore=false studentChartReportData=assessmentStudentReportData onClickChart="openStudentLessonReport"}}
+              {{charts.report-bar-chart useTimeSpentScore=false studentChartReportData=assessmentStudentReportData onClickChart="onClickChart"}}
             {{else}}
-              {{charts.report-bar-chart useTimeSpentScore=true studentChartReportData=collectionStudentReportData onClickChart="openStudentLessonReport"}}
+              {{charts.report-bar-chart useTimeSpentScore=true studentChartReportData=collectionStudentReportData onClickChart="onClickChart"}}
             {{/if}}
           </div>
         </div>

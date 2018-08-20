@@ -42,12 +42,7 @@ export default Ember.Component.extend({
      */
     onSelectClassItem(item, classId) {
       let component = this;
-      //Show competency report when click report
-      if (item === 'performance' && component.get('isPremiumClass')) {
-        component.set('isShowCompetencyReport', true);
-      } else {
-        component.sendAction('onSelectClassItem', item, classId);
-      }
+      component.sendAction('onSelectClassItem', item, classId);
     },
 
     /**

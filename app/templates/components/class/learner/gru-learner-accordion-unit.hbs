@@ -6,7 +6,7 @@
       </div>
     </a>
   </div>
-  <div class="performance-container pull-right" {{action 'onOpenStudentUnitLevelReport'}}>
+  <div class="performance-container pull-right {{unless (gte scoreVal 0) 'not-started'}}" {{action 'onOpenStudentUnitLevelReport'}}>
     <div class="container-box" title="{{scoreText}}" style="background-color:{{grade-color (if scoreVal scoreVal 'NA')}}">
       <label class="percentage"> {{scoreText}}</label>
       {{#if (gte scoreVal 0 )}}

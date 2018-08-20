@@ -261,7 +261,7 @@ export default Ember.Component.extend({
 
   slideToSelectedLesson() {
     let component = this;
-    let lessons = component.get('lessons');
+    let lessons = component.get('lessonsHasPerformance');
     let selectedLesson = component.get('selectedLesson');
     let selectedIndex = lessons.indexOf(selectedLesson);
     component

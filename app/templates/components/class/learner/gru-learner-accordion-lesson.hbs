@@ -21,7 +21,7 @@
           {{/if}}
         </div>
       {{/if}}
-      <div class="performance-container pull-right" {{action 'onOpenStudentLessonReport'}}>
+      <div class="performance-container pull-right {{unless (gte model.performance.score 0) 'not-started'}}" {{action 'onOpenStudentLessonReport'}}>
         {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
       </div>
     </div>
