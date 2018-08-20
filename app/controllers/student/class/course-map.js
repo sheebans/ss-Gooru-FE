@@ -20,6 +20,12 @@ export default Ember.Controller.extend({
    */
   route0Service: Ember.inject.service('api-sdk/route0'),
 
+  /**
+   * Logged in user session object
+   * @type {Session}
+   */
+  session: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Attributes
 
