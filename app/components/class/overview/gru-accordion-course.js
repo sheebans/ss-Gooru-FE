@@ -161,6 +161,8 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     onOpenStudentUnitLevelReport(params) {
       this.set('showStudentUnitReport', true);
+      params.isStudent = this.get('isStudent');
+      params.isTeacher = this.get('isTeacher');
       this.set('studentUnitReportContext', params);
     },
 
@@ -169,6 +171,8 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     onOpenStudentLessonReport(params) {
       this.set('showStudentLessonReport', true);
+      params.isStudent = this.get('isStudent');
+      params.isTeacher = this.get('isTeacher');
       this.set('studentLessonReportContext', params);
     }
   },

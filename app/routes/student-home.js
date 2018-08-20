@@ -112,12 +112,12 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       const route = this;
       const queryParams = {
         queryParams: {
-          filterBy: 'assessment'
+          tab: 'report'
         }
       };
 
-      if (item === 'performance') {
-        route.transitionTo('student.class.performance', classId, queryParams);
+      if (item === 'report') {
+        route.transitionTo('student.class.course-map', classId, queryParams);
       } else if (item === 'course-map') {
         route.transitionTo('student.class.course-map', classId);
       } else if (item === 'class-activities') {
@@ -334,7 +334,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
    */
   getListOfClassCourseIds(activeClasses) {
     let listOfActiveClassCourseIds = Ember.A([]);
-    activeClasses.map( activeClass => {
+    activeClasses.map(activeClass => {
       if (activeClass.courseId) {
         let classCourseId = {
           classId: activeClass.id,

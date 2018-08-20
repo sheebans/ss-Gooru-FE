@@ -44,7 +44,7 @@ export default Ember.Component.extend({
       const classData = this.get('class');
       const classId = classData.id;
       if (this.get('onItemSelected')) {
-        this.sendAction('onItemSelected', item, classId, classData);
+        this.sendAction('onItemSelected', item, classId);
       }
     }
   },
@@ -122,7 +122,7 @@ export default Ember.Component.extend({
       completed > this.get('class.performanceSummary.total')
         ? completed
         : this.get('class.performanceSummary.total');
-    const percentage = completed ? parseInt(completed / total * 100) : 0;
+    const percentage = completed ? parseInt((completed / total) * 100) : 0;
 
     return this.get('class.performanceSummary') !== null && percentage
       ? `${percentage}% ${this.get('i18n').t('common.completed').string}`
@@ -140,7 +140,7 @@ export default Ember.Component.extend({
       let scoreColor = getBarGradeColor(score);
       const completed = this.get('class.performanceSummary.totalCompleted');
       const total = this.get('class.performanceSummary.total');
-      const percentage = completed ? completed / total * 100 : 0;
+      const percentage = completed ? (completed / total) * 100 : 0;
       return [
         {
           color: scoreColor,

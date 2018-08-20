@@ -17,19 +17,7 @@ export default Ember.Controller.extend({
      *  Action to trigger the course level report
      */
     onOpenCourseReport() {
-      let controller = this;
-      if (!controller.get('course.id')) {
-        return false;
-      }
-      let params = {
-        course: controller.get('course'),
-        class: controller.get('class'),
-        classId: controller.get('class.id'),
-        courseId: controller.get('course.id'),
-        classMembers: controller.get('class.members')
-      };
-      this.set('isShowCourseReport', true);
-      this.set('courseReportData', params);
+      this.openTeacherCourseReport();
     },
 
     /**
@@ -257,5 +245,21 @@ export default Ember.Controller.extend({
     let controller = this;
     controller.set('isShowCollectionReportPullUp', true);
     controller.set('teacherCollectionReportData', params);
+  },
+
+  openTeacherCourseReport() {
+    let controller = this;
+    if (!controller.get('course.id')) {
+      return false;
+    }
+    let params = {
+      course: controller.get('course'),
+      class: controller.get('class'),
+      classId: controller.get('class.id'),
+      courseId: controller.get('course.id'),
+      classMembers: controller.get('class.members')
+    };
+    this.set('isShowCourseReport', true);
+    this.set('courseReportData', params);
   }
 });

@@ -169,6 +169,11 @@ export default Ember.Route.extend({
     controller.set('classMembers', model.classMembers);
     controller.set('route0', model.route0);
     controller.get('studentClassController').selectMenuItem('course-map');
+    controller.init();
+  },
+
+  resetController(controller) {
+    controller.set('tab', null);
   },
 
   /**

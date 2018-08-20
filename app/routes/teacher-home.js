@@ -101,18 +101,14 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
      * @param {string} item
      * @param {string} classId
      */
-    selectMenuItem: function(item, classId, classData) {
+    selectMenuItem: function(item, classId) {
       const route = this;
-      if (item === 'performance') {
-        const controller = route.get('controller');
-        const teacherClassContrller = route.controllerFor('teacher/class');
-        controller.set('selectedClass', classData);
-        controller.set('isShowCompetencyReport', true);
-        controller.set(
-          'lastAccessedClassData',
-          teacherClassContrller.updateLastAccessedClass(classData)
-        );
-        controller.updateLastAccessedClassPosition(classData.id);
+      if (item === 'report') {
+        route.transitionTo('teacher.class.course-map', classId, {
+          queryParams: {
+            tab: 'report'
+          }
+        });
       } else if (item === 'course-map') {
         route.transitionTo('teacher.class.course-map', classId);
       } else if (item === 'class-activities') {

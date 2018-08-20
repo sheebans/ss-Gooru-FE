@@ -39,13 +39,10 @@ export default Ember.Component.extend({
      */
     openUnitReport(unit, units) {
       let component = this;
-      let isTeacher = component.get('class')
-        ? component.get('class').isTeacher(component.get('session.userId'))
-        : false;
       let params = {
         classId: component.get('classId'),
-        isTeacher: isTeacher,
-        isStduent: !isTeacher,
+        isTeacher: component.get('isTeacher'),
+        isStudent: component.get('isStudent'),
         courseId: component.get('courseId'),
         unitId: unit.get('id'),
         unit: unit,
@@ -141,6 +138,18 @@ export default Ember.Component.extend({
    * @type {Boolean}
    */
   showUnitReport: false,
+
+  /**
+   * Maintains state of user is teacher.
+   * @type {Boolean}
+   */
+  isTeacher: Ember.computed.alias('context.isTeacher'),
+
+  /**
+   * Maintains state of user is student.
+   * @type {Boolean}
+   */
+  isStudent: Ember.computed.alias('context.isStudent'),
 
   //--------------------------------------------------------------------------
   // Methods

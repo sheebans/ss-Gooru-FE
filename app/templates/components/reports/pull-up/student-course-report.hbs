@@ -29,7 +29,7 @@
                     </div>
                   </div>
                   <div class="course-description">
-                    <p class="header-desc">Description</p>
+                    <p class="header-desc">{{t 'common.description'}}</p>
                     <p class="text-desc">
                       {{#if course.description}}
                         {{course.description}}
@@ -46,7 +46,7 @@
       </div>
       {{#if tags.length}}
         <div class="report-standard-tags">
-          {{taxonomy.gru-taxonomy-tag-list tags=tags  showDescription=true }}
+          {{taxonomy.gru-taxonomy-tag-list tags=tags tagsVisible=4  showDescription=true }}
         </div>
       {{/if}}
     </div>
@@ -61,13 +61,10 @@
         <div class="completion">
           <span>{{t 'gru-performance-metrics.completion'}}</span>
         </div>
-        <div class="report">
-          <span>{{t 'gru-performance-metrics.report'}}</span>
-        </div>
       </div>
       {{#each units as |unit|}}
         <div class="report-performance-list">
-          <div class="content-name">
+          <div class="content-name" {{action 'openUnitReport' unit units}}>
             <i class="unit-icon"></i>
             <span>Unit {{unit.sequence}} : {{unit.title}}</span>
           </div>
@@ -83,15 +80,6 @@
               <div class="completion-bar">
                 <div class="segment {{if (eq unit.performance.score 100) 'completed'}}" style="width:{{unit.performance.score}}%; {{safe-html (concat "background-color:" (grade-color unit.performance.score))}}"></div>
               </div>
-            {{else}}
-              <span>--</span>
-            {{/if}}
-          </div>
-          <div class="report">
-            {{#if unit.performance.hasStarted}}
-              <svg {{action 'openUnitReport' unit units}}>
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/performance-report/report.svg#{{grade-range unit.performance.score}}"></use>
-            </svg>
             {{else}}
               <span>--</span>
             {{/if}}
