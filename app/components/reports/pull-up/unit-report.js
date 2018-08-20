@@ -35,7 +35,7 @@ export default Ember.Component.extend({
       component
         .$('.unit-report-container #report-carousel-wrapper .carousel-control')
         .addClass('in-active');
-      let units = component.get('units');
+      let units = component.get('unitsHasPerformance');
       let selectedElement = component.$(
         '.unit-report-container #report-carousel-wrapper .item.active'
       );
@@ -56,7 +56,7 @@ export default Ember.Component.extend({
       component
         .$('.unit-report-container #report-carousel-wrapper .carousel-control')
         .addClass('in-active');
-      let units = component.get('units');
+      let units = component.get('unitsHasPerformance');
       let selectedElement = component.$(
         '.unit-report-container #report-carousel-wrapper .item.active'
       );
@@ -88,23 +88,13 @@ export default Ember.Component.extend({
     },
 
     openStudentUnitReport(userId) {
-      let component = this;
-      let unit = Ember.Object.create({
-        id: component.get('unit.id'),
-        title: component.get('unit.title'),
-        bigIdeas: component.get('unit.bigIdeas'),
-        performance: component.getUnitPerformanceForClassMember(userId)
-      });
-      let params = {
-        classId: component.get('classId'),
-        courseId: component.get('courseId'),
-        unitId: component.get('unit.id'),
-        unit: unit,
-        units: component.get('units'),
-        userId: userId
-      };
-      component.set('showStudentUnitReport', true);
-      component.set('studentUnitReportContext', params);
+      this.onOpenStudentUnitReport(userId);
+    },
+
+    onClickChart(userId, showReport) {
+      if (showReport) {
+        this.onOpenStudentUnitReport(userId);
+      }
     }
   },
 
@@ -148,10 +138,27 @@ export default Ember.Component.extend({
   unitId: Ember.computed.alias('context.unitId'),
 
   /**
-   * List of units mapped to unit.
+   * List of units mapped to course.
    * @type {Array}
    */
-  units: Ember.computed.alias('context.units'),
+  units: Ember.computed('context.units', function() {
+    let units = this.get('context.units').map(unit => {
+      if (unit.get('performance.score') >= 0) {
+        unit.set('performance.hasStarted', true);
+      }
+      return unit;
+    });
+    return units;
+  }),
+
+  /**
+   * List of units has performance
+   * @type {Array}
+   */
+  unitsHasPerformance: Ember.computed('units', function() {
+    let units = this.get('units');
+    return units.filterBy('performance.hasStarted', true);
+  }),
 
   /**
    * unit
@@ -281,7 +288,7 @@ export default Ember.Component.extend({
 
   slideToSelectedUnit() {
     let component = this;
-    let units = component.get('units');
+    let units = component.get('unitsHasPerformance');
     let selectedUnit = component.get('selectedUnit');
     let selectedIndex = units.indexOf(selectedUnit);
     component
@@ -436,7 +443,7 @@ export default Ember.Component.extend({
   handleCarouselControl() {
     let component = this;
     let selectedUnit = component.get('selectedUnit');
-    let units = component.get('units');
+    let units = component.get('unitsHasPerformance');
     let currentIndex = units.indexOf(selectedUnit);
     if (units.length - 1 === 0) {
       component
@@ -482,5 +489,25 @@ export default Ember.Component.extend({
         hasStarted: userPerformance.get('hasStarted')
       });
     }
+  },
+
+  onOpenStudentUnitReport(userId) {
+    let component = this;
+    let unit = Ember.Object.create({
+      id: component.get('unit.id'),
+      title: component.get('unit.title'),
+      bigIdeas: component.get('unit.bigIdeas'),
+      performance: component.getUnitPerformanceForClassMember(userId)
+    });
+    let params = {
+      classId: component.get('classId'),
+      courseId: component.get('courseId'),
+      unitId: component.get('unit.id'),
+      unit: unit,
+      units: component.get('units'),
+      userId: userId
+    };
+    component.set('showStudentUnitReport', true);
+    component.set('studentUnitReportContext', params);
   }
 });

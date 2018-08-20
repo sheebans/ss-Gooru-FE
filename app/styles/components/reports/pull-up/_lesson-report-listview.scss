@@ -90,6 +90,9 @@
           display: flex;
           align-items: center;
           cursor: pointer;
+          &.not-started {
+            pointer-events: none;
+          }
 
           .user-profile-img {
             width: 43px;
@@ -162,6 +165,9 @@
           display: flex;
           border-bottom: 1px solid #cccccc;
           cursor: pointer;
+          &.not-started {
+            pointer-events: none;
+          }
 
           .content-icon {
             width: 30px;

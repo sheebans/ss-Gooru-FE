@@ -49,7 +49,7 @@ export default Ember.Component.extend({
           '.lesson-report-container #report-carousel-wrapper .carousel-control'
         )
         .addClass('in-active');
-      let lessons = component.get('lessons');
+      let lessons = component.get('lessonsHasPerformance');
       let selectedElement = component.$(
         '.lesson-report-container #report-carousel-wrapper .item.active'
       );
@@ -72,7 +72,7 @@ export default Ember.Component.extend({
           '.lesson-report-container #report-carousel-wrapper .carousel-control'
         )
         .addClass('in-active');
-      let lessons = component.get('lessons');
+      let lessons = component.get('lessonsHasPerformance');
       let selectedElement = component.$(
         '.lesson-report-container #report-carousel-wrapper .item.active'
       );
@@ -105,25 +105,13 @@ export default Ember.Component.extend({
     },
 
     openStudentLessonReport(userId) {
-      let component = this;
-      let lesson = Ember.Object.create({
-        id: component.get('lesson.id'),
-        title: component.get('lesson.title'),
-        description: component.get('lesson.description'),
-        performance: component.getLessonPerformanceForClassMember(userId)
-      });
-      let params = {
-        classId: component.get('classId'),
-        courseId: component.get('courseId'),
-        unitId: component.get('unitId'),
-        lessonId: component.get('lessonId'),
-        lesson: lesson,
-        unit: component.get('unit'),
-        lessons: component.get('lessons'),
-        userId: userId
-      };
-      component.set('showStudentLessonReport', true);
-      component.set('studentLessonReportContext', params);
+      this.onOpenStudentLessonReport(userId);
+    },
+
+    onClickChart(userId, showReport) {
+      if (showReport) {
+        this.onOpenStudentLessonReport(userId);
+      }
     },
 
     sortByFirstName() {
@@ -264,7 +252,24 @@ export default Ember.Component.extend({
    * List of lessons mapped to unit.
    * @type {Array}
    */
-  lessons: Ember.computed.alias('context.lessons'),
+  lessons: Ember.computed('context.lessons', function() {
+    let lessons = this.get('context.lessons').map(lesson => {
+      if (lesson.get('performance.score') >= 0) {
+        lesson.set('performance.hasStarted', true);
+      }
+      return lesson;
+    });
+    return lessons;
+  }),
+
+  /**
+   * List of lessons has performance
+   * @type {Array}
+   */
+  lessonsHasPerformance: Ember.computed('lessons', function() {
+    let lessons = this.get('lessons');
+    return lessons.filterBy('performance.hasStarted', true);
+  }),
 
   /**
    * lesson
@@ -462,7 +467,7 @@ export default Ember.Component.extend({
 
   slideToSelectedLesson() {
     let component = this;
-    let lessons = component.get('lessons');
+    let lessons = component.get('lessonsHasPerformance');
     let selectedLesson = component.get('selectedLesson');
     let selectedIndex = lessons.indexOf(selectedLesson);
     component
@@ -687,7 +692,7 @@ export default Ember.Component.extend({
   handleCarouselControl() {
     let component = this;
     let selectedLesson = component.get('selectedLesson');
-    let lessons = component.get('lessons');
+    let lessons = component.get('lessonsHasPerformance');
     let currentIndex = lessons.indexOf(selectedLesson);
     if (lessons.length - 1 === 0) {
       component
@@ -749,5 +754,27 @@ export default Ember.Component.extend({
         hasStarted: userPerformance.get('hasStarted')
       });
     }
+  },
+
+  onOpenStudentLessonReport(userId) {
+    let component = this;
+    let lesson = Ember.Object.create({
+      id: component.get('lesson.id'),
+      title: component.get('lesson.title'),
+      description: component.get('lesson.description'),
+      performance: component.getLessonPerformanceForClassMember(userId)
+    });
+    let params = {
+      classId: component.get('classId'),
+      courseId: component.get('courseId'),
+      unitId: component.get('unitId'),
+      lessonId: component.get('lessonId'),
+      lesson: lesson,
+      unit: component.get('unit'),
+      lessons: component.get('lessons'),
+      userId: userId
+    };
+    component.set('showStudentLessonReport', true);
+    component.set('studentLessonReportContext', params);
   }
 });

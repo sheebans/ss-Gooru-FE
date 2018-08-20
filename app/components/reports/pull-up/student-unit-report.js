@@ -271,7 +271,7 @@ export default Ember.Component.extend({
 
   slideToSelectedUnit() {
     let component = this;
-    let units = component.get('units');
+    let units = component.get('unitsHasPerformance');
     let selectedUnit = component.get('selectedUnit');
     let selectedIndex = units.indexOf(selectedUnit);
     component

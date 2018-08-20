@@ -42,23 +42,14 @@ export default Ember.Component.extend({
     /**
      * Trigger the event to open student course report
      */
-    openStudentCourseReport: function(userId) {
-      let component = this;
-      let classes = this.get('class').copy();
-      classes.set(
-        'performanceSummary',
-        component.getClassPerformanceForClassMember(userId)
-      );
+    openStudentCourseReport(userId) {
+      this.onOpenStudentCourseReport(userId);
+    },
 
-      let params = Ember.Object.create({
-        userId: userId,
-        classId: component.get('classId'),
-        courseId: component.get('courseId'),
-        course: component.get('course'),
-        class: classes
-      });
-      component.set('showStudentCourseReport', true);
-      component.set('studentCourseReportContext', params);
+    onClickChart(userId, showReport) {
+      if (showReport) {
+        this.onOpenStudentCourseReport(userId);
+      }
     }
   },
 
@@ -370,5 +361,25 @@ export default Ember.Component.extend({
       totalTimeSpent: totalTimeSpent
     };
     return resultSet;
+  },
+
+  onOpenStudentCourseReport(userId) {
+    let component = this;
+    let classes = this.get('class').copy();
+    classes.set(
+      'performanceSummary',
+      component.getClassPerformanceForClassMember(userId)
+    );
+
+    let params = Ember.Object.create({
+      userId: userId,
+      classId: component.get('classId'),
+      courseId: component.get('courseId'),
+      course: component.get('course'),
+      class: classes,
+      loadUnitsPerformance: true
+    });
+    component.set('showStudentCourseReport', true);
+    component.set('studentCourseReportContext', params);
   }
 });
