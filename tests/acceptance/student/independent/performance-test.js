@@ -22,7 +22,7 @@ test('My report', function(assert) {
     andThen(function() {
       assert.equal(
         currentURL(),
-        '/student/course/course-for-pochita-as-student/performance?courseId=course-123&lessonId=637e7599-96de-4459-83cb-c72bd47ae4b0&unitId=first-unit-id'
+        '/student/course/course-for-pochita-as-student/course-map?location=first-unit-id%2Bfirst-lesson-id%2Bfirst-collection-id'
       );
     });
   });
