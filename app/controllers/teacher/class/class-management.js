@@ -27,7 +27,6 @@ export default Ember.Controller.extend(ModalMixin, {
      * Action triggered when the user click outside of pullup.
      **/
     onClosePullUp() {
-      this.set('showPathWayPullUp', false);
       this.set('showReportPullUp', false);
       this.set('isShowProficiencyPullup', false);
       this.set('isShowCompetencyContentReport', false);
@@ -155,21 +154,6 @@ export default Ember.Controller.extend(ModalMixin, {
       let controller = this;
       controller.set('isShowProficiencyPullup', true);
       controller.set('selectedStudent', student);
-    },
-
-    pathwayStudent(student) {
-      let controller = this;
-      let userId = student.get('id');
-      let setting = controller.get('class.setting');
-      let userClassModel = {
-        userId: userId || null,
-        classId: controller.get('class.id'),
-        courseId: controller.get('class.courseId'),
-        isPremiumClass: setting ? setting['course.premium'] : false,
-        pathway: true
-      };
-      controller.set('studentPathway', userClassModel);
-      controller.set('showPathWayPullUp', true);
     },
 
     /**
@@ -317,12 +301,6 @@ export default Ember.Controller.extend(ModalMixin, {
    * @property {Class}
    */
   tempClass: null,
-
-  /**
-   * Propery to hide the pathway pullup.
-   * @property {Boolean}
-   */
-  showPathWayPullUp: false,
 
   /**
    * @property {Boolean}
