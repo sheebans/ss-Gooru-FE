@@ -1,0 +1,34 @@
+<div class="student proficiency">
+  <div class="header">
+    <div class="taxonomy-info">
+      <div class="dropdown categories">
+        <div class="active-item active-category"><div class="label ellipsis">{{t activeCategory.label}}</div></div>
+      </div>
+
+      <div class="dropdown subjects">
+        <div class="active-item active-subject"><div class="label ellipsis">{{activeSubject.title}}</div><div class="icon">{{gru-icon name="arrow_drop_down"}}</div></div>
+        <div class="dropdown-content subject-list">
+          {{#each taxonomySubjects as |subject|}}
+            <div class="list-item subject {{if (eq activeSubject.id subject.id) 'active'}}" {{action "onSelectSubject" subject}}>{{subject.title}}</div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="proficiency-chart">
+        {{proficiency.learner-proficiency-domain-matrix subjectBucket=subjectBucket timeLine=timeLine userId=userId subject=activeSubject class=currentClass onShownBaseLine="onShownBaseLine" onSelectCompetency="onSelectCompetency"}}
+    </div>
+    {{#if isShowTimeSeries}}
+      <div class="time-series">
+        {{charts.monthly-time-series-chart onSelectMonth="onSelectMonth" startDate=timeSeriesStartDate}}
+      </div>
+    {{/if}}
+  </div>
+</div>
+
+{{#if isShowCompetencyContentReport}}
+  {{#reports.pull-up.competency-report type=selectedCompetency.competencyCode title=selectedCompetency.competencyStudentDesc showPullUp=isShowCompetencyContentReport onClosePullUp="onClosePullUp" competency=selectedCompetency}}
+    {{reports.pull-up.competency-content-report competency=selectedCompetency userId=userId}}
+  {{/reports.pull-up.competency-report}}
+{{/if}}

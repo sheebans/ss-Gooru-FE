@@ -95,7 +95,8 @@
         height: 30px;
         top: 18px;
         opacity: 1 !important;
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
           background-color: $white !important;
         }
       }
@@ -134,7 +135,7 @@
         }
         .dca {
           .dca-pin {
-            background-image: url("gooru/pin.png")
+            background-image: url("gooru/pin.png");
           }
         }
       }
@@ -238,7 +239,7 @@
 
   .navbar-nav.navbar-center {
     position: absolute;
-    left: 60%;
+    left: 72%;
     transform: translatex(-50%);
   }
 } //nav-body

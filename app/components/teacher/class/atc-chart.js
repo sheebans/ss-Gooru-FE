@@ -394,9 +394,6 @@ export default Ember.Component.extend({
           tooltipHtml += `<tr><td>Total Competencies:</td><td>&nbsp;${
             d.totalComptency
           }</td></tr>`;
-          tooltipHtml += `<tr><td>Total Competencies:</td><td>&nbsp;${
-            d.totalComptency
-          }</td></tr>`;
           tooltipHtml += `<tr><td>Competencies Completed:</td><td>&nbsp;${
             d.completedCompetency
           }</td></tr>`;

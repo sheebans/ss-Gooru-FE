@@ -1,8 +1,7 @@
 import Ember from 'ember';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
-export default Ember.Component.extend({
-  classNames: ['learner-proficiency-pull-up'],
+export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -17,17 +16,6 @@ export default Ember.Component.extend({
    * @type {Object}
    */
   competencyService: Ember.inject.service('api-sdk/competency'),
-
-  // -------------------------------------------------------------------------
-  // Events
-
-  didInsertElement() {
-    let component = this;
-    let activeCategory = component.get('activeCategory');
-    if (component.get('activeCategory')) {
-      component.fetchSubjectsByCategory(activeCategory);
-    }
-  },
 
   // -------------------------------------------------------------------------
   // Actions
@@ -64,13 +52,15 @@ export default Ember.Component.extend({
      * Action triggered when select a competency
      */
     onSelectCompetency(competency) {
-      let component = this;
-      component.sendAction('onSelectCompetency', competency);
+      let controller = this;
+      controller.set('selectedCompetency', competency);
+      controller.set('isShowCompetencyContentReport', true);
     }
   },
 
   // -------------------------------------------------------------------------
   // Methods
+
   /**
    * @function fetchSubjectsByCategory
    * @param subjectCategory
@@ -106,7 +96,6 @@ export default Ember.Component.extend({
 
   // -------------------------------------------------------------------------
   // Properties
-
   /**
    * @property {JSON}
    * Property to store currently selected month and year
@@ -138,17 +127,6 @@ export default Ember.Component.extend({
   activeSubject: null,
 
   /**
-   * @property {String}
-   * Property to store currently selected student's full name
-   */
-  studentFullName: Ember.computed('student', function() {
-    let component = this;
-    let firstName = component.get('student.firstName') || '';
-    let lastName = component.get('student.lastName') || '';
-    return `${firstName} ${lastName}`;
-  }),
-
-  /**
    * @property {Date}
    * Property to store course started date or one year before date
    */
@@ -176,5 +154,20 @@ export default Ember.Component.extend({
   /**
    * @property {Date} timeSeriesStartDate
    */
-  timeSeriesStartDate: null
+  timeSeriesStartDate: null,
+
+  /**
+   * @property {String}
+   * Property to store coruse subject bucket or K12.MA will be default
+   */
+  subjectBucket: Ember.computed('course', function() {
+    let controller = this;
+    return controller.get('course.subject') || 'K12.MA';
+  }),
+
+  /**
+   * @property {Boolean}
+   * Property to show/hide competency content report
+   */
+  isShowCompetencyContentReport: false
 });

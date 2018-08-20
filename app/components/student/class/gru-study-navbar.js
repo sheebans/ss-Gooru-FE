@@ -13,22 +13,12 @@ export default Ember.Component.extend({
      */
     selectItem: function(item) {
       let component = this;
-      if (this.get('onItemSelected')) {
-        if (item === 'profile') {
-          let userId = component.get('session.userId');
-          Ember.$('body')
-            .removeClass('fullscreen')
-            .removeClass('fullscreen-exit');
-          component
-            .get('router')
-            .transitionTo(`/${userId}/proficiency?source=study-player`);
+      if (component.get('onItemSelected')) {
+        component.selectItem(item);
+        if (item === 'class-info') {
+          $('.classroom-information').toggle({ direction: 'left' }, 1000);
         } else {
-          this.selectItem(item);
-          if (item === 'class-info') {
-            $('.classroom-information').toggle({ direction: 'left' }, 1000);
-          } else {
-            this.sendAction('onItemSelected', item);
-          }
+          component.sendAction('onItemSelected', item);
         }
       }
     },
