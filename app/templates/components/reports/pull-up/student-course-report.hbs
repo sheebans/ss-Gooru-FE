@@ -64,7 +64,7 @@
       </div>
       {{#each units as |unit|}}
         <div class="report-performance-list">
-          <div class="content-name" {{action 'openUnitReport' unit units}}>
+          <div class="content-name {{unless unit.performance.hasStarted 'not-started'}}" {{action 'openUnitReport' unit units}}>
             <i class="unit-icon"></i>
             <span>Unit {{unit.sequence}} : {{unit.title}}</span>
           </div>

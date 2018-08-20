@@ -151,6 +151,12 @@ export default Ember.Component.extend({
    */
   isStudent: Ember.computed.alias('context.isStudent'),
 
+  /**
+   * It will decided the necessity of load units performance
+   * @type {Boolean}
+   */
+  loadUnitsPerformance: Ember.computed.alias('context.loadUnitsPerformance'),
+
   //--------------------------------------------------------------------------
   // Methods
 
@@ -208,21 +214,23 @@ export default Ember.Component.extend({
 
   loadData() {
     let component = this;
-    const classId = this.get('classId');
-    let courseId = component.get('courseId');
-    let userId = component.get('userId');
-    let units = component.get('units');
-    component.set('isLoading', true);
-    return Ember.RSVP.hash({
-      unitsPerformance: component
-        .get('performanceService')
-        .findStudentPerformanceByCourse(userId, classId, courseId, units)
-    }).then(({ unitsPerformance }) => {
-      if (!component.isDestroyed) {
-        component.renderUnitsPerformance(unitsPerformance);
-        component.set('isLoading', false);
-      }
-    });
+    if (component.get('loadUnitsPerformance')) {
+      const classId = this.get('classId');
+      let courseId = component.get('courseId');
+      let userId = component.get('userId');
+      let units = component.get('units');
+      component.set('isLoading', true);
+      return Ember.RSVP.hash({
+        unitsPerformance: component
+          .get('performanceService')
+          .findStudentPerformanceByCourse(userId, classId, courseId, units)
+      }).then(({ unitsPerformance }) => {
+        if (!component.isDestroyed) {
+          component.renderUnitsPerformance(unitsPerformance);
+          component.set('isLoading', false);
+        }
+      });
+    }
   },
 
   renderUnitsPerformance(unitsPerformance) {
