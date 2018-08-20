@@ -40,40 +40,13 @@ test('Layout', function(assert) {
 
   assert.ok($component.find('.item').length, 2, 'Missing grade items');
   assert.ok(
-    $component.find('.item:first-child .context').length,
-    'Missing context'
-  );
-  assert.ok(
     $component.find('.item:first-child .question').length,
     'Missing question'
   );
-  assert.ok(
-    $component.find('.item:first-child .students').length,
-    'Missing student count'
-  );
-  assert.equal(
-    T.text($component.find('.item:eq(0) .context .unit-prefix')),
-    'U1',
-    'Wrong unit prefix'
-  );
-  assert.equal(
-    T.text($component.find('.item:eq(0) .context .lesson-prefix')),
-    'L1',
-    'Wrong lesson prefix'
-  );
-  assert.equal(
-    T.text($component.find('.item:eq(0) .context .collection-name')),
-    'First Assessment',
-    'Wrong collection-name'
-  );
+
   assert.equal(
     T.text($component.find('.item:eq(0) .question .question-name')),
     'Rubric OP Question',
     'Wrong question name'
-  );
-  assert.equal(
-    T.text($component.find('.item:eq(0) .students')),
-    '(10 students)',
-    'Wrong students count'
   );
 });
