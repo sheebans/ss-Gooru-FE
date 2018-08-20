@@ -2,7 +2,6 @@ import Ember from 'ember';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
 
 export default Ember.Controller.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -44,7 +43,10 @@ export default Ember.Controller.extend({
      */
     onShownBaseLine(createdDate) {
       let component = this;
-      component.set('timeSeriesStartDate', createdDate ? new Date(createdDate) : component.get('courseStartDate'));
+      component.set(
+        'timeSeriesStartDate',
+        createdDate ? new Date(createdDate) : component.get('courseStartDate')
+      );
       component.set('isShowTimeSeries', true);
     },
 
@@ -120,6 +122,9 @@ export default Ember.Controller.extend({
    */
   activeCategory: TAXONOMY_CATEGORIES[0],
 
+  /** @property */
+  courseId: null,
+
   /**
    * @property {Object}
    * Property to store active subject
@@ -140,8 +145,12 @@ export default Ember.Controller.extend({
       let curMonth = courseCreatedDate.getMonth();
       let curYear = courseCreatedDate.getFullYear();
       let oneYearBeforeFromCurrentDate = courseCreatedDate;
-      courseCreatedDate = new Date(oneYearBeforeFromCurrentDate.setMonth(curMonth - 11));
-      courseCreatedDate = new Date(oneYearBeforeFromCurrentDate.setFullYear(curYear - 1));
+      courseCreatedDate = new Date(
+        oneYearBeforeFromCurrentDate.setMonth(curMonth - 11)
+      );
+      courseCreatedDate = new Date(
+        oneYearBeforeFromCurrentDate.setFullYear(curYear - 1)
+      );
     }
     return courseCreatedDate;
   }),

@@ -1,4 +1,7 @@
 <div class="student proficiency">
+{{#if courseId}}
+
+
   <div class="header">
     <div class="taxonomy-info">
       <div class="dropdown categories">
@@ -17,7 +20,7 @@
   </div>
   <div class="body">
     <div class="proficiency-chart">
-        {{proficiency.learner-proficiency-domain-matrix subjectBucket=subjectBucket timeLine=timeLine userId=userId subject=activeSubject class=currentClass onShownBaseLine="onShownBaseLine" onSelectCompetency="onSelectCompetency"}}
+        {{proficiency.learner-proficiency-domain-matrix subjectBucket=subjectBucket timeLine=timeLine course=course userId=userId subject=activeSubject class=currentClass onShownBaseLine="onShownBaseLine" onSelectCompetency="onSelectCompetency"}}
     </div>
     {{#if isShowTimeSeries}}
       <div class="time-series">
@@ -25,6 +28,9 @@
       </div>
     {{/if}}
   </div>
+  {{else}}
+  <div>  {{t "student-landing.class.no-course-assigned"}}</div>  
+{{/if}}
 </div>
 
 {{#if isShowCompetencyContentReport}}
