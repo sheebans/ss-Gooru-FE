@@ -185,11 +185,6 @@
             </th>
             <th>
               <div class='student-actions'>
-                <span>Pathway</span>
-              </div>
-            </th>
-            <th>
-              <div class='student-actions'>
                 <span>Remove</span>
               </div>
             </th>
@@ -217,12 +212,6 @@
                 <span class='Shape' data-toggle="tooltip" title='Profile' {{action
                   'profileStudent' student}}>
                    {{gru-icon name='account_circle'}}
-                </span>
-              </td>
-              <td class="student-actions {{if (not isCourseAssigned) 'disabled'}}">
-                <span class='Shape' data-toggle="tooltip" title='Pathway' {{action
-                  'pathwayStudent' student}}>
-                 {{gru-icon name='arrow_forward'}}
                 </span>
               </td>
               <td class="student-actions">
