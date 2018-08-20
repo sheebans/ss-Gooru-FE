@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 /**
  * Class Overview controller
@@ -33,6 +34,26 @@ export default Ember.Controller.extend({
    * Route0 service to fetch route0 suggestion of a class and course
    */
   route0Service: Ember.inject.service('api-sdk/route0'),
+
+  /**
+   * @type RubricService
+   */
+  rubricService: Ember.inject.service('api-sdk/rubric'),
+
+  /**
+   * @type {CourseService}
+   */
+  courseService: Ember.inject.service('api-sdk/course'),
+
+  /**
+   * @type CollectionService
+   */
+  collectionService: Ember.inject.service('api-sdk/collection'),
+
+  /**
+   * @type AssessmentService
+   */
+  assessmentService: Ember.inject.service('api-sdk/assessment'),
 
   // -------------------------------------------------------------------------
   // Attributes
@@ -136,6 +157,8 @@ export default Ember.Controller.extend({
 
   isStudentCourseMap: false,
 
+  questionItems: null,
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -213,6 +236,7 @@ export default Ember.Controller.extend({
       controller.set('units', Ember.A([]));
       controller.set('activeStudent', student);
       controller.getStudentCourseMap(student.id);
+      controller.getStudentClassPerformance(student.id);
       if (controller.get('isPremiumClass')) {
         controller.getRescopedData();
         controller.loadRoute0Data();
@@ -324,6 +348,24 @@ export default Ember.Controller.extend({
       controller.set('units', units);
       controller.set('isLoading', false);
     });
+  },
+
+  getStudentClassPerformance(studentId) {
+    let controller = this;
+    let classId = controller.get('currentClass.id');
+    let courseId = controller.get('course.id');
+    let classCourseId = Ember.A([{
+      classId,
+      courseId
+    }]);
+    return Ember.RSVP.hash({
+      studentClassPerformance: controller.get('performanceService').findClassPerformanceSummaryByStudentAndClassIds(studentId, classCourseId)
+    })
+      .then(({studentClassPerformance}) => {
+        if (studentClassPerformance && studentClassPerformance.length) {
+          controller.set('activeStudent.performance', studentClassPerformance[0]);
+        }
+      });
   },
 
   /**
@@ -541,6 +583,93 @@ export default Ember.Controller.extend({
     }).then(({ route0Contents }) => {
       let status = route0Contents ? route0Contents.status : null;
       return status === 'accepted' ? route0Contents : Ember.RSVP.resolve({});
+    });
+  },
+
+  getQuestionsToGrade() {
+    let controller = this;
+    let currentClass = controller.get('currentClass');
+    let classId = currentClass.get('id');
+    let courseId = currentClass.get('courseId');
+    if (classId && courseId) {
+      return Ember.RSVP.hash({
+        pendingGradingItems: controller.get('rubricService').getQuestionsToGrade(classId, courseId)
+      })
+        .then(function(pendingGradingItems) {
+          let questionGradingItems = pendingGradingItems.pendingGradingItems;
+          let gradeItems = questionGradingItems.gradeItems;
+          if (gradeItems) {
+            controller.getCourseStructure().then(function() {
+              const items = gradeItems.map(function(item) {
+                return controller.createGradeItemObject(item);
+              });
+              Ember.RSVP.all(items).then(function(questionItems) {
+                controller.set('questionItems', questionItems);
+              });
+            });
+          }
+        });
+    }
+  },
+
+  getCourseStructure() {
+    let controller = this;
+    let course = controller.get('course');
+    const courseService = controller.get('courseService');
+    return courseService
+      .getCourseStructure(course.get('id'), CONTENT_TYPES.ASSESSMENT)
+      .then(function(courseStructure) {
+        controller.set('courseStructure', courseStructure);
+      });
+  },
+
+  /**
+   * Creates the grade item information
+   * @param {[]} grade item
+   * @param {item} item
+   */
+  createGradeItemObject: function(item) {
+    const controller = this;
+    const itemObject = Ember.Object.create();
+
+    const courseStructure = controller.get('courseStructure');
+    const unitId = item.get('unitId');
+    const lessonId = item.get('lessonId');
+    const collectionId = item.get('collectionId');
+    const collectionType = item.get('collectionType');
+    const isAssessment = !collectionType || collectionType === 'assessment';
+    const resourceId = item.get('resourceId');
+    const studentCount = item.get('studentCount');
+    const unit = courseStructure.get('children').findBy('id', unitId);
+    const lesson = unit.get('children').findBy('id', lessonId);
+
+    const unitIndex = courseStructure.getChildUnitIndex(unit) + 1;
+    const lessonIndex = unit.getChildLessonIndex(lesson) + 1;
+
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      return Ember.RSVP.hash({
+        collection: collectionId
+          ? isAssessment
+            ? controller.get('assessmentService').readAssessment(collectionId)
+            : controller.get('collectionService').readCollection(collectionId)
+          : undefined
+      }).then(function(hash) {
+        const collection = hash.collection;
+        const question = collection.get('children').findBy('id', resourceId);
+        itemObject.setProperties({
+          unitPrefix: `U${unitIndex}`,
+          lessonPrefix: `L${lessonIndex}`,
+          classId: controller.get('class.id'),
+          courseId: controller.get('course.id'),
+          unitId: unit.get('id'),
+          lessonId: lesson.get('id'),
+          collection,
+          question,
+          studentCount
+        });
+
+        resolve(itemObject);
+      }, reject);
     });
   }
 });

@@ -602,6 +602,12 @@
 
             &.chart {
               padding: 0;
+              .time-spent {
+                line-height: 67px;
+              }
+            }
+            &.non-clickable {
+              pointer-events: none;
             }
           }
         }

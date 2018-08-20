@@ -565,6 +565,9 @@
             .not-started-external {
               font-size: 18px;
             }
+            &.non-clickable {
+              pointer-events: none;
+            }
           }
         }
       }
