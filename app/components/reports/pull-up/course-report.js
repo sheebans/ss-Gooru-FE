@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'pull-up-course-report'],
+  classNames: ['reports', 'backdrop-pull-ups', 'pull-up-course-report'],
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -39,8 +39,26 @@ export default Ember.Component.extend({
       this.sendAction('onOpenUnitReport', params);
     },
 
-    onClickChart(userId) {
-      return userId;
+    /**
+     * Trigger the event to open student course report
+     */
+    openStudentCourseReport: function(userId) {
+      let component = this;
+      let classes = this.get('class').copy();
+      classes.set(
+        'performanceSummary',
+        component.getClassPerformanceForClassMember(userId)
+      );
+
+      let params = Ember.Object.create({
+        userId: userId,
+        classId: component.get('classId'),
+        courseId: component.get('courseId'),
+        course: component.get('course'),
+        class: classes
+      });
+      component.set('showStudentCourseReport', true);
+      component.set('studentCourseReportContext', params);
     }
   },
 
@@ -59,31 +77,31 @@ export default Ember.Component.extend({
   // Properties
 
   /**
-   * ClassId belongs to this unit report.
+   * ClassId belongs to this course report.
    * @type {String}
    */
   classId: Ember.computed.alias('context.classId'),
 
   /**
-   * Class belongs to this unit report.
+   * Class belongs to this course report.
    * @type {String}
    */
   class: Ember.computed.alias('context.class'),
 
   /**
-   * CourseId belongs to this unit report.
+   * CourseId belongs to this course report.
    * @type {String}
    */
   courseId: Ember.computed.alias('context.courseId'),
 
   /**
-   * Course belongs to this unit report.
+   * Course belongs to this course report.
    * @type {String}
    */
   course: Ember.computed.alias('context.course'),
 
   /**
-   * Unit Id belongs to this unit report.
+   * Unit Id belongs to this course report.
    * @type {String}
    */
   unitId: Ember.computed.alias('context.unitId'),
@@ -145,6 +163,12 @@ export default Ember.Component.extend({
    */
   sortByScoreEnabled: false,
 
+  /**
+   * Maintains the state of student unit report
+   * @type {Boolean}
+   */
+  showStudentCourseReport: false,
+
   //--------------------------------------------------------------------------
   // Methods
 
@@ -176,13 +200,24 @@ export default Ember.Component.extend({
 
   handleScrollToFixHeader() {
     let component = this;
-    component.$('.report-content').scroll(function() {
-      let scrollTop = component.$('.report-content').scrollTop();
+    component.$('.course-report-container .report-content').scroll(function() {
+      let scrollTop = component
+        .$('.course-report-container .report-content')
+        .scrollTop();
       let scrollFixed = component.$(
-        '.report-content .pull-up-course-report-listview .on-scroll-fixed'
+        '.course-report-container .report-content .pull-up-course-report-listview .on-scroll-fixed'
       );
-      if (scrollTop >= 347) {
-        let position = scrollTop - 347;
+      let height =
+        component
+          .$('.course-report-container .report-content .report-carousel')
+          .height() +
+        component
+          .$(
+            '.course-report-container .report-content .report-header-container'
+          )
+          .height();
+      if (scrollTop >= height) {
+        let position = scrollTop - height;
         component.$(scrollFixed).css('top', `${position}px`);
       } else {
         component.$(scrollFixed).css('top', '0px');
@@ -215,7 +250,9 @@ export default Ember.Component.extend({
   calcluateUnitPerformance(performance) {
     let component = this;
     let units = component.get('units');
-    units.map(function(unit) {
+    let unitList = Ember.A([]);
+    units.forEach(function(unit) {
+      let unitCopy = unit.copy();
       let unitId = unit.get('id');
       const averageScore = performance.calculateAverageScoreByItem(unitId);
       const timeSpent = performance.calculateAverageTimeSpentByItem(unitId);
@@ -225,7 +262,7 @@ export default Ember.Component.extend({
       const completionTotal = performance.calculateSumCompletionTotalByItem(
         unitId
       );
-      unit.set(
+      unitCopy.set(
         'performance',
         Ember.Object.create({
           score: averageScore,
@@ -234,8 +271,21 @@ export default Ember.Component.extend({
           isCompleted: completionDone > 0 && completionDone >= completionTotal
         })
       );
-      return unit;
+      unitList.pushObject(unitCopy);
     });
+    component.set('units', unitList);
+  },
+
+  getClassPerformanceForClassMember(userId) {
+    let component = this;
+    let studentReportData = component.get('studentReportData');
+    let userPerformance = studentReportData.findBy('id', userId);
+    if (userPerformance.get('hasStarted')) {
+      return Ember.Object.create({
+        score: userPerformance.get('score'),
+        hasStarted: userPerformance.get('hasStarted')
+      });
+    }
   },
 
   parseClassMemberAndPerformanceData(performance) {
@@ -312,7 +362,7 @@ export default Ember.Component.extend({
       userPerformanceData.pushObject(performanceData);
     });
     let overAllScore =
-      numberunitstarted > 0 ? Math.round(totalScore / numberunitstarted) : 0;
+      numberunitstarted > 0 ? Math.floor(totalScore / numberunitstarted) : 0;
     let resultSet = {
       userPerformanceData: userPerformanceData,
       overAllScore: overAllScore,

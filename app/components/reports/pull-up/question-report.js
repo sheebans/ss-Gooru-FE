@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['reports', 'pull-up-question-report'],
+  classNames: ['reports', 'backdrop-pull-ups', 'pull-up-question-report'],
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -28,11 +28,13 @@ export default Ember.Component.extend({
     onClickPrev() {
       let component = this;
       component
-        .$('#report-carousel-wrapper .carousel-control')
+        .$(
+          '.question-report-container #report-carousel-wrapper .carousel-control'
+        )
         .addClass('in-active');
       let questions = component.get('questions');
       let selectedElement = component.$(
-        '#report-carousel-wrapper .item.active'
+        '.question-report-container #report-carousel-wrapper .item.active'
       );
       let currentIndex = selectedElement.data('item-index');
       let selectedIndex = selectedElement.data('item-index') - 1;
@@ -40,18 +42,22 @@ export default Ember.Component.extend({
         selectedIndex = questions.length - 1;
       }
       component.set('selectedQuestion', questions.objectAt(selectedIndex));
-      component.$('#report-carousel-wrapper').carousel('prev');
+      component
+        .$('.question-report-container #report-carousel-wrapper')
+        .carousel('prev');
       component.handleCarouselControl();
     },
 
     onClickNext() {
       let component = this;
       component
-        .$('#report-carousel-wrapper .carousel-control')
+        .$(
+          '.question-report-container #report-carousel-wrapper .carousel-control'
+        )
         .addClass('in-active');
       let questions = component.get('questions');
       let selectedElement = component.$(
-        '#report-carousel-wrapper .item.active'
+        '.question-report-container #report-carousel-wrapper .item.active'
       );
       let currentIndex = selectedElement.data('item-index');
       let selectedIndex = currentIndex + 1;
@@ -59,7 +65,9 @@ export default Ember.Component.extend({
         selectedIndex = 0;
       }
       component.set('selectedQuestion', questions.objectAt(selectedIndex));
-      component.$('#report-carousel-wrapper').carousel('next');
+      component
+        .$('.question-report-container #report-carousel-wrapper')
+        .carousel('next');
       component.handleCarouselControl();
     },
 
@@ -91,7 +99,9 @@ export default Ember.Component.extend({
       component.set('showMore', false);
       component.set('showLess', true);
       component
-        .$('#report-carousel-wrapper .active .question-background-cover')
+        .$(
+          '.question-report-container #report-carousel-wrapper .active .question-background-cover'
+        )
         .addClass('show-all');
     },
 
@@ -103,7 +113,9 @@ export default Ember.Component.extend({
       component.set('showMore', true);
       component.set('showLess', false);
       component
-        .$('#report-carousel-wrapper .active .question-background-cover')
+        .$(
+          '.question-report-container #report-carousel-wrapper .active .question-background-cover'
+        )
         .removeClass('show-all');
     }
   },
@@ -244,7 +256,9 @@ export default Ember.Component.extend({
     let questions = component.get('questions');
     let selectedQuestion = component.get('selectedQuestion');
     let selectedIndex = questions.indexOf(selectedQuestion);
-    component.$('#report-carousel-wrapper').carousel(selectedIndex);
+    component
+      .$('.question-report-container #report-carousel-wrapper')
+      .carousel(selectedIndex);
   },
 
   initialize: function() {
@@ -456,40 +470,52 @@ export default Ember.Component.extend({
     let currentIndex = questions.indexOf(selectedQuestion);
     if (questions.length - 1 === 0) {
       component
-        .$('#report-carousel-wrapper .carousel-control')
+        .$(
+          '.question-report-container #report-carousel-wrapper .carousel-control'
+        )
         .addClass('in-active');
     } else {
       if (currentIndex === 0) {
         component
-          .$('#report-carousel-wrapper .carousel-control.left')
+          .$(
+            '.question-report-container #report-carousel-wrapper .carousel-control.left'
+          )
           .addClass('in-active');
       } else {
         component
-          .$('#report-carousel-wrapper .carousel-control.left')
+          .$(
+            '.question-report-container #report-carousel-wrapper .carousel-control.left'
+          )
           .removeClass('in-active');
       }
       if (currentIndex === questions.length - 1) {
         component
-          .$('#report-carousel-wrapper .carousel-control.right')
+          .$(
+            '.question-report-container #report-carousel-wrapper .carousel-control.right'
+          )
           .addClass('in-active');
       } else {
         component
-          .$('#report-carousel-wrapper .carousel-control.right')
+          .$(
+            '.question-report-container #report-carousel-wrapper .carousel-control.right'
+          )
           .removeClass('in-active');
       }
     }
     // handle show more in carousel
     component
-      .$('#report-carousel-wrapper .question-background-cover')
+      .$(
+        '.question-report-container #report-carousel-wrapper .question-background-cover'
+      )
       .removeClass('show-all');
     let height = component
       .$(
-        `#report-carousel-wrapper .question-background-cover:eq(${currentIndex})`
+        `.question-report-container #report-carousel-wrapper .question-background-cover:eq(${currentIndex})`
       )
       .height();
     let scrollHeight = component
       .$(
-        `#report-carousel-wrapper .question-background-cover:eq(${currentIndex})`
+        `.question-report-container #report-carousel-wrapper .question-background-cover:eq(${currentIndex})`
       )
       .prop('scrollHeight');
     if (scrollHeight > height) {

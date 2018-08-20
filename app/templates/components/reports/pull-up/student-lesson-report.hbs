@@ -1,0 +1,129 @@
+<div class="backdrop" {{action 'onPullUpClose'}}></div>
+<div class="student-lesson-report-container">
+  <div class="report-header">
+    <div class="report-breadcrumb">
+      <div class="unit-title">
+        <i class="unit-icon"></i>
+        <p>{{t 'common.unit'}} {{unit.sequence}} : {{unit.title}}</p>
+      </div>
+      <div class="lesson-title">
+        {{gru-icon name="keyboard_arrow_right"}}
+        <i class="lesson-icon"></i>
+        <p>{{t 'common.lesson'}} {{lesson.sequence}} : {{lesson.title}}</p>
+      </div>
+    </div>
+    <div class="report-close-pullup" {{action 'onPullUpClose'}}>
+      {{gru-icon name="close" }}
+    </div>
+  </div>
+  <div class="report-content">
+    <div class="report-carousel-tags">
+      <div class="report-carousel">
+        <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
+          <div class="carousel-inner">
+            {{#each lessons as |lessonItem index|}}
+              <div data-item-index="{{index}}" class="item {{if (eq index 0) 'active'}}">
+                <div class="lesson-background-cover" />
+              </div>
+            {{/each}}
+          </div>
+          <!-- Left and right controls -->
+          <a class="left carousel-control" data-slide="prev" {{action 'onClickPrev'}}>
+          <i class="arrow-left"></i>
+        </a>
+          <a class="right carousel-control" data-slide="next" {{action 'onClickNext'}}>
+          <i class="arrow-right"></i>
+        </a>
+        </div>
+        <div class="report-carousel-content-container">
+          <div class="report-carousel-content">
+            <div class="performance-display-container">
+              <div class="lesson-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedLesson.performance.score))}}>
+                {{#if (gt selectedLesson.performance.score -1) }}
+                  {{selectedLesson.performance.score}}%
+                {{else}}
+                  --
+                {{/if}}
+              </div>
+            </div>
+            <div class="lesson-description">
+              <p class="header-desc">Description</p>
+              <p class="text-desc">
+                {{#if lesson.description}}
+                  {{lesson.description}}
+                {{else}}
+                  {{lesson.title}}
+                {{/if}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="report-performance-tabular">
+      <div class="report-performance-header on-scroll-fixed">
+        <div class="content-name">
+          <span>{{t 'common.content-name'}}</span>
+        </div>
+        <div class="score">
+          <span>{{t 'gru-performance-metrics.score'}} / {{t 'gru-performance-metrics.study-time'}}</span>
+        </div>
+        <div class="completion">
+          <span>{{t 'gru-performance-metrics.completion'}}</span>
+        </div>
+        <div class="report">
+          <span>{{t 'gru-performance-metrics.report'}}</span>
+        </div>
+      </div>
+      {{#each collections as |collection|}}
+        <div class="report-performance-list">
+          <div class="content-name {{if collection.isSuggestedContent 'suggested-content'}}">
+            <i class="{{collection.format}}-icon"></i>
+            <span>{{collection.title}}</span>
+            {{#if collection.isSuggestedContent}}
+              {{gru-icon name="explore"}}
+            {{/if}}
+          </div>
+          <div class="score">
+            {{#if collection.performance.hasStarted}}
+              {{#if (eq collection.format 'assessment')}}
+              <span style= {{safe-html (concat "color:" (grade-color collection.performance.score))}}>{{collection.performance.score}}%</span>
+              {{else}}
+              <span style= {{safe-html (concat "color:" (grade-color collection.performance.score))}}>{{format-time collection.performance.timeSpent}}</span>
+              {{/if}}
+            {{else}}
+              <span>--</span>
+            {{/if}}
+          </div>
+          <div class="completion">
+            {{#if (and collection.performance.hasStarted (eq collection.format 'assessment'))}}
+              <div class="completion-bar">
+                <div class="segment {{if (eq collection.performance.score 100) 'completed'}}" style="width:{{collection.performance.score}}%; {{safe-html (concat "background-color:" (grade-color collection.performance.score))}}"></div>
+              </div>
+            {{else}}
+              <span>--</span>
+            {{/if}}
+          </div>
+          <div class="report">
+            {{#if collection.performance.hasStarted}}
+              <svg {{action 'openCollectionReport' collection}}>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/performance-report/report.svg#{{grade-range collection.performance.score}}"></use>
+            </svg>
+            {{else}}
+              <span>--</span>
+            {{/if}}
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+{{#if isLoading}}
+  <div class="loading-spinner">
+    {{three-bounce-spinner}}
+  </div>
+{{/if}}
+
+{{#if showCollectionReport}}
+  {{class.gru-report-panel showPullUp=showCollectionReport reportData=studentCollectionReportContext model=studentCollectionReportContext.lesson isStudent=studentCollectionReportContext.isStduent onClosePullUp="onClosePullUp"}}
+{{/if}}

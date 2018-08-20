@@ -153,9 +153,13 @@
         display: inline-block;
         height: 67px;
         vertical-align: middle;
+        cursor: pointer;
 
         .container-box {
           height: 67px;
+          .percentage {
+            cursor: pointer;
+          }
         }
       }
     }

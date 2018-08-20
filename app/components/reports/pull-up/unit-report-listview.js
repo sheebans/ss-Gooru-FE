@@ -102,6 +102,10 @@ export default Ember.Component.extend({
       this.sendAction('openLessonReport', lesson, lessons);
     },
 
+    openStudentUnitReport(userId) {
+      this.sendAction('openStudentUnitReport', userId);
+    },
+
     onClickScrollLeftArrow() {
       let component = this;
       let scrollLeft = component.$('.table-fixed-right').scrollLeft() - 400;

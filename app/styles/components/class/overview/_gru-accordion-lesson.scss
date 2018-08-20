@@ -3,10 +3,6 @@
   $collection-icon-size: 48px;
   height: auto;
 
-  .disable-event {
-    pointer-events: none;
-  }
-
   &:first-child {
     .panel-heading {
       border-top-right-radius: 4px;
@@ -164,6 +160,9 @@
         .container-box {
           height: 67px;
           border-bottom: 1px solid $white;
+          .percentage {
+            cursor: pointer;
+          }
         }
 
         .charts.gru-students-performance-chart {

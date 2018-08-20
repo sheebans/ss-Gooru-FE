@@ -269,6 +269,22 @@ export default Ember.Component.extend(AccordionMixin, {
       component.triggerAction({
         action: 'closeModal'
       });
+    },
+
+    /**
+     * Trigger when student unit level  report clicked
+     */
+    onOpenStudentUnitLevelReport(params) {
+      this.set('showStudentUnitReport', true);
+      this.set('studentUnitReportContext', params);
+    },
+
+    /**
+     * Trigger when student lesson   report clicked
+     */
+    onOpenStudentLessonReport(params) {
+      this.set('showStudentLessonReport', true);
+      this.set('studentLessonReportContext', params);
     }
   },
 
