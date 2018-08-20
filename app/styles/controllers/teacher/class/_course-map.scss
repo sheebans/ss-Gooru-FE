@@ -213,7 +213,12 @@
         }
       }
       .items-to-grade {
-        margin-top: 42px;
+        .header {
+          font-size: 12px;
+          font-weight: bold;
+          color: #000000;
+          margin-left: 15px;
+        }
       }
     }
   }

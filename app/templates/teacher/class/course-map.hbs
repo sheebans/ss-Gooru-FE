@@ -110,6 +110,9 @@
         </div>
         {{#if questionItems}}
           <div class="items-to-grade">
+            <div class="header">
+              {{t 'class.analytics.performance.grade-items'}}
+            </div>
             {{gru-grade-items questionItems=questionItems}}
           </div>
         {{/if}}
