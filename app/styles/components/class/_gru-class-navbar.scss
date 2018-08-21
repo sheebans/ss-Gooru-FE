@@ -124,6 +124,10 @@
         height: 50px;
       }
 
+      &.not-started {
+        pointer-events: none;
+      }
+
       height: 50px;
 
       &.vactive {
@@ -203,6 +207,9 @@
   .navbar-performance {
     .container-box {
       border-bottom: 1px solid $white;
+    }
+    &.not-started {
+      pointer-events: none;
     }
     .gru-performance-chart {
       .percentage {

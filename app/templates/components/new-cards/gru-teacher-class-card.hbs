@@ -80,7 +80,7 @@
               <span>{{t 'student-landing.class.course-map'}}</span>
             </a>
           </li>
-          <li class="performance">
+          <li class="performance {{unless hasStarted 'not-started'}}">
             <div class="icon-performance">
               <i class="icon"> </i>
             </div>
@@ -117,7 +117,7 @@
               <div class="title">{{t 'student-landing.class-code'}}</div>
               <div class="class-code">{{class.code}}</div>
             </div>
-            <div class="pointer percentage no-percentage" {{action 'selectItem' 'report'}}>
+            <div class="percentage no-percentage">
               <i class="icon"> </i>
             </div>
           </div>
@@ -174,7 +174,7 @@
               <span>{{t 'student-landing.class.course-map'}}</span>
             </a>
           </li>
-          <li class="performance">
+          <li class="performance {{unless hasStarted 'not-started'}}">
             <div class="icon-performance">
               <i class="icon"> </i>
             </div>
@@ -189,7 +189,7 @@
           <div class="title">{{t 'student-landing.class-code'}}</div>
           <div class="class-code no-percentage-code">{{class.code}}</div>
         </div>
-        <div class="pointer percentage no-percentage" {{action 'selectItem' 'report'}}>
+        <div class="percentage no-percentage">
           <i class="icon"> </i>
         </div>
       </div>

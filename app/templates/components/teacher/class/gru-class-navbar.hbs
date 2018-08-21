@@ -26,7 +26,7 @@
         </li>
         {{/unless}}
         <li role="separator" class="divider"></li>
-        <li class="performance tab">
+        <li class="performance tab {{unless hasStarted 'not-started'}}">
             <a {{action 'onOpenCourseReport'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.report'}} ">
             {{gru-icon name='insert_chart'}}
             </a>
@@ -59,7 +59,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li role="separator" class="divider"></li>
           <li>
-            <div class="navbar-performance" {{action 'onOpenCourseReport'}}>
+            <div class="navbar-performance performanceSummary  {{unless hasStarted 'not-started'}}" {{action 'onOpenCourseReport'}}>
             {{charts/gru-performance-chart performanceSummary=class.performanceSummary }}
             </div>
           </li>

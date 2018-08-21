@@ -572,6 +572,9 @@
             padding: 20px 5px 0;
             text-align: center;
             font-weight: 900;
+            &.not-started {
+              pointer-events: none;
+            }
             span {
               vertical-align: middle;
             }

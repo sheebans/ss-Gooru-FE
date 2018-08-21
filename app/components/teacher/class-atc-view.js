@@ -122,6 +122,15 @@ export default Ember.Component.extend({
 
   /**
    * @property {Boolean}
+   * Computed property  to identify class is started or not
+   */
+  hasStarted: Ember.computed('classData', function() {
+    const scorePercentage = this.get('classData.performance.score');
+    return scorePercentage !== null && scorePercentage >= 0;
+  }),
+
+  /**
+   * @property {Boolean}
    * Property to check whether the class mapped with a course or not
    */
   isStudentPerformed: Ember.computed('classData', function() {

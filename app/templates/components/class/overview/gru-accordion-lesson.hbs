@@ -75,7 +75,7 @@
                         </button>
                       </div>
                     {{else}}
-                      <span class="performance " {{action "studentReport" item}}>
+                      <span class="performance {{unless item.performance.timeSpent 'not-started'}}" {{action "studentReport" item}}>
                         {{#if item.performance.timeSpent}}
                           {{format-time item.performance.timeSpent}}
                         {{else}}
@@ -188,12 +188,12 @@
                       <div class="performance {{if item.isExternalAssessment 'non-clickable'}}">
                         {{#if (or item.isAssessment item.isExternalAssessment)}}
                           {{#if item.performance.isCompleted}}
-                            <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                            <span {{action 'studentReport' item}} class="score {{unless (gte item.performance.score 0) 'not-started'}}" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                               {{item.performance.score}}%
                             </span>
                           {{else}}
                             {{#if item.performance.hasStarted}}
-                              <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                              <span {{action 'studentReport' item}} class="score {{unless (gte item.performance.score 0) 'not-started'}}" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                                 {{item.performance.score}}%
                               </span>
                             {{else}}
@@ -210,7 +210,7 @@
                           {{/if}}
                         {{else}}
                           {{#if item.performance.hasStarted}}
-                            <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                            <span {{action 'studentReport' item}} class="score {{unless item.performance.timeSpent 'not-started'}}" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                               {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
                             </span>
                           {{else}}
@@ -223,7 +223,7 @@
                         {{/if}}
                       </div>
                     {{else}}
-                      <div class="performance chart {{if item.isExternalAssessment 'non-clickable'}}" {{action 'teacherCollectionReport' item}}>
+                      <div class="performance chart {{unless item.performance.hasStarted 'not-started'}} {{if item.isExternalAssessment 'non-clickable'}}" {{action 'teacherCollectionReport' item}}>
                         {{charts/gru-students-performance-chart performanceSummary=item.performance hasStarted=true isTeacher=isTeacher assessmentCount=item.assessmentCount isCollection=item.isCollection}}
                       </div>
                     {{/if}}
