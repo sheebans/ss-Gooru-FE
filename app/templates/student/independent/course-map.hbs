@@ -22,3 +22,7 @@
 {{else}}
   <div class="no-content">This course has no content</div>
 {{/if}}
+
+{{#if showCourseReport}}
+  {{reports.pull-up.student-course-report context=studentCourseReportContext showPullUp=showCourseReport}}
+{{/if}}

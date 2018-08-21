@@ -96,8 +96,8 @@
     <div class="second-half">
       {{#if isCourse}}
         {{#if location.currentTitle}}
-          <div class="report">
-            {{#link-to 'student.independent.performance' location.courseId}}
+          <div class="report {{unless hasStarted 'not-started'}}">
+            {{#link-to 'student.independent.course-map' location.courseId (query-params tab='report' )}}
               <div class="usage-report" style="background-color:{{grade-color performance.scoreInPercentage}}">
                 {{gru-icon name="subject"}}
               </div>

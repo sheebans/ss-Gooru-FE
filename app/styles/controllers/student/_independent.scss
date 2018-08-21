@@ -144,12 +144,15 @@
           right: 26px;
           position: absolute;
           width: 11%;
+          cursor: pointer;
           .percentage {
             margin: 12px 0;
             font-size: $font-size-h3;
+            cursor: pointer;
           }
           .completion-bar {
             width: 80%;
+            cursor: pointer;
           }
         }
       }

@@ -59,14 +59,14 @@
           <div class="title">{{t 'student-landing.class-code'}}</div>
           <div class="code">{{class.code}}</div>
         </div>
-        <div class="performance-container">
-          {{charts/gru-performance-chart performanceSummary=class.performanceSummary routeToGo="student.class.performance"}}
+        <div class="performance-container {{unless hasStarted 'not-started'}}" {{action 'openCourseReport'}}>
+          {{charts/gru-performance-chart performanceSummary=class.performanceSummary }}
         </div>
       </div>
     </div>
   </div>
   {{#if class}}
-      {{student.class.gru-study-navbar navTitle=class.title class=class onItemSelected="selectMenuItem" selectedMenuItem=menuItem isPremiumClass = isPremiumClass studyCurrent=studyPlayer hasClassInfo = 'true' openCourseReport='openCourseReport'}}
+      {{student.class.gru-study-navbar performanceSummary=class.performanceSummary navTitle=class.title class=class onItemSelected="selectMenuItem" selectedMenuItem=menuItem isPremiumClass = isPremiumClass studyCurrent=studyPlayer hasClassInfo = 'true' openCourseReport='openCourseReport'}}
   {{else}}
   {{student.class.gru-class-navigation
     class=class

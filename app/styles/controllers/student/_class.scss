@@ -144,11 +144,17 @@
         .performance-container {
           width: 11%;
           float: $menu-float-dir !important;
+          cursor: pointer;
+          &.not-started {
+            pointer-events: none;
+          }
           .percentage {
+            cursor: pointer;
             margin: 12px 0;
             font-size: $font-size-h3;
           }
           .completion-bar {
+            cursor: pointer;
             width: 80%;
           }
         }

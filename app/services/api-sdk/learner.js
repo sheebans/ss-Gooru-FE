@@ -119,6 +119,31 @@ export default Ember.Service.extend({
         );
     });
   },
+
+  /**
+   * Fetches the learner performance in course
+   *
+   * @param courseId - course to fetch the learner performance
+   * @param collectionType
+   */
+  fetchPerformanceCourse: function(courseId, collectionType) {
+    const service = this;
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      service
+        .get('learnerAdapter')
+        .fetchPerformanceCourse(courseId, collectionType)
+        .then(
+          response =>
+            resolve(
+              service
+                .get('learnerSerializer')
+                .normalizePerformancesCourse(response)
+            ),
+          reject
+        );
+    });
+  },
+
   /**
    * Fetches the learner performance in unit
    *

@@ -147,6 +147,30 @@ export default Ember.Object.extend(ConfigurationMixin, {
       }
     );
   },
+
+  /**
+   * Normalize the Fetch Performances in Course endpoint's response
+   *
+   * @param payload is the endpoint response in JSON format
+   * @returns {Performance[]} an array of learner performances
+   */
+  normalizePerformancesCourse: function(payload) {
+    var result = [];
+    const serializer = this;
+    const content = payload.content;
+    if (Ember.isArray(content)) {
+      content.map(function(content) {
+        const performances = content.usageData;
+        if (Ember.isArray(performances)) {
+          result = performances.map(performance =>
+            serializer.normalizePerformanceCourse(performance)
+          );
+        }
+      });
+    }
+    return result;
+  },
+
   /**
    * Normalize the Fetch Performances in Unit endpoint's response
    *
@@ -168,6 +192,29 @@ export default Ember.Object.extend(ConfigurationMixin, {
       });
     }
     return result;
+  },
+
+  /**
+   * Normalize the one performance from the endpoint's response
+   *
+   * @param payload is part of the response in JSON format
+   * @returns {Performance}
+   */
+  normalizePerformanceCourse: function(payload) {
+    var serializer = this;
+    return PerformanceModel.create(
+      Ember.getOwner(serializer).ownerInjection(),
+      {
+        reaction: payload.reaction,
+        attemptStatus: payload.attemptStatus,
+        timeSpent: payload.timeSpent,
+        completedCount: payload.completedCount,
+        scoreInPercentage: roundFloat(payload.scoreInPercentage),
+        totalCount: payload.totalCount,
+        unitId: payload.unitId,
+        attempts: payload.attempts
+      }
+    );
   },
 
   /**

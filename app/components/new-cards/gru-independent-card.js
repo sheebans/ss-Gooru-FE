@@ -8,7 +8,6 @@ import {
 import { getBarGradeColor } from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Dependencies
   /**
@@ -111,7 +110,7 @@ export default Ember.Component.extend({
             }
           });
       }
-    } else if (isCollection)  {
+    } else if (isCollection) {
       const collectionId = component.get('location.collectionId');
       if (collectionId) {
         component
@@ -136,7 +135,6 @@ export default Ember.Component.extend({
           });
       }
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -180,12 +178,21 @@ export default Ember.Component.extend({
   performance: null,
 
   /**
-  * Percentage value for the score chart
-  * @property {String}
-  */
+   * Percentage value for the score chart
+   * @property {String}
+   */
   percentageToShow: Ember.computed('performance.scoreInPercentage', function() {
     const score = this.get('performance.scoreInPercentage');
     return score || score === 0 ? `${score}%` : '--';
+  }),
+
+  /**
+   * @property {Boolean}
+   * Computed property  to identify class is started or not
+   */
+  hasStarted: Ember.computed('performance.scoreInPercentage', function() {
+    const scorePercentage = this.get('performance.scoreInPercentage');
+    return scorePercentage !== null && scorePercentage >= 0;
   }),
 
   /**
@@ -201,12 +208,12 @@ export default Ember.Component.extend({
   /**
    * @property {[Number]} barChartData
    */
-  barChartData: Ember.computed('performance',function() {
+  barChartData: Ember.computed('performance', function() {
     let score = this.get('performance.scoreInPercentage');
     let scoreColor = getBarGradeColor(score);
     const completed = this.get('performance.completedCount');
     const total = this.get('performance.totalCount');
-    const percentage = completed ? completed / total * 100 : 0;
+    const percentage = completed ? (completed / total) * 100 : 0;
     return [
       {
         color: scoreColor,
@@ -214,5 +221,4 @@ export default Ember.Component.extend({
       }
     ];
   })
-
 });

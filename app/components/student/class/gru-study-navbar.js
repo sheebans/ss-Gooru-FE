@@ -46,10 +46,7 @@ export default Ember.Component.extend({
      * Trigger the event to open student course report
      */
     openCourseReport() {
-      let classo = this.get('class');
-      if (classo && classo.courseId) {
-        this.sendAction('openCourseReport');
-      }
+      this.sendAction('openCourseReport');
     }
   },
 
@@ -115,8 +112,8 @@ export default Ember.Component.extend({
    * @property {Boolean}
    * Computed property  to identify class is started or not
    */
-  hasStarted: Ember.computed('class.performanceSummary', function() {
-    const scorePercentage = this.get('class.performanceSummary.score');
+  hasStarted: Ember.computed('performanceSummary', function() {
+    const scorePercentage = this.get('performanceSummary.score');
     return scorePercentage !== null && scorePercentage >= 0;
   }),
 

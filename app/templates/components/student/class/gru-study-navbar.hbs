@@ -79,7 +79,7 @@
                     <li>
                         {{#if (not isPremiumClass)}}
                             <div class="performance-chart {{unless hasStarted 'not-started'}}" {{action 'openCourseReport'}}>
-                                {{charts/gru-performance-chart performanceSummary=class.performanceSummary }}
+                                {{charts/gru-performance-chart performanceSummary=performanceSummary }}
                             </div>
                         {{/if}}
                     </li>

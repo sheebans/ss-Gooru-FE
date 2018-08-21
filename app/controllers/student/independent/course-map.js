@@ -13,7 +13,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  queryParams: ['location'],
+  queryParams: ['location', 'tab'],
 
   /**.
    * Combination of unit, lesson and resource (collection or assessment)
@@ -24,6 +24,8 @@ export default Ember.Controller.extend({
   location: null,
 
   isFirstLoad: true,
+
+  tab: null,
 
   // -------------------------------------------------------------------------
   // Actions
@@ -56,9 +58,14 @@ export default Ember.Controller.extend({
   // Events
 
   init: function() {
-    this._super(...arguments);
+    let controller = this;
+    controller._super(...arguments);
     Ember.run.scheduleOnce('afterRender', this, function() {
       $('[data-toggle="tooltip"]').tooltip();
+      let tab = controller.get('tab');
+      if (tab && tab === 'report') {
+        controller.openStudentCourseReport();
+      }
     });
   },
 
@@ -79,6 +86,13 @@ export default Ember.Controller.extend({
   course: Ember.computed.alias('studentIndependentController.course'),
 
   /**
+   * A link to the parent class controller
+   * @see controllers/class.js
+   * @property {Object}
+   */
+  performance: Ember.computed.alias('studentIndependentController.performance'),
+
+  /**
    *Show the current location
    */
   showLocation: true,
@@ -92,11 +106,26 @@ export default Ember.Controller.extend({
     } else {
       return this.get('location') || '';
     }
-  })
+  }),
 
   // -------------------------------------------------------------------------
   // Observers
 
   // -------------------------------------------------------------------------
   // Methods
+
+  openStudentCourseReport() {
+    let controller = this;
+    controller.set('showCourseReport', true);
+    let params = Ember.Object.create({
+      userId: controller.get('session.userId'),
+      courseId: controller.get('course.id'),
+      course: controller.get('course'),
+      performance: controller.get('performance'),
+      isTeacher: false,
+      isStudent: true,
+      loadUnitsPerformance: false
+    });
+    controller.set('studentCourseReportContext', params);
+  }
 });
