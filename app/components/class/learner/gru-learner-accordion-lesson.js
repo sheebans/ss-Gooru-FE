@@ -397,6 +397,8 @@ export default Ember.Component.extend(AccordionMixin, {
         .then(function(performance) {
           const promises = collections.map(function(collection) {
             const isAssessment = collection.get('format') === 'assessment';
+            const isExternalAssessment = collection.get('format') === 'assessment-external';
+            collection.set('isExternalAssessment', isExternalAssessment);
             const collectionId = collection.get('id');
             const peer = lessonPeers.findBy('id', collectionId);
             const assessmentDataPromise = isAssessment
@@ -538,6 +540,7 @@ export default Ember.Component.extend(AccordionMixin, {
         const promises = collections.map(function(collection) {
           const collectionId = collection.get('id');
           const isAssessment = collection.get('format') === 'assessment';
+          const isExternalAssessment = collection.get('format') === 'assessment-external';
           const isResource =
             collection.get('format') !== 'assessment' &&
             collection.get('format') !== 'assessment-external' &&
@@ -554,6 +557,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
           collection.set('isResource', isResource);
           collection.set('isAssessment', isAssessment);
+          collection.set('isExternalAssessment', isExternalAssessment);
 
           const collectionPerformanceData = performance.findBy(
             'id',

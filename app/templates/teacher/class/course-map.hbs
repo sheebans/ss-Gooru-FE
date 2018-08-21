@@ -25,10 +25,13 @@
     <div class="course-map-container">
       {{#if isStudentCourseMap}}
         <div class="active-student">
-          <div class="student-thumbnail" style="background-image: url({{activeStudent.avatarUrl}})"></div>
-          <div class="student-name">{{activeStudent.fullName}}</div>
-          <div class="student-close" {{action "onSelectAll"}}>
+          <div class="student-thumbnail pull-left" style="background-image: url({{activeStudent.avatarUrl}})"></div>
+          <div class="student-name pull-left">{{activeStudent.fullName}}</div>
+          <div class="student-close pull-right" {{action "onSelectAll"}}>
             {{gru-icon name="clear"}}
+          </div>
+          <div class="performance-container pull-right">
+            {{charts/gru-performance-chart performanceSummary=activeStudent.performance}}
           </div>
         </div>
       {{/if}}
@@ -50,7 +53,7 @@
             {{/each}}
           </div>
         </div>
-        <div class="render-course-map">
+        <div class="render-course-map {{if questionItems 'sm-course-map'}}">
           {{#if isLoading}}
             {{three-bounce-spinner}}
           {{else}}
@@ -107,6 +110,14 @@
             {{/if}}
           {{/if}}
         </div>
+        {{#if questionItems}}
+          <div class="items-to-grade">
+            <div class="header">
+              {{t 'class.analytics.performance.grade-items'}}
+            </div>
+            {{gru-grade-items questionItems=questionItems}}
+          </div>
+        {{/if}}
       </div>
     </div>
   </div>
