@@ -116,6 +116,7 @@ export default Ember.Component.extend(AccordionMixin, {
     if (!component.get('class')) {
       return;
     }
+    component.set('loading', true);
     let collections = component.get('model.collections'); // This holds collection which gets set to items for perfromace control display
     collections = component.getCollection(
       collections,

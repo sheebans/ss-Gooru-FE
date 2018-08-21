@@ -26,6 +26,9 @@
 <div id="{{elementId}}-content" data-index="{{componentIndex}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{elementId}}-heading">
     <div class="panel-body">
         <ol class="collections">
+            {{#if loading}}
+                {{three-bounce-spinner}}
+            {{else}}
             {{#each model.collections as |item index|}}
                 <li class="panel">
                     <div class="panel-heading student">
@@ -84,6 +87,7 @@
                     </div>
                 </li>
             {{/each}}
+            {{/if}}
         </ol>
     </div>
 </div>
