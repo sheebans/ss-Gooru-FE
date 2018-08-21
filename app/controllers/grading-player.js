@@ -270,7 +270,7 @@ export default Ember.Controller.extend({
         this.loadStudent(true);
         if (this.get('isNextDisabled')) {
           this.transitionToRoute(
-            'teacher.class.performance',
+            'teacher.class.course-map',
             this.get('classId')
           );
         }

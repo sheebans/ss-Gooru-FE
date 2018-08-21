@@ -31,7 +31,7 @@
             {{gru-icon name="clear"}}
           </div>
           <div class="performance-container pull-right">
-            {{charts/gru-performance-chart performanceSummary=activeStudent.performance}}
+            {{charts/gru-performance-chart performanceSummary=activeStudent.performanceSummary}}
           </div>
         </div>
       {{/if}}
@@ -53,7 +53,7 @@
             {{/each}}
           </div>
         </div>
-        <div class="render-course-map {{if questionItems 'sm-course-map'}}">
+        <div class="render-course-map {{if (and (not isStudentCourseMap) questionItems) 'sm-course-map'}}">
           {{#if isLoading}}
             {{three-bounce-spinner}}
           {{else}}
@@ -108,14 +108,16 @@
             {{/if}}
           {{/if}}
         </div>
-        {{#if questionItems}}
-          <div class="items-to-grade">
-            <div class="header">
-              {{t 'class.analytics.performance.grade-items'}}
+        {{#unless isStudentCourseMap}}
+          {{#if questionItems}}
+            <div class="items-to-grade">
+              <div class="header">
+                {{t 'class.analytics.performance.grade-items'}}
+              </div>
+              {{gru-grade-items questionItems=questionItems}}
             </div>
-            {{gru-grade-items questionItems=questionItems}}
-          </div>
-        {{/if}}
+          {{/if}}
+        {{/unless}}
       </div>
     </div>
   </div>
