@@ -1,10 +1,10 @@
 <div class="unit panel-heading" role="tab" id="{{elementId}}-heading">
   {{#if isTeacher}}
-    <div class="performance-container pull-right" {{action 'onOpenUnitLevelReport' model}}>
+    <div class="performance-container pull-right {{unless (gte model.performance.score 0) 'not-started'}}" {{action 'onOpenUnitLevelReport' model}}>
       {{charts/gru-students-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
     </div>
   {{else}}
-    <div class="performance-container pull-right disable-event">
+    <div class="performance-container pull-right {{unless (gte model.performance.score 0) 'not-started'}}" {{action 'onOpenUnitLevelReport' model}}>
       {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
     </div>
   {{/if}}
@@ -37,6 +37,7 @@
           unitId=model.id
           model=lesson
           unit=model
+          lessons=items
           index=index
           onSelectResource=(action 'selectResource')
           onStudyNow=(action 'studyNow')
@@ -55,6 +56,7 @@
           onOpenLessonReport="onOpenLessonReport"
           teacherCollectionReport="teacherCollectionReport"
           studentReport="studentReport"
+          onOpenStudentLessonReport="onOpenStudentLessonReport"
         }}
         {{else}}
           <li>{{t "common.contentUnavailable"}}</li>

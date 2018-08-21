@@ -95,7 +95,8 @@
         height: 30px;
         top: 18px;
         opacity: 1 !important;
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
           background-color: $white !important;
         }
       }
@@ -123,6 +124,10 @@
         height: 50px;
       }
 
+      &.not-started {
+        pointer-events: none;
+      }
+
       height: 50px;
 
       &.vactive {
@@ -134,7 +139,7 @@
         }
         .dca {
           .dca-pin {
-            background-image: url("gooru/pin.png")
+            background-image: url("gooru/pin.png");
           }
         }
       }
@@ -203,6 +208,9 @@
     .container-box {
       border-bottom: 1px solid $white;
     }
+    &.not-started {
+      pointer-events: none;
+    }
     .gru-performance-chart {
       .percentage {
         margin-top: 8px;
@@ -238,7 +246,7 @@
 
   .navbar-nav.navbar-center {
     position: absolute;
-    left: 60%;
+    left: 72%;
     transform: translatex(-50%);
   }
 } //nav-body

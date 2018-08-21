@@ -266,6 +266,9 @@
         height: 93px;
         vertical-align: top;
         border-bottom-right-radius: 4px;
+        &.not-started {
+          pointer-events: none;
+        }
 
         .code {
           .title {

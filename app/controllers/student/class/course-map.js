@@ -20,10 +20,16 @@ export default Ember.Controller.extend({
    */
   route0Service: Ember.inject.service('api-sdk/route0'),
 
+  /**
+   * Logged in user session object
+   * @type {Session}
+   */
+  session: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Attributes
 
-  queryParams: ['location'],
+  queryParams: ['location', 'tab'],
 
   /**
    * Combination of unit, lesson and resource (collection or assessment)
@@ -32,6 +38,8 @@ export default Ember.Controller.extend({
    * location='uId001+lId002+cId003'
    */
   location: null,
+
+  tab: null,
 
   isFirstLoad: true,
 
@@ -121,10 +129,15 @@ export default Ember.Controller.extend({
   // Events
 
   init: function() {
-    this._super(...arguments);
-    Ember.run.scheduleOnce('afterRender', this, function() {
+    const controller = this;
+    controller._super(...arguments);
+    Ember.run.scheduleOnce('afterRender', controller, function() {
       $('[data-toggle="tooltip"]').tooltip();
     });
+    let tab = controller.get('tab');
+    if (tab && tab === 'report') {
+      controller.openStudentCourseReport();
+    }
   },
 
   // -------------------------------------------------------------------------
@@ -356,5 +369,21 @@ export default Ember.Controller.extend({
       return isContentAvailable;
     });
     return isContentAvailable;
+  },
+
+  openStudentCourseReport() {
+    let controller = this;
+    controller.set('showCourseReport', true);
+    let params = Ember.Object.create({
+      userId: controller.get('session.userId'),
+      classId: controller.get('class.id'),
+      class: controller.get('class'),
+      courseId: controller.get('course.id'),
+      course: controller.get('course'),
+      isTeacher: false,
+      isStudent: true,
+      loadUnitsPerformance: false
+    });
+    controller.set('studentCourseReportContext', params);
   }
 });

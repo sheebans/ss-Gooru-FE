@@ -126,6 +126,30 @@ export default Ember.Component.extend(AccordionMixin, {
         type: type
       };
       this.sendAction('collectionReport', params);
+    },
+
+    /*
+     * @function To open lesson level report
+     */
+    onOpenStudentLessonReport: function() {
+      let component = this;
+      let currentClass = component.get('currentClass');
+      let userId = currentClass.userId || component.get('studentId');
+      let classId = currentClass.classId || component.get('currentClass.id');
+      let courseId = currentClass.courseId || component.get('currentCourse.id');
+      let unitId = component.get('unitId');
+      let lessonId = component.get('model.id');
+      let params = {
+        classId: classId,
+        courseId: courseId,
+        unitId: unitId,
+        lessonId: lessonId,
+        lesson: component.get('model'),
+        unit: component.get('unit'),
+        lessons: component.get('lessons'),
+        userId: userId
+      };
+      component.sendAction('onOpenStudentLessonReport', params);
     }
   },
 
@@ -260,8 +284,10 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   loadData: function(lesson) {
     const component = this;
-    const userId = component.get('currentClass.userId') || component.get('studentId');
-    const classId = component.get('currentClass.classId') || component.get('currentClass.id');
+    const userId =
+      component.get('currentClass.userId') || component.get('studentId');
+    const classId =
+      component.get('currentClass.classId') || component.get('currentClass.id');
     const courseId =
       component.get('currentClass.courseId') ||
       component.get('currentCourse.id');
@@ -371,6 +397,8 @@ export default Ember.Component.extend(AccordionMixin, {
         .then(function(performance) {
           const promises = collections.map(function(collection) {
             const isAssessment = collection.get('format') === 'assessment';
+            const isExternalAssessment = collection.get('format') === 'assessment-external';
+            collection.set('isExternalAssessment', isExternalAssessment);
             const collectionId = collection.get('id');
             const peer = lessonPeers.findBy('id', collectionId);
             const assessmentDataPromise = isAssessment
@@ -512,6 +540,7 @@ export default Ember.Component.extend(AccordionMixin, {
         const promises = collections.map(function(collection) {
           const collectionId = collection.get('id');
           const isAssessment = collection.get('format') === 'assessment';
+          const isExternalAssessment = collection.get('format') === 'assessment-external';
           const isResource =
             collection.get('format') !== 'assessment' &&
             collection.get('format') !== 'assessment-external' &&
@@ -528,6 +557,7 @@ export default Ember.Component.extend(AccordionMixin, {
 
           collection.set('isResource', isResource);
           collection.set('isAssessment', isAssessment);
+          collection.set('isExternalAssessment', isExternalAssessment);
 
           const collectionPerformanceData = performance.findBy(
             'id',

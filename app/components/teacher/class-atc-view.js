@@ -42,12 +42,7 @@ export default Ember.Component.extend({
      */
     onSelectClassItem(item, classId) {
       let component = this;
-      //Show competency report when click report
-      if (item === 'performance' && component.get('isPremiumClass')) {
-        component.set('isShowCompetencyReport', true);
-      } else {
-        component.sendAction('onSelectClassItem', item, classId);
-      }
+      component.sendAction('onSelectClassItem', item, classId);
     },
 
     /**
@@ -123,6 +118,15 @@ export default Ember.Component.extend({
       }
     ]);
     return classPerformanceData;
+  }),
+
+  /**
+   * @property {Boolean}
+   * Computed property  to identify class is started or not
+   */
+  hasStarted: Ember.computed('classData', function() {
+    const scorePercentage = this.get('classData.performance.score');
+    return scorePercentage !== null && scorePercentage >= 0;
   }),
 
   /**

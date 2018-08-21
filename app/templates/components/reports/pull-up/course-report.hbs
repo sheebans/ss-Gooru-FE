@@ -1,4 +1,4 @@
-<div class="report-backdrop" {{action 'onPullUpClose'}}></div>
+<div class="backdrop" {{action 'onPullUpClose'}}></div>
 <div class="course-report-container">
   <div class="report-header">
     <div class="report-breadcrumb">
@@ -20,11 +20,6 @@
             </div>
         </div>
       </div>
-      {{#if isLoading}}
-        <div class="loading-spinner">
-          {{three-bounce-spinner}}
-        </div>
-      {{/if}}
       <div class="report-carousel-content-container">
         <div class="report-carousel-content">
           <div class="performance-display-container">
@@ -62,8 +57,17 @@
           studentReportData=studentReportData
           course=course
           openUnitReport="openUnitReport"
+          openStudentCourseReport="openStudentCourseReport"
         }}
       </div>
     </div>
   </div>
 </div>
+{{#if showStudentCourseReport}}
+  {{reports.pull-up.student-course-report context=studentCourseReportContext showPullUp=showStudentCourseReport}}
+{{/if}}
+{{#if isLoading}}
+  <div class="loading-spinner">
+    {{three-bounce-spinner}}
+  </div>
+{{/if}}

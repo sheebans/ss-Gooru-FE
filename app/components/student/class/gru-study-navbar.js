@@ -5,7 +5,6 @@ export default Ember.Component.extend({
 
   session: Ember.inject.service('session'),
 
-
   actions: {
     /**
      *
@@ -38,7 +37,19 @@ export default Ember.Component.extend({
      * Action triggered when click brand logo
      */
     onClickBrand() {
-      Ember.$('body').removeClass('fullscreen').removeClass('fullscreen-exit');
+      Ember.$('body')
+        .removeClass('fullscreen')
+        .removeClass('fullscreen-exit');
+    },
+
+    /**
+     * Trigger the event to open student course report
+     */
+    openCourseReport() {
+      let classo = this.get('class');
+      if (classo && classo.courseId) {
+        this.sendAction('openCourseReport');
+      }
     }
   },
 
@@ -60,7 +71,6 @@ export default Ember.Component.extend({
     } else {
       Ember.$('body').addClass('fullscreen-exit');
     }
-
   },
 
   willDestroyElement() {
@@ -100,6 +110,15 @@ export default Ember.Component.extend({
   hasClassInfo: null,
 
   navTitle: null,
+
+  /**
+   * @property {Boolean}
+   * Computed property  to identify class is started or not
+   */
+  hasStarted: Ember.computed('class.performanceSummary', function() {
+    const scorePercentage = this.get('class.performanceSummary.score');
+    return scorePercentage !== null && scorePercentage >= 0;
+  }),
 
   // -------------------------------------------------------------------------
   // Observers

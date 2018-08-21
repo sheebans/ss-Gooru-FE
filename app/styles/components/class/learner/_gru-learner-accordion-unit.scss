@@ -60,6 +60,10 @@
       text-align: center;
       height: 100%;
       min-width: 76px;
+      cursor: pointer;
+      &.not-started {
+        pointer-events: none;
+      }
 
       .container-box {
         height: 63px;
@@ -70,6 +74,7 @@
           font-weight: 900;
           line-height: 24px;
           margin: 15px 0 0;
+          cursor: pointer;
         }
 
         .not-started {

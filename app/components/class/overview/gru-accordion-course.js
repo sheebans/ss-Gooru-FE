@@ -154,6 +154,26 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     teacherCollectionReport(params) {
       this.sendAction('teacherCollectionReport', params);
+    },
+
+    /**
+     * Trigger when student unit level  report clicked
+     */
+    onOpenStudentUnitLevelReport(params) {
+      this.set('showStudentUnitReport', true);
+      params.isStudent = this.get('isStudent');
+      params.isTeacher = this.get('isTeacher');
+      this.set('studentUnitReportContext', params);
+    },
+
+    /**
+     * Trigger when student lesson   report clicked
+     */
+    onOpenStudentLessonReport(params) {
+      this.set('showStudentLessonReport', true);
+      params.isStudent = this.get('isStudent');
+      params.isTeacher = this.get('isTeacher');
+      this.set('studentLessonReportContext', params);
     }
   },
 

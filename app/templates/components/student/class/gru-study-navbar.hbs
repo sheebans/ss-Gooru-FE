@@ -47,8 +47,8 @@
                 </a>
             </li>
             <li role="separator" class="divider"></li>
-            <li class="performance tab">
-                <a {{action 'selectItem' 'performance'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.report'}} ">
+            <li class="performance tab {{unless hasStarted 'not-started'}}" {{action 'openCourseReport'}}>
+                <a  role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.report'}} ">
                     {{gru-icon name='insert_chart'}}
                 </a>
             </li>
@@ -78,8 +78,8 @@
                 {{#if hasClassInfo }}
                     <li>
                         {{#if (not isPremiumClass)}}
-                            <div class="">
-                                {{charts/gru-performance-chart performanceSummary=class.performanceSummary routeToGo="student.class.performance"}}
+                            <div class="performance-chart {{unless hasStarted 'not-started'}}" {{action 'openCourseReport'}}>
+                                {{charts/gru-performance-chart performanceSummary=class.performanceSummary }}
                             </div>
                         {{/if}}
                     </li>

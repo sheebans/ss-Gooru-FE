@@ -23,7 +23,7 @@
         </div>
       {{/if}}
       {{#if isTeacher }}
-        <div class="performance-container pull-right" {{action 'onOpenLessonReport'}}>
+        <div class="performance-container pull-right {{unless (gte model.performance.score 0) 'not-started'}}" {{action 'onOpenLessonReport'}}>
           {{charts/gru-students-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
         </div>
       {{else}}
@@ -34,7 +34,7 @@
             </button>
           {{/unless}}
         </div>
-        <div class="performance-container pull-right {{if isStudent 'disable-event' 'enable-event'}}" {{action 'onOpenLessonReport'}}>
+        <div class="performance-container pull-right {{unless (gte model.performance.score 0) 'not-started'}}" {{action 'onOpenLessonReport'}}>
           {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
         </div>
       {{/if}}
@@ -75,7 +75,7 @@
                         </button>
                       </div>
                     {{else}}
-                      <span class="performance " {{action "studentReport" item}}>
+                      <span class="performance {{unless item.performance.timeSpent 'not-started'}}" {{action "studentReport" item}}>
                         {{#if item.performance.timeSpent}}
                           {{format-time item.performance.timeSpent}}
                         {{else}}
@@ -184,32 +184,20 @@
                         </button>
                       </div>
                     {{/if}}
-                    {{#if (not isTeacher)}}
-                      <div class="performance">
-                        {{#if item.isAssessment}}
+                    {{#if isStudent}}
+                      <div class="performance {{if item.isExternalAssessment 'non-clickable'}}">
+                        {{#if (or item.isAssessment item.isExternalAssessment)}}
                           {{#if item.performance.isCompleted}}
-                            {{#if isStudent }}
-                              <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
-                                {{item.performance.score}}%
-                                </span>
-                            {{else}}
-                              <span class="score" {{action 'teacherCollectionReport' item}} style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
-                                      {{item.performance.score}}%
-                                    </span>
-                            {{/if }}
+                            <span {{action 'studentReport' item}} class="score {{unless (gte item.performance.score 0) 'not-started'}}" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                              {{item.performance.score}}%
+                            </span>
                           {{else}}
                             {{#if item.performance.hasStarted}}
-                              {{#if isStudent }}
-                                <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
-                                  {{item.performance.score}}%
-                                </span>
-                              {{else}}
-                                <span class="score" {{action 'teacherCollectionReport' item}} style= {{safe-html (concat "color:" (grade-color item.performance.score) )}}>
-                                    {{item.performance.score}}%
-                                  </span>
-                              {{/if }}
+                              <span {{action 'studentReport' item}} class="score {{unless (gte item.performance.score 0) 'not-started'}}" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
+                                {{item.performance.score}}%
+                              </span>
                             {{else}}
-                              {{#if (eq item.format "assessment-external")}}
+                              {{#if item.isExternalAssessment}}
                                 <span class="not-started-external">--</span>
                               {{else}}
                                 {{#if item.isAssessment}}
@@ -222,15 +210,9 @@
                           {{/if}}
                         {{else}}
                           {{#if item.performance.hasStarted}}
-                            {{#if isStudent }}
-                              <span {{action 'studentReport' item}} class="score " style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
-                                {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
-                            </span>
-                            {{else}}
-                              <span class="time-spent" {{action 'teacherCollectionReport' item}}>
+                            <span {{action 'studentReport' item}} class="score {{unless item.performance.timeSpent 'not-started'}}" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                               {{if item.performance.hasStarted (format-time item.performance.timeSpent) '--'}}
                             </span>
-                            {{/if }}
                           {{else}}
                             {{#if item.isAssessment}}
                               <span class="not-started-external">--</span>
@@ -241,8 +223,8 @@
                         {{/if}}
                       </div>
                     {{else}}
-                      <div class="performance chart" {{action 'teacherCollectionReport' item}}>
-                        {{charts/gru-students-performance-chart performanceSummary=item.performance hasStarted=true isTeacher=isTeacher assessmentCount=item.assessmentCount}}
+                      <div class="performance chart {{unless item.performance.hasStarted 'not-started'}} {{if item.isExternalAssessment 'non-clickable'}}" {{action 'teacherCollectionReport' item}}>
+                        {{charts/gru-students-performance-chart performanceSummary=item.performance hasStarted=true isTeacher=isTeacher assessmentCount=item.assessmentCount isCollection=item.isCollection}}
                       </div>
                     {{/if}}
                   </div>

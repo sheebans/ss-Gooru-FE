@@ -96,22 +96,11 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
      */
     onOpenLessonReport: function() {
       let component = this;
-      let currentClass = component.get('currentClass');
-      let classId = currentClass.get('id');
-      let courseId = currentClass.get('courseId');
-      let unitId = component.get('unitId');
-      let lessonId = component.get('model.id');
-
-      let params = {
-        classId: classId,
-        courseId: courseId,
-        unitId: unitId,
-        lessonId: lessonId,
-        lesson: component.get('model'),
-        unit: component.get('unit'),
-        classMembers: component.get('classMembers')
-      };
-      component.sendAction('onOpenLessonReport', params);
+      if (component.get('isTeacher')) {
+        component.openTeacherLessonReport();
+      } else {
+        component.openStudentLessonReport();
+      }
     },
 
     /**
@@ -244,7 +233,9 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
       let classId = currentClass ? currentClass.get('id') : null;
       let courseId = currentClass
         ? currentClass.get('courseId')
-        : currentCourse ? currentCourse.get('id') : null;
+        : currentCourse
+          ? currentCourse.get('id')
+          : null;
       let unitId = component.get('unitId');
       let lessonId = component.get('model.id');
       let collectionId = collection.get('id');
@@ -634,11 +625,12 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         .then(function(performance) {
           const promises = collections.map(function(collection) {
             const isAssessment = collection.get('format') === 'assessment';
+            const isExternalAssessment = collection.get('format') === 'assessment-external';
             const collectionId = collection.get('id');
             const peer = lessonPeers.findBy('id', collectionId);
             const assessmentDataPromise = isAssessment
               ? component.get('assessmentService').readAssessment(collectionId)
-              : Ember.RSVP.resolve(true);
+              : isExternalAssessment ? component.get('assessmentService').readExternalAssessment(collectionId) : Ember.RSVP.resolve(true);
 
             return assessmentDataPromise.then(function(assessmentData) {
               const averageScore = performance.calculateAverageScoreByItem(
@@ -654,7 +646,9 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
                 collectionId
               );
 
-              const numberOfStudents = performance.findNumberOfStudentsByItem(collectionId);
+              const numberOfStudents = performance.findNumberOfStudentsByItem(
+                collectionId
+              );
               collection.set(
                 'performance',
                 Ember.Object.create({
@@ -778,6 +772,7 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         const promises = collections.map(function(collection) {
           const collectionId = collection.get('id');
           const isAssessment = collection.get('format') === 'assessment';
+          const isExternalAssessment = collection.get('format') === 'assessment-external';
           const isResource =
             collection.get('format') !== 'assessment' &&
             collection.get('format') !== 'assessment-external' &&
@@ -794,6 +789,7 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
 
           collection.set('isResource', isResource);
           collection.set('isAssessment', isAssessment);
+          collection.set('isExternalAssessment', isExternalAssessment);
 
           const collectionPerformanceData = performance.findBy(
             'id',
@@ -819,9 +815,7 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
             collectionPerformanceData.set('hasTrophy', hasTrophy);
             collectionPerformanceData.set('hasStarted', hasStarted);
             collectionPerformanceData.set('isCompleted', isCompleted);
-
             collection.set('performance', collectionPerformanceData);
-
             let showTrophy =
               collection.get('performance.hasTrophy') &&
               component.get('isStudent') &&
@@ -834,6 +828,27 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
               return component
                 .get('assessmentService')
                 .readAssessment(collectionId)
+                .then(function(assessment) {
+                  const attemptsSettings = assessment.get('attempts');
+                  if (attemptsSettings) {
+                    const noMoreAttempts =
+                      attempts &&
+                      attemptsSettings > 0 &&
+                      attempts >= attemptsSettings;
+                    collectionPerformanceData.set(
+                      'noMoreAttempts',
+                      noMoreAttempts
+                    );
+                    collectionPerformanceData.set(
+                      'isDisabled',
+                      !assessment.get('classroom_play_enabled')
+                    );
+                  }
+                });
+            } else if (isExternalAssessment) {
+              return component
+                .get('assessmentService')
+                .readExternalAssessment(collectionId)
                 .then(function(assessment) {
                   const attemptsSettings = assessment.get('attempts');
                   if (attemptsSettings) {
@@ -897,6 +912,7 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         const promises = collections.map(function(collection) {
           const collectionId = collection.get('id');
           const isAssessment = collection.get('format') === 'assessment';
+          const isExternalAssessment = collection.get('format') === 'assessment-external';
           const isResource =
             collection.get('format') !== 'assessment' &&
             collection.get('format') !== 'assessment-external' &&
@@ -965,6 +981,27 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
                     );
                   }
                 });
+            } else if (isExternalAssessment) {
+              return component
+                .get('assessmentService')
+                .readExternalAssessment(collectionId)
+                .then(function(assessment) {
+                  const attemptsSettings = assessment.get('attempts');
+                  if (attemptsSettings) {
+                    const noMoreAttempts =
+                      attempts &&
+                      attemptsSettings > 0 &&
+                      attempts >= attemptsSettings;
+                    collectionPerformanceData.set(
+                      'noMoreAttempts',
+                      noMoreAttempts
+                    );
+                    collectionPerformanceData.set(
+                      'isDisabled',
+                      !assessment.get('classroom_play_enabled')
+                    );
+                  }
+                });
             } else {
               return Ember.RSVP.resolve(true);
             }
@@ -994,5 +1031,40 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
     } else {
       collection.set('visible', true);
     }
+  },
+
+  openTeacherLessonReport() {
+    let component = this;
+    let currentClass = component.get('currentClass');
+    let classId = currentClass.get('id');
+    let courseId = currentClass.get('courseId');
+    let unitId = component.get('unitId');
+    let lessonId = component.get('model.id');
+
+    let params = {
+      classId: classId,
+      courseId: courseId,
+      unitId: unitId,
+      lessonId: lessonId,
+      lesson: component.get('model'),
+      unit: component.get('unit'),
+      classMembers: component.get('classMembers')
+    };
+    component.sendAction('onOpenLessonReport', params);
+  },
+
+  openStudentLessonReport() {
+    let component = this;
+    let params = {
+      classId: component.get('currentClass.id'),
+      courseId: component.get('currentClass.courseId'),
+      unitId: component.get('unit.id'),
+      lessonId: component.get('model.id'),
+      lesson: component.get('model'),
+      unit: component.get('unit'),
+      lessons: component.get('lessons'),
+      userId: component.get('session.userId')
+    };
+    component.sendAction('onOpenStudentLessonReport', params);
   }
 });

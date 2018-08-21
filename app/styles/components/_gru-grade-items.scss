@@ -1,26 +1,34 @@
 .gru-grade-items {
-  max-height: 90px;
+  width: 311px;
+  max-height: 370px;
   overflow-y: auto;
+  background-color: $white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
   .item {
-    width: 100%;
-    line-height: $font-size-large;
-    .context,
-    .question,
-    .students {
-      display: inline-block;
-      vertical-align: middle;
-    }
-    .context {
-      max-width: 48%;
-    }
     .question {
-      max-width: 50%;
-    }
-    .greater-than {
-      i {
-        font-size: $font-navigator;
-        line-height: $font-size-base;
-        vertical-align: middle;
+      height: 36px;
+      line-height: 36px;
+      display: flex;
+      border-bottom: 1px solid #d7d7d7;
+      .rubric-icon {
+        padding: 12px;
+        i {
+          background-image: url("gooru/images/add_rubric.svg");
+          width: 20px;
+          height: 20px;
+          background-size: 20px;
+          display: block;
+          background-repeat: no-repeat;
+        }
+      }
+      .question-name {
+        font-size: 13px;
+        text-transform: capitalize;
+        color: #666666;
+      }
+      a {
+        text-decoration: none;
+        cursor: pointer;
       }
     }
   }

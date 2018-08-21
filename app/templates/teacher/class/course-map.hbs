@@ -25,10 +25,13 @@
     <div class="course-map-container">
       {{#if isStudentCourseMap}}
         <div class="active-student">
-          <div class="student-thumbnail" style="background-image: url({{activeStudent.avatarUrl}})"></div>
-          <div class="student-name">{{activeStudent.fullName}}</div>
-          <div class="student-close" {{action "onSelectAll"}}>
+          <div class="student-thumbnail pull-left" style="background-image: url({{activeStudent.avatarUrl}})"></div>
+          <div class="student-name pull-left">{{activeStudent.fullName}}</div>
+          <div class="student-close pull-right" {{action "onSelectAll"}}>
             {{gru-icon name="clear"}}
+          </div>
+          <div class="performance-container pull-right">
+            {{charts/gru-performance-chart performanceSummary=activeStudent.performance}}
           </div>
         </div>
       {{/if}}
@@ -50,7 +53,7 @@
             {{/each}}
           </div>
         </div>
-        <div class="render-course-map">
+        <div class="render-course-map {{if (and (not isStudentCourseMap) questionItems) 'sm-course-map'}}">
           {{#if isLoading}}
             {{three-bounce-spinner}}
           {{else}}
@@ -69,9 +72,13 @@
                   currentCourse=course
                   classMembers=classMembers
                   collectionReport="collectionReport"
+                  onOpenStudentUnitLevelReport="onOpenStudentUnitLevelReport"
+                  onOpenStudentLessonReport="onOpenStudentLessonReport"
                   model=unit
+                  units=units
                   index=index
                   isTeacher=false
+                  isStudent=true
                   toggleLocation=toggleLocation
                   onSelectItem="onSelectItem"}}
                 {{else}}
@@ -92,15 +99,27 @@
                 contentVisibility=contentVisibility
                 onUpdateContentVisibility="updateContentVisibility"
                 isTeacher=true
+                isStudent=false
                 isNUCourse=isNUCourse
                 onOpenUnitLevelReport="onOpenUnitLevelReport"
                 onOpenLessonReport="onOpenLessonReport"
                 teacherCollectionReport="teacherCollectionReport"
-                isPremiumClass=isPremiumClass}}
+                isPremiumClass=isPremiumClass
+              }}
               </div>
             {{/if}}
           {{/if}}
         </div>
+        {{#unless isStudentCourseMap}}
+          {{#if questionItems}}
+            <div class="items-to-grade">
+              <div class="header">
+                {{t 'class.analytics.performance.grade-items'}}
+              </div>
+              {{gru-grade-items questionItems=questionItems}}
+            </div>
+          {{/if}}
+        {{/unless}}
       </div>
     </div>
   </div>
@@ -108,6 +127,14 @@
   <div class="no-content">This classroom does not have a related course and it has no content</div>
 {{/if}}
 
+{{#if showStudentUnitReport}}
+  {{reports.pull-up.student-unit-report context=studentUnitReportContext showPullUp=showStudentUnitReport}}
+{{/if}}
+
+{{#if showStudentLessonReport}}
+  {{reports.pull-up.student-lesson-report context=studentLessonReportContext showPullUp=showStudentLessonReport}}
+{{/if}}
+
 {{#if isShowStudentReport}}
-  {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportContextData model=studentReportContextData.lesson isStudent=studentReportContextData.isStudent onClosePullUp="onClosePullUp"}}
+  {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportContextData model=studentReportContextData.lesson isStudent=false onClosePullUp="onClosePullUp"}}
 {{/if}}

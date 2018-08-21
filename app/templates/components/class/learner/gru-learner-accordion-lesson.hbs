@@ -21,7 +21,7 @@
           {{/if}}
         </div>
       {{/if}}
-      <div class="performance-container pull-right">
+      <div class="performance-container pull-right {{unless (gte model.performance.score 0) 'not-started'}}" {{action 'onOpenStudentLessonReport'}}>
         {{charts/gru-performance-chart performanceSummary=model.performance hasStarted=true isTeacher=isTeacher assessmentCount=model.assessmentCount}}
       </div>
     </div>
@@ -125,9 +125,9 @@
                               /assets/gooru/share@3x.png 3x" class="share">
                       {{/if}}
                     </div>
-                    <div class="performance {{unless item.performance.hasStarted 'performance-not-started'}}" >
-                      {{#if item.isAssessment}}
-                        {{#if item.performance.isCompleted}}
+                    <div class="performance {{if item.isExternalAssessment 'non-clickable'}} {{unless item.performance.hasStarted 'performance-not-started'}}" >
+                      {{#if (or item.isAssessment item.isExternalAssessment)}}
+                        {{#if (or item.performance.isCompleted item.isExternalAssessment)}}
                           <span class="score" {{action "studentReport" item}}  style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
                           {{item.performance.score}}%
                           </span>

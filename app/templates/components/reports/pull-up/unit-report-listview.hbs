@@ -38,7 +38,7 @@
         <tr>
           <th>
             <div class="user-profile-summary">
-              <div class="user-profile-details">
+              <div class="user-profile-details {{unless student.hasStarted 'not-started'}}" {{action 'openStudentUnitReport' student.id}}>
                 <div class="user-profile-img">
                   <img src="{{student.avatarUrl}}" />
                 </div>

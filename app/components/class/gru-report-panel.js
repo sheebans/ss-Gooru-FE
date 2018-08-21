@@ -8,7 +8,7 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  classNames: ['class', 'gru-report-panel'],
+  classNames: ['class', 'backdrop-pull-ups', 'gru-report-panel'],
 
   // -------------------------------------------------------------------------
   // Dependencies
@@ -277,8 +277,7 @@ export default Ember.Component.extend({
      * Action triggered when the user close the pull up.
      **/
     onPullUpClose() {
-      this.set('showPullUp', false);
-      this.pullUpAnimation();
+      this.closePullUp();
     },
 
     /**
@@ -321,30 +320,34 @@ export default Ember.Component.extend({
    * Functionto triggered once when the component element is first rendered.
    */
   didInsertElement() {
-    this.pullUpAnimation();
+    this.openPullUp();
     this.showStudentReport();
   },
 
   /**
-   * Function to animate the pathway pullup from bottom to top
+   * Function to animate the  pullup from bottom to top
    */
-  pullUpAnimation() {
+  openPullUp() {
     let component = this;
-    if (this.get('showPullUp')) {
-      component.$().animate(
-        {
-          top: '10%'
-        },
-        850
-      );
-    } else {
-      component.$().animate(
-        {
-          top: '100%'
-        },
-        850
-      );
-    }
+    component.$().animate(
+      {
+        top: '10%'
+      },
+      400
+    );
+  },
+
+  closePullUp() {
+    let component = this;
+    component.$().animate(
+      {
+        top: '100%'
+      },
+      400,
+      function() {
+        component.set('showPullUp', false);
+      }
+    );
   },
 
   // -------------------------------------------------------------------------
@@ -435,9 +438,28 @@ export default Ember.Component.extend({
           .findAssessmentResultByCollectionAndStudent(context)
           .then(function(assessmentResult) {
             component.setAssessmentResult(assessmentResult);
-            if (component.get('isTeacher')) {
-              component.set('showSuggestion', true);
-              component.loadSuggestion();
+            if (!component.get('isStudent')) {
+              component
+                .get('courseMapService')
+                .getLessonInfo(
+                  context.get('classId'),
+                  context.get('courseId'),
+                  context.get('unitId'),
+                  context.get('lessonId'),
+                  true,
+                  context.get('userId')
+                )
+                .then(lesson => {
+                  let collections = lesson.get('children');
+                  let collection = collections.findBy(
+                    'id',
+                    context.get('collectionId')
+                  );
+                  if (!collection.get('isSuggestedContent')) {
+                    component.set('showSuggestion', true);
+                    component.loadSuggestion();
+                  }
+                });
             }
           });
       } else {

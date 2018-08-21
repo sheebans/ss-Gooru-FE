@@ -1,4 +1,4 @@
-<div class="report-backdrop" {{action 'onPullUpClose'}}></div>
+<div class="backdrop" {{action 'onPullUpClose'}}></div>
 <div class="unit-report-container">
   <div class="report-header">
     <div class="report-breadcrumb">
@@ -15,7 +15,7 @@
     <div class="report-carousel">
       <div id="report-carousel-wrapper" class="carousel slide" data-ride="carousel" data-interval="false">
         <div class="carousel-inner">
-          {{#each units as |unitItem index|}}
+          {{#each unitsHasPerformance as |unitItem index|}}
             <div data-item-index="{{index}}" class="item {{if (eq index 0) 'active'}}">
               <div class="unit-background-cover" />
             </div>
@@ -29,11 +29,6 @@
           <i class="arrow-right"></i>
         </a>
       </div>
-      {{#if isLoading}}
-        <div class="loading-spinner">
-          {{three-bounce-spinner}}
-        </div>
-      {{/if}}
       <div class="report-carousel-content-container">
         <div class="report-carousel-content">
           <div class="performance-display-container">
@@ -71,8 +66,17 @@
           studentReportData=studentReportData
           selectedUnit=selectedUnit
           openLessonReport="openLessonReport"
+          openStudentUnitReport="openStudentUnitReport"
         }}
       </div>
     </div>
   </div>
 </div>
+{{#if showStudentUnitReport}}
+  {{reports.pull-up.student-unit-report context=studentUnitReportContext showPullUp=showStudentUnitReport}}
+{{/if}}
+{{#if isLoading}}
+  <div class="loading-spinner">
+    {{three-bounce-spinner}}
+  </div>
+{{/if}}

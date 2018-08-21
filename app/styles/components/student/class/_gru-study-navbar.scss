@@ -83,7 +83,7 @@
       pointer-events: none;
       a {
         padding: 0;
-        width: 350px;
+        max-width: 300px;
         padding: 0 0 0 15px;
         line-height: 50px;
       }
@@ -96,8 +96,17 @@
       border-left: $border-right-side $light-200;
       border-right: $border-left-side $light-200;
     }
+    .performance-chart {
+      cursor: pointer;
+      &.not-started {
+        pointer-events: none;
+      }
+    }
 
     li {
+      &.not-started {
+        pointer-events: none;
+      }
       &.divider {
         border-left: 1px solid $panel-default-border;
         height: 50px;
@@ -186,6 +195,7 @@
 
       > .percentage {
         margin-top: 9.5px;
+        cursor: pointer;
       }
     }
   }

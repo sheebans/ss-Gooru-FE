@@ -110,10 +110,14 @@
           classMembers=classMembers
           collectionReport="collectionReport"
           model=item
+          units=items
           index=index
           isTeacher=isTeacher
           toggleLocation=toggleLocation
-          onSelectItem="onSelectItem"}}
+          onSelectItem="onSelectItem"
+          onOpenStudentUnitLevelReport="onOpenStudentUnitLevelReport"
+          onOpenStudentLessonReport="onOpenStudentLessonReport"
+        }}
 
         {{else}}
           <li>{{t "common.contentUnavailable"}}</li>
@@ -122,3 +126,11 @@
     </div>
   {{/if}}
 </ol>
+
+{{#if showStudentUnitReport}}
+  {{reports.pull-up.student-unit-report context=studentUnitReportContext showPullUp=showStudentUnitReport}}
+{{/if}}
+
+{{#if showStudentLessonReport}}
+  {{reports.pull-up.student-lesson-report context=studentLessonReportContext showPullUp=showStudentLessonReport}}
+{{/if}}

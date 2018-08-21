@@ -26,12 +26,9 @@
         </li>
         {{/unless}}
         <li role="separator" class="divider"></li>
-        <li class="performance tab">
+        <li class="performance tab {{unless hasStarted 'not-started'}}">
             <a {{action 'onOpenCourseReport'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.report'}} ">
             {{gru-icon name='insert_chart'}}
-            <span class="add-info">
-             &nbsp;  {{t 'teacher-landing.class.reports'}}
-            </span>
             </a>
         </li>
         {{#unless class.isArchived}}
@@ -61,13 +58,11 @@
 
         <ul class="nav navbar-nav navbar-right">
           <li role="separator" class="divider"></li>
-            <li>
-        {{#if (not isPremiumClass)}}
-        <div class="navbar-performance" {{action 'onOpenCourseReport'}}>
+          <li>
+            <div class="navbar-performance performanceSummary  {{unless hasStarted 'not-started'}}" {{action 'onOpenCourseReport'}}>
             {{charts/gru-performance-chart performanceSummary=class.performanceSummary }}
-        </div>
-        {{/if}}
-        </li>
+            </div>
+          </li>
         <li role="separator" class="divider"></li>
         <li class="class-info">
             <a {{action 'selectItem' 'class-info'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.class-management-tab.class-information'}}">

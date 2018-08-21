@@ -1,8 +1,14 @@
 <div class="container-box" style="background-color:{{grade-color (if hasStarted scoreVal 'NA')}}">
   {{#if hasStarted}}
-    <div class="percentage">
-      {{scoreText}}
-    </div>
+    {{#if isCollection}}
+      <div class="time-spent">
+        {{format-time performanceSummary.timeSpent}}
+      </div>
+    {{else}}
+      <div class="percentage">
+        {{scoreText}}
+      </div>
+    {{/if}}
     {{#if (gt performanceSummary.numberOfStudents 0)}}
       <div class="students-count">
         <div class="count">{{performanceSummary.numberOfStudents}}</div>

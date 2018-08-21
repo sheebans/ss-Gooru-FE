@@ -44,6 +44,9 @@
       padding-top: 0px;
       margin-top: -10px;
       width: 85px;
+      &.not-started {
+        pointer-events: none;
+      }
       .charts.gru-performance-chart {
         .container-box {
           height: 77px;

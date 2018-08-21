@@ -6,7 +6,7 @@
       </div>
     </a>
   </div>
-  <div class="performance-container pull-right">
+  <div class="performance-container pull-right {{unless (gte scoreVal 0) 'not-started'}}" {{action 'onOpenStudentUnitLevelReport'}}>
     <div class="container-box" title="{{scoreText}}" style="background-color:{{grade-color (if scoreVal scoreVal 'NA')}}">
       <label class="percentage"> {{scoreText}}</label>
       {{#if (gte scoreVal 0 )}}
@@ -34,11 +34,15 @@
           unitId=model.id
           model=lesson
           index=index
+          lessons=items
+          unit=model
           collectionReport="collectionReport"
           onSelectLesson=(action 'updateLesson')
           isTeacher=isTeacher
           toggleLocation=toggleLocation
-          onSelectItem="onSelectItem"}}
+          onSelectItem="onSelectItem"
+          onOpenStudentLessonReport="onOpenStudentLessonReport"
+        }}
       {{else}}
         <li>{{t "common.contentUnavailable"}}</li>
         {{/each}}

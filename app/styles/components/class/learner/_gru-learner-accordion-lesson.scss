@@ -153,9 +153,16 @@
         display: inline-block;
         height: 67px;
         vertical-align: middle;
+        cursor: pointer;
+        &.not-started {
+          pointer-events: none;
+        }
 
         .container-box {
           height: 67px;
+          .percentage {
+            cursor: pointer;
+          }
         }
       }
     }
@@ -560,6 +567,9 @@
 
             .not-started-external {
               font-size: 18px;
+            }
+            &.non-clickable {
+              pointer-events: none;
             }
           }
         }
