@@ -76,6 +76,32 @@ export default Ember.Object.extend({
     };
     return Ember.$.ajax(url, options);
   },
+
+  /**
+   * Fetches independent learner performance in course
+   *
+   * @param {string} courseId
+   * @param {string} collectionType - type of collection to retrieve
+   * @returns {Promise}
+   */
+  fetchPerformanceCourse: function(courseId, collectionType) {
+    const adapter = this;
+
+    const queryParams = collectionType
+      ? `collectionType=${collectionType}`
+      : '';
+
+    const url = `${adapter.get(
+      'namespace'
+    )}/course/${courseId}/learner/performance?${queryParams}`;
+    const options = {
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      headers: adapter.defineHeaders()
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   /**
    * Fetches independent learner performance in lesson
    *

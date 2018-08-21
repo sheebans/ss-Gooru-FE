@@ -432,25 +432,15 @@ export default Ember.Component.extend(AccordionMixin, {
             Ember.RSVP.resolve(performancePromise).then(resolve, reject);
           } else {
             Ember.RSVP.hash({
-              assessmentPerformance: component
+              lessonPerformance: component
                 .get('learnerService')
                 .fetchPerformanceUnit(
                   courseId,
                   unitId,
                   CONTENT_TYPES.ASSESSMENT
-                ),
-              collectionPerformance: component
-                .get('learnerService')
-                .fetchPerformanceUnit(
-                  courseId,
-                  unitId,
-                  CONTENT_TYPES.COLLECTION
                 )
-            }).then(({ assessmentPerformance, collectionPerformance }) => {
-              performancePromise = assessmentPerformance.concat(
-                collectionPerformance
-              );
-              Ember.RSVP.resolve(performancePromise).then(resolve, reject);
+            }).then(({ lessonPerformance }) => {
+              Ember.RSVP.resolve(lessonPerformance).then(resolve, reject);
             });
           }
         });

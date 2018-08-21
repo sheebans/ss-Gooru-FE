@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
+import { CONTENT_TYPES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -15,6 +16,11 @@ export default Ember.Component.extend({
    * @type {PerformanceService}
    */
   performanceService: Ember.inject.service('api-sdk/performance'),
+
+  /**
+   * @requires service:api-sdk/learner
+   */
+  learnerService: Ember.inject.service('api-sdk/learner'),
 
   /**
    * @type {UnitService} Service to retrieve unitService information
@@ -284,7 +290,6 @@ export default Ember.Component.extend({
     const classId = this.get('classId');
     let unitId = component.get('selectedUnit.id');
     let courseId = component.get('courseId');
-    let userId = component.get('userId');
     component.set('isLoading', true);
     return Ember.RSVP.hash({
       unit: component.get('unitService').fetchById(courseId, unitId)
@@ -293,33 +298,63 @@ export default Ember.Component.extend({
         component.set('unit', unit);
         component.set('lessons', unit.get('children'));
       }
-      return Ember.RSVP.hash({
-        lessonsPerformance: component
-          .get('performanceService')
-          .findStudentPerformanceByUnit(
-            userId,
-            classId,
-            courseId,
-            unitId,
-            component.get('lessons')
-          )
-      }).then(({ lessonsPerformance }) => {
-        if (!component.isDestroyed) {
-          component.renderLessonsPerformance(lessonsPerformance);
-          component.set('isLoading', false);
-          component.handleCarouselControl();
-        }
-      });
+      if (classId) {
+        component.fetchClassLessonPerformance();
+      } else {
+        component.fetchNonClassLessonPerformance();
+      }
     });
   },
 
-  renderLessonsPerformance(lessonsPerformance) {
+  fetchClassLessonPerformance() {
+    let component = this;
+    const classId = this.get('classId');
+    let unitId = component.get('selectedUnit.id');
+    let courseId = component.get('courseId');
+    let userId = component.get('userId');
+    Ember.RSVP.hash({
+      lessonsPerformance: component
+        .get('performanceService')
+        .findStudentPerformanceByUnit(
+          userId,
+          classId,
+          courseId,
+          unitId,
+          component.get('lessons')
+        )
+    }).then(({ lessonsPerformance }) => {
+      if (!component.isDestroyed) {
+        component.renderLessonsPerformance(lessonsPerformance, 'id');
+        component.set('isLoading', false);
+        component.handleCarouselControl();
+      }
+    });
+  },
+
+  fetchNonClassLessonPerformance() {
+    let component = this;
+    let unitId = component.get('selectedUnit.id');
+    let courseId = component.get('courseId');
+    Ember.RSVP.hash({
+      lessonsPerformance: component
+        .get('learnerService')
+        .fetchPerformanceUnit(courseId, unitId, CONTENT_TYPES.ASSESSMENT)
+    }).then(({ lessonsPerformance }) => {
+      if (!component.isDestroyed) {
+        component.renderLessonsPerformance(lessonsPerformance, 'lessonId');
+        component.set('isLoading', false);
+        component.handleCarouselControl();
+      }
+    });
+  },
+
+  renderLessonsPerformance(lessonsPerformance, key) {
     let component = this;
     let lessons = component.get('lessons');
     let lessonList = Ember.A([]);
     lessons.forEach(lesson => {
       let lessonCopy = lesson.copy();
-      let lessonPerformance = lessonsPerformance.findBy('id', lesson.get('id'));
+      let lessonPerformance = lessonsPerformance.findBy(key, lesson.get('id'));
       lessonCopy.set('performance', lessonPerformance);
       lessonList.pushObject(lessonCopy);
     });
@@ -369,17 +404,27 @@ export default Ember.Component.extend({
 
   initialize() {
     let component = this;
+    const classId = component.get('classId');
+    if (classId) {
+      component.fetchClassUnitPerformance();
+    } else {
+      component.fetchNonClassUnitPerformance();
+    }
+  },
+
+  fetchClassUnitPerformance() {
+    let component = this;
+    let units = component.get('units');
     const classId = this.get('classId');
     let courseId = component.get('courseId');
     let userId = component.get('userId');
-    let units = component.get('units');
     return Ember.RSVP.hash({
       unitsPerformance: component
         .get('performanceService')
         .findStudentPerformanceByCourse(userId, classId, courseId, units)
     }).then(({ unitsPerformance }) => {
       if (!component.isDestroyed) {
-        component.renderUnitsPerformance(unitsPerformance);
+        component.renderUnitsPerformance(unitsPerformance, 'id');
         let units = component.get('units');
         let selectedUnit = units.findBy('id', component.get('selectedUnit.id'));
         component.set('selectedUnit', selectedUnit);
@@ -388,13 +433,31 @@ export default Ember.Component.extend({
     });
   },
 
-  renderUnitsPerformance(unitsPerformance) {
+  fetchNonClassUnitPerformance() {
+    let component = this;
+    let courseId = component.get('courseId');
+    Ember.RSVP.hash({
+      unitsPerformance: component
+        .get('learnerService')
+        .fetchPerformanceCourse(courseId, CONTENT_TYPES.ASSESSMENT)
+    }).then(({ unitsPerformance }) => {
+      if (!component.isDestroyed) {
+        component.renderUnitsPerformance(unitsPerformance, 'unitId');
+        let units = component.get('units');
+        let selectedUnit = units.findBy('id', component.get('selectedUnit.id'));
+        component.set('selectedUnit', selectedUnit);
+        component.loadData();
+      }
+    });
+  },
+
+  renderUnitsPerformance(unitsPerformance, key) {
     let component = this;
     let units = component.get('units');
     let unitList = Ember.A([]);
     units.forEach(unit => {
       let unitCopy = unit.copy();
-      let unitPerformance = unitsPerformance.findBy('id', unit.get('id'));
+      let unitPerformance = unitsPerformance.findBy(key, unit.get('id'));
       unitCopy.set('performance', unitPerformance);
       unitList.pushObject(unitCopy);
     });

@@ -19,6 +19,13 @@ export default Ember.Controller.extend({
       } else {
         $panels.slideDown();
       }
+    },
+
+    /**
+     * Trigger the event to open student course report
+     */
+    openCourseReport: function() {
+      this.openStudentCourseReport();
     }
   },
 
@@ -75,6 +82,15 @@ export default Ember.Controller.extend({
    */
   hasUnits: Ember.computed.gt('course.unitCount', 0),
 
+  /**
+   * @property {Boolean}
+   * Computed property  to identify class is started or not
+   */
+  hasStarted: Ember.computed('performance', function() {
+    const scorePercentage = this.get('performance.score');
+    return scorePercentage !== null && scorePercentage >= 0;
+  }),
+
   // -------------------------------------------------------------------------
   // Methods
   /**
@@ -83,5 +99,20 @@ export default Ember.Controller.extend({
    */
   selectMenuItem: function(item) {
     this.set('menuItem', item);
+  },
+
+  openStudentCourseReport() {
+    let controller = this;
+    controller.set('showCourseReport', true);
+    let params = Ember.Object.create({
+      userId: controller.get('session.userId'),
+      courseId: controller.get('course.id'),
+      course: controller.get('course'),
+      performance: controller.get('performance'),
+      isTeacher: false,
+      isStudent: true,
+      loadUnitsPerformance: true
+    });
+    controller.set('studentCourseReportContext', params);
   }
 });
