@@ -16,7 +16,7 @@
           font-size: 15px;
         }
 
-        .no-subject  {
+        .no-subject {
           color: $dark-400;
         }
 
@@ -81,6 +81,9 @@
             padding: 12px;
             border: 1px solid $light-200;
             cursor: pointer;
+            &.not-started {
+              pointer-events: none;
+            }
             .icon {
               width: 35px;
               height: 30px;

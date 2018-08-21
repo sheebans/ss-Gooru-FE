@@ -22,7 +22,7 @@
       <div class="course-map" data-toggle="tooltip" title="Course Map" {{action "onSelectClassItem" 'course-map' classData.id}}>
         <i class="icon"></i>
       </div>
-      <div class="performance" data-toggle="tooltip" title="Report" {{action "onSelectClassItem" 'report' classData.id}}>
+      <div class="performance {{unless hasStarted 'not-started'}}" data-toggle="tooltip" title="Report" {{action "onSelectClassItem" 'report' classData.id}}>
         <i class="icon"></i>
       </div>
     </div>

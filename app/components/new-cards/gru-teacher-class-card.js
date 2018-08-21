@@ -168,6 +168,15 @@ export default Ember.Component.extend({
   }),
 
   /**
+   * @property {Boolean}
+   * Computed property  to identify class is started or not
+   */
+  hasStarted: Ember.computed('class.performanceSummary', function() {
+    const scorePercentage = this.get('class.performanceSummary.score');
+    return scorePercentage !== null && scorePercentage >= 0;
+  }),
+
+  /**
    * The class is premium
    * @property {String}
    */
