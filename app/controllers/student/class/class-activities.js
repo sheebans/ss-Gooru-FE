@@ -3,6 +3,8 @@ import { formatDate } from 'gooru-web/utils/utils';
 import ModalMixin from 'gooru-web/mixins/modal';
 import SessionMixin from 'gooru-web/mixins/session';
 import AssessmentResult from 'gooru-web/models/result/assessment';
+import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
+
 /**
  * Class activities controller
  *
@@ -55,7 +57,32 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         resourceResults: resourceResults,
         collection: assessment,
         isRealTime: this.get('isRealTime'),
-        showAttempts: this.get('showAttempts')
+        showAttempts: this.get('showAttempts'),
+        isTeacher: false
+      });
+      assessmentResult.reopen({
+        areAnswersHidden: Ember.computed(
+          'collection.isAssessment',
+          'collection.showFeedback',
+          function() {
+            return (
+              this.get('collection.isAssessment') &&
+              this.get('collection.showFeedback') ===
+                ASSESSMENT_SHOW_VALUES.NEVER
+            );
+          }
+        ),
+
+        isAnswerKeyHidden: Ember.computed(
+          'collection.isAssessment',
+          'collection.showKey',
+          function() {
+            return (
+              this.get('collection.isAssessment') &&
+              !this.get('collection.showKey')
+            );
+          }
+        )
       });
 
       let modalModel = {

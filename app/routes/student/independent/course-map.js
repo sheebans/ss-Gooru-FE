@@ -1,5 +1,9 @@
 import Ember from 'ember';
-import { ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
+import {
+  ROLES,
+  PLAYER_EVENT_SOURCE,
+  CONTENT_TYPES
+} from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
   // -------------------------------------------------------------------------
@@ -53,9 +57,10 @@ export default Ember.Route.extend({
     let userLocation = route
       .get('learnerService')
       .fetchLocationCourse(course.get('id'), userId);
+    let unitList = route.fetchNonClassUnitPerformance(units);
     return Ember.RSVP.hash({
       course,
-      units,
+      unitList,
       userLocation
     });
   },
@@ -74,9 +79,14 @@ export default Ember.Route.extend({
       userLocation = `${unitId}+${lessonId}+${collectionId}`;
     }
     controller.set('userLocation', userLocation);
-    controller.set('units', model.units);
+    controller.set('units', model.unitList);
     controller.set('course', model.course);
     controller.get('studentIndependentController').selectMenuItem('course-map');
+    controller.init();
+  },
+
+  resetController(controller) {
+    controller.set('tab', null);
   },
 
   /**
@@ -85,7 +95,7 @@ export default Ember.Route.extend({
    * @param {string} unitId
    * @param {string} lessonId
    * @param {Collection} collection
-     */
+   */
   startCollectionStudyPlayer: function(courseId, unitId, lessonId, collection) {
     let role = ROLES.STUDENT;
     let source = PLAYER_EVENT_SOURCE.INDEPENDENT_ACTIVITY;
@@ -103,7 +113,11 @@ export default Ember.Route.extend({
 
     this.get('navigateMapService')
       .startCollection(courseId, unitId, lessonId, collectionId, collectionType)
-      .then(() => this.transitionTo('study-player', courseId, { queryParams }));
+      .then(() =>
+        this.transitionTo('study-player', courseId, {
+          queryParams
+        })
+      );
   },
 
   /**
@@ -111,7 +125,7 @@ export default Ember.Route.extend({
    * @param {string} courseId
    * @param {string} unitId
    * @param {string} lessonId
-     */
+   */
   startLessonStudyPlayer: function(courseId, unitId, lessonId) {
     const role = ROLES.STUDENT;
     const queryParams = {
@@ -122,7 +136,11 @@ export default Ember.Route.extend({
     };
     this.get('navigateMapService')
       .startLesson(courseId, unitId, lessonId)
-      .then(() => this.transitionTo('study-player', courseId, { queryParams }));
+      .then(() =>
+        this.transitionTo('study-player', courseId, {
+          queryParams
+        })
+      );
   },
 
   /**
@@ -159,5 +177,31 @@ export default Ember.Route.extend({
           queryParams
         });
       });
+  },
+
+  fetchNonClassUnitPerformance(units) {
+    let route = this;
+    const currentCourse = route.modelFor('student.independent').course;
+    const courseId = currentCourse.get('id');
+    return Ember.RSVP.hash({
+      unitsPerformance: route
+        .get('learnerService')
+        .fetchPerformanceCourse(courseId, CONTENT_TYPES.ASSESSMENT)
+    }).then(({ unitsPerformance }) => {
+      return new Ember.RSVP.Promise(resolve => {
+        resolve(route.renderUnitsPerformance(units, unitsPerformance));
+      });
+    });
+  },
+
+  renderUnitsPerformance(units, unitsPerformance) {
+    let unitList = Ember.A([]);
+    units.forEach(unit => {
+      let unitCopy = unit.copy();
+      let unitPerformance = unitsPerformance.findBy('unitId', unit.get('id'));
+      unitCopy.set('performance', unitPerformance);
+      unitList.pushObject(unitCopy);
+    });
+    return unitList;
   }
 });

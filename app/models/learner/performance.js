@@ -66,6 +66,15 @@ const LearnerPerformanceModel = Ember.Object.extend({
   sessionId: Ember.computed.alias('lastSessionId'),
 
   /**
+   * @property {Boolean}
+   * Computed property  to identify class is started or not
+   */
+  hasStarted: Ember.computed('score', function() {
+    const scorePercentage = this.get('score');
+    return scorePercentage !== null && scorePercentage >= 0;
+  }),
+
+  /**
    * @property {Number} scoreInPercentage - score in percentage
    */
   scoreInPercentage: null,

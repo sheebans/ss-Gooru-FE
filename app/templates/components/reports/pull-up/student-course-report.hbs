@@ -20,9 +20,9 @@
               <div class="course-background-cover">
                 <div class="report-carousel-content">
                   <div class="performance-display-container">
-                    <div class="course-performance-average" style= {{safe-html (concat "background-color:" (grade-color class.performanceSummary.score))}}>
-                      {{#if class.performanceSummary.score}}
-                        {{class.performanceSummary.score}}%
+                    <div class="course-performance-average" style= {{safe-html (concat "background-color:" (grade-color performanceSummary.score))}}>
+                      {{#if (gte performanceSummary.score 0)}}
+                        {{performanceSummary.score}}%
                       {{else}}
                         --
                       {{/if}}

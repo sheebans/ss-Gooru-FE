@@ -3,6 +3,7 @@ import { getBarGradeColor, toLocal } from 'gooru-web/utils/utils';
 import Context from 'gooru-web/models/result/context';
 import TaxonomyTag from 'gooru-web/models/taxonomy/taxonomy-tag';
 import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
+import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
@@ -266,6 +267,33 @@ export default Ember.Component.extend({
    */
   defaultSuggestContentType: 'collection',
 
+  /**
+   * @property {boolean} areAnswersHidden - Should answer results be hidden?
+   */
+  areAnswersHidden: Ember.computed(
+    'collection.isAssessment',
+    'collection.showFeedback',
+    function() {
+      return (
+        this.get('collection.isAssessment') &&
+        this.get('collection.showFeedback') === ASSESSMENT_SHOW_VALUES.NEVER
+      );
+    }
+  ),
+
+  /**
+   * @property {boolean} isAnswerKeyHidden - Should the answer key be hidden?
+   */
+  isAnswerKeyHidden: Ember.computed(
+    'collection.isAssessment',
+    'collection.showKey',
+    function() {
+      return (
+        this.get('collection.isAssessment') && !this.get('collection.showKey')
+      );
+    }
+  ),
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -361,8 +389,6 @@ export default Ember.Component.extend({
     let reportData = component.get('reportData');
     component.set('isAssessment', reportData.type === 'assessment');
     component.set('isCollection', reportData.type === 'collection');
-    component.set('areAnswersHidden', false);
-    component.set('isAnswerKeyHidden', false);
     component.set('isLoading', true);
     this.getStundentCollectionReport(reportData);
   },
