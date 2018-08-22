@@ -625,12 +625,17 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         .then(function(performance) {
           const promises = collections.map(function(collection) {
             const isAssessment = collection.get('format') === 'assessment';
-            const isExternalAssessment = collection.get('format') === 'assessment-external';
+            const isExternalAssessment =
+              collection.get('format') === 'assessment-external';
             const collectionId = collection.get('id');
             const peer = lessonPeers.findBy('id', collectionId);
             const assessmentDataPromise = isAssessment
               ? component.get('assessmentService').readAssessment(collectionId)
-              : isExternalAssessment ? component.get('assessmentService').readExternalAssessment(collectionId) : Ember.RSVP.resolve(true);
+              : isExternalAssessment
+                ? component
+                  .get('assessmentService')
+                  .readExternalAssessment(collectionId)
+                : Ember.RSVP.resolve(true);
 
             return assessmentDataPromise.then(function(assessmentData) {
               const averageScore = performance.calculateAverageScoreByItem(
@@ -772,7 +777,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         const promises = collections.map(function(collection) {
           const collectionId = collection.get('id');
           const isAssessment = collection.get('format') === 'assessment';
-          const isExternalAssessment = collection.get('format') === 'assessment-external';
+          const isExternalAssessment =
+            collection.get('format') === 'assessment-external';
           const isResource =
             collection.get('format') !== 'assessment' &&
             collection.get('format') !== 'assessment-external' &&
@@ -912,7 +918,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         const promises = collections.map(function(collection) {
           const collectionId = collection.get('id');
           const isAssessment = collection.get('format') === 'assessment';
-          const isExternalAssessment = collection.get('format') === 'assessment-external';
+          const isExternalAssessment =
+            collection.get('format') === 'assessment-external';
           const isResource =
             collection.get('format') !== 'assessment' &&
             collection.get('format') !== 'assessment-external' &&
@@ -1057,7 +1064,9 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
     let component = this;
     let params = {
       classId: component.get('currentClass.id'),
-      courseId: component.get('currentClass.courseId'),
+      courseId:
+        component.get('currentClass.courseId') ||
+        component.get('currentCourse.id'),
       unitId: component.get('unit.id'),
       lessonId: component.get('model.id'),
       lesson: component.get('model'),
