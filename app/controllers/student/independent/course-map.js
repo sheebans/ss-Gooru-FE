@@ -10,6 +10,12 @@ export default Ember.Controller.extend({
 
   studentIndependentController: Ember.inject.controller('student.independent'),
 
+  /**
+   * Session object of currently logged in user
+   * @type {Session}
+   */
+  session: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Attributes
 
@@ -124,7 +130,7 @@ export default Ember.Controller.extend({
       performance: controller.get('performance'),
       isTeacher: false,
       isStudent: true,
-      loadUnitsPerformance: false
+      loadUnitsPerformance: true
     });
     controller.set('studentCourseReportContext', params);
   }

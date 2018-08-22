@@ -306,6 +306,18 @@ export default Ember.Component.extend({
     let unitId = component.get('unitId');
     let lessonId = component.get('selectedLesson.id');
     let userId = component.get('userId');
+    let collections = component
+      .get('collections')
+      .filterBy('format', 'collection');
+    let assessmentExternal = component
+      .get('collections')
+      .filterBy('format', 'assessment-external');
+    let assessments = component
+      .get('collections')
+      .filterBy('format', 'assessment');
+    let assessmentsAndExternalAssessments = assessments.concat(
+      assessmentExternal
+    );
     Ember.RSVP.hash({
       collectionsPerformance: component
         .get('performanceService')
@@ -315,7 +327,10 @@ export default Ember.Component.extend({
           courseId,
           unitId,
           lessonId,
-          component.get('collections').filterBy('format', 'assessment')
+          collections,
+          {
+            collectionType: 'collection'
+          }
         ),
       assessmentsPerformance: component
         .get('performanceService')
@@ -325,10 +340,7 @@ export default Ember.Component.extend({
           courseId,
           unitId,
           lessonId,
-          component.get('collections').filterBy('format', 'collection'),
-          {
-            collectionType: 'collection'
-          }
+          assessmentsAndExternalAssessments
         )
     }).then(({ collectionsPerformance, assessmentsPerformance }) => {
       if (!component.isDestroyed) {
