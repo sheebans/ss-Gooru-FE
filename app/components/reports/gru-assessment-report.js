@@ -101,8 +101,12 @@ export default Ember.Component.extend({
    */
   onInit: Ember.on('init', function() {
     if (this.get('model')) {
-      this.set('assessmentResult', this.get('model').assessmentResult);
+      let assessmentResult = this.get('model').assessmentResult;
+      this.set('assessmentResult', assessmentResult);
       this.set('profile', this.get('model').profile);
+      this.set('areAnswersHidden', assessmentResult.get('areAnswersHidden'));
+      this.set('isAnswerKeyHidden', assessmentResult.get('isAnswerKeyHidden'));
+      this.set('isTeacher', assessmentResult.get('isTeacher'));
     }
     this.get('assessmentResult').fixResultsOrder();
   }),
