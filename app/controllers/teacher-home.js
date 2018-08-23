@@ -42,55 +42,6 @@ export default Ember.Controller.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Methods
-  /**
-   * Clear validation messages
-   */
-  archivedClassObject: Ember.computed('archivedClasses.@each', function() {
-    let route = this;
-    let archivedClasses = this.get('archivedClass')
-      ? this.get('archivedClass')
-      : this.get('archivedClasses');
-    let classCourseIds = route.getListOfClassCourseIds(archivedClasses);
-    route
-      .get('performanceService')
-      .findClassPerformanceSummaryByClassIds(classCourseIds)
-      .then(function(classPerformanceSummaryItems) {
-        archivedClasses.forEach(function(archiveClass) {
-          let classId = archiveClass.get('id');
-          let courseId = archiveClass.get('courseId');
-          if (courseId) {
-            route
-              .get('courseService')
-              .fetchByIdWithOutProfile(courseId)
-              .then(course => {
-                archiveClass.set('course', course);
-              });
-          }
-          archiveClass.set(
-            'performanceSummary',
-            classPerformanceSummaryItems.findBy('classId', classId)
-          );
-        });
-      });
-  }),
-
-  /**
-   * @function getListOfClassCourseIds
-   * Method to fetch class and course ids from the list of classess
-   */
-  getListOfClassCourseIds(activeClasses) {
-    let listOfActiveClassCourseIds = Ember.A([]);
-    activeClasses.map( activeClass => {
-      if (activeClass.courseId) {
-        let classCourseId = {
-          classId: activeClass.id,
-          courseId: activeClass.courseId
-        };
-        listOfActiveClassCourseIds.push(classCourseId);
-      }
-    });
-    return listOfActiveClassCourseIds;
-  },
 
   /**
    * @function getLastAccessedClassData
@@ -108,25 +59,66 @@ export default Ember.Controller.extend(ModalMixin, {
     if (!isLastAccessedClassAvailable) {
       let activeClasses = controller.get('activeClasses');
       lastAccessedClassData = activeClasses ? activeClasses.objectAt(0) : null;
-      let courseId = lastAccessedClassData ? lastAccessedClassData.courseId : null;
+      let courseId = lastAccessedClassData
+        ? lastAccessedClassData.courseId
+        : null;
       if (courseId) {
         Ember.RSVP.hash({
           courseData: controller
             .get('courseService')
             .fetchByIdWithOutProfile(courseId)
-        })
-          .then(({courseData}) => {
-            lastAccessedClassData.course = courseData;
-            if (lastAccessedClassData) {
-              lastAccessedClassData = controller.updateLastAccessedClass(
-                lastAccessedClassData
-              );
-            }
-          });
+        }).then(({ courseData }) => {
+          lastAccessedClassData.course = courseData;
+          if (lastAccessedClassData) {
+            lastAccessedClassData = controller.updateLastAccessedClass(
+              lastAccessedClassData
+            );
+          }
+        });
       }
     }
     controller.set('lastAccessedClassData', lastAccessedClassData);
     return lastAccessedClassData;
+  },
+
+  loadPerformance() {
+    let controller = this;
+    if (controller.get('showArchivedClasses')) {
+      let archivedClasses = controller.get('archivedClasses');
+      controller.loadClassPerformance(archivedClasses);
+      controller.set('isArchivedClassPerformanceLoaded', true);
+    } else {
+      let activeClasses = controller.get('activeClasses');
+      controller.loadClassPerformance(activeClasses);
+      controller.set('isActiveClassPerformanceLoaded', true);
+    }
+  },
+
+  loadClassPerformance(classes) {
+    let route = this;
+    let classCourseIds = route.getListOfClassCourseIds(classes);
+    route
+      .get('performanceService')
+      .findClassPerformanceSummaryByClassIds(classCourseIds)
+      .then(function(classPerformanceSummaryItems) {
+        classes.forEach(function(clas) {
+          let classId = clas.get('id');
+          let courseId = clas.get('courseId');
+          if (courseId) {
+            route
+              .get('courseService')
+              .fetchByIdWithOutProfile(courseId)
+              .then(course => {
+                clas.set('course', course);
+                clas.set('unitsCount', course.get('unitCount'));
+              });
+          }
+          clas.set(
+            'performanceSummary',
+            classPerformanceSummaryItems.findBy('classId', classId)
+          );
+        });
+      });
   },
 
   /**
@@ -177,12 +169,30 @@ export default Ember.Controller.extend(ModalMixin, {
    */
   checkIsPartOfPremiumClass(activeClasses) {
     let isPartOfPremiumClass = false;
-    activeClasses.some( function(classData){
+    activeClasses.some(function(classData) {
       let setting = classData.get('setting');
       isPartOfPremiumClass = setting ? setting['course.premium'] : false;
       return isPartOfPremiumClass;
     });
     return isPartOfPremiumClass;
+  },
+
+  /**
+   * @function getListOfClassCourseIds
+   * Method to fetch class and course ids from the list of classess
+   */
+  getListOfClassCourseIds(classes) {
+    let listOfActiveClassCourseIds = Ember.A([]);
+    classes.map(clas => {
+      if (clas.get('courseId')) {
+        let classCourseId = {
+          classId: clas.get('id'),
+          courseId: clas.get('courseId')
+        };
+        listOfActiveClassCourseIds.push(classCourseId);
+      }
+    });
+    return listOfActiveClassCourseIds;
   },
 
   // -------------------------------------------------------------------------
@@ -215,12 +225,17 @@ export default Ember.Controller.extend(ModalMixin, {
     showClasses: function(type) {
       this.set('showActiveClasses', type === 'active');
       this.set('showArchivedClasses', type === 'archived');
+      if (!this.get('isActiveClassPerformanceLoaded')) {
+        this.loadPerformance();
+      }
     },
 
     archivedClass: function(type) {
       this.set('showArchivedClasses', type === 'archived');
       this.set('showActiveClasses', type === 'active');
-      this.get('archivedClassObject');
+      if (!this.get('isArchivedClassPerformanceLoaded')) {
+        this.loadPerformance();
+      }
     },
 
     updateClass: function(classId) {
@@ -284,7 +299,6 @@ export default Ember.Controller.extend(ModalMixin, {
       controller.set('selectedStudentUserId', userId);
       controller.set('isShowCompetencyContentReport', true);
     }
-
   },
 
   // -------------------------------------------------------------------------
@@ -293,22 +307,10 @@ export default Ember.Controller.extend(ModalMixin, {
     const controller = this;
     controller._super(...arguments);
     controller.getLastAccessedClassData();
-    Ember.run.schedule('afterRender', this, function() {
-      if (controller.get('showArchivedClasses')) {
-        controller.get('archivedClassObject');
-      }
-    });
     let localStorage = this.get('applicationController').getLocalStorage();
     const userId = this.get('session.userId');
     const localStorageLogins = `${userId}_logins`;
-    /*     const localStorageItem = `${userId}_dontShowWelcomeModal`;
-
-    if (!localStorage.getItem(localStorageItem)) {
-      this.send('showModal', 'content.modals.gru-welcome-message');
-    }
- */ let loginCount = localStorage.getItem(
-      localStorageLogins
-    );
+    let loginCount = localStorage.getItem(localStorageLogins);
     if (loginCount) {
       this.set('loginCount', +loginCount);
     }
@@ -330,6 +332,18 @@ export default Ember.Controller.extend(ModalMixin, {
   showArchivedClasses: false,
 
   /**
+   * Maintains the state of Active class performance loaded ot not
+   * @type {Boolean}
+   */
+  isActiveClassPerformanceLoaded: false,
+
+  /**
+   * Maintains the state of Archived class performance loaded ot not
+   * @type {Boolean}
+   */
+  isArchivedClassPerformanceLoaded: false,
+
+  /**
    * A link to the parent application controller
    * @see controllers/application.js
    * @property {ClassesModel}
@@ -340,27 +354,6 @@ export default Ember.Controller.extend(ModalMixin, {
    * @property {Profile}
    */
   profile: Ember.computed.alias('applicationController.profile'),
-
-  /**
-   * @property {Class[]}
-   */
-  activeClasses: Ember.computed(
-    'applicationController.myClasses.classes.[]',
-    function() {
-      return this.get(
-        'applicationController.myClasses'
-      ).getTeacherActiveClasses(this.get('profile.id'));
-    }
-  ),
-
-  /**
-   * @property {Class[]}
-   */
-  archivedClasses: Ember.computed.filterBy(
-    'myClasses.classes',
-    'isArchived',
-    true
-  ),
 
   /**
    * @property {Number} Total of teaching classes
@@ -412,13 +405,6 @@ export default Ember.Controller.extend(ModalMixin, {
    * @property {Number} - Amount of logins by the user
    */
   loginCount: null,
-
-  /**
-   * Reset to default values
-   */
-  resetValues: function() {
-    this.set('showActiveClasses', true);
-  },
 
   /**
    * @property {JSON}
