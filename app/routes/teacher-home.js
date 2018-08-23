@@ -286,34 +286,6 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     });
   },
 
-  afterModel(resolvedModel) {
-    let route = this;
-    let activeClasses = resolvedModel.activeClasses;
-    let classCourseIds = route.getListOfClassCourseIds(activeClasses);
-    route
-      .get('performanceService')
-      .findClassPerformanceSummaryByClassIds(classCourseIds)
-      .then(function(classPerformanceSummaryItems) {
-        activeClasses.forEach(function(activeClass) {
-          let classId = activeClass.get('id');
-          let courseId = activeClass.get('courseId');
-          if (courseId) {
-            route
-              .get('courseService')
-              .fetchByIdWithOutProfile(courseId)
-              .then(course => {
-                activeClass.set('course', course);
-                activeClass.set('unitsCount', course.get('unitCount'));
-              });
-          }
-          activeClass.set(
-            'performanceSummary',
-            classPerformanceSummaryItems.findBy('classId', classId)
-          );
-        });
-      });
-  },
-
   /**
    * Set all controller properties from the model
    * @param controller
@@ -322,36 +294,19 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   setupController: function(controller, model) {
     controller.set('steps', model.tourSteps);
     controller.set('featuredCourses', model.featuredCourses);
-    controller.set('archivedClass', model.archivedClasses);
+    controller.set('archivedClasses', model.archivedClasses);
     controller.set('activeClasses', model.activeClasses);
     let lastAccessedClassData = controller.getLastAccessedClassData();
     if (model.activeClasses.length) {
       controller.updateLastAccessedClassPosition(lastAccessedClassData.id);
     }
+    controller.loadPerformance();
   },
 
-  /**
-   * @function getListOfClassCourseIds
-   * Method to fetch class and course ids from the list of classess
-   */
-  getListOfClassCourseIds(activeClasses) {
-    let listOfActiveClassCourseIds = Ember.A([]);
-    activeClasses.map(activeClass => {
-      if (activeClass.courseId) {
-        let classCourseId = {
-          classId: activeClass.id,
-          courseId: activeClass.courseId
-        };
-        listOfActiveClassCourseIds.push(classCourseId);
-      }
-    });
-    return listOfActiveClassCourseIds;
-  },
-
-  /**
-   * Reset controller properties
-   */
-  deactivate: function() {
-    this.get('controller').resetValues();
+  resetController(controller) {
+    controller.set('showActiveClasses', true);
+    controller.set('showArchivedClasses', false);
+    controller.set('isActiveClassPerformanceLoaded', false);
+    controller.set('isArchivedClassPerformanceLoaded', false);
   }
 });
