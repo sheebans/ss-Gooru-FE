@@ -8,6 +8,17 @@ export default Ember.Component.extend({
     },
     selectUnit: function() {
       //ToDo: Add impl on player
+    },
+    /**
+     * Trigger the 'onLocationUpdate' event handler
+     *
+     * @function actions:updateLocation
+     * @param {string} newLocation - String of the form 'unitId[+lessonId[+resourceId]]'
+     */
+    updateLocation: function(newLocation) {
+      if (this.get('onLocationUpdate')) {
+        this.get('onLocationUpdate')(newLocation);
+      }
     }
   },
 
@@ -17,30 +28,23 @@ export default Ember.Component.extend({
    */
   isEnablePlayer: true,
 
-  taxonomyList: [
-    {
-      code: 'D2.Civ.1.K-2',
-      frameworkCode: 'C3',
-      id: 'C3.K12.SS-K.2-CIV-01',
-      parentTitle: 'Social Sciences',
-      title: 'Describe roles and responsibilities of people in authority.',
-      taxonomyLevel: 'standard'
-    },
-    {
-      code: 'D2.Civ.1.K-3',
-      frameworkCode: 'C3',
-      id: 'C3.K12.SS-K.2-CIV-01',
-      parentTitle: 'Social Sciences',
-      title: 'Describe roles and responsibilities of people in authority.',
-      taxonomyLevel: 'standard'
-    },
-    {
-      code: 'D2.Civ.1.K-4',
-      frameworkCode: 'C3',
-      id: 'C3.K12.SS-K.2-CIV-01',
-      parentTitle: 'Social Sciences',
-      title: 'Describe roles and responsibilities of people in authority.',
-      taxonomyLevel: 'standard'
+  taxonomyList: [],
+
+  /**
+   * Find user location in route0
+   * if present then pass that route0location to course+unit+lesson+c for selection
+   */
+  isLocationInRoute0: Ember.computed('userLocation', {
+    get() {
+      const component = this;
+      if (component.userLocation && component.userLocation !== '') {
+        let parslocationarr = component.userLocation.split('+');
+        return component.route0.route0Content.units.find(
+          unit => unit.unitId === parslocationarr[0]
+        );
+      } else {
+        // can no location be treated as route0 init ?
+      }
     }
-  ]
+  })
 });

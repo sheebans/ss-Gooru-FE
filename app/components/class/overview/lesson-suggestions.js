@@ -1,6 +1,9 @@
 import Ember from 'ember';
 import AccordionMixin from '../../../mixins/gru-accordion';
 import { CONTENT_TYPES } from 'gooru-web/config/config';
+// Whenever the observer 'parsedLocationChanged' is running, this flag is set so
+// clicking on the lessons should not update the location
+var isUpdatingLocation = false;
 
 export default Ember.Component.extend(AccordionMixin, {
   /**
@@ -19,6 +22,19 @@ export default Ember.Component.extend(AccordionMixin, {
    */
   assessmentService: Ember.inject.service('api-sdk/assessment'),
 
+  // isLessonSelected: null,
+  /**
+   * Select an element as active element to study
+   */
+  activeStudyPlayer: function(item) {
+    if (this.get('activeElement') === item.id) {
+      this.set('activeElement', '');
+    } else {
+      this.set('activeElement', item.id);
+    }
+    this.set('showLocation', false);
+  },
+
   classNames: [
     'gru-accordion',
     'lesson-suggestions',
@@ -32,22 +48,71 @@ export default Ember.Component.extend(AccordionMixin, {
     return `l-${this.get('model.lessonId')}`;
   }),
 
+  // -------------------------------------------------------------------------
+  // Events
+  setupComponent: Ember.on('didInsertElement', function() {
+    const component = this;
+    this.set('activeElement', this.get('currentResource'));
+    this.$().on('hide.bs.collapse', function(e) {
+      e.stopPropagation();
+      component.set('isExpanded', false);
+    });
+
+    this.$().on('show.bs.collapse', function(e) {
+      e.stopPropagation();
+      component.set('isExpanded', true);
+    });
+    Ember.run.scheduleOnce('afterRender', this, this.parsedLocationChanged);
+  }),
+
+  isLessonSelected: Ember.computed(
+    'isExpanded',
+    'isResourceSelected',
+    'studyNowDisabled',
+    function() {
+      let islessonselected =
+        this.get('isExpanded') &&
+        !this.get('isResourceSelected') &&
+        !this.get('activeElement');
+      return islessonselected;
+    }
+  ),
+  /**
+   * Observe changes when expands or collapse a lesson.
+   */
+  removedActiveLocation: Ember.observer('isExpanded', function() {
+    if (!this.get('isExpanded')) {
+      this.set('activeElement', '');
+    }
+  }),
+
+  removeSubscriptions: Ember.on('willDestroyElement', function() {
+    this.$().off('hide.bs.collapse');
+    this.$().off('show.bs.collapse');
+  }),
   actions: {
-    selectLesson: function(modelid) {
-      this.updateAccordionById(modelid);
-      this.setLessonItemForReport();
-    },
-    /**
-     * Observe changes to 'parsedLocation' to update the accordion's status
-     * (expanded/collapsed).
-     */
-    parsedLocationChanged: Ember.observer('parsedLocation.[]', function() {
-      const parsedLocation = this.get('parsedLocation');
-      if (parsedLocation) {
-        let lessonId = parsedLocation[1];
-        this.updateAccordionById(lessonId);
+    selectLesson: function(lessonId) {
+      const component = this;
+      if (!isUpdatingLocation) {
+        component.set('loading', true);
+        let updateValue = this.get('isExpanded') ? '' : lessonId;
+        this.get('onSelectLesson')(updateValue);
+        if (!this.get('isExpanded')) {
+          this.setLessonItemForReport();
+        }
+        component.set('loading', true);
       }
-    }),
+    },
+
+    /**
+     * @function actions:selectResource
+     * @param {string} collection - (collection/assessment)
+     */
+    selectResource: function(collection) {
+      this.activeStudyPlayer(collection);
+      this.set('isResourceSelected', true);
+    },
+
     studyNow: function(item, itemtype) {
       let type =
         !itemtype &&
@@ -59,12 +124,6 @@ export default Ember.Component.extend(AccordionMixin, {
       item = Ember.Object.create(item);
       this.attrs.onStudyNow(type, this.model.lessonId, item);
     },
-    /**
-     * Observe changes when expands or collapse a lesson.
-     */
-    removedActiveLocation: Ember.observer('isExpanded', function() {
-      this.set('activeElement', '');
-    }),
     onOpenLessonLevelReport() {
       const component = this;
       const classId = component.get('currentClass.id');
@@ -108,16 +167,43 @@ export default Ember.Component.extend(AccordionMixin, {
       this.set('showCollectionReportPullUp', false);
     }
   },
-  /*  didInsertElement() {
-    this.setLessonItemForReport();
-  }, */
+  /**
+   * Observe changes to 'parsedLocation' to update the accordion's status
+   * (expanded/collapsed).
+   */
+  parsedLocationChanged: Ember.observer('parsedLocation.[]', function() {
+    const parsedLocation = this.get('parsedLocation');
+    if (parsedLocation) {
+      isUpdatingLocation = true;
+      let lessonId = parsedLocation[1];
+      this.updateAccordionById(lessonId);
+      isUpdatingLocation = false;
+    }
+  }),
+
   setLessonItemForReport() {
     const component = this;
     if (!component.get('class')) {
+      component.set('loading', false);
       return;
     }
     component.set('loading', true);
     let collections = component.get('model.collections'); // This holds collection which gets set to items for perfromace control display
+    let activeElement = this.get('activeElement');
+    if (activeElement) {
+      const isResourceSelected = collections.findBy('id', activeElement);
+      if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
+        component.set('isResourceSelected', isResourceSelected);
+      }
+      if (isResourceSelected) {
+        /*  console.log(
+          `isResourceSelected : ${isResourceSelected},  activeElement : ${activeElement}`
+        ); */
+        component.set('loading', false);
+        return;
+      }
+    }
+
     collections = component.getCollection(
       collections,
       component.get('model').lessonId

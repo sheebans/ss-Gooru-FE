@@ -30,7 +30,7 @@
                 {{three-bounce-spinner}}
             {{else}}
             {{#each model.collections as |item index|}}
-                <li class="panel">
+                <li class="panel {{if (eq activeElement item.collectionId) 'study-active'}}">
                     <div class="panel-heading student">
                         <div class="panel-title">
                             <div class="icon-container">
@@ -40,7 +40,7 @@
                                     <img src="/assets/gooru/collection-default.png" />
                                 {{/if}}
                             </div>
-                            <a class="title {{item.collectionTitle}} truncate">
+                            <a class="title {{item.collectionTitle}} truncate" {{action "selectResource" item}} >
                                 {{item.title}}
                             </a>
                         </div>
