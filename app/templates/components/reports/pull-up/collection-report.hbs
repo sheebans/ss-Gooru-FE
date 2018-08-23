@@ -13,7 +13,7 @@
       </div>
       <div class="collection-title">
         {{gru-icon name="keyboard_arrow_right"}}
-        <i class="collection-icon {{selectedCollection.format}}"></i>
+        <i class="collection-icon {{collectionType}}"></i>
         <p>{{selectedCollection.title}}</p>
       </div>
     </div>
@@ -42,17 +42,17 @@
       <div class="report-carousel-content-container">
         <div class="report-carousel-content">
           <div class="performance-display-container">
-            {{#if (eq selectedCollection.format 'assessment')}}
+            {{#if (eq collectionType 'assessment')}}
               <div class="collection-performance-average" style= {{safe-html (concat "background-color:" (grade-color selectedCollection.performance.score))}}>{{selectedCollection.performance.score}}%</div>
             {{else}}
               <div class="collection-performance-timespent">{{format-time selectedCollection.performance.timeSpent}}</div>
             {{/if}}
           </div>
           <div class="collection-report-chart">
-            {{#if (eq selectedCollection.format 'assessment') }}
-              {{charts.report-bar-chart useTimeSpentScore=false studentChartReportData=studentReportData onClickChart="onClickChart"}}
+            {{#if (eq collectionType 'assessment') }}
+              {{charts.report-bar-chart useTimeSpentScore=false assessmentFormat=selectedCollection.format studentChartReportData=studentReportData onClickChart="onClickChart"}}
             {{else}}
-              {{charts.report-bar-chart useTimeSpentScore=true studentChartReportData=studentReportData onClickChart="onClickChart"}}
+              {{charts.report-bar-chart useTimeSpentScore=true assessmentFormat=selectedCollection.format studentChartReportData=studentReportData onClickChart="onClickChart"}}
             {{/if}}
           </div>
         </div>
@@ -77,49 +77,65 @@
               <span>{{t 'common.list'}}</span>
             </div>
           </div>
-          <div class="filter-btns">
-            <div class="performance-icon {{selectedCollection.format}} active">
-              {{gru-icon name="done_all"}}
-              <span>{{t 'gru-course-play.performance'}}</span>
+          {{#unless (eq selectedCollection.format 'assessment-external')}}
+            <div class="filter-btns">
+              <div class="performance-icon {{collectionType}} active">
+                {{gru-icon name="done_all"}}
+                <span>{{t 'gru-course-play.performance'}}</span>
+              </div>
+              <div class="timespent-icon {{selectedCollection.format}} {{if isTimeSpentFltApplied 'active'}}" {{action "onToggleTimeSpentFlt"}}>
+                {{gru-icon name="access_time"}}
+                <span>{{t 'common.timeSpent'}}</span>
+              </div>
+              <div class="reaction-icon {{if isReactionFltApplied 'active'}}" {{action "onToggleReactionFlt"}}>
+                {{gru-icon name="insert_emoticon"}}
+                <span>{{t 'reports.gru-table-view.reactions'}}</span>
+              </div>
             </div>
-            <div class="timespent-icon {{selectedCollection.format}} {{if isTimeSpentFltApplied 'active'}}" {{action "onToggleTimeSpentFlt"}}>
-              {{gru-icon name="access_time"}}
-              <span>{{t 'common.timeSpent'}}</span>
-            </div>
-            <div class="reaction-icon {{if isReactionFltApplied 'active'}}" {{action "onToggleReactionFlt"}}>
-              {{gru-icon name="insert_emoticon"}}
-              <span>{{t 'reports.gru-table-view.reactions'}}</span>
-            </div>
-          </div>
+          {{/unless}}
         </div>
       </div>
       <div class="report-view-container">
-        {{#if isGridView}}
-          {{reports.pull-up.collection-report-gridview
-            contents=collection.children
+        {{#if (eq selectedCollection.format 'assessment-external')}}
+          {{#if isGridView}}
+          {{reports.pull-up.teacher-external-assessment-report-grid-view
             studentReportData=studentReportData
             selectedCollection=selectedCollection
-            studentReport="studentReport"
           }}
+          {{else}}
+            {{reports.pull-up.teacher-external-assessment-report-list-view
+              studentReportData=studentReportData
+              selectedCollection=selectedCollection
+            }}
+          {{/if}}
         {{else}}
-          {{reports.pull-up.collection-report-listview
-            sortByFirstnameEnabled=sortByFirstnameEnabled
-            sortByLastnameEnabled=sortByLastnameEnabled
-            sortByScoreEnabled=sortByScoreEnabled
-            sortByTimeSpentEnabled=sortByTimeSpentEnabled
-            contents=collection.children
-            studentReportData=studentReportData
-            selectedCollection=selectedCollection
-            isReactionFltApplied=isReactionFltApplied
-            isTimeSpentFltApplied=isTimeSpentFltApplied
-            studentReport="studentReport"
-            openQuestionReport="openQuestionReport"
-            suggestResultCount=suggestResultCount
-            studentsSelectedForSuggest=studentsSelectedForSuggest
-            context=context
-            collection=collection
-            defaultSuggestContentType=defaultSuggestContentType
-          }}
+          {{#if isGridView}}
+            {{reports.pull-up.collection-report-gridview
+              contents=collection.children
+              studentReportData=studentReportData
+              selectedCollection=selectedCollection
+              studentReport="studentReport"
+            }}
+          {{else}}
+            {{reports.pull-up.collection-report-listview
+              sortByFirstnameEnabled=sortByFirstnameEnabled
+              sortByLastnameEnabled=sortByLastnameEnabled
+              sortByScoreEnabled=sortByScoreEnabled
+              sortByTimeSpentEnabled=sortByTimeSpentEnabled
+              contents=collection.children
+              studentReportData=studentReportData
+              selectedCollection=selectedCollection
+              isReactionFltApplied=isReactionFltApplied
+              isTimeSpentFltApplied=isTimeSpentFltApplied
+              studentReport="studentReport"
+              openQuestionReport="openQuestionReport"
+              suggestResultCount=suggestResultCount
+              studentsSelectedForSuggest=studentsSelectedForSuggest
+              context=context
+              collection=collection
+              defaultSuggestContentType=defaultSuggestContentType
+            }}
+          {{/if}}
         {{/if}}
       </div>
     </div>

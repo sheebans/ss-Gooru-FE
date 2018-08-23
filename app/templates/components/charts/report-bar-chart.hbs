@@ -5,7 +5,7 @@
         <div class="item {{if (eq index 0) 'active'}}">
           <div class="bars-container">
             {{#each data as |chartData|}}
-              <div class="bar-chart-container {{unless chartData.hasStarted 'not-started'}}" {{action 'onClickChart' chartData.id chartData.hasStarted}}>
+              <div class="bar-chart-container {{unless chartData.hasStarted 'not-started'}} {{if (eq assessmentFormat 'assessment-external') 'not-clickable'}}" {{action 'onClickChart' chartData.id chartData.hasStarted}}>
                 <div class="bar-chart">
                   <svg width="10" height="100">
                     {{#if chartData.hasStarted}}
