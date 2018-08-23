@@ -41,7 +41,7 @@
 </ol>
 
 {{#if showStudentUnitReport}}
-  {{reports.pull-up.student-unit-report context=studentUnitReportContext   showPullUp=showStudentUnitReport}}
+  {{reports.pull-up.student-unit-report context=studentUnitReportContext showPullUp=showStudentUnitReport}}
 {{/if}}
 
 {{#if showStudentLessonReport}}
@@ -49,5 +49,5 @@
 {{/if}}
 
 {{#if isShowStudentReport}}
-  {{class.gru-report-panel showPullUp=isShowStudentReport  reportData=studentReportData model=studentReportData.lesson  isStudent=isStudent onClosePullUp="onClosePullUp"}}
+  {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportData model=studentReportData.lesson isStudent=studentReportData.isStudent onClosePullUp="onClosePullUp"}}
 {{/if}}
