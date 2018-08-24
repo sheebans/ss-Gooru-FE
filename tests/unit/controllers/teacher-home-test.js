@@ -8,33 +8,31 @@ var performanceService = Ember.Object.create({
 });
 
 var activeClasses = false;
-
+let archivedClasses = [
+  Ember.Object.create({
+    id: 'class1',
+    title: 'Class Archived 1',
+    isArchived: true,
+    startDate: '2017-04-19T21:30:56Z',
+    isTeacher: function() {
+      return true;
+    }
+  }),
+  Ember.Object.create({
+    id: 'class2',
+    title: 'Class Archived 2',
+    isArchived: true,
+    startDate: '2016-04-19T21:30:56Z',
+    isTeacher: function() {
+      return true;
+    }
+  })
+];
 var applicationController = Ember.Object.create({
   profile: Ember.Object.create({
     id: 'profile-id'
   }),
-  myClasses: {
-    classes: [
-      Ember.Object.create({
-        id: 'class1',
-        title: 'Class Archived 1',
-        isArchived: true,
-        startDate: '2017-04-19T21:30:56Z',
-        isTeacher: function() {
-          return true;
-        }
-      }),
-      Ember.Object.create({
-        id: 'class2',
-        title: 'Class Archived 2',
-        isArchived: true,
-        startDate: '2016-04-19T21:30:56Z',
-        isTeacher: function() {
-          return true;
-        }
-      })
-    ]
-  },
+
   showArchivedClasses: true,
 
   getLocalStorage: () => ({
@@ -47,7 +45,8 @@ test('Sort Archived Classes by Date', function(assert) {
     let controller = this.subject({
       applicationController,
       performanceService,
-      activeClasses
+      activeClasses,
+      archivedClasses
     });
     controller.set('showArchivedClasses', true);
     controller.send('filterByDate');
@@ -80,7 +79,8 @@ test('Sort Archived Classes By Title', function(assert) {
     let controller = this.subject({
       applicationController,
       performanceService,
-      activeClasses
+      activeClasses,
+      archivedClasses
     });
     controller.send('filterByTitle');
     assert.equal(

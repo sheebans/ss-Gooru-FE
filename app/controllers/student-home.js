@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { arrayChunks } from 'gooru-web/utils/utils';
 import ModalMixin from 'gooru-web/mixins/modal';
 
 export default Ember.Controller.extend(ModalMixin, {
@@ -79,11 +78,6 @@ export default Ember.Controller.extend(ModalMixin, {
     let localStorage = this.get('applicationController').getLocalStorage();
     const userId = this.get('session.userId');
     const localStorageLogins = `${userId}_logins`;
-    /* const localStorageItem = `${userId}_dontShowWelcomeModal`;
-
-    if (!localStorage.getItem(localStorageItem)) {
-      this.send('showModal', 'content.modals.gru-welcome-message');
-    } */
     let loginCount = localStorage.getItem(localStorageLogins);
     if (loginCount) {
       this.set('loginCount', +loginCount);
@@ -97,25 +91,6 @@ export default Ember.Controller.extend(ModalMixin, {
    * @property {Profile}
    */
   profile: Ember.computed.alias('applicationController.profile'),
-
-  /**
-   * @property {Class[]}
-   */
-  activeClasses: Ember.computed(
-    'applicationController.myClasses.classes.[]',
-    function() {
-      return this.get(
-        'applicationController.myClasses'
-      ).getStudentActiveClasses(this.get('profile.id'));
-    }
-  ),
-
-  /**
-   * @property {Array[]}
-   */
-  activeClassesChunks: Ember.computed('activeClasses', function() {
-    return arrayChunks(this.get('activeClasses'), 2);
-  }),
 
   /**
    * @property {Number} Total of joined classes

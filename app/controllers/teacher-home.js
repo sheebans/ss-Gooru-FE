@@ -344,13 +344,6 @@ export default Ember.Controller.extend(ModalMixin, {
   isArchivedClassPerformanceLoaded: false,
 
   /**
-   * A link to the parent application controller
-   * @see controllers/application.js
-   * @property {ClassesModel}
-   */
-  myClasses: Ember.computed.alias('applicationController.myClasses'),
-
-  /**
    * @property {Profile}
    */
   profile: Ember.computed.alias('applicationController.profile'),
@@ -381,6 +374,7 @@ export default Ember.Controller.extend(ModalMixin, {
     'archivedClasses',
     'sortDefinition'
   ),
+
   /**
    * sort Definition
    */
