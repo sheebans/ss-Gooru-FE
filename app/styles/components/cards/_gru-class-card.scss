@@ -36,7 +36,12 @@
         $lines-to-show: 1;
 
         .truncate {
-          @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
+          @include ellipsis(
+            $font-size: $font-size-base,
+            $line-height: $line-height,
+            $lines-to-show: $lines-to-show,
+            $excerpt-bg: $white
+          );
         }
       }
     }
@@ -84,7 +89,12 @@
           }
 
           .truncate {
-            @include ellipsis($font-size: $font-size-base, $line-height: $line-height, $lines-to-show: $lines-to-show, $excerpt-bg: $white);
+            @include ellipsis(
+              $font-size: $font-size-base,
+              $line-height: $line-height,
+              $lines-to-show: $lines-to-show,
+              $excerpt-bg: $white
+            );
           }
 
           i {
@@ -150,7 +160,9 @@
               border: none;
               padding: 2px 0 0 10px;
             }
-
+            &.not-started {
+              pointer-events: none;
+            }
             .icon-performance {
               margin-left: 42px;
               padding: 11px 12px 0 0;
@@ -214,6 +226,21 @@
           line-height: 56px;
           font-weight: 900;
         }
+        .no-percentage {
+          text-align: center;
+          width: 125px;
+          padding: 25px;
+          margin-left: 25px;
+
+          i {
+            background: url("gooru/images/teacher-landing-no-performance.svg");
+            width: 28px;
+            height: 6px;
+            object-fit: contain;
+            display: block;
+          }
+        }
+
         .performance-no-percentage {
           width: 148px;
           color: $light-500;

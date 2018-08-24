@@ -37,7 +37,8 @@ export default Ember.Object.extend({
     return UserResourcesResult.create({
       user: payload.userUid,
       isAttemptFinished: !!payload.isCompleteAttempt, // This value is used only by the RealTime dashboard
-      resourceResults: serializer.normalizeResourceResults(usageData)
+      resourceResults: serializer.normalizeResourceResults(usageData),
+      assessment: payload.assessment || null
     });
   },
 

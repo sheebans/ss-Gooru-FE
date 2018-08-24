@@ -74,7 +74,7 @@
       </div>
       {{#each collections as |collection|}}
         <div class="report-performance-list">
-          <div class="content-name {{unless collection.performance.hasStarted 'not-started'}} {{if collection.isSuggestedContent 'suggested-content'}}" {{action 'openCollectionReport' collection}}>
+          <div class="content-name {{collection.format}} {{unless collection.performance.hasStarted 'not-started'}} {{if collection.isSuggestedContent 'suggested-content'}}" {{action 'openCollectionReport' collection}}>
             <i class="{{collection.format}}-icon"></i>
             <span>{{collection.title}}</span>
             {{#if collection.isSuggestedContent}}
@@ -83,7 +83,7 @@
           </div>
           <div class="score">
             {{#if collection.performance.hasStarted}}
-              {{#if (eq collection.format 'assessment')}}
+              {{#if (not-eq collection.format 'collection')}}
               <span style= {{safe-html (concat "color:" (grade-color collection.performance.score))}}>{{collection.performance.score}}%</span>
               {{else}}
               <span style= {{safe-html (concat "color:" (grade-color collection.performance.score))}}>{{format-time collection.performance.timeSpent}}</span>
@@ -93,7 +93,7 @@
             {{/if}}
           </div>
           <div class="completion">
-            {{#if (and collection.performance.hasStarted (eq collection.format 'assessment'))}}
+            {{#if (and collection.performance.hasStarted (not-eq collection.format 'collection'))}}
               <div class="completion-bar">
                 <div class="segment {{if (eq collection.performance.score 100) 'completed'}}" style="width:{{collection.performance.score}}%; {{safe-html (concat "background-color:" (grade-color collection.performance.score))}}"></div>
               </div>

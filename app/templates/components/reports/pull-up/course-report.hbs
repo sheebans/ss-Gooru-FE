@@ -24,7 +24,7 @@
         <div class="report-carousel-content">
           <div class="performance-display-container">
             <div class="course-performance-average" style= {{safe-html (concat "background-color:" (grade-color class.performanceSummary.score))}}>
-              {{#if class.performanceSummary.score}}
+              {{#if (gte class.performanceSummary.score 0)}}
                 {{class.performanceSummary.score}}%
               {{else}}
                 --
