@@ -21,9 +21,21 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+
     onOpenCourseReport() {
-      this.sendAction('onOpenCourseReport');
+      let component = this;
+      component.sendAction('onOpenCourseReport');
     },
+
+    onOpenPerfReport() {
+      let component = this;
+      if (component.get('isPremiumClass')) {
+        component.sendAction('onOpenCompetencyReport');
+      } else {
+        component.sendAction('onOpenCourseReport');
+      }
+    },
+
     /**
      *
      * Triggered when an menu item is selected
