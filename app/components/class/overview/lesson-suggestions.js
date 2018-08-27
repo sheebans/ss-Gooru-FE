@@ -196,9 +196,6 @@ export default Ember.Component.extend(AccordionMixin, {
         component.set('isResourceSelected', isResourceSelected);
       }
       if (isResourceSelected) {
-        /*  console.log(
-          `isResourceSelected : ${isResourceSelected},  activeElement : ${activeElement}`
-        ); */
         component.set('loading', false);
         return;
       }

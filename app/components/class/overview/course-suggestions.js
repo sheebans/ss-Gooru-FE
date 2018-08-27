@@ -51,13 +51,13 @@ export default Ember.Component.extend(AccordionMixin, {
    * property and sent down to the child accordions. This way, each child accordion is
    * not responsible for extracting the value from 'userLocation'.
    */
-  currentResource: Ember.computed('userLocation', function() {
+  currentResource: Ember.computed('userLocation', 'location', function() {
     const userLocation = this.get('userLocation');
     if (!userLocation) {
       return;
     }
 
-    var parsedLocation = this.get('parsedLocation');
+    var parsedLocation = userLocation.split('+');
     var currentResource = null;
 
     if (parsedLocation.length === 3) {
@@ -76,8 +76,8 @@ export default Ember.Component.extend(AccordionMixin, {
    * parsedLocation[1] - lessonId
    * parsedLocation[2] - resourceId
    */
-  parsedLocation: Ember.computed('location', function() {
-    return this.get('location') ? this.get('location').split('+') : [];
+  parsedLocation: Ember.computed('userLocation', function() {
+    return this.get('userLocation') ? this.get('userLocation').split('+') : [];
   }),
 
   performanceData() {
