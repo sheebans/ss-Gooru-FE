@@ -20,6 +20,11 @@ export default Ember.Controller.extend({
       this.openTeacherCourseReport();
     },
 
+    onOpenCompetencyReport() {
+      let controller = this;
+      controller.set('isShowCompetencyReport', true);
+    },
+
     /**
      * Collapses the header section
      * @param {boolean} state
