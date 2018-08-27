@@ -2,18 +2,23 @@
   color: $white;
   text-align: center;
   min-width: 76px;
+  cursor: pointer;
+
   .container-box {
     min-height: 66px;
+
     .percentage {
       font-size: 22px;
       font-weight: 900;
       line-height: 24px;
       padding-top: 15px;
     }
+
     .students-count {
       display: flex;
       margin: 0 auto;
       position: relative;
+
       .count {
         font-size: 15px;
         font-weight: bold;
@@ -28,19 +33,23 @@
         right: 15px;
       }
     }
+
     .not-started {
       color: $light-400;
       font-size: $font-size-xxsmall;
       font-weight: bold;
       margin: 15px 0 5px;
     }
+
     .tooltip {
       width: 130px;
       line-height: $font-size-h6;
       font-size: $font-size-base;
+
       .tooltip-arrow {
         border-right-color: $white;
       }
+
       .tooltip-inner {
         color: $dark-400;
         font-weight: bold;
