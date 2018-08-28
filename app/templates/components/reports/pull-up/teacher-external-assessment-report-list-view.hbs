@@ -49,7 +49,7 @@
                         </div>
                       </div>
                     {{/if}}
-                    <img src="{{student.avatarUrl}}" class="{{if student.selectedForSuggestion 'selected'}}" />
+                    <img src="{{student.avatarUrl}}" class="{{if student.selectedForSuggestion 'selected'}}" {{action 'onSelectUser' student}} />
                   </div>
                   <div class="username">
                     <span>{{student.firstName}}</span>
@@ -75,3 +75,32 @@
     <div>This external assessment can be accessed <a class="link" target="_blank" href="{{selectedCollection.url}}">here</a></div>
   </div>
 </div>
+
+<div class="suggest-bar on-scroll-fixed {{if (gt studentsSelectedForSuggest.length 0) 'active'}}">
+  <div class="suggest-bar-container">
+    <div class="close-all-suggestion" {{action 'onCloseSuggest'}}>
+      {{gru-icon name="close" }}
+    </div>
+    <div class="no-of-student-selected">
+      <span>{{studentsSelectedForSuggest.length}} {{t 'common.student-selected'}}</span>
+    </div>
+    <div class="suggestion-count-container" {{action 'onOpenSuggestionPullup'}}>
+      <span>{{t 'common.suggestion'}}</span>
+      <div class="suggestion-explore">
+        {{gru-icon name="explore"}}
+        <div class="suggestion-count">{{suggestResultCount}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#if showSuggestionPullup}}
+  {{teacher.suggestion-pull-up
+    showPullUp=showSuggestionPullup
+    students=studentsSelectedForSuggest
+    onCloseSuggest="onCloseSuggest"
+    context=contextParams
+    collection=collection
+    defaultSuggestContentType=defaultSuggestContentType
+  }}
+{{/if}}

@@ -63,6 +63,7 @@ export default Ember.Component.extend(AccordionMixin, {
       this.set('showReportPullUp', false);
       this.set('showUnitReportPullUp', false);
       this.set('showCollectionReportPullUp', false);
+      this.set('isShowStudentExternalAssessmentReport', false);
     },
 
     /**
@@ -145,7 +146,14 @@ export default Ember.Component.extend(AccordionMixin, {
      */
     onOpenStudentReport(params) {
       let component = this;
-      component.set('isShowStudentReport', true);
+      let reportType = params.type;
+      if (reportType === 'assessment-external') {
+        component.set('isShowStudentExternalAssessmentReport', true);
+        component.set('isShowStudentReport', false);
+      } else {
+        component.set('isShowStudentExternalAssessmentReport', false);
+        component.set('isShowStudentReport', true);
+      }
       component.set('studentReportData', params);
     },
 
