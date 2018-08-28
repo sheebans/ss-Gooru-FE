@@ -4,6 +4,9 @@ export default Object.assign(quizzesTranslations, {
   en: 'English',
   sp: 'Español',
   ar: 'عربى',
+  mr: 'मराठी',
+  kn: 'ಕನ್ನಡ',
+  hi: 'हिंदी',
   errors: {
     description: 'هذا الحقل',
     inclusion: '{{description}} غير مدرج في القائمة',

@@ -4,6 +4,9 @@ export default Object.assign(quizzesTranslations, {
   en: 'English',
   sp: 'Español',
   ar: 'عربى',
+  mr: 'मराठी',
+  kn: 'ಕನ್ನಡ',
+  hi: 'हिंदी',
   errors: {
     description: 'This field',
     inclusion: '{{description}} is not included in the list',
@@ -434,7 +437,7 @@ export default Object.assign(quizzesTranslations, {
     'more-details': 'More Details',
     move: 'Move',
     myContent: 'My Content',
-    myProfile: 'My Profile',
+    myProfile: 'My Location',
     library: 'Library',
     myPerformance: 'My Performance',
     'edit-narration': 'Edit Narration',
