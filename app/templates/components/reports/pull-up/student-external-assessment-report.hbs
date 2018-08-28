@@ -14,7 +14,7 @@
         <div class="performance-bar">
           <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="{{performanceColorStyle}} {{studentAverage}}" >
           </div>
-          <span class="score-text" style="color: {{performanceColor}}"> {{externalAssessment.performance.score}} % </span>
+          <span class="score-text" style="color: {{performanceColor}}"> {{performanceScore}} % </span>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
       </div>
       <div class="reference">{{t 'report.external-assessment-report.reference'}} <a target="_blank" href="{{externalAssessment.url}}" class="link">here</a></div>
       <div class="wish">{{t 'report.external-assessment-report.wish'}}</div>
-      <div class="student-score" style="color: {{performanceColor}}">{{externalAssessment.performance.score}}%</div>
+      <div class="student-score" style="color: {{performanceColor}}">{{performanceScore}}%</div>
     </div>
   </div>
 </div>

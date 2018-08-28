@@ -56,6 +56,15 @@ export default Ember.Component.extend({
     return COMPETENCY_STATUS[competency.status];
   }),
 
+  /**
+   * @property {Boolean} isBadgedCompetency
+   */
+  isBadgedCompetency: Ember.computed('competency', function() {
+    let component = this;
+    let competency = component.get('competency');
+    return (competency.status === 4 || competency.status === 5);
+  }),
+
 
   // -------------------------------------------------------------------------
   // Methods

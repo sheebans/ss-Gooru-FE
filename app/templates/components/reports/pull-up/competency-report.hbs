@@ -15,8 +15,10 @@
       {{#if competency}}
         <div class="competency-status">
           {{competencyStatus}}
-          <div class="badge">
-          </div>
+          {{#if isBadgedCompetency}}
+            <div class="badge">
+            </div>
+          {{/if}}
         </div>
 
       {{/if}}

@@ -48,11 +48,9 @@ export default Ember.Component.extend({
    * calculate  the class average by student performance score as a width
    * @property {string}
    */
-  studentAverage: Ember.computed('reportData', function() {
+  studentAverage: Ember.computed('performanceScore', function() {
     let component = this;
-    let reportData = component.get('reportData');
-    let externalAssessment = reportData.collection;
-    let score = externalAssessment.get('performance.score');
+    let score = component.get('performanceScore');
     return Ember.String.htmlSafe(`width: ${score}%;`);
   }),
 
@@ -60,11 +58,9 @@ export default Ember.Component.extend({
    * @property {String} barColor
    * Computed property to know the color of the small bar
    */
-  performanceColorStyle: Ember.computed('reportData', function() {
+  performanceColorStyle: Ember.computed('performanceScore', function() {
     let component = this;
-    let reportData = component.get('reportData');
-    let externalAssessment = reportData.collection;
-    let score = externalAssessment.get('performance.score');
+    let score = component.get('performanceScore');
     component.set('performanceColor', getBarGradeColor(score));
     return Ember.String.htmlSafe(
       `background-color: ${getBarGradeColor(score)};`
@@ -90,6 +86,15 @@ export default Ember.Component.extend({
       });
       return TaxonomyTag.getTaxonomyTags(standards);
     }
+  }),
+
+  /**
+   * @property {Number} performanceScore
+   */
+  performanceScore: Ember.computed('reportData', function() {
+    let component = this;
+    let reportData = component.get('reportData');
+    return reportData.studentPerformance ? reportData.studentPerformance.score : reportData.collection.get('performance.score');
   }),
 
   // -------------------------------------------------------------------------

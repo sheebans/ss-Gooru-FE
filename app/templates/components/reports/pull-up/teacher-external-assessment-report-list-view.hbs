@@ -51,7 +51,7 @@
                     {{/if}}
                     <img src="{{student.avatarUrl}}" class="{{if student.selectedForSuggestion 'selected'}}" {{action 'onSelectUser' student}} />
                   </div>
-                  <div class="username">
+                  <div class="username" {{action 'studentReport' selectedCollection student}}>
                     <span>{{student.firstName}}</span>
                     <span>{{student.lastName}}</span>
                   </div>

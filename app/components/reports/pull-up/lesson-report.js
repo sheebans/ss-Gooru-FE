@@ -392,7 +392,10 @@ export default Ember.Component.extend({
    * @type {Array}
    */
   assessmentList: Ember.computed('collections', function() {
-    return this.get('collections').filterBy('format', 'assessment');
+    let component = this;
+    let assessmentList = component.get('collections').filterBy('format', 'assessment');
+    let externalAssessmentList = component.get('collections').filterBy('format', 'assessment-external');
+    return assessmentList.concat(externalAssessmentList);
   }),
 
   /**
@@ -556,6 +559,10 @@ export default Ember.Component.extend({
     let collections = component
       .get('collections')
       .filterBy('format', collectionType);
+    if (collectionType === 'assessment') {
+      let externalAssessments = component.get('collections').filterBy('format', 'assessment-external');
+      collections = collections.concat(externalAssessments);
+    }
     collections.map(function(collection) {
       let collectionId = collection.get('id');
       const averageScore = performance.calculateAverageScoreByItem(
@@ -594,6 +601,10 @@ export default Ember.Component.extend({
       let collections = component
         .get('collections')
         .filterBy('format', collectionType);
+      if (collectionType === 'assessment') {
+        let externalAssessments = component.get('collections').filterBy('format', 'assessment-external');
+        collections = collections.concat(externalAssessments);
+      }
       let performanceData = performance.get('studentPerformanceData');
       let userId = member.get('id');
       let userPerformance = performanceData.findBy('user.id', userId);
@@ -619,13 +630,12 @@ export default Ember.Component.extend({
       usersTotaltimeSpent.push(resultSet.totalTimeSpent);
     });
     users = users.sortBy(component.get('defaultSortCriteria'));
-
     if (collectionType === 'collection') {
       let maxTimeSpent = Math.max(...usersTotaltimeSpent);
       component.calculateTimeSpentScore(users, maxTimeSpent);
       component.set('collectionStudentReportData', users);
       component.set('selectedLesson.performance.timeSpent', totalTimeSpent);
-    } else if (collectionType === 'assessment') {
+    } else {
       component.set('assessmentStudentReportData', users);
     }
   },
