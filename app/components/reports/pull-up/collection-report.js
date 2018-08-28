@@ -107,7 +107,7 @@ export default Ember.Component.extend({
       component.loadData();
     },
 
-    studentReport(collection, userId) {
+    studentReport(collection, userId, studentPerformance) {
       let component = this;
       if (!userId) {
         userId = component.get('session.userId');
@@ -122,7 +122,8 @@ export default Ember.Component.extend({
         type: collection.get('format'),
         lesson: component.get('lesson'),
         isStudent: component.get('isStudent'),
-        collection
+        collection,
+        studentPerformance
       };
       let reportType = params.type;
       if (reportType === 'assessment-external') {

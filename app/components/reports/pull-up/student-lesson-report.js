@@ -94,10 +94,24 @@ export default Ember.Component.extend({
         type: collection.get('format'),
         lesson: component.get('lesson'),
         isStudent: component.get('isStudent'),
-        isTeacher: component.get('isTeacher')
+        isTeacher: component.get('isTeacher'),
+        collection
       };
+      let reportType = collection.get('format');
+      if (reportType === 'assessment-external') {
+        component.set('isShowStudentExternalAssessmentReport', true);
+        component.set('showCollectionReport', false);
+      } else {
+        component.set('isShowStudentExternalAssessmentReport', false);
+        component.set('showCollectionReport', true);
+      }
       component.set('studentCollectionReportContext', params);
-      component.set('showCollectionReport', true);
+    },
+
+    onClosePullUp() {
+      let component = this;
+      component.set('isShowStudentExternalAssessmentReport', false);
+      component.set('showCollectionReport', false);
     }
   },
 

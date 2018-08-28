@@ -58,8 +58,12 @@ export default Ember.Component.extend({
     /**
      * Action triggered when select a student report
      */
-    studentReport(collection, userId) {
-      this.sendAction('studentReport', collection, userId);
+    studentReport(collection, user) {
+      let studentPerformance = {
+        score: user.score,
+        hasStarted: user.hasStarted
+      };
+      this.sendAction('studentReport', collection, user.id, studentPerformance);
     },
 
     /**
