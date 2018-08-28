@@ -30,7 +30,7 @@
           <div class="student-close pull-right" {{action "onSelectAll"}}>
             {{gru-icon name="clear"}}
           </div>
-          <div class="performance-container pull-right">
+          <div class="performance-container pull-right" {{action "onOpenStudentCourseReport"}}>
             {{charts/gru-performance-chart performanceSummary=activeStudent.performance}}
           </div>
         </div>
@@ -137,4 +137,13 @@
 
 {{#if isShowStudentReport}}
   {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportContextData model=studentReportContextData.lesson isStudent=false onClosePullUp="onClosePullUp"}}
+{{/if}}
+
+{{#if isShowStudentExternalAssessmentReport}}
+  {{
+    reports.pull-up.student-external-assessment-report
+    reportData=studentReportContextData
+    isStudent=studentReportContextData.isStudent
+    onClosePullUp="onClosePullUp"
+  }}
 {{/if}}

@@ -106,6 +106,12 @@
             {{reports.pull-up.teacher-external-assessment-report-list-view
               studentReportData=studentReportData
               selectedCollection=selectedCollection
+              studentsSelectedForSuggest=studentsSelectedForSuggest
+              suggestResultCount=suggestResultCount
+              defaultSuggestContentType=defaultSuggestContentType
+              context=context
+              collection=collection
+              studentReport="studentReport"
             }}
           {{/if}}
         {{else}}
@@ -115,6 +121,7 @@
               studentReportData=studentReportData
               selectedCollection=selectedCollection
               studentReport="studentReport"
+              collection=collection
             }}
           {{else}}
             {{reports.pull-up.collection-report-listview
@@ -149,6 +156,16 @@
 {{#if isShowQuestionReport}}
   {{reports.pull-up.question-report showPullUp=isShowQuestionReport  context=studentQuestionReportContextData}}
 {{/if}}
+
+{{#if isShowStudentExternalAssessmentReport}}
+  {{
+    reports.pull-up.student-external-assessment-report
+    reportData=studentReportContextData
+    isStudent=studentReportContextData.isStudent
+    onClosePullUp="onClosePullUp"
+  }}
+{{/if}}
+
 
 {{#if isLoading}}
   <div class="loading-spinner">

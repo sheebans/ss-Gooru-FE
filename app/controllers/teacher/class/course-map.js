@@ -266,8 +266,15 @@ export default Ember.Controller.extend({
      */
     collectionReport(params) {
       let controller = this;
+      let reportType = params.type;
+      if (reportType === 'assessment-external') {
+        controller.set('isShowStudentExternalAssessmentReport', true);
+        controller.set('isShowStudentReport', false);
+      } else {
+        controller.set('isShowStudentExternalAssessmentReport', false);
+        controller.set('isShowStudentReport', true);
+      }
       controller.set('studentReportContextData', params);
-      controller.set('isShowStudentReport', true);
     },
 
     /**
@@ -276,6 +283,7 @@ export default Ember.Controller.extend({
     onClosePullUp() {
       let controller = this;
       controller.set('isShowStudentReport', false);
+      controller.set('isShowStudentExternalAssessmentReport', false);
     },
 
     /**
