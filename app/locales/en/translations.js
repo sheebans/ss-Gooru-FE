@@ -61,6 +61,7 @@ export default Object.assign(quizzesTranslations, {
     frq: 'FRQ',
     responses: 'Responses',
     'gooru-suggestions': 'Gooru Suggestions',
+    'global-resources': 'Global Resources',
     'suggestion-made-to': 'Suggestion made to',
     'student-selected': 'Student Selected',
     'no-suggest-result-message': ' No matching content found',
@@ -2604,7 +2605,8 @@ export default Object.assign(quizzesTranslations, {
 
   report: {
     'external-assessment-report': {
-      'note': 'This is an external assessment with student reported scores for the assessment. Individual question level data is not available.'
+      note:
+        'This is an external assessment with student reported scores for the assessment. Individual question level data is not available.'
     },
     'competency-report': {
       title: 'Competency Report',

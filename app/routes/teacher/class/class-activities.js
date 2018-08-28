@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { formatDate } from 'gooru-web/utils/utils';
 import { PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 
 export default Ember.Route.extend({
@@ -29,7 +28,9 @@ export default Ember.Route.extend({
       const currentClass = this.modelFor('teacher.class').class;
       const classId = currentClass.get('id');
       const queryParams = {
-        queryParams: { source: PLAYER_EVENT_SOURCE.DAILY_CLASS }
+        queryParams: {
+          source: PLAYER_EVENT_SOURCE.DAILY_CLASS
+        }
       };
       this.transitionTo(
         'reports.collection',
@@ -46,45 +47,18 @@ export default Ember.Route.extend({
   model: function() {
     const route = this;
     const currentClass = route.modelFor('teacher.class').class;
-    const today = new Date();
-    const yesterday = (d => new Date(d.setDate(d.getDate() - 1)))(new Date());
-
-    return Ember.RSVP
-      .hash({
-        todayActivities: route
-          .get('classActivityService')
-          .findClassActivities(currentClass.get('id')),
-        yesterdayActivities: route
-          .get('classActivityService')
-          .findClassActivities(
-            currentClass.get('id'),
-            undefined,
-            yesterday,
-            yesterday
-          )
-      })
-      .then(hash => [
-        {
-          classActivities: route.setDefaultValues(hash.todayActivities),
-          date: formatDate(today, 'MMMM D, YYYY')
-        },
-        {
-          classActivities: route.setDefaultValues(hash.yesterdayActivities),
-          date: formatDate(yesterday, 'MMMM D, YYYY')
-        }
-      ]);
-  },
-
-  setDefaultValues: function(activitiesData) {
-    if (activitiesData !== undefined) {
-      activitiesData.forEach(function(activitiesObj) {
-        let collObj = activitiesObj.collection;
-        if (collObj !== undefined) {
-          Ember.set(collObj, 'isReportEnabled', false);
-        }
-      });
-    }
-    return activitiesData;
+    const classId = currentClass.get('id');
+    let startDate = moment()
+      .subtract(5, 'd')
+      .format('YYYY-MM-DD');
+    let endDate = moment()
+      .add(5, 'd')
+      .format('YYYY-MM-DD');
+    return Ember.RSVP.hash({
+      classActivities: route
+        .get('classActivityService')
+        .findClassActivities(classId, null, startDate, endDate)
+    });
   },
 
   /**
@@ -93,11 +67,7 @@ export default Ember.Route.extend({
    * @param model
    */
   setupController: function(controller, model) {
-    controller.get('classController').selectMenuItem('class-activities');
-    const date = new Date();
-    controller.set('month', date.getMonth());
-    controller.set('year', date.getFullYear());
     controller.set('showWelcome', true);
-    controller.set('classActivities', model);
+    controller.parseClassActivityData(model.classActivities);
   }
 });

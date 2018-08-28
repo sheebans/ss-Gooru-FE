@@ -1,0 +1,58 @@
+<div class="search-backdrop" {{action 'onPullUpClose'}}></div>
+<div class="search-container">
+  <div class="search-header">
+      <div class="search-pullup-close" {{action 'onPullUpClose'}}>
+        {{gru-icon name="arrow_downward"}}
+      </div>
+    <div class="gooru-logo">
+      <img src="/assets/gooru/images/gooru-logo.svg">
+    </div>
+    <div class="search-filter-container">
+      <span>{{t 'common.global-resources'}}</span>
+    </div>
+    <div class="search-right-menu">
+      <div class="search-input-container">
+        {{input type="text"
+          placeholder=(t "common.search-placeholder")
+          spellcheck="true"
+          id="search-content"
+        }}
+        <label for="search-content"  class="search-icon">
+            {{gru-icon name="search"}}
+        </label>
+      </div>
+      <div class="search-filter-icon">
+        {{gru-icon name="filter_list"}}
+      </div>
+    </div>
+  </div>
+  <div class="search-content-type-filter">
+    <div class="filter-by">{{t 'common.filter-by'}}</div>
+    <div class="filter-content-types">
+      {{#each filterContentType as |contentType|}}
+        <div class="filter-item {{contentType.format}} {{if (eq contentType.format activeContentType) 'active' }}" {{action 'onSelectFilterBy' contentType.format}}>
+          <i></i>
+          <span>{{t contentType.label}}</span>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+  <div class="search-list-container">
+    {{#if (gt searchResults.length 0)}}
+      <div class="search-list">
+        {{#each searchResults as |result|}}
+          {{cards.dca-search-collection-card collection=result contentType=activeContentType onAddContentToDCA="onAddContentToDCA"}}
+        {{/each}}
+      </div>
+    {{else}}
+      {{#unless isLoading}}
+        {{cards.no-suggest-result-found isFromSearch=true}}
+      {{/unless}}
+    {{/if}}
+  </div>
+</div>
+{{#if isLoading}}
+  <div class="loading-spinner">
+    {{three-bounce-spinner}}
+  </div>
+{{/if}}

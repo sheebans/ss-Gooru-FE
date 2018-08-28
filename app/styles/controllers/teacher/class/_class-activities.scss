@@ -1,87 +1,169 @@
 .controller.teacher.class.class-activities {
   padding: 0;
-  margin: 20px 0 20px 0;
+  margin: 20px 0;
   max-width: 960px;
   margin: 0 auto;
+
+  .dca-title {
+    opacity: 0.2;
+    font-family: "Playfair Display";
+    font-size: 30px;
+    font-style: italic;
+    text-align: center;
+    color: #000000;
+
+    p {
+      margin-bottom: 12px;
+    }
+  }
 
   .panel.welcome {
     height: 65px;
     border-radius: 5px;
     line-height: $font-navigator;
     margin: 0 0 20px;
+
     .panel-body {
       padding: 15px 15px 0;
     }
+
     .description {
       display: inline-block;
       line-height: 1.3;
       width: 98%;
     }
+
     .close {
       display: inline-block;
       font-size: $font-size-units-icon;
       font-weight: bold;
       float: $menu-float-dir;
+
       a {
         color: $dark-100;
       }
     }
   }
-  .class-activity-accordion {
-    background-color: $white;
-    border-radius: 4px 4px 0 0;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
-    height: 65px;
-    margin: 20px 0 0;
-    padding: 14px 0 0 15px;
-    .title {
-      color: $gray-base;
-      font-size: $font-size-lead;
-    }
-  }
 
-  .panel-collapse {
-    background-color: $light-300;
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
-    padding: 20px;
-    .collections {
-      margin: 1px 0 0;
-      padding: 0;
-      li.no-content {
-        list-style: none;
-        margin: 0;
+  .dca-todays-container {
+    .dca-todays-header {
+      opacity: 0.5;
+      font-family: "Lato";
+      font-size: 12px;
+      font-weight: bold;
+      color: #000000;
+      text-transform: uppercase;
+    }
+
+    .dac-todays-action-list-container {
+      border-radius: 4px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
+
+      .dca-todays-info-action-container {
+        min-height: 110px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
+        padding: 0 20px;
+
+        .dca-info-container {
+          height: 67px;
+          display: flex;
+          align-items: center;
+          border-bottom: 1px solid #e3e5ea;
+
+          .user-profile-img {
+            width: 50px;
+
+            img {
+              width: 40px;
+              border-radius: 50%;
+              border-color: transparent;
+              height: 40px;
+
+              &.selected {
+                visibility: hidden;
+              }
+            }
+          }
+
+          .info {
+            p {
+              padding: 0;
+              margin: 0;
+              font-family: "Lato";
+              font-size: 13px;
+              color: #b8bfc4;
+            }
+          }
+        }
+
+        .dca-action-container {
+          display: inline-grid;
+          grid-template-columns: 50% 50%;
+          width: 100%;
+          padding-top: 10px;
+          padding-bottom: 10px;
+
+          .dca-action-buttons {
+            display: inline-grid;
+            justify-items: center;
+            align-items: center;
+            grid-template-columns: 40px 20px 20px;
+            grid-gap: 15px;
+
+            p {
+              font-family: "Open Sans";
+              font-size: 13px;
+              font-weight: bold;
+              color: #666666;
+              text-transform: uppercase;
+              margin: 0;
+              padding: 0;
+            }
+
+            .collection-icon {
+              width: 20px;
+              height: 20px;
+              background-repeat: no-repeat;
+              background-size: 20px 20px;
+              background-image: url("../assets/gooru/images/add_collection.svg");
+              opacity: 0.8;
+              cursor: pointer;
+            }
+
+            .assessment-icon {
+              width: 20px;
+              height: 20px;
+              background-repeat: no-repeat;
+              background-size: 20px 20px;
+              background-image: url("../assets/gooru/images/add_assessment.svg");
+              opacity: 0.8;
+              cursor: pointer;
+            }
+          }
+
+          .dac-course-map-button {
+            text-align: right;
+
+            span {
+              font-family: "Lato";
+              font-size: 13px;
+              color: #1aa9eb;
+              text-transform: uppercase;
+            }
+          }
+        }
+      }
+
+      .dca-todays-list-container {
+        .gru-class-activity-panel:last-child {
+          border-bottom: none;
+
+          .dca-panel-performance {
+            border-radius: 0 0 4px 0;
+          }
+        }
       }
     }
-  }
-  .buttons-container {
-    font-size: $font-size-lead;
-    line-height: $font-size-lead;
-    text-align: $menu-float-dir;
-    margin-top: 15px;
-    button {
-      margin-left: 15px;
-    }
-  }
-  .no-content {
-    color: $gray-dove;
-    font-size: $font-size-lead;
-    line-height: 1.4;
-    margin-top: 5px;
-    width: 50%;
-  }
-  .no-contentfont {
-    width: 100% !important;
-    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-    font-size: 13px !important;
-  }
-  .no-content-image {
-    background-image: url(gooru/no-dca-student.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 240px;
-    margin: 50px auto 0;
-    width: 100%;
   }
 }
