@@ -151,6 +151,12 @@ export default Ember.Component.extend({
    */
   isBaseLineDrawn: false,
 
+  /**
+   * @type {Array}
+   * Baseline points
+   */
+  baselinePoints: Ember.A([]),
+
   // -------------------------------------------------------------------------
   // Events
 
@@ -504,38 +510,69 @@ export default Ember.Component.extend({
   drawSkyline() {
     let component = this;
     let skylineElements = component.$('.skyline-competency');
-    let indexSize = component.$(skylineElements).length;
     let cellWidth = component.get('cellWidth');
     let cellHeight = component.get('cellHeight');
-    component.$('circle').remove();
     component.$('line').remove();
     let svg = component.get('skylineContainer');
+    let cellIndex = 0;
     skylineElements.each(function(index) {
-      let x1 =
-        parseInt(component.$(skylineElements[index]).attr('x')) + cellWidth / 2;
+      let x1 = parseInt(component.$(skylineElements[index]).attr('x'));
       let y1 = parseInt(component.$(skylineElements[index]).attr('y'));
-      y1 = y1 === 0 ? y1 + 3 : y1 + cellHeight / 2;
-      if (index < indexSize - 1) {
-        let x2 =
-          parseInt(component.$(skylineElements[index + 1]).attr('x')) +
-          cellWidth / 2;
-        let y2 = parseInt(component.$(skylineElements[index + 1]).attr('y'));
-        y2 = y2 === 0 ? y2 + 3 : y2 + cellHeight / 2;
-        svg
-          .append('line')
-          .attr('x1', x1)
-          .attr('y1', y1)
-          .attr('x2', x2)
-          .attr('y2', y2)
-          .attr('class', 'sky-line');
-      }
+      y1 = y1 === 0 ? y1 + 3 : y1 + cellHeight + 3;
+      let x2 = x1 + cellWidth;
+      let y2 = y1;
+      let linePoint = {
+        x1,
+        y1,
+        x2,
+        y2
+      };
       svg
-        .append('circle')
-        .attr('cx', x1)
-        .attr('cy', y1)
-        .attr('r', 2)
-        .attr('fill', '#fff');
+        .append('line')
+        .attr('x1', linePoint.x1)
+        .attr('y1', linePoint.y1)
+        .attr('x2', linePoint.x2)
+        .attr('y2', linePoint.y2)
+        .attr('class', `sky-line-${cellIndex}`);
+      component.joinSkyLinePoints(cellIndex, linePoint);
+      cellIndex++;
     });
+  },
+
+  /**
+   * @function joinSkyLinePoints
+   * Method to draw vertical line to connects sky line points, if necessary
+   */
+  joinSkyLinePoints(cellIndex, curLinePoint) {
+    let component = this;
+    let lastSkyLineContainer = component.$(`.sky-line-${cellIndex - 1}`);
+    let skyLineContainer = component.get('skylineContainer');
+    let lastskyLinePoint = {
+      x2: parseInt(lastSkyLineContainer.attr('x2')),
+      y2: parseInt(lastSkyLineContainer.attr('y2'))
+    };
+    //Connect sky line points if last and current points are not same
+    if (
+      lastSkyLineContainer.length &&
+      lastskyLinePoint.y2 !== curLinePoint.y1
+    ) {
+      //Increase extra height to connect intersection points
+      if (lastskyLinePoint.y2 > curLinePoint.y1) {
+        lastskyLinePoint.y2 = lastskyLinePoint.y2 + 3;
+        curLinePoint.y1 = curLinePoint.y1 - 3;
+      } else {
+        lastskyLinePoint.y2 = lastskyLinePoint.y2 - 3;
+        curLinePoint.y1 = curLinePoint.y1 + 3;
+      }
+
+      skyLineContainer
+        .append('line')
+        .attr('x1', lastskyLinePoint.x2)
+        .attr('y1', lastskyLinePoint.y2)
+        .attr('x2', curLinePoint.x1)
+        .attr('y2', curLinePoint.y1)
+        .attr('class', `sky-line-vertical-${cellIndex}`);
+    }
   },
 
   /**
@@ -551,7 +588,6 @@ export default Ember.Component.extend({
       let classId = component.get('class.id');
       let courseId = component.get('class.courseId');
       let userId = component.get('userId');
-      let baseLineContainer = d3.select('#baseline-container');
       let cellHeight = component.get('cellHeight');
       let cellWidth = component.get('cellWidth');
       return Ember.RSVP.hash({
@@ -565,6 +601,7 @@ export default Ember.Component.extend({
         let baseLineDomains = userProficiencyBaseLine.domains;
         let domains = competencyMatrixCoordinates.domains;
         let cellIndex = 0;
+        let baselinePoints = Ember.A([]);
         domains.map(domain => {
           let domainData = baseLineDomains.findBy(
             'domainCode',
@@ -578,58 +615,133 @@ export default Ember.Component.extend({
               domainWiseMasteredCompetencies.push(competency);
             }
           });
-          let numberOfMasteredCompetency = domainWiseMasteredCompetencies.length;
-          let masteredCompetencyHighestSeq = numberOfMasteredCompetency ? domainWiseMasteredCompetencies[numberOfMasteredCompetency - 1].competencySeq : 0;
+          let numberOfMasteredCompetency =
+            domainWiseMasteredCompetencies.length;
+          let masteredCompetencyHighestSeq = numberOfMasteredCompetency
+            ? domainWiseMasteredCompetencies[numberOfMasteredCompetency - 1]
+              .competencySeq
+            : 0;
           let x1 = cellIndex * cellWidth;
-          let y1 = cellHeight * masteredCompetencyHighestSeq;
+          let y1 = cellHeight * masteredCompetencyHighestSeq; //stroke width
+          let isSkyLineContainer = component.$(
+            `.sky-line-vertical-${cellIndex + 1}`
+          );
+          //check skyline is present in the cell and adjust y1 height
+          y1 =
+            y1 === parseInt(isSkyLineContainer.attr('y1')) - 6 ||
+            y1 === parseInt(isSkyLineContainer.attr('y1')) ||
+            y1 === 0
+              ? y1 + 6
+              : y1;
+
           let x2 = x1 + cellWidth;
           let y2 = y1;
+          let isSkylineNext = isSkyLineContainer.length > 0;
+          let isSkyLineLast =
+            component.$(`.sky-line-vertical-${cellIndex}`).length > 0;
+          x2 = isSkylineNext ? x2 - 3 : x2; //check next cell is skyline and reduce x2 position
+          x1 = isSkyLineLast ? x1 + 3 : x1; //check previous cell is skyline and reduce x1 position
           let linePoint = {
-            x1,
-            x2,
-            y1,
-            y2
+            x1: x1,
+            x2: x2,
+            y1: y1,
+            y2: y2,
+            isHorizontal: true
           };
-          baseLineContainer
-            .append('line')
-            .attr('x1', linePoint.x1)
-            .attr('y1', linePoint.y1)
-            .attr('x2', linePoint.x2)
-            .attr('y2', linePoint.y2)
-            .attr('class', `base-line-${cellIndex}`);
-          component.joinBaseLinePoints(cellIndex, linePoint);
+          baselinePoints.push(linePoint);
+          component.set('baselinePoints', baselinePoints);
           cellIndex++;
         });
-        component.sendAction('onShownBaseLine', userProficiencyBaseLine.lastUpdated);
+        component.drawVerticalBaseLine();
+        component.sendAction(
+          'onShownBaseLine',
+          userProficiencyBaseLine.lastUpdated
+        );
         component.set('isBaseLineDrawn', true);
       });
     }
   },
 
   /**
+   * @function drawVerticalBaseLine
+   * Method to draw vertical base line points
+   */
+  drawVerticalBaseLine() {
+    let component = this;
+    let baselinePoints = component.get('baselinePoints');
+    let index = 0;
+    baselinePoints.map(baselinePoint => {
+      component.joinBaseLinePoints(index, baselinePoint, baselinePoints);
+      index++;
+    });
+    component.drawHorizontalBaseline();
+  },
+
+  /**
+   * @function drawHorizontalBaseline
+   * Method to draw horizontal line to connects vertical base line points
+   */
+  drawHorizontalBaseline() {
+    let component = this;
+    let baselinePoints = component.get('baselinePoints');
+    let baseLineContainer = d3.select('#baseline-container');
+    let index = 0;
+    baselinePoints.map(baselinePoint => {
+      if (index > 0) {
+        let baseLineContainer = component.$(`.base-line-vertical-${index - 1}`);
+        if (baseLineContainer.length > 0) {
+          baselinePoint.x1 = baseLineContainer.attr('x2');
+        }
+      }
+      let x2 = baselinePoint.x2;
+      let x1 = baselinePoint.x1;
+      let y1 = baselinePoint.y1;
+      let y2 = baselinePoint.y2;
+      baseLineContainer
+        .append('line')
+        .attr('x1', x1)
+        .attr('y1', y1)
+        .attr('x2', x2)
+        .attr('y2', y2)
+        .attr('class', `base-line-${index}`);
+      index++;
+    });
+  },
+
+  /**
    * @function joinBaseLinePoints
    * Method to draw vertical line to connects base line points, if necessary
    */
-  joinBaseLinePoints(cellIndex, curLinePoint) {
+  joinBaseLinePoints(cellIndex, curLinePoint, baselinePoints) {
     let component = this;
-    let lastBaseLineContainer = component.$(`.base-line-${cellIndex - 1}`);
-    let baseLineContainer = component.get('baseLineContainer');
-    let lastBaseLinePoint = {
-      x2: parseInt(lastBaseLineContainer.attr('x2')),
-      y2: parseInt(lastBaseLineContainer.attr('y2'))
-    };
-    //Connect base line points if last and current points are not same
-    if (
-      lastBaseLineContainer.length &&
-      lastBaseLinePoint.y2 !== curLinePoint.y1
-    ) {
-      baseLineContainer
-        .append('line')
-        .attr('x1', lastBaseLinePoint.x2)
-        .attr('y1', lastBaseLinePoint.y2)
-        .attr('x2', curLinePoint.x1)
-        .attr('y2', curLinePoint.y1)
-        .attr('class', 'base-line');
+    let nextBaseLineContainer = baselinePoints[cellIndex + 1];
+    if (nextBaseLineContainer && nextBaseLineContainer.isHorizontal) {
+      let baseLineContainer = component.get('baseLineContainer');
+      if (nextBaseLineContainer.y2 !== curLinePoint.y1) {
+        let isSkylineNext =
+          component.$(`.sky-line-vertical-${cellIndex + 1}`).length > 0;
+        if (isSkylineNext > 0) {
+          if (nextBaseLineContainer.y2 < curLinePoint.y1) {
+            curLinePoint.x2 = curLinePoint.x2 + 6; //Add stoke width of skyline
+          }
+        }
+        let linePoint = {
+          x1: curLinePoint.x2,
+          x2: curLinePoint.x2,
+          y1: curLinePoint.y1,
+          y2: nextBaseLineContainer.y2,
+          isHorizontal: false
+        };
+        baselinePoints.push(linePoint);
+        component.set('baselinePoints', baselinePoints);
+        baseLineContainer
+          .append('line')
+          .attr('x1', linePoint.x1)
+          .attr('y1', linePoint.y1)
+          .attr('x2', linePoint.x2)
+          .attr('y2', linePoint.y2) //Join baseline with the skyline border
+          .attr('class', `base-line-vertical-${cellIndex}`);
+      }
     }
   },
 
