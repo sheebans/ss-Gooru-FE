@@ -378,18 +378,24 @@ export default Ember.Controller.extend({
     let controller = this;
     let classId = controller.get('currentClass.id');
     let courseId = controller.get('course.id');
-    let classCourseId = Ember.A([{
-      classId,
-      courseId
-    }]);
+    let classCourseId = Ember.A([
+      {
+        classId,
+        courseId
+      }
+    ]);
     return Ember.RSVP.hash({
-      studentClassPerformance: controller.get('performanceService').findClassPerformanceSummaryByStudentAndClassIds(studentId, classCourseId)
-    })
-      .then(({studentClassPerformance}) => {
-        if (studentClassPerformance && studentClassPerformance.length) {
-          controller.set('activeStudent.performance', studentClassPerformance[0]);
-        }
-      });
+      studentClassPerformance: controller
+        .get('performanceService')
+        .findClassPerformanceSummaryByStudentAndClassIds(
+          studentId,
+          classCourseId
+        )
+    }).then(({ studentClassPerformance }) => {
+      if (studentClassPerformance && studentClassPerformance.length) {
+        controller.set('activeStudent.performance', studentClassPerformance[0]);
+      }
+    });
   },
 
   /**
@@ -602,7 +608,11 @@ export default Ember.Controller.extend({
     let userId = controller.get('activeStudent.id');
     let route0Service = controller.get('route0Service');
     let route0Promise = Ember.RSVP.resolve(
-      route0Service.fetchInClassByTeacher({ courseId, classId, userId })
+      route0Service.fetchInClassByTeacher({
+        courseId,
+        classId,
+        userId
+      })
     );
     return Ember.RSVP.hash({
       route0Contents: route0Promise
@@ -619,22 +629,27 @@ export default Ember.Controller.extend({
     let courseId = currentClass.get('courseId');
     if (classId && courseId) {
       return Ember.RSVP.hash({
-        pendingGradingItems: controller.get('rubricService').getQuestionsToGrade(classId, courseId)
-      })
-        .then(function(pendingGradingItems) {
-          let questionGradingItems = pendingGradingItems.pendingGradingItems;
-          let gradeItems = questionGradingItems.gradeItems;
-          if (gradeItems) {
-            controller.getCourseStructure().then(function() {
-              const items = gradeItems.map(function(item) {
-                return controller.createGradeItemObject(item);
-              });
-              Ember.RSVP.all(items).then(function(questionItems) {
-                controller.set('questionItems', questionItems);
-              });
+        pendingGradingItems: controller
+          .get('rubricService')
+          .getQuestionsToGrade(classId, courseId)
+      }).then(function(pendingGradingItems) {
+        let questionGradingItems = pendingGradingItems.pendingGradingItems;
+        let gradeItems = questionGradingItems.gradeItems;
+        if (gradeItems) {
+          controller.getCourseStructure().then(function() {
+            let itemsToGrade = Ember.A([]);
+            gradeItems.map(function(item) {
+              let gradeItem = controller.createGradeItemObject(item);
+              if (gradeItem) {
+                itemsToGrade.push(gradeItem);
+              }
             });
-          }
-        });
+            Ember.RSVP.all(itemsToGrade).then(function(questionItems) {
+              controller.set('questionItems', questionItems);
+            });
+          });
+        }
+      });
     }
   },
 
@@ -657,45 +672,53 @@ export default Ember.Controller.extend({
   createGradeItemObject: function(item) {
     const controller = this;
     const itemObject = Ember.Object.create();
-
     const courseStructure = controller.get('courseStructure');
-    const unitId = item.get('unitId');
-    const lessonId = item.get('lessonId');
-    const collectionId = item.get('collectionId');
-    const collectionType = item.get('collectionType');
-    const isAssessment = !collectionType || collectionType === 'assessment';
-    const resourceId = item.get('resourceId');
-    const studentCount = item.get('studentCount');
-    const unit = courseStructure.get('children').findBy('id', unitId);
-    const lesson = unit.get('children').findBy('id', lessonId);
-
-    const unitIndex = courseStructure.getChildUnitIndex(unit) + 1;
-    const lessonIndex = unit.getChildLessonIndex(lesson) + 1;
-
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      return Ember.RSVP.hash({
-        collection: collectionId
-          ? isAssessment
-            ? controller.get('assessmentService').readAssessment(collectionId)
-            : controller.get('collectionService').readCollection(collectionId)
-          : undefined
-      }).then(function(hash) {
-        const collection = hash.collection;
-        const question = collection.get('children').findBy('id', resourceId);
-        itemObject.setProperties({
-          unitPrefix: `U${unitIndex}`,
-          lessonPrefix: `L${lessonIndex}`,
-          classId: controller.get('class.id'),
-          courseId: controller.get('course.id'),
-          unitId: unit.get('id'),
-          lessonId: lesson.get('id'),
-          collection,
-          question,
-          studentCount
-        });
-
-        resolve(itemObject);
-      }, reject);
-    });
+    if (courseStructure) {
+      const unitId = item.get('unitId');
+      const lessonId = item.get('lessonId');
+      const collectionId = item.get('collectionId');
+      const collectionType = item.get('collectionType');
+      const isAssessment = !collectionType || collectionType === 'assessment';
+      const resourceId = item.get('resourceId');
+      const studentCount = item.get('studentCount');
+      const unit = courseStructure.get('children').findBy('id', unitId);
+      if (unit) {
+        const lesson = unit.get('children').findBy('id', lessonId);
+        if (lesson) {
+          const unitIndex = courseStructure.getChildUnitIndex(unit) + 1;
+          const lessonIndex = unit.getChildLessonIndex(lesson) + 1;
+          return new Ember.RSVP.Promise(function(resolve, reject) {
+            return Ember.RSVP.hash({
+              collection: collectionId
+                ? isAssessment
+                  ? controller
+                    .get('assessmentService')
+                    .readAssessment(collectionId)
+                  : controller
+                    .get('collectionService')
+                    .readCollection(collectionId)
+                : undefined
+            }).then(function(hash) {
+              const collection = hash.collection;
+              const question = collection
+                .get('children')
+                .findBy('id', resourceId);
+              itemObject.setProperties({
+                unitPrefix: `U${unitIndex}`,
+                lessonPrefix: `L${lessonIndex}`,
+                classId: controller.get('class.id'),
+                courseId: controller.get('course.id'),
+                unitId: unit.get('id'),
+                lessonId: lesson.get('id'),
+                collection,
+                question,
+                studentCount
+              });
+              resolve(itemObject);
+            }, reject);
+          });
+        }
+      }
+    }
   }
 });
