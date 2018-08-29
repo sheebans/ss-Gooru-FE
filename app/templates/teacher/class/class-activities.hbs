@@ -56,8 +56,31 @@
       </div>
     </div>
     <div class="dca-past-date-list-container">
-      <div class="dac-date-view-container">
-      </div>
+      {{#each pastClassActivities as |pastclassActivity|}}
+        <div class="dca-date-view-container">
+          <div class="dca-date-container">
+            {{gru-icon name="calendar_today"}}
+            <span>{{format-date pastclassActivity.added_date 'MMMM DD, YYYY'}}</span>
+          </div>
+          <hr/>
+        </div>
+        <div class="dca-past-list-container">
+          {{#each pastclassActivity.classActivities as |classActivity|}}
+            {{class.gru-class-activity-panel
+              classActivity=classActivity
+              classId=classId
+              members=members
+              onReportclick='changeStatusValue'
+              onGoLive='goLive'
+              showGolive=false
+              showDcaAssignButton=true
+              showDcaRemoveButton=true
+              onChangeVisibility='changeVisibility'
+              onRemoveClassActivity='removeClassActivity'
+            }}
+          {{/each}}
+        </div>
+      {{/each}}
     </div>
   </div>
 

@@ -200,10 +200,11 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     let controller = this;
     let todaysDate = moment().format('YYYY-MM-DD');
     let classActivities = controller.get('classActivities');
-    let pastClassActivities = classActivities.map(classActivity => {
+    let pastClassActivities = Ember.A([]);
+    classActivities.forEach(classActivity => {
       let addedDate = classActivity.get('added_date');
-      if (moment(addedDate).isAfter(todaysDate)) {
-        return classActivity;
+      if (moment(todaysDate).isAfter(addedDate)) {
+        pastClassActivities.pushObject(classActivity);
       }
     });
     return pastClassActivities;
