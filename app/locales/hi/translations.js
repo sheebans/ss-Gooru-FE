@@ -1076,7 +1076,8 @@ export default Object.assign(quizzesTranslations, {
       'class-activities-tab': {
         today: 'आज'
       },
-      'my-report': 'मेरी रिपोर्ट'
+      'my-report': 'मेरी रिपोर्ट',
+      'my-location': 'मेरी रिपोर्ट'
     },
     course: {
       'to-report': 'उपयोग सारांश',

@@ -1083,7 +1083,8 @@ export default Object.assign(quizzesTranslations, {
       'class-activities-tab': {
         today: 'ಇಂದು'
       },
-      'my-report': 'ನನ್ನ ವರದಿ'
+      'my-report': 'ನನ್ನ ವರದಿ',
+      'my-location': 'ನನ್ನ ವರದಿ'
     },
     course: {
       'to-report': 'ಬಳಕೆಯ ಸಾರಾಂಶ',

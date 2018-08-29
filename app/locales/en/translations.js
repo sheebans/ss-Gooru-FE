@@ -1108,7 +1108,8 @@ export default Object.assign(quizzesTranslations, {
       'class-activities-tab': {
         today: 'Today'
       },
-      'my-report': 'My Report'
+      'my-report': 'My Report',
+      'my-location': 'My Location'
     },
     course: {
       'to-report': 'Usage summary',
@@ -2607,9 +2608,10 @@ export default Object.assign(quizzesTranslations, {
 
   report: {
     'external-assessment-report': {
-      'note': 'This is an external assessment with student reported scores for the assessment. Individual question level data is not available.',
-      'wish': 'Congratulations! You scored',
-      'reference': 'This external assessment can be accessed '
+      note:
+        'This is an external assessment with student reported scores for the assessment. Individual question level data is not available.',
+      wish: 'Congratulations! You scored',
+      reference: 'This external assessment can be accessed '
     },
     'competency-report': {
       title: 'Competency Report',
