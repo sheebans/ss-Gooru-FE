@@ -4,13 +4,13 @@
     <p>{{item.title}}</p>
   </div>
   <div class="dca-content-counts">
-    {{#if item.resourceCount}}
+    {{#if (gt item.resourceCount 0)}}
       <div class="resource-count">
         <i class="resource-icon"></i>
         <span>{{item.resourceCount}}</span>
       </div>
     {{/if}}
-    {{#if item.questionCount}}
+    {{#if (gt item.questionCount 0)}}
       <div class="question-count">
         <i class="question-icon"></i>
         <span>{{item.questionCount}}</span>

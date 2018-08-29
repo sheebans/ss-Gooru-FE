@@ -32,7 +32,7 @@
               <i class="collection-icon" {{action 'onAddDca' 'collection'}}></i>
               <i class="assessment-icon" {{action 'onAddDca' 'assessment'}}></i>
             </div>
-            <div class="dac-course-map-button">
+            <div class="dac-course-map-button" {{action 'addFromCourseMap'}}>
               <span>Course Map</span>
             </div>
           </div>
@@ -66,7 +66,7 @@
 {{#if showSearchContentPullup}}
   {{teacher.class.search-content-pull-up
     showPullUp=showSearchContentPullup
-    onAddDca="onAddDca"
+    addedContentToDCA="addedContentToDCA"
     context=contextParams
     selectedSearchContentType=selectedSearchContentType
   }}

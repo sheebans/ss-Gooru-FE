@@ -69,5 +69,13 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     controller.set('showWelcome', true);
     controller.parseClassActivityData(model.classActivities);
+  },
+
+  /**
+   * Reset data on deactive
+   * @param controller
+   */
+  resetController(controller) {
+    controller.set('classActivities', Ember.A([]));
   }
 });

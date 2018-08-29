@@ -126,7 +126,9 @@ export default Ember.Component.extend({
       component
         .get('classActivityService')
         .addActivityToClass(classId, contentId, contentType)
-        .then(() => {
+        .then(newContentId => {
+          let data = component.serializerSearchContent(content, newContentId);
+          component.sendAction('addedContentToDCA', data);
           component.closePullUp();
         });
     }
@@ -233,5 +235,14 @@ export default Ember.Component.extend({
       pageSize: 20
     };
     return params;
+  },
+
+  serializerSearchContent(content, contentId) {
+    content.set('collectionType', this.get('activeContentType'));
+    return Ember.Object.create({
+      id: contentId,
+      added_date: moment().format('YYYY-MM-DD'),
+      collection: content
+    });
   }
 });

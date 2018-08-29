@@ -25,13 +25,48 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   // Actions
 
   actions: {
+    /**
+     * Action triggered when add dca button got clicked.
+     * @param  {String} selectedSearchContentType
+     */
     onAddDca(selectedSearchContentType) {
+      let controller = this;
       let contextParams = {
-        classId: this.get('classId')
+        classId: controller.get('classId')
       };
-      this.set('contextParams', contextParams);
-      this.set('selectedSearchContentType', selectedSearchContentType);
-      this.set('showSearchContentPullup', true);
+      controller.set('contextParams', contextParams);
+      controller.set('selectedSearchContentType', selectedSearchContentType);
+      controller.set('showSearchContentPullup', true);
+    },
+
+    addedContentToDCA(content) {
+      let controller = this;
+      let todaysDate = moment().format('YYYY-MM-DD');
+      let classActivities = controller.get('classActivities');
+      let todaysClassActivities = classActivities.findBy(
+        'added_date',
+        todaysDate
+      );
+      if (!todaysClassActivities) {
+        classActivities.pushObject(
+          Ember.Object.create({
+            added_date: todaysDate,
+            classActivities: Ember.A([])
+          })
+        );
+      }
+      this.get('todaysClassActivities.classActivities').pushObject(content);
+      let todayClassActivities = this.get(
+        'todaysClassActivities.classActivities'
+      )
+        .sortBy('id')
+        .reverse();
+      this.set('todaysClassActivities.classActivities', todayClassActivities);
+    },
+
+    addFromCourseMap() {
+      const classId = this.get('classId');
+      this.transitionToRoute('add-from-course-map', classId);
     },
 
     /**
@@ -135,7 +170,11 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     let controller = this;
     let todaysDate = moment().format('YYYY-MM-DD');
     let classActivities = controller.get('classActivities');
-    return classActivities.findBy('added_date', todaysDate);
+    let todaysClassActivities = classActivities.findBy(
+      'added_date',
+      todaysDate
+    );
+    return todaysClassActivities;
   }),
 
   /**
