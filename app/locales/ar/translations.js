@@ -1032,7 +1032,8 @@ export default Object.assign(quizzesTranslations, {
       'class-activities-tab': {
         today: 'اليوم'
       },
-      'my-report': 'تقريري'
+      'my-report': 'تقريري',
+      'my-location': 'تقريري'
     },
     course: {
       'to-report': 'ملخص الاستخدام',

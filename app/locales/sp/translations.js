@@ -974,6 +974,7 @@ export default Object.assign(quizzesTranslations, {
       unit: 'Unidad',
       performance: 'Actuación',
       'my-report': 'Mi reporte',
+      'my-location': 'Mi location',
       lesson: 'Lección',
       'class-activities': 'Actividades de Clases Diarias',
       'assigned-course': 'Curso asignado',
