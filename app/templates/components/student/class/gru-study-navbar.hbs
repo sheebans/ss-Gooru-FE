@@ -37,15 +37,19 @@
                     {{/if}}
                 </li>
             {{/unless}}
-            <li role="separator" class="divider"></li>
-            <li class="profile tab">
-                <a {{action 'selectItem' 'profile'}} role="tab" data-toggle="tooltip" title="{{t 'common.myProfile'}} ">
-                    {{gru-icon name='account_circle'}}
-                    <span class="my-profile add-info">
-                      &nbsp; {{t 'common.myProfile'}}
-                    </span>
-                </a>
-            </li>
+                {{#if (not (eq sourceType 'ILActivity')) }}
+                    {{#if (not (eq ILActivity 'true')) }}
+                        <li role="separator" class="divider"></li>
+                        <li class="profile tab">
+                            <a {{action 'selectItem' 'profile'}} role="tab" data-toggle="tooltip" title="{{t 'common.myProfile'}} ">
+                                {{gru-icon name='account_circle'}}
+                                <span class="my-profile add-info">
+                                &nbsp; {{t 'common.myProfile'}}
+                                </span>
+                            </a>
+                        </li>
+                    {{/if}}
+                {{/if}}
             <li role="separator" class="divider"></li>
             <li class="performance tab {{unless hasStarted 'not-started'}}" {{action 'openCourseReport'}}>
                 <a  role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.report'}} ">

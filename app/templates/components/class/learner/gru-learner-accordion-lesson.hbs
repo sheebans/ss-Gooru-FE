@@ -125,7 +125,7 @@
                               /assets/gooru/share@3x.png 3x" class="share">
                       {{/if}}
                     </div>
-                    <div class="performance {{if item.isExternalAssessment 'non-clickable'}} {{unless item.performance.hasStarted 'performance-not-started'}}" >
+                    <div class="performance {{unless item.performance.hasStarted 'performance-not-started'}}" >
                       {{#if (or item.isAssessment item.isExternalAssessment)}}
                         {{#if (or item.performance.isCompleted item.isExternalAssessment)}}
                           <span class="score" {{action "studentReport" item}}  style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>

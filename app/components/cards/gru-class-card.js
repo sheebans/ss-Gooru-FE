@@ -74,18 +74,6 @@ export default Ember.Component.extend({
   }),
 
   /**
-   * @property {Class} class information
-   */
-  archivedClasses: Ember.computed('activeClasses', function() {
-    'applicationController.myClasses.classes.[]',
-    function() {
-      return this.get(
-        'applicationController.myClasses'
-      ).getTeacherArchivedClasses();
-    };
-  }),
-
-  /**
    * @property {Number} score percentage
    * Computed property for performance score percentage
    */
@@ -94,6 +82,15 @@ export default Ember.Component.extend({
     return scorePercentage >= 0 && scorePercentage !== null
       ? `${scorePercentage}%`
       : '_';
+  }),
+
+  /**
+   * @property {Boolean}
+   * Computed property  to identify class is started or not
+   */
+  hasStarted: Ember.computed('class.performanceSummary', function() {
+    const scorePercentage = this.get('class.performanceSummary.score');
+    return scorePercentage !== null && scorePercentage >= 0;
   }),
 
   // -------------------------------------------------------------------------

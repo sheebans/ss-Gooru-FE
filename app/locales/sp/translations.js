@@ -4,6 +4,9 @@ export default Object.assign(quizzesTranslations, {
   en: 'English',
   sp: 'Español',
   ar: 'عربى',
+  mr: 'मराठी',
+  kn: 'ಕನ್ನಡ',
+  hi: 'हिंदी',
   errors: {
     tooShort:
       '{{description}} es demasiado corta (el mínimo es {{min}} caracteres)',
@@ -971,6 +974,7 @@ export default Object.assign(quizzesTranslations, {
       unit: 'Unidad',
       performance: 'Actuación',
       'my-report': 'Mi reporte',
+      'my-location': 'Mi location',
       lesson: 'Lección',
       'class-activities': 'Actividades de Clases Diarias',
       'assigned-course': 'Curso asignado',

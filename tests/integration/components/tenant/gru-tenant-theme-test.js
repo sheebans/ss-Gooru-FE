@@ -36,7 +36,7 @@ test('Layout', function(assert) {
         },
         header: {
           logo: {
-            url: 'http://www.edify.cr/images/logo-EDIFY.png'
+            url: 'http://gooru.org/welcome/images/GooruLogo.png'
           }
         }
       }
@@ -64,7 +64,7 @@ test('Layout', function(assert) {
     }
 
     .gru-header .container-fluid .navbar-default .navbar-header .navbar-brand {
-        background: url("http://www.edify.cr/images/logo-EDIFY.png");
+        background: url("http://gooru.org/welcome/images/GooruLogo.png");
         height: 55px;
         padding: 0;
         width: 140px;
@@ -72,16 +72,16 @@ test('Layout', function(assert) {
     }
 
     .content.modals.gru-welcome-message .modal-body .last-text p .logo {
-        background: url("http://www.edify.cr/images/logo-EDIFY.png") no-repeat;
+        background: url("http://gooru.org/welcome/images/GooruLogo.png") no-repeat;
         background-size: contain;
     }
 
-    .gru-study-navbar .study-player-brand a {
-      background-image: url("http://www.edify.cr/images/logo-EDIFY.png");
+    .gru-study-navbar .panel .nav-body .nav .study-player-brand a {
+      background-image: url("http://gooru.org/welcome/images/GooruLogo.png");
     }
 
-    .gru-class-navbar .app-brand a {
-      background-image: url("http://www.edify.cr/images/logo-EDIFY.png");
+    .gru-class-navbar .panel .nav-body .nav .app-brand a {
+      background-image: url("http://gooru.org/welcome/images/GooruLogo.png");
     }
 `;
   assert.equal($style.text(), expedtedStyle, 'Wrong style body');

@@ -185,7 +185,7 @@
                       </div>
                     {{/if}}
                     {{#if isStudent}}
-                      <div class="performance {{if item.isExternalAssessment 'non-clickable'}}">
+                      <div class="performance">
                         {{#if (or item.isAssessment item.isExternalAssessment)}}
                           {{#if item.performance.isCompleted}}
                             <span {{action 'studentReport' item}} class="score {{unless (gte item.performance.score 0) 'not-started'}}" style= {{safe-html (concat "color:" (grade-color item.performance.score))}}>
@@ -223,7 +223,7 @@
                         {{/if}}
                       </div>
                     {{else}}
-                      <div class="performance chart {{unless item.performance.hasStarted 'not-started'}} {{if item.isExternalAssessment 'non-clickable'}}" {{action 'teacherCollectionReport' item}}>
+                      <div class="performance chart {{unless item.performance.hasStarted 'not-started'}}" {{action 'teacherCollectionReport' item}}>
                         {{charts/gru-students-performance-chart performanceSummary=item.performance hasStarted=true isTeacher=isTeacher assessmentCount=item.assessmentCount isCollection=item.isCollection}}
                       </div>
                     {{/if}}

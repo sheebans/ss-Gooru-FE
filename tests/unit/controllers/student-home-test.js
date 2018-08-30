@@ -1,29 +1,24 @@
 import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 
+let activeClasses = [
+  Ember.Object.create({
+    id: 'class2',
+    isArchived: false,
+    isTeacher: function() {
+      return false;
+    }
+  })
+];
 var applicationController = Ember.Object.create({
   profile: Ember.Object.create({ id: 'profile-id' }),
-  myClasses: {
-    classes: [
-      Ember.Object.create({
-        id: 'class2',
-        isArchived: false,
-        isTeacher: function() {
-          return false;
-        }
-      })
-    ],
-    getStudentActiveClasses: function() {
-      return this.classes;
-    }
-  },
   getLocalStorage: () => ({ getItem: () => null })
 });
 moduleFor('controller:student-home', 'Unit | Controller | student-home', {});
 
 test('profile', function(assert) {
   assert.expect(1);
-  let controller = this.subject({ applicationController });
+  let controller = this.subject({ applicationController, activeClasses });
   assert.deepEqual(
     controller.get('profile'),
     applicationController.profile,
@@ -33,7 +28,7 @@ test('profile', function(assert) {
 
 test('activeClasses', function(assert) {
   assert.expect(1);
-  let controller = this.subject({ applicationController });
+  let controller = this.subject({ applicationController, activeClasses });
   assert.equal(
     controller.get('activeClasses').length,
     1,
@@ -43,7 +38,7 @@ test('activeClasses', function(assert) {
 
 test('totalJoinedClasses', function(assert) {
   assert.expect(1);
-  let controller = this.subject({ applicationController });
+  let controller = this.subject({ applicationController, activeClasses });
   assert.equal(
     controller.get('totalJoinedClasses'),
     1,
@@ -53,6 +48,6 @@ test('totalJoinedClasses', function(assert) {
 
 test('hasClasses', function(assert) {
   assert.expect(1);
-  let controller = this.subject({ applicationController });
+  let controller = this.subject({ applicationController, activeClasses });
   assert.equal(controller.get('hasClasses'), true, 'Should have classes');
 });

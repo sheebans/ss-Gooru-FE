@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import AccordionMixin from '../../../mixins/gru-accordion';
-
 export default Ember.Component.extend(AccordionMixin, {
   classNames: ['gru-accordion', 'gru-accordion-course', 'course-suggestions'],
   /**
@@ -28,10 +27,58 @@ export default Ember.Component.extend(AccordionMixin, {
     studyNow: function(type, unitId, lessonId, item) {
       this.sendAction('onStudyNow', type, unitId, lessonId, item);
     },
-    selectUnit: function() {
-      //ToDo: Add impl on player
+    selectResource: function(unitId, lessonId, collection) {
+      // Send the action so that it bubbles up to the route
+      this.sendAction('onSelectResource', unitId, lessonId, collection);
+    },
+    /**
+     * Trigger the 'onLocationUpdate' event handler
+     *
+     * @function actions:updateLocation
+     * @param {string} newLocation - String of the form 'unitId[+lessonId[+resourceId]]'
+     */
+    updateLocation: function(newLocation) {
+      if (this.get('onLocationUpdate')) {
+        this.get('onLocationUpdate')(newLocation);
+      }
     }
   },
+  //action object ends
+
+  /**
+   * @prop {String} currentResource - Id of the resource in 'userLocation'
+   * This value is not expected to change while on the page so it is put into its own
+   * property and sent down to the child accordions. This way, each child accordion is
+   * not responsible for extracting the value from 'userLocation'.
+   */
+  currentResource: Ember.computed('userLocation', 'location', function() {
+    const userLocation = this.get('userLocation');
+    if (!userLocation) {
+      return;
+    }
+
+    var parsedLocation = userLocation.split('+');
+    var currentResource = null;
+
+    if (parsedLocation.length === 3) {
+      currentResource = parsedLocation[2];
+    } else {
+      Ember.Logger.warn(
+        'The user location does not specify a current resource'
+      );
+    }
+    return currentResource;
+  }),
+
+  /**
+   * @prop {String[]} parsedLocation - Location the user has navigated to
+   * parsedLocation[0] - unitId
+   * parsedLocation[1] - lessonId
+   * parsedLocation[2] - resourceId
+   */
+  parsedLocation: Ember.computed('userLocation', function() {
+    return this.get('userLocation') ? this.get('userLocation').split('+') : [];
+  }),
 
   performanceData() {
     /* // didReceiveAttrs() { const component = this; component.performanceData(); },
@@ -45,8 +92,7 @@ export default Ember.Component.extend(AccordionMixin, {
     options.units = this.get('model.route0Content.units');
     options.unitId = options.units[0].unitId;
     options.unitLessons = component.getLessons(options.units[0]);
-    /* console.log('Options', options);
-    console.log('lessons-B4', options.unitLessons); */
+
     component
       .get('performanceService')
       .findStudentPerformanceByUnit(
@@ -86,7 +132,6 @@ export default Ember.Component.extend(AccordionMixin, {
           }
         });
         //end
-        /* console.log('lessons-after', options.unitLessons); */
       });
   },
   getLessons(unit) {

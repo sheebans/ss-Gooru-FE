@@ -123,7 +123,8 @@ export default Ember.Component.extend(AccordionMixin, {
         unitId: unitId,
         lessonId: lessonId,
         collectionId: collectionId,
-        type: type
+        type: type,
+        collection
       };
       this.sendAction('collectionReport', params);
     },

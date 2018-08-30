@@ -32,7 +32,11 @@ export default Ember.Component.extend(SessionMixin, ModalMixin, {
       if (
         loc !== 'en/quizzes' &&
         loc !== 'sp/quizzes' &&
-        loc !== 'ar/quizzes'
+        loc !== 'ar/quizzes' &&
+        loc !== 'hi/quizzes' &&
+        loc !== 'mr/quizzes' &&
+        loc !== 'ta/quizzes' &&
+        loc !== 'kn/quizzes'
       ) {
         arr.addObject({
           id: loc,

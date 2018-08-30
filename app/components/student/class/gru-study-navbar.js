@@ -57,9 +57,24 @@ export default Ember.Component.extend({
    * DidInsertElement ember event
    */
   didInsertElement: function() {
+    this._super(...arguments);
+
+    const { getOwner } = Ember;
+    let currentPath = getOwner(this).lookup('controller:application')
+      .currentPath;
+
     let component = this;
+    if (currentPath === 'student.class.profile') {
+      component.set('selectedMenuItem', 'profile');
+    } else if (currentPath === 'student.class.course-map') {
+      component.set('selectedMenuItem', 'course-map');
+    } else if (currentPath === 'student.class.class-activities') {
+      component.set('selectedMenuItem', 'class-activities');
+    }
+
     var item = component.get('selectedMenuItem');
     component.selectItem(item);
+
     if (component.get('isStudyPlayer')) {
       Ember.$('body').removeClass('fullscreen-exit');
       if (component.get('isFullScreen')) {

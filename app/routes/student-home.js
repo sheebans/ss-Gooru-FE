@@ -118,6 +118,8 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
 
       if (item === 'report') {
         route.transitionTo('student.class.course-map', classId, queryParams);
+      } else if (item === 'profile') {
+        route.transitionTo('student.class.profile', classId);
       } else if (item === 'course-map') {
         route.transitionTo('student.class.course-map', classId);
       } else if (item === 'class-activities') {
@@ -255,7 +257,9 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
     const fourthCourseId = configuration.get(
       'exploreFeaturedCourses.fourthCourseId'
     );
-    const activeClasses = myClasses.getStudentActiveClasses(myId);
+    let myClassessPromise = Ember.RSVP.resolve(
+      route.controllerFor('application').loadUserClasses()
+    );
     var featuredCourses = Ember.A([]);
 
     if (firstCourseId) {
@@ -278,13 +282,14 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       firstCourse: firstCoursePromise,
       secondCourse: secondCoursePromise,
       thirdCourse: thirdCoursePromise,
-      fourthCourse: fourthCoursePromise
+      fourthCourse: fourthCoursePromise,
+      myClasses: myClassessPromise
     }).then(function(hash) {
       const firstFeaturedCourse = hash.firstCourse;
       const secondFeaturedCourse = hash.secondCourse;
       const thirdFeaturedCourse = hash.thirdCourse;
       const fourthFeaturedCourse = hash.fourthCourse;
-
+      const activeClasses = myClasses.getStudentActiveClasses(myId);
       featuredCourses.push(firstFeaturedCourse);
       featuredCourses.push(secondFeaturedCourse);
       featuredCourses.push(thirdFeaturedCourse);
@@ -349,6 +354,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
   setupController: function(controller, model) {
     controller.set('steps', model.tourSteps);
     controller.set('featuredCourses', model.featuredCourses);
+    controller.set('activeClasses', model.activeClasses);
   },
 
   /**

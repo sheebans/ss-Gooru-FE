@@ -107,7 +107,7 @@ export default Ember.Component.extend({
       component.loadData();
     },
 
-    studentReport(collection, userId) {
+    studentReport(collection, userId, studentPerformance) {
       let component = this;
       if (!userId) {
         userId = component.get('session.userId');
@@ -121,10 +121,19 @@ export default Ember.Component.extend({
         collectionId: collection.get('id'),
         type: collection.get('format'),
         lesson: component.get('lesson'),
-        isStudent: component.get('isStudent')
+        isStudent: component.get('isStudent'),
+        collection,
+        studentPerformance
       };
+      let reportType = params.type;
+      if (reportType === 'assessment-external') {
+        component.set('isShowStudentReport', false);
+        component.set('isShowStudentExternalAssessmentReport', true);
+      } else {
+        component.set('isShowStudentReport', true);
+        component.set('isShowStudentExternalAssessmentReport', false);
+      }
       component.set('studentReportContextData', params);
-      component.set('isShowStudentReport', true);
     },
 
     onClickChart(userId, showReport) {
@@ -164,6 +173,11 @@ export default Ember.Component.extend({
       };
       component.set('studentQuestionReportContextData', params);
       this.set('isShowQuestionReport', true);
+    },
+
+    onClosePullUp() {
+      let component = this;
+      component.set('isShowStudentExternalAssessmentReport', false);
     }
   },
 
@@ -384,6 +398,12 @@ export default Ember.Component.extend({
    */
   isShowQuestionReport: false,
 
+  /**
+   * Maintains the state of student external assessment report pullup
+   * @type {Boolean}
+   */
+  isShowStudentExternalAssessmentReport: false,
+
   //--------------------------------------------------------------------------
   // Methods
 
@@ -460,15 +480,19 @@ export default Ember.Component.extend({
     let lessonId = component.get('lesson.id');
     let courseId = component.get('courseId');
     let classId = component.get('classId');
+    let collectionType = format === 'collection' ? 'collection' : 'assessment';
+    component.set('collectionType', collectionType);
     component.set('isLoading', true);
-    if (format === 'collection') {
+    if (collectionType === 'collection') {
       component.set('isTimeSpentFltApplied', true);
     }
     return Ember.RSVP.hash({
       collection:
         format === 'assessment'
           ? component.get('assessmentService').readAssessment(collectionId)
-          : component.get('collectionService').readCollection(collectionId),
+          : format === 'assessment-external'
+            ? component.get('assessmentService').readExternalAssessment(collectionId)
+            : component.get('collectionService').readCollection(collectionId),
       performance: component
         .get('analyticsService')
         .findResourcesByCollection(
@@ -477,16 +501,49 @@ export default Ember.Component.extend({
           unitId,
           lessonId,
           collectionId,
-          format
+          collectionType
         )
     }).then(({ collection, performance }) => {
       if (!component.isDestroyed) {
         component.set('collection', collection);
-        component.parseClassMemberAndPerformanceData(collection, performance);
+        if (format === 'assessment-external') {
+          component.parseClassMemberAndExternalPerformanceData(performance);
+        } else {
+          component.parseClassMemberAndPerformanceData(collection, performance);
+        }
         component.set('isLoading', false);
         component.loadSuggestion();
       }
     });
+  },
+
+  parseClassMemberAndExternalPerformanceData(performance) {
+    let component = this;
+    let classMembers = component.get('classMembers');
+    let users = Ember.A([]);
+    classMembers.map(member =>  {
+      let user = component.createUser(member);
+      let userPerformance = performance.findBy('user', member.id);
+      let userExternalAssessmentPerf = userPerformance ? userPerformance.assessment : null;
+      if (userExternalAssessmentPerf) {
+        user.set('score', userExternalAssessmentPerf.score);
+        user.set('hasStarted', true);
+        user.set('reaction', userExternalAssessmentPerf.reaction);
+        user.set('difference', 100 - userExternalAssessmentPerf.score);
+      } else {
+        user.set('hasStarted', false);
+      }
+      users.pushObject(user);
+    });
+    component.set('studentReportData', users);
+    component.set('sortByLastnameEnabled', true);
+    component.set('sortByFirstnameEnabled', false);
+    component.set('sortByScoreEnabled', false);
+    component.set('sortByTimeSpentEnabled', false);
+    component.set('studentsSelectedForSuggest', Ember.A([]));
+    component.set('suggestResultCount', 0);
+    component.set('defaultSuggestContentType', 'collection');
+    component.handleCarouselControl();
   },
 
   parseClassMemberAndPerformanceData(collection, performance) {
