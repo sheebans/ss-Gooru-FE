@@ -27,7 +27,7 @@ export default Ember.Component.extend(ConfigurationMixin, {
       component.sendAction('onOpenCourseReport');
     },
 
-    onOpenPerfReport() {
+    onOpenPerformanceReport() {
       let component = this;
       if (component.get('isPremiumClass')) {
         component.sendAction('onOpenCompetencyReport');

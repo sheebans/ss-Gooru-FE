@@ -242,6 +242,9 @@ export default Ember.Component.extend({
     if (component.get('loadUnitsPerformance')) {
       const classId = this.get('classId');
       component.set('isLoading', true);
+      if (component.get('isTeacher')) {
+        component.getStudentClassPerformance();
+      }
       if (classId) {
         component.fetchClassUnitPerformance();
       } else {
@@ -294,5 +297,35 @@ export default Ember.Component.extend({
       unitList.pushObject(unitCopy);
     });
     component.set('units', unitList);
+  },
+
+  /**
+   * @function getStudentClassPerformance
+   * Method to get selected student's class performance
+   */ 
+  getStudentClassPerformance() {
+    let component = this;
+    let classCourseId = null;
+    let classId = component.get('classId');
+    let courseId = component.get('courseId');
+    let userId = component.get('userId');
+    if (courseId) {
+      classCourseId = Ember.A([
+        { classId, courseId }
+      ]);
+    }
+    const performanceSummaryPromise = classCourseId
+      ? component
+        .get('performanceService')
+        .findClassPerformanceSummaryByStudentAndClassIds(
+          userId,
+          classCourseId
+        )
+      : null;
+    Ember.RSVP.hash({
+      studentClassPerformanceSummary: performanceSummaryPromise
+    }).then(({studentClassPerformanceSummary}) => {
+      component.set('performanceSummary', studentClassPerformanceSummary.objectAt(0));
+    });
   }
 });

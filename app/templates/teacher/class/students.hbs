@@ -1,0 +1,99 @@
+<div class="teacher controller students-view">
+  <div class="students-container">
+    <div class="header">Students</div>
+    <div class="student-details">
+      <table class="table">
+        <thead class="table-header">
+          <tr>
+            <th class='last-name' {{action "sortStudentList" 'lastName'}}>
+              <span>Lastname</span> {{gru-icon name='swap_vert'}}
+            </th>
+            <th class='first-name' {{action "sortStudentList" 'firstName'}}>
+              <span>Firstname</span> {{gru-icon name='swap_vert'}}
+            </th>
+            <th class='performance' {{action "onOpenCourseReport"}}>
+              <span>Performance</span>
+            </th>
+            {{#if isPremiumClass}}
+              <th class='proficiency' {{action "onOpenCompetencyReport"}}>
+                <span class="proficiency-header">Proficiency</span>
+                <div class="proficiency-status">
+                  <span class="mastered">Mastered</span><span class="in-progress">In Progress</span>
+                </div>
+              </th>
+            {{/if}}
+            <th class='location'>
+              <span>Location</span>
+            </th>
+            <th class='student-id center-align'>
+              <span>StudentId</span>
+            </th>
+            <th class='remove center-align'>
+              <span>Remove</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          {{#each studentsList as |student|}}
+            <tr class="student">
+              <td class="last-name datacolumn">
+                <div class="student-thumbnail" style="background-image: url({{student.avatarUrl}})"></div>
+                <span class="ellipsis">{{student.lastName}}</span>
+              </td>
+              <td class="first-name datacolumn dashed-border"><span class="ellipsis">{{student.firstName}}</span></td>
+              <td class="performance center-align datacolumn dashed-border {{unless student.performance 'not-started'}}" {{action "onOpenStudentCourseReport" student}}><span style= {{safe-html (concat "color:" (grade-color student.performance))}}>{{if student.performance (concat student.performance ' %') '--'}}</span></td>
+              {{#if isPremiumClass}}
+                <td class="proficiency datacolumn dashed-border">
+                    <span class="mastered center-align pull-left">{{student.proficiency.completedCompetencies}}</span>
+                    <span class="in-progress center-align pull-left">{{student.proficiency.pendingCompetencies}}</span>
+                    <span class="proficiency-icon center-align pull-left" data-toggle="tooltip" title='Proficiency' {{action 'onOpenStudentProficiency' student}}>
+                        <img src='/assets/gooru/proficiency_new.png' >
+                    </span>
+                </td>
+              {{/if}}
+              <td class="current-location datacolumn dashed-border"><span class="ellipsis">{{student.currentLocation}}</span></td>
+              <td class="student-id center-align datacolumn dashed-border"><span>{{student.studentId}}</span></td>
+              <td class="remove center-align datacolumn" {{action "onRemoveStudent" student}}><span>{{gru-icon name='delete'}}</span></td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{{#if isShowProficiencyPullup}}
+  {{#gru-pull-up pullUpType="proficiency-pullup" showPullUp=isShowProficiencyPullup onClosePullUp="onClosePullUp" as |pull-up|}}
+    {{#if pull-up.isShowHeader}}
+      {{proficiency.learner-proficiency-pull-up
+         student=selectedStudent
+         subjectBucket=subjectBucket
+         class=class
+         course=course
+         onSelectCompetency="onSelectCompetency"
+         }}
+    {{/if}}
+  {{/gru-pull-up}}
+{{/if}}
+
+{{#if isShowCompetencyReport}}
+  {{#reports.pull-up.competency-report type=(t 'report.competency-report.title') title=(if class.course.subject class.course.subject (t 'report.competency-report.no-subject')) showPullUp=isShowCompetencyReport}}
+      {{reports.pull-up.course-competency-report classData=class onSelectDomain="onSelectDomain"}}
+  {{/reports.pull-up.competency-report}}
+{{/if}}
+
+{{#if isShowDomainCompetencyReport}}
+  {{#reports.pull-up.competency-report type=(t 'report.domain-report') title=selectedDomain.domainData.domainName showPullUp=isShowDomainCompetencyReport onClosePullUp="onCloseCompetencyReportPullUp"}}
+      {{reports.pull-up.domain-competency-report domainSet=selectedDomain onSelectCompetency="onSelectCompetency"}}
+  {{/reports.pull-up.competency-report}}
+{{/if}}
+
+{{#if isShowCompetencyContentReport}}
+  {{#reports.pull-up.competency-report type=selectedCompetency.competencyCode title=selectedCompetency.competencyStudentDesc showPullUp=isShowCompetencyContentReport onClosePullUp="onCloseCompetencyReportPullUp" competency=selectedCompetency}}
+    {{reports.pull-up.competency-content-report competency=selectedCompetency userId=selectedStudentUserId}}
+  {{/reports.pull-up.competency-report}}
+{{/if}}
+
+{{#if showCourseReport}}
+  {{reports.pull-up.student-course-report context=studentCourseReportContext showPullUp=showCourseReport}}
+{{/if}}
