@@ -3,11 +3,14 @@
     max-width: 90%;
     margin: 0 auto !important;
     float: none !important;
+    &.regular-class {
+      width: 960px !important;
+    }
   }
 }
 .teacher.students-view {
   .students-container {
-    max-width: 90%;
+    width: 1157px;
     margin: 0 auto !important;
     float: none !important;
     .header {
@@ -25,7 +28,29 @@
       .center-align {
         text-align: center;
       }
+      .last-name {
+        width: 215px;
+      }
+      .first-name {
+        width: 180px;
+      }
+      .proficiency {
+        width: 250px;
+      }
+      .performance {
+        width: 92px;
+      }
+      .location {
+        width: 300px;
+      }
+      .student-id {
+        width: 120px;
+      }
+      .remove {
+        width: 50px;
+      }
       .table-header {
+        display: block;
         tr th {
           height: 40px;
           padding: 0;
@@ -39,13 +64,16 @@
           }
         }
         th.last-name {
-          width: 215px;
+          width: 225px;
+          cursor: pointer;
           span {
             margin-left: 60px;
           }
         }
+        th.first-name {
+          cursor: pointer;
+        }
         th.proficiency {
-          width: 250px;
           text-align: center;
           line-height: 20px;
           cursor: pointer;
@@ -66,21 +94,20 @@
           }
         }
         th.performance {
-          width: 92px;
           text-align: center;
           cursor: pointer;
         }
         th.location {
-          width: 230px;
           span {
             margin-left: 15px;
           }
         }
-        th.remove {
-          width: 50px;
-        }
       }
       .table-body {
+        display: block;
+        max-height: 71vh;
+        overflow: auto;
+        width: 100%;
         tr.student {
           .datacolumn {
             padding: 0;
@@ -131,6 +158,9 @@
               .in-progress {
                 color: #23adec;
               }
+              .proficiency-icon {
+                cursor: pointer;
+              }
             }
             &.current-location {
               span {
@@ -139,8 +169,34 @@
               }
             }
             &.remove {
+              cursor: pointer;
               opacity: 0.2;
             }
+          }
+        }
+      }
+      tbody::-webkit-scrollbar {
+        width: 6px;
+        border-radius: 3px;
+      }
+
+      tbody::-webkit-scrollbar-thumb {
+        background: $gray-light;
+        border: 1px solid $gray-light;
+        border-radius: 5px;
+      }
+    }
+  }
+  &.regular-class {
+    .students-container {
+      width: 960px;
+      .table {
+        th.last-name {
+          width: 215px;
+        }
+        .table-body {
+          .current-location {
+            width: 300px;
           }
         }
       }

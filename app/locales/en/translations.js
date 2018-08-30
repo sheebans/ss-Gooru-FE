@@ -1208,6 +1208,17 @@ export default Object.assign(quizzesTranslations, {
         'students-null':
           'Share the Class Code with students to have them join your Classroom.'
       },
+      'students-tab': {
+        'last-name': 'Lastname',
+        'first-name': 'Firstname',
+        'performance': 'Performance',
+        'proficiency': 'Proficiency',
+        'location': 'Location',
+        'student-id': 'StudentId',
+        'remove': 'Remove',
+        'mastered': 'Mastered',
+        'in-progress': 'In Progress'
+      },
       'class-activities': 'Daily Class Activities',
       'back-to-class-activities': 'Back to Daily Class Activities',
       'class-activities-tab': {

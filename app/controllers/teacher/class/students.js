@@ -23,10 +23,6 @@ export default Ember.Controller.extend(ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Events
-  init() {
-    let controller = this;
-    controller.loadStudentsData();
-  },
 
   // -------------------------------------------------------------------------
   // Actions
@@ -237,6 +233,12 @@ export default Ember.Controller.extend(ModalMixin, {
    */
   isShowCompetencyContentReport: false,
 
+  /**
+   * @property {Array} studentsList
+   * List of students in the class
+   */
+  studentsList: Ember.A([]),
+
   // -------------------------------------------------------------------------
   // Methods
 
@@ -246,6 +248,7 @@ export default Ember.Controller.extend(ModalMixin, {
    */
   loadStudentsData() {
     let controller = this;
+    controller.set('isLoading', true);
     let isPremiumClass = controller.get('isPremiumClass');
     return Ember.RSVP.hash({
       classPerformance: isPremiumClass ? controller.getPremiumCoursePerformanceSummary() : controller.getClassicCoursePerformanceSummary(),
@@ -320,15 +323,17 @@ export default Ember.Controller.extend(ModalMixin, {
     let classMembersList = classMembers.map( member => {
       let studentDetails = Object.assign(member);
       let studentPerformance = classPerformance.findBy('userId', member.id);
-      let studentContentPerformance = classContentPerformance.findBy('userId', member.id);
+      let studentContentPerformance = classContentPerformance ? classContentPerformance.findBy('userId', member.id) : null;
       let performance = null;
+      let isStudentPerformed = false;
       let proficiency = Ember.Object.create({
         totalCompetencies: 0,
         completedCompetencies: 0
       });
       if (studentPerformance) {
         let score = isPremiumClass ? studentContentPerformance ? studentContentPerformance.score : null : studentPerformance.score;
-        performance = score ? Math.round(score * 100) / 100 || 0 : null;
+        performance = score != null ? Math.round(score * 100) / 100 : null;
+        isStudentPerformed = score != null ? true : false;
         if (isPremiumClass) {
           proficiency.set('totalCompetencies', studentPerformance.totalCompetency);
           proficiency.set('completedCompetencies', studentPerformance.completedCompetency);
@@ -341,6 +346,7 @@ export default Ember.Controller.extend(ModalMixin, {
         if (studentLocation) {
           currentLocation = studentLocation.collectionTitle;
         }
+        studentDetails.set('hasStarted', isStudentPerformed);
         studentDetails.set('performance', performance);
         studentDetails.set('proficiency', proficiency);
         studentDetails.set('currentLocation', currentLocation);
@@ -349,6 +355,7 @@ export default Ember.Controller.extend(ModalMixin, {
     });
     Ember.RSVP.all(classMembersList).then(function(studentsList) {
       controller.set('studentsList', studentsList);
+      controller.set('isLoading', false);
     });
   }
 });

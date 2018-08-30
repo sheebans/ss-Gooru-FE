@@ -23,7 +23,7 @@
       {{/if}}
       <h1>{{class.title}}</h1>
     </div>
-    <div class="panel panel-default panel-primary classroom-information  hide-classroom-information" >
+    <div class="panel panel-default panel-primary classroom-information  hide-classroom-information {{unless isPremiumClass 'regular-class'}}" >
       <div class="panel-body">
         <div class="course-image">
           {{#if course.thumbnailUrl}}
