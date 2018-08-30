@@ -302,7 +302,7 @@ export default Ember.Component.extend({
   /**
    * @function getStudentClassPerformance
    * Method to get selected student's class performance
-   */ 
+   */
   getStudentClassPerformance() {
     let component = this;
     let classCourseId = null;

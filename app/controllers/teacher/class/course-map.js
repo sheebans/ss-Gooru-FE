@@ -323,7 +323,7 @@ export default Ember.Controller.extend({
       });
       controller.set('studentCourseReportContext', params);
       controller.set('showCourseReport', true);
-    },
+    }
   },
 
   // -------------------------------------------------------------------------

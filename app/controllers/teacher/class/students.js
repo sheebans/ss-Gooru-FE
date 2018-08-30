@@ -333,7 +333,7 @@ export default Ember.Controller.extend(ModalMixin, {
       if (studentPerformance) {
         let score = isPremiumClass ? studentContentPerformance ? studentContentPerformance.score : null : studentPerformance.score;
         performance = score != null ? Math.round(score * 100) / 100 : null;
-        isStudentPerformed = score != null ? true : false;
+        isStudentPerformed = score != null;
         if (isPremiumClass) {
           proficiency.set('totalCompetencies', studentPerformance.totalCompetency);
           proficiency.set('completedCompetencies', studentPerformance.completedCompetency);
