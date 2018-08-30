@@ -1,4 +1,4 @@
-<div class="panel {{if course 'has-course' 'no-course'}}">
+<div class="panel {{if hasStarted 'has-course' 'no-course'}}">
   {{#if course}}
     <div class="panel-heading" style="background-color:{{grade-color class.performanceSummary.score}}">
       <div class="title ellipsis">
@@ -37,7 +37,7 @@
               <span>{{t 'student-landing.class.course-map'}}</span>
             </a>
           </li>
-          <li class="performance {{unless hasStarted 'not-started'}}">
+          <li class="performance">
             <a {{action 'selectItem' 'profile'}}>
               <span>{{t 'student-landing.class.my-location'}}</span>
             </a>
@@ -94,7 +94,9 @@
             </a>
           </li>
           <li class="performance">
+            <a {{action 'selectItem' 'profile'}}>
               <span>{{t 'student-landing.class.my-location'}}</span>
+            </a>
           </li>
         </ul>
       </div>
