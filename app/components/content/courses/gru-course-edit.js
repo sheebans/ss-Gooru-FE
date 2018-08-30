@@ -60,7 +60,10 @@ export default Ember.Component.extend(ContentEditMixin, ModalMixin, {
       } else {
         component
           .get('router')
-          .transitionTo('profile.content.courses', this.get('session.userId'));
+          .transitionTo(
+            'profile.content.courses',
+            component.get('session.userId')
+          );
       }
     },
 
