@@ -166,7 +166,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   /**
    * It maintains the today's class activities data.
    */
-  todaysClassActivities: Ember.computed('classActivities', function() {
+  todaysClassActivities: Ember.computed('classActivities.[]', function() {
     let controller = this;
     let todaysDate = moment().format('YYYY-MM-DD');
     let classActivities = controller.get('classActivities');
@@ -180,7 +180,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   /**
    * It maintains the future class activities data.
    */
-  futureClassActivities: Ember.computed('classActivities', function() {
+  futureClassActivities: Ember.computed('classActivities.[]', function() {
     let controller = this;
     let todaysDate = moment().format('YYYY-MM-DD');
     let classActivities = controller.get('classActivities');
@@ -196,7 +196,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   /**
    * It maintains the past class activities data.
    */
-  pastClassActivities: Ember.computed('classActivities', function() {
+  pastClassActivities: Ember.computed('classActivities.[]', function() {
     let controller = this;
     let todaysDate = moment().format('YYYY-MM-DD');
     let classActivities = controller.get('classActivities');
@@ -210,8 +210,52 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     return pastClassActivities;
   }),
 
+  /**
+   * Number of records loaded past date
+   * @type {Number}
+   */
+  numberRecordsLoadedPastDate: 30,
+
+  /**
+   * Number of records loaded future date
+   * @type {Number}
+   */
+  numberRecordsLoadedFutureDate: 30,
+
+  /**
+   * Number of records load  per hit
+   * @return {Number}
+   */
+  numberRecordstoLoad: 30,
+
+  /**
+   * Maintain  state of loading data
+   * @type {Boolean}
+   */
+  isLoading: false,
+
+  /**
+   * Maximum number of retry for past date data
+   * @return {Number}
+   */
+  retryNumberOfPastDateDataLoad: 12,
+
+  /**
+   * Retried data load for past date
+   * @type {Number}
+   */
+  retriedDataLoadForPastDate: 0,
+
   // -------------------------------------------------------------------------
   // Events
+
+  init() {
+    let controller = this;
+    controller._super(...arguments);
+    Ember.run.scheduleOnce('afterRender', controller, function() {
+      controller.handleShowMoreData();
+    });
+  },
 
   // -------------------------------------------------------------------------
   // Methods
@@ -231,14 +275,27 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     });
   },
 
-  loadData(startDate, endDate) {
+  loadData(startDate, endDate, isPastClassActivity) {
     const controller = this;
     const classId = controller.get('classId');
+    controller.set('isLoading', true);
     controller
       .get('classActivityService')
       .findClassActivities(classId, null, startDate, endDate)
       .then(classActivities => {
-        controller.parseClassActivityData(classActivities);
+        if (classActivities && classActivities.length > 0) {
+          controller.parseClassActivityData(classActivities);
+          controller.set('retriedDataLoadForPastDate', 1);
+        } else if (isPastClassActivity) {
+          controller.loadPastClassActivitesData();
+          let retriedDataLoadForPastDate =
+            controller.get('retriedDataLoadForPastDate') + 1;
+          controller.set(
+            'retriedDataLoadForPastDate',
+            retriedDataLoadForPastDate
+          );
+        }
+        controller.set('isLoading', false);
       });
   },
 
@@ -257,5 +314,44 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       }
       classActivity.get('classActivities').pushObject(data);
     });
+  },
+
+  handleShowMoreData() {
+    let controller = this;
+    let container = Ember.$('.dca-content-list-container');
+    Ember.$(container).scroll(function() {
+      let scrollTop = Ember.$(container).scrollTop();
+      let listContainerHeight = Ember.$(container).height() + 20;
+      let isScrollReachedBottom =
+        scrollTop ===
+        Ember.$(container).prop('scrollHeight') - listContainerHeight;
+      if (isScrollReachedBottom && !controller.get('isLoading')) {
+        controller.loadPastClassActivitesData();
+      }
+    });
+  },
+
+  loadPastClassActivitesData() {
+    let controller = this;
+    if (
+      controller.get('retriedDataLoadForPastDate') <
+      controller.get('retryNumberOfPastDateDataLoad')
+    ) {
+      let numberRecordsLoadedPastDate = controller.get(
+        'numberRecordsLoadedPastDate'
+      );
+      let numberRecordstoLoad = controller.get('numberRecordstoLoad');
+      let startDate = moment()
+        .subtract(numberRecordstoLoad + numberRecordsLoadedPastDate, 'd')
+        .format('YYYY-MM-DD');
+      let endDate = moment()
+        .subtract(numberRecordsLoadedPastDate + 1, 'd')
+        .format('YYYY-MM-DD');
+      controller.set(
+        'numberRecordsLoadedPastDate',
+        numberRecordsLoadedPastDate + numberRecordstoLoad
+      );
+      controller.loadData(startDate, endDate, true);
+    }
   }
 });
