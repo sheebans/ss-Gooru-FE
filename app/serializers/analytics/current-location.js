@@ -56,7 +56,8 @@ export default Ember.Object.extend({
         : locationPayload.collectionId ? 'collection' : 'assessment',
       status: locationPayload.status,
       pathId: locationPayload.pathId || 0,
-      pathType: locationPayload.pathType || null
+      pathType: locationPayload.pathType || null,
+      collectionTitle: locationPayload.collectionTitle || locationPayload.assessmentTitle
     });
     return currentLocation;
   }
