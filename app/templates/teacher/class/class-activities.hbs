@@ -17,7 +17,31 @@
   </div>
   <div class="dca-content-list-container">
     <div class="dca-future-date-list-container">
-
+      {{#each futureClassActivities as |futureclassActivity|}}
+        <div class="dca-date-view-container">
+          <div class="dca-date-container">
+            {{gru-icon name="update"}}
+            <span>{{format-date futureclassActivity.added_date 'MMMM DD, YYYY'}}</span>
+          </div>
+          <hr/>
+        </div>
+        <div class="dca-future-list-container">
+          {{#each futureclassActivity.classActivities as |classActivity|}}
+            {{class.gru-class-activity-panel
+              classActivity=classActivity
+              classId=classId
+              members=members
+              onReportclick='changeStatusValue'
+              onGoLive='goLive'
+              showGolive=false
+              showDcaAssignButton=false
+              showDcaRemoveButton=true
+              onChangeVisibility='changeVisibility'
+              onRemoveClassActivity='removeClassActivity'
+            }}
+          {{/each}}
+        </div>
+      {{/each}}
     </div>
     <div class="dca-todays-container">
       <p class="dca-todays-header">Today</p>

@@ -127,14 +127,19 @@ export default Ember.Component.extend({
         .get('classActivityService')
         .addActivityToClass(classId, contentId, contentType)
         .then(newContentId => {
-          let data = component.serializerSearchContent(content, newContentId);
-          component.sendAction('addedContentToDCA', data);
+          let date = moment().format('YYYY-MM-DD');
+          let data = component.serializerSearchContent(
+            content,
+            newContentId,
+            date
+          );
+          component.sendAction('addedContentToDCA', data, date);
           component.closePullUp();
         });
     },
 
     /**
-     * Action get triggered whenschedule content to DCA got clicked
+     * Action get triggered when schedule content to DCA got clicked
      */
     onScheduleContentToDCA(content) {
       let component = this;
@@ -147,6 +152,19 @@ export default Ember.Component.extend({
       };
       component.set('showScheduleDca', true);
       component.set('scheduleDcaContext', params);
+    },
+
+    /**
+     * Action get triggered when schedule content  added to DCA
+     */
+    addedScheduleContentToDCA(content, newContentId, addedDate) {
+      let component = this;
+      let data = component.serializerSearchContent(
+        content,
+        newContentId,
+        addedDate
+      );
+      component.sendAction('addedContentToDCA', data, addedDate);
     }
   },
 
@@ -253,11 +271,11 @@ export default Ember.Component.extend({
     return params;
   },
 
-  serializerSearchContent(content, contentId) {
+  serializerSearchContent(content, contentId, date) {
     content.set('collectionType', this.get('activeContentType'));
     return Ember.Object.create({
       id: contentId,
-      added_date: moment().format('YYYY-MM-DD'),
+      added_date: date,
       collection: content
     });
   }

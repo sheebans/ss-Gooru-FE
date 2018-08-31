@@ -7,6 +7,14 @@ export default Ember.Component.extend({
   classNames: ['backdrop-pull-ups', 'teacher-class-schedule-dca-pull-up'],
 
   // -------------------------------------------------------------------------
+  // Dependencies
+
+  /**
+   * @requires service:api-sdk/class-activity
+   */
+  classActivityService: Ember.inject.service('api-sdk/class-activity'),
+
+  // -------------------------------------------------------------------------
   // Properties
 
   /**
@@ -33,24 +41,67 @@ export default Ember.Component.extend({
    */
   classId: Ember.computed.alias('context.classId'),
 
+  /**
+   * Maximum number of days to schedule dca content ahead.
+   * @type {Number}
+   */
+  maxNumberOfDays: 30,
+
   // -------------------------------------------------------------------------
   // Events
 
   didInsertElement() {
     let component = this;
     component.openPullUp();
+    let startDate = moment().toDate();
+    let maxNumberOfDays = component.get('maxNumberOfDays');
+    let endDate = moment()
+      .add(maxNumberOfDays, 'd')
+      .toDate();
     component.$('#schedule-dca-datepicker').datepicker({
-      stepMonths: 0
+      startDate: startDate,
+      endDate: endDate,
+      maxViewMode: 0,
+      format: 'yyyy-mm-dd'
     });
-    //component.$('#schedule-dca-datepicker').on('changeDate', function() {});
   },
 
   // -------------------------------------------------------------------------
   // Action
 
   actions: {
+    /**
+     * Action get triggered when schedule DCA pull got closed
+     *
+     */
     onPullUpClose() {
       this.closePullUp();
+    },
+
+    /**
+     * Action get triggered when schedule DCA date confirm
+     *
+     */
+    onConfirmDcaScheduleDate() {
+      let scheduleDate = this.$('#schedule-dca-datepicker')
+        .datepicker('getFormattedDate')
+        .valueOf();
+      let component = this;
+      let classId = component.get('classId');
+      let contentType = component.get('contentType');
+      let contentId = component.get('content.id');
+      component
+        .get('classActivityService')
+        .addActivityToClass(classId, contentId, contentType, scheduleDate)
+        .then(newContentId => {
+          component.sendAction(
+            'addedScheduleContentToDCA',
+            component.get('content'),
+            newContentId,
+            scheduleDate
+          );
+          component.closePullUp();
+        });
     }
   },
 

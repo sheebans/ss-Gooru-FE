@@ -98,7 +98,7 @@
       .content-image-container {
         img {
           width: 85px;
-          height: 50px;
+          height: 48px;
         }
       }
 
@@ -153,14 +153,65 @@
       }
     }
 
-    #schedule-dca-datepicker {
-      margin: 0 auto;
-      width: 219px;
-      background: #989898;
-      color: #fff;
-      margin-top: 20px;
-      border-radius: 4px;
-      padding: 10px 10px 0;
+    .schedule-dca-datepicker-container {
+      #schedule-dca-datepicker {
+        margin: 0 auto;
+        width: 219px;
+        background: #989898;
+        color: #fff;
+        margin-top: 20px;
+        border-radius: 4px;
+        padding: 10px 10px 0;
+        font-weight: 600;
+        .datepicker-switch {
+          pointer-events: none;
+        }
+        .disabled {
+          color: #fff !important;
+          pointer-events: none;
+          opacity: 0.7;
+          font-weight: normal;
+        }
+
+        .old,
+        .new {
+          color: #999 !important;
+          pointer-events: none;
+        }
+
+        .active {
+          color: #fff !important;
+          background: #363636 !important;
+        }
+
+        .datepicker tfoot tr th:hover,
+        .datepicker thead tr:first-child th:hover {
+          color: #363636;
+        }
+
+        .datepicker table tr td.day.focused,
+        .datepicker table tr td.day:hover {
+          color: #363636;
+        }
+      }
+    }
+
+    .schedule-dca-confirm-button {
+      text-align: center;
+      padding-top: 20px;
+
+      button {
+        width: 100px;
+        height: 40px;
+        background-color: #1aa9eb;
+        font-family: "Open Sans";
+        text-transform: uppercase;
+        font-size: 15px;
+        font-weight: bold;
+      }
+      .btn-primary:active {
+        background: #1aa9eb;
+      }
     }
   }
 }

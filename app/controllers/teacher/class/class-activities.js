@@ -39,31 +39,44 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       controller.set('showSearchContentPullup', true);
     },
 
-    addedContentToDCA(content) {
+    /**
+     * Update the  content data to  class activities
+     * @param  {Object} content
+     * @param  {Date} addedDate
+     */
+    addedContentToDCA(content, addedDate) {
       let controller = this;
-      let todaysDate = moment().format('YYYY-MM-DD');
       let classActivities = controller.get('classActivities');
-      let todaysClassActivities = classActivities.findBy(
+      let dateWiseClassActivities = classActivities.findBy(
         'added_date',
-        todaysDate
+        addedDate
       );
-      if (!todaysClassActivities) {
+      if (!dateWiseClassActivities) {
         classActivities.pushObject(
           Ember.Object.create({
-            added_date: todaysDate,
+            added_date: addedDate,
             classActivities: Ember.A([])
           })
         );
+        dateWiseClassActivities = classActivities.findBy(
+          'added_date',
+          addedDate
+        );
       }
-      this.get('todaysClassActivities.classActivities').pushObject(content);
-      let todayClassActivities = this.get(
-        'todaysClassActivities.classActivities'
-      )
+      dateWiseClassActivities.get('classActivities').pushObject(content);
+      let sortedDateWiseClassActivities = dateWiseClassActivities
+        .get('classActivities')
         .sortBy('id')
         .reverse();
-      this.set('todaysClassActivities.classActivities', todayClassActivities);
+      dateWiseClassActivities.set(
+        'classActivities',
+        sortedDateWiseClassActivities
+      );
     },
 
+    /**
+     * Route to class course map to add DCA content
+     */
     addFromCourseMap() {
       const classId = this.get('classId');
       this.transitionToRoute('add-from-course-map', classId);
@@ -184,12 +197,16 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     let controller = this;
     let todaysDate = moment().format('YYYY-MM-DD');
     let classActivities = controller.get('classActivities');
-    let futureClassActivities = classActivities.map(classActivity => {
+    let futureClassActivities = Ember.A([]);
+    classActivities.forEach(classActivity => {
       let addedDate = classActivity.get('added_date');
-      if (moment(addedDate).isBefore(todaysDate)) {
-        return classActivity;
+      if (moment(todaysDate).isBefore(addedDate)) {
+        futureClassActivities.pushObject(classActivity);
       }
     });
+    futureClassActivities = futureClassActivities
+      .sortBy('added_date')
+      .reverse();
     return futureClassActivities;
   }),
 
