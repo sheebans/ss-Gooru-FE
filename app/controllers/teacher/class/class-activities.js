@@ -271,6 +271,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     controller._super(...arguments);
     Ember.run.scheduleOnce('afterRender', controller, function() {
       controller.handleShowMoreData();
+      controller.defaultScrollToTodaysDcaContentList();
     });
   },
 
@@ -370,5 +371,11 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       );
       controller.loadData(startDate, endDate, true);
     }
+  },
+
+  defaultScrollToTodaysDcaContentList() {
+    let futureListHeight =
+      Ember.$('.dca-future-date-list-container').height() + 25;
+    Ember.$('.dca-content-list-container').scrollTop(futureListHeight);
   }
 });

@@ -1,7 +1,7 @@
 <div class="dca-panel-container">
   <div class="dca-panel-info">
     <i class="{{item.collectionType}}-icon" />
-    <p>{{item.title}}</p>
+    <p {{action 'onPlayContent' item}}>{{item.title}}</p>
   </div>
   <div class="dca-content-counts">
     {{#if (gt item.resourceCount 0)}}

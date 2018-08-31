@@ -14,6 +14,25 @@ export default Ember.Component.extend({
 
   actions: {
     /**
+     * Action triggered when the user play collection
+     */
+    onPlayContent(content) {
+      let contentId = content.get('id');
+      let collectionType = content.get('collectionType');
+      let url = content.get('url');
+      if (collectionType === 'assessment-external') {
+        window.open(url, '_top');
+      } else {
+        this.get('router').transitionTo('player', contentId, {
+          queryParams: {
+            role: 'teacher',
+            type: collectionType
+          }
+        });
+      }
+    },
+
+    /**
      * @function removeClassActivity
      */
     removeClassActivity: function(classActivity) {
