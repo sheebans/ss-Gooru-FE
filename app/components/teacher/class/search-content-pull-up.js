@@ -131,6 +131,22 @@ export default Ember.Component.extend({
           component.sendAction('addedContentToDCA', data);
           component.closePullUp();
         });
+    },
+
+    /**
+     * Action get triggered whenschedule content to DCA got clicked
+     */
+    onScheduleContentToDCA(content) {
+      let component = this;
+      let contentType = component.get('selectedSearchContentType');
+      let classId = component.get('classId');
+      let params = {
+        content: content,
+        contentType: contentType,
+        classId: classId
+      };
+      component.set('showScheduleDca', true);
+      component.set('scheduleDcaContext', params);
     }
   },
 

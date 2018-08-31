@@ -29,6 +29,7 @@
     cursor: pointer;
     opacity: 0.9;
   }
+
   .backdrop-pull-ups {
     .backdrop {
       background: none;
@@ -49,7 +50,7 @@
 
       .search-pullup-close {
         width: 70px;
-        height: 25px;
+        height: 22px;
 
         .arrow_downward {
           font-size: 26px;
@@ -60,6 +61,8 @@
       }
 
       .gooru-logo {
+        height: 18px;
+
         img {
           height: 12px;
         }
@@ -73,6 +76,10 @@
         font-size: 15px;
         color: #3c4452;
         font-weight: bold;
+
+        span {
+          height: 24px;
+        }
       }
 
       .search-right-menu {

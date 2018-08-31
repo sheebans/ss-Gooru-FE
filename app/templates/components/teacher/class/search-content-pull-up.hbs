@@ -1,9 +1,9 @@
 <div class="search-backdrop" {{action 'onPullUpClose'}}></div>
 <div class="search-container">
   <div class="search-header">
-      <div class="search-pullup-close" {{action 'onPullUpClose'}}>
-        {{gru-icon name="arrow_downward"}}
-      </div>
+    <div class="search-pullup-close" {{action 'onPullUpClose'}}>
+      {{gru-icon name="arrow_downward"}}
+    </div>
     <div class="gooru-logo">
       <img src="/assets/gooru/images/gooru-logo.svg">
     </div>
@@ -17,7 +17,7 @@
           spellcheck="true"
           id="search-content"
         }}
-        <label for="search-content"  class="search-icon">
+        <label for="search-content" class="search-icon">
             {{gru-icon name="search"}}
         </label>
       </div>
@@ -41,7 +41,7 @@
     {{#if (gt searchResults.length 0)}}
       <div class="search-list">
         {{#each searchResults as |result|}}
-          {{cards.dca-search-collection-card collection=result contentType=activeContentType onAddContentToDCA="onAddContentToDCA"}}
+          {{cards.dca-search-collection-card collection=result contentType=activeContentType onAddContentToDCA="onAddContentToDCA" onScheduleContentToDCA="onScheduleContentToDCA"}}
         {{/each}}
       </div>
     {{else}}
@@ -55,4 +55,8 @@
   <div class="loading-spinner">
     {{three-bounce-spinner}}
   </div>
+{{/if}}
+
+{{#if showScheduleDca}}
+  {{teacher.class.schedule-dca-pull-up context=scheduleDcaContext showPullUp=showScheduleDca}}
 {{/if}}

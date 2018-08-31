@@ -59,8 +59,20 @@ export default Ember.Component.extend({
       window.open(collectionUrl);
     },
 
+    /**
+     * Action triggered when add collection to dca.
+     * @param  {Object} collection
+     */
     onAddCollectionToDCA(collection) {
       this.sendAction('onAddContentToDCA', collection);
+    },
+
+    /**
+     * Action triggered when schedule collection to dca.
+     * @param  {Object} collection
+     */
+    onScheduleCollectionToDCA(collection) {
+      this.sendAction('onScheduleContentToDCA', collection);
     }
   }
 });
