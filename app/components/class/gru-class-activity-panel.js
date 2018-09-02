@@ -9,6 +9,19 @@ export default Ember.Component.extend({
   // -------------------------------------------------------------------------
   // Dependencies
 
+  /**
+   * @requires service:api-sdk/class-activity
+   */
+  classActivityService: Ember.inject.service('api-sdk/class-activity'),
+
+  // -------------------------------------------------------------------------
+  // Events
+
+  didInsertElement() {
+    let component = this;
+    component.$('[data-toggle="tooltip"]').tooltip();
+  },
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -52,6 +65,28 @@ export default Ember.Component.extend({
      */
     goLive: function(collectionId) {
       this.sendAction('onGoLive', collectionId);
+    },
+
+    /**
+     * Action get triggered when add content to DCA got clicked
+     */
+    onAddContentToDCA(content) {
+      let component = this;
+      let classId = component.get('classId');
+      let contentType = content.get('collectionType');
+      let contentId = content.get('id');
+      component
+        .get('classActivityService')
+        .addActivityToClass(classId, contentId, contentType)
+        .then(newContentId => {
+          let date = moment().format('YYYY-MM-DD');
+          let data = Ember.Object.create({
+            id: newContentId,
+            added_date: date,
+            collection: content
+          });
+          component.sendAction('addedContentToDCA', data, date);
+        });
     }
   },
 
@@ -101,5 +136,11 @@ export default Ember.Component.extend({
    * Maintains the flag to show assign button or not.
    * @type {Boolean}
    */
-  showDcaAssignButton: false
+  showDcaAssignButton: false,
+
+  /**
+   * Maintains the flag to show add dca content button or not.
+   * @type {Boolean}
+   */
+  showDcaAddButton: false
 });

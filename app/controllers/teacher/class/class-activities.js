@@ -137,6 +137,13 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
      */
     toggleHeader: function() {
       this.set('showWelcome', false);
+    },
+
+    /**
+     * Scroll to show todays DCA List container
+     */
+    showTodaysDcaListContainer: function() {
+      this.defaultScrollToTodaysDcaContentList();
     }
   },
   // -------------------------------------------------------------------------
@@ -271,6 +278,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     controller._super(...arguments);
     Ember.run.scheduleOnce('afterRender', controller, function() {
       controller.handleShowMoreData();
+      controller.handleShowActionBar();
       controller.defaultScrollToTodaysDcaContentList();
     });
   },
@@ -345,6 +353,33 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         Ember.$(container).prop('scrollHeight') - listContainerHeight;
       if (isScrollReachedBottom && !controller.get('isLoading')) {
         controller.loadPastClassActivitesData();
+      }
+    });
+  },
+
+  handleShowActionBar() {
+    let container = Ember.$('.dca-content-list-container');
+    let containerListHeight = $(container).height();
+    let futureListContainerHeight = Ember.$(
+      '.dca-future-date-list-container'
+    ).height();
+    let todaysInfoActionContainerHeight = Ember.$(
+      '.dca-todays-action-list-container .dca-todays-info-action-container'
+    ).height();
+    let todaysDcaListArrowContainer = Ember.$('.dca-nav-to-todays-dca-list');
+    Ember.$(container).scroll(function() {
+      let scrollTop = Ember.$(container).scrollTop();
+      let containerHeight =
+        futureListContainerHeight + todaysInfoActionContainerHeight + 65;
+      let diffFutureAndTodaysContainerDistance =
+        containerListHeight - todaysInfoActionContainerHeight + 60;
+      if (
+        scrollTop > containerHeight ||
+        (scrollTop > 0 && scrollTop < diffFutureAndTodaysContainerDistance)
+      ) {
+        Ember.$(todaysDcaListArrowContainer).addClass('active');
+      } else {
+        Ember.$(todaysDcaListArrowContainer).removeClass('active');
       }
     });
   },

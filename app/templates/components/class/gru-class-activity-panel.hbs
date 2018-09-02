@@ -22,6 +22,11 @@
   </div>
   <div class="dca-panel-actions-performance">
     <div class="dca-panel-actions">
+      {{#if showDcaAddButton}}
+        <span class="dca-add" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.add"}}" {{action 'onAddContentToDCA' item}}>
+          {{gru-icon name="add"}}
+        </span>
+      {{/if}}
       {{#if (gt item.oeQuestionCount 0)}}
         <i data-toggle="tooltip" data-html="true" data-placement="bottom" title="{{t "common.rubric"}}" class="rubric-icon"></i>
       {{/if}}
@@ -35,10 +40,10 @@
         {{else}}
           {{gru-switch class="assigned" switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=classActivity.isActive item=item}}
         {{/unless}}
-    </span>
+        </span>
       {{/if}}
       {{#if showDcaRemoveButton}}
-        <span class="remove-dca" {{action 'removeClassActivity' classActivity}}>
+        <span class="remove-dca" data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.remove"}}" {{action 'removeClassActivity' classActivity}}>
           {{gru-icon name="remove_circle" }}
         </span>
       {{/if}}

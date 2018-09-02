@@ -1,4 +1,18 @@
 .gru-class-activity-panel {
+  &:hover {
+    .dca-panel-container {
+      .dca-panel-actions-performance {
+        .dca-panel-actions {
+          .dca-add {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.5s linear;
+          }
+        }
+      }
+    }
+  }
+
   .dca-panel-container {
     display: inline-grid;
     width: 100%;
@@ -107,6 +121,18 @@
         padding-right: 10px;
         justify-content: flex-end;
 
+        .dca-add {
+          height: 19px;
+          visibility: hidden;
+          opacity: 0;
+          transition: visibility 0s 0.5s, opacity 0.5s linear;
+          cursor: pointer;
+
+          .add {
+            font-size: 20px;
+          }
+        }
+
         .rubric-icon {
           width: 25px;
           height: 25px;
@@ -119,7 +145,7 @@
 
         .remove-dca {
           width: 20px;
-          height: 20px;
+          height: 22px;
           margin-left: 5px;
           margin-right: 5px;
           cursor: pointer;
@@ -202,6 +228,7 @@
         justify-content: center;
         color: #fff;
         font-size: 15px;
+
         .no-performance {
           color: #37424b;
           pointer-events: none;

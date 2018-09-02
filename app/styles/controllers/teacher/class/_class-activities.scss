@@ -52,7 +52,7 @@
   }
 
   .dca-content-list-container {
-    height: calc(100vh - 250px);
+    height: calc(100vh - 270px);
     overflow-y: auto;
     padding-right: 20px;
     padding-left: 20px;
@@ -126,7 +126,7 @@
         text-transform: uppercase;
       }
 
-      .dac-todays-action-list-container {
+      .dca-todays-action-list-container {
         border-radius: 4px;
         background-color: #ffffff;
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
@@ -213,9 +213,10 @@
               }
             }
 
-            .dac-course-map-button {
+            .dca-course-map-button {
               text-align: right;
               cursor: pointer;
+              height: 20px;
 
               span {
                 font-family: "Lato";
@@ -242,6 +243,8 @@
     }
 
     .dca-past-date-list-container {
+      padding-bottom: 50px;
+
       .dca-date-view-container {
         display: inline-grid;
         grid-template-columns: 200px 1fr;
@@ -292,6 +295,119 @@
           .dca-panel-performance {
             border-top-right-radius: 4px;
           }
+        }
+      }
+    }
+
+    .dca-nav-to-todays-dca-list {
+      position: absolute;
+      bottom: 0;
+      width: calc(100% - 50px);
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s 0.5s, opacity 0.5s linear;
+
+      &.active {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.5s linear;
+      }
+
+      .dca-nav-action-panel {
+        display: inline-grid;
+        grid-template-columns: 50% 50%;
+        height: 50px;
+        border-radius: 4px;
+        background-color: #ffffff;
+        box-shadow: 0 -11px 14px 10px #f1f3f7, 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+        padding-left: 20px;
+        padding-right: 20px;
+        align-items: center;
+        width: 100%;
+
+        .dca-action-buttons {
+          display: inline-grid;
+          justify-items: center;
+          align-items: center;
+          grid-template-columns: 40px 20px 20px;
+          grid-gap: 15px;
+
+          p {
+            font-family: "Open Sans";
+            font-size: 13px;
+            font-weight: bold;
+            color: #666666;
+            text-transform: uppercase;
+            margin: 0;
+            padding: 0;
+          }
+
+          .collection-icon {
+            width: 20px;
+            height: 20px;
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+            background-image: url("../assets/gooru/images/add_collection.svg");
+            opacity: 0.8;
+            cursor: pointer;
+          }
+
+          .assessment-icon {
+            width: 20px;
+            height: 20px;
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+            background-image: url("../assets/gooru/images/add_assessment.svg");
+            opacity: 0.8;
+            cursor: pointer;
+          }
+        }
+
+        .dca-course-map-button {
+          text-align: right;
+          cursor: pointer;
+          height: 20px;
+
+          span {
+            font-family: "Lato";
+            font-size: 13px;
+            color: #1aa9eb;
+            text-transform: uppercase;
+          }
+        }
+      }
+
+      .todays-dca-list-arrow-container {
+        position: absolute;
+        top: -6px;
+        left: 46%;
+
+        .todays-dca-list-arrow {
+          width: 60px;
+          height: 60px;
+          background-color: #fff;
+          border-radius: 50%;
+          box-shadow: 0 6px 4px 0 rgba(0, 0, 0, 0.3),
+            0 1px 4px 0 rgba(0, 0, 0, 0.15), 0 6px 4px 0 rgba(0, 0, 0, 0.15),
+            0 2px 4px 0 rgba(0, 0, 0, 0.15);
+          margin-bottom: 10px;
+          cursor: pointer;
+
+          .arrow_downward {
+            color: #1aa9eb;
+            font-size: 36px;
+            margin-left: 12px;
+            margin-top: 13px;
+          }
+        }
+
+        span {
+          font-family: "Lato";
+          text-transform: uppercase;
+          display: block;
+          text-align: center;
+          color: #1aa9eb;
+          font-weight: bold;
         }
       }
     }

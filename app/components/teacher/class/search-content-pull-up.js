@@ -95,6 +95,24 @@ export default Ember.Component.extend({
    */
   selectedSearchContentType: 'collection',
 
+  /**
+   * Maintains the state of more data exists or not
+   * @type {Boolean}
+   */
+  isMoreDataExists: false,
+
+  /**
+   * Maintains the current page number of search
+   * @type {Number}
+   */
+  page: 0,
+
+  /**
+   * Maintains the value of default search page size.
+   * @type {Number}
+   */
+  defaultSearchPageSize: 20,
+
   // -------------------------------------------------------------------------
   // actions
 
@@ -179,6 +197,7 @@ export default Ember.Component.extend({
     this.loadData();
     this.openPullUp();
     this.handleSearchBar();
+    this.handleShowMoreData();
   },
 
   //--------------------------------------------------------------------------
@@ -238,23 +257,52 @@ export default Ember.Component.extend({
   loadData() {
     let component = this;
     component.set('isLoading', true);
+    component.set('page', 0);
+    component.set('isMoreDataExists', false);
     Ember.RSVP.hash({
       searchResults: component.getSearchServiceByType()
     }).then(({ searchResults }) => {
       component.set('isLoading', false);
       component.set('searchResults', searchResults);
+      component.$('.search-list-container').scrollTop(0);
+      if (
+        searchResults &&
+        searchResults.length === component.get('defaultSearchPageSize')
+      ) {
+        component.set('isMoreDataExists', true);
+      }
+    });
+  },
+
+  loadMoreData() {
+    let component = this;
+    component.set('isLoading', true);
+    let page = component.get('page') + 1;
+    component.set('page', page);
+    Ember.RSVP.hash({
+      searchResults: component.getSearchServiceByType()
+    }).then(({ searchResults }) => {
+      component.set('isLoading', false);
+      let searchResult = component.get('searchResults');
+      component.set('searchResults', searchResult.concat(searchResults));
+      if (
+        searchResults &&
+        searchResults.length === component.get('defaultSearchPageSize')
+      ) {
+        component.set('isMoreDataExists', true);
+      }
     });
   },
 
   getSearchServiceByType() {
     let component = this;
     let activeContentType = component.get('activeContentType');
-    let filters = component.getFilters();
+    let params = component.getParams();
     let term = component.getSearchTerm() ? component.getSearchTerm() : '*';
     if (activeContentType === 'collection') {
-      return component.get('searchService').searchCollections(term, filters);
+      return component.get('searchService').searchCollections(term, params);
     } else if (activeContentType === 'assessment') {
-      return component.get('searchService').searchAssessments(term, filters);
+      return component.get('searchService').searchAssessments(term, params);
     }
   },
 
@@ -263,10 +311,11 @@ export default Ember.Component.extend({
     return searchText;
   },
 
-  getFilters() {
+  getParams() {
     let params = {
       taxonomies: null,
-      pageSize: 20
+      page: this.get('page'),
+      pageSize: this.get('defaultSearchPageSize')
     };
     return params;
   },
@@ -277,6 +326,25 @@ export default Ember.Component.extend({
       id: contentId,
       added_date: date,
       collection: content
+    });
+  },
+
+  handleShowMoreData() {
+    let component = this;
+    let container = component.$('.search-list-container');
+    component.$(container).scroll(function() {
+      let scrollTop = Ember.$(container).scrollTop();
+      let listContainerHeight = Ember.$(container).height() + 60;
+      let isScrollReachedBottom =
+        scrollTop ===
+        component.$(container).prop('scrollHeight') - listContainerHeight;
+      if (
+        isScrollReachedBottom &&
+        !component.get('isLoading') &&
+        component.get('isMoreDataExists')
+      ) {
+        component.loadMoreData();
+      }
     });
   }
 });

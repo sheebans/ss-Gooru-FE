@@ -12,7 +12,7 @@
   </div>
   <div class="loading-spinner">
     {{#if isLoading}}
-     {{three-bounce-spinner}}
+      {{three-bounce-spinner}}
     {{/if}}
   </div>
   <div class="dca-content-list-container">
@@ -36,8 +36,10 @@
               showGolive=false
               showDcaAssignButton=false
               showDcaRemoveButton=true
+              showDcaAddButton=true
               onChangeVisibility='changeVisibility'
               onRemoveClassActivity='removeClassActivity'
+              addedContentToDCA='addedContentToDCA'
             }}
           {{/each}}
         </div>
@@ -45,7 +47,7 @@
     </div>
     <div class="dca-todays-container">
       <p class="dca-todays-header">Today</p>
-      <div class="dac-todays-action-list-container">
+      <div class="dca-todays-action-list-container">
         <div class="dca-todays-info-action-container">
           <div class="dca-info-container">
             <div class="user-profile-img">
@@ -61,7 +63,7 @@
               <i class="collection-icon" {{action 'onAddDca' 'collection'}}></i>
               <i class="assessment-icon" {{action 'onAddDca' 'assessment'}}></i>
             </div>
-            <div class="dac-course-map-button" {{action 'addFromCourseMap'}}>
+            <div class="dca-course-map-button" {{action 'addFromCourseMap'}}>
               <span>Course Map</span>
             </div>
           </div>
@@ -77,6 +79,7 @@
               showGolive=true
               showDcaAssignButton=true
               showDcaRemoveButton=true
+              showDcaAddButton=false
               onChangeVisibility='changeVisibility'
               onRemoveClassActivity='removeClassActivity'
             }}
@@ -104,12 +107,33 @@
               showGolive=false
               showDcaAssignButton=true
               showDcaRemoveButton=true
+              showDcaAddButton=true
               onChangeVisibility='changeVisibility'
               onRemoveClassActivity='removeClassActivity'
+              addedContentToDCA='addedContentToDCA'
             }}
           {{/each}}
         </div>
       {{/each}}
+    </div>
+
+    <div class="dca-nav-to-todays-dca-list">
+      <div class="dca-nav-action-panel">
+        <div class="dca-action-buttons">
+          <p>Add:</p>
+          <i class="collection-icon" {{action 'onAddDca' 'collection'}}></i>
+          <i class="assessment-icon" {{action 'onAddDca' 'assessment'}}></i>
+        </div>
+        <div class="dca-course-map-button" {{action 'addFromCourseMap'}}>
+          <span>Course Map</span>
+        </div>
+      </div>
+      <div class="todays-dca-list-arrow-container">
+        <div class="todays-dca-list-arrow" {{action 'showTodaysDcaListContainer'}}>
+          {{gru-icon name="arrow_downward"}}
+        </div>
+        <span>Today</span>
+      </div>
     </div>
   </div>
 
