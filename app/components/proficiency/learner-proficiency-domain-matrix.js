@@ -631,17 +631,11 @@ export default Ember.Component.extend({
             y1 === parseInt(isSkyLineContainer.attr('y1')) - 6 ||
             y1 === parseInt(isSkyLineContainer.attr('y1')) ||
             y1 === 0
-              ? y1 + 6
+              ? y1 + 3
               : y1;
 
           let x2 = x1 + cellWidth;
           let y2 = y1;
-          let isSkylineNext = isSkyLineContainer.length > 0;
-          let isSkyLine =
-            component.$(`.sky-line-vertical-${cellIndex}`).length > 0;
-
-          x2 = isSkylineNext ? x2 - 3 : x2; //check next cell is skyline and reduce x2 position
-          x1 = isSkyLine ? x1 + 3 : x1; //check previous cell is skyline and reduce x1 position
 
           let linePoint = {
             x1: x1,
@@ -699,7 +693,7 @@ export default Ember.Component.extend({
       //Increase x2 position when no vertical baseline
       let nextSkyLineContainer = component.$(`.sky-line-vertical-${index + 1}`);
       let nextBaseLineVerticalContainer = component.$(
-        `.base-line-vertical-${index + 1}`
+        `.base-line-vertical-${index}`
       );
       if (
         !nextBaseLineVerticalContainer.length &&
@@ -734,13 +728,6 @@ export default Ember.Component.extend({
     if (nextBaseLineContainer && nextBaseLineContainer.isHorizontal) {
       let baseLineContainer = component.get('baseLineContainer');
       if (nextBaseLineContainer.y2 !== curLinePoint.y1) {
-        let isSkylineNext =
-          component.$(`.sky-line-vertical-${cellIndex + 1}`).length > 0;
-        if (isSkylineNext > 0) {
-          if (nextBaseLineContainer.y2 < curLinePoint.y1) {
-            curLinePoint.x2 = curLinePoint.x2 + 6; //Add stoke width of skyline
-          }
-        }
         let linePoint = {
           x1: curLinePoint.x2,
           x2: curLinePoint.x2,

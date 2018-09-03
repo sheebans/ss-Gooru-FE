@@ -578,11 +578,11 @@ export default Ember.Component.extend({
     ) {
       //Increase extra height to connect intersection points
       if (lastskyLinePoint.y2 > curLinePoint.y1) {
-        lastskyLinePoint.y2 = lastskyLinePoint.y2 + 3;
-        curLinePoint.y1 = curLinePoint.y1 - 3;
+        lastskyLinePoint.y2 = lastskyLinePoint.y2 + 2;
+        curLinePoint.y1 = curLinePoint.y1 - 2;
       } else {
-        lastskyLinePoint.y2 = lastskyLinePoint.y2 - 3;
-        curLinePoint.y1 = curLinePoint.y1 + 3;
+        lastskyLinePoint.y2 = lastskyLinePoint.y2 - 2;
+        curLinePoint.y1 = curLinePoint.y1 + 2;
       }
 
       skyLineContainer
