@@ -221,6 +221,18 @@ export default Ember.Controller.extend(ModalMixin, {
       let controller = this;
       controller.set('selectedCompetency', competency);
       controller.set('isShowCompetencyContentReport', true);
+    },
+
+    /**
+     * Navigate to teacher profile page
+     * @param  {Object} teacher
+     */
+    profileTeacher: function(teacher) {
+      let controller = this;
+      let teacherId = teacher.get('id');
+      let classId = controller.get('class.id');
+      localStorage.setItem('classId', classId);
+      this.transitionToRoute(`/${teacherId}/about?classId=${classId}`);
     }
   },
 
