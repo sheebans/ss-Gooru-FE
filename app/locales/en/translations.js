@@ -64,6 +64,7 @@ export default Object.assign(quizzesTranslations, {
     frq: 'FRQ',
     responses: 'Responses',
     'gooru-suggestions': 'Gooru Suggestions',
+    'global-resources': 'Global Resources',
     'suggestion-made-to': 'Suggestion made to',
     'student-selected': 'Student Selected',
     'no-suggest-result-message': ' No matching content found',
@@ -1161,6 +1162,13 @@ export default Object.assign(quizzesTranslations, {
     'latest-announcement': 'Latest Announcement',
     'latest-assessment': 'Latest Assessment',
     'create-classroom': 'Create a classroom, assign contents, invite students',
+    'dca-create-info':
+      'Create a daily class activity by asking a question, or selecting content from the Library.',
+    'schedule-for-later': 'Schedule for later',
+    'teach-this-activity-later': 'teach this activity later in DCA.',
+    'schedule-dca-instruction-1':
+      'Pick a date on which to teach this activity.',
+    'schedule-dca-instruction-2': 'It will appear in DCA on the chosen date.',
     'navigator-banner': {
       title: 'Navigator for Math',
       description:

@@ -1,0 +1,36 @@
+<div class="schedule-dca-backdrop" {{action 'onPullUpClose'}}></div>
+<div class="schedule-dca-container">
+  <div class="schedule-dca-header">
+    <div class="schedule-dca-header-info">
+      <div class="schedule-update-icon">
+        {{gru-icon name="update"}}
+      </div>
+      <div class="schedule-update-header">
+        <p class="schedule-for-later">{{t 'teacher-landing.schedule-for-later'}}</p>
+        <p class="teach-this-activity">{{t 'teacher-landing.teach-this-activity-later'}}</p>
+      </div>
+    </div>
+    <div class="schedule-close" {{action 'onPullUpClose'}}>
+      {{gru-icon name="close"}}
+    </div>
+  </div>
+  <div class="schedule-dca-content-container">
+    <div class="content-image-container">
+      <img src="{{content.thumbnailUrl}}">
+    </div>
+    <div class="content-title-container">
+      <i class="{{contentType}}-icon"></i>
+      <p>{{content.title}}</p>
+    </div>
+  </div>
+  <div class="schedule-dca-instruction">
+    <p>{{t 'teacher-landing.schedule-dca-instruction-1'}}</p>
+    <p>{{t 'teacher-landing.schedule-dca-instruction-2'}}</p>
+  </div>
+  <div class="schedule-dca-datepicker-container">
+    <div id="schedule-dca-datepicker"></div>
+  </div>
+  <div class="schedule-dca-confirm-button" {{action 'onConfirmDcaScheduleDate' }}>
+    <button type="button" class="btn btn-primary btn-lg">{{t 'common.confirm'}}</button>
+  </div>
+</div>
