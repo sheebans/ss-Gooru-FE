@@ -190,6 +190,9 @@
         border-radius: 5px;
       }
     }
+    .no-event {
+      pointer-events: none;
+    }
   }
   &.regular-class {
     .students-container {

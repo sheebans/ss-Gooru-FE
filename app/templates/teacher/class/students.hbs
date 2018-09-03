@@ -14,10 +14,10 @@
               <th class='first-name' {{action "sortStudentList" 'firstName'}}>
                 <span>{{t 'teacher-landing.class.students-tab.first-name'}}</span> {{gru-icon name='swap_vert'}}
               </th>
-              <th class='performance' {{action "onOpenCourseReport"}}>
+              <th class='performance {{unless courseId 'no-event'}}' {{action "onOpenCourseReport"}}>
                 <span>{{t 'teacher-landing.class.students-tab.performance'}}</span>
               </th>
-                <th class='proficiency' {{action "onOpenCompetencyReport"}}>
+                <th class='proficiency {{unless courseId 'no-event'}}' {{action "onOpenCompetencyReport"}}>
                   <span class="proficiency-header">{{t 'teacher-landing.class.students-tab.proficiency'}}</span>
                   <div class="proficiency-status">
                     <span class="mastered">{{t 'teacher-landing.class.students-tab.mastered'}}</span><span class="in-progress">{{t 'teacher-landing.class.students-tab.in-progress'}}</span>
@@ -46,7 +46,7 @@
                   <td class="proficiency datacolumn dashed-border">
                       <span class="mastered center-align pull-left">{{student.proficiency.completedCompetencies}}</span>
                       <span class="in-progress center-align pull-left">{{student.proficiency.pendingCompetencies}}</span>
-                      <span class="proficiency-icon center-align pull-left" data-toggle="tooltip" title='Proficiency' {{action 'onOpenStudentProficiency' student}}>
+                      <span class="proficiency-icon center-align pull-left {{unless courseId 'no-event'}}" data-toggle="tooltip" title='Proficiency' {{action 'onOpenStudentProficiency' student}}>
                           <img src='/assets/gooru/proficiency_new.png' >
                       </span>
                   </td>
