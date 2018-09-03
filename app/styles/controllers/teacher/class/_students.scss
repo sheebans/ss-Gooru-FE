@@ -45,6 +45,10 @@
       }
       .student-id {
         width: 120px;
+        .ellipsis {
+          display: table-caption;
+          width: 120px;
+        }
       }
       .remove {
         width: 50px;

@@ -249,13 +249,12 @@ export default Ember.Controller.extend(ModalMixin, {
   loadStudentsData() {
     let controller = this;
     controller.set('isLoading', true);
-    let isPremiumClass = controller.get('isPremiumClass');
     return Ember.RSVP.hash({
-      classPerformance: isPremiumClass ? controller.getPremiumCoursePerformanceSummary() : controller.getClassicCoursePerformanceSummary(),
-      classContentPerformance: isPremiumClass ? controller.getClassicCoursePerformanceSummary() : Ember.RSVP.resolve()
+      competencyPerformance: controller.getPremiumCoursePerformanceSummary(),
+      classContentPerformance: controller.getClassicCoursePerformanceSummary()
     })
       .then(function(hash) {
-        controller.parseStudentsDetails(hash.classPerformance, hash.classContentPerformance);
+        controller.parseStudentsDetails(hash.competencyPerformance, hash.classContentPerformance);
       });
   },
 
@@ -316,13 +315,12 @@ export default Ember.Controller.extend(ModalMixin, {
    * @function parseStudentsDetails
    * Method to parse student table details
    */
-  parseStudentsDetails(classPerformance, classContentPerformance) {
+  parseStudentsDetails(competencyPerformance, classContentPerformance) {
     let controller = this;
     let classMembers = controller.get('classMembers');
-    let isPremiumClass = controller.get('isPremiumClass');
     let classMembersList = classMembers.map( member => {
       let studentDetails = Object.assign(member);
-      let studentPerformance = classPerformance.findBy('userId', member.id);
+      let studentCompetencyPerformance = competencyPerformance ? competencyPerformance.findBy('userId', member.id) : null;
       let studentContentPerformance = classContentPerformance ? classContentPerformance.findBy('userId', member.id) : null;
       let performance = null;
       let isStudentPerformed = false;
@@ -330,16 +328,14 @@ export default Ember.Controller.extend(ModalMixin, {
         totalCompetencies: 0,
         completedCompetencies: 0
       });
-      if (studentPerformance) {
-        let score = isPremiumClass ? studentContentPerformance ? studentContentPerformance.score : null : studentPerformance.score;
+      if (studentCompetencyPerformance) {
+        let score = studentContentPerformance ? studentContentPerformance.score : null;
         performance = score != null ? Math.round(score * 100) / 100 : null;
         isStudentPerformed = score != null;
-        if (isPremiumClass) {
-          proficiency.set('totalCompetencies', studentPerformance.totalCompetency);
-          proficiency.set('completedCompetencies', studentPerformance.completedCompetency);
-          let pendingCompetencies = studentPerformance.totalCompetency - studentPerformance.completedCompetency;
-          proficiency.set('pendingCompetencies', pendingCompetencies);
-        }
+        proficiency.set('totalCompetencies', studentCompetencyPerformance.totalCompetency);
+        proficiency.set('completedCompetencies', studentCompetencyPerformance.completedCompetency);
+        let pendingCompetencies = studentCompetencyPerformance.totalCompetency - studentCompetencyPerformance.completedCompetency;
+        proficiency.set('pendingCompetencies', pendingCompetencies);
       }
       controller.getStudentCurrentLocation(member.id).then(function(studentLocation) {
         let currentLocation = '--';
