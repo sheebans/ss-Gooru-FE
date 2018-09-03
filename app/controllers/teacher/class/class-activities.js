@@ -72,6 +72,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         'classActivities',
         sortedDateWiseClassActivities
       );
+      controller.handleContainerListScroll();
     },
 
     /**
@@ -307,6 +308,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     if (dateWiseClassActivities.get('classActivities').length === 0) {
       classActivities.removeObject(dateWiseClassActivities);
     }
+    this.handleContainerListScroll();
   },
 
   loadData(startDate, endDate, isPastClassActivity) {
@@ -366,32 +368,38 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   },
 
   handleShowActionBar() {
+    let controller = this;
     let container = Ember.$('.dca-content-list-container');
     Ember.$(container).scroll(function() {
-      let containerListHeight = $(container).height();
-      let futureListContainerHeight = Ember.$(
-        '.dca-future-date-list-container'
-      ).height();
-      let todaysInfoActionContainerHeight = Ember.$(
-        '.dca-todays-action-list-container .dca-todays-info-action-container'
-      ).height();
-      let todaysDcaListArrowContainer = Ember.$('.dca-nav-to-todays-dca-list');
-      let scrollTop = Ember.$(container).scrollTop();
-      let containerHeight =
-        futureListContainerHeight + todaysInfoActionContainerHeight + 65;
-      let diffFutureAndTodaysContainerDistance =
-        futureListContainerHeight - 65 - scrollTop;
-      if (
-        scrollTop > containerHeight ||
-        (futureListContainerHeight + todaysInfoActionContainerHeight >
-          containerListHeight &&
-          scrollTop < diffFutureAndTodaysContainerDistance)
-      ) {
-        Ember.$(todaysDcaListArrowContainer).addClass('active');
-      } else {
-        Ember.$(todaysDcaListArrowContainer).removeClass('active');
-      }
+      controller.handleContainerListScroll();
     });
+  },
+
+  handleContainerListScroll() {
+    let container = Ember.$('.dca-content-list-container');
+    let containerListHeight = $(container).height();
+    let futureListContainerHeight = Ember.$(
+      '.dca-future-date-list-container'
+    ).height();
+    let todaysInfoActionContainerHeight = Ember.$(
+      '.dca-todays-action-list-container .dca-todays-info-action-container'
+    ).height();
+    let todaysDcaListArrowContainer = Ember.$('.dca-nav-to-todays-dca-list');
+    let scrollTop = Ember.$(container).scrollTop();
+    let containerHeight =
+      futureListContainerHeight + todaysInfoActionContainerHeight + 65;
+    let diffFutureAndTodaysContainerDistance =
+      futureListContainerHeight - 65 - scrollTop;
+    if (
+      scrollTop > containerHeight ||
+      (futureListContainerHeight + todaysInfoActionContainerHeight >
+        containerListHeight &&
+        scrollTop < diffFutureAndTodaysContainerDistance)
+    ) {
+      Ember.$(todaysDcaListArrowContainer).addClass('active');
+    } else {
+      Ember.$(todaysDcaListArrowContainer).removeClass('active');
+    }
   },
 
   loadPastClassActivitesData() {
