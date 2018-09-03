@@ -158,7 +158,7 @@ export default Ember.Component.extend({
         .$('.bar-charts')
         .popover({
           trigger: 'manual',
-          html: true,
+          html: false,
           placement: 'bottom'
         })
         .mouseover(function() {
@@ -167,7 +167,14 @@ export default Ember.Component.extend({
             component
               .$('.bar-charts')
               .find('.segment')
-              .width() - 50;
+              .width() - 20;
+          let screenWidth = component.$('.bar-charts').width();
+          if (left < 30) {
+            left += 10;
+          } else if (left + 70 >= screenWidth) {
+            left -= 30;
+          }
+
           component.$('.popover').css({
             left: `${left}px`
           });
@@ -262,7 +269,7 @@ export default Ember.Component.extend({
     function() {
       const completed = this.get('performanceSummary.totalCompleted');
       const total = this.get('performanceSummary.total');
-      const percentage = completed ? completed / total * 100 : 0;
+      const percentage = completed ? (completed / total) * 100 : 0;
       return [
         {
           color: this.get('color'),
@@ -305,7 +312,7 @@ export default Ember.Component.extend({
     component.set('totalResources', totalResources);
     const courseId = component.get('courseId');
     if (classId) {
-      let classCourseId = Ember.A([{classId, courseId}]);
+      let classCourseId = Ember.A([{ classId, courseId }]);
       Ember.RSVP.hash({
         classPerformanceSummaryItems: component
           .get('performanceService')

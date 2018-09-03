@@ -1,0 +1,209 @@
+.teacher_class_students {
+  .classroom-information {
+    max-width: 90%;
+    margin: 0 auto !important;
+    float: none !important;
+    &.regular-class {
+      width: 960px !important;
+    }
+  }
+}
+.teacher.students-view {
+  .students-container {
+    width: 1157px;
+    margin: 0 auto !important;
+    float: none !important;
+    .header {
+      opacity: 0.5;
+      font-size: 12px;
+      font-weight: bold;
+      color: #000000;
+      padding-bottom: 8px;
+      text-transform: uppercase;
+      margin-left: 8px;
+    }
+    .table {
+      background-color: $white;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+      .center-align {
+        text-align: center;
+      }
+      .last-name {
+        width: 215px;
+      }
+      .first-name {
+        width: 180px;
+      }
+      .proficiency {
+        width: 250px;
+      }
+      .performance {
+        width: 92px;
+      }
+      .location {
+        width: 300px;
+      }
+      .student-id {
+        width: 120px;
+        .ellipsis {
+          display: table-caption;
+          width: 120px;
+        }
+      }
+      .remove {
+        width: 50px;
+      }
+      .table-header {
+        display: block;
+        tr th {
+          height: 40px;
+          padding: 0;
+          line-height: 40px;
+          > span {
+            opacity: 0.5;
+            font-size: 10px;
+            font-weight: bold;
+            color: #535e67;
+            text-transform: uppercase;
+          }
+        }
+        th.last-name {
+          width: 225px;
+          cursor: pointer;
+          span {
+            margin-left: 60px;
+          }
+        }
+        th.first-name {
+          cursor: pointer;
+        }
+        th.proficiency {
+          text-align: center;
+          line-height: 20px;
+          cursor: pointer;
+          .proficiency-status {
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            .mastered, .in-progress {
+              float: left;
+              margin-left: 20px;
+            }
+            .mastered {
+              color: #0072bc;
+            }
+            .in-progress {
+              color: #23adec;
+            }
+          }
+        }
+        th.performance {
+          text-align: center;
+          cursor: pointer;
+        }
+        th.location {
+          span {
+            margin-left: 15px;
+          }
+        }
+      }
+      .table-body {
+        display: block;
+        max-height: 71vh;
+        overflow: auto;
+        width: 100%;
+        tr.student {
+          .datacolumn {
+            padding: 0;
+            height: 45px;
+            line-height: 45px;
+            &.last-name {
+              display: flex;
+            }
+            &.first-name, &.last-name {
+              font-size: 15px;
+              color: #666666;
+              .ellipsis {
+                max-width: 150px;
+                text-transform: capitalize;
+              }
+              i {
+                color: #666666;
+              }
+            }
+            &.dashed-border {
+              border-right: 2px dashed #dadee1;
+            }
+            .student-thumbnail {
+              width: 30px;
+              height: 30px;
+              background-size: contain;
+              border-radius: 50%;
+              margin: 10px 10px 0 20px;
+            }
+            &.performance {
+              font-size: 15px;
+              font-weight: bold;
+              cursor: pointer;
+            }
+            &.not-started {
+              pointer-events: none;
+            }
+            &.proficiency {
+              span {
+                width: calc(100% / 3);
+                font-size: 15px;
+                font-weight: bold;
+                float: left;
+              }
+              .mastered {
+                color: #0072bc;
+              }
+              .in-progress {
+                color: #23adec;
+              }
+              .proficiency-icon {
+                cursor: pointer;
+              }
+            }
+            &.current-location {
+              span {
+                margin-left: 15px;
+                max-width: 280px;
+              }
+            }
+            &.remove {
+              cursor: pointer;
+              opacity: 0.2;
+            }
+          }
+        }
+      }
+      tbody::-webkit-scrollbar {
+        width: 6px;
+        border-radius: 3px;
+      }
+
+      tbody::-webkit-scrollbar-thumb {
+        background: $gray-light;
+        border: 1px solid $gray-light;
+        border-radius: 5px;
+      }
+    }
+  }
+  &.regular-class {
+    .students-container {
+      width: 960px;
+      .table {
+        th.last-name {
+          width: 215px;
+        }
+        .table-body {
+          .current-location {
+            width: 300px;
+          }
+        }
+      }
+    }
+  }
+}

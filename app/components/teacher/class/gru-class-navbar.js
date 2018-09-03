@@ -21,9 +21,21 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Actions
   actions: {
+
     onOpenCourseReport() {
-      this.sendAction('onOpenCourseReport');
+      let component = this;
+      component.sendAction('onOpenCourseReport');
     },
+
+    onOpenPerformanceReport() {
+      let component = this;
+      if (component.get('isPremiumClass')) {
+        component.sendAction('onOpenCompetencyReport');
+      } else {
+        component.sendAction('onOpenCourseReport');
+      }
+    },
+
     /**
      *
      * Triggered when an menu item is selected
@@ -36,9 +48,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
           this.selectItem(item);
         }
         this.sendAction('onItemSelected', item);
-        if (item === 'class-info') {
-          $('.classroom-information').toggleClass('hide-classroom-information');
-        }
       }
     },
 
@@ -129,13 +138,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
   selectItem: function(item) {
     if (item) {
       let itemElement = `.${item}`;
-      if (item === 'class-info') {
-        this.$(itemElement).removeClass('vactive');
-        return false;
-      } else {
-        this.$('.tab').removeClass('vactive');
-        this.$(itemElement).addClass('vactive');
-      }
+      this.$('.tab').removeClass('vactive');
+      this.$(itemElement).addClass('vactive');
     }
   }
 });

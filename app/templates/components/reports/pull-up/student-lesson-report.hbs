@@ -115,3 +115,12 @@
 {{#if showCollectionReport}}
   {{class.gru-report-panel showPullUp=showCollectionReport reportData=studentCollectionReportContext model=studentCollectionReportContext.lesson isStudent=studentCollectionReportContext.isStudent onClosePullUp="onClosePullUp"}}
 {{/if}}
+
+{{#if isShowStudentExternalAssessmentReport}}
+  {{
+    reports.pull-up.student-external-assessment-report
+    reportData=studentCollectionReportContext
+    isStudent=studentCollectionReportContext.isStudent
+    onClosePullUp="onClosePullUp"
+  }}
+{{/if}}

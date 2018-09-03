@@ -249,7 +249,8 @@ export default Ember.Component.extend(AccordionMixin, ModalMixin, {
         collectionId: collectionId,
         type: type,
         lesson: component.get('model'),
-        isStudent: component.get('isStudent')
+        isStudent: component.get('isStudent'),
+        collection
       };
       component.sendAction('studentReport', params);
     },

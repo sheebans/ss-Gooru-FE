@@ -195,7 +195,8 @@ export default Ember.Component.extend({
           studentData.totalComptency = studentPerformance.totalCompetency || 0;
           studentData.completedCompetency =
             studentPerformance.completedCompetency || 0;
-          studentData.progress = studentPerformance.completedCompetency;
+          studentData.progress =
+            Math.round(studentPerformance.progress * 100) / 100 || 0;
           studentData.score =
             Math.round(studentPerformance.score * 100) / 100 || 0;
         } else if (studentPerformance) {
@@ -262,12 +263,23 @@ export default Ember.Component.extend({
       d3.min(dataset, function(d) {
         return d.totalComptency;
       }) || 100;
+    var minCompletedCompetencyCount =
+      d3.min(dataset, function(d) {
+        return d.completedCompetency;
+      }) || 0;
+    var maxCompletedCompetencyCount =
+      d3.max(dataset, function(d) {
+        return d.completedCompetency;
+      }) || 0;
 
     var xAxisDomain = [0, 100];
     var yAxisDomain = [0, 100];
 
     if (component.get('isPremiumClass')) {
-      if (maxProgress === totalCompetencyCount || minProgress === 0) {
+      if (
+        maxCompletedCompetencyCount === totalCompetencyCount ||
+        minCompletedCompetencyCount === 0
+      ) {
         xAxisDomain = [-10, totalCompetencyCount + 10];
       } else {
         xAxisDomain = [0, totalCompetencyCount];
@@ -324,7 +336,13 @@ export default Ember.Component.extend({
             svg.select('.x.axis').call(xAxis);
             svg.select('.y.axis').call(yAxis);
             svg.selectAll('.node-point').attr('transform', function(d) {
-              return `translate(${xScale(d.progress)}, ${yScale(d.score)})`;
+              if (component.get('isPremiumClass')) {
+                return `translate(${xScale(d.completedCompetency)}, ${yScale(
+                  d.score
+                )})`;
+              } else {
+                return `translate(${xScale(d.progress)}, ${yScale(d.score)})`;
+              }
             });
             component.cleanUpChart();
             component.set('isZoomInView', true);
@@ -376,7 +394,13 @@ export default Ember.Component.extend({
       .enter()
       .append('g')
       .attr('transform', function(d) {
-        return `translate(${xScale(d.progress)}, ${yScale(d.score)})`;
+        if (component.get('isPremiumClass')) {
+          return `translate(${xScale(d.completedCompetency)}, ${yScale(
+            d.score
+          )})`;
+        } else {
+          return `translate(${xScale(d.progress)}, ${yScale(d.score)})`;
+        }
       })
       .attr('class', 'node-point')
       .on('mouseover', function(d) {

@@ -58,7 +58,6 @@ export default Ember.Mixin.create({
    * @return undefined
    */
   updateAccordionById: function(accordionId) {
-    //console.log('accordionId', accordionId);
     if (accordionId === this.get('model.id')) {
       if (!this.get('isExpanded')) {
         // If not expanded, open the accordion by simulating a click on the anchor in the heading

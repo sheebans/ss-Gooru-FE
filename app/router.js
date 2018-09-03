@@ -152,6 +152,7 @@ Router.map(function() {
       this.route('collection', {
         path: '/unit/:unitId/lesson/:lessonId/collection/:collectionId'
       });
+      this.route('students');
     });
   });
 

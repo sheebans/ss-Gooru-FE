@@ -1,7 +1,7 @@
 <div class="teacher class"> {{gru-take-tour steps=steps containerClass='class-view-tour'}}
 
    {{teacher.class.gru-class-navbar navTitle= class.title class=class onItemSelected="selectMenuItem" selectedMenuItem=menuItem
-  isPremiumClass=isPremiumClass onOpenCourseReport="onOpenCourseReport"}}
+  isPremiumClass=isPremiumClass onOpenCourseReport="onOpenCourseReport" onOpenCompetencyReport="onOpenCompetencyReport"}}
 
   <div class="header clearfix">
     <div class="go-back-container">
@@ -23,90 +23,25 @@
       {{/if}}
       <h1>{{class.title}}</h1>
     </div>
-    <div class="panel panel-default panel-primary classroom-information  hide-classroom-information" >
-      <div class="panel-body">
-        <div class="course-image">
-          {{#if course.thumbnailUrl}}
-            <img src="{{course.thumbnailUrl}}" />
-          {{else}}
-            <div class="no-course-image"></div>
-          {{/if}}
-        </div>
-        <div class="course-name">
-          {{#if course.title}}
-            {{{truncate text=course.title maxLength=50}}}
-          {{else}}
-            {{t 'student-landing.class.no-course'}}
-          {{/if}}
-        </div>
-        <div class="counts-container">
-          <div class="count">
-            {{#if hasUnits}}
-              {{gru-icon tooltipTitle='common.unit' name="format_align_center"}}
-              <span>{{course.unitCount}}</span>
-            {{/if}}
-          </div>
-          <div class="count">
-            {{#if hasStudents}}
-              {{gru-icon tooltipTitle='common.student' name="people"}}
-              <span>{{class.countMembers}}</span>
-            {{/if}}
-          </div>
-        </div>
-        <div class="teacher-profile">
-          {{#if class.owner}}
-            <img class="img-responsive" src="{{class.owner.avatarUrl}}" {{action 'profileTeacher' class.owner}}>
-            <span class="owner-name">
-              {{#if class.owner.firstName}}
-                {{truncate text=(concat class.owner.firstName ' ' class.owner.lastName) maxLength=25}}
-              {{else}}
-                {{class.owner.username}}
-              {{/if}}
-            </span>
-          {{/if}}
-        </div>
-        <div class="taxonomy-standards">
-          {{#if course.tags.length}}
-            {{taxonomy.gru-taxonomy-tag-list tags=course.tags tagsVisible=1 isInCard=true hasTooltips=false}}
-          {{/if}}
-        </div>
-        <div class="class-code">
-          <div class="title">{{t 'student-landing.class-code'}}</div>
-          <div class="code">{{class.code}}</div>
-        </div>
-        <div class="copy-code">
-          {{gru-copy-value value=class.code tooltipCode="teacher-landing.class.click-to-copy"}}
-        </div>
-        <div class="performance-container" {{action 'onOpenCourseReport'}}>
-          {{charts/gru-performance-chart performanceSummary=class.performanceSummary}}
-        </div>
-      </div>
-    </div>
   </div>
 
-  {{!-- {{teacher.class.gru-class-navigation
-    class=class
-    onItemSelected="selectMenuItem"
-    onCollapseExpandClicked="toggleHeader"
-    selectedMenuItem=menuItem}} --}}
+  {{#if isShowCompetencyReport}}
+    {{#reports.pull-up.competency-report type=(t 'report.competency-report.title') title=(if class.course.subject class.course.subject (t 'report.competency-report.no-subject')) showPullUp=isShowCompetencyReport}}
+        {{reports.pull-up.course-competency-report classData=class onSelectDomain="onSelectDomain"}}
+    {{/reports.pull-up.competency-report}}
+  {{/if}}
 
-    {{#if isShowCompetencyReport}}
-      {{#reports.pull-up.competency-report type=(t 'report.competency-report.title') title=(if class.course.subject class.course.subject (t 'report.competency-report.no-subject')) showPullUp=isShowCompetencyReport}}
-          {{reports.pull-up.course-competency-report classData=class onSelectDomain="onSelectDomain"}}
-      {{/reports.pull-up.competency-report}}
-    {{/if}}
+  {{#if isShowDomainCompetencyReport}}
+    {{#reports.pull-up.competency-report type=(t 'report.domain-report') title=selectedDomain.domainData.domainName showPullUp=isShowDomainCompetencyReport onClosePullUp="onCloseCompetencyReportPullUp"}}
+        {{reports.pull-up.domain-competency-report domainSet=selectedDomain onSelectCompetency="onSelectCompetency"}}
+    {{/reports.pull-up.competency-report}}
+  {{/if}}
 
-    {{#if isShowDomainCompetencyReport}}
-      {{#reports.pull-up.competency-report type=(t 'report.domain-report') title=selectedDomain.domainData.domainName showPullUp=isShowDomainCompetencyReport onClosePullUp="onCloseCompetencyReportPullUp"}}
-          {{reports.pull-up.domain-competency-report domainSet=selectedDomain onSelectCompetency="onSelectCompetency"}}
-      {{/reports.pull-up.competency-report}}
-    {{/if}}
-
-    {{#if isShowCompetencyContentReport}}
-      {{#reports.pull-up.competency-report type=selectedCompetency.competencyCode title=selectedCompetency.competencyStudentDesc showPullUp=isShowCompetencyContentReport onClosePullUp="onCloseCompetencyReportPullUp" competency=selectedCompetency}}
-        {{reports.pull-up.competency-content-report competency=selectedCompetency userId=selectedStudentUserId}}
-      {{/reports.pull-up.competency-report}}
-    {{/if}}
+  {{#if isShowCompetencyContentReport}}
+    {{#reports.pull-up.competency-report type=selectedCompetency.competencyCode title=selectedCompetency.competencyStudentDesc showPullUp=isShowCompetencyContentReport onClosePullUp="onCloseCompetencyReportPullUp" competency=selectedCompetency}}
+      {{reports.pull-up.competency-content-report competency=selectedCompetency userId=selectedStudentUserId}}
+    {{/reports.pull-up.competency-report}}
+  {{/if}}
 
   <div class="content">
     {{outlet}}

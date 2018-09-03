@@ -4,6 +4,9 @@ export default Object.assign(quizzesTranslations, {
   en: 'English',
   sp: 'Español',
   ar: 'عربى',
+  mr: 'मराठी',
+  kn: 'ಕನ್ನಡ',
+  hi: 'हिंदी',
   errors: {
     description: 'This field',
     inclusion: '{{description}} is not included in the list',
@@ -435,7 +438,7 @@ export default Object.assign(quizzesTranslations, {
     'more-details': 'More Details',
     move: 'Move',
     myContent: 'My Content',
-    myProfile: 'My Profile',
+    myProfile: 'My Location',
     library: 'Library',
     myPerformance: 'My Performance',
     'edit-narration': 'Edit Narration',
@@ -1106,7 +1109,8 @@ export default Object.assign(quizzesTranslations, {
       'class-activities-tab': {
         today: 'Today'
       },
-      'my-report': 'My Report'
+      'my-report': 'My Report',
+      'my-location': 'My Location'
     },
     course: {
       'to-report': 'Usage summary',
@@ -1212,6 +1216,17 @@ export default Object.assign(quizzesTranslations, {
         'view-report': 'View Report',
         'students-null':
           'Share the Class Code with students to have them join your Classroom.'
+      },
+      'students-tab': {
+        'last-name': 'Lastname',
+        'first-name': 'Firstname',
+        'performance': 'Performance',
+        'proficiency': 'Proficiency',
+        'location': 'Location',
+        'student-id': 'StudentId',
+        'remove': 'Remove',
+        'mastered': 'Mastered',
+        'in-progress': 'In Progress'
       },
       'class-activities': 'Daily Class Activities',
       'back-to-class-activities': 'Back to Daily Class Activities',
@@ -2613,7 +2628,9 @@ export default Object.assign(quizzesTranslations, {
   report: {
     'external-assessment-report': {
       note:
-        'This is an external assessment with student reported scores for the assessment. Individual question level data is not available.'
+        'This is an external assessment with student reported scores for the assessment. Individual question level data is not available.',
+      wish: 'Congratulations! You scored',
+      reference: 'This external assessment can be accessed '
     },
     'competency-report': {
       title: 'Competency Report',

@@ -107,7 +107,7 @@ export default Ember.Component.extend({
       component.loadData();
     },
 
-    studentReport(collection, userId) {
+    studentReport(collection, userId, studentPerformance) {
       let component = this;
       if (!userId) {
         userId = component.get('session.userId');
@@ -121,10 +121,19 @@ export default Ember.Component.extend({
         collectionId: collection.get('id'),
         type: collection.get('format'),
         lesson: component.get('lesson'),
-        isStudent: component.get('isStudent')
+        isStudent: component.get('isStudent'),
+        collection,
+        studentPerformance
       };
+      let reportType = params.type;
+      if (reportType === 'assessment-external') {
+        component.set('isShowStudentReport', false);
+        component.set('isShowStudentExternalAssessmentReport', true);
+      } else {
+        component.set('isShowStudentReport', true);
+        component.set('isShowStudentExternalAssessmentReport', false);
+      }
       component.set('studentReportContextData', params);
-      component.set('isShowStudentReport', true);
     },
 
     onClickChart(userId, showReport) {
@@ -164,6 +173,11 @@ export default Ember.Component.extend({
       };
       component.set('studentQuestionReportContextData', params);
       this.set('isShowQuestionReport', true);
+    },
+
+    onClosePullUp() {
+      let component = this;
+      component.set('isShowStudentExternalAssessmentReport', false);
     }
   },
 
@@ -383,6 +397,12 @@ export default Ember.Component.extend({
    * @type {Boolean}
    */
   isShowQuestionReport: false,
+
+  /**
+   * Maintains the state of student external assessment report pullup
+   * @type {Boolean}
+   */
+  isShowStudentExternalAssessmentReport: false,
 
   //--------------------------------------------------------------------------
   // Methods

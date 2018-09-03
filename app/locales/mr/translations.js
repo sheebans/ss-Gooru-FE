@@ -1080,7 +1080,8 @@ export default Object.assign(quizzesTranslations, {
       'class-activities-tab': {
         today: 'आज'
       },
-      'my-report': 'माझा रिपो्र्ट'
+      'my-report': 'माझा रिपो्र्ट',
+      'my-location': 'माझा रिपो्र्ट'
     },
     course: {
       'to-report': 'वापर सारांश',

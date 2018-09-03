@@ -50,7 +50,7 @@ module.exports = function(environment) {
 
   ENV.i18n = {
     defaultLocale: 'en',
-    allowedLocales: ['en', 'sp', 'ar']
+    allowedLocales: ['en', 'sp', 'ar', 'hi', 'mr', 'kn']
   };
 
   ENV['ember-simple-auth'] = {

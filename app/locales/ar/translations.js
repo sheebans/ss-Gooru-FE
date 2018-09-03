@@ -4,6 +4,9 @@ export default Object.assign(quizzesTranslations, {
   en: 'English',
   sp: 'Español',
   ar: 'عربى',
+  mr: 'मराठी',
+  kn: 'ಕನ್ನಡ',
+  hi: 'हिंदी',
   errors: {
     description: 'هذا الحقل',
     inclusion: '{{description}} غير مدرج في القائمة',
@@ -1029,7 +1032,8 @@ export default Object.assign(quizzesTranslations, {
       'class-activities-tab': {
         today: 'اليوم'
       },
-      'my-report': 'تقريري'
+      'my-report': 'تقريري',
+      'my-location': 'تقريري'
     },
     course: {
       'to-report': 'ملخص الاستخدام',

@@ -92,6 +92,7 @@ $box-shadow: 1px -1px;
 @import "controllers/teacher/class";
 @import "controllers/teacher/class/class-activities";
 @import "controllers/teacher/class/class-management";
+@import "controllers/teacher/class/students";
 @import "controllers/teacher/class/course-map";
 @import "controllers/teacher/class/performance";
 @import "controllers/teacher/class/quick-start";
@@ -341,6 +342,7 @@ $box-shadow: 1px -1px;
 @import "components/reports/pull-up/student-lesson-report";
 @import "components/reports/pull-up/teacher-external-assessment-report-list-view";
 @import "components/reports/pull-up/teacher-external-assessment-report-grid-view";
+@import "components/reports/pull-up/student-external-assessment-report";
 @import "components/search/gru-question-options";
 @import "components/search/gru-resource-options";
 
