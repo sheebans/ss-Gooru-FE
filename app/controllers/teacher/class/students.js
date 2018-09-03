@@ -265,10 +265,10 @@ export default Ember.Controller.extend(ModalMixin, {
   getClassicCoursePerformanceSummary() {
     const controller = this;
     const analyticsService = controller.get('analyticsService');
-    let classId = controller.get('classId');
+    let classId =  controller.get('classId');
     let courseId = controller.get('courseId');
     return Ember.RSVP.resolve(
-      analyticsService.getAtcPerformanceSummary(classId, courseId)
+      courseId ? analyticsService.getAtcPerformanceSummary(classId, courseId) : null
     );
   },
 
@@ -283,11 +283,11 @@ export default Ember.Controller.extend(ModalMixin, {
     let courseId = controller.get('courseId');
     let subjectCode = controller.get('subjectCode');
     return Ember.RSVP.resolve(
-      analyticsService.getAtcPerformanceSummaryPremiumClass(
+      courseId ? analyticsService.getAtcPerformanceSummaryPremiumClass(
         classId,
         courseId,
         subjectCode
-      )
+      ) : null
     );
   },
 
@@ -326,7 +326,8 @@ export default Ember.Controller.extend(ModalMixin, {
       let isStudentPerformed = false;
       let proficiency = Ember.Object.create({
         totalCompetencies: 0,
-        completedCompetencies: 0
+        completedCompetencies: 0,
+        pendingCompetencies: 0
       });
       if (studentCompetencyPerformance) {
         let score = studentContentPerformance ? studentContentPerformance.score : null;

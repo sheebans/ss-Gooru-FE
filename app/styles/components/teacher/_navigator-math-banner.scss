@@ -1,7 +1,7 @@
 .navigator-math-banner {
   background-image: url("gooru/images/navigator-math-banner.png");
   width: 100%;
-  height: 216px;
+  height: 225px;
   background-size: cover;
   background-color: rgba(0, 0, 0, 0.7);
   position: relative;
@@ -32,9 +32,9 @@
       display: flex;
       padding: 15px 0;
       .banner-circle {
-        width: 215px;
+        width: 240px;
         height: 203px;
-        background-image: url("gooru/images/atc.png");
+        background-image: url("gooru/images/NavMath_Logo.png");
         background-size: 205px 203px;
         object-fit: contain;
         background-repeat: no-repeat;
@@ -70,7 +70,7 @@
         cursor: pointer;
         position: absolute;
         right: 0px;
-        top: 165px;
+        top: 175px;
       }
     }
   }
