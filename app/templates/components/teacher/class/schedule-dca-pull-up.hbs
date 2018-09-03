@@ -6,8 +6,8 @@
         {{gru-icon name="update"}}
       </div>
       <div class="schedule-update-header">
-        <p class="schedule-for-later">Schedule for later</p>
-        <p class="teach-this-activity">teach this activity later in DCA.</p>
+        <p class="schedule-for-later">{{t 'teacher-landing.schedule-for-later'}}</p>
+        <p class="teach-this-activity">{{t 'teacher-landing.teach-this-activity-later'}}</p>
       </div>
     </div>
     <div class="schedule-close" {{action 'onPullUpClose'}}>
@@ -24,13 +24,13 @@
     </div>
   </div>
   <div class="schedule-dca-instruction">
-    <p>Pick a date on which to teach this activity.</p>
-    <p>It will appear in DCA on the chosen date.</p>
+    <p>{{t 'teacher-landing.schedule-dca-instruction-1'}}</p>
+    <p>{{t 'teacher-landing.schedule-dca-instruction-2'}}</p>
   </div>
   <div class="schedule-dca-datepicker-container">
     <div id="schedule-dca-datepicker"></div>
   </div>
   <div class="schedule-dca-confirm-button" {{action 'onConfirmDcaScheduleDate' }}>
-    <button type="button" class="btn btn-primary btn-lg">Confirm</button>
+    <button type="button" class="btn btn-primary btn-lg">{{t 'common.confirm'}}</button>
   </div>
 </div>

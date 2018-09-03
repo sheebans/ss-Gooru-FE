@@ -1,6 +1,6 @@
 <div class="controller teacher class class-activities">
   <div class="dca-title">
-    <p>Daily Class Activities</p>
+    <p>{{t 'teacher-landing.class.class-activities'}}</p>
   </div>
   <div class="panel panel-default panel-primary welcome {{if showWelcome 'visible' 'hidden'}}">
     <div class="panel-body">
@@ -46,7 +46,7 @@
       {{/each}}
     </div>
     <div class="dca-todays-container">
-      <p class="dca-todays-header">Today</p>
+      <p class="dca-todays-header">{{t 'student-landing.class.class-activities-tab.today'}}</p>
       <div class="dca-todays-action-list-container">
         <div class="dca-todays-info-action-container">
           <div class="dca-info-container">
@@ -54,17 +54,17 @@
               <img class="img-responsive" src="{{session.userData.avatarUrl}}" />
             </div>
             <div class="info">
-              <p>Create a daily class activity by asking a question, or selecting content from the Library.</p>
+              <p>{{t 'teacher-landing.dca-create-info'}}</p>
             </div>
           </div>
           <div class="dca-action-container">
             <div class="dca-action-buttons">
-              <p>Add:</p>
+              <p>{{t 'common.add'}}:</p>
               <i class="collection-icon" {{action 'onAddDca' 'collection'}}></i>
               <i class="assessment-icon" {{action 'onAddDca' 'assessment'}}></i>
             </div>
             <div class="dca-course-map-button" {{action 'addFromCourseMap'}}>
-              <span>Course Map</span>
+              <span>{{t 'common.course-map'}}</span>
             </div>
           </div>
         </div>
@@ -120,19 +120,19 @@
     <div class="dca-nav-to-todays-dca-list">
       <div class="dca-nav-action-panel">
         <div class="dca-action-buttons">
-          <p>Add:</p>
+          <p>{{t 'common.add'}}:</p>
           <i class="collection-icon" {{action 'onAddDca' 'collection'}}></i>
           <i class="assessment-icon" {{action 'onAddDca' 'assessment'}}></i>
         </div>
         <div class="dca-course-map-button" {{action 'addFromCourseMap'}}>
-          <span>Course Map</span>
+          <span>{{t 'common.course-map'}}</span>
         </div>
       </div>
       <div class="todays-dca-list-arrow-container">
         <div class="todays-dca-list-arrow" {{action 'showTodaysDcaListContainer'}}>
           {{gru-icon name="arrow_downward"}}
         </div>
-        <span>Today</span>
+        <span>{{t 'student-landing.class.class-activities-tab.today'}}</span>
       </div>
     </div>
   </div>

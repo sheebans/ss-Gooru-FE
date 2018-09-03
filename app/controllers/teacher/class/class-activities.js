@@ -421,6 +421,11 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   defaultScrollToTodaysDcaContentList() {
     let futureListHeight =
       Ember.$('.dca-future-date-list-container').height() + 25;
-    Ember.$('.dca-content-list-container').scrollTop(futureListHeight);
+    Ember.$('.dca-content-list-container').animate(
+      {
+        scrollTop: futureListHeight
+      },
+      600
+    );
   }
 });
