@@ -1,0 +1,180 @@
+.notification-indicator {
+  position: relative;
+  margin-left: -16px;
+  margin-top: -20px;
+  background-color: transparent;
+  border: 1px solid;
+  padding: 0px;
+  border-radius: 50px;
+  line-height: 24px;
+  height: 24px;
+  width: 24px;
+}
+
+.active-common {
+  color: dodgerblue;
+  border-color: dodgerblue;
+  box-shadow: 0 2px 13px 6px #f6f3ef;
+}
+
+.inactive-common {
+  color: gray;
+  border-color: gray;
+}
+
+.active-study {
+  color: $white;
+  border-color: $white;
+  box-shadow: 0 2px 13px 6px #f6f3ef;
+  opacity: 1;
+
+  // background-color: dodgerblue;
+}
+
+.notification-icon {
+  padding: 21px;
+  height: 62px;
+  color: dodgerblue;
+}
+
+.pull-close {
+  position: absolute;
+  right: 2%;
+  top: 1%;
+  background: transparent;
+
+  /* width: 63px; */
+  text-align: center;
+  cursor: pointer;
+}
+
+.pull-out-ex {
+  top: 50px;
+  left: 50px;
+  position: absolute;
+}
+
+.notification-list {
+  width: 700px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+
+  $container-height: 35vh;
+  $showmorepanel: calc($container-height +15px);
+
+  .notification-panel-heading {
+    border-bottom: 1px solid dodgerblue;
+  }
+
+  .not-modal-header {
+    width: 123px;
+    height: 19px;
+    font-family: Lato;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: left;
+    color: #37424b;
+  }
+
+  .notfication-container {
+    height: $container-height;
+    overflow: auto;
+
+    .list-item-container {
+      position: relative;
+
+      .suggestion-icon {
+        width: 100px;
+
+        i {
+          font-size: 43px;
+          background-color: $orange-400;
+          border-radius: 50%;
+          color: $white;
+          border: 1px solid $orange-400;
+        }
+
+        .teacher_suggestions {
+          background-image: url("gooru/images/account-cirlce-orange.svg");
+          width: 100px;
+          height: 100px;
+          background-size: 100px;
+          color: $orange-400;
+          display: block;
+          border-radius: 50%;
+          background-color: $dark;
+        }
+      }
+
+      .line-desc {
+        width: 352px;
+        height: 16px;
+        font-family: Lato;
+        font-size: 13px;
+        line-height: normal;
+        text-align: left;
+        color: #37424b;
+        margin-left: 25px;
+      }
+
+      .line-item-title {
+        position: absolute;
+        left: 69px;
+        top: 25px;
+      }
+
+      .line-suggestion-title {
+        width: 292px;
+        height: 15px;
+        font-family: Lato;
+        font-size: 16px;
+        line-height: 0.94;
+        text-align: left;
+        color: #37424b;
+        margin-left: 20px;
+      }
+
+      .line-suggestion-type {
+        width: 25px;
+        height: 20px;
+        object-fit: contain;
+        background-color: #ed8e36;
+        background-color: var(--dusty-orange);
+      }
+    }
+  }
+
+  ol,
+  li {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+
+    li {
+      border-bottom: 0.5px solid gainsboro;
+    }
+
+    li:last-child {
+      border-bottom: 0.5px solid $white;
+    }
+  }
+
+  .panel-body {
+    padding: 0px;
+  }
+}
+
+.gru-pull-up,
+.gru-pull-out {
+  height: auto;
+}
+
+.notification-list-icon-suggestions111 {
+  font-size: 21px;
+  background-color: $sun-color;
+  border-radius: 50%;
+  color: $white;
+  border: 1px solid $white;
+}

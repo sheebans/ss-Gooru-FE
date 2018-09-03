@@ -1,9 +1,14 @@
 import Ember from 'ember';
-
+import { GRU_FEATURE_FLAG } from 'gooru-web/config/config';
 export default Ember.Component.extend({
   classNames: ['gru-study-navbar'],
 
   session: Ember.inject.service('session'),
+
+  isFeatureEnabled: Ember.computed(function() {
+    let feature = 'notifications';
+    return GRU_FEATURE_FLAG[feature];
+  }),
 
   actions: {
     /**

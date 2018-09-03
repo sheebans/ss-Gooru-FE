@@ -1220,12 +1220,12 @@ export default Object.assign(quizzesTranslations, {
       'students-tab': {
         'last-name': 'Lastname',
         'first-name': 'Firstname',
-        'performance': 'Performance',
-        'proficiency': 'Proficiency',
-        'location': 'Location',
+        performance: 'Performance',
+        proficiency: 'Proficiency',
+        location: 'Location',
         'student-id': 'StudentId',
-        'remove': 'Remove',
-        'mastered': 'Mastered',
+        remove: 'Remove',
+        mastered: 'Mastered',
         'in-progress': 'In Progress'
       },
       'class-activities': 'Daily Class Activities',
@@ -2644,5 +2644,18 @@ export default Object.assign(quizzesTranslations, {
     'update-error': 'Problem with updating score',
     'validation-error': 'Enter valid score',
     'enter-score': 'Enter your score here'
+  },
+  notifications: {
+    'notificationlist-header-title': 'NOTIFICATIONS',
+    'show-more': 'SHOW MORE',
+    type: {
+      'teacher-suggestion-title':
+        'You have a new teacher suggestion in {{ class_tilte }}',
+      'student-gradable-submission-title':
+        'You have(n) items to grade in {{ class_tilte }}',
+      'student-self-report-tilte': 'student-self-report-tilte',
+      'teacher-override-title': 'teacher-override-title',
+      'teacher-grading-complete-tilte': 'teacher-grading-complete-tilte'
+    }
   }
 });

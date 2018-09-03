@@ -1,0 +1,18 @@
+<div class="panel-heading" {{action "addressNotification"}}>
+    <div class="panel-title">
+        <div class="list-item-container">
+            <span class="suggestion-icon">
+                {{gru-icon name=notificationTypeClass  }}
+            </span>
+            <span class="line-desc">{{t 'notifications.type.teacher-suggestion-title'}} {{model.ctxClassCode}}</span>
+            <div class="line-item-title">
+                <span class="line-suggestion-type">
+                    {{gru-icon name=currentItemType }}
+                </span>
+                <span class="line-suggestion-title"> {{model.currentItemTitle}}</span>
+                <span class=""> {{model.notificationType}}</span>
+                 
+            </div>
+        </div>
+    </div>
+</div>
