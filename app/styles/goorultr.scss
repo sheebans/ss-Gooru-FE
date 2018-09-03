@@ -167,6 +167,7 @@ $box-shadow: 1px -1px;
 @import "components/cards/suggest-collection-card";
 @import "components/cards/no-suggest-result-found";
 @import "components/cards/suggest-confirmation";
+@import "components/cards/dca-search-collection-card";
 
 @import "components/charts/gru-bubble-chart";
 @import "components/charts/gru-completion-chart";
@@ -354,6 +355,8 @@ $box-shadow: 1px -1px;
 @import "components/student/class/analytics/gru-performance-table";
 
 @import "components/teacher/class/gru-class-statistics";
+@import "components/teacher/class/search-content-pull-up";
+@import "components/teacher/class/schedule-dca-pull-up";
 @import "components/teacher/suggestion-pull-up";
 @import "components/teacher/navigator-math-banner";
 

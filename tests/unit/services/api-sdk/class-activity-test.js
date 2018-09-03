@@ -8,33 +8,6 @@ moduleForService(
   {}
 );
 
-test('addActivityToClass', function(assert) {
-  const service = this.subject();
-
-  assert.expect(5);
-
-  service.set(
-    'classActivityAdapter',
-    Ember.Object.create({
-      addActivityToClass: function(classId, contentId, contentType, context) {
-        assert.equal(classId, 123, 'Wrong class id');
-        assert.equal(contentId, 321, 'Wrong content id');
-        assert.equal(contentType, 'assessment', 'Wrong content type');
-        assert.equal(context, 'any context', 'Wrong context');
-        return Ember.RSVP.resolve(true);
-      }
-    })
-  );
-
-  var done = assert.async();
-  service
-    .addActivityToClass(123, 321, 'assessment', 'any context')
-    .then(function(response) {
-      assert.ok(response, 'fake-response', 'Wrong response');
-      done();
-    });
-});
-
 test('enableClassActivity', function(assert) {
   const service = this.subject();
 
@@ -184,13 +157,22 @@ test('findClassActivitiesPerformanceSummary', function(assert) {
 
   const classActivities = [
     Ember.Object.create({
-      collection: Ember.Object.create({ isAssessment: true, id: 1 })
+      collection: Ember.Object.create({
+        isAssessment: true,
+        id: 1
+      })
     }),
     Ember.Object.create({
-      collection: Ember.Object.create({ isAssessment: true, id: 2 })
+      collection: Ember.Object.create({
+        isAssessment: true,
+        id: 2
+      })
     }),
     Ember.Object.create({
-      collection: Ember.Object.create({ isCollection: true, id: 3 })
+      collection: Ember.Object.create({
+        isCollection: true,
+        id: 3
+      })
     })
   ];
   var done = assert.async();
@@ -347,13 +329,22 @@ test('findStudentActivitiesPerformanceSummary', function(assert) {
 
   const classActivities = [
     Ember.Object.create({
-      collection: Ember.Object.create({ isAssessment: true, id: 1 })
+      collection: Ember.Object.create({
+        isAssessment: true,
+        id: 1
+      })
     }),
     Ember.Object.create({
-      collection: Ember.Object.create({ isAssessment: true, id: 2 })
+      collection: Ember.Object.create({
+        isAssessment: true,
+        id: 2
+      })
     }),
     Ember.Object.create({
-      collection: Ember.Object.create({ isCollection: true, id: 3 })
+      collection: Ember.Object.create({
+        isCollection: true,
+        id: 3
+      })
     })
   ];
   var done = assert.async();

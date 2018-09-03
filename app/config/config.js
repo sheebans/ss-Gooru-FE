@@ -333,6 +333,17 @@ export const SUGGESTION_FILTER_BY_CONTENT_TYPES = [
   }
 ];
 
+export const SEARCH_FILTER_BY_CONTENT_TYPES = [
+  {
+    format: 'collection',
+    label: 'search-filter.collections'
+  },
+  {
+    format: 'assessment',
+    label: 'search-filter.assessments'
+  }
+];
+
 //Competency status
 export const COMPETENCY_STATUS = [
   'Not Started',
