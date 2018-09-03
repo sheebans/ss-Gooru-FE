@@ -367,23 +367,25 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
 
   handleShowActionBar() {
     let container = Ember.$('.dca-content-list-container');
-    let containerListHeight = $(container).height();
-    let futureListContainerHeight = Ember.$(
-      '.dca-future-date-list-container'
-    ).height();
-    let todaysInfoActionContainerHeight = Ember.$(
-      '.dca-todays-action-list-container .dca-todays-info-action-container'
-    ).height();
-    let todaysDcaListArrowContainer = Ember.$('.dca-nav-to-todays-dca-list');
     Ember.$(container).scroll(function() {
+      let containerListHeight = $(container).height();
+      let futureListContainerHeight = Ember.$(
+        '.dca-future-date-list-container'
+      ).height();
+      let todaysInfoActionContainerHeight = Ember.$(
+        '.dca-todays-action-list-container .dca-todays-info-action-container'
+      ).height();
+      let todaysDcaListArrowContainer = Ember.$('.dca-nav-to-todays-dca-list');
       let scrollTop = Ember.$(container).scrollTop();
       let containerHeight =
         futureListContainerHeight + todaysInfoActionContainerHeight + 65;
       let diffFutureAndTodaysContainerDistance =
-        containerListHeight - todaysInfoActionContainerHeight + 60;
+        futureListContainerHeight - 65 - scrollTop;
       if (
         scrollTop > containerHeight ||
-        scrollTop < diffFutureAndTodaysContainerDistance
+        (futureListContainerHeight + todaysInfoActionContainerHeight >
+          containerListHeight &&
+          scrollTop < diffFutureAndTodaysContainerDistance)
       ) {
         Ember.$(todaysDcaListArrowContainer).addClass('active');
       } else {
