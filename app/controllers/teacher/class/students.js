@@ -249,7 +249,6 @@ export default Ember.Controller.extend(ModalMixin, {
   loadStudentsData() {
     let controller = this;
     controller.set('isLoading', true);
-    let isPremiumClass = controller.get('isPremiumClass');
     return Ember.RSVP.hash({
       competencyPerformance: controller.getPremiumCoursePerformanceSummary(),
       classContentPerformance: controller.getClassicCoursePerformanceSummary()
@@ -319,7 +318,6 @@ export default Ember.Controller.extend(ModalMixin, {
   parseStudentsDetails(competencyPerformance, classContentPerformance) {
     let controller = this;
     let classMembers = controller.get('classMembers');
-    let isPremiumClass = controller.get('isPremiumClass');
     let classMembersList = classMembers.map( member => {
       let studentDetails = Object.assign(member);
       let studentCompetencyPerformance = competencyPerformance ? competencyPerformance.findBy('userId', member.id) : null;
@@ -334,12 +332,10 @@ export default Ember.Controller.extend(ModalMixin, {
         let score = studentContentPerformance ? studentContentPerformance.score : null;
         performance = score != null ? Math.round(score * 100) / 100 : null;
         isStudentPerformed = score != null;
-        // if (isPremiumClass) {
-          proficiency.set('totalCompetencies', studentCompetencyPerformance.totalCompetency);
-          proficiency.set('completedCompetencies', studentCompetencyPerformance.completedCompetency);
-          let pendingCompetencies = studentCompetencyPerformance.totalCompetency - studentCompetencyPerformance.completedCompetency;
-          proficiency.set('pendingCompetencies', pendingCompetencies);
-        // }
+        proficiency.set('totalCompetencies', studentCompetencyPerformance.totalCompetency);
+        proficiency.set('completedCompetencies', studentCompetencyPerformance.completedCompetency);
+        let pendingCompetencies = studentCompetencyPerformance.totalCompetency - studentCompetencyPerformance.completedCompetency;
+        proficiency.set('pendingCompetencies', pendingCompetencies);
       }
       controller.getStudentCurrentLocation(member.id).then(function(studentLocation) {
         let currentLocation = '--';
