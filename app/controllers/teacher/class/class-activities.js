@@ -291,14 +291,22 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * @param {classActivity} classActivity
    */
   removeClassActivity: function(classActivity) {
-    let allClassActivities = this.get('classActivities');
-    allClassActivities.forEach(classActivities => {
-      let activityToDelete = classActivities.classActivities.findBy(
-        'id',
-        classActivity.get('id')
-      );
-      classActivities.classActivities.removeObject(activityToDelete);
-    });
+    let classActivities = this.get('classActivities');
+    let addedDate = classActivity.get('added_date');
+    let id = classActivity.get('id');
+    let dateWiseClassActivities = classActivities.findBy(
+      'added_date',
+      addedDate
+    );
+    let classActivityToDelete = dateWiseClassActivities
+      .get('classActivities')
+      .findBy('id', id);
+    dateWiseClassActivities
+      .get('classActivities')
+      .removeObject(classActivityToDelete);
+    if (dateWiseClassActivities.get('classActivities').length === 0) {
+      classActivities.removeObject(dateWiseClassActivities);
+    }
   },
 
   loadData(startDate, endDate, isPastClassActivity) {
@@ -375,7 +383,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         containerListHeight - todaysInfoActionContainerHeight + 60;
       if (
         scrollTop > containerHeight ||
-        (scrollTop > 0 && scrollTop < diffFutureAndTodaysContainerDistance)
+        scrollTop < diffFutureAndTodaysContainerDistance
       ) {
         Ember.$(todaysDcaListArrowContainer).addClass('active');
       } else {
