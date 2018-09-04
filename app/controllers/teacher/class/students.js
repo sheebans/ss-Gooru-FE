@@ -72,10 +72,11 @@ export default Ember.Controller.extend(ModalMixin, {
     /**
      * Action triggered when select a competency
      */
-    onSelectCompetency(competency) {
+    onSelectCompetency(competency, userId) {
       let controller = this;
       controller.set('selectedCompetency', competency);
       controller.set('isShowCompetencyContentReport', true);
+      controller.set('selectedStudentUserId', userId);
     },
 
     /**
