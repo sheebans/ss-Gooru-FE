@@ -139,7 +139,7 @@ export default Ember.Component.extend({
     onAddContentToDCA(content) {
       let component = this;
       let classId = component.get('classId');
-      let contentType = component.get('selectedSearchContentType');
+      let contentType = component.get('activeContentType');
       let contentId = content.get('id');
       component
         .get('classActivityService')
@@ -161,7 +161,7 @@ export default Ember.Component.extend({
      */
     onScheduleContentToDCA(content) {
       let component = this;
-      let contentType = component.get('selectedSearchContentType');
+      let contentType = component.get('activeContentType');
       let classId = component.get('classId');
       let params = {
         content: content,
@@ -299,6 +299,7 @@ export default Ember.Component.extend({
     let activeContentType = component.get('activeContentType');
     let params = component.getParams();
     let term = component.getSearchTerm() ? component.getSearchTerm() : '*';
+
     if (activeContentType === 'collection') {
       return component.get('searchService').searchCollections(term, params);
     } else if (activeContentType === 'assessment') {

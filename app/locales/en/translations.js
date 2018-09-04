@@ -1164,11 +1164,12 @@ export default Object.assign(quizzesTranslations, {
     'create-classroom': 'Create a classroom, assign contents, invite students',
     'dca-create-info':
       'Create a daily class activity by asking a question, or selecting content from the Library.',
-    'schedule-for-later': 'Schedule for later',
-    'teach-this-activity-later': 'teach this activity later in DCA.',
+    'schedule-for-later': 'Schedule For Later',
+    'teach-this-activity-later': 'teach this activity later at DCA',
     'schedule-dca-instruction-1':
-      'Pick a date on which to teach this activity.',
-    'schedule-dca-instruction-2': 'It will appear in DCA on the chosen date.',
+      'Pick a later date on which to teach this activity.',
+    'schedule-dca-instruction-2':
+      'This activity will appear at DCA for the chosen date.',
     'navigator-banner': {
       title: 'Navigator for Math',
       description:
@@ -1220,12 +1221,12 @@ export default Object.assign(quizzesTranslations, {
       'students-tab': {
         'last-name': 'Lastname',
         'first-name': 'Firstname',
-        'performance': 'Performance',
-        'proficiency': 'Proficiency',
-        'location': 'Location',
+        performance: 'Performance',
+        proficiency: 'Proficiency',
+        location: 'Location',
         'student-id': 'StudentId',
-        'remove': 'Remove',
-        'mastered': 'Mastered',
+        remove: 'Remove',
+        mastered: 'Mastered',
         'in-progress': 'In Progress'
       },
       'class-activities': 'Daily Class Activities',
