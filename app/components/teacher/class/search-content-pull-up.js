@@ -299,6 +299,8 @@ export default Ember.Component.extend({
     let activeContentType = component.get('activeContentType');
     let params = component.getParams();
     let term = component.getSearchTerm() ? component.getSearchTerm() : '*';
+    component.set('selectedSearchContentType', activeContentType);
+
     if (activeContentType === 'collection') {
       return component.get('searchService').searchCollections(term, params);
     } else if (activeContentType === 'assessment') {
