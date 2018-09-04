@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
+import { GRU_FEATURE_FLAG } from 'gooru-web/config/config';
+
 /**
  * Teacher class navigation
  *
@@ -18,10 +20,13 @@ export default Ember.Component.extend(ConfigurationMixin, {
 
   classNames: ['gru-class-navbar', 'teacher'],
 
+  isFeatureEnabled: Ember.computed(function() {
+    let feature = 'notifications';
+    return GRU_FEATURE_FLAG[feature];
+  }),
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     onOpenCourseReport() {
       let component = this;
       component.sendAction('onOpenCourseReport');

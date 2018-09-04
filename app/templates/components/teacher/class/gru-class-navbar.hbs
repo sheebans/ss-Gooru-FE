@@ -57,6 +57,13 @@
         {{/if}}
 
         <ul class="nav navbar-nav navbar-right">
+            {{#if isFeatureEnabled }}
+                <li>
+                    <a style="opacity:1;">
+                        {{notification/notification-indicator accessorClass='class' isTeacher=true class=class }}
+                    </a>
+                </li>
+            {{/if}}
           <li role="separator" class="divider"></li>
           <li>
             <div class="navbar-performance performanceSummary  {{unless hasStarted 'not-started'}}" {{action 'onOpenCourseReport'}}>

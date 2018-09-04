@@ -81,6 +81,7 @@
   .notfication-container {
     height: $container-height;
     overflow: auto;
+    background-color: #f5f5f5;
 
     .list-item-container {
       position: relative;
@@ -154,6 +155,7 @@
 
     li {
       border-bottom: 0.5px solid gainsboro;
+      // background-color: #f5f5f5;
     }
 
     li:last-child {

@@ -153,9 +153,8 @@ export default Ember.Component.extend({
   notificationCtxRole: Ember.computed(function() {
     const component = this;
     let userrole = 'student';
-    if (!component.get('model.isClass')) {
-      userrole = component.get('isTeacher') ? 'teacher' : 'student';
-    }
+    //if (!component.get('model.isClass')) {} // No check as supplied from parent component
+    userrole = component.get('isTeacher') ? 'teacher' : 'student';
     return userrole;
   }),
 
