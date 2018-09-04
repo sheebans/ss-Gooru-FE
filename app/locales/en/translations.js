@@ -1773,7 +1773,8 @@ export default Object.assign(quizzesTranslations, {
       'expand-chart': 'Expand Chart',
       mastered: 'Mastered',
       'in-progress': 'In Progress',
-      'not-started': 'Not Started'
+      'not-started': 'Not Started',
+      'not-tagged': 'The class has no course assigned or the course has not been tagged to a valid subject or standards.'
     }
   },
 
