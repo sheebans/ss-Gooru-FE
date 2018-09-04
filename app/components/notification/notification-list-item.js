@@ -16,7 +16,7 @@ export default Ember.Component.extend({
       { type: 'student.gradable.submission', iconClass: 'explore' }
     ],
     currentItemType: [
-      { type: 'assessment', iconClass: 'explore' },
+      { type: 'assessment', iconClass: 'grucount' },
       { type: 'collection', iconClass: 'view_comfy' },
       { type: 'assessment-external', iconClass: 'explore' }
     ]

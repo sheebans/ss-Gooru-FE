@@ -143,6 +143,14 @@
         object-fit: contain;
         background-color: #ed8e36;
         background-color: var(--dusty-orange);
+
+        .grucount {
+          background: url(gooru/images/navigation_assessment.svg);
+          -webkit-background-size: 25px 25px;
+          background-size: 25px 25px;
+          height: 25px;
+          width: 25px;
+        }
       }
     }
   }
@@ -155,6 +163,7 @@
 
     li {
       border-bottom: 0.5px solid gainsboro;
+
       // background-color: #f5f5f5;
     }
 
