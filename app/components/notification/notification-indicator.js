@@ -316,9 +316,23 @@ export default Ember.Component.extend({
 
       Object.assign(newNotificationDetails, data.notifications);
       Object.assign(newDataModel, data);
-      Array.prototype.push.apply(notndetail, newNotificationDetails); //ToDo: requiers a data merge
+      let concatAndDeDuplicateObjects = (p, ...arrs) =>
+        []
+          .concat(...arrs)
+          .reduce(
+            (a, b) => (!a.filter(c => b[p] === c[p]).length ? [...a, b] : a),
+            []
+          );
 
-      newDataModel.notifications = notndetail;
+      var ndt = concatAndDeDuplicateObjects(
+        'id',
+        notndetail,
+        newNotificationDetails
+      );
+
+      //Array.prototype.push.apply(notndetail, newNotificationDetails); //ToDo: requiers a data merge
+
+      newDataModel.notifications = ndt;
       component.set('notificationModel', newDataModel);
       //eslint-disable-next-line
       console.log(
@@ -371,9 +385,10 @@ export default Ember.Component.extend({
     component._debouncedItem = Ember.run.later(
       component,
       function() {
+        //let d = new Date(); console.log('500 ms of timeout:', d); // ToDo: revisit here
         component.getNotifications(component.getDefaultFilter()); //Force default filter for first time load and refresh
       },
-      1000
+      500
     );
   },
   destroy() {
