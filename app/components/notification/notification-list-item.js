@@ -9,7 +9,7 @@ export default Ember.Component.extend({
    */
   displayConstants: {
     notificationType: [
-      { type: 'teacher.suggestion', iconClass: 'explore' },
+      { type: 'teacher.suggestion', iconClass: 'account_circle' },
       { type: 'teacher.override', iconClass: 'explore' },
       { type: 'teacher.grading.complete', iconClass: 'explore' },
       { type: 'student.self.report', iconClass: 'explore' },
@@ -17,7 +17,7 @@ export default Ember.Component.extend({
     ],
     currentItemType: [
       { type: 'assessment', iconClass: 'explore' },
-      { type: 'collection', iconClass: 'explore' },
+      { type: 'collection', iconClass: 'view_comfy' },
       { type: 'assessment-external', iconClass: 'explore' }
     ]
     /* ,'notificationTypeCurrentItem' : [ { '' } ] //TBD if required*/

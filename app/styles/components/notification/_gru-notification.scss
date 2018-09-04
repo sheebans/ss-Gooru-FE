@@ -81,7 +81,7 @@
   .notfication-container {
     height: $container-height;
     overflow: auto;
-    background-color: #f5f5f5;
+    background-color: $white;
 
     .list-item-container {
       position: relative;
@@ -173,7 +173,7 @@
   height: auto;
 }
 
-.notification-list-icon-suggestions111 {
+.notification-list-icon-suggestions {
   font-size: 21px;
   background-color: $sun-color;
   border-radius: 50%;
