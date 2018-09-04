@@ -90,7 +90,32 @@ export default Ember.Component.extend({
         type: 'teacher.suggestion',
         action: 'explore',
         actionType: 'navigate',
-        postActionHook: { dismissafteraction: true, refreshAfterDismiss: true }
+        postActionHook: {
+          dismissafteraction: false,
+          refreshAfterDismiss: true,
+          navigate: true,
+          navigationDetails: {
+            route: 'study-player',
+            exactparams: 'courseId',
+            queryPType: 'hybrid',
+            queryparams: {
+              courseId: 0,
+              classId: 0,
+              unitId: 0,
+              lessonId: 0,
+              collectionId: 0,
+              role: 0,
+              source: 0,
+              type: null,
+              subtype: null,
+              pathId: 0,
+              minScore: 0,
+              collectionSource: 'course_map',
+              isStudyPlayer: true,
+              pathType: ''
+            }
+          }
+        }
       },
       {
         type: 'teacher.override',
@@ -114,7 +139,18 @@ export default Ember.Component.extend({
         type: 'student.gradable.submission',
         action: 'explore',
         actionType: 'navigate',
-        postActionHook: { dismissafteraction: true }
+        postActionHook: {
+          dismissafteraction: false,
+          navigate: true,
+          navigationDetails: {
+            route: 'teacher.class.course-map',
+            queryPType: 'paramonly',
+            exactparams: 'classId',
+            queryparams: {
+              classId: 0
+            }
+          }
+        }
       }
     ]
   },
@@ -304,9 +340,10 @@ export default Ember.Component.extend({
         ? component.notificationModel.boundary
         : '';
     filter.limit = component.get('rowsPerPage');
-    filter.classId = component.get('model.isClass')
-      ? component.get('class')
-      : ''; // from page Options passed to instance
+    filter.classId =
+      component.get('model.isClass') && component.get('class')
+        ? component.get('class').id
+        : ''; // from page Options passed to instance
     return filter;
   },
 
@@ -317,9 +354,10 @@ export default Ember.Component.extend({
   getDefaultFilter() {
     const component = this;
     let filter = { classId: '', limit: 2, boundary: '' };
-    filter.classId = component.get('model.isClass')
-      ? component.get('class').id
-      : ''; // from page Options passed to instance
+    filter.classId =
+      component.get('model.isClass') && component.get('class')
+        ? component.get('class').id
+        : ''; // from page Options passed to instance
     filter.limit = component.get('rowsPerPage');
     return filter;
   },
@@ -330,9 +368,13 @@ export default Ember.Component.extend({
   refreshSelf() {
     const component = this;
     component.set('notificationModel', ''); // reset with timer, rather
-    component._debouncedItem = Ember.run.later(function() {
-      component.getNotifications(component.getDefaultFilter()); //Force default filter for first time load and refresh
-    }, 5000);
+    component._debouncedItem = Ember.run.later(
+      component,
+      function() {
+        component.getNotifications(component.getDefaultFilter()); //Force default filter for first time load and refresh
+      },
+      1000
+    );
   },
   destroy() {
     this._super(...arguments);
