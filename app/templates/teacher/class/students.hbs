@@ -1,6 +1,13 @@
 <div class="teacher controller students-view">
   <div class="students-container">
-    <div class="header">Students</div>
+    <div class="header">
+      <div class="title">
+        {{t 'class.info.students'}}
+      </div>
+      <div class="competency-report" {{action "onOpenCompetencyReport"}}>
+        {{t 'report.competency-report.title'}}
+      </div>
+    </div>
     <div class="student-details">
       {{#if isLoading}}
         {{three-bounce-spinner}}
