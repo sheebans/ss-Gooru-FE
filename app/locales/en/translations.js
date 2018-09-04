@@ -1163,7 +1163,7 @@ export default Object.assign(quizzesTranslations, {
     'latest-assessment': 'Latest Assessment',
     'create-classroom': 'Create a classroom, assign contents, invite students',
     'dca-create-info':
-      'Create a daily class activity by asking a question, or selecting content from the Library.',
+      'Create a daily class activity by searching for content from the Gooru Library.',
     'schedule-for-later': 'Schedule For Later',
     'teach-this-activity-later': 'teach this activity later at DCA',
     'schedule-dca-instruction-1':
@@ -1783,7 +1783,8 @@ export default Object.assign(quizzesTranslations, {
       mastered: 'Mastered',
       'in-progress': 'In Progress',
       'not-started': 'Not Started',
-      'not-tagged': 'The class has no course assigned or the course has not been tagged to a valid subject or standards.'
+      'not-tagged':
+        'The class has no course assigned or the course has not been tagged to a valid subject or standards.'
     }
   },
 
