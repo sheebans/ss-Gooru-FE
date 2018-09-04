@@ -38,7 +38,7 @@
         {{#unless classActivity.isActive}}
             {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=classActivity.isActive item=item}}
         {{else}}
-          {{gru-switch class="assigned" switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=classActivity.isActive item=item}}
+          {{gru-switch class="assigned" switchOptions=switchOptions  isChecked=classActivity.isActive item=item}}
         {{/unless}}
         </span>
       {{/if}}
