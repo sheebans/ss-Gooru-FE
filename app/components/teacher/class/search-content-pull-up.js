@@ -139,7 +139,7 @@ export default Ember.Component.extend({
     onAddContentToDCA(content) {
       let component = this;
       let classId = component.get('classId');
-      let contentType = component.get('selectedSearchContentType');
+      let contentType = component.get('activeContentType');
       let contentId = content.get('id');
       component
         .get('classActivityService')
@@ -161,7 +161,7 @@ export default Ember.Component.extend({
      */
     onScheduleContentToDCA(content) {
       let component = this;
-      let contentType = component.get('selectedSearchContentType');
+      let contentType = component.get('activeContentType');
       let classId = component.get('classId');
       let params = {
         content: content,
