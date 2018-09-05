@@ -782,12 +782,11 @@ export default Object.assign(quizzesTranslations, {
       'edit-content': 'Edit Content',
       'add-to-daily-class-activities': 'Add to Daily Class Activities',
       'course-map': {
-        'rescope-toggle': 'Show Complete Course Map',
+        'rescope-toggle': 'Show Complete Course',
         'rescope-info':
-          'This course has been personalized specifically for you to support accelerated learning.',
+          'This Navigator course is a personalized course covering standards across multiple grades. Each student is provided a unique course to help fill gaps, reinforce concepts and practices, and accelerate their learning. Personalized routes are designed and students are re-routed in real-time to maximize each student\'s learning potential and to navigate to their set destination.',
         'custom-msg':
           'We are personalizing this course specifically for you based on your proficiency. Please check back in a little while to see the personalized course map.',
-
         'route0-bannerdesc':
           'As per your competency profile, there are some competencies that you need to master so that you can do well in this course. We have a route that we recommend you take to master these competencies. Click here to see the details.'
       }
@@ -1165,7 +1164,7 @@ export default Object.assign(quizzesTranslations, {
     'latest-assessment': 'Latest Assessment',
     'create-classroom': 'Create a classroom, assign contents, invite students',
     'dca-create-info':
-      'Create a daily class activity by asking a question, or selecting content from the Library.',
+      'Create a daily class activity by searching for content from the Gooru Library.',
     'schedule-for-later': 'Schedule For Later',
     'teach-this-activity-later': 'teach this activity later at DCA',
     'schedule-dca-instruction-1':
@@ -1262,7 +1261,7 @@ export default Object.assign(quizzesTranslations, {
     'welcome-rescoped-course-map':
       'This course has been personalized for each student in the class. You can view each student’s course map in the Class Management page by clicking on the student’s learning pathway ("->")',
     'welcome-premium-course-map':
-      'This is a highly curated course designed to help students aim to be at a certain grade level in an accelerated timeframe, irrespective of their current level. This course will be personalized for each student in the class. You can view each student’s course map by selecting the student from the list of students.'
+      'This Navigator course is a personalized course covering standards across multiple grades. Each student is provided a unique course to help fill gaps, reinforce concepts and practices, and accelerate their learning. Personalized routes are designed and students are re-routed in real-time to maximize each student\'s learning potential and to navigate to their set destination.'
   },
   goals: {
     manage: {
@@ -1347,8 +1346,8 @@ export default Object.assign(quizzesTranslations, {
     'unlimited-attempts': 'You have unlimited attempts',
     cancel: 'Cancel',
     continue: 'Continue',
-    start: 'Start!',
-    submit: 'Submit!'
+    start: 'Start',
+    submit: 'Submit'
   },
   'gru-submit-confirmation': {
     title: 'Finish this quiz and submit all',
@@ -1785,6 +1784,8 @@ export default Object.assign(quizzesTranslations, {
       mastered: 'Mastered',
       'in-progress': 'In Progress',
       'not-started': 'Not Started',
+      skyline: 'Skyline',
+      baseline: 'Baseline',
       'not-tagged':
         'The class has no course assigned or the course has not been tagged to a valid subject or standards.'
     }

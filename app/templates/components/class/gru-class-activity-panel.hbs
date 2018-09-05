@@ -38,7 +38,7 @@
         {{#unless classActivity.isActive}}
             {{gru-switch switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=classActivity.isActive item=item}}
         {{else}}
-          {{gru-switch class="assigned" switchOptions=switchOptions onOptionSwitch='changeVisibility' isChecked=classActivity.isActive item=item}}
+          {{gru-switch class="assigned" switchOptions=switchOptions  isChecked=classActivity.isActive item=item}}
         {{/unless}}
         </span>
       {{/if}}
@@ -49,7 +49,7 @@
       {{/if}}
     </div>
     {{#if collectionPerformanceSummary}}
-      <div class="dca-panel-performance" {{action 'teacherCollectionReport' item}} style="background-color:{{grade-color collectionPerformanceSummary.score}}">
+      <div class="dca-panel-performance" style="background-color:{{grade-color collectionPerformanceSummary.score}}">
         {{#if (not-eq item.collectionType 'collection')}}
           <span>{{collectionPerformanceSummary.score}}%</span>
         {{else}}

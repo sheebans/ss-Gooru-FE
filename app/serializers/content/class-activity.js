@@ -55,6 +55,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
         collectionId: data.ctx_collection_id
       },
       added_date: data.dca_added_date,
+      activation_date: data.activation_date,
       collection: content
     });
   },

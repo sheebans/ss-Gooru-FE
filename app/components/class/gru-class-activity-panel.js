@@ -83,7 +83,8 @@ export default Ember.Component.extend({
           let data = Ember.Object.create({
             id: newContentId,
             added_date: date,
-            collection: content
+            collection: content,
+            isActive: false
           });
           component.sendAction('addedContentToDCA', data, date);
         });
