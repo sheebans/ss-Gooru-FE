@@ -1344,8 +1344,8 @@ export default Object.assign(quizzesTranslations, {
     'unlimited-attempts': 'You have unlimited attempts',
     cancel: 'Cancel',
     continue: 'Continue',
-    start: 'Start!',
-    submit: 'Submit!'
+    start: 'Start',
+    submit: 'Submit'
   },
   'gru-submit-confirmation': {
     title: 'Finish this quiz and submit all',
