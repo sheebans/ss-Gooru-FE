@@ -13,15 +13,27 @@
     </div>
     <div class="panel-body" style="background-color:{{grade-color class.performanceSummary.score}}">
       <div class="information" style="background-image: url({{course.thumbnailUrl}})">
-        <div class="current-activity">{{t "student-landing.resume-current-activity"}}</div>
+        <div class="current-activity">
+          {{#unless class.currentLocation}}
+            {{t "student-landing.start-studying"}}
+          {{else}}
+            {{#if isCompleted}}
+              {{t "student-landing.last-activity"}}
+            {{else}}
+              {{t "student-landing.resume-current-activity"}}
+            {{/if}}
+          {{/unless}}
+        </div>
         <div class="title-section">
-          {{#if showCurrentLocation}}
-            <i class="{{if class.currentLocation.collection.isAssessment 'assessment' 'collection'}}"></i>
-            <div class="title pointer" alt="{{class.currentLocation.collection.title}}" {{action "playCollection"}}>
-              {{truncate text=currentLocationTitle maxLength=90}}
-            </div>
+          {{#if class.currentLocation}}
+            {{#if showCurrentLocation}}
+              <i class="{{if class.currentLocation.collection.isAssessment 'assessment' 'collection'}}"></i>
+              <div class="title pointer" alt="{{class.currentLocation.collection.title}}" {{action "playCollection"}}>
+                {{truncate text=currentLocationTitle maxLength=90}}
+              </div>
             {{else}}
               <span>{{t "student-landing.not-available"}}</span>
+            {{/if}}
           {{/if}}
         </div>
       </div>

@@ -2,6 +2,9 @@ import Ember from 'ember';
 import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import { ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
+import {
+  currentLocationToMapContext
+} from 'gooru-web/utils/navigation-util';
 
 /**
  * Student home route
@@ -44,6 +47,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
      */
     studyPlayer: function(currentLocation) {
       const route = this;
+      let navigateMapService = route.get('navigateMapService');
       let role = ROLES.STUDENT;
       let source = PLAYER_EVENT_SOURCE.COURSE_MAP;
       let courseId = currentLocation.get('courseId');
@@ -55,6 +59,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       let collectionSubType = currentLocation.get(
         'collection.collectionSubType'
       );
+      let currentLocationStatus = currentLocation.get('status');
       let pathId = currentLocation.get('collection.pathId') || 0;
       let queryParams = {
         classId,
@@ -69,31 +74,38 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
       };
 
       let suggestionPromise = null;
-      // Verifies if it is a suggested Collection/Assessment
-      if (collectionSubType) {
-        suggestionPromise = route
-          .get('navigateMapService')
-          .startSuggestion(
-            courseId,
-            unitId,
-            lessonId,
-            collectionId,
-            collectionType,
-            collectionSubType,
-            pathId,
-            classId
-          );
+      if (currentLocationStatus === 'complete') {
+        //content_served
+        suggestionPromise = navigateMapService.contentServedResource(
+          currentLocationToMapContext(currentLocation)
+        );
       } else {
-        suggestionPromise = route
-          .get('navigateMapService')
-          .startCollection(
-            courseId,
-            unitId,
-            lessonId,
-            collectionId,
-            collectionType,
-            classId
-          );
+        // Verifies if it is a suggested Collection/Assessment
+        if (collectionSubType) {
+          suggestionPromise = route
+            .get('navigateMapService')
+            .startSuggestion(
+              courseId,
+              unitId,
+              lessonId,
+              collectionId,
+              collectionType,
+              collectionSubType,
+              pathId,
+              classId
+            );
+        } else {
+          suggestionPromise = route
+            .get('navigateMapService')
+            .startCollection(
+              courseId,
+              unitId,
+              lessonId,
+              collectionId,
+              collectionType,
+              classId
+            );
+        }
       }
 
       suggestionPromise.then(() =>
