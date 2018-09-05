@@ -14,6 +14,7 @@
 
   .chart-area {
     display: flex;
+    background-color: $Gray97;
 
     .matrix-chart {
       width: 450px;
@@ -66,15 +67,14 @@
           #skyline-container {
             line {
               stroke: $white;
-              stroke-width: 2px;
-              opacity: 0.5;
+              stroke-width: 6px;
             }
           }
 
           #baseline-container {
             line {
-              stroke: $white;
-              stroke-width: 4px;
+              stroke: $dark-400;
+              stroke-width: 2px;
             }
           }
 
@@ -109,9 +109,11 @@
         color: $dark-400;
         display: flex;
         margin-bottom: 3px;
+
         .sequence {
           margin-right: 5px;
         }
+
         .name {
           line-height: 18px;
         }

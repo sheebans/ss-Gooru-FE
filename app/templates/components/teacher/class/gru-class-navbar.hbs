@@ -24,20 +24,12 @@
                 </span>
             </a>
         </li>
-        {{/unless}}
         <li role="separator" class="divider"></li>
-        <li class="performance tab {{if (and (not isPremiumClass hasStarted)) 'not-started'}}">
-            <a {{action 'onOpenPerfReport'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.report'}} ">
-            {{gru-icon name='insert_chart'}}
-            </a>
-        </li>
-        {{#unless class.isArchived}}
-        <li role="separator" class="divider"></li>
-        <li class="class-management tab">
-            <a {{action 'selectItem' 'class-management'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.class-management' }}">
-                    {{gru-icon name='school'}}
+        <li class="students tab">
+            <a {{action 'selectItem' 'students'}} role="tab" data-toggle="tooltip" title="{{t 'class.info.students' }}">
+                    {{gru-icon name='account_circle'}}
                     <span class="add-info" >
-                     &nbsp; {{t 'teacher-landing.class.class-management' }}
+                     &nbsp; {{t 'class.info.students' }}
                     </span>
             </a>
         </li>
@@ -64,9 +56,9 @@
             </div>
           </li>
         <li role="separator" class="divider"></li>
-        <li class="class-info">
-            <a {{action 'selectItem' 'class-info'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.class-management-tab.class-information'}}">
-                <img src='/assets/gooru/info-outline-white.png'>
+        <li class="class-management tab">
+            <a {{action 'selectItem' 'class-management'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.class-management'}}">
+                {{gru-icon name="settings"}}
             </a>
         </li>
         <li role="separator" class="divider"></li>

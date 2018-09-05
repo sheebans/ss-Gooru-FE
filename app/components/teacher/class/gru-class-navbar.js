@@ -21,13 +21,12 @@ export default Ember.Component.extend(ConfigurationMixin, {
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-
     onOpenCourseReport() {
       let component = this;
       component.sendAction('onOpenCourseReport');
     },
 
-    onOpenPerfReport() {
+    onOpenPerformanceReport() {
       let component = this;
       if (component.get('isPremiumClass')) {
         component.sendAction('onOpenCompetencyReport');
@@ -48,9 +47,6 @@ export default Ember.Component.extend(ConfigurationMixin, {
           this.selectItem(item);
         }
         this.sendAction('onItemSelected', item);
-        if (item === 'class-info') {
-          $('.classroom-information').toggleClass('hide-classroom-information');
-        }
       }
     },
 
@@ -72,6 +68,21 @@ export default Ember.Component.extend(ConfigurationMixin, {
    * DidInsertElement ember event
    */
   didInsertElement: function() {
+    this._super(...arguments);
+
+    const { getOwner } = Ember;
+    let currentPath = getOwner(this).lookup('controller:application')
+      .currentPath;
+
+    let component = this;
+    if (currentPath === 'teacher.class.students') {
+      component.set('selectedMenuItem', 'students');
+    } else if (currentPath === 'teacher.class.course-map') {
+      component.set('selectedMenuItem', 'course-map');
+    } else if (currentPath === 'teacher.class.class-activities') {
+      component.set('selectedMenuItem', 'class-activities');
+    }
+
     var item = this.get('selectedMenuItem');
     this.selectItem(item);
     Ember.$('header.gru-header').hide();
@@ -141,13 +152,8 @@ export default Ember.Component.extend(ConfigurationMixin, {
   selectItem: function(item) {
     if (item) {
       let itemElement = `.${item}`;
-      if (item === 'class-info') {
-        this.$(itemElement).removeClass('vactive');
-        return false;
-      } else {
-        this.$('.tab').removeClass('vactive');
-        this.$(itemElement).addClass('vactive');
-      }
+      this.$('.tab').removeClass('vactive');
+      this.$(itemElement).addClass('vactive');
     }
   }
 });

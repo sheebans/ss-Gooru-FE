@@ -529,42 +529,70 @@ export default Ember.Component.extend({
 
   drawSkyline() {
     let component = this;
-    let isSkylineEnabled = component.get('isSkylineEnabled');
     let skylineElements = component.$('.skyline-competency');
-    let indexSize = component.$(skylineElements).length;
     let cellWidth = component.get('cellWidth');
     let cellHeight = component.get('cellHeight');
-    component.$('circle').remove();
     component.$('line').remove();
     let svg = component.get('skylineContainer');
-    let className = isSkylineEnabled ? '' : 'disable-skyline';
+    let cellIndex = 0;
     skylineElements.each(function(index) {
-      let x1 =
-        parseInt(component.$(skylineElements[index]).attr('x')) + cellWidth / 2;
+      let x1 = parseInt(component.$(skylineElements[index]).attr('x'));
       let y1 = parseInt(component.$(skylineElements[index]).attr('y'));
-      y1 = y1 === 0 ? y1 + 3 : y1 + cellHeight / 2;
-      if (index < indexSize - 1) {
-        let x2 =
-          parseInt(component.$(skylineElements[index + 1]).attr('x')) +
-          cellWidth / 2;
-        let y2 = parseInt(component.$(skylineElements[index + 1]).attr('y'));
-        y2 = y2 === 0 ? y2 + 3 : y2 + cellHeight / 2;
-        svg
-          .append('line')
-          .attr('x1', x1)
-          .attr('y1', y1)
-          .attr('x2', x2)
-          .attr('y2', y2)
-          .attr('class', `skyline ${className}`);
-      }
+      y1 = y1 === 0 ? y1 : y1 + cellHeight;
+      let x2 = x1 + cellWidth;
+      let y2 = y1;
+      let linePoint = {
+        x1,
+        y1,
+        x2,
+        y2
+      };
       svg
-        .append('circle')
-        .attr('cx', x1)
-        .attr('cy', y1)
-        .attr('r', 3)
-        .attr('fill', '#fff')
-        .attr('class', `skyline ${className}`);
+        .append('line')
+        .attr('x1', linePoint.x1)
+        .attr('y1', linePoint.y1)
+        .attr('x2', linePoint.x2)
+        .attr('y2', linePoint.y2)
+        .attr('class', `sky-line-${cellIndex}`);
+      component.joinSkyLinePoints(cellIndex, linePoint);
+      cellIndex++;
     });
+  },
+
+  /**
+   * @function joinSkyLinePoints
+   * Method to draw vertical line to connects sky line points, if necessary
+   */
+  joinSkyLinePoints(cellIndex, curLinePoint) {
+    let component = this;
+    let lastSkyLineContainer = component.$(`.sky-line-${cellIndex - 1}`);
+    let skyLineContainer = component.get('skylineContainer');
+    let lastskyLinePoint = {
+      x2: parseInt(lastSkyLineContainer.attr('x2')),
+      y2: parseInt(lastSkyLineContainer.attr('y2'))
+    };
+    //Connect sky line points if last and current points are not same
+    if (
+      lastSkyLineContainer.length &&
+      lastskyLinePoint.y2 !== curLinePoint.y1
+    ) {
+      //Increase extra height to connect intersection points
+      if (lastskyLinePoint.y2 > curLinePoint.y1) {
+        lastskyLinePoint.y2 = lastskyLinePoint.y2 + 2;
+        curLinePoint.y1 = curLinePoint.y1 - 2;
+      } else {
+        lastskyLinePoint.y2 = lastskyLinePoint.y2 - 2;
+        curLinePoint.y1 = curLinePoint.y1 + 2;
+      }
+
+      skyLineContainer
+        .append('line')
+        .attr('x1', lastskyLinePoint.x2)
+        .attr('y1', lastskyLinePoint.y2)
+        .attr('x2', curLinePoint.x1)
+        .attr('y2', curLinePoint.y1)
+        .attr('class', 'sky-line');
+    }
   },
 
   /**

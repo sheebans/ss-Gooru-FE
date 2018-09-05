@@ -54,6 +54,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
         lessonId: data.ctx_lesson_id,
         collectionId: data.ctx_collection_id
       },
+      added_date: data.dca_added_date,
       collection: content
     });
   },
@@ -80,6 +81,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
         title: data.title,
         resourceCount: data.resource_count,
         questionCount: data.question_count,
+        oeQuestionCount: data.oe_question_count,
         collectionType: data.content_type,
         thumbnailUrl: thumbnailUrl
       });

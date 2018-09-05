@@ -64,6 +64,7 @@ export default Object.assign(quizzesTranslations, {
     frq: 'FRQ',
     responses: 'Responses',
     'gooru-suggestions': 'Gooru Suggestions',
+    'global-resources': 'Global Resources',
     'suggestion-made-to': 'Suggestion made to',
     'student-selected': 'Student Selected',
     'no-suggest-result-message': ' No matching content found',
@@ -1161,6 +1162,14 @@ export default Object.assign(quizzesTranslations, {
     'latest-announcement': 'Latest Announcement',
     'latest-assessment': 'Latest Assessment',
     'create-classroom': 'Create a classroom, assign contents, invite students',
+    'dca-create-info':
+      'Create a daily class activity by searching for content from the Gooru Library.',
+    'schedule-for-later': 'Schedule For Later',
+    'teach-this-activity-later': 'teach this activity later at DCA',
+    'schedule-dca-instruction-1':
+      'Pick a later date on which to teach this activity.',
+    'schedule-dca-instruction-2':
+      'This activity will appear at DCA for the chosen date.',
     'navigator-banner': {
       title: 'Navigator for Math',
       description:
@@ -1208,6 +1217,17 @@ export default Object.assign(quizzesTranslations, {
         'view-report': 'View Report',
         'students-null':
           'Share the Class Code with students to have them join your Classroom.'
+      },
+      'students-tab': {
+        'last-name': 'Lastname',
+        'first-name': 'Firstname',
+        performance: 'Performance',
+        proficiency: 'Proficiency',
+        location: 'Location',
+        'student-id': 'StudentId',
+        remove: 'Remove',
+        mastered: 'Mastered',
+        'in-progress': 'In Progress'
       },
       'class-activities': 'Daily Class Activities',
       'back-to-class-activities': 'Back to Daily Class Activities',
@@ -1762,7 +1782,9 @@ export default Object.assign(quizzesTranslations, {
       'expand-chart': 'Expand Chart',
       mastered: 'Mastered',
       'in-progress': 'In Progress',
-      'not-started': 'Not Started'
+      'not-started': 'Not Started',
+      'not-tagged':
+        'The class has no course assigned or the course has not been tagged to a valid subject or standards.'
     }
   },
 
