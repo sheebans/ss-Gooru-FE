@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { TAXONOMY_CATEGORIES } from 'gooru-web/config/config';
+import {getSubjectIdFromSubjectBucket} from 'gooru-web/utils/utils';
 
 export default Ember.Component.extend({
   classNames: ['learner-proficiency-pull-up'],
@@ -65,7 +66,8 @@ export default Ember.Component.extend({
      */
     onSelectCompetency(competency) {
       let component = this;
-      component.sendAction('onSelectCompetency', competency);
+      let userId = component.get('student.id');
+      component.sendAction('onSelectCompetency', competency, userId);
     }
   },
 
@@ -166,6 +168,24 @@ export default Ember.Component.extend({
       courseCreatedDate = new Date(oneYearBeforeFromCurrentDate.setFullYear(curYear - 1));
     }
     return courseCreatedDate;
+  }),
+
+  /**
+   * @property {Boolean} isShowMatrixChart
+   */
+  isShowMatrixChart: Ember.computed('taxonomySubjects', function() {
+    let component = this;
+    let course = component.get('course');
+    let isShowMatrixChart = false;
+    if (course.get('id')) {
+      let taxonomySubjects = component.get('taxonomySubjects');
+      let subjectBucket = component.get('subjectBucket');
+      let subjectCode = subjectBucket ? getSubjectIdFromSubjectBucket(subjectBucket) : null;
+      let isSupportedTaxonomySubject = taxonomySubjects.findBy('code', subjectCode);
+      let aggregatedTaxonomy = course.get('aggregatedTaxonomy');
+      isShowMatrixChart = !!(aggregatedTaxonomy && isSupportedTaxonomySubject);
+    }
+    return isShowMatrixChart;
   }),
 
   /**

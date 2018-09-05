@@ -24,14 +24,6 @@
                 </span>
             </a>
         </li>
-        {{/unless}}
-        <li role="separator" class="divider"></li>
-        <li class="performance tab {{if (and (not isPremiumClass hasStarted)) 'not-started'}}">
-            <a {{action 'onOpenPerformanceReport'}} role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.report'}} ">
-            {{gru-icon name='insert_chart'}}
-            </a>
-        </li>
-        {{#unless class.isArchived}}
         <li role="separator" class="divider"></li>
         <li class="students tab">
             <a {{action 'selectItem' 'students'}} role="tab" data-toggle="tooltip" title="{{t 'class.info.students' }}">

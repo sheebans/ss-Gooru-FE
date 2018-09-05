@@ -7,29 +7,37 @@
       <div class="student-info ellipsis">
         {{studentFullName}}
       </div>
-      <div class="taxonomy-info">
-        <div class="dropdown categories">
-          <div class="active-item active-category"><div class="label ellipsis">{{t activeCategory.label}}</div></div>
-        </div>
+      {{#if isShowMatrixChart}}
+        <div class="taxonomy-info">
+          <div class="dropdown categories">
+            <div class="active-item active-category"><div class="label ellipsis">{{t activeCategory.label}}</div></div>
+          </div>
 
-        <div class="dropdown subjects">
-          <div class="active-item active-subject"><div class="label ellipsis">{{activeSubject.title}}</div><div class="icon">{{gru-icon name="arrow_drop_down"}}</div></div>
-          <div class="dropdown-content subject-list">
-            {{#each taxonomySubjects as |subject|}}
-              <div class="list-item subject {{if (eq activeSubject.id subject.id) 'active'}}" {{action "onSelectSubject" subject}}>{{subject.title}}</div>
-            {{/each}}
+          <div class="dropdown subjects">
+            <div class="active-item active-subject"><div class="label ellipsis">{{activeSubject.title}}</div><div class="icon">{{gru-icon name="arrow_drop_down"}}</div></div>
+            <div class="dropdown-content subject-list">
+              {{#each taxonomySubjects as |subject|}}
+                <div class="list-item subject {{if (eq activeSubject.id subject.id) 'active'}}" {{action "onSelectSubject" subject}}>{{subject.title}}</div>
+              {{/each}}
+            </div>
           </div>
         </div>
-      </div>
+      {{/if}}
     </div>
   </div>
   <div class="body">
-    <div class="proficiency-chart">
-        {{proficiency.learner-proficiency-domain-matrix subjectBucket=subjectBucket timeLine=timeLine userId=student.id subject=activeSubject class=class onShownBaseLine="onShownBaseLine" onSelectCompetency="onSelectCompetency"}}
-    </div>
-    {{#if isShowTimeSeries}}
-      <div class="time-series">
-        {{charts.monthly-time-series-chart onSelectMonth="onSelectMonth" startDate=timeSeriesStartDate}}
+    {{#if isShowMatrixChart}}
+      <div class="proficiency-chart">
+          {{proficiency.learner-proficiency-domain-matrix subjectBucket=subjectBucket timeLine=timeLine userId=student.id subject=activeSubject class=class onShownBaseLine="onShownBaseLine" onSelectCompetency="onSelectCompetency"}}
+      </div>
+      {{#if isShowTimeSeries}}
+        <div class="time-series">
+          {{charts.monthly-time-series-chart onSelectMonth="onSelectMonth" startDate=timeSeriesStartDate}}
+        </div>
+      {{/if}}
+    {{else}}
+      <div class="not-tagged">
+        {{t 'profile.proficiency.not-tagged'}}
       </div>
     {{/if}}
   </div>

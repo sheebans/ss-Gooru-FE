@@ -36,13 +36,19 @@ test('Layout and forward only with limited attempts', function(assert) {
     'Wrong icon'
   );
   assert.equal(
-    $body.find('.setting p').text().trim(),
+    $body
+      .find('.setting p')
+      .text()
+      .trim(),
     'You can navigate forward only',
     'Wrong setting description'
   );
 
   assert.equal(
-    $body.find('.attempts p').text().trim(),
+    $body
+      .find('.attempts p')
+      .text()
+      .trim(),
     'You have 5 attempts',
     'Wrong attempts description'
   );
@@ -53,7 +59,7 @@ test('Layout and forward only with limited attempts', function(assert) {
     'Number of action buttons'
   );
   assert.ok($body.find('.actions .cancel').length, 'Cancel button');
-  assert.ok($body.find('.actions .start').length, 'Start lesson button');
+  assert.ok($body.find('.actions .continue').length, 'Start button');
 });
 
 test('Navigate both ways with unlimited attempts', function(assert) {
@@ -76,13 +82,19 @@ test('Navigate both ways with unlimited attempts', function(assert) {
     'Wrong icon'
   );
   assert.equal(
-    $body.find('.setting p').text().trim(),
+    $body
+      .find('.setting p')
+      .text()
+      .trim(),
     'You can navigate forward and backwards to answer questions',
     'Wrong setting description'
   );
 
   assert.equal(
-    $body.find('.attempts p').text().trim(),
+    $body
+      .find('.attempts p')
+      .text()
+      .trim(),
     'You have unlimited attempts',
     'Wrong attempts description'
   );
@@ -100,12 +112,15 @@ test('Negative ammount of attempts', function(assert) {
     '.content.modals.gru-assessment-confirmation .modal-body'
   );
   assert.equal(
-    $body.find('.attempts p').text().trim(),
+    $body
+      .find('.attempts p')
+      .text()
+      .trim(),
     'You have 0 attempts',
     'Wrong attempts description'
   );
   assert.equal(
-    $body.find('.actions .start').prop('disabled'),
+    $body.find('.actions .continue').prop('disabled'),
     true,
     'Button should be disabled'
   );
@@ -131,5 +146,5 @@ test('Layout with a started assessment', function(assert) {
     'Number of action buttons'
   );
   assert.ok($body.find('.actions .cancel').length, 'Cancel button');
-  assert.ok($body.find('.actions .continue').length, 'Continue lesson button');
+  assert.ok($body.find('.actions .continue').length, 'Continue button');
 });
