@@ -63,7 +63,7 @@
               <i class="collection-icon" {{action 'onAddDca' 'collection'}}></i>
               <i class="assessment-icon" {{action 'onAddDca' 'assessment'}}></i>
             </div>
-            <div class="dca-course-map-button" {{action 'addFromCourseMap'}}>
+            <div class="dca-course-map-button {{unless courseId 'no-course'}}" {{action 'addFromCourseMap'}}>
               <span>{{t 'common.course-map'}}</span>
             </div>
           </div>
@@ -124,7 +124,7 @@
           <i class="collection-icon" {{action 'onAddDca' 'collection'}}></i>
           <i class="assessment-icon" {{action 'onAddDca' 'assessment'}}></i>
         </div>
-        <div class="dca-course-map-button" {{action 'addFromCourseMap'}}>
+        <div class="dca-course-map-button {{unless courseId 'no-course'}}" {{action 'addFromCourseMap'}}>
           <span>{{t 'common.course-map'}}</span>
         </div>
       </div>
@@ -145,5 +145,13 @@
     addedContentToDCA="addedContentToDCA"
     context=contextParams
     selectedSearchContentType=selectedSearchContentType
+  }}
+{{/if}}
+
+{{#if showDcaCourseMapPullup}}
+  {{teacher.class.dca-course-map-pull-up
+  showPullUp=showDcaCourseMapPullup
+  addedContentToDCA="addedContentToDCA"
+  context=courseMapContextParams
   }}
 {{/if}}

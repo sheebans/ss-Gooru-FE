@@ -63,6 +63,8 @@ export default Object.assign(quizzesTranslations, {
     'avg-score': 'Avg Score',
     frq: 'FRQ',
     responses: 'Responses',
+    'no-lesson-info-message': 'This unit does have any lessons.',
+    'no-collection-info-message': 'This lesson does have any collections.',
     'gooru-suggestions': 'Gooru Suggestions',
     'global-resources': 'Global Resources',
     'suggestion-made-to': 'Suggestion made to',
@@ -1783,7 +1785,8 @@ export default Object.assign(quizzesTranslations, {
       mastered: 'Mastered',
       'in-progress': 'In Progress',
       'not-started': 'Not Started',
-      'not-tagged': 'The class has no course assigned or the course has not been tagged to a valid subject or standards.'
+      'not-tagged':
+        'The class has no course assigned or the course has not been tagged to a valid subject or standards.'
     }
   },
 
