@@ -1,0 +1,441 @@
+.teacher-class-dca-course-map-pull-up {
+  position: fixed;
+  top: 100%;
+  z-index: 1031;
+  width: 768px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  color: #37434d;
+
+  .loading-spinner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .dca-course-map-backdrop {
+    background-color: #434c5a;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    cursor: pointer;
+    opacity: 0.9;
+  }
+
+  .backdrop-pull-ups {
+    .backdrop {
+      background: none;
+    }
+  }
+
+  .dca-course-map-container {
+    background: #ffffff;
+    width: 768px;
+    max-height: 90vh;
+    height: 90vh;
+
+    .dca-course-map-header {
+      height: 50px;
+      display: inline-flex;
+      align-items: center;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+      width: 100%;
+
+      .dca-course-map-pullup-close {
+        width: 70px;
+        height: 22px;
+
+        .arrow_downward {
+          font-size: 26px;
+          color: #3c4452;
+          margin-left: 22px;
+          cursor: pointer;
+        }
+      }
+
+      .dca-course-map-icon {
+        height: 20px;
+
+        .sort {
+          font-size: 26px;
+          color: #3c4452;
+        }
+      }
+
+      .dca-course-map-filter-container {
+        width: 150px;
+        margin-left: 15px;
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        color: #3c4452;
+        font-weight: bold;
+
+        span {
+          height: 24px;
+        }
+      }
+    }
+
+    .dca-course-map-unit-container {
+      max-height: calc(90vh - 50px);
+      overflow-y: auto;
+      height: 100%;
+      width: 100%;
+      padding: 20px;
+      background: #f1f3f7;
+
+      .dca-course-map-unit {
+        &:first-child {
+          .dca-course-map-unit-panel {
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+          }
+        }
+
+        &:last-child {
+          .dca-course-map-unit-panel {
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border-bottom: none;
+          }
+        }
+
+        .dca-course-map-unit-panel {
+          height: 67px;
+          background: #fff;
+          display: inline-grid;
+          width: 100%;
+          grid-template-columns: 130px 1fr;
+          align-items: center;
+          border-bottom: 1px solid #e3e5ea;
+          cursor: pointer;
+
+          .unit-name-sequence {
+            font-family: "Lato";
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1;
+            letter-spacing: normal;
+            text-align: center;
+            color: #3c4452;
+            border-right: 1px solid #d7d7d7;
+            padding-top: 8px;
+            padding-bottom: 8px;
+          }
+
+          .unit-title {
+            p {
+              margin: 0;
+              padding: 0 20px;
+              font-family: "Lato";
+              color: #666666;
+              @include ellipsis(
+                $font-size: 18px,
+                $line-height: 1.5,
+                $lines-to-show: 1
+              );
+              width: 100%;
+            }
+          }
+        }
+
+        .dca-course-map-lesson-container {
+          display: none;
+          padding: 20px;
+          background-image: linear-gradient(to top, #e7e7e7, #cfcfcf);
+
+          .no-lesson {
+            text-align: center;
+            font-size: 15px;
+          }
+
+          .lesson-load-spinner {
+            height: 60px;
+            display: inline-flex;
+            align-items: center;
+            width: 100%;
+
+            .three-bounce-spinner {
+              margin: 0 auto;
+            }
+          }
+
+          .dca-course-map-lesson {
+            &.active {
+              .dca-course-map-lesson-panel {
+                border-bottom-left-radius: 0 !important;
+                border-bottom-right-radius: 0 !important;
+                box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
+                position: relative;
+              }
+            }
+
+            &:first-child {
+              .dca-course-map-lesson-panel {
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+              }
+            }
+
+            &:last-child {
+              .dca-course-map-lesson-panel {
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+                border-bottom: none;
+              }
+              .dca-course-map-collection-container {
+                .no-collection {
+                  padding-bottom: 0px;
+                }
+              }
+            }
+
+            .dca-course-map-lesson-panel {
+              height: 60px;
+              background: #fff;
+              display: inline-grid;
+              width: 100%;
+              grid-template-columns: 130px 1fr;
+              align-items: center;
+              border-bottom: 1px solid #e3e5ea;
+              cursor: pointer;
+
+              .lesson-name-sequence {
+                font-family: "Lato";
+                font-size: 18px;
+                font-weight: bold;
+                line-height: 1;
+                letter-spacing: normal;
+                text-align: center;
+                color: #3c4452;
+                border-right: 1px solid #d7d7d7;
+                padding-top: 8px;
+                padding-bottom: 8px;
+              }
+
+              .lesson-title {
+                p {
+                  margin: 0;
+                  padding: 0 20px;
+                  font-family: "Lato";
+                  color: #666666;
+                  @include ellipsis(
+                    $font-size: 18px,
+                    $line-height: 1.5,
+                    $lines-to-show: 1
+                  );
+                  width: 100%;
+                }
+              }
+            }
+
+            .dca-course-map-collection-container {
+              display: none;
+
+              .no-collection {
+                text-align: center;
+                font-size: 15px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+              }
+
+              .collection-load-spinner {
+                height: 50px;
+                display: inline-flex;
+                align-items: center;
+                width: 100%;
+
+                .three-bounce-spinner {
+                  margin: 0 auto;
+                }
+              }
+
+              .dca-course-map-collection {
+                &:last-child {
+                  .dca-course-map-collection-panel {
+                    border-bottom: 1px solid #e3e5ea;
+                  }
+                }
+
+                .dca-course-map-collection-panel {
+                  height: 50px;
+                  background: #fff;
+                  display: inline-grid;
+                  width: 100%;
+                  grid-template-columns: 120px 1fr 90px 80px;
+                  align-items: center;
+
+                  .collection-img-container {
+                    padding-left: 30px;
+
+                    img {
+                      padding-top: 5px;
+                      width: 70px;
+                      height: 50px;
+                      padding-bottom: 5px;
+                    }
+                  }
+
+                  .collection-title-container {
+                    display: inline-flex;
+                    align-items: center;
+                    cursor: pointer;
+
+                    i {
+                      width: 20px;
+                      height: 20px;
+                      background-repeat: no-repeat;
+                      background-size: 20px 20px;
+                      padding-left: 20px;
+                      opacity: 0.8;
+                    }
+
+                    .collection-icon {
+                      background-image: url("../assets/gooru/images/add_collection.svg");
+                    }
+
+                    .assessment-external-icon,
+                    .assessment-icon {
+                      background-image: url("../assets/gooru/images/add_assessment.svg");
+                    }
+
+                    p {
+                      margin: 0;
+                      padding: 0 20px;
+                      font-family: "Open Sans";
+                      color: #545e66;
+                      @include ellipsis(
+                        $font-size: 15px,
+                        $line-height: 2,
+                        $lines-to-show: 1
+                      );
+                      width: 100%;
+                    }
+                  }
+
+                  .collection-content-counts {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: space-evenly;
+
+                    .resource-count {
+                      width: 40px;
+                      display: inline-grid;
+                      align-items: center;
+                      grid-template-columns: 50% 50%;
+                      justify-items: center;
+
+                      .resource-icon {
+                        width: 20px;
+                        height: 20px;
+                        background-repeat: no-repeat;
+                        background-size: 20px 20px;
+                        background-image: url("../assets/gooru/images/add_resource_icon.svg");
+                        opacity: 0.8;
+                      }
+                    }
+
+                    .question-count {
+                      width: 40px;
+                      display: inline-grid;
+                      align-items: center;
+                      grid-template-columns: 50% 50%;
+                      justify-items: center;
+
+                      .question-icon {
+                        width: 20px;
+                        height: 20px;
+                        background-repeat: no-repeat;
+                        background-size: 20px 20px;
+                        background-image: url("../assets/gooru/images/add_question.svg");
+                        opacity: 0.8;
+                      }
+                    }
+
+                    .external-icon {
+                      width: 20px;
+                      height: 20px;
+                      background-repeat: no-repeat;
+                      background-size: 20px 20px;
+                      background-image: url("../assets/gooru/share.png");
+                    }
+                  }
+
+                  .collection-action-btns {
+                    display: inline-flex;
+                    align-items: center;
+                    height: 100%;
+
+                    .schedule-dca-content {
+                      border-left: 1px solid #e3e5ea;
+                      height: 100%;
+                      display: inline-flex;
+                      border-right: 1px solid #e3e5ea;
+                      width: 40px;
+                      align-items: center;
+                      justify-content: center;
+                      cursor: pointer;
+
+                      .update {
+                        font-size: 20px;
+                      }
+                    }
+
+                    .add-dca-content {
+                      height: 100%;
+                      display: inline-flex;
+                      border-right: 1px solid #e3e5ea;
+                      width: 40px;
+                      align-items: center;
+                      justify-content: center;
+                      cursor: pointer;
+                      position: relative;
+
+                      .add {
+                        font-size: 20px;
+                        position: absolute;
+                      }
+
+                      .done {
+                        visibility: hidden;
+                        opacity: 0;
+                        transition: visibility 0s 0.5s, opacity 0.5s linear;
+                        color: #4d9840;
+                        font-size: 20px;
+                        position: absolute;
+                      }
+
+                      &.added {
+                        pointer-events: none;
+
+                        .add {
+                          visibility: hidden;
+                          opacity: 0;
+                        }
+
+                        .done {
+                          visibility: visible;
+                          opacity: 1;
+                          transition: opacity 0.5s linear;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
