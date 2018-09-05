@@ -122,6 +122,11 @@
   }}
 {{/if}}
 
+
+{{#if showOpenEndedPullup}}
+  {{reports.pull-up.open-ended-report-pull-up collectionTitle=assessmentResult.collection.title showPullUp=showOpenEndedPullup context=freeResponseContextParams}}
+{{/if}}
+
 {{#if isLoading}}
   <div class="loading-spinner">
     {{three-bounce-spinner}}
