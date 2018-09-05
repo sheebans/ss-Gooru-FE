@@ -8,33 +8,6 @@ moduleForService(
   {}
 );
 
-test('addActivityToClass', function(assert) {
-  const service = this.subject();
-
-  assert.expect(5);
-
-  service.set(
-    'classActivityAdapter',
-    Ember.Object.create({
-      addActivityToClass: function(classId, contentId, contentType, context) {
-        assert.equal(classId, 123, 'Wrong class id');
-        assert.equal(contentId, 321, 'Wrong content id');
-        assert.equal(contentType, 'assessment', 'Wrong content type');
-        assert.equal(context, 'any context', 'Wrong context');
-        return Ember.RSVP.resolve(true);
-      }
-    })
-  );
-
-  var done = assert.async();
-  service
-    .addActivityToClass(123, 321, 'assessment', 'any context')
-    .then(function(response) {
-      assert.ok(response, 'fake-response', 'Wrong response');
-      done();
-    });
-});
-
 test('enableClassActivity', function(assert) {
   const service = this.subject();
 
@@ -116,109 +89,6 @@ test('findClassActivities', function(assert) {
     )
     .then(function(response) {
       assert.deepEqual(response, [1, 2, 3], 'Wrong response');
-      done();
-    });
-});
-
-test('findClassActivitiesPerformanceSummary', function(assert) {
-  assert.expect(11);
-
-  const service = this.subject();
-
-  service.set(
-    'performanceService',
-    Ember.Object.create({
-      findClassActivityPerformanceSummaryByIds: function(
-        classId,
-        activityIds,
-        activityType,
-        startDate,
-        endDate
-      ) {
-        //this method is called twice, one for assessment and one for collection
-        assert.equal(classId, 123, 'Wrong class id');
-        assert.equal(startDate, 'fake-start-date', 'Wrong start date');
-        assert.equal(endDate, 'fake-end-date', 'Wrong end date');
-
-        let performanceItems = [];
-        if (activityType === 'assessment') {
-          assert.deepEqual(
-            activityIds,
-            [1, 2],
-            'Wrong activity|assessment ids'
-          );
-          performanceItems = [
-            //activity performance summary items
-            Ember.Object.create({
-              date: 'fake-date-1',
-              collectionPerformanceSummary: Ember.Object.create({
-                collectionId: 1,
-                score: 100
-              })
-            }),
-            Ember.Object.create({
-              date: 'fake-date-2',
-              collectionPerformanceSummary: Ember.Object.create({
-                collectionId: 2,
-                score: 50
-              })
-            })
-          ];
-        } else {
-          assert.deepEqual(activityIds, [3], 'Wrong collection ids');
-          performanceItems = [
-            //activity performance summary items
-            Ember.Object.create({
-              date: 'fake-date-3',
-              collectionPerformanceSummary: Ember.Object.create({
-                collectionId: 3,
-                score: 25
-              })
-            })
-          ];
-        }
-        return Ember.RSVP.resolve(performanceItems);
-      }
-    })
-  );
-
-  const classActivities = [
-    Ember.Object.create({
-      collection: Ember.Object.create({ isAssessment: true, id: 1 })
-    }),
-    Ember.Object.create({
-      collection: Ember.Object.create({ isAssessment: true, id: 2 })
-    }),
-    Ember.Object.create({
-      collection: Ember.Object.create({ isCollection: true, id: 3 })
-    })
-  ];
-  var done = assert.async();
-  service
-    .findClassActivitiesPerformanceSummary(
-      123,
-      classActivities,
-      'fake-start-date',
-      'fake-end-date'
-    )
-    .then(function(response) {
-      const classActivity = response[0];
-      assert.ok(
-        classActivity.get('activityPerformanceSummary'),
-        'Missing activity performance summary'
-      );
-      assert.equal(
-        classActivity.get('activityPerformanceSummary.date'),
-        'fake-date-1',
-        'Wrong date'
-      );
-      assert.equal(
-        classActivity.get(
-          'activityPerformanceSummary.collectionPerformanceSummary.score'
-        ),
-        100,
-        'Wrong score'
-      );
       done();
     });
 });
@@ -347,13 +217,22 @@ test('findStudentActivitiesPerformanceSummary', function(assert) {
 
   const classActivities = [
     Ember.Object.create({
-      collection: Ember.Object.create({ isAssessment: true, id: 1 })
+      collection: Ember.Object.create({
+        isAssessment: true,
+        id: 1
+      })
     }),
     Ember.Object.create({
-      collection: Ember.Object.create({ isAssessment: true, id: 2 })
+      collection: Ember.Object.create({
+        isAssessment: true,
+        id: 2
+      })
     }),
     Ember.Object.create({
-      collection: Ember.Object.create({ isCollection: true, id: 3 })
+      collection: Ember.Object.create({
+        isCollection: true,
+        id: 3
+      })
     })
   ];
   var done = assert.async();

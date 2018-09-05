@@ -51,3 +51,12 @@
 {{#if isShowStudentReport}}
   {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportData model=studentReportData.lesson isStudent=studentReportData.isStudent onClosePullUp="onClosePullUp"}}
 {{/if}}
+
+{{#if isShowStudentExternalAssessmentReport}}
+  {{
+    reports.pull-up.student-external-assessment-report
+    reportData=studentReportData
+    isStudent=studentReportData.isStudent
+    onClosePullUp="onClosePullUp"
+  }}
+{{/if}}

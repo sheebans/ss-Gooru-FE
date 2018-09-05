@@ -169,7 +169,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
       metadata: metadata,
       audience: metadata.audience && metadata.audience.length > 0 ? metadata.audience : [],
       useCase: payload.use_case,
-      version: payload.version
+      version: payload.version,
+      aggregatedTaxonomy: payload.aggregated_taxonomy ? payload.aggregated_taxonomy : null
       // TODO More properties will be added here...
     });
   },

@@ -79,6 +79,7 @@ export function aggregateClassActivityPerformanceSummaryItems(
       );
       const aggregatedActivity = ActivityPerformanceSummary.create({
         date: new Date(date),
+        activation_date: moment(date).format('YYYY-MM-DD'),
         collectionPerformanceSummary: aggregateCollectionPerformanceSummaryItems(
           collectionPerformanceSummaryItems
         )

@@ -50,8 +50,9 @@ export default Ember.Service.extend({
       service
         .get('classActivityAdapter')
         .addActivityToClass(classId, contentId, contentType, addedDate, context)
-        .then(function() {
-          resolve(true);
+        .then(function(responseData, textStatus, request) {
+          let newContentId = request.getResponseHeader('location');
+          resolve(newContentId);
         }, reject);
     });
   },
@@ -215,56 +216,54 @@ export default Ember.Service.extend({
         .filterBy('collection.isCollection')
         .mapBy('collection.id');
       const performanceService = service.get('performanceService');
-      Ember.RSVP
-        .hash({
-          activityCollectionPerformanceSummaryItems: collectionIds.length
-            ? performanceService.findStudentActivityPerformanceSummaryByIds(
-              userId,
-              classId,
-              collectionIds,
-              'collection',
-              startDate,
-              endDate
-            )
-            : [],
-          activityAssessmentPerformanceSummaryItems: assessmentIds.length
-            ? performanceService.findStudentActivityPerformanceSummaryByIds(
-              userId,
-              classId,
-              assessmentIds,
-              'assessment',
-              startDate,
-              endDate
-            )
-            : []
-        })
-        .then(function(hash) {
-          const activityCollectionPerformanceSummaryItems =
-            hash.activityCollectionPerformanceSummaryItems;
-          const activityAssessmentPerformanceSummaryItems =
-            hash.activityAssessmentPerformanceSummaryItems;
+      Ember.RSVP.hash({
+        activityCollectionPerformanceSummaryItems: collectionIds.length
+          ? performanceService.findStudentActivityPerformanceSummaryByIds(
+            userId,
+            classId,
+            collectionIds,
+            'collection',
+            startDate,
+            endDate
+          )
+          : [],
+        activityAssessmentPerformanceSummaryItems: assessmentIds.length
+          ? performanceService.findStudentActivityPerformanceSummaryByIds(
+            userId,
+            classId,
+            assessmentIds,
+            'assessment',
+            startDate,
+            endDate
+          )
+          : []
+      }).then(function(hash) {
+        const activityCollectionPerformanceSummaryItems =
+          hash.activityCollectionPerformanceSummaryItems;
+        const activityAssessmentPerformanceSummaryItems =
+          hash.activityAssessmentPerformanceSummaryItems;
 
-          classActivities.forEach(function(classActivity) {
-            const collection = classActivity.get('collection');
-            if (collection) {
-              const activityPerformanceSummary = collection.get('isAssessment')
-                ? activityAssessmentPerformanceSummaryItems.findBy(
-                  'collectionPerformanceSummary.collectionId',
-                  collection.get('id')
-                )
-                : activityCollectionPerformanceSummaryItems.findBy(
-                  'collectionPerformanceSummary.collectionId',
-                  collection.get('id')
-                );
-              classActivity.set(
-                'activityPerformanceSummary',
-                activityPerformanceSummary
+        classActivities.forEach(function(classActivity) {
+          const collection = classActivity.get('collection');
+          if (collection) {
+            const activityPerformanceSummary = collection.get('isAssessment')
+              ? activityAssessmentPerformanceSummaryItems.findBy(
+                'collectionPerformanceSummary.collectionId',
+                collection.get('id')
+              )
+              : activityCollectionPerformanceSummaryItems.findBy(
+                'collectionPerformanceSummary.collectionId',
+                collection.get('id')
               );
-            }
-          });
+            classActivity.set(
+              'activityPerformanceSummary',
+              activityPerformanceSummary
+            );
+          }
+        });
 
-          resolve(classActivities);
-        }, reject);
+        resolve(classActivities);
+      }, reject);
     });
   },
 
@@ -291,53 +290,41 @@ export default Ember.Service.extend({
         .filterBy('collection.isCollection')
         .mapBy('collection.id');
       const performanceService = service.get('performanceService');
-      Ember.RSVP
-        .hash({
-          activityCollectionPerformanceSummaryItems: collectionIds.length
-            ? performanceService.findClassActivityPerformanceSummaryByIds(
-              classId,
-              collectionIds,
-              'collection',
-              startDate,
-              endDate
-            )
-            : [],
-          activityAssessmentPerformanceSummaryItems: assessmentIds.length
-            ? performanceService.findClassActivityPerformanceSummaryByIds(
-              classId,
-              assessmentIds,
-              'assessment',
-              startDate,
-              endDate
-            )
-            : []
-        })
-        .then(function(hash) {
-          const activityCollectionPerformanceSummaryItems =
-            hash.activityCollectionPerformanceSummaryItems;
-          const activityAssessmentPerformanceSummaryItems =
-            hash.activityAssessmentPerformanceSummaryItems;
-          classActivities.forEach(function(classActivity) {
-            const collection = classActivity.get('collection');
-            if (collection) {
-              const activityPerformanceSummary = collection.get('isAssessment')
-                ? activityAssessmentPerformanceSummaryItems.findBy(
-                  'collectionPerformanceSummary.collectionId',
-                  collection.get('id')
-                )
-                : activityCollectionPerformanceSummaryItems.findBy(
-                  'collectionPerformanceSummary.collectionId',
-                  collection.get('id')
-                );
-              classActivity.set(
-                'activityPerformanceSummary',
-                activityPerformanceSummary
-              );
-            }
-          });
+      Ember.RSVP.hash({
+        activityCollectionPerformanceSummaryItems: collectionIds.length
+          ? performanceService.findClassActivityPerformanceSummaryByIds(
+            classId,
+            collectionIds,
+            'collection',
+            startDate,
+            endDate
+          )
+          : [],
+        activityAssessmentPerformanceSummaryItems: assessmentIds.length
+          ? performanceService.findClassActivityPerformanceSummaryByIds(
+            classId,
+            assessmentIds,
+            'assessment',
+            startDate,
+            endDate
+          )
+          : []
+      }).then(function(hash) {
+        let performances = hash.activityCollectionPerformanceSummaryItems.concat(
+          hash.activityAssessmentPerformanceSummaryItems
+        );
+        performances.forEach(performance => {
+          let classActivity = classActivities.findBy(
+            'activation_date',
+            performance.get('activation_date')
+          );
+          if (classActivity) {
+            classActivity.set('activityPerformanceSummary', performance);
+          }
+        });
 
-          resolve(classActivities);
-        }, reject);
+        resolve(classActivities);
+      }, reject);
     });
   },
   /**
@@ -363,87 +350,85 @@ export default Ember.Service.extend({
         .filterBy('collection.isCollection')
         .mapBy('collection.id');
       const performanceService = service.get('performanceService');
-      Ember.RSVP
-        .hash({
-          activityCollectionPerformanceSummaryItems: collectionIds.length
-            ? performanceService.findClassActivityPerformanceSummaryByIds(
-              classId,
-              collectionIds,
-              'collection',
-              startDate,
-              endDate
-            )
-            : [],
-          activityAssessmentPerformanceSummaryItems: assessmentIds.length
-            ? performanceService.findClassActivityPerformanceSummaryByIds(
-              classId,
-              assessmentIds,
-              'assessment',
-              startDate,
-              endDate
-            )
-            : []
-        })
-        .then(function(hash) {
-          const activityCollectionPerformanceSummaryItems =
-            hash.activityCollectionPerformanceSummaryItems;
-          const activityAssessmentPerformanceSummaryItems =
-            hash.activityAssessmentPerformanceSummaryItems;
-          classActivities.forEach(function(classActivity) {
-            const collection = classActivity.get('collection');
+      Ember.RSVP.hash({
+        activityCollectionPerformanceSummaryItems: collectionIds.length
+          ? performanceService.findClassActivityPerformanceSummaryByIds(
+            classId,
+            collectionIds,
+            'collection',
+            startDate,
+            endDate
+          )
+          : [],
+        activityAssessmentPerformanceSummaryItems: assessmentIds.length
+          ? performanceService.findClassActivityPerformanceSummaryByIds(
+            classId,
+            assessmentIds,
+            'assessment',
+            startDate,
+            endDate
+          )
+          : []
+      }).then(function(hash) {
+        const activityCollectionPerformanceSummaryItems =
+          hash.activityCollectionPerformanceSummaryItems;
+        const activityAssessmentPerformanceSummaryItems =
+          hash.activityAssessmentPerformanceSummaryItems;
+        classActivities.forEach(function(classActivity) {
+          const collection = classActivity.get('collection');
 
-            if (collection) {
-              let activityPerformanceSummary = null;
-              classActivity.set('activityPerformanceSummary', {});
-              if (collection.get('isAssessment')) {
-                activityAssessmentPerformanceSummaryItems.forEach(function(
-                  performance
+          if (collection) {
+            let activityPerformanceSummary = null;
+            classActivity.set('activityPerformanceSummary', {});
+            if (collection.get('isAssessment')) {
+              activityAssessmentPerformanceSummaryItems.forEach(function(
+                performance
+              ) {
+                var effectiveDate = new Date(classActivity.date);
+                var endDate = new Date(performance.date);
+                if (
+                  effectiveDate.getDay() === endDate.getDay() &&
+                  effectiveDate.getMonth() === endDate.getMonth() &&
+                  effectiveDate.getFullYear() === endDate.getFullYear()
                 ) {
-                  var effectiveDate = new Date(classActivity.date);
-                  var endDate = new Date(performance.date);
                   if (
-                    effectiveDate.getDay() === endDate.getDay() &&
-                    effectiveDate.getMonth() === endDate.getMonth() &&
-                    effectiveDate.getFullYear() === endDate.getFullYear()
+                    performance.get(
+                      'collectionPerformanceSummary.collectionId'
+                    ) === collection.get('id')
                   ) {
-                    if (
-                      performance.get(
-                        'collectionPerformanceSummary.collectionId'
-                      ) === collection.get('id')
-                    ) {
-                      activityPerformanceSummary = performance;
-                    }
+                    activityPerformanceSummary = performance;
                   }
-                });
-              } else {
-                activityCollectionPerformanceSummaryItems.forEach(function(
-                  performance
+                }
+              });
+            } else {
+              activityCollectionPerformanceSummaryItems.forEach(function(
+                performance
+              ) {
+                var effectiveDate = new Date(classActivity.date);
+                var endDate = new Date(performance.date);
+                if (
+                  effectiveDate.getDay() === endDate.getDay() &&
+                  effectiveDate.getMonth() === endDate.getMonth() &&
+                  effectiveDate.getFullYear() === endDate.getFullYear()
                 ) {
-                  var effectiveDate = new Date(classActivity.date);
-                  var endDate = new Date(performance.date);
                   if (
-                    effectiveDate.getDay() === endDate.getDay() &&
-                    effectiveDate.getMonth() === endDate.getMonth() &&
-                    effectiveDate.getFullYear() === endDate.getFullYear()
+                    performance.get(
+                      'collectionPerformanceSummary.collectionId'
+                    ) === collection.get('id')
                   ) {
-                    if (
-                      performance.get(
-                        'collectionPerformanceSummary.collectionId'
-                      ) === collection.get('id')
-                    ) {
-                      activityPerformanceSummary = performance;
-                    }
+                    activityPerformanceSummary = performance;
                   }
-                });
-              }
-              classActivity.set(
-                'activityPerformanceSummary',
-                activityPerformanceSummary
-              );
+                }
+              });
             }
-          });
-          resolve(classActivities);
-        }, reject);
+            classActivity.set(
+              'activityPerformanceSummary',
+              activityPerformanceSummary
+            );
+          }
+        });
+        resolve(classActivities);
+      }, reject);
     });
   },
 

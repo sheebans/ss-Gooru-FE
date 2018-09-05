@@ -266,8 +266,15 @@ export default Ember.Controller.extend({
      */
     collectionReport(params) {
       let controller = this;
+      let reportType = params.type;
+      if (reportType === 'assessment-external') {
+        controller.set('isShowStudentExternalAssessmentReport', true);
+        controller.set('isShowStudentReport', false);
+      } else {
+        controller.set('isShowStudentExternalAssessmentReport', false);
+        controller.set('isShowStudentReport', true);
+      }
       controller.set('studentReportContextData', params);
-      controller.set('isShowStudentReport', true);
     },
 
     /**
@@ -276,6 +283,7 @@ export default Ember.Controller.extend({
     onClosePullUp() {
       let controller = this;
       controller.set('isShowStudentReport', false);
+      controller.set('isShowStudentExternalAssessmentReport', false);
     },
 
     /**
@@ -296,6 +304,25 @@ export default Ember.Controller.extend({
       params.isStudent = false;
       params.isTeacher = true;
       this.set('studentLessonReportContext', params);
+    },
+
+    /**
+     * Action triggered when open a student's course report
+     */
+    onOpenStudentCourseReport(student) {
+      let controller = this;
+      let params = Ember.Object.create({
+        userId: student.id,
+        classId: controller.get('class.id'),
+        class: controller.get('class'),
+        courseId: controller.get('course.id'),
+        course: controller.get('course'),
+        isTeacher: true,
+        isStudent: false,
+        loadUnitsPerformance: true
+      });
+      controller.set('studentCourseReportContext', params);
+      controller.set('showCourseReport', true);
     }
   },
 

@@ -20,6 +20,11 @@ export default Ember.Controller.extend({
       this.openTeacherCourseReport();
     },
 
+    onOpenCompetencyReport() {
+      let controller = this;
+      controller.set('isShowCompetencyReport', true);
+    },
+
     /**
      * Collapses the header section
      * @param {boolean} state
@@ -38,13 +43,6 @@ export default Ember.Controller.extend({
      */
     backToClassReport: function() {
       this.get('router').transitionTo(this.get('backUrls'));
-    },
-    profileTeacher: function(teacher) {
-      let controller = this;
-      let teacherId = teacher.get('id');
-      let classId = controller.get('class.id');
-      localStorage.setItem('classId', classId);
-      this.transitionToRoute(`/${teacherId}/about?classId=${classId}`);
     },
 
     /**

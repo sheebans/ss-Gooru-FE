@@ -54,6 +54,21 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
+
+    /**
+     * Action triggered when select a student report
+     */
+    studentReport(collection, user) {
+      let studentPerformance = {
+        score: user.score,
+        hasStarted: user.hasStarted
+      };
+      this.sendAction('studentReport', collection, user.id, studentPerformance);
+    },
+
+    /**
+     * Action triggered when sort by student first name
+     */
     sortByFirstName() {
       let component = this;
       component.toggleProperty('sortByFirstnameEnabled');
@@ -73,6 +88,9 @@ export default Ember.Component.extend({
       }
     },
 
+    /**
+     * Action triggered when sort by student last name
+     */
     sortByLastName() {
       let component = this;
       component.toggleProperty('sortByLastnameEnabled');
@@ -92,6 +110,9 @@ export default Ember.Component.extend({
       }
     },
 
+    /**
+     * Action triggered when sort by student score
+     */
     sortByScore() {
       let component = this;
       component.toggleProperty('sortByScoreEnabled');
@@ -100,6 +121,41 @@ export default Ember.Component.extend({
       } else {
         component.set('studentReportData', component.get('studentReportData').sortBy('score'));
       }
+    },
+
+    /**
+     * Action triggered when de-select a student
+     */
+    onDeSelectUser(student) {
+      this.get('studentsSelectedForSuggest').removeObject(student);
+      student.set('selectedForSuggestion', false);
+    },
+
+    /**
+     * Action triggered when select a student
+     */
+    onSelectUser(student) {
+      this.get('studentsSelectedForSuggest').pushObject(student);
+      student.set('selectedForSuggestion', true);
+    },
+
+    /**
+     * Action triggered when open suggestion popup
+     */
+    onOpenSuggestionPullup() {
+      this.set('showSuggestionPullup', true);
+    },
+
+    /**
+     * Action triggered when close suggestion popup
+     */
+    onCloseSuggest() {
+      this.set('studentsSelectedForSuggest', Ember.A());
+      this.get('studentReportData')
+        .filterBy('selectedForSuggestion', true)
+        .map(data => {
+          data.set('selectedForSuggestion', false);
+        });
     }
   }
 });
