@@ -3,7 +3,6 @@
   position: fixed;
   height: 104px;
   color: $white;
-
   //Study player header will not be clickable, if show confirmation popup is active
   &.non-clickable {
     .gru-study-navbar {
@@ -17,7 +16,7 @@
 
   .header-panel {
     .course-info {
-      padding: 0px;
+      padding: 0;
 
       .course-map {
         width: 75px;
@@ -56,19 +55,15 @@
         .title {
           $line-height: 1.3;
           $lines-to-show: 2;
-
           @include ellipsis(
             $font-size: 16px,
             $line-height: $line-height,
             $lines-to-show: 2,
             $excerpt-bg: $blue-400
           );
-
           position: relative;
           text-align: center;
-
           @include translateY(-50%);
-
           top: 50%;
           padding-left: 15px;
           padding-right: 15px;
@@ -85,8 +80,8 @@
     }
 
     .suggest-performance {
-      padding: 0px;
-      margin: 0px;
+      padding: 0;
+      margin: 0;
 
       .suggest-player {
         width: calc(100% - 366px);
@@ -105,11 +100,10 @@
               pointer-events: none;
             }
           }
-
           opacity: 1;
 
-          :hover,
-          :focus {
+          :focus,
+          :hover {
             opacity: 1;
           }
         }
@@ -140,7 +134,6 @@
                 left: 50%;
               }
             }
-
             @media all and (transform-3d), (-webkit-transform-3d) {
               > .item {
                 // use your favourite prefixer here
@@ -158,9 +151,7 @@
           margin-right: 10px;
           float: $tab-float-dir;
           position: relative;
-
           @include translateY(-50%);
-
           top: 50%;
         }
 
@@ -171,13 +162,9 @@
 
           .title {
             $line-height: 1.3;
-
             position: relative;
-
             @include translateY(-50%);
-
             top: 50%;
-
             @include ellipsis(
               $font-size: 16px,
               $line-height: $line-height,
@@ -192,19 +179,14 @@
           width: 100%;
 
           p {
-            margin-bottom: 0px;
+            margin-bottom: 0;
             position: relative;
-
             @include translateY(-50%);
-
             top: 50%;
-
             $line-height: 1.3;
             $lines-to-show: 2;
-
             opacity: 0.5;
             text-align: center;
-
             @include ellipsis(
               $font-size: 16px,
               $line-height: $line-height,
@@ -327,7 +309,7 @@
     height: 40px;
     position: fixed;
     top: 52px;
-    left: 0px;
+    left: 0;
     background-color: $white;
     display: inline-block;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
@@ -350,27 +332,20 @@
   }
 }
 
-.gru-study-navbar ul.nav-pills li a,
-.gru-study-navbar ul.nav-bar li a {
-  color: white !important;
-  opacity: 0.3;
-}
-
-.gru-study-navbar ul.nav-pills li.vactive,
-.gru-study-navbar ul.nav-bar li.vactive a {
-  color: white !important;
-  opacity: 1;
-}
-
+.gru-study-navbar ul.nav-bar li.vactive a,
 .gru-study-navbar ul.nav-pills li.vactive a,
-.gru-study-navbar ul.nav-bar li.vactive a {
-  color: white !important;
-  opacity: 1;
+.gru-study-navbar ul.nav-pills li:hover a {
+  color: #ffff00 !important;
+
+  .dca-pin {
+    background-image: url("gooru/images/dca-yellow.svg");
+  }
 }
 
 .gru-study-navbar .study-player-brand {
   padding: 0 8px;
   background-color: $white;
+
   a {
     background-image: url("gooru/images/gooru-logo.svg");
     background-repeat: no-repeat;
@@ -379,7 +354,9 @@
     height: 30px !important;
     top: 18px;
     opacity: 1 !important;
-    &:hover, &:focus {
+
+    &:focus,
+    &:hover {
       background-color: $white !important;
     }
   }

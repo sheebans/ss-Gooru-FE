@@ -22,7 +22,7 @@
 
       > .title {
         width: 85%;
-        padding: 6px 6px;
+        padding: 6px;
 
         a {
           color: $white;
@@ -246,11 +246,13 @@
               margin: 4px 11px 0 0;
 
               i {
-                background: url("gooru/images/teacher-landing-class-report.svg");
+                background: url("gooru/images/account-circle.svg");
                 width: 15.2px;
                 height: 15.8px;
                 display: block;
                 object-fit: contain;
+                background-repeat: no-repeat;
+                background-size: 16px;
               }
             }
           }
@@ -266,9 +268,6 @@
         height: 93px;
         vertical-align: top;
         border-bottom-right-radius: 4px;
-        &.not-started {
-          pointer-events: none;
-        }
 
         .code {
           .title {
@@ -299,6 +298,7 @@
           line-height: 56px;
           font-weight: 900;
         }
+
         .no-percentage {
           text-align: center;
           width: 125px;

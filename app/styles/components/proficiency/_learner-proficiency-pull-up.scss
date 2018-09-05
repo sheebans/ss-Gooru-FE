@@ -128,7 +128,15 @@
               margin-right: 8.4px;
             }
 
-            .shadow-box {
+            .box-baseline {
+              width: 18px;
+              height: 5px;
+              margin-top: 4px;
+              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+              margin-right: 8.4px;
+            }
+
+            .box-skyline {
               width: 18px;
               height: 10px;
               box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
@@ -160,13 +168,13 @@
             }
 
             &.skyline {
-              .shadow-box {
+              .box-skyline {
                 background-color: $white;
               }
             }
 
             &.baseline {
-              .shadow-box {
+              .box-baseline {
                 background-color: $dark-400;
               }
             }
