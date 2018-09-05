@@ -63,6 +63,8 @@ export default Object.assign(quizzesTranslations, {
     'avg-score': 'Avg Score',
     frq: 'FRQ',
     responses: 'Responses',
+    'no-lesson-info-message': 'This unit does have any lessons.',
+    'no-collection-info-message': 'This lesson does have any collections.',
     'gooru-suggestions': 'Gooru Suggestions',
     'global-resources': 'Global Resources',
     'suggestion-made-to': 'Suggestion made to',

@@ -40,6 +40,19 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     },
 
     /**
+     * Action Triggered when course map button clicked.
+     */
+    addFromCourseMap() {
+      let controller = this;
+      let contextParams = {
+        classId: controller.get('classId'),
+        courseId: controller.get('courseId')
+      };
+      controller.set('courseMapContextParams', contextParams);
+      controller.set('showDcaCourseMapPullup', true);
+    },
+
+    /**
      * Update the  content data to  class activities
      * @param  {Object} content
      * @param  {Date} addedDate
@@ -73,14 +86,6 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         sortedDateWiseClassActivities
       );
       controller.handleContainerListScroll();
-    },
-
-    /**
-     * Route to class course map to add DCA content
-     */
-    addFromCourseMap() {
-      const classId = this.get('classId');
-      this.transitionToRoute('add-from-course-map', classId);
     },
 
     /**
@@ -173,6 +178,13 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * @property {String}
    */
   classId: Ember.computed.alias('classController.class.id'),
+
+  /**
+   * Course Id which is associated with this class
+   * @property {String}
+   */
+  courseId: Ember.computed.alias('classController.class.courseId'),
+
   /**
    * Class id
    * @property {String}
