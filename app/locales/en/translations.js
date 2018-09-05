@@ -1782,6 +1782,8 @@ export default Object.assign(quizzesTranslations, {
       mastered: 'Mastered',
       'in-progress': 'In Progress',
       'not-started': 'Not Started',
+      skyline: 'Skyline',
+      baseline: 'Baseline',
       'not-tagged':
         'The class has no course assigned or the course has not been tagged to a valid subject or standards.'
     }
