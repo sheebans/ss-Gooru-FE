@@ -260,6 +260,16 @@ export default Ember.Component.extend({
    * @type {Boolean}
    */
   showSuggestionPullup: false,
+  /**
+   * Maintains the state of show OE Report pullup
+   * @type {Boolean}
+   */
+  showOpenEndedPullup: false,
+
+  /**
+   * @property {JSON}
+   */
+  freeResponseContextParams: null,
 
   /**
    * defaultSuggestContentType
@@ -313,6 +323,31 @@ export default Ember.Component.extend({
      */
     onUpdateQuestionScore: function(data) {
       this.updateQuestionScore(data);
+    },
+
+    /**
+     * Open the Open ended question summary report
+     * @function actions:viewOEReport
+     * @param questionId {String}
+     */
+    viewOEReport: function(questionId) {
+      let component = this;
+      const context = component.getContext(component.get('reportData'));
+      const sessionId = component.get('assessmentResult.sessionId');
+      const freeResponseContextParams = {
+        collectionId: context.get('collectionId'),
+        collectionType: context.get('collectionType'),
+        studentId: context.get('userId'),
+        classId: context.get('classId'),
+        sessionId: sessionId,
+        courseId: context.get('courseId'),
+        unitId: context.get('unitId'),
+        lessonId: context.get('lessonId'),
+        questionId,
+        role: context.get('isTeacher') ? 'teacher' : 'student'
+      };
+      component.set('showOpenEndedPullup', true);
+      component.set('freeResponseContextParams', freeResponseContextParams);
     },
 
     /**
