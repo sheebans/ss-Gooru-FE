@@ -1,12 +1,14 @@
 .learner-proficiency-pull-up {
   background-color: $white;
+
   .proficiency-pull-up {
     .header {
-      height: 97px;;
+      height: 97px;
       background-color: $white;
       display: flex;
       border-bottom: 1px solid;
       padding: 9px 0 9px 20px;
+
       .left-panel {
         .avatar {
           width: 75px;
@@ -19,79 +21,157 @@
 
       .right-panel {
         width: calc(100% - 185px);
+
         .student-info {
           width: 100%;
           font-size: 18px;
           color: $dark-400;
           text-transform: capitalize;
         }
-        .taxonomy-info {
 
+        .taxonomy-info {
           display: grid;
           /* The container <div> - needed to position the dropdown content */
           .dropdown {
-              position: relative;
-              display: inline-block;
-              width: max-content;
-              .active-item {
-                display: flex;
-                cursor: pointer;
-                height: 25px;
+            position: relative;
+            display: inline-block;
+            width: max-content;
 
-                .label {
-                  min-width: 170px;
-                  font-size: 17px;
-                  font-weight: bold;
-                  color: $charcoal-grey;
-                  padding: 0;
-                  text-align: left;
-                }
-                .icon {
-                  font-size: 17px;
-                  font-weight: bold;
-                  color: $charcoal-grey;
-                }
+            .active-item {
+              display: flex;
+              cursor: pointer;
+              height: 25px;
+
+              .label {
+                min-width: 170px;
+                font-size: 17px;
+                font-weight: bold;
+                color: $charcoal-grey;
+                padding: 0;
+                text-align: left;
               }
-          }
 
+              .icon {
+                font-size: 17px;
+                font-weight: bold;
+                color: $charcoal-grey;
+              }
+            }
+          }
           /* Dropdown Content (Hidden by Default) */
           .dropdown-content {
-              display: none;
-              position: absolute;
-              background-color: $white;
-              min-width: 187px;
-              box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-              max-height: 150px;
-              overflow-y: auto;
-              z-index: 1;
-              border-top: 1px solid;
-              .list-item  {
-                height: 30px;
-                line-height: 30px;
-                padding-left: 15px;
-                cursor: pointer;
-                &:hover, &.active {
-                  background-color: $light-200;
-                }
+            display: none;
+            position: absolute;
+            background-color: $white;
+            min-width: 187px;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+            max-height: 150px;
+            overflow-y: auto;
+            z-index: 1;
+            border-top: 1px solid;
+
+            .list-item {
+              height: 30px;
+              line-height: 30px;
+              padding-left: 15px;
+              cursor: pointer;
+
+              &.active,
+              &:hover {
+                background-color: $light-200;
               }
+            }
           }
           /* Show the dropdown menu on hover */
           .dropdown:hover .dropdown-content {
-              display: block;
+            display: block;
           }
         }
       }
     }
 
     .body {
-      padding: 10px 30px 0 30px;
+      padding: 10px 30px 0;
       background-color: $white;
       height: calc(90vh - 100px);
       overflow: auto;
+
       .not-tagged {
         font-size: 15px;
         margin-top: 30px;
         text-align: center;
+      }
+
+      .proficiency-tags {
+        float: right;
+
+        .last-updated {
+          text-align: right;
+          margin-top: 15px;
+          margin-right: 30px;
+          font-size: 12px;
+        }
+
+        .proficiency-legends {
+          margin-top: 15px;
+          display: flex;
+
+          .legend {
+            display: flex;
+            margin-right: 30px;
+
+            .box {
+              display: block;
+              width: 15.6px;
+              height: 15.6px;
+              transform: rotate(90deg);
+              margin-right: 8.4px;
+            }
+
+            .shadow-box {
+              width: 18px;
+              height: 10px;
+              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+              margin-right: 8.4px;
+            }
+
+            .title {
+              line-height: 13px;
+              font-size: 12px;
+              color: $elephant-dark;
+            }
+
+            &.mastered {
+              .box {
+                background-color: $blue-400;
+              }
+            }
+
+            &.in-progress {
+              .box {
+                background-color: $in-progress;
+              }
+            }
+
+            &.not-started {
+              .box {
+                background-color: $not-started;
+              }
+            }
+
+            &.skyline {
+              .shadow-box {
+                background-color: $white;
+              }
+            }
+
+            &.baseline {
+              .shadow-box {
+                background-color: $dark-400;
+              }
+            }
+          }
+        }
       }
     }
   }
