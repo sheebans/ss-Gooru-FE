@@ -103,12 +103,8 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
      */
     selectMenuItem: function(item, classId) {
       const route = this;
-      if (item === 'report') {
-        route.transitionTo('teacher.class.course-map', classId, {
-          queryParams: {
-            tab: 'report'
-          }
-        });
+      if (item === 'students') {
+        route.transitionTo('teacher.class.students', classId);
       } else if (item === 'course-map') {
         route.transitionTo('teacher.class.course-map', classId);
       } else if (item === 'class-activities') {

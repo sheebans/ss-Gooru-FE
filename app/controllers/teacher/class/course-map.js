@@ -58,7 +58,7 @@ export default Ember.Controller.extend({
   // -------------------------------------------------------------------------
   // Attributes
 
-  queryParams: ['location', 'tab'],
+  queryParams: ['location'],
 
   /**
    * Combination of unit, lesson and resource (collection or assessment)
@@ -67,8 +67,6 @@ export default Ember.Controller.extend({
    * location='uId001+lId002+cId003'
    */
   location: '',
-
-  tab: null,
 
   isFirstLoad: true,
 
@@ -328,16 +326,6 @@ export default Ember.Controller.extend({
 
   // -------------------------------------------------------------------------
   // Events
-
-  init() {
-    const controller = this;
-    controller._super(...arguments);
-    let tab = controller.get('tab');
-    if (tab && tab === 'report') {
-      const classController = controller.get('classController');
-      classController.openTeacherCourseReport();
-    }
-  },
 
   // -------------------------------------------------------------------------
   // Observers
