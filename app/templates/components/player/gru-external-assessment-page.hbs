@@ -75,7 +75,8 @@
           </div>
           {{#if isDisableScoreEditor}}
             <div class="btn start" {{action "onStart"}}>
-              {{t 'gru-assessment-confirmation.start'}}
+              <!-- {{t 'gru-assessment-confirmation.start'}} -->
+              {{t 'gru-assessment-confirmation.continue'}}
             </div>
           {{else}}
           <div class="btn submit {{unless isValidScore 'disabled'}}" {{action "onSubmit"}}>
