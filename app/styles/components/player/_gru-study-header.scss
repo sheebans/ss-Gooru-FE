@@ -333,8 +333,13 @@
 }
 
 .gru-study-navbar ul.nav-bar li.vactive a,
-.gru-study-navbar ul.nav-pills li.vactive a {
+.gru-study-navbar ul.nav-pills li.vactive a,
+.gru-study-navbar ul.nav-pills li:hover a {
   color: #ffff00 !important;
+
+  .dca-pin {
+    background-image: url("gooru/images/dca-yellow.svg");
+  }
 }
 
 .gru-study-navbar .study-player-brand {
