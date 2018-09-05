@@ -50,9 +50,11 @@ export default Ember.Component.extend({
       notifionAddresAction.postActionHook.dismissafteraction === true
     ) {
       let dimissPromise = component.dismissNotifiocation(notin);
-      if (notifionAddresAction.postActionHook.refreshAfterDismiss) {
-        dimissPromise.then(() => component.refreshList());
-      }
+      dimissPromise.then(() => {
+        if (notifionAddresAction.postActionHook.refreshAfterDismiss) {
+          component.refreshList();
+        }
+      });
     }
     if (
       notifionAddresAction.postActionHook.navigate &&

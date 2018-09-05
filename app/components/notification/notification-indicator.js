@@ -121,19 +121,55 @@ export default Ember.Component.extend({
         type: 'teacher.override',
         action: 'explore',
         actionType: 'navigate',
-        postActionHook: { dismissafteraction: true }
+        postActionHook: {
+          dismissafteraction: true,
+          refreshAfterDismiss: false,
+          navigate: true,
+          navigationDetails: {
+            route: 'student.class.course-map',
+            queryPType: 'paramonly',
+            exactparams: 'classId',
+            queryparams: {
+              classId: 0
+            }
+          }
+        }
       },
       {
         type: 'teacher.grading.complete',
         action: 'explore',
         actionType: 'navigate',
-        postActionHook: { dismissafteraction: true }
+        postActionHook: {
+          dismissafteraction: true,
+          refreshAfterDismiss: false,
+          navigate: true,
+          navigationDetails: {
+            route: 'student.class.course-map',
+            queryPType: 'paramonly',
+            exactparams: 'classId',
+            queryparams: {
+              classId: 0
+            }
+          }
+        }
       },
       {
         type: 'student.self.report',
         action: 'explore',
         actionType: 'navigate',
-        postActionHook: { dismissafteraction: true }
+        postActionHook: {
+          dismissafteraction: true,
+          refreshAfterDismiss: false,
+          navigate: true,
+          navigationDetails: {
+            route: 'teacher.class.course-map',
+            queryPType: 'paramonly',
+            exactparams: 'classId',
+            queryparams: {
+              classId: 0
+            }
+          }
+        }
       },
       {
         type: 'student.gradable.submission',
