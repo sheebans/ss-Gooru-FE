@@ -217,6 +217,10 @@
               text-align: right;
               cursor: pointer;
               height: 20px;
+              &.no-course {
+                pointer-events: none;
+                opacity: 0.5;
+              }
 
               span {
                 font-family: "Lato";
