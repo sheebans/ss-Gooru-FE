@@ -50,13 +50,8 @@
                         </li>
                     {{/if}}
                 {{/if}}
+
             <li role="separator" class="divider"></li>
-            <li class="performance tab {{unless hasStarted 'not-started'}}" {{action 'openCourseReport'}}>
-                <a  role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.report'}} ">
-                    {{gru-icon name='insert_chart'}}
-                </a>
-            </li>
-              <li role="separator" class="divider"></li>
             {{#unless class.isArchived}}
                 <li role="separator" class="divider hidden"></li>
                 <li class="class-management tab hidden">
