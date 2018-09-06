@@ -12,10 +12,12 @@
     </span>
 {{/if}}
 {{!-- set actual props from init should not be passsed as params --}}
-{{#gru-pull-up-ex showPullUp=displayNotificationList title='' description='' showMore=false isLoading=false}}
+{{#gru-pull-up-ex showPullUp=displayNotificationList title='' description='' showMore=false isLoading=false onClosePullUp=(action "closeNotificationList")}}
     <div>
         {{notification/notification-list notificationModel=notificationModel notificationAddressAction=notificationAddressAction showNotificationList=(action "showNotificationList")
      moreItemsRemaining=moreItemsRemaining
+     closeNotificationList = (action "closeNotificationList")
+     
     dismissNotifiocation=(action "dismissNotifiocation") showMore=(action "showMore")}}
     </div>
 {{/gru-pull-up-ex}}

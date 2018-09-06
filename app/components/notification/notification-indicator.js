@@ -24,7 +24,7 @@ export default Ember.Component.extend({
    * @property {Number} number of rows to be returned by notification
    */
   rowsPerPage: Ember.computed('notificationModel.limit', function() {
-    return 2;
+    return 5;
   }),
 
   hasActiveNotifications: Ember.computed(
@@ -91,8 +91,9 @@ export default Ember.Component.extend({
         action: 'explore',
         actionType: 'navigate',
         postActionHook: {
-          dismissafteraction: false,
-          refreshAfterDismiss: true,
+          dismissPopupAfterAction: true,
+          deletenotificationuponaction: false,
+          refreshAfterDeleteNotification: true,
           navigate: true,
           navigationDetails: {
             route: 'study-player',
@@ -122,8 +123,9 @@ export default Ember.Component.extend({
         action: 'explore',
         actionType: 'navigate',
         postActionHook: {
-          dismissafteraction: true,
-          refreshAfterDismiss: false,
+          dismissPopupAfterAction: true,
+          deletenotificationuponaction: true,
+          refreshAfterDeleteNotification: false,
           navigate: true,
           navigationDetails: {
             route: 'student.class.course-map',
@@ -140,8 +142,9 @@ export default Ember.Component.extend({
         action: 'explore',
         actionType: 'navigate',
         postActionHook: {
-          dismissafteraction: true,
-          refreshAfterDismiss: false,
+          dismissPopupAfterAction: true,
+          deletenotificationuponaction: true,
+          refreshAfterDeleteNotification: false,
           navigate: true,
           navigationDetails: {
             route: 'student.class.course-map',
@@ -158,8 +161,9 @@ export default Ember.Component.extend({
         action: 'explore',
         actionType: 'navigate',
         postActionHook: {
-          dismissafteraction: true,
-          refreshAfterDismiss: false,
+          dismissPopupAfterAction: true,
+          deletenotificationuponaction: true,
+          refreshAfterDeleteNotification: false,
           navigate: true,
           navigationDetails: {
             route: 'teacher.class.course-map',
@@ -176,7 +180,8 @@ export default Ember.Component.extend({
         action: 'explore',
         actionType: 'navigate',
         postActionHook: {
-          dismissafteraction: false,
+          dismissPopupAfterAction: true,
+          deletenotificationuponaction: false,
           navigate: true,
           navigationDetails: {
             route: 'teacher.class.course-map',
@@ -315,6 +320,14 @@ export default Ember.Component.extend({
     showMore() {
       const component = this;
       return component.getNotifications();
+    },
+
+    closeNotificationList() {
+      const component = this;
+      let dataModel = component.get('notificationModel');
+      dataModel.notifications.clear();
+      component.set('notificationModel', dataModel);
+      component.set('displayNotificationList', false);
     }
   },
   // -------------------------------------------------------------------------

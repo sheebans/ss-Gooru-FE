@@ -32,8 +32,14 @@ export default Ember.Component.extend({
      */
     showMore() {
       const component = this;
-
       component.attrs.showMore();
+    },
+
+    /**
+     * Close notifiction popup , sync modal to empy such that when it opens next time its state is in sync with indicator
+     */
+    closeNotificationList() {
+      this.attrs.closeNotificationList();
     }
   },
   // -------------------------------------------------------------------------
@@ -46,12 +52,14 @@ export default Ember.Component.extend({
   postActionHook(notifionAddresAction, notin) {
     const component = this;
     if (
-      notifionAddresAction.postActionHook.dismissafteraction &&
-      notifionAddresAction.postActionHook.dismissafteraction === true
+      notifionAddresAction.postActionHook.deletenotificationuponaction &&
+      notifionAddresAction.postActionHook.deletenotificationuponaction === true
     ) {
       let dimissPromise = component.dismissNotifiocation(notin);
       dimissPromise.then(() => {
-        if (notifionAddresAction.postActionHook.refreshAfterDismiss) {
+        if (
+          notifionAddresAction.postActionHook.refreshAfterDeleteNotification
+        ) {
           component.refreshList();
         }
       });
@@ -64,6 +72,9 @@ export default Ember.Component.extend({
         notifionAddresAction.postActionHook.navigationDetails,
         notin
       ); //  let ngtnPromise =  chain ?
+    }
+    if (notifionAddresAction.postActionHook.dismissPopupAfterAction === true) {
+      component.attrs.closeNotificationList();
     }
   },
 
