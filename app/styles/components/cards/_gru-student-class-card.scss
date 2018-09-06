@@ -75,6 +75,14 @@
           padding: 0 10px;
           font-weight: bold;
         }
+        .start-studying {
+          position: absolute;
+          z-index: 10;
+          padding: 0 10px;
+          font-weight: bold;
+          bottom: 0;
+          cursor: pointer;
+        }
         .title-section {
           $line-height: 0.5;
           $lines-to-show: 2;

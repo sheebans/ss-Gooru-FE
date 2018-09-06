@@ -32,7 +32,8 @@ export default Ember.Component.extend({
     playCollection: function() {
       const component = this;
       const currentLocation = component.get('class.currentLocation');
-      this.sendAction('onPlayCollection', currentLocation);
+      let classData = component.get('class');
+      this.sendAction('onPlayCollection', currentLocation, classData);
     },
 
     /**
@@ -84,11 +85,7 @@ export default Ember.Component.extend({
    */
   showCurrentLocation: Ember.computed('class.currentLocation', function() {
     return (
-      this.get('class.currentLocation') &&
-      this.get('class.currentLocation.course') &&
-      this.get('class.currentLocation.unit') &&
-      this.get('class.currentLocation.lesson') &&
-      this.get('class.currentLocation.collection')
+      this.get('class.currentLocation')
     );
   }),
 
@@ -180,14 +177,16 @@ export default Ember.Component.extend({
    */
   currentLocationTitle: Ember.computed('class.currentLocation', function() {
     const currentLocation = this.get('class.currentLocation');
+    let pathType = currentLocation.get('pathType');
+    let prepandText = pathType === 'route0' ? 'Pre-study: ': '';
     return currentLocation
-      ? `${currentLocation.get('collection.title')},
-      ${
-  this.get('i18n').t('student-landing.class.unit').string
-} ${currentLocation.get('unitIndex') + 1},
-      ${
-  this.get('i18n').t('student-landing.class.lesson').string
-} ${currentLocation.get('lessonIndex') + 1}`
-      : '';
+      ? `${prepandText}${currentLocation.get('collectionTitle')}` : '';
+  }),
+
+  collectionType: Ember.computed('class.currentLocation', function() {
+    let component = this;
+    let currentLocation = component.get('class.currentLocation');
+    let collectionType = currentLocation.get('collectionType');
+    return collectionType === 'collection' ? 'collection' : 'assessment';
   })
 });
