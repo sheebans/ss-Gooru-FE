@@ -67,7 +67,7 @@ export default Object.assign(quizzesTranslations, {
     'no-lesson-info-message': 'This unit does have any lessons.',
     'no-collection-info-message': 'This lesson does have any collections.',
     'gooru-suggestions': 'Gooru Suggestions',
-    'global-resources': 'Global Resources',
+    'gooru-catalog': 'Gooru Catalog',
     'suggestion-made-to': 'Suggestion made to',
     'student-selected': 'Student Selected',
     'no-suggest-result-message': ' No matching content found',
