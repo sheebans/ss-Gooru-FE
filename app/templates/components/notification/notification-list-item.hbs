@@ -4,13 +4,16 @@
             <span class="suggestion-icon">
                 {{gru-icon name=notificationTypeClass  }}
             </span>
-            <span class="line-desc">{{t 'notifications.type.teacher-suggestion-title'}} {{model.ctxClassCode}}</span>
+            <span class="line-desc">
+                 {{notificationTypeTitle}}
+                </span>
             <div class="line-item-title">
                 <span class="line-suggestion-type">
                     {{gru-icon name=currentItemType }}
                 </span>
                 <span class="line-suggestion-title"> {{model.currentItemTitle}}</span>
-                <span style="display:none;"> {{model.notificationType}}</span>
+                {{!-- <span style=""> {{model.notificationType}}</span>
+                <span style=""> {{model.currentItemType}}</span> --}}
                  
             </div>
         </div>

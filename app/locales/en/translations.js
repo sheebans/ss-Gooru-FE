@@ -2652,12 +2652,25 @@ export default Object.assign(quizzesTranslations, {
     'show-more': 'SHOW MORE',
     type: {
       'teacher-suggestion-title':
-        'You have a new teacher suggestion in {{ class_tilte }}',
+        'You have a new teacher suggestion in class : {{ classTitle }}',
       'student-gradable-submission-title':
-        'You have(n) items to grade in {{ class_tilte }}',
-      'student-self-report-tilte': 'student-self-report-tilte',
-      'teacher-override-title': 'teacher-override-title',
-      'teacher-grading-complete-tilte': 'teacher-grading-complete-tilte'
+        'You have {{occurrence}} items to grade in class : {{ classTitle }}',
+      'student-self-report-tilte':
+        '{{occurrence}} Students reported performance at class : {{ classTitle }}',
+      'teacher-override-title':
+        'Teacher has corrected your submission at class : {{ classTitle }}  ',
+      'teacher-grading-complete-tilte':
+        'Teacher has graded your submission at class : {{ classTitle }}'
+    },
+    typeinclass: {
+      'teacher-suggestion-title': 'You have a new teacher suggestion',
+      'student-gradable-submission-title':
+        'You have {{occurrence}} items to grade',
+      'student-self-report-tilte':
+        '{{occurrence}} Students reported performance',
+      'teacher-override-title': 'Teacher has corrected your submission',
+      'teacher-grading-complete-tilte':
+        'Teacher has graded your submission at class'
     }
   }
 });

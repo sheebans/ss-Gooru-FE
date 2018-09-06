@@ -2,6 +2,13 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   // -------------------------------------------------------------------------
+  // Dependencies
+  /**
+   * @requires service:i18n
+   */
+  i18n: Ember.inject.service(),
+
+  // -------------------------------------------------------------------------
   // Display properties
 
   /**
@@ -31,6 +38,22 @@ export default Ember.Component.extend({
     return component.displayConstants.notificationType.find(
       ntype => ntype.type === component.get('model.notificationType')
     ).iconClass;
+  }),
+
+  /**
+   * @description Property for getting list item notification class
+   */
+  notificationTypeTitle: Ember.computed('', function() {
+    const component = this;
+    let titleType = component.model.notificationType.replace(/\./g, '-'),
+      rawTitle = `notifications.type.${titleType}-title`,
+      classTitle = component.model.ctxClassCode,
+      count = component.model.occurrence;
+    let itemTitle = component.get('i18n').t(rawTitle, {
+      classTitle: classTitle,
+      occurrence: count
+    }).string;
+    return itemTitle;
   }),
 
   /**
