@@ -116,6 +116,15 @@
           border-radius: 50%;
           background-color: $dark;
         }
+
+        .iconperformance {
+          background: url("gooru/images/teacher-landing-class-report.svg");
+          width: 50px;
+          height: 50px;
+          display: inline-block;
+          background-size: 51px;
+          object-fit: contain;
+        }
       }
 
       .line-desc {

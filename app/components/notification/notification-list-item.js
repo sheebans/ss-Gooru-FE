@@ -10,10 +10,10 @@ export default Ember.Component.extend({
   displayConstants: {
     notificationType: [
       { type: 'teacher.suggestion', iconClass: 'account_circle' },
-      { type: 'teacher.override', iconClass: 'explore' },
-      { type: 'teacher.grading.complete', iconClass: 'explore' },
-      { type: 'student.self.report', iconClass: 'explore' },
-      { type: 'student.gradable.submission', iconClass: 'explore' }
+      { type: 'teacher.override', iconClass: 'iconperformance' },
+      { type: 'teacher.grading.complete', iconClass: 'iconperformance' },
+      { type: 'student.self.report', iconClass: 'iconperformance' },
+      { type: 'student.gradable.submission', iconClass: 'iconperformance' }
     ],
     currentItemType: [
       { type: 'assessment', iconClass: 'grucount' },
