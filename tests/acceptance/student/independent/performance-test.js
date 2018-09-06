@@ -17,7 +17,7 @@ moduleForAcceptance('Acceptance | student/independent/performance', {
 test('My report', function(assert) {
   visit('/student/course/course-for-pochita-as-student');
   andThen(function() {
-    let $MyReport = find('.performance.tab a');
+    let $MyReport = find('.gru-performance-chart div');
     click($MyReport);
     andThen(function() {
       assert.equal(
