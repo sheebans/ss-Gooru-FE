@@ -379,9 +379,8 @@ export default Ember.Service.extend({
     const resourceId = params.resourceId;
     const continueCourse = !unitId;
     const startLesson = lessonId && !collectionId;
-    const pathType = params.pathType || null;
+    const pathType = params.pathType === 'null' ? null : params.pathType || null;
     const navigateMapService = this;
-
     let mapLocationPromise = null;
     const storedResponse = navigateMapService
       .getLocalStorage()

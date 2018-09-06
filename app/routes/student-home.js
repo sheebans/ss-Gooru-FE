@@ -3,7 +3,9 @@ import PrivateRouteMixin from 'gooru-web/mixins/private-route-mixin';
 import ConfigurationMixin from 'gooru-web/mixins/configuration';
 import { ROLES, PLAYER_EVENT_SOURCE } from 'gooru-web/config/config';
 import {
-  currentLocationToMapContext
+  currentLocationToMapContext,
+  createStudyPlayerQueryParams,
+  hasSuggestions
 } from 'gooru-web/utils/navigation-util';
 
 /**
@@ -45,74 +47,37 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
      * @function actions:playItem
      * @param {string} currentLocation - All the params for the currentLocation
      */
-    studyPlayer: function(currentLocation) {
+    studyPlayer: function(currentLocation, classData) {
       const route = this;
       let navigateMapService = route.get('navigateMapService');
-      let role = ROLES.STUDENT;
-      let source = PLAYER_EVENT_SOURCE.COURSE_MAP;
-      let courseId = currentLocation.get('courseId');
-      let classId = currentLocation.get('classId');
-      let unitId = currentLocation.get('unitId');
-      let lessonId = currentLocation.get('lessonId');
-      let collectionId = currentLocation.get('collectionId');
-      let collectionType = currentLocation.get('collectionType');
-      let collectionSubType = currentLocation.get(
-        'collection.collectionSubType'
-      );
-      let currentLocationStatus = currentLocation.get('status');
-      let pathId = currentLocation.get('collection.pathId') || 0;
-      let queryParams = {
-        classId,
-        unitId,
-        lessonId,
-        collectionId,
-        role,
-        source,
-        type: collectionType,
-        subtype: collectionSubType,
-        pathId
-      };
-
-      let suggestionPromise = null;
-      if (currentLocationStatus === 'complete') {
-        //content_served
-        suggestionPromise = navigateMapService.contentServedResource(
+      let classId = currentLocation ? currentLocation.get('classId') : classData.get('id');
+      let courseId = currentLocation ? currentLocation.get('courseId') : classData.get('courseId');
+      let options = {
+          role: ROLES.STUDENT,
+          source: PLAYER_EVENT_SOURCE.COURSE_MAP,
+          courseId,
+          classId
+        },
+        nextPromise = null;
+        //start studying
+      if (currentLocation == null || currentLocation === '') {
+        nextPromise = navigateMapService.continueCourse(
+          options.courseId,
+          options.classId
+        );
+      } else if (currentLocation.get('status') === 'complete') {  //completed
+        nextPromise = navigateMapService.contentServedResource(
           currentLocationToMapContext(currentLocation)
         );
-      } else {
-        // Verifies if it is a suggested Collection/Assessment
-        if (collectionSubType) {
-          suggestionPromise = route
-            .get('navigateMapService')
-            .startSuggestion(
-              courseId,
-              unitId,
-              lessonId,
-              collectionId,
-              collectionType,
-              collectionSubType,
-              pathId,
-              classId
-            );
-        } else {
-          suggestionPromise = route
-            .get('navigateMapService')
-            .startCollection(
-              courseId,
-              unitId,
-              lessonId,
-              collectionId,
-              collectionType,
-              classId
-            );
-        }
+      } else {  //in-progress
+        // Next not required, get the params from current location
+        nextPromise = route.nextPromiseHandler(
+          currentLocationToMapContext(currentLocation)
+        );
       }
-
-      suggestionPromise.then(() =>
-        route.transitionTo('study-player', courseId, {
-          queryParams
-        })
-      );
+      nextPromise.then(route.nextPromiseHandler).then(queryParams => {
+        route.transitionTo('study-player', courseId, { queryParams });
+      });
     },
 
     /**
@@ -327,7 +292,7 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
         .findClassPerformanceSummaryByStudentAndClassIds(myId, classCourseIds),
       classesLocation: route
         .get('analyticsService')
-        .getUserCurrentLocationByClassIds(classCourseIds, myId, true)
+        .getUserCurrentLocationByClassIds(classCourseIds, myId)
     }).then(function(hash) {
       const classPerformanceSummaryItems = hash.classPerformanceSummaryItems;
       const classesLocation = hash.classesLocation;
@@ -374,5 +339,21 @@ export default Ember.Route.extend(PrivateRouteMixin, ConfigurationMixin, {
    */
   deactivate: function() {
     this.controller.set('isLoading', false);
+  },
+
+  /** returns options promise chain resolving response
+   * @param
+   */
+  nextPromiseHandler(resp) {
+    let queryParams = {
+      role: ROLES.STUDENT,
+      source: PLAYER_EVENT_SOURCE.COURSE_MAP,
+      courseId: hasSuggestions(resp) ? resp.context.courseId : resp.courseId // Only in case of suggestions we dont have courseId in suggestion
+    };
+    queryParams = createStudyPlayerQueryParams(
+      hasSuggestions(resp) ? resp.suggestions[0] : resp.context || resp,
+      queryParams
+    );
+    return Ember.RSVP.resolve(queryParams);
   }
 });
