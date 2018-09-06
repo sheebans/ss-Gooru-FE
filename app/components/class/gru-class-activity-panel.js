@@ -79,14 +79,17 @@ export default Ember.Component.extend({
         .get('classActivityService')
         .addActivityToClass(classId, contentId, contentType)
         .then(newContentId => {
-          let date = moment().format('YYYY-MM-DD');
-          let data = Ember.Object.create({
-            id: newContentId,
-            added_date: date,
-            collection: content,
-            isActive: false
-          });
-          component.sendAction('addedContentToDCA', data, date);
+          if (!component.isDestroyed) {
+            let date = moment().format('YYYY-MM-DD');
+            let data = Ember.Object.create({
+              id: newContentId,
+              added_date: date,
+              collection: content,
+              isActive: false,
+              isAddedFromPanel: true
+            });
+            component.sendAction('addedContentToDCA', data, date);
+          }
         });
     }
   },

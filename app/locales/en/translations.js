@@ -62,6 +62,7 @@ export default Object.assign(quizzesTranslations, {
     more: 'more',
     'avg-score': 'Avg Score',
     frq: 'FRQ',
+    schedule: 'Schedule',
     responses: 'Responses',
     'no-lesson-info-message': 'This unit does have any lessons.',
     'no-collection-info-message': 'This lesson does have any collections.',
