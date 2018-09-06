@@ -46,7 +46,9 @@ export default Ember.Component.extend({
   notificationTypeTitle: Ember.computed('', function() {
     const component = this;
     let titleType = component.model.notificationType.replace(/\./g, '-'),
-      rawTitle = `notifications.type.${titleType}-title`,
+      rawTitle = component.inClass
+        ? `notifications.typeinclass.${titleType}-title`
+        : `notifications.type.${titleType}-title`,
       classTitle = component.model.ctxClassCode,
       count = component.model.occurrence;
     let itemTitle = component.get('i18n').t(rawTitle, {

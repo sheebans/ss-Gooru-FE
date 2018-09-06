@@ -14,7 +14,7 @@
             <ol>
                 {{#each notificationModel.notifications as |item|}}
                 <li>
-                {{notification/notification-list-item  model=item addressNotification=(action "addressItemNotification") }}
+                {{notification/notification-list-item  model=item  inClass=inClass addressNotification=(action "addressItemNotification") }}
                 </li>
                 {{/each}}
             </ol>

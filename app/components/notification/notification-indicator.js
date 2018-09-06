@@ -275,6 +275,7 @@ export default Ember.Component.extend({
         this.set('model', {});
       }
       this.set('model.isClass', value);
+      this.set('inClass', true);
       return this.set('model.notificationlocation', notificationAccesor[value]);
     }
   }),
