@@ -15,109 +15,8 @@
       {{three-bounce-spinner}}
     {{/if}}
   </div>
-  <div class="dca-content-list-container">
-    <div class="dca-future-date-list-container">
-      {{#each futureClassActivities as |futureclassActivity|}}
-        <div class="dca-date-view-container">
-          <div class="dca-date-container">
-            {{gru-icon name="update"}}
-            <span>{{format-date futureclassActivity.added_date 'MMMM DD, YYYY'}}</span>
-          </div>
-          <hr/>
-        </div>
-        <div class="dca-future-list-container">
-          {{#each futureclassActivity.classActivities as |classActivity|}}
-            {{class.gru-class-activity-panel
-              classActivity=classActivity
-              classId=classId
-              members=members
-              onReportclick='changeStatusValue'
-              onGoLive='goLive'
-              showGolive=false
-              showDcaAssignButton=false
-              showDcaRemoveButton=true
-              showDcaAddButton=true
-              onChangeVisibility='changeVisibility'
-              onRemoveClassActivity='removeClassActivity'
-              addedContentToDCA='addedContentToDCA'
-            }}
-          {{/each}}
-        </div>
-      {{/each}}
-    </div>
-    <div class="dca-todays-container">
-      <p class="dca-todays-header">{{t 'student-landing.class.class-activities-tab.today'}}</p>
-      <div class="dca-todays-action-list-container">
-        <div class="dca-todays-info-action-container">
-          <div class="dca-info-container">
-            <div class="user-profile-img">
-              <img class="img-responsive" src="{{session.userData.avatarUrl}}" />
-            </div>
-            <div class="info">
-              <p>{{t 'teacher-landing.dca-create-info'}}</p>
-            </div>
-          </div>
-          <div class="dca-action-container">
-            <div class="dca-action-buttons">
-              <p>{{t 'common.add'}}:</p>
-              <i class="collection-icon" {{action 'onAddDca' 'collection'}}></i>
-              <i class="assessment-icon" {{action 'onAddDca' 'assessment'}}></i>
-            </div>
-            <div class="dca-course-map-button {{unless courseId 'no-course'}}" {{action 'addFromCourseMap'}}>
-              <span>{{t 'common.course-map'}}</span>
-            </div>
-          </div>
-        </div>
-        <div class="dca-todays-list-container">
-          {{#each todaysClassActivities.classActivities as |classActivity|}}
-            {{class.gru-class-activity-panel
-              classActivity=classActivity
-              classId=classId
-              members=members
-              onReportclick='changeStatusValue'
-              onGoLive='goLive'
-              showGolive=true
-              showDcaAssignButton=true
-              showDcaRemoveButton=true
-              showDcaAddButton=false
-              onChangeVisibility='changeVisibility'
-              onRemoveClassActivity='removeClassActivity'
-            }}
-          {{/each}}
-        </div>
-      </div>
-    </div>
-    <div class="dca-past-date-list-container">
-      {{#each pastClassActivities as |pastclassActivity|}}
-        <div class="dca-date-view-container">
-          <div class="dca-date-container">
-            {{gru-icon name="calendar_today"}}
-            <span>{{format-date pastclassActivity.added_date 'MMMM DD, YYYY'}}</span>
-          </div>
-          <hr/>
-        </div>
-        <div class="dca-past-list-container">
-          {{#each pastclassActivity.classActivities as |classActivity|}}
-            {{class.gru-class-activity-panel
-              classActivity=classActivity
-              classId=classId
-              members=members
-              onReportclick='changeStatusValue'
-              onGoLive='goLive'
-              showGolive=false
-              showDcaAssignButton=true
-              showDcaRemoveButton=true
-              showDcaAddButton=true
-              onChangeVisibility='changeVisibility'
-              onRemoveClassActivity='removeClassActivity'
-              addedContentToDCA='addedContentToDCA'
-            }}
-          {{/each}}
-        </div>
-      {{/each}}
-    </div>
-
-    <div class="dca-nav-to-todays-dca-list">
+  <div class="dca-content-container">
+    <div class="dca-nav-to-todays-dca-list top-section">
       <div class="dca-nav-action-panel">
         <div class="dca-action-buttons">
           <p>{{t 'common.add'}}:</p>
@@ -131,6 +30,126 @@
       <div class="todays-dca-list-arrow-container">
         <div class="todays-dca-list-arrow" {{action 'showTodaysDcaListContainer'}}>
           {{gru-icon name="arrow_downward"}}
+        </div>
+        <span>{{t 'student-landing.class.class-activities-tab.today'}}</span>
+      </div>
+    </div>
+    <div class="dca-content-list-container">
+      <div class="dca-future-date-list-container">
+        {{#each futureClassActivities as |futureclassActivity|}}
+          <div class="dca-date-view-container">
+            <div class="dca-date-container">
+              {{gru-icon name="update"}}
+              <span>{{format-date futureclassActivity.added_date 'MMMM DD, YYYY'}}</span>
+            </div>
+            <hr/>
+          </div>
+          <div class="dca-future-list-container">
+            {{#each futureclassActivity.classActivities as |classActivity|}}
+              {{class.gru-class-activity-panel
+              classActivity=classActivity
+              classId=classId
+              members=members
+              onReportclick='changeStatusValue'
+              onGoLive='goLive'
+              showGolive=false
+              showDcaAssignButton=false
+              showDcaRemoveButton=true
+              showDcaAddButton=true
+              onChangeVisibility='changeVisibility'
+              onRemoveClassActivity='removeClassActivity'
+              addedContentToDCA='addedContentToDCA'
+            }}
+            {{/each}}
+          </div>
+        {{/each}}
+      </div>
+      <div class="dca-todays-container">
+        <p class="dca-todays-header">{{t 'student-landing.class.class-activities-tab.today'}}</p>
+        <div class="dca-todays-action-list-container">
+          <div class="dca-todays-info-action-container">
+            <div class="dca-info-container">
+              <div class="user-profile-img">
+                <img class="img-responsive" src="{{session.userData.avatarUrl}}" />
+              </div>
+              <div class="info">
+                <p>{{t 'teacher-landing.dca-create-info'}}</p>
+              </div>
+            </div>
+            <div class="dca-action-container">
+              <div class="dca-action-buttons">
+                <p>{{t 'common.add'}}:</p>
+                <i class="collection-icon" {{action 'onAddDca' 'collection'}}></i>
+                <i class="assessment-icon" {{action 'onAddDca' 'assessment'}}></i>
+              </div>
+              <div class="dca-course-map-button {{unless courseId 'no-course'}}" {{action 'addFromCourseMap'}}>
+                <span>{{t 'common.course-map'}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="dca-todays-list-container">
+            {{#each todaysClassActivities.classActivities as |classActivity|}}
+              {{class.gru-class-activity-panel
+              classActivity=classActivity
+              classId=classId
+              members=members
+              onReportclick='changeStatusValue'
+              onGoLive='goLive'
+              showGolive=true
+              showDcaAssignButton=true
+              showDcaRemoveButton=true
+              showDcaAddButton=false
+              onChangeVisibility='changeVisibility'
+              onRemoveClassActivity='removeClassActivity'
+            }}
+            {{/each}}
+          </div>
+        </div>
+      </div>
+      <div class="dca-past-date-list-container">
+        {{#each pastClassActivities as |pastclassActivity|}}
+          <div class="dca-date-view-container">
+            <div class="dca-date-container">
+              {{gru-icon name="calendar_today"}}
+              <span>{{format-date pastclassActivity.added_date 'MMMM DD, YYYY'}}</span>
+            </div>
+            <hr/>
+          </div>
+          <div class="dca-past-list-container">
+            {{#each pastclassActivity.classActivities as |classActivity|}}
+              {{class.gru-class-activity-panel
+              classActivity=classActivity
+              classId=classId
+              members=members
+              onReportclick='changeStatusValue'
+              onGoLive='goLive'
+              showGolive=false
+              showDcaAssignButton=true
+              showDcaRemoveButton=true
+              showDcaAddButton=true
+              onChangeVisibility='changeVisibility'
+              onRemoveClassActivity='removeClassActivity'
+              addedContentToDCA='addedContentToDCA'
+            }}
+            {{/each}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+    <div class="dca-nav-to-todays-dca-list bottom-section">
+      <div class="dca-nav-action-panel">
+        <div class="dca-action-buttons">
+          <p>{{t 'common.add'}}:</p>
+          <i class="collection-icon" {{action 'onAddDca' 'collection'}}></i>
+          <i class="assessment-icon" {{action 'onAddDca' 'assessment'}}></i>
+        </div>
+        <div class="dca-course-map-button {{unless courseId 'no-course'}}" {{action 'addFromCourseMap'}}>
+          <span>{{t 'common.course-map'}}</span>
+        </div>
+      </div>
+      <div class="todays-dca-list-arrow-container">
+        <div class="todays-dca-list-arrow" {{action 'showTodaysDcaListContainer'}}>
+          {{gru-icon name="arrow_upward"}}
         </div>
         <span>{{t 'student-landing.class.class-activities-tab.today'}}</span>
       </div>

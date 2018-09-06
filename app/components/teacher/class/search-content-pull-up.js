@@ -231,13 +231,6 @@ export default Ember.Component.extend({
 
   handleSearchBar() {
     let component = this;
-    component.$('.search-input-container').mouseleave(function() {
-      let searchText = component.$('#search-content').val();
-      if (searchText.length === 0) {
-        component.$('.search-input-container').removeClass('active');
-      }
-    });
-
     component.$('#search-content').on('keyup', function(e) {
       if (e.which === KEY_CODES.ENTER) {
         component.loadData();
@@ -248,8 +241,6 @@ export default Ember.Component.extend({
       let term = component.getSearchTerm();
       if (term.length > 0) {
         component.loadData();
-      } else {
-        component.$('.search-input-container').addClass('active');
       }
     });
   },
@@ -262,14 +253,16 @@ export default Ember.Component.extend({
     Ember.RSVP.hash({
       searchResults: component.getSearchServiceByType()
     }).then(({ searchResults }) => {
-      component.set('isLoading', false);
-      component.set('searchResults', searchResults);
-      component.$('.search-list-container').scrollTop(0);
-      if (
-        searchResults &&
-        searchResults.length === component.get('defaultSearchPageSize')
-      ) {
-        component.set('isMoreDataExists', true);
+      if (!component.isDestroyed) {
+        component.set('isLoading', false);
+        component.set('searchResults', searchResults);
+        component.$('.search-list-container').scrollTop(0);
+        if (
+          searchResults &&
+          searchResults.length === component.get('defaultSearchPageSize')
+        ) {
+          component.set('isMoreDataExists', true);
+        }
       }
     });
   },
@@ -282,14 +275,16 @@ export default Ember.Component.extend({
     Ember.RSVP.hash({
       searchResults: component.getSearchServiceByType()
     }).then(({ searchResults }) => {
-      component.set('isLoading', false);
-      let searchResult = component.get('searchResults');
-      component.set('searchResults', searchResult.concat(searchResults));
-      if (
-        searchResults &&
-        searchResults.length === component.get('defaultSearchPageSize')
-      ) {
-        component.set('isMoreDataExists', true);
+      if (!component.isDestroyed) {
+        component.set('isLoading', false);
+        let searchResult = component.get('searchResults');
+        component.set('searchResults', searchResult.concat(searchResults));
+        if (
+          searchResults &&
+          searchResults.length === component.get('defaultSearchPageSize')
+        ) {
+          component.set('isMoreDataExists', true);
+        }
       }
     });
   },

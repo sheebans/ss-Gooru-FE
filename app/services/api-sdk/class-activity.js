@@ -51,7 +51,7 @@ export default Ember.Service.extend({
         .get('classActivityAdapter')
         .addActivityToClass(classId, contentId, contentType, addedDate, context)
         .then(function(responseData, textStatus, request) {
-          let newContentId = request.getResponseHeader('location');
+          let newContentId = parseInt(request.getResponseHeader('location'));
           resolve(newContentId);
         }, reject);
     });

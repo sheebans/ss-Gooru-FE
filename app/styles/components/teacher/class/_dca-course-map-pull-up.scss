@@ -48,6 +48,7 @@
       align-items: center;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
       width: 100%;
+      position: relative;
 
       .dca-course-map-pullup-close {
         width: 70px;
@@ -118,6 +119,10 @@
           align-items: center;
           border-bottom: 1px solid #e3e5ea;
           cursor: pointer;
+          position: relative;
+          &.active {
+            box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.1);
+          }
 
           .unit-name-sequence {
             font-family: "Lato";
@@ -192,9 +197,10 @@
                 border-bottom-right-radius: 4px;
                 border-bottom: none;
               }
+
               .dca-course-map-collection-container {
                 .no-collection {
-                  padding-bottom: 0px;
+                  padding-bottom: 0;
                 }
               }
             }
