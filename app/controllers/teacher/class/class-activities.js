@@ -464,18 +464,18 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       todaysInfoActionContainerHeight -
       containerListHeight;
     if (scrollTop > containerHeight) {
-      Ember.$(todaysDcaListBottomArrowContainer).addClass('active');
+      Ember.$(todaysDcaListTopArrowContainer).addClass('active');
     } else {
-      Ember.$(todaysDcaListBottomArrowContainer).removeClass('active');
+      Ember.$(todaysDcaListTopArrowContainer).removeClass('active');
     }
 
     if (
       futureListContainerHeight + 45 > containerListHeight &&
       scrollTop < diffFutureAndTodaysContainerDistance
     ) {
-      Ember.$(todaysDcaListTopArrowContainer).addClass('active');
+      Ember.$(todaysDcaListBottomArrowContainer).addClass('active');
     } else {
-      Ember.$(todaysDcaListTopArrowContainer).removeClass('active');
+      Ember.$(todaysDcaListBottomArrowContainer).removeClass('active');
     }
   },
 
