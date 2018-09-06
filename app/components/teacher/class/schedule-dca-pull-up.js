@@ -94,13 +94,15 @@ export default Ember.Component.extend({
         .get('classActivityService')
         .addActivityToClass(classId, contentId, contentType, scheduleDate)
         .then(newContentId => {
-          component.sendAction(
-            'addedScheduleContentToDCA',
-            component.get('content'),
-            newContentId,
-            scheduleDate
-          );
-          component.closePullUp();
+          if (!component.isDestroyed) {
+            component.sendAction(
+              'addedScheduleContentToDCA',
+              component.get('content'),
+              newContentId,
+              scheduleDate
+            );
+            component.closePullUp();
+          }
         });
     }
   },
