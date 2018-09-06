@@ -146,7 +146,7 @@
               border-bottom: 1px solid #e3e5ea;
 
               .user-profile-img {
-                width: 50px;
+                width: 60px;
 
                 img {
                   width: 40px;
@@ -162,8 +162,11 @@
 
               .info {
                 p {
-                  padding: 0;
                   margin: 0;
+                  padding-left: 20px;
+                  padding-right: 20px;
+                  padding-bottom: 0px;
+                  line-height: 1.5;
                   font-family: "Lato";
                   font-size: 13px;
                   color: #b8bfc4;
@@ -322,12 +325,13 @@
         top: 0;
 
         .dca-nav-action-panel {
-          box-shadow: 0 0px 14px 10px #f1f3f7, 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 14px 10px #f1f3f7, 0 2px 4px 0 rgba(0, 0, 0, 0.2);
         }
       }
 
       &.bottom-section {
         bottom: 0;
+
         .dca-nav-action-panel {
           box-shadow: 0 -11px 14px 10px #f1f3f7, 0 2px 4px 0 rgba(0, 0, 0, 0.2);
         }

@@ -1167,7 +1167,7 @@ export default Object.assign(quizzesTranslations, {
     'latest-assessment': 'Latest Assessment',
     'create-classroom': 'Create a classroom, assign contents, invite students',
     'dca-create-info':
-      'Create a daily class activity by searching for content from the Gooru Library.',
+      'Click on the icons below and search for content from the Gooru Library to create a daily class activity. You can also add content to daily class activity from your course map by clicking on Course Map.',
     'schedule-for-later': 'Schedule For Later',
     'teach-this-activity-later': 'teach this activity later at DCA',
     'schedule-dca-instruction-1':
