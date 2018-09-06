@@ -281,7 +281,8 @@ export default Ember.Component.extend({
     return Ember.Object.create({
       id: contentId,
       added_date: date,
-      collection: content
+      collection: content,
+      isActive: false
     });
   }
 });
