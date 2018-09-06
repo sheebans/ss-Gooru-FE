@@ -99,7 +99,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         addContent.set('isNewlyAdded', true);
         Ember.run.later(function() {
           addContent.set('isNewlyAdded', false);
-        }, 5000);
+        }, 2000);
       }
     },
 
@@ -331,7 +331,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
             content.set('isNewlyAdded', false);
           });
           component.set('newlyAddedDcaContents', Ember.A());
-        }, 2000);
+        }, 5000);
       }
     }
   ),
