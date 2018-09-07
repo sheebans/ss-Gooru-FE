@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { NOTIFICATION_SETTINGS } from 'gooru-web/config/config';
 
 const notificationAccesor = {
   class: 'active-study',
@@ -23,9 +24,7 @@ export default Ember.Component.extend({
   /**
    * @property {Number} number of rows to be returned by notification
    */
-  rowsPerPage: Ember.computed('notificationModel.limit', function() {
-    return 5;
-  }),
+  rowsPerPage: NOTIFICATION_SETTINGS.polling_interval,
 
   hasActiveNotifications: Ember.computed(
     'notificationModel',
@@ -219,18 +218,11 @@ export default Ember.Component.extend({
       notificationlocation: notificationAccesor.global
     };
 
-    Ember.run.debounce(this, this.refreshSelf, 30000, true);
-    /*    const component = this;
+    const component = this;
     component.getNotifications(component.getDefaultFilter()); // Initial call, all the rest calls would be made with the setinterval
-
     this.timer = setInterval(() => {
       component.getNotifications(component.getDefaultFilter()); //Force default filter for first time load and refresh
-    }, 30000); */
-  },
-
-  refreshSelf() {
-    this.getNotifications(this.getDefaultFilter());
-    Ember.run.debounce(this, this.refreshSelf, 3000, false);
+    }, NOTIFICATION_SETTINGS.polling_interval);
   },
 
   // -------------------------------------------------------------------------
@@ -442,9 +434,25 @@ export default Ember.Component.extend({
     return filter;
   },
 
+  /**
+   * Timer based refresh of UI
+   */
+  refreshSelf() {
+    const component = this;
+    component.set('notificationModel', ''); // reset with timer, rather
+    component._debouncedItem = Ember.run.later(
+      component,
+      function() {
+        //let d = new Date(); console.log('500 ms of timeout:', d); // ToDo: revisit here
+        component.getNotifications(component.getDefaultFilter()); //Force default filter for first time load and refresh
+      },
+      30000
+    );
+  },
+
   destroy() {
     this._super(...arguments);
     clearInterval(this.timer);
-    this.timer = null;
+    //Ember.run.cancel(this._debouncedItem);
   }
 });
