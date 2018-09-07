@@ -74,6 +74,14 @@
               </li>
             {{/if}}
             <ul class="nav navbar-nav navbar-right">
+                {{#if isFeatureEnabled }}
+                <li >
+                <a style="opacity:1;">
+                        {{notification/notification-indicator accessorClass='class' class=class isTeacher=false }}
+                    </a>
+                </li>
+                {{/if}}
+                <li role="separator" class="divider"></li>
                 {{#if hasClassInfo }}
                     <li>
                         {{#if (not isPremiumClass)}}

@@ -239,7 +239,7 @@ test('hidden links as teacher', function(assert) {
   const $communityLink = $component.find('.community-link');
   assert.notOk($communityLink.length, 'Missing community link');
   const $notificationsLink = $component.find('.notifications-link');
-  assert.notOk($notificationsLink.length, 'Missing notifications link');
+  assert.ok($notificationsLink.length, 'Missing notifications link');
 });
 
 test('tools tab as teacher', function(assert) {
