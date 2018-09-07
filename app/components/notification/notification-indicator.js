@@ -218,11 +218,18 @@ export default Ember.Component.extend({
     this.model = this.model || {
       notificationlocation: notificationAccesor.global
     };
-    const component = this;
+
+    Ember.run.debounce(this, this.refreshSelf, 30000, true);
+    /*    const component = this;
     component.getNotifications(component.getDefaultFilter()); // Initial call, all the rest calls would be made with the setinterval
     this.time = setInterval(() => {
       component.getNotifications(component.getDefaultFilter()); //Force default filter for first time load and refresh
-    }, 30000);
+    }, 30000); */
+  },
+
+  refreshSelf() {
+    this.getNotifications(this.getDefaultFilter());
+    Ember.run.debounce(this, this.refreshSelf, 3000, false);
   },
 
   // -------------------------------------------------------------------------
@@ -392,10 +399,10 @@ export default Ember.Component.extend({
         newDataModel.notifications = ndt;
         component.set('notificationModel', newDataModel);
         //eslint-disable-next-line
-        console.log(
+        /* console.log(
           'hasActiveNotifications',
           component.get('hasActiveNotifications')
-        );
+        ); */
       }
     });
   },
