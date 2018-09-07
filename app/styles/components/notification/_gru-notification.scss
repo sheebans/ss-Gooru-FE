@@ -1,3 +1,10 @@
+.gruPullUp {
+  .overlay {
+    opacity: 0.8;
+    top: 64px;
+  }
+}
+
 .notification-indicator {
   position: relative;
   margin-left: -16px;
@@ -52,14 +59,14 @@
 }
 
 .pull-out-ex {
-  top: 50px;
+  top: 64px;
   left: 50px;
   position: absolute;
   color: darkgray;
 }
 
 .notification-list {
-  width: 700px;
+  width: 600px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
