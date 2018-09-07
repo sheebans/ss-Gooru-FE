@@ -193,7 +193,6 @@ export default Ember.Component.extend({
         'activeContentType',
         component.get('defaultSuggestContentType')
       );
-      component.$('.search-input-container').removeClass('active');
       component.loadData();
     }
   },
@@ -242,13 +241,6 @@ export default Ember.Component.extend({
 
   handleSearchBar() {
     let component = this;
-    component.$('.search-input-container').mouseleave(function() {
-      let searchText = component.$('#suggestion-search').val();
-      if (searchText.length === 0) {
-        component.$('.search-input-container').removeClass('active');
-      }
-    });
-
     component.$('#suggestion-search').on('keyup', function(e) {
       if (e.which === KEY_CODES.ENTER) {
         component.set('isFromSearch', true);
@@ -261,8 +253,6 @@ export default Ember.Component.extend({
       if (term.length > 0) {
         component.set('isFromSearch', true);
         component.loadData();
-      } else {
-        component.$('.search-input-container').addClass('active');
       }
     });
   },

@@ -314,10 +314,14 @@ export default Ember.Service.extend({
           hash.activityAssessmentPerformanceSummaryItems
         );
         performances.forEach(performance => {
-          let classActivity = classActivities.findBy(
-            'activation_date',
-            performance.get('activation_date')
-          );
+          let classActivity = classActivities
+            .filterBy('activation_date', performance.get('activation_date'))
+            .filterBy(
+              'collection.id',
+              performance.get('collectionPerformanceSummary.collectionId')
+            )
+            .objectAt(0);
+
           if (classActivity) {
             classActivity.set('activityPerformanceSummary', performance);
           }
