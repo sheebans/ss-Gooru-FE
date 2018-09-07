@@ -51,7 +51,7 @@ export default Ember.Service.extend({
         .get('classActivityAdapter')
         .addActivityToClass(classId, contentId, contentType, addedDate, context)
         .then(function(responseData, textStatus, request) {
-          let newContentId = request.getResponseHeader('location');
+          let newContentId = parseInt(request.getResponseHeader('location'));
           resolve(newContentId);
         }, reject);
     });
@@ -310,26 +310,16 @@ export default Ember.Service.extend({
           )
           : []
       }).then(function(hash) {
-        const activityCollectionPerformanceSummaryItems =
-          hash.activityCollectionPerformanceSummaryItems;
-        const activityAssessmentPerformanceSummaryItems =
-          hash.activityAssessmentPerformanceSummaryItems;
-        classActivities.forEach(function(classActivity) {
-          const collection = classActivity.get('collection');
-          if (collection) {
-            const activityPerformanceSummary = collection.get('isAssessment')
-              ? activityAssessmentPerformanceSummaryItems.findBy(
-                'collectionPerformanceSummary.collectionId',
-                collection.get('id')
-              )
-              : activityCollectionPerformanceSummaryItems.findBy(
-                'collectionPerformanceSummary.collectionId',
-                collection.get('id')
-              );
-            classActivity.set(
-              'activityPerformanceSummary',
-              activityPerformanceSummary
-            );
+        let performances = hash.activityCollectionPerformanceSummaryItems.concat(
+          hash.activityAssessmentPerformanceSummaryItems
+        );
+        performances.forEach(performance => {
+          let classActivity = classActivities.findBy(
+            'activation_date',
+            performance.get('activation_date')
+          );
+          if (classActivity) {
+            classActivity.set('activityPerformanceSummary', performance);
           }
         });
 

@@ -1,5 +1,6 @@
 .user-proficiency {
   display: flex;
+
   .gru-pull-out {
     top: 63px;
     height: calc(100vh - 63px);
@@ -10,6 +11,7 @@
       }
     }
   }
+
   .panel {
     box-shadow: 2px -1px 4px 0 rgba(0, 0, 0, 0.1);
     min-height: 550.3px;
@@ -22,15 +24,18 @@
     display: flex;
     border-bottom: solid 1px $light-400;
     height: 55px;
+
     .title {
       width: 52%;
       color: $gray-29;
       text-transform: capitalize;
       line-height: 55px;
+
       &.course {
         width: 77%;
       }
     }
+
     .toggle-chart-view {
       width: 24%;
       display: flex;
@@ -41,21 +46,25 @@
         font-size: 16px;
         color: $gray-29;
       }
+
       .gru-toggle-button {
         margin-top: 22px;
         margin-left: 8px;
       }
     }
+
     .actions {
       .toggle-view {
         float: right;
         line-height: 55px;
+
         span {
           cursor: pointer;
           font-size: 12px;
           color: $gray-29;
           text-transform: uppercase;
           margin-right: 18px;
+
           &.active {
             font-weight: bold;
           }
@@ -66,6 +75,7 @@
 
   .left-panel {
     width: 771px;
+
     .panel-header {
       .title {
         font-size: 20px;
@@ -77,6 +87,7 @@
   .right-panel {
     width: 240px;
     margin-left: 22.4px;
+
     .panel-header {
       .title {
         margin-left: 30px;
@@ -90,6 +101,7 @@
 
   .proficiency-tags {
     float: right;
+
     .last-updated {
       text-align: right;
       margin-top: 15px;
@@ -100,9 +112,11 @@
     .proficiency-legends {
       margin-top: 15px;
       display: flex;
+
       .legend {
         display: flex;
         margin-right: 30px;
+
         .box {
           display: block;
           width: 15.6px;
@@ -110,24 +124,55 @@
           transform: rotate(90deg);
           margin-right: 8.4px;
         }
+
+        .box-baseline {
+          width: 18px;
+          height: 5px;
+          margin-top: 4px;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+          margin-right: 8.4px;
+        }
+
+        .box-skyline {
+          width: 18px;
+          height: 10px;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+          margin-right: 8.4px;
+        }
+
         .title {
           line-height: 13px;
           font-size: 12px;
           color: $elephant-dark;
         }
+
         &.mastered {
           .box {
             background-color: $blue-400;
           }
         }
+
         &.in-progress {
           .box {
             background-color: $in-progress;
           }
         }
+
         &.not-started {
           .box {
             background-color: $not-started;
+          }
+        }
+
+        &.skyline {
+          .box-skyline {
+            background-color: $white;
+          }
+        }
+
+        &.baseline {
+          .box-baseline {
+            background-color: $dark-400;
           }
         }
       }

@@ -6,8 +6,7 @@
       </div>
       {{#if (eq selectedMatrixView 'domain')}}
         <div class="toggle-chart-view">
-          <span class="text">{{t 'profile.proficiency.expand-chart'}}</span>
-          {{gru-toggle-button onToggleButton="onToggleChart"}}
+          <span class="text">{{t 'profile.proficiency.expand-chart'}}</span> {{gru-toggle-button onToggleButton="onToggleChart"}}
         </div>
       {{/if}}
       <div class="actions">
@@ -41,6 +40,14 @@
           <div class="not-started legend">
             <span class="box"></span>
             <span class="title">{{t 'profile.proficiency.not-started'}}</span>
+          </div>
+          <div class="skyline legend">
+            <span class="box-skyline"></span>
+            <span class="title">{{t 'profile.proficiency.skyline'}}</span>
+          </div>
+          <div class="baseline legend">
+            <span class="box-baseline"></span>
+            <span class="title">{{t 'profile.proficiency.baseline'}}</span>
           </div>
         </div>
 

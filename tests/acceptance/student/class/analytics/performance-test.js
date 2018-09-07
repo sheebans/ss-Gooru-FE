@@ -54,6 +54,7 @@ test('Layout', function(assert) {
     ); */
   });
 });
+
 test('Navigating from class navigation', function(assert) {
   visit('/student/class/class-for-pochita-as-student/analytics/performance');
 
@@ -63,7 +64,7 @@ test('Navigating from class navigation', function(assert) {
       '/student/class/class-for-pochita-as-student/analytics/performance'
     );
 
-    const $performanceMenuItem = find('.nav .performance a');
+    const $performanceMenuItem = find('.gru-performance-chart div');
 
     click($performanceMenuItem);
     andThen(function() {

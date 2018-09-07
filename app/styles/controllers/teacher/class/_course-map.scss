@@ -9,23 +9,27 @@
 .teacher.course-map {
   margin-top: 30px;
   max-width: 90%;
+
   .actions {
     margin-top: -36px;
     width: 113px;
     height: 30px;
     background-color: $light-100;
     float: $menu-float-dir;
+
     button.edit-content {
       display: inline-block;
       font-size: $font-size-base;
       padding: 3px 11px;
       float: $menu-float-dir;
+
       i {
         font-size: $font-size-large;
         vertical-align: text-top;
       }
     }
   }
+
   .panel.welcome {
     height: max-content;
     border-radius: 5px;
@@ -35,6 +39,7 @@
     opacity: 0.5;
     font-size: 13px;
     color: #000000;
+
     .panel-body {
       padding: 15px 15px 0;
 
@@ -45,14 +50,17 @@
         }
       }
     }
+
     .description {
       display: inline-block;
       width: 98%;
     }
+
     .close {
       display: inline-block;
       font-size: $font-size-units-icon;
       font-weight: bold;
+
       a {
         color: $dark-100;
       }
@@ -67,6 +75,7 @@
       border-radius: 4px;
       margin-top: 15px;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+
       .student-thumbnail {
         width: 50px;
         height: 50px;
@@ -75,12 +84,14 @@
         margin-left: 12px;
         margin-top: 10px;
       }
+
       .student-name {
         font-size: 15px;
         color: #666666;
         line-height: 67px;
         margin-left: 12px;
       }
+
       .performance-container {
         .gru-performance-chart {
           .container-box {
@@ -88,8 +99,10 @@
           }
         }
       }
+
       .student-close {
         margin: 0 12px;
+
         i {
           font-size: 30px;
           opacity: 0.5;
@@ -99,8 +112,10 @@
         }
       }
     }
+
     .course-map-body {
       display: flex;
+
       .header {
         opacity: 0.5;
         font-size: 12px;
@@ -109,27 +124,31 @@
         text-transform: uppercase;
         padding: 10px 0;
       }
+
       .students {
         .header {
           text-align: center;
         }
+
         .students-list {
           width: 75px;
           max-height: 587px;
           overflow-y: auto;
           background-color: $white;
+
           .teacher {
             .thumbnail {
               background-color: #535e66;
               border: none;
             }
           }
+
           .list {
-            opacity: 0.3;
             display: flex;
             cursor: pointer;
             width: max-content;
             margin: auto;
+
             .thumbnail {
               width: 30px;
               height: 30px;
@@ -137,8 +156,11 @@
               background-size: contain;
               margin: 6px 0;
             }
+
             &.active {
-              opacity: 1;
+              .thumbnail {
+                border: 3px solid #0072bc;
+              }
             }
           }
         }
@@ -147,6 +169,7 @@
       .render-course-map {
         width: 98%;
         margin: 0 auto auto 20px;
+
         .header {
           padding-left: 20px;
         }
@@ -154,6 +177,7 @@
         .routesuggestion-coursemap {
           margin-bottom: 15px;
           box-shadow: 0 0 4px 2px #ef8f2f;
+
           .gru-accordion-course {
             padding: 0;
           }
@@ -162,11 +186,13 @@
         .teacher-coursemap {
           .gru-accordion-course {
             padding: 0;
+
             .gru-accordion-lesson {
               .panel-body {
                 .collections {
                   li {
                     margin-bottom: 10px;
+
                     .performance.chart {
                       width: 77px;
                     }
@@ -176,20 +202,24 @@
             }
           }
         }
+
         .student-coursemap {
           .gru-learner-accordion-unit {
             background-color: $white;
+
             .gru-learner-accordion-lesson {
               .panel-heading {
                 .panel-title {
                   width: 69% !important;
                 }
               }
+
               .panel-body {
                 .collections {
-                  .panel-heading  {
+                  .panel-heading {
                     .panel-title {
                       display: flex;
+
                       a .ellipsis {
                         height: 60px;
                         line-height: 60px;
@@ -201,17 +231,25 @@
             }
           }
         }
+
         &.sm-course-map {
           width: 67%;
-          margin: 0 10px auto 10px;
+          margin: 0 10px auto;
+
           .gru-accordion .panel-heading .panel-title {
             width: 53% !important;
           }
-          .gru-accordion-lesson .collections .panel-heading .panel-title .title {
+
+          .gru-accordion-lesson
+            .collections
+            .panel-heading
+            .panel-title
+            .title {
             width: 73%;
           }
         }
       }
+
       .items-to-grade {
         .header {
           font-size: 12px;
@@ -229,35 +267,42 @@
       margin: 0;
       background-color: $white;
       height: 67px;
+
       .panel-title {
         width: 59% !important;
       }
+
       .gru-switch {
         .toggle.btn {
           width: 40px !important;
           height: 20px !important;
           border-radius: 20px;
+
           .toggle-group {
-            .toggle-on,
+            .toggle-handle,
             .toggle-off,
-            .toggle-handle {
+            .toggle-on {
               border-radius: 20px;
             }
+
             .toggle-on {
               left: -13px;
               font-style: italic;
               font-size: $font-size-xxsmall;
             }
+
             .toggle-off {
               left: 33px;
               font-style: italic;
               font-size: $font-size-xxsmall;
             }
+
             .toggle-handle {
               top: -5px;
               left: -2px;
             }
           }
+
           &.off {
             .toggle-group {
               .toggle-handle {
@@ -268,8 +313,10 @@
         }
       }
     }
+
     .gru-accordion-lesson {
       height: 67px;
+
       &.expanded {
         height: auto;
       }

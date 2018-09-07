@@ -41,10 +41,6 @@
             {{t 'class.info.students'}}
           </div>
           <div class="students-list">
-            <div class="teacher list active" {{action "onSelectAll"}}>
-              <div class="thumbnail" data-toggle="tooltip" title="Entire Class">
-              </div>
-            </div>
             {{#each sortedStudents as |student index|}}
               <div class="student list student-{{index}}" {{action "onSelectStudent" student index}}>
                 <div class="thumbnail" title="{{student.fullName}}" data-toggle="tooltip" style="background-image: url({{student.avatarUrl}})">

@@ -10,8 +10,8 @@
                     {{#if (not (eq ILActivity 'true')) }}
                         <li class="class-activities tab">
                             <a {{action 'selectItem' 'class-activities'}} title="{{t 'teacher-landing.class.class-activities'}}" role="tab" data-toggle="tooltip">
-                                <img src='/assets/gooru/pin-white.png'>
-                                <span class="add-info">
+                                <i class="dca-pin"></i>
+                                <span class="add-info dca-text">
                                     &nbsp; {{t 'teacher-landing.class.class-activities'}}
                                 </span>
                             </a>
@@ -50,13 +50,8 @@
                         </li>
                     {{/if}}
                 {{/if}}
+
             <li role="separator" class="divider"></li>
-            <li class="performance tab {{unless hasStarted 'not-started'}}" {{action 'openCourseReport'}}>
-                <a  role="tab" data-toggle="tooltip" title="{{t 'teacher-landing.class.report'}} ">
-                    {{gru-icon name='insert_chart'}}
-                </a>
-            </li>
-              <li role="separator" class="divider"></li>
             {{#unless class.isArchived}}
                 <li role="separator" class="divider hidden"></li>
                 <li class="class-management tab hidden">

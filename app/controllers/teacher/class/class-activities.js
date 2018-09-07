@@ -40,6 +40,19 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     },
 
     /**
+     * Action Triggered when course map button clicked.
+     */
+    addFromCourseMap() {
+      let controller = this;
+      let contextParams = {
+        classId: controller.get('classId'),
+        courseId: controller.get('courseId')
+      };
+      controller.set('courseMapContextParams', contextParams);
+      controller.set('showDcaCourseMapPullup', true);
+    },
+
+    /**
      * Update the  content data to  class activities
      * @param  {Object} content
      * @param  {Date} addedDate
@@ -63,24 +76,31 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
           addedDate
         );
       }
-      dateWiseClassActivities.get('classActivities').pushObject(content);
-      let sortedDateWiseClassActivities = dateWiseClassActivities
+      let id = content.get('id');
+      let addContent = dateWiseClassActivities
         .get('classActivities')
-        .sortBy('id')
-        .reverse();
-      dateWiseClassActivities.set(
-        'classActivities',
-        sortedDateWiseClassActivities
-      );
-      controller.handleContainerListScroll();
-    },
-
-    /**
-     * Route to class course map to add DCA content
-     */
-    addFromCourseMap() {
-      const classId = this.get('classId');
-      this.transitionToRoute('add-from-course-map', classId);
+        .findBy('id', id);
+      if (!addContent) {
+        addContent = content;
+        dateWiseClassActivities.get('classActivities').pushObject(content);
+        let sortedDateWiseClassActivities = dateWiseClassActivities
+          .get('classActivities')
+          .sortBy('id')
+          .reverse();
+        dateWiseClassActivities.set(
+          'classActivities',
+          sortedDateWiseClassActivities
+        );
+        controller.handleContainerListScroll();
+      }
+      if (!content.get('isAddedFromPanel')) {
+        controller.get('newlyAddedDcaContents').pushObject(addContent);
+      } else {
+        addContent.set('isNewlyAdded', true);
+        Ember.run.later(function() {
+          addContent.set('isNewlyAdded', false);
+        }, 2000);
+      }
     },
 
     /**
@@ -144,7 +164,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
      * Scroll to show todays DCA List container
      */
     showTodaysDcaListContainer: function() {
-      this.defaultScrollToTodaysDcaContentList();
+      this.defaultScrollToTodaysDcaContentList(400);
     }
   },
   // -------------------------------------------------------------------------
@@ -173,6 +193,13 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * @property {String}
    */
   classId: Ember.computed.alias('classController.class.id'),
+
+  /**
+   * Course Id which is associated with this class
+   * @property {String}
+   */
+  courseId: Ember.computed.alias('classController.class.courseId'),
+
   /**
    * Class id
    * @property {String}
@@ -271,6 +298,44 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    */
   retriedDataLoadForPastDate: 0,
 
+  /**
+   * Maintains the list of newly added DCA content
+   * @type {Array}
+   */
+  newlyAddedDcaContents: Ember.A([]),
+
+  // -------------------------------------------------------------------------
+  // Observers
+
+  /**
+   * Update the newly added flag for added dca content.
+   */
+  updateNewlyAddedFlag: Ember.observer(
+    'showSearchContentPullup',
+    'showDcaCourseMapPullup',
+    function() {
+      let component = this;
+      let showSearchContentPullup = component.get('showSearchContentPullup');
+      let showDcaCourseMapPullup = component.get('showDcaCourseMapPullup');
+      let newlyAddedDcaContents = component.get('newlyAddedDcaContents');
+      if (
+        !showDcaCourseMapPullup &&
+        !showSearchContentPullup &&
+        newlyAddedDcaContents.length > 0
+      ) {
+        newlyAddedDcaContents.forEach(content => {
+          content.set('isNewlyAdded', true);
+        });
+        Ember.run.later(function() {
+          newlyAddedDcaContents.forEach(content => {
+            content.set('isNewlyAdded', false);
+          });
+          component.set('newlyAddedDcaContents', Ember.A());
+        }, 5000);
+      }
+    }
+  ),
+
   // -------------------------------------------------------------------------
   // Events
 
@@ -280,7 +345,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     Ember.run.scheduleOnce('afterRender', controller, function() {
       controller.handleShowMoreData();
       controller.handleShowActionBar();
-      controller.defaultScrollToTodaysDcaContentList();
+      controller.defaultScrollToTodaysDcaContentList(0);
     });
   },
 
@@ -384,21 +449,33 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     let todaysInfoActionContainerHeight = Ember.$(
       '.dca-todays-action-list-container .dca-todays-info-action-container'
     ).height();
-    let todaysDcaListArrowContainer = Ember.$('.dca-nav-to-todays-dca-list');
+    let todaysDcaListTopArrowContainer = Ember.$(
+      '.dca-nav-to-todays-dca-list.top-section'
+    );
+    let todaysDcaListBottomArrowContainer = Ember.$(
+      '.dca-nav-to-todays-dca-list.bottom-section'
+    );
     let scrollTop = Ember.$(container).scrollTop();
     let containerHeight =
-      futureListContainerHeight + todaysInfoActionContainerHeight + 65;
+      futureListContainerHeight + todaysInfoActionContainerHeight + 85;
     let diffFutureAndTodaysContainerDistance =
-      futureListContainerHeight - 65 - scrollTop;
-    if (
-      scrollTop > containerHeight ||
-      (futureListContainerHeight + todaysInfoActionContainerHeight >
-        containerListHeight &&
-        scrollTop < diffFutureAndTodaysContainerDistance)
-    ) {
-      Ember.$(todaysDcaListArrowContainer).addClass('active');
+      futureListContainerHeight +
+      45 +
+      todaysInfoActionContainerHeight -
+      containerListHeight;
+    if (scrollTop > containerHeight) {
+      Ember.$(todaysDcaListTopArrowContainer).addClass('active');
     } else {
-      Ember.$(todaysDcaListArrowContainer).removeClass('active');
+      Ember.$(todaysDcaListTopArrowContainer).removeClass('active');
+    }
+
+    if (
+      futureListContainerHeight + 45 > containerListHeight &&
+      scrollTop < diffFutureAndTodaysContainerDistance
+    ) {
+      Ember.$(todaysDcaListBottomArrowContainer).addClass('active');
+    } else {
+      Ember.$(todaysDcaListBottomArrowContainer).removeClass('active');
     }
   },
 
@@ -426,14 +503,14 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     }
   },
 
-  defaultScrollToTodaysDcaContentList() {
+  defaultScrollToTodaysDcaContentList(animateDuration) {
     let futureListHeight =
-      Ember.$('.dca-future-date-list-container').height() + 25;
+      Ember.$('.dca-future-date-list-container').height() + 65;
     Ember.$('.dca-content-list-container').animate(
       {
         scrollTop: futureListHeight
       },
-      600
+      animateDuration
     );
   }
 });

@@ -85,12 +85,21 @@ export default Ember.Component.extend({
   showCurrentLocation: Ember.computed('class.currentLocation', function() {
     return (
       this.get('class.currentLocation') &&
-      this.get('class.currentLocation.status') === 'in-progress' &&
       this.get('class.currentLocation.course') &&
       this.get('class.currentLocation.unit') &&
       this.get('class.currentLocation.lesson') &&
       this.get('class.currentLocation.collection')
     );
+  }),
+
+  /**
+   * @property {Boolean} isCompleted
+   */
+  isCompleted: Ember.computed('showCurrentLocation', function() {
+    let controller = this;
+    let showCurrentLocation = controller.get('showCurrentLocation');
+    let currentLocation = controller.get('class.currentLocation');
+    return showCurrentLocation && currentLocation.get('status') === 'complete';
   }),
 
   /**

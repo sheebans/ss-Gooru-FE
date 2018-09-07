@@ -1,4 +1,4 @@
-<div class="dca-panel-container">
+<div class="dca-panel-container {{if classActivity.isNewlyAdded 'new'}}">
   <div class="dca-panel-info">
     <i class="{{item.collectionType}}-icon" />
     <p {{action 'onPlayContent' item}}>{{item.title}}</p>

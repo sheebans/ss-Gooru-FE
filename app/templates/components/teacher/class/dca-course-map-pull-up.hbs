@@ -1,0 +1,121 @@
+<div class="dca-course-map-backdrop" {{action 'onPullUpClose'}}></div>
+<div class="dca-course-map-container">
+  <div class="dca-course-map-header">
+    <div class="dca-course-map-pullup-close" {{action 'onPullUpClose'}}>
+      {{gru-icon name="arrow_downward"}}
+    </div>
+    <div class="dca-course-map-icon">
+      {{gru-icon name="sort"}}
+    </div>
+    <div class="dca-course-map-filter-container">
+      <span>{{t 'common.course-map'}}</span>
+    </div>
+  </div>
+  <div class="dca-course-map-unit-container">
+    {{#each course.children as | unit |}}
+      <div class="dca-course-map-unit">
+        <div class="dca-course-map-unit-panel {{if unit.isActive 'active'}}" {{action 'toggleUnitItems' unit }}>
+          <div class="unit-name-sequence">
+            {{t 'common.unit'}} {{unit.sequence}}
+          </div>
+          <div class="unit-title">
+            <p>{{unit.title}}</p>
+          </div>
+        </div>
+        <div class="dca-course-map-lesson-container" id="dca-unit-{{unit.id}}">
+          {{#if unit.hasLessonFetched}}
+            {{#if unit.children}}
+              {{#each unit.children as | lesson |}}
+                <div class="dca-course-map-lesson {{if lesson.isActive 'active'}}">
+                  <div class="dca-course-map-lesson-panel" {{action 'toggleLessonItems' unit lesson }}>
+                    <div class="lesson-name-sequence">
+                      {{t 'common.lesson'}} {{lesson.sequence}}
+                    </div>
+                    <div class="lesson-title">
+                      <p>{{lesson.title}}</p>
+                    </div>
+                  </div>
+                  <div class="dca-course-map-collection-container" id="dca-lesson-{{lesson.id}}">
+                    {{#if lesson.hasCollectionFetched}}
+                      {{#if lesson.children}}
+                        {{#each lesson.children as | collection |}}
+                          <div class="dca-course-map-collection">
+                            <div class="dca-course-map-collection-panel">
+                              <div class="collection-img-container">
+                                <img src="{{collection.thumbnailUrl}}" />
+                              </div>
+                              <div class="collection-title-container" {{action 'playContent' unit.id lesson.id collection}}>
+                                <i class="{{collection.format}}-icon"></i>
+                                <p>{{collection.title}}</p>
+                              </div>
+                              <div class="collection-content-counts">
+                                {{#if (gt collection.resourceCount 0)}}
+                                  <div class="resource-count" title="{{t 'common.resource'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
+                                    <i class="resource-icon"></i>
+                                    <span>{{collection.resourceCount}}</span>
+                                  </div>
+                                {{/if}}
+                                {{#if (gt collection.questionCount 0)}}
+                                  <div class="question-count" title="{{t 'common.question'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover">
+                                    <i class="question-icon"></i>
+                                    <span>{{collection.questionCount}}</span>
+                                  </div>
+                                {{/if}}
+                                {{#if (eq collection.format 'assessment-external')}}
+                                  <i class="external-icon" title="{{t 'common.assessment-external'}}" data-toggle="tooltip" data-placement="top" data-trigger="hover"></i>
+                                {{/if}}
+                              </div>
+                              <div class="collection-action-btns">
+                                <div class="schedule-dca-content" title="{{t 'common.schedule'}}" data-toggle="tooltip" data-placement="top" {{action 'onScheduleContentToDCA' collection}}>
+                                  {{gru-icon name="update"}}
+                                </div>
+                                <div class="add-dca-content {{if collection.isAdded 'added'}}" {{action 'onAddContentToDCA' collection}} data-toggle="tooltip" data-html="true" data-placement="top" title="{{t "common.add"}}" data-trigger="hover">
+                                  {{gru-icon name="add"}}
+                                  {{gru-icon name="done"}}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        {{/each}}
+                      {{else}}
+                        <div class="no-collection">
+                          <span>{{t 'common.no-collection-info-message'}}</span>
+                        </div>
+                      {{/if}}
+                    {{else}}
+                      <div class="collection-load-spinner">
+                        {{#if lesson.isActive}}
+                          {{three-bounce-spinner}}
+                        {{/if}}
+                      </div>
+                    {{/if}}
+                  </div>
+                </div>
+              {{/each}}
+            {{else}}
+              <div class="no-lesson">
+                <span>{{t 'common.no-lesson-info-message'}}</span>
+              </div>
+            {{/if}}
+          {{else}}
+            <div class="lesson-load-spinner">
+              {{#if unit.isActive}}
+                {{three-bounce-spinner}}
+              {{/if}}
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    {{/each}}
+
+  </div>
+</div>
+{{#if isLoading}}
+  <div class="loading-spinner">
+    {{three-bounce-spinner}}
+  </div>
+{{/if}}
+
+{{#if showScheduleDca}}
+  {{teacher.class.schedule-dca-pull-up context=scheduleDcaContext showPullUp=showScheduleDca addedScheduleContentToDCA='addedScheduleContentToDCA'}}
+{{/if}}
