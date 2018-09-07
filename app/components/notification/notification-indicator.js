@@ -211,12 +211,18 @@ export default Ember.Component.extend({
    */
   notificationModel: {},
 
+  timer: null,
+
   init() {
     this._super(...arguments);
     this.model = this.model || {
       notificationlocation: notificationAccesor.global
     };
-    this.refreshSelf();
+    const component = this;
+    component.getNotifications(component.getDefaultFilter()); // Initial call, all the rest calls would be made with the setinterval
+    this.time = setInterval(() => {
+      component.getNotifications(component.getDefaultFilter()); //Force default filter for first time load and refresh
+    }, 30000);
   },
 
   // -------------------------------------------------------------------------
@@ -382,13 +388,15 @@ export default Ember.Component.extend({
 
       //Array.prototype.push.apply(notndetail, newNotificationDetails); //ToDo: requiers a data merge
 
-      newDataModel.notifications = ndt;
-      component.set('notificationModel', newDataModel);
-      //eslint-disable-next-line
-      console.log(
-        'hasActiveNotifications',
-        component.get('hasActiveNotifications')
-      );
+      if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
+        newDataModel.notifications = ndt;
+        component.set('notificationModel', newDataModel);
+        //eslint-disable-next-line
+        console.log(
+          'hasActiveNotifications',
+          component.get('hasActiveNotifications')
+        );
+      }
     });
   },
 
@@ -426,23 +434,9 @@ export default Ember.Component.extend({
     return filter;
   },
 
-  /**
-   * Timer based refresh of UI
-   */
-  refreshSelf() {
-    const component = this;
-    component.set('notificationModel', ''); // reset with timer, rather
-    component._debouncedItem = Ember.run.later(
-      component,
-      function() {
-        //let d = new Date(); console.log('500 ms of timeout:', d); // ToDo: revisit here
-        component.getNotifications(component.getDefaultFilter()); //Force default filter for first time load and refresh
-      },
-      500
-    );
-  },
   destroy() {
     this._super(...arguments);
-    Ember.run.cancel(this._debouncedItem);
+    clearInterval(this.timer);
+    this.timer = null;
   }
 });
