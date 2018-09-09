@@ -105,7 +105,7 @@ export default Ember.Component.extend({
     if (this.get('showPullUp')) {
       Ember.$('body.application').addClass('no-vertical-scroll');
       let component = this;
-      const right = 750 - component.$().width();
+      const right = 650 - component.$().width();
       component.$().removeClass('gru-pull-out-hidden');
       component.$().animate(
         {
@@ -113,7 +113,7 @@ export default Ember.Component.extend({
         },
         {
           complete: function() {
-            component.$().css('right', 'calc(750px - 100%)');
+            component.$().css('right', 'calc(650px - 100%)');
           }
         }
       );
