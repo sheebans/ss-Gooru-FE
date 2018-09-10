@@ -2667,17 +2667,17 @@ export default Object.assign(quizzesTranslations, {
         '{{occurrence}} Students reported performance at class : {{ classTitle }}',
       'teacher-override-title':
         'Teacher has corrected your submission at class : {{ classTitle }}  ',
-      'teacher-grading-complete-tilte':
+      'teacher-grading-complete-title':
         'Teacher has graded your submission at class : {{ classTitle }}'
     },
     typeinclass: {
       'teacher-suggestion-title': 'You have a new teacher suggestion',
       'student-gradable-submission-title':
-        'You have {{occurrence}} items to grade',
+        'You have {{occurrence}} students items to grade',
       'student-self-report-tilte':
         '{{occurrence}} Students reported performance',
       'teacher-override-title': 'Teacher has corrected your submission',
-      'teacher-grading-complete-tilte':
+      'teacher-grading-complete-title':
         'Teacher has graded your submission at class'
     }
   }
