@@ -24,7 +24,7 @@ export default Ember.Component.extend({
   /**
    * @property {Number} number of rows to be returned by notification
    */
-  rowsPerPage: NOTIFICATION_SETTINGS.polling_interval,
+  rowsPerPage: NOTIFICATION_SETTINGS.page_size,
 
   hasActiveNotifications: Ember.computed(
     'notificationModel',

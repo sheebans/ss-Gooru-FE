@@ -95,7 +95,8 @@
 
   .notfication-container {
     height: $container-height;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     background-color: $white;
     color: $gray;
 

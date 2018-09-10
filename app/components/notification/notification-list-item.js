@@ -79,15 +79,6 @@ export default Ember.Component.extend({
   model: null,
 
   // -------------------------------------------------------------------------
-  // Event
-  /*
-  didUpdateAttrs(options) { console.log('didUpdateAttrs', options); },
-  willUpdate(options) { console.log('willUpdate', options); }, didReceiveAttrs(options) { console.log('didReceiveAttrs', options); },
-  didInsertElement: function(arge) { const component = this; console.log('didrender', arge); console.log('testvar1', this.get('testvar')); Ember.run.later(this, () => { component.set('test222var', 'DDERER'); }); },
-  *use as req, remove when commited
-  */
-
-  // -------------------------------------------------------------------------
   // Action
   actions: {
     /**
