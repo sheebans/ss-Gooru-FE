@@ -1,8 +1,7 @@
 import Ember from 'ember';
-import {COMPETENCY_STATUS} from 'gooru-web/config/config';
+import { COMPETENCY_STATUS } from 'gooru-web/config/config';
 
 export default Ember.Component.extend({
-
   // -------------------------------------------------------------------------
   // Attributes
   classNames: ['competency-report-pull-up'],
@@ -62,9 +61,8 @@ export default Ember.Component.extend({
   isBadgedCompetency: Ember.computed('competency', function() {
     let component = this;
     let competency = component.get('competency');
-    return (competency.status === 4 || competency.status === 5);
+    return competency.status === 4 || competency.status === 5;
   }),
-
 
   // -------------------------------------------------------------------------
   // Methods
@@ -75,7 +73,7 @@ export default Ember.Component.extend({
     let component = this;
     component.$().animate(
       {
-        top: '10%'
+        top: '100%'
       },
       400
     );
@@ -85,7 +83,7 @@ export default Ember.Component.extend({
     let component = this;
     component.$().animate(
       {
-        top: '100%'
+        top: '200%'
       },
       400,
       function() {
