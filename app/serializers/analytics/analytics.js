@@ -18,10 +18,23 @@ export default Ember.Object.extend({
     return realTimeModel;
   },
 
+  normalizeDCAResponse: function(payload) {
+    var realTimeModel = [];
+    this.normalizeDCAUserResults(realTimeModel, payload.content);
+    return realTimeModel;
+  },
+
   normalizeUserResults: function(model, payload) {
     const serializer = this;
     payload.forEach(function(userResult) {
       this.push(serializer.normalizeUserResult(userResult));
+    }, model);
+  },
+
+  normalizeDCAUserResults: function(model, payload) {
+    const serializer = this;
+    payload.forEach(function(userResult) {
+      this.push(serializer.normalizeDCAUserResult(userResult));
     }, model);
   },
 
@@ -33,6 +46,20 @@ export default Ember.Object.extend({
       if (usageData === undefined) {
         usageData = payload.resources;
       }
+    }
+    return UserResourcesResult.create({
+      user: payload.userUid,
+      isAttemptFinished: !!payload.isCompleteAttempt, // This value is used only by the RealTime dashboard
+      resourceResults: serializer.normalizeResourceResults(usageData),
+      assessment: payload.assessment || null
+    });
+  },
+
+  normalizeDCAUserResult: function(payload) {
+    const serializer = this;
+    let usageData = payload.usageData[0].questions;
+    if (usageData === undefined) {
+      usageData = payload.usageData[0].resources;
     }
     return UserResourcesResult.create({
       user: payload.userUid,

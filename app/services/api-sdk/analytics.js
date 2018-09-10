@@ -357,5 +357,31 @@ export default Ember.Service.extend({
           resolve(selfReportStatus);
         }, reject);
     });
+  },
+
+  /**
+   * This Method used to fetch DCA collection/assesssment performance details for the specfic date.
+   * @param  {ClassId} classId        Unique Id of the class
+   * @param  {CollectionId} collectionId   Unique Id of the collection.
+   * @param  {CollectionType} collectionType Type of the collection, it should be collection/assessment.
+   * @param  {String} date           Date format should YYYY-MM-DD
+   */
+  getDCAPerformance(classId, collectionId, collectionType, date) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('analyticsAdapter')
+        .getDCAPerformance(classId, collectionId, collectionType, date)
+        .then(
+          function(events) {
+            resolve(
+              service.get('analyticsSerializer').normalizeDCAResponse(events)
+            );
+          },
+          function(error) {
+            reject(error);
+          }
+        );
+    });
   }
 });

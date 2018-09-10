@@ -84,6 +84,7 @@ export default Ember.Object.extend(ConfigurationMixin, {
         questionCount: data.question_count,
         oeQuestionCount: data.oe_question_count,
         collectionType: data.content_type,
+        format: data.content_type,
         thumbnailUrl: thumbnailUrl
       });
     }
