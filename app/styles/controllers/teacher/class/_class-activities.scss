@@ -39,6 +39,7 @@
       font-size: $font-size-units-icon;
       font-weight: bold;
       float: $menu-float-dir;
+      line-height: 38px;
 
       a {
         color: $dark-100;
@@ -165,7 +166,7 @@
                   margin: 0;
                   padding-left: 20px;
                   padding-right: 20px;
-                  padding-bottom: 0px;
+                  padding-bottom: 0;
                   line-height: 1.5;
                   font-family: "Lato";
                   font-size: 13px;
