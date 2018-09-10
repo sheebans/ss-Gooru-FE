@@ -220,7 +220,8 @@ export default Ember.Component.extend({
     };
     const component = this;
     component.getNotifications(component.getDefaultFilter()); // Initial call, all the rest calls would be made with the setinterval
-    this.time = setInterval(() => {
+
+    this.timer = setInterval(() => {
       component.getNotifications(component.getDefaultFilter()); //Force default filter for first time load and refresh
     }, 30000);
   },
