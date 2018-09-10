@@ -1,40 +1,53 @@
 .reports_study-student-collection {
   // overflow: hidden;
 
+  .non-top {
+    z-index: -1;
+  }
+
   .app-container {
     padding: 0;
   }
 
-  .gru-header, .gru-footer {
+  .gru-header,
+  .gru-footer {
     display: none;
   }
 
   .report-container {
     padding-top: 50px;
+
     // height: 100vh;
     // overflow: auto;
     .suggestion-panel {
       padding: 20px 180px;
+
       @media (min-width: $screen-sm) {
         padding: 20px 180px;
       }
+
       @media (min-width: $screen-md) {
         padding: 20px 180px;
       }
+
       .player.gru-suggest-test {
         width: 100%;
         padding: 0;
       }
+
       &.no-suggestions {
         .panel {
           box-shadow: none;
           margin: 0;
           border-radius: 5px;
+
           .panel-body {
             padding: 25px 20px 25px 25px;
           }
+
           .actions {
             margin: 20px 0 0 auto;
+
             .btn-next {
               padding: 6px 40px;
             }
@@ -42,20 +55,24 @@
         }
       }
     }
+
     .qz-assessment-report {
       .qz-assessment-summary {
         background: $white;
       }
     }
+
     .summary-report-next {
       padding: 0px 190px 0px;
       margin: 20px 0 0 auto;
+
       .btn-next {
         width: 71px;
         height: 36px;
         border-radius: 3px;
       }
     }
+
     &.show-suggestion {
       background-color: #37424b;
       z-index: 888;
@@ -69,25 +86,34 @@ body.reports_study-student-collection {
     @mixin fullscreenStyle {
       background-color: #353e47 !important;
     }
+
     @include fullscreenStyle;
+
     .qz-assessment-report {
       @include fullscreenStyle;
     }
+
     .gru-study-navbar {
       display: none;
     }
+
     .bar-charts {
       top: 0 !important;
+
       @include fullscreenStyle;
     }
+
     .report-container {
       padding-top: 0;
     }
+
     .gru-player-summary-footer {
       @include fullscreenStyle;
+
       .resource-title {
         color: $white;
       }
+
       .toggle-screen {
         i {
           color: $white;
