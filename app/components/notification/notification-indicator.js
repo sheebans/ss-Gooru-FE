@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { NOTIFICATION_SETTINGS } from 'gooru-web/config/config';
 
 const notificationAccesor = {
   class: 'active-study',
@@ -23,9 +24,7 @@ export default Ember.Component.extend({
   /**
    * @property {Number} number of rows to be returned by notification
    */
-  rowsPerPage: Ember.computed('notificationModel.limit', function() {
-    return 5;
-  }),
+  rowsPerPage: NOTIFICATION_SETTINGS.page_size,
 
   hasActiveNotifications: Ember.computed(
     'notificationModel',
@@ -218,12 +217,12 @@ export default Ember.Component.extend({
     this.model = this.model || {
       notificationlocation: notificationAccesor.global
     };
+
     const component = this;
     component.getNotifications(component.getDefaultFilter()); // Initial call, all the rest calls would be made with the setinterval
-
     this.timer = setInterval(() => {
       component.getNotifications(component.getDefaultFilter()); //Force default filter for first time load and refresh
-    }, 30000);
+    }, NOTIFICATION_SETTINGS.polling_interval);
   },
 
   // -------------------------------------------------------------------------
@@ -393,10 +392,10 @@ export default Ember.Component.extend({
         newDataModel.notifications = ndt;
         component.set('notificationModel', newDataModel);
         //eslint-disable-next-line
-        console.log(
+        /* console.log(
           'hasActiveNotifications',
           component.get('hasActiveNotifications')
-        );
+        ); */
       }
     });
   },
@@ -435,9 +434,25 @@ export default Ember.Component.extend({
     return filter;
   },
 
+  /**
+   * Timer based refresh of UI
+   */
+  refreshSelf() {
+    const component = this;
+    component.set('notificationModel', ''); // reset with timer, rather
+    component._debouncedItem = Ember.run.later(
+      component,
+      function() {
+        //let d = new Date(); console.log('500 ms of timeout:', d); // ToDo: revisit here
+        component.getNotifications(component.getDefaultFilter()); //Force default filter for first time load and refresh
+      },
+      30000
+    );
+  },
+
   destroy() {
     this._super(...arguments);
     clearInterval(this.timer);
-    this.timer = null;
+    //Ember.run.cancel(this._debouncedItem);
   }
 });
