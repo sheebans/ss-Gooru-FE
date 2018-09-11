@@ -2663,7 +2663,7 @@ export default Object.assign(quizzesTranslations, {
         'You have a new teacher suggestion in class : {{ classTitle }}',
       'student-gradable-submission-title':
         'You have {{occurrence}} items to grade in class : {{ classTitle }}',
-      'student-self-report-tilte':
+      'student-self-report-title':
         '{{occurrence}} Students reported performance at class : {{ classTitle }}',
       'teacher-override-title':
         'Teacher has corrected your submission at class : {{ classTitle }}  ',
@@ -2673,8 +2673,8 @@ export default Object.assign(quizzesTranslations, {
     typeinclass: {
       'teacher-suggestion-title': 'You have a new teacher suggestion',
       'student-gradable-submission-title':
-        'You have {{occurrence}} students items to grade',
-      'student-self-report-tilte':
+        'You have {{occurrence}} student items to grade',
+      'student-self-report-title':
         '{{occurrence}} Students reported performance',
       'teacher-override-title': 'Teacher has corrected your submission',
       'teacher-grading-complete-title':
