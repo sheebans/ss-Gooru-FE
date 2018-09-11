@@ -13,8 +13,13 @@
   }
 
   .chart-area {
-    display: flex;
     background-color: $gray-97;
+    display: grid;
+    width: 90%;
+    margin: 0 auto;
+    align-items: center;
+    grid-template-columns: auto auto;
+    justify-items: center;
 
     .matrix-chart {
       width: 450px;
@@ -99,10 +104,10 @@
     }
 
     .domain-list {
-      width: calc(100% - 450px);
       margin-left: 12px;
       max-height: 62vh;
       overflow-y: auto;
+      justify-self: left;
 
       .domain {
         font-size: 12px;
