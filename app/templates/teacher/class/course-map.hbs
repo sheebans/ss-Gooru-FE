@@ -30,7 +30,7 @@
           <div class="student-close pull-right" {{action "onSelectAll"}}>
             {{gru-icon name="clear"}}
           </div>
-          <div class="performance-container pull-right" {{action "onOpenStudentCourseReport" activeStudent}}>
+          <div class="performance-container pull-right {{unless (gte studentClassScore 0) 'not-started'}}" {{action "onOpenStudentCourseReport" activeStudent}}>
             {{charts/gru-performance-chart performanceSummary=activeStudent.performance}}
           </div>
         </div>
@@ -57,7 +57,7 @@
               {{t 'common.course-map'}}
             </div>
             {{#if isStudentCourseMap}}
-              {{#if (and isPremiumClass  isAccepted)}}
+              {{#if (and isPremiumClass isAccepted)}}
                 {{class.overview.routesuggestion-coursemap isEnablePlayer=false route0=route0Contents }}
               {{/if}}
               <div class="student-coursemap">
@@ -77,8 +77,8 @@
                   isStudent=true
                   toggleLocation=toggleLocation
                   onSelectItem="onSelectItem"}}
-                {{else}}
-                  <li>{{t "common.contentUnavailable"}}</li>
+            {{else}}
+              <li>{{t "common.contentUnavailable"}}</li>
                 {{/each}}
               </div>
             {{else}}

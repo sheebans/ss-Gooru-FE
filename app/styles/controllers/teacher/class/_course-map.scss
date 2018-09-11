@@ -98,6 +98,10 @@
             height: 67px;
           }
         }
+
+        &.not-started {
+          pointer-events: none;
+        }
       }
 
       .student-close {
