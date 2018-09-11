@@ -5,8 +5,11 @@ import TaxonomyTagData from 'gooru-web/models/taxonomy/taxonomy-tag-data';
 import Context from 'gooru-web/models/result/context';
 
 export default Ember.Component.extend({
-
-  classNames: ['reports', 'backdrop-pull-ups', 'student-external-assessment-report'],
+  classNames: [
+    'reports',
+    'backdrop-pull-ups',
+    'student-external-assessment-report'
+  ],
 
   /**
    * @requires {Ember.Service} session management
@@ -43,6 +46,24 @@ export default Ember.Component.extend({
   isLoading: false,
 
   showPullUp: false,
+
+  /**
+   * defaultSuggestContentType
+   * @type {String}
+   */
+  defaultSuggestContentType: 'collection',
+
+  /**
+   * suggest count
+   * @type {Number}
+   */
+  suggestResultCount: 0,
+
+  /**
+   * Maintains maximum number of search results
+   * @type {Number}
+   */
+  maxSearchResult: 6,
 
   /**
    * calculate  the class average by student performance score as a width
@@ -94,7 +115,9 @@ export default Ember.Component.extend({
   performanceScore: Ember.computed('reportData', function() {
     let component = this;
     let reportData = component.get('reportData');
-    return reportData.studentPerformance ? reportData.studentPerformance.score : reportData.collection.get('performance.score');
+    return reportData.studentPerformance
+      ? reportData.studentPerformance.score
+      : reportData.collection.get('performance.score');
   }),
 
   // -------------------------------------------------------------------------
@@ -167,8 +190,14 @@ export default Ember.Component.extend({
   loadExternalAssessmentReportData() {
     let component = this;
     let context = component.get('reportData');
-    let profilePromise = new Ember.RSVP.resolve(component.get('profileService').readUserProfile(context.userId));
-    let assessmentContentPromise = new Ember.RSVP.resolve(component.get('assessmentService').readExternalAssessment(context.collectionId));
+    let profilePromise = new Ember.RSVP.resolve(
+      component.get('profileService').readUserProfile(context.userId)
+    );
+    let assessmentContentPromise = new Ember.RSVP.resolve(
+      component
+        .get('assessmentService')
+        .readExternalAssessment(context.collectionId)
+    );
     return Ember.RSVP.hash({
       profile: profilePromise,
       externalAssessment: assessmentContentPromise
@@ -289,5 +318,4 @@ export default Ember.Component.extend({
       lessonId: lessonId
     });
   }
-
 });
