@@ -1,6 +1,7 @@
 .teacher-panel {
   .teacher.class-atc-view {
     margin-bottom: 30px;
+
     .class-view {
       color: $dark-400;
       min-height: 320px;
@@ -8,6 +9,7 @@
       background-color: $white;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
       padding: 15px;
+
       .body {
         position: relative;
 
@@ -27,18 +29,22 @@
           background-color: $white;
           position: absolute;
           cursor: pointer;
+
           i {
             font-size: 37px;
             line-height: 87px;
           }
+
           &.disable {
             pointer-events: none;
           }
         }
+
         .nav-previous {
           left: -35px;
-          box-shadow: 2px 0px 9px 2px rgba(0, 0, 0, 0.25);
+          box-shadow: 2px 0 9px 2px rgba(0, 0, 0, 0.25);
         }
+
         .nav-next {
           right: -35px;
           box-shadow: -2px 1px 5px 3px rgba(0, 0, 0, 0.25);
@@ -53,6 +59,7 @@
             color: $dark-600;
             text-align: center;
             text-transform: uppercase;
+
             span {
               padding-bottom: 8px;
               width: 200px;
@@ -73,35 +80,41 @@
           margin: auto;
           display: flex;
           margin-top: 15px;
-          .dca,
+
           .course-map,
-          .performance {
+          .dca,
+          .students {
             width: 40px;
             height: 40px;
             padding: 12px;
             border: 1px solid $light-200;
             cursor: pointer;
+
             &.not-started {
               pointer-events: none;
             }
+
             .icon {
               width: 35px;
               height: 30px;
               display: block;
             }
           }
+
           .dca i {
             background-image: url("gooru/images/teacher-landing-class-activities.svg");
             background-repeat: no-repeat;
             background-size: 13px;
           }
+
           .course-map i {
             background-image: url("gooru/images/teacher-landing-course-map.svg");
             background-repeat: no-repeat;
             background-size: 15px;
           }
-          .performance i {
-            background-image: url("gooru/images/teacher-landing-class-report.svg");
+
+          .students i {
+            background-image: url("gooru/images/account-circle.svg");
             background-repeat: no-repeat;
             background-size: 15px;
           }
