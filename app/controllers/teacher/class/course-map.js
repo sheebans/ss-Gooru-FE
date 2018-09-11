@@ -159,6 +159,8 @@ export default Ember.Controller.extend({
 
   questionItems: null,
 
+  studentClassScore: null,
+
   // -------------------------------------------------------------------------
   // Actions
 
@@ -400,9 +402,22 @@ export default Ember.Controller.extend({
         )
     }).then(({ studentClassPerformance }) => {
       if (studentClassPerformance && studentClassPerformance.length) {
+        controller.setStudentClassScore(studentClassPerformance[0]);
         controller.set('activeStudent.performance', studentClassPerformance[0]);
       }
     });
+  },
+
+  setStudentClassScore(studentClassPerformance) {
+    let controller = this;
+    let scorePercentage = studentClassPerformance
+      ? studentClassPerformance.score
+      : null;
+    let score =
+      scorePercentage >= 0 && scorePercentage !== null
+        ? `${scorePercentage}`
+        : '--';
+    controller.set('studentClassScore', score);
   },
 
   /**

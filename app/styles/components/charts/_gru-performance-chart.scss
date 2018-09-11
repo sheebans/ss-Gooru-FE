@@ -3,20 +3,26 @@
   text-align: center;
   height: 100%;
   min-width: 76px;
+
   .container-box {
     height: 60px;
+    cursor: pointer;
+
     .percentage {
       font-size: $font-size-lead;
       font-weight: 900;
+      cursor: pointer;
       line-height: 24px;
       margin: 15px 0 0;
     }
+
     .not-started {
       color: $light-400;
       font-size: $font-size-xxsmall;
       font-weight: bold;
       margin: 15px 0 5px;
     }
+
     .completion-bar {
       border-radius: 5px;
       height: 5px;
@@ -24,14 +30,18 @@
       margin: 0 auto;
       min-width: 35px;
       width: 32%;
+
       .segment {
         height: 5px;
+
         &:first-child {
           border-bottom-left-radius: 4px;
           border-top-left-radius: 4px;
         }
+
         &.full {
           max-width: 100%;
+
           &:last-child {
             border-bottom-right-radius: 5px;
             border-top-right-radius: 5px;
@@ -39,13 +49,16 @@
         }
       }
     }
+
     .tooltip {
       width: 130px;
       line-height: $font-size-h6;
       font-size: $font-size-base;
+
       .tooltip-arrow {
         border-right-color: $white;
       }
+
       .tooltip-inner {
         color: $dark-400;
         font-weight: bold;
