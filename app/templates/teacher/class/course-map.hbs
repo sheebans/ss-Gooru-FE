@@ -43,8 +43,9 @@
           <div class="students-list">
             {{#each sortedStudents as |student index|}}
               <div class="student list student-{{index}}" {{action "onSelectStudent" student index}}>
-                <div class="thumbnail" title="{{student.fullName}}" data-toggle="tooltip" style="background-image: url({{student.avatarUrl}})">
+                <div class="thumbnail" data-toggle="tooltip" style="background-image: url({{student.avatarUrl}})">
                 </div>
+                <div class="student-name">{{student.fullName}}</div>
               </div>
             {{/each}}
           </div>
