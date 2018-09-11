@@ -210,6 +210,10 @@ export default Ember.Component.extend({
    */
   notificationModel: {},
 
+  isTeacher: Ember.computed('ctxprofile', function() {
+    return this.get('ctxprofile').isTeacher;
+  }),
+
   timer: null,
 
   init() {
