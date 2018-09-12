@@ -1,13 +1,15 @@
 .student.proficiency {
   .header {
-    height: 97px;
+    height: 50px;
+    align-items: center;
+    display: grid;
+    justify-content: center;
+
     background-color: $white;
-    display: flex;
     border-bottom: 1px solid;
     padding: 9px 0 9px 20px;
 
     .taxonomy-info {
-      display: grid;
       /* The container <div> - needed to position the dropdown content */
       .dropdown {
         position: relative;
@@ -20,7 +22,6 @@
           height: 25px;
 
           .label {
-            min-width: 170px;
             font-size: 17px;
             font-weight: bold;
             color: $charcoal-grey;
@@ -32,6 +33,18 @@
             font-size: 17px;
             font-weight: bold;
             color: $charcoal-grey;
+          }
+
+          &.active-subject {
+            .label {
+              min-width: 0;
+            }
+
+            .icon {
+              i {
+                line-height: 0;
+              }
+            }
           }
         }
       }
@@ -67,84 +80,104 @@
   }
 
   .body {
+    background-color: $white;
+
     .proficiency-chart {
-      .scrollable-chart {
-        padding-left: 15px;
-      }
-    }
+      padding-bottom: 10px;
 
-    .proficiency-legends {
-      margin-top: 15px;
-      display: flex;
-
-      .legend {
+      .proficiency-tags {
         display: flex;
-        margin-right: 30px;
+        margin: 0 auto;
+        width: 90%;
+        background-color: #f7f7f7;
 
-        .box {
-          display: block;
-          width: 15.6px;
-          height: 15.6px;
-          transform: rotate(90deg);
-          margin-right: 8.4px;
-        }
+        .proficiency-legends {
+          margin: 15px auto auto;
+          display: flex;
 
-        .box-baseline {
-          width: 18px;
-          height: 5px;
-          margin-top: 4px;
-          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-          margin-right: 8.4px;
-        }
+          .legend {
+            display: flex;
+            margin-right: 30px;
 
-        .box-skyline {
-          width: 18px;
-          height: 10px;
-          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-          margin-right: 8.4px;
-        }
+            .box {
+              display: block;
+              width: 15.6px;
+              height: 15.6px;
+              transform: rotate(90deg);
+              margin-right: 8.4px;
+            }
 
-        .title {
-          line-height: 13px;
-          font-size: 12px;
-          color: $elephant-dark;
-        }
+            .box-baseline {
+              width: 18px;
+              height: 5px;
+              margin-top: 4px;
+              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+              margin-right: 8.4px;
+            }
 
-        &.mastered {
-          .box {
-            background-color: $blue-400;
-          }
-        }
+            .box-skyline {
+              width: 18px;
+              height: 10px;
+              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+              margin-right: 8.4px;
+            }
 
-        &.in-progress {
-          .box {
-            background-color: $in-progress;
-          }
-        }
+            .title {
+              line-height: 13px;
+              font-size: 12px;
+              color: $elephant-dark;
+            }
 
-        &.not-started {
-          .box {
-            background-color: $not-started;
-          }
-        }
+            &.mastered {
+              .box {
+                background-color: $blue-400;
+              }
+            }
 
-        &.skyline {
-          .box-skyline {
-            background-color: $white;
-          }
-        }
+            &.in-progress {
+              .box {
+                background-color: $in-progress;
+              }
+            }
 
-        &.baseline {
-          .box-baseline {
-            background-color: $dark-400;
+            &.not-started {
+              .box {
+                background-color: $not-started;
+              }
+            }
+
+            &.skyline {
+              .box-skyline {
+                background-color: $white;
+              }
+            }
+
+            &.baseline {
+              .box-baseline {
+                background-color: $dark-400;
+              }
+            }
           }
         }
       }
     }
 
-    .time-series {
-      width: 700px;
-      margin: auto;
+    .time-series-container {
+      width: 90%;
+      margin: 0 auto;
+      background-color: #f7f7f7;
+
+      .monthly-time-series-chart {
+        width: 90%;
+        display: grid;
+        margin: 0 auto;
+        justify-content: center;
+        background-color: #f7f7f7;
+
+        .time-series {
+          background-color: #f7f7f7;
+        }
+      }
     }
   }
 }

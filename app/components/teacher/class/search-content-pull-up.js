@@ -21,14 +21,20 @@ export default Ember.Component.extend({
   searchService: Ember.inject.service('api-sdk/search'),
 
   /**
-   * @requires service:api-sdk/navigate-map
-   */
-  navigateMapService: Ember.inject.service('api-sdk/navigate-map'),
-
-  /**
    * @requires service:api-sdk/class-activity
    */
   classActivityService: Ember.inject.service('api-sdk/class-activity'),
+
+  /**
+   * @type {ProfileService} Profile service object
+   */
+  profileService: Ember.inject.service('api-sdk/profile'),
+
+  /**
+   * Session object of logged in user
+   * @type {Object}
+   */
+  session: Ember.inject.service(),
 
   // -------------------------------------------------------------------------
   // Properties
@@ -113,6 +119,36 @@ export default Ember.Component.extend({
    */
   defaultSearchPageSize: 20,
 
+  /**
+   * Maintains the list of  menu items
+   * @type {Array}
+   */
+  menuItems: Ember.A([
+    Ember.Object.create({
+      label: 'common.gooru-catalog',
+      selected: true
+    }),
+    Ember.Object.create({
+      label: 'common.myContent',
+      selected: false
+    })
+  ]),
+
+  /**
+   * It will compute the selected menu item on changes of menu item selection or data change.
+   * @type {String}
+   */
+  selectedMenuItem: Ember.computed('menuItems.@each.selected', function() {
+    let menuItems = this.get('menuItems');
+    return menuItems.findBy('selected', true);
+  }),
+
+  /**
+   * Maintains the state of menu list visibility
+   * @type {Boolean}
+   */
+  isMenuEnabled: false,
+
   // -------------------------------------------------------------------------
   // actions
 
@@ -183,6 +219,29 @@ export default Ember.Component.extend({
         addedDate
       );
       component.sendAction('addedContentToDCA', data, addedDate);
+    },
+
+    /**
+     * Toggle menu list based on the recent selection of the menu.
+     */
+    toggleMenuList() {
+      this.toggleProperty('isMenuEnabled');
+    },
+
+    /**
+     * Choose the menu item
+     */
+    onChooseMenuItem(selectedItem) {
+      let component = this;
+      let menuItems = component.get('menuItems');
+      menuItems.forEach(item => {
+        item.set('selected', false);
+        if (selectedItem.get('label') === item.get('label')) {
+          item.set('selected', true);
+        }
+      });
+      component.toggleProperty('isMenuEnabled');
+      component.loadData();
     }
   },
 
@@ -250,8 +309,9 @@ export default Ember.Component.extend({
     component.set('isLoading', true);
     component.set('page', 0);
     component.set('isMoreDataExists', false);
+
     Ember.RSVP.hash({
-      searchResults: component.getSearchServiceByType()
+      searchResults: component.getSearchService()
     }).then(({ searchResults }) => {
       if (!component.isDestroyed) {
         component.set('isLoading', false);
@@ -273,7 +333,7 @@ export default Ember.Component.extend({
     let page = component.get('page') + 1;
     component.set('page', page);
     Ember.RSVP.hash({
-      searchResults: component.getSearchServiceByType()
+      searchResults: component.getSearchService()
     }).then(({ searchResults }) => {
       if (!component.isDestroyed) {
         component.set('isLoading', false);
@@ -294,12 +354,43 @@ export default Ember.Component.extend({
     let activeContentType = component.get('activeContentType');
     let params = component.getParams();
     let term = component.getSearchTerm() ? component.getSearchTerm() : '*';
-
     if (activeContentType === 'collection') {
       return component.get('searchService').searchCollections(term, params);
     } else if (activeContentType === 'assessment') {
       return component.get('searchService').searchAssessments(term, params);
     }
+  },
+
+  getMyContentByType() {
+    let component = this;
+    let currentUserId = component.get('session.userId');
+    let activeContentType = component.get('activeContentType');
+    let params = component.getParams();
+    let term = component.getSearchTerm();
+    if (term) {
+      params.searchText = term;
+    }
+    if (activeContentType === 'collection') {
+      return component
+        .get('profileService')
+        .readCollections(currentUserId, params);
+    } else if (activeContentType === 'assessment') {
+      return component
+        .get('profileService')
+        .readAssessments(currentUserId, params);
+    }
+  },
+
+  getSearchService() {
+    let component = this;
+    let searchService = null;
+    let label = component.get('selectedMenuItem.label');
+    if (label === 'common.myContent') {
+      searchService = component.getMyContentByType();
+    } else if (label === 'common.gooru-catalog') {
+      searchService = component.getSearchServiceByType();
+    }
+    return searchService;
   },
 
   getSearchTerm() {

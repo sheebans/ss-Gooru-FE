@@ -22,7 +22,7 @@
       <div class="course-map" data-toggle="tooltip" title="Course Map" {{action "onSelectClassItem" 'course-map' classData.id}}>
         <i class="icon"></i>
       </div>
-      <div class="performance {{unless hasStarted 'not-started'}}" data-toggle="tooltip" title="Report" {{action "onSelectClassItem" 'report' classData.id}}>
+      <div class="students" data-toggle="tooltip" title="Student" {{action "onSelectClassItem" 'students' classData.id}}>
         <i class="icon"></i>
       </div>
     </div>
@@ -31,13 +31,13 @@
 
 {{#if isShowCompetencyReport}}
   {{#reports.pull-up.competency-report type=(t 'report.competency-report.title') title=(if courseSubjectCode courseSubjectCode (t 'report.competency-report.no-subject')) showPullUp=isShowCompetencyReport}}
-      {{reports.pull-up.course-competency-report classData=classData onSelectDomain="onSelectDomain"}}
+    {{reports.pull-up.course-competency-report classData=classData onSelectDomain="onSelectDomain"}}
   {{/reports.pull-up.competency-report}}
 {{/if}}
 
 {{#if isShowDomainCompetencyReport}}
-  {{#reports.pull-up.competency-report type=(t 'report.domain-report') title=selectedDomain.domainData.domainName showPullUp=isShowDomainCompetencyReport onClosePullUp="onCloseCompetencyReportPullUp"}}
-      {{reports.pull-up.domain-competency-report domainSet=selectedDomain onSelectCompetency="onSelectCompetency"}}
+  {{#reports.pull-up.competency-report type=(t 'report.domain-report') title=selectedDomain.domainData.domainName showPullUp=isShowDomainCompetencyReport onClosePullUp="onCloseCompetencyReportPullUp" }}
+    {{reports.pull-up.domain-competency-report domainSet=selectedDomain onSelectCompetency="onSelectCompetency"}}
   {{/reports.pull-up.competency-report}}
 {{/if}}
 

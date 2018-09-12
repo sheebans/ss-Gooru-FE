@@ -45,6 +45,26 @@ export default Object.assign(quizzesTranslations, {
     relevance: 'प्रासंगिकता',
     engagement: 'अनुबंध',
     efficacy: 'प्रभावोत्पादकता',
+    grid: 'ग्रिड',
+    list: 'सूची',
+    first: 'प्रथम',
+    last: 'अंतिम',
+    name: 'नाम',
+    'content-name': 'सामग्री का नाम',
+    lastName: 'अंतिम नाम',
+    firstName: 'प्रथम नाम',
+    'filter-by': 'फ़िल्टर',
+    more: 'अधिक',
+    'avg-score': 'औसत अंक',
+    frq: 'एफआर ',
+    responses: 'प्रतिक्रिया',
+    'gooru-suggestions': 'Gooru सुझाव',
+    'suggestion-made-to': 'सुझाव दिया गया',
+    'student-selected': 'छात्र चुने गए',
+    'no-suggest-result-message': 'कोई मेल खाने वाली सामग्री मिली',
+    'no-suggest-results-message': 'आप संबंधित सामग्री को खोज और ढूंढ सकते हैं।',
+    'no-suggest-search-results-message':
+      'अपनी वर्तनी की जाँच करें। हम सब गलतियाँ करते हैं! या इसके बजाय एक समान शब्द खोजने की कोशिश करें।',
     'a-collection': 'एक संकलन',
     'a-course': 'एक पाठ्यक्रम',
     'a-question': 'एक प्रश्न',
@@ -55,6 +75,8 @@ export default Object.assign(quizzesTranslations, {
     about: 'के बारे में',
     'about-you': 'आपके बारे में',
     'about-me': 'मेरे बारे में',
+    accept: 'स्वीकार',
+    ignore: 'ध्यान न दे',
     add: 'जोड़ें',
     'add-assessment': 'नया मूल्यांकन बनाएं',
     'add-century-skills': '21 वीं सदी के कौशल जोड़ें',
@@ -176,6 +198,12 @@ export default Object.assign(quizzesTranslations, {
     'copy-to': 'को प्रतिलिपि',
     correct: 'सही ',
     'correct-answer': 'सही उत्तर',
+    'correct-answers': 'सही उत्तर',
+    'incorrect-answers': 'गलत उत्तर',
+    'rubric-graded': 'रूब्रिक श्रेणीबद्ध',
+    'rubric-needs-grading': 'रूब्रिक के ग्रेडिंग की जरूरत है',
+    'not-answered': 'जवाब नहीं दिया',
+    'rubric-not-answered': 'रूब्रिक का उत्तर नहीं दिया गया',
     country: 'देश',
     'course-map': 'पाठ्यक्रम मानचित्र',
     course: 'पाठ्यक्रम',
@@ -402,6 +430,7 @@ export default Object.assign(quizzesTranslations, {
     'more-details': 'अधिक जानकारी',
     move: 'चाल',
     myContent: 'मेरी सामग्री',
+    myProfile: 'मेरा स्थान',
     library: 'पुस्तकालय',
     myPerformance: 'मेरा प्रदर्शन',
     'edit-narration': 'विवरण संपादित करें',
@@ -750,7 +779,9 @@ export default Object.assign(quizzesTranslations, {
         'rescope-info':
           'इस पाठ्यक्रम को विशेष रूप से गणित आधार पाठ्यक्रम से आपके लिए वैयक्तिकृत किया गया है। मूल पाठ्यक्रम देखने के लिए, इस विशेषता को सक्षम करें।',
         'custom-msg':
-          'हम विशेष रूप से आपकी प्रवीणता के आधार पर इस पाठ्यक्रम को वैयक्तिकृत कर रहे हैं। व्यक्तिगत पाठ्यक्रम मानचित्र देखने के लिए कृपया थोड़ी देर में वापस आएं।'
+          'हम विशेष रूप से आपकी प्रवीणता के आधार पर इस पाठ्यक्रम को वैयक्तिकृत कर रहे हैं। व्यक्तिगत पाठ्यक्रम मानचित्र देखने के लिए कृपया थोड़ी देर में वापस आएं।',
+        'route0-bannerdesc':
+          'आपकी योग्यता प्रोफ़ाइल के अनुसार, कुछ दक्षताएं हैं जिन्हें आपको मास्टर करने की आवश्यकता है ताकि आप इस कोर्स में अच्छा प्रदर्शन कर सकें। हमारे पास एक मार्ग है जो हम आपको इन दक्षताओं को मास्टर करने के लिए सलाह देते हैं। विवरण देखने के लिए यहां क्लिक करें।'
       }
     },
     analytics: {
@@ -1103,6 +1134,7 @@ export default Object.assign(quizzesTranslations, {
       'time-period': 'समय सीमा',
       'update-report': 'रिपोर्ट अपडेट करें'
     },
+    'study-player': 'अध्ययन प्लेयर',
     'my-study': 'मेरा अध्ययन',
     'no-classrooms':
       'आप अभी तक किसी भी कक्षा में शामिल नहीं हुए हैं। अपने शिक्षक की कक्षा को जोड़ने के लिए \'</br> कक्षा में शामिल हों\' पर क्लिक करें। आप लाइब्रेरी टैब के नीचे </br> एक फीचर्ड पाठ्यक्रम भी खोज सकते हैं।',
@@ -1129,7 +1161,20 @@ export default Object.assign(quizzesTranslations, {
     'latest-assessment': 'नवीनतम मूल्यांकन',
     'create-classroom':
       'कक्षा बनाएं, सामग्री का निरूपण करें, छात्रों को आमंत्रित करें',
+    'navigator-banner': {
+      title: 'गणित के लिए नेविगेटर',
+      description:
+        'Utilizing this GPS for Learning technology, we have designed Navigator for Math to ensure that every student can gain confidence and accelerate their learning in math.<br/>Navigator for Math is a course of study covering all math concepts from grades 2-12. Students are routed and rerouted through an individualized pathway designed to build on their current knowledge, as well as fill gaps in their understanding. Through this comprehensive and personalized learning experience, every student can become fully prepared for more advanced math.',
+      join: 'डेमो कक्षा में शामिल हों',
+      'success-message':
+        'आप नेविगेटर कक्षा के सह-शिक्षक के रूप में सफलतापूर्वक शामिल हो गए हैं',
+      'error-message': 'कक्षा में शामिल होने में समस्या है'
+    },
     class: {
+      manage: 'संचालन',
+      reports: 'रिपोर्ट',
+      'daily-activites': 'दैनिक गतिविधियां',
+      courses: 'Course',
       'back-to': 'कक्षाओं में वापस जाएं',
       'back-to-archived': 'संग्रहीत कक्षाओं में वापस जाएं',
       'class-management': 'कक्षा प्रबंधन',
@@ -1194,7 +1239,9 @@ export default Object.assign(quizzesTranslations, {
     'welcome-course-map':
       'यह आपका पाठ्यक्रम मानचित्र है जहां आप पाठ्यक्रम देख सकते हैं, मूल्यांकन चालू या बंद कर सकते हैं और रीयल-टाइम में मूल्यांकन लॉन्च कर सकते हैं। आप समग्र वर्ग के प्रदर्शन और समापन को भी देख सकते हैं। कक्षा प्रदर्शन के विस्तृत दृश्य के लिए, अपनी कक्षा के रिपोर्ट टैब पर जाएं।',
     'welcome-rescoped-course-map':
-      'इस पाठ्यक्रम को कक्षा में प्रत्येक छात्र के लिए व्यक्तिगत बनाया गया है। आप छात्र के सीखने के मार्ग (अक्षर - और>) पर क्लिक करके कक्षा प्रबंधन पृष्ठ में प्रत्येक छात्र के पाठ्यक्रम मानचित्र को देख सकते हैं।'
+      'इस पाठ्यक्रम को कक्षा में प्रत्येक छात्र के लिए व्यक्तिगत बनाया गया है। आप छात्र के सीखने के मार्ग (अक्षर - और>) पर क्लिक करके कक्षा प्रबंधन पृष्ठ में प्रत्येक छात्र के पाठ्यक्रम मानचित्र को देख सकते हैं।',
+    'welcome-premium-course-map':
+      'यह एक अत्यधिक क्यूरेटेड कोर्स है जो विद्यार्थियों को अपने वर्तमान स्तर के बावजूद त्वरित समय सीमा में एक निश्चित ग्रेड स्तर पर रहने में मदद करने के लिए डिज़ाइन किया गया है। कक्षा में प्रत्येक छात्र के लिए यह कोर्स वैयक्तिकृत किया जाएगा। आप छात्र की सूची से छात्र का चयन करके प्रत्येक छात्र के पाठ्यक्रम मानचित्र देख सकते हैं।'
   },
   goals: {
     manage: {
@@ -1275,7 +1322,8 @@ export default Object.assign(quizzesTranslations, {
     'unlimited-attempts': 'आपके पास असीमित प्रयास हैं',
     cancel: 'रद्द करना',
     continue: 'जारी रहें',
-    start: 'प्रारंभ!'
+    start: 'प्रारंभ!',
+    submit: 'जमा करें!'
   },
   'gru-submit-confirmation': {
     title: 'इस प्रश्नोत्तरी को खत्म करें और सभी सबमिट करें',
@@ -1462,7 +1510,7 @@ export default Object.assign(quizzesTranslations, {
     description: 'ऐसा सभी के साथ होता है।',
     usernameOrEmail: 'अपना ईमेल दर्ज करें',
     'footer-google-description-1':
-      '<a href="/sign-in"> "Google से साइन इन दबाकर फिर से लॉग इन करने का प्रयास करें।" </a>',
+      '<a href=\'sign-in\'> \'Google से साइन इन दबाकर फिर से लॉग इन करने का प्रयास करें।\' </a>',
     'footer-description-1':
       'आपको अपना पासवर्ड रीसेट करने के लिए एक लिंक के साथ एक ईमेल प्राप्त होगा।',
     'footer-description-2': 'यदि आपके कोई प्रश्न हैं, तो कृपया संपर्क करें',
@@ -1894,7 +1942,7 @@ export default Object.assign(quizzesTranslations, {
   featured: {
     'featured-title': 'फीचर्ड पाठ्यक्रम',
     'featured-description':
-      'फीचर्ड पाठ्यक्रमों को अभिनव शिक्षकों द्वारा तैयार किया जाता है, सामग्री विशेषज्ञों द्वारा जांच और समीक्षा की जाती है, और छात्रों के लिए कक्षाओं में इसे लागू किया जाता है। सीखने को वैयक्तिकृत करने और छात्र जुड़ाव बढ़ाने के लिए पाठ्यक्रमों की खोज, रीमिक्स और कस्टमाइज़ करें! <a href="http://about.gooru.org/courses" target="_blank"> इन पाठ्यक्रमों के विकास के बारे में और जानें </a>।'
+      'फीचर्ड पाठ्यक्रमों को अभिनव शिक्षकों द्वारा तैयार किया जाता है, सामग्री विशेषज्ञों द्वारा जांच और समीक्षा की जाती है, और छात्रों के लिए कक्षाओं में इसे लागू किया जाता है। सीखने को वैयक्तिकृत करने और छात्र जुड़ाव बढ़ाने के लिए पाठ्यक्रमों की खोज, रीमिक्स और कस्टमाइज़ करें! <a href=\'http://about.gooru.org/courses\' target=\'_blank\'> इन पाठ्यक्रमों के विकास के बारे में और जानें </a>।'
   },
   'taxonomy.modals': {
     'gru-domain-picker': {
@@ -2527,6 +2575,15 @@ export default Object.assign(quizzesTranslations, {
     'take-resource': 'संसाधन का अध्ययन करें',
     'end-of-course': 'आप पाठ्यक्रम के अंत तक पहुंच गए हैं।'
   },
+  'gru-content-suggestion': {
+    header: 'हमारे पास आपके लिए एक सुझाव है!',
+    'suggestion-text': {
+      collection:
+        'इस विषय पर आपके प्रदर्शन के आधार पर, हम सलाह देते हैं कि आप हमारे सुझाए गए संग्रह से गुजरें जो आपको मास्टरी प्राप्त करने में मदद करेगा।',
+      assessment:
+        'इस विषय पर आपके प्रदर्शन के आधार पर, हम सलाह देते हैं कि आप हमारे सुझाए गए मूल्यांकन से गुजरें जो आपको मास्टरी प्राप्त करने में मदद करेगा।'
+    }
+  },
   'student-open-ended-summary': {
     'overall-comment': 'समग्र टिप्पणी',
     'overall-score': 'समग्र स्कोर',
@@ -2534,5 +2591,24 @@ export default Object.assign(quizzesTranslations, {
   },
   'gru-performance-chart': {
     'teacher-tooltip': 'आपके छात्रों ने इस पाठ के सभी मूल्यांकन पूरे कर लिए हैं'
+  },
+  report: {
+    'external-assessment-report': {
+      note:
+        'मूल्यांकन के लिए छात्र रिपोर्ट स्कोर के साथ यह एक बाहरी मूल्यांकन है। व्यक्तिगत प्रश्न स्तर डेटा उपलब्ध नहीं है।',
+      wish: 'बधाई हो! आपने स्कोर किया',
+      reference: 'इस बाहरी मूल्यांकन का उपयोग किया जा सकता है'
+    },
+    'competency-report': {
+      title: 'योग्यता रिपोर्ट',
+      'no-subject': 'कोई विषय असाइन नहीं किया गया'
+    },
+    'domain-report': 'डोमेन रिपोर्ट'
+  },
+  'self-report': {
+    'your-score': 'आपका स्कोर',
+    'update-error': 'स्कोर अपडेट करने में समस्या',
+    'validation-error': 'वैध स्कोर दर्ज करें',
+    'enter-score': 'अपना स्कोर यहां दर्ज करें'
   }
 });

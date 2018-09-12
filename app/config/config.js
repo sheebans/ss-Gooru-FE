@@ -353,3 +353,14 @@ export const COMPETENCY_STATUS = [
   'Mastered',
   'Mastered'
 ];
+
+//gruF-Feature-flag
+export const GRU_FEATURE_FLAG = {
+  notifications: true
+};
+
+//notifciation timer
+export const NOTIFICATION_SETTINGS = {
+  polling_interval: 30000,
+  page_size: 5
+};

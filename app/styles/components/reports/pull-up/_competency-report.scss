@@ -1,6 +1,6 @@
 .competency-report-pull-up {
   position: fixed;
-  top: 100%;
+  top: 200%;
   z-index: 1031;
   width: 768px !important;
   left: 0;
@@ -12,28 +12,38 @@
 
   .competency-report {
     background-color: $white;
+    position: absolute;
+    bottom: 10px;
+
     .header {
       height: 60px;
-      padding: 8px 15px 8px 15px;
+      padding: 8px 15px;
       display: flex;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
       .report-info {
         width: 96%;
         display: flex;
+
         .title-section {
           width: 73%;
           font-size: 16px;
           color: #37424b;
+
           .type {
             text-transform: uppercase;
           }
+
           .title {
             text-transform: capitalize;
           }
-          .type, .title {
+
+          .title,
+          .type {
             height: 21px;
             line-height: 21px;
           }
+
           &.content {
             .type {
               font-size: 20px;
@@ -42,10 +52,12 @@
             }
           }
         }
+
         .competency-status {
           width: 27%;
           color: #37424b;
           font-size: 16px;
+
           .badge {
             background-image: url("gooru/gooru-edu-rights-badge.png");
             width: 69px;
@@ -58,11 +70,10 @@
         }
       }
 
-
-
       .close-pullup {
         padding-top: 10px;
         opacity: 0.5;
+
         i {
           font-size: 28px;
         }
@@ -70,11 +81,12 @@
     }
 
     .body {
-      height: 80vh;
+      max-height: 80vh;
+      min-height: 135px;
       width: 760px;
       overflow-x: hidden;
       overflow-y: auto;
-      padding: 8px 15px 8px 15px;
+      padding: 8px 15px;
     }
   }
 }
