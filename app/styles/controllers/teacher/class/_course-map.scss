@@ -203,6 +203,10 @@
               padding-right: 10px;
               font-size: 15px;
               text-transform: capitalize;
+
+              &:hover {
+                color: #0072bc;
+              }
             }
 
             &.active {
