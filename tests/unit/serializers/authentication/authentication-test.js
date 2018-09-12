@@ -40,7 +40,8 @@ test('normalizeResponse for anonymous account', function(assert) {
       gooruUId: 'user-id',
       avatarUrl: `${appRootPath}${DEFAULT_IMAGES.USER_PROFILE}`,
       isNew: true,
-      providedAt: 0
+      providedAt: 0,
+      role: undefined
     },
     cdnUrls: {
       user: 'user-url',
@@ -81,7 +82,8 @@ test('normalizeResponse for normal account', function(assert) {
       gooruUId: 'user-id',
       avatarUrl: 'user-url/image-id',
       isNew: true,
-      providedAt: 1
+      providedAt: 1,
+      role: undefined
     },
     cdnUrls: {
       user: 'user-url/',
@@ -122,7 +124,8 @@ test('normalizeResponse for google account', function(assert) {
       gooruUId: 'user-id',
       avatarUrl: `${appRootPath}${DEFAULT_IMAGES.USER_PROFILE}`,
       isNew: true,
-      providedAt: 2
+      providedAt: 2,
+      role: undefined
     },
     cdnUrls: {
       user: 'user-url',
@@ -142,9 +145,7 @@ test('normalizeResponse for google account', function(assert) {
   assert.deepEqual(expected, response, 'Wrong normalized response');
 });
 
-test('normalizeResponse for google account containing user category', function(
-  assert
-) {
+test('normalizeResponse for google account containing user category', function(assert) {
   const serializer = this.subject();
   const appRootPath = '/'; //default appRootPath
   serializer.set('configurationService', configurationService);
@@ -170,7 +171,8 @@ test('normalizeResponse for google account containing user category', function(
       gooruUId: 'user-id',
       avatarUrl: `${appRootPath}${DEFAULT_IMAGES.USER_PROFILE}`,
       isNew: false,
-      providedAt: 3
+      providedAt: 3,
+      role: 'user-cateogory'
     },
     cdnUrls: {
       user: 'user-url',
