@@ -90,6 +90,7 @@
         color: #666666;
         line-height: 67px;
         margin-left: 12px;
+        text-transform: capitalize;
       }
 
       .performance-container {
@@ -135,10 +136,44 @@
         }
 
         .students-list {
-          width: 75px;
+          max-width: 75px;
+          min-width: 75px;
           max-height: 587px;
-          overflow-y: auto;
           background-color: $white;
+          transition: 1s;
+          position: absolute;
+          z-index: 9999;
+          overflow-x: hidden;
+          overflow-y: auto;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
+
+          &::-webkit-scrollbar {
+            height: 6px;
+            width: 8px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: $gray-light;
+            border: 1px solid $gray-light;
+            border-radius: 5px;
+          }
+
+          &:hover {
+            box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.13);
+            max-width: 100%;
+
+            .list {
+              &.active {
+                .student-name {
+                  color: #0072bc;
+                }
+              }
+
+              .student-name {
+                display: block;
+              }
+            }
+          }
 
           .teacher {
             .thumbnail {
@@ -151,7 +186,7 @@
             display: flex;
             cursor: pointer;
             width: max-content;
-            margin: auto;
+            margin-left: 21px;
 
             .thumbnail {
               width: 30px;
@@ -159,6 +194,15 @@
               border-radius: 50%;
               background-size: contain;
               margin: 6px 0;
+            }
+
+            .student-name {
+              display: none;
+              margin-left: 40px;
+              margin-top: 7px;
+              padding-right: 10px;
+              font-size: 15px;
+              text-transform: capitalize;
             }
 
             &.active {
