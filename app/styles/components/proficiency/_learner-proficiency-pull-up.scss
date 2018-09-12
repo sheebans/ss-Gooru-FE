@@ -96,6 +96,13 @@
       height: calc(90vh - 100px);
       overflow: auto;
 
+      .proficiency-chart {
+        .learner-proficiency-domain-matrix .chart-area {
+          width: 100%;
+          display: flex;
+        }
+      }
+
       .not-tagged {
         font-size: 15px;
         margin-top: 30px;
