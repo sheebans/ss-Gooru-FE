@@ -210,8 +210,17 @@ export default Ember.Component.extend({
    */
   notificationModel: {},
 
+  ctxProfile: null,
+
   isTeacher: Ember.computed('ctxprofile', function() {
-    return !!(this.get('ctxprofile') && this.get('ctxprofile').isTeacher);
+    let ctxProfile = this.get('ctxprofile'),
+      isTeacher = false;
+    if (ctxProfile) {
+      isTeacher = ctxProfile.isTeacher;
+    } else {
+      console.warn('User profile not found!!'); //eslint-disable-line
+    }
+    return isTeacher;
   }),
 
   timer: null,
