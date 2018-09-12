@@ -33,7 +33,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
           ? basePath + payload.thumbnail
           : appRootPath + DEFAULT_IMAGES.USER_PROFILE,
         isNew: !payload.user_category,
-        providedAt: payload.provided_at
+        providedAt: payload.provided_at,
+        role: payload.user_category
       },
       cdnUrls: {
         user: basePath,
