@@ -39,6 +39,11 @@ export function initialize(application) {
     }),
 
     /**
+     * @property {string} Session user id
+     */
+    role: Ember.computed.alias('userData.role'),
+
+    /**
      * @property {boolean} Indicates if the session is for an anonymous user
      */
     isAnonymous: Ember.computed('data.authenticated', function() {

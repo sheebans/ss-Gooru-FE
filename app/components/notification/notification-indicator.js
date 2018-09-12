@@ -12,6 +12,12 @@ export default Ember.Component.extend({
 
   notificationService: Ember.inject.service('api-sdk/app-notification'),
 
+  /**
+   * Logged in user session object
+   * @type {Session}
+   */
+  session: Ember.inject.service(),
+
   // -------------------------------------------------------------------------
   // Dispaly properties
 
@@ -210,8 +216,6 @@ export default Ember.Component.extend({
    */
   notificationModel: {},
 
-  ctxProfile: null,
-
   isTeacher: Ember.computed('ctxprofile', function() {
     let ctxProfile = this.get('ctxprofile'),
       isTeacher = false;
@@ -248,9 +252,9 @@ export default Ember.Component.extend({
    */
   notificationCtxRole: Ember.computed(function() {
     const component = this;
-    let userrole = 'student';
-    //if (!component.get('model.isClass')) {} // No check as supplied from parent component
-    userrole = component.get('isTeacher') ? 'teacher' : 'student';
+    let userrole = component.get('session').get('role');
+    userrole =
+      userrole === 'teacher' || userrole === 'student' ? userrole : null; // Don't show notifications of user role is not student or teacher
     return userrole;
   }),
 
@@ -317,9 +321,7 @@ export default Ember.Component.extend({
      */
     dismissNotifiocation(notin) {
       const component = this;
-      if (notin) {
-        //Service call and dismiss item.
-        //if (notin.ctxPathType === component.get('notificationCtxRole')) { // Const correction needed to enable this check
+      if (notin && component.get('notificationCtxRole')) {
         let serviceEndpoint =
           component.get('notificationCtxRole') === 'student'
             ? component
@@ -358,6 +360,9 @@ export default Ember.Component.extend({
    */
   getNotifications(dataFilter) {
     const component = this;
+    if (!component.get('notificationCtxRole')) {
+      return; //Don't fetch any notifications if user role is null
+    }
     let notinPromise;
     dataFilter = dataFilter || component.getDataFilter();
     if (component.get('notificationCtxRole') === 'student') {
