@@ -216,17 +216,6 @@ export default Ember.Component.extend({
    */
   notificationModel: {},
 
-  isTeacher: Ember.computed('ctxprofile', function() {
-    let ctxProfile = this.get('ctxprofile'),
-      isTeacher = false;
-    if (ctxProfile) {
-      isTeacher = ctxProfile.isTeacher;
-    } else {
-      console.warn('User profile not found!!'); //eslint-disable-line
-    }
-    return isTeacher;
-  }),
-
   timer: null,
 
   init() {
@@ -248,7 +237,7 @@ export default Ember.Component.extend({
 
   /**
    * @property {string}
-   * Context in which notificantion is loaded student/teacher
+   * Context in which notification is loaded student/teacher
    */
   notificationCtxRole: Ember.computed(function() {
     const component = this;
@@ -260,18 +249,6 @@ export default Ember.Component.extend({
 
   model: null,
 
-  /**
-   * @description Populates the necessary configuration options for instance
-   * a. notificationAcessor : The place or context of invocation of notification. [global / class]
-   *  a.1. notificationAcessor is a positional configuration. The control from where its invokes passes the value. eg. from gru-header then 'global' from study-nav-bar then 'class'
-   * b. acessorRole : Role of the notification accessor. [student/teacher]
-   * b.1. acessorRole is obtained from the current user session.
-   */
-  getInstanceInvoctionOptions() {
-    //ToDo: mhere
-    //let notificationOptions = {};
-    console.log('mhere', 'location'); //eslint-disable-line
-  },
   /**
    * Takes action on the notification
    * Refresh UI upon success, to remove the acted notification
@@ -404,16 +381,9 @@ export default Ember.Component.extend({
         newNotificationDetails
       );
 
-      //Array.prototype.push.apply(notndetail, newNotificationDetails); //ToDo: requiers a data merge
-
       if (!(component.get('isDestroyed') || component.get('isDestroying'))) {
         newDataModel.notifications = ndt;
         component.set('notificationModel', newDataModel);
-        //eslint-disable-next-line
-        /* console.log(
-          'hasActiveNotifications',
-          component.get('hasActiveNotifications')
-        ); */
       }
     });
   },
@@ -452,25 +422,11 @@ export default Ember.Component.extend({
     return filter;
   },
 
-  /**
-   * Timer based refresh of UI
-   */
-  refreshSelf() {
-    const component = this;
-    component.set('notificationModel', ''); // reset with timer, rather
-    component._debouncedItem = Ember.run.later(
-      component,
-      function() {
-        //let d = new Date(); console.log('500 ms of timeout:', d); // ToDo: revisit here
-        component.getNotifications(component.getDefaultFilter()); //Force default filter for first time load and refresh
-      },
-      30000
-    );
-  },
-
   destroy() {
     this._super(...arguments);
-    clearInterval(this.timer);
-    //Ember.run.cancel(this._debouncedItem);
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
   }
 });
