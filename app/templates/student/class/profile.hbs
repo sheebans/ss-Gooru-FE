@@ -1,7 +1,5 @@
 <div class="student proficiency">
-  {{#if courseId}}
-
-
+  {{#if isShowMatrixChart}}
     <div class="header">
       <div class="taxonomy-info">
         <div class="dropdown categories">
@@ -57,7 +55,8 @@
       </div>
     </div>
   {{else}}
-    <div> {{t "student-landing.class.no-course-assigned"}}</div>
+    <div> {{t 'profile.proficiency.not-tagged'}}
+    </div>
   {{/if}}
 </div>
 

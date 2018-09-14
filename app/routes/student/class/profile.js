@@ -33,5 +33,9 @@ export default Ember.Route.extend({
     if (activeCategory) {
       controller.fetchSubjectsByCategory(activeCategory);
     }
+  },
+
+  resetController(controller) {
+    controller.set('taxonomySubjects', Ember.A([]));
   }
 });
