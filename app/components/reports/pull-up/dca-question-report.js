@@ -29,12 +29,12 @@ export default Ember.Component.extend({
       let component = this;
       component
         .$(
-          '.question-report-container #report-carousel-wrapper .carousel-control'
+          '.dca-question-report-container #report-carousel-wrapper .carousel-control'
         )
         .addClass('in-active');
       let questions = component.get('questions');
       let selectedElement = component.$(
-        '.question-report-container #report-carousel-wrapper .item.active'
+        '.dca-question-report-container #report-carousel-wrapper .item.active'
       );
       let currentIndex = selectedElement.data('item-index');
       let selectedIndex = selectedElement.data('item-index') - 1;
@@ -43,7 +43,7 @@ export default Ember.Component.extend({
       }
       component.set('selectedQuestion', questions.objectAt(selectedIndex));
       component
-        .$('.question-report-container #report-carousel-wrapper')
+        .$('.dca-question-report-container #report-carousel-wrapper')
         .carousel('prev');
       component.handleCarouselControl();
     },
@@ -52,12 +52,12 @@ export default Ember.Component.extend({
       let component = this;
       component
         .$(
-          '.question-report-container #report-carousel-wrapper .carousel-control'
+          '.dca-question-report-container #report-carousel-wrapper .carousel-control'
         )
         .addClass('in-active');
       let questions = component.get('questions');
       let selectedElement = component.$(
-        '.question-report-container #report-carousel-wrapper .item.active'
+        '.dca-question-report-container #report-carousel-wrapper .item.active'
       );
       let currentIndex = selectedElement.data('item-index');
       let selectedIndex = currentIndex + 1;
@@ -66,7 +66,7 @@ export default Ember.Component.extend({
       }
       component.set('selectedQuestion', questions.objectAt(selectedIndex));
       component
-        .$('.question-report-container #report-carousel-wrapper')
+        .$('.dca-question-report-container #report-carousel-wrapper')
         .carousel('next');
       component.handleCarouselControl();
     },
@@ -100,7 +100,7 @@ export default Ember.Component.extend({
       component.set('showLess', true);
       component
         .$(
-          '.question-report-container #report-carousel-wrapper .active .question-background-cover'
+          '.dca-question-report-container #report-carousel-wrapper .active .question-background-cover'
         )
         .addClass('show-all');
     },
@@ -114,7 +114,7 @@ export default Ember.Component.extend({
       component.set('showLess', false);
       component
         .$(
-          '.question-report-container #report-carousel-wrapper .active .question-background-cover'
+          '.dca-question-report-container #report-carousel-wrapper .active .question-background-cover'
         )
         .removeClass('show-all');
     }
@@ -145,6 +145,12 @@ export default Ember.Component.extend({
    * @type {String}
    */
   classId: Ember.computed.alias('context.classId'),
+
+  /**
+   * Selected activityDate belongs to this collection report.
+   * @type {String}
+   */
+  activityDate: Ember.computed.alias('context.activityDate'),
 
   /**
    * Collection belongs to this question report.
@@ -239,7 +245,7 @@ export default Ember.Component.extend({
     let selectedQuestion = component.get('selectedQuestion');
     let selectedIndex = questions.indexOf(selectedQuestion);
     component
-      .$('.question-report-container #report-carousel-wrapper')
+      .$('.dca-question-report-container #report-carousel-wrapper')
       .carousel(selectedIndex);
   },
 
@@ -444,33 +450,33 @@ export default Ember.Component.extend({
     if (questions.length - 1 === 0) {
       component
         .$(
-          '.question-report-container #report-carousel-wrapper .carousel-control'
+          '.dca-question-report-container #report-carousel-wrapper .carousel-control'
         )
         .addClass('in-active');
     } else {
       if (currentIndex === 0) {
         component
           .$(
-            '.question-report-container #report-carousel-wrapper .carousel-control.left'
+            '.dca-question-report-container #report-carousel-wrapper .carousel-control.left'
           )
           .addClass('in-active');
       } else {
         component
           .$(
-            '.question-report-container #report-carousel-wrapper .carousel-control.left'
+            '.dca-question-report-container #report-carousel-wrapper .carousel-control.left'
           )
           .removeClass('in-active');
       }
       if (currentIndex === questions.length - 1) {
         component
           .$(
-            '.question-report-container #report-carousel-wrapper .carousel-control.right'
+            '.dca-question-report-container #report-carousel-wrapper .carousel-control.right'
           )
           .addClass('in-active');
       } else {
         component
           .$(
-            '.question-report-container #report-carousel-wrapper .carousel-control.right'
+            '.dca-question-report-container #report-carousel-wrapper .carousel-control.right'
           )
           .removeClass('in-active');
       }
@@ -478,17 +484,17 @@ export default Ember.Component.extend({
     // handle show more in carousel
     component
       .$(
-        '.question-report-container #report-carousel-wrapper .question-background-cover'
+        '.dca-question-report-container #report-carousel-wrapper .question-background-cover'
       )
       .removeClass('show-all');
     let height = component
       .$(
-        `.question-report-container #report-carousel-wrapper .question-background-cover:eq(${currentIndex})`
+        `.dca-question-report-container #report-carousel-wrapper .question-background-cover:eq(${currentIndex})`
       )
       .height();
     let scrollHeight = component
       .$(
-        `.question-report-container #report-carousel-wrapper .question-background-cover:eq(${currentIndex})`
+        `.dca-question-report-container #report-carousel-wrapper .question-background-cover:eq(${currentIndex})`
       )
       .prop('scrollHeight');
     if (scrollHeight > height) {

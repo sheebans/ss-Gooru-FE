@@ -38,7 +38,7 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
         userId: userId,
         classId: component.get('class.id'),
         collectionId: collection.get('id'),
-        type: collection.get('format') || collection.get('collectionType'),
+        type: collection.get('format'),
         isStudent: true,
         collection,
         activityDate,

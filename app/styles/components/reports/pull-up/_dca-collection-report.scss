@@ -36,7 +36,7 @@
     top: 0;
   }
 
-  .collection-report-container {
+  .dca-collection-report-container {
     background: #ffffff;
     width: 768px;
     max-height: 90vh;
@@ -49,72 +49,20 @@
       position: relative;
       z-index: 1;
 
-      .report-breadcrumb {
+      .report-header-info {
         width: calc(100% - 50px);
         display: flex;
-
-        .unit-title {
-          display: flex;
-          align-items: center;
-          max-width: 215px;
-
-          p {
-            max-width: 170px;
-            margin: 0;
-            @include ellipsis(
-              $font-size: 14px,
-              $line-height: 1.2,
-              $lines-to-show: 2
-            );
-          }
-
-          .unit-icon {
-            width: 50px;
-            height: 50px;
-            background-image: url("../assets/gooru/images/unit.svg");
-            background-repeat: no-repeat;
-            background-size: 30px 30px;
-            background-position: 12px 12px;
-          }
-        }
-
-        .lesson-title {
-          display: flex;
-          align-items: center;
-          max-width: 215px;
-
-          .keyboard_arrow_right {
-            margin-right: 5px;
-          }
-
-          p {
-            margin: 0;
-            max-width: 170px;
-            @include ellipsis(
-              $font-size: 14px,
-              $line-height: 1.2,
-              $lines-to-show: 2
-            );
-          }
-
-          .lesson-icon {
-            width: 45px;
-            height: 50px;
-            background-image: url("../assets/gooru/images/lesson.svg");
-            background-repeat: no-repeat;
-            background-size: 30px 30px;
-            background-position: 0 11px;
-          }
-        }
+        justify-content: space-between;
 
         .collection-title {
           display: flex;
           align-items: center;
-          max-width: 300px;
+          max-width: 450px;
+          padding-left: 20px;
 
           p {
             margin: 0;
-            max-width: 260px;
+            max-width: 410px;
             @include ellipsis(
               $font-size: 14px,
               $line-height: 1.2,
@@ -137,6 +85,13 @@
               background-image: url("../assets/gooru/images/collection_gray.svg");
             }
           }
+        }
+
+        .dca-activity-date {
+          font-size: 15px;
+          font-weight: bold;
+          align-self: center;
+          padding-right: 20px;
         }
       }
 

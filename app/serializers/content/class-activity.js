@@ -100,7 +100,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
         resourceCount: data.resource_count,
         questionCount: data.question_count,
         collectionType: data.content_type,
-        thumbnailUrl: thumbnailUrl
+        thumbnailUrl: thumbnailUrl,
+        format: data.content_type
       });
     }
 
@@ -114,7 +115,8 @@ export default Ember.Object.extend(ConfigurationMixin, {
         title: data.title,
         thumbnailUrl: thumbnailUrl,
         collectionType: data.content_type,
-        url: data.url ? data.url : ''
+        url: data.url ? data.url : '',
+        format: data.content_type
       });
     }
 

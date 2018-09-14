@@ -483,14 +483,11 @@ export default Ember.Component.extend({
     let updateData = Ember.Object.create({
       student_id: context.get('userId'),
       session_id: context.get('sessionId'),
-      unit_id: context.get('unitId'),
       collection_id: context.get('collectionId'),
       class_id: context.get('classId'),
       collection_type: context.get('collectionType'),
-      lesson_id: context.get('lessonId'),
-      course_id: context.get('courseId'),
       resources: questionScoreUpdateData,
-      content_source: 'coursemap' // TO-DO Have to replace actual content source, right now default set as coursemap
+      content_source: 'dca'
     });
     return updateData;
   }

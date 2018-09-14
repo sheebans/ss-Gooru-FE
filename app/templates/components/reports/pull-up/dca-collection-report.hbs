@@ -1,10 +1,13 @@
 <div class="backdrop" {{action 'onPullUpClose'}}></div>
-<div class="collection-report-container">
+<div class="dca-collection-report-container">
   <div class="report-header">
-    <div class="report-breadcrumb">
+    <div class="report-header-info">
       <div class="collection-title">
         <i class="collection-icon {{collectionType}}"></i>
         <p>{{selectedCollection.title}}</p>
+      </div>
+      <div class="dca-activity-date">
+        <span>{{format-date activityDate 'MMMM DD, YYYY'}}</span>
       </div>
     </div>
     <div class="report-close-pullup" {{action 'onPullUpClose'}}>
@@ -138,22 +141,12 @@
 </div>
 
 {{#if isShowStudentReport}}
-  {{class.gru-report-panel showPullUp=isShowStudentReport reportData=studentReportContextData model=studentReportContextData.lesson isStudent=studentReportContextData.isStudent onClosePullUp="onClosePullUp"}}
+  {{reports.pull-up.dca-student-collection-report showPullUp=isShowStudentReport reportData=studentReportContextData model=studentReportContextData.lesson isStudent=studentReportContextData.isStudent onClosePullUp="onClosePullUp"}}
 {{/if}}
 
 {{#if isShowQuestionReport}}
-  {{reports.pull-up.question-report showPullUp=isShowQuestionReport  context=studentQuestionReportContextData}}
+  {{reports.pull-up.dca-question-report showPullUp=isShowQuestionReport  context=studentQuestionReportContextData}}
 {{/if}}
-
-{{#if isShowStudentExternalAssessmentReport}}
-  {{
-    reports.pull-up.student-external-assessment-report
-    reportData=studentReportContextData
-    isStudent=studentReportContextData.isStudent
-    onClosePullUp="onClosePullUp"
-  }}
-{{/if}}
-
 
 {{#if isLoading}}
   <div class="loading-spinner">

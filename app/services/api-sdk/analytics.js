@@ -383,7 +383,7 @@ export default Ember.Service.extend({
         .then(
           function(events) {
             resolve(
-              service.get('analyticsSerializer').normalizeDCAResponse(events)
+              service.get('analyticsSerializer').normalizeResponse(events)
             );
           },
           function(error) {

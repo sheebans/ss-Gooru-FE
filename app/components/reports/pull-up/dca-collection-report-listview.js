@@ -78,8 +78,8 @@ export default Ember.Component.extend({
   // Actions
 
   actions: {
-    studentReport(collection, userId) {
-      this.sendAction('studentReport', collection, userId);
+    studentReport(studentPerformance) {
+      this.sendAction('studentReport', studentPerformance);
     },
 
     openQuestionReport(question, questions) {

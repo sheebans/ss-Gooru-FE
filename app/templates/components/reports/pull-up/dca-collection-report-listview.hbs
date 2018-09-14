@@ -49,7 +49,7 @@
         <tr>
           <th>
             <div class="user-profile-summary">
-              <div class="user-profile-details {{unless student.hasStarted 'not-started'}}" {{action 'studentReport' selectedCollection student.id}}>
+              <div class="user-profile-details {{unless student.hasStarted 'not-started'}}" {{action 'studentReport' student}}>
                 <div class="user-profile-img">
                   <img src="{{student.avatarUrl}}" />
                 </div>

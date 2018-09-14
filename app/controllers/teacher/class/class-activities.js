@@ -60,10 +60,19 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
       let controller = this;
       let collection = selectedClassActivity.get('collection');
       let activityDate = selectedClassActivity.get('added_date');
+      let dateWiseClassActivity = controller
+        .get('classActivities')
+        .findBy('added_date', activityDate);
+      let dateWiseClassActivities = dateWiseClassActivity.get(
+        'classActivities'
+      );
+      let collections = dateWiseClassActivities.map(classActivity => {
+        return classActivity.get('collection');
+      });
       let params = {
         classId: controller.get('classId'),
         collection: collection,
-        collections: Ember.A([]),
+        collections: collections,
         activityDate: activityDate,
         classMembers: controller.get('members')
       };

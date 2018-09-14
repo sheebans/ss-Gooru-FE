@@ -288,10 +288,11 @@ export default Ember.Service.extend({
             .objectAt(0);
 
           if (classActivity) {
-            classActivity.set(
-              'collection.performance',
-              performance.get('collectionPerformanceSummary')
+            let performanceData = performance.get(
+              'collectionPerformanceSummary'
             );
+            performanceData.set('hasStarted', true);
+            classActivity.set('collection.performance', performanceData);
           }
         });
 

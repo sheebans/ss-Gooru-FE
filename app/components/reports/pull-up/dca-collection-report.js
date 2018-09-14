@@ -60,12 +60,12 @@ export default Ember.Component.extend({
       let component = this;
       component
         .$(
-          '.collection-report-container #report-carousel-wrapper .carousel-control'
+          '.dca-collection-report-container #report-carousel-wrapper .carousel-control'
         )
         .addClass('in-active');
       let collections = component.get('collections');
       let selectedElement = component.$(
-        '.collection-report-container #report-carousel-wrapper .item.active'
+        '.dca-collection-report-container #report-carousel-wrapper .item.active'
       );
       let currentIndex = selectedElement.data('item-index');
       let selectedIndex = selectedElement.data('item-index') - 1;
@@ -74,7 +74,7 @@ export default Ember.Component.extend({
       }
       component.set('selectedCollection', collections.objectAt(selectedIndex));
       component
-        .$('.collection-report-container #report-carousel-wrapper')
+        .$('.dca-collection-report-container #report-carousel-wrapper')
         .carousel('prev');
       component.loadData();
     },
@@ -83,12 +83,12 @@ export default Ember.Component.extend({
       let component = this;
       component
         .$(
-          '.collection-report-container #report-carousel-wrapper .carousel-control'
+          '.dca-collection-report-container #report-carousel-wrapper .carousel-control'
         )
         .addClass('in-active');
       let collections = component.get('collections');
       let selectedElement = component.$(
-        '.collection-report-container #report-carousel-wrapper .item.active'
+        '.dca-collection-report-container #report-carousel-wrapper .item.active'
       );
       let currentIndex = selectedElement.data('item-index');
       let selectedIndex = currentIndex + 1;
@@ -97,57 +97,45 @@ export default Ember.Component.extend({
       }
       component.set('selectedCollection', collections.objectAt(selectedIndex));
       component
-        .$('.collection-report-container #report-carousel-wrapper')
+        .$('.dca-collection-report-container #report-carousel-wrapper')
         .carousel('next');
       component.loadData();
     },
 
-    studentReport(collection, userId, studentPerformance) {
+    studentReport(studentPerformance) {
       let component = this;
-      if (!userId) {
-        userId = component.get('session.userId');
-      }
+      let activityDate = component.get('activityDate');
+      let collection = component.get('selectedCollection');
       let params = {
-        userId: userId,
+        userId: studentPerformance.get('id'),
         classId: component.get('classId'),
-        courseId: component.get('courseId'),
-        unitId: component.get('unit.id'),
-        lessonId: component.get('lesson.id'),
         collectionId: collection.get('id'),
         type: collection.get('format'),
-        lesson: component.get('lesson'),
-        isStudent: component.get('isStudent'),
-        collection,
-        studentPerformance
+        activityDate: activityDate,
+        isStudent: false,
+        studentPerformance: studentPerformance,
+        collection
       };
-      let reportType = params.type;
-      if (reportType === 'assessment-external') {
-        component.set('isShowStudentReport', false);
-        component.set('isShowStudentExternalAssessmentReport', true);
-      } else {
-        component.set('isShowStudentReport', true);
-        component.set('isShowStudentExternalAssessmentReport', false);
-      }
+      component.set('isShowStudentReport', true);
       component.set('studentReportContextData', params);
     },
 
     onClickChart(userId, showReport) {
       if (showReport) {
         let component = this;
-        if (!userId) {
-          userId = component.get('session.userId');
-        }
+        let studentPerformance = component
+          .get('studentReportData')
+          .findBy('id', userId);
+        let activityDate = component.get('activityDate');
         let collection = component.get('selectedCollection');
         let params = {
           userId: userId,
           classId: component.get('classId'),
-          courseId: component.get('courseId'),
-          unitId: component.get('unit.id'),
-          lessonId: component.get('lesson.id'),
           collectionId: collection.get('id'),
           type: collection.get('format'),
-          lesson: component.get('lesson'),
-          isStudent: component.get('isStudent')
+          activityDate: activityDate,
+          studentPerformance: studentPerformance,
+          isStudent: false
         };
         component.set('studentReportContextData', params);
         component.set('isShowStudentReport', true);
@@ -158,10 +146,8 @@ export default Ember.Component.extend({
       let component = this;
       let params = {
         classId: component.get('classId'),
-        courseId: component.get('courseId'),
-        unit: component.get('unit'),
-        lesson: component.get('lesson'),
         collection: component.get('selectedCollection'),
+        activityDate: component.get('activityDate'),
         selectedQuestion: question,
         contents: contents,
         classMembers: component.get('classMembers')
@@ -389,21 +375,23 @@ export default Ember.Component.extend({
   handleScrollToFixHeader() {
     let component = this;
     component
-      .$('.collection-report-container .report-content')
+      .$('.dca-collection-report-container .report-content')
       .scroll(function() {
         let scrollTop = component
-          .$('.collection-report-container .report-content')
+          .$('.dca-collection-report-container .report-content')
           .scrollTop();
         let scrollFixed = component.$(
-          '.collection-report-container .report-content .pull-up-collection-report-listview .on-scroll-fixed'
+          '.dca-collection-report-container .report-content .pull-up-collection-report-listview .on-scroll-fixed'
         );
         let height =
           component
-            .$('.collection-report-container .report-content .report-carousel')
+            .$(
+              '.dca-collection-report-container .report-content .report-carousel'
+            )
             .height() +
           component
             .$(
-              '.collection-report-container .report-content .report-header-container'
+              '.dca-collection-report-container .report-content .report-header-container'
             )
             .height();
         if (scrollTop >= height) {
@@ -421,7 +409,7 @@ export default Ember.Component.extend({
     let selectedCollection = component.get('selectedCollection');
     let selectedIndex = collections.indexOf(selectedCollection);
     component
-      .$('.collection-report-container #report-carousel-wrapper')
+      .$('.dca-collection-report-container #report-carousel-wrapper')
       .carousel(selectedIndex);
   },
 
@@ -506,6 +494,7 @@ export default Ember.Component.extend({
         contents,
         userPerformance
       );
+      user.set('sessionId', userPerformance.get('sessionId'));
       user.set('userPerformanceData', resultSet.userPerformanceData);
       user.set('hasStarted', resultSet.hasStarted);
       user.set('totalTimeSpent', resultSet.totalTimeSpent);
@@ -615,33 +604,33 @@ export default Ember.Component.extend({
     if (collections.length - 1 === 0) {
       component
         .$(
-          '.collection-report-container #report-carousel-wrapper .carousel-control'
+          '.dca-collection-report-container #report-carousel-wrapper .carousel-control'
         )
         .addClass('in-active');
     } else {
       if (currentIndex === 0) {
         component
           .$(
-            '.collection-report-container #report-carousel-wrapper .carousel-control.left'
+            '.dca-collection-report-container #report-carousel-wrapper .carousel-control.left'
           )
           .addClass('in-active');
       } else {
         component
           .$(
-            '.collection-report-container #report-carousel-wrapper .carousel-control.left'
+            '.dca-collection-report-container #report-carousel-wrapper .carousel-control.left'
           )
           .removeClass('in-active');
       }
       if (currentIndex === collections.length - 1) {
         component
           .$(
-            '.collection-report-container #report-carousel-wrapper .carousel-control.right'
+            '.dca-collection-report-container #report-carousel-wrapper .carousel-control.right'
           )
           .addClass('in-active');
       } else {
         component
           .$(
-            '.collection-report-container #report-carousel-wrapper .carousel-control.right'
+            '.dca-collection-report-container #report-carousel-wrapper .carousel-control.right'
           )
           .removeClass('in-active');
       }

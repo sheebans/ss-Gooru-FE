@@ -1,10 +1,13 @@
 <div class="backdrop" {{action 'onPullUpClose'}}></div>
-<div class="question-report-container">
+<div class="dca-question-report-container">
   <div class="report-header">
-    <div class="report-breadcrumb">
+    <div class="report-header-info">
       <div class="collection-title">
         <i class="collection-icon {{collection.format}}"></i>
         <p>{{collection.title}}</p>
+      </div>
+      <div class="dca-activity-date">
+        <span>{{format-date activityDate 'MMMM DD, YYYY'}}</span>
       </div>
     </div>
     <div class="report-close-pullup" {{action 'onPullUpClose'}}>
