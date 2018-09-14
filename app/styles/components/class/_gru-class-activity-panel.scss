@@ -120,6 +120,10 @@
       display: inline-grid;
       grid-template-columns: 1fr 53px;
       align-items: center;
+      cursor: pointer;
+      &.not-started {
+        pointer-events: none;
+      }
 
       .dca-panel-actions {
         display: inline-flex;

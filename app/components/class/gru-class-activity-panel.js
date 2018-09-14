@@ -46,6 +46,14 @@ export default Ember.Component.extend({
     },
 
     /**
+     * Action will trigger to open teacher dca content report.
+     * @param  {Object} collection
+     */
+    openDcaContentReport(selectedClassActivity) {
+      this.sendAction('openDcaContentReport', selectedClassActivity);
+    },
+
+    /**
      * @function removeClassActivity
      */
     removeClassActivity: function(classActivity) {
@@ -106,7 +114,7 @@ export default Ember.Component.extend({
    * @property {CollectionPerformanceSummary}
    */
   collectionPerformanceSummary: Ember.computed.alias(
-    'classActivity.activityPerformanceSummary.collectionPerformanceSummary'
+    'classActivity.collection.performance'
   ),
 
   /**

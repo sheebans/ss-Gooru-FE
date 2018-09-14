@@ -3,6 +3,7 @@ import PeerAdapter from 'gooru-web/adapters/analytics/peer';
 import PeerSerializer from 'gooru-web/serializers/analytics/peer';
 import CurrentLocationAdapter from 'gooru-web/adapters/analytics/current-location';
 import CurrentLocationSerializer from 'gooru-web/serializers/analytics/current-location';
+import StudentCollectionPerformanceSerializer from 'gooru-web/serializers/performance/student-collection-performance';
 
 export default Ember.Service.extend({
   peerAdapter: null,
@@ -40,6 +41,12 @@ export default Ember.Service.extend({
     this.set(
       'currentLocationSerializer',
       CurrentLocationSerializer.create(Ember.getOwner(this).ownerInjection())
+    );
+    this.set(
+      'studentCollectionPerformanceSerializer',
+      StudentCollectionPerformanceSerializer.create(
+        Ember.getOwner(this).ownerInjection()
+      )
     );
   },
 
@@ -147,10 +154,11 @@ export default Ember.Service.extend({
           collectionType: collectionType
         })
         .then(
-          function(events) {
-            resolve(
-              service.get('analyticsSerializer').normalizeResponse(events)
-            );
+          function(payload) {
+            const assessmentResult = service
+              .get('studentCollectionPerformanceSerializer')
+              .normalizeStudentCollection(payload);
+            resolve(assessmentResult);
           },
           function(error) {
             reject(error);
@@ -356,6 +364,32 @@ export default Ember.Service.extend({
         .then(function(selfReportStatus) {
           resolve(selfReportStatus);
         }, reject);
+    });
+  },
+
+  /**
+   * This Method used to fetch DCA collection/assesssment performance details for the specfic date.
+   * @param  {ClassId} classId        Unique Id of the class
+   * @param  {CollectionId} collectionId   Unique Id of the collection.
+   * @param  {CollectionType} collectionType Type of the collection, it should be collection/assessment.
+   * @param  {String} date           Date format should YYYY-MM-DD
+   */
+  getDCAPerformance(classId, collectionId, collectionType, date) {
+    const service = this;
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      service
+        .get('analyticsAdapter')
+        .getDCAPerformance(classId, collectionId, collectionType, date)
+        .then(
+          function(events) {
+            resolve(
+              service.get('analyticsSerializer').normalizeResponse(events)
+            );
+          },
+          function(error) {
+            reject(error);
+          }
+        );
     });
   }
 });

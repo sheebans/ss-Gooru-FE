@@ -47,7 +47,7 @@
         {{gru-icon name='play_arrow'}}
       {{/if}}
       {{#if (or collectionPerformanceSummary.score collectionPerformanceSummary.timeSpent)}}
-        <span {{action 'onReportClick' session.userId item}} class='visibility-panel pull-right reporticon item-not-visible hidden-xs pointer' data-toggle="tooltip" data-placement="auto">{{gru-icon name='library_books'}}</span>
+        <span {{action 'studentDcaReport'  item collectionPerformanceSummary}} class='visibility-panel pull-right reporticon item-not-visible hidden-xs pointer' data-toggle="tooltip" data-placement="auto">{{gru-icon name='library_books'}}</span>
       {{/if}}
     </div>
 

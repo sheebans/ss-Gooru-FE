@@ -118,6 +118,29 @@ export default Ember.Object.extend({
     return Ember.$.ajax(url, options);
   },
 
+  /**
+   * This Method used to fetch DCA collection/assesssment performance details for the specfic date.
+   * @param  {ClassId} classId        Unique Id of the class
+   * @param  {CollectionId} collectionId   Unique Id of the collection.
+   * @param  {CollectionType} collectionType Type of the collection, it should be collection/assessment.
+   * @param  {String} date           Date format should YYYY-MM-DD
+   */
+  getDCAPerformance(classId, collectionId, collectionType, date) {
+    const adapter = this;
+    const namespace = this.get('namespace');
+    const url = `${namespace}/dca/class/${classId}/${collectionType}/${collectionId}/performance`;
+    const options = {
+      type: 'GET',
+      headers: adapter.defineHeaders(),
+      data: {
+        date,
+        startDate: date,
+        endDate: date
+      }
+    };
+    return Ember.$.ajax(url, options);
+  },
+
   defineHeaders: function() {
     return {
       Authorization: `Token ${this.get('session.token-api3')}`

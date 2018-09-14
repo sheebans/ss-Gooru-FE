@@ -116,41 +116,6 @@ export default Ember.Service.extend({
         });
     });
   },
-  /**
-   * Gets all class activity for the authorized user (student|teacher)
-   *
-   * @param {string} classId
-   * @param {string} contentType collection|assessment|resource|question
-   * @param {Date} startDate optional start date, default is now
-   * @param {Date} endDate optional end date, default is now
-   * @returns {Promise.<ClassActivity[]>}
-   */
-  findClassActivitiesDCA: function(
-    classId,
-    contentType = undefined,
-    startDate = new Date(),
-    endDate = new Date()
-  ) {
-    const service = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      service
-        .get('classActivityAdapter')
-        .findClassActivities(classId, contentType, startDate, endDate)
-        .then(function(payload) {
-          const classActivities = service
-            .get('classActivitySerializer')
-            .normalizeFindClassActivities(payload);
-          service
-            .findClassActivitiesPerformanceSummaryDCA(
-              classId,
-              classActivities,
-              startDate,
-              endDate
-            )
-            .then(resolve, reject);
-        });
-    });
-  },
 
   /**
    * Gets all class activity for the authorized user (student|teacher)
@@ -323,114 +288,14 @@ export default Ember.Service.extend({
             .objectAt(0);
 
           if (classActivity) {
-            classActivity.set('activityPerformanceSummary', performance);
-          }
-        });
-
-        resolve(classActivities);
-      }, reject);
-    });
-  },
-  /**
-   * Gets all class activity for the authorized user (student|teacher)
-   * @param {string} classId
-   * @param {ClassActivity[]} classActivities
-   * @param {Date} startDate optional start date, default is now
-   * @param {Date} endDate optional end date, default is now
-   * @returns {Promise.<ClassActivity[]>}
-   */
-  findClassActivitiesPerformanceSummaryDCA: function(
-    classId,
-    classActivities,
-    startDate = new Date(),
-    endDate = new Date()
-  ) {
-    const service = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      const assessmentIds = classActivities
-        .filterBy('collection.isAssessment')
-        .mapBy('collection.id');
-      const collectionIds = classActivities
-        .filterBy('collection.isCollection')
-        .mapBy('collection.id');
-      const performanceService = service.get('performanceService');
-      Ember.RSVP.hash({
-        activityCollectionPerformanceSummaryItems: collectionIds.length
-          ? performanceService.findClassActivityPerformanceSummaryByIds(
-            classId,
-            collectionIds,
-            'collection',
-            startDate,
-            endDate
-          )
-          : [],
-        activityAssessmentPerformanceSummaryItems: assessmentIds.length
-          ? performanceService.findClassActivityPerformanceSummaryByIds(
-            classId,
-            assessmentIds,
-            'assessment',
-            startDate,
-            endDate
-          )
-          : []
-      }).then(function(hash) {
-        const activityCollectionPerformanceSummaryItems =
-          hash.activityCollectionPerformanceSummaryItems;
-        const activityAssessmentPerformanceSummaryItems =
-          hash.activityAssessmentPerformanceSummaryItems;
-        classActivities.forEach(function(classActivity) {
-          const collection = classActivity.get('collection');
-
-          if (collection) {
-            let activityPerformanceSummary = null;
-            classActivity.set('activityPerformanceSummary', {});
-            if (collection.get('isAssessment')) {
-              activityAssessmentPerformanceSummaryItems.forEach(function(
-                performance
-              ) {
-                var effectiveDate = new Date(classActivity.date);
-                var endDate = new Date(performance.date);
-                if (
-                  effectiveDate.getDay() === endDate.getDay() &&
-                  effectiveDate.getMonth() === endDate.getMonth() &&
-                  effectiveDate.getFullYear() === endDate.getFullYear()
-                ) {
-                  if (
-                    performance.get(
-                      'collectionPerformanceSummary.collectionId'
-                    ) === collection.get('id')
-                  ) {
-                    activityPerformanceSummary = performance;
-                  }
-                }
-              });
-            } else {
-              activityCollectionPerformanceSummaryItems.forEach(function(
-                performance
-              ) {
-                var effectiveDate = new Date(classActivity.date);
-                var endDate = new Date(performance.date);
-                if (
-                  effectiveDate.getDay() === endDate.getDay() &&
-                  effectiveDate.getMonth() === endDate.getMonth() &&
-                  effectiveDate.getFullYear() === endDate.getFullYear()
-                ) {
-                  if (
-                    performance.get(
-                      'collectionPerformanceSummary.collectionId'
-                    ) === collection.get('id')
-                  ) {
-                    activityPerformanceSummary = performance;
-                  }
-                }
-              });
-            }
-            classActivity.set(
-              'activityPerformanceSummary',
-              activityPerformanceSummary
+            let performanceData = performance.get(
+              'collectionPerformanceSummary'
             );
+            performanceData.set('hasStarted', true);
+            classActivity.set('collection.performance', performanceData);
           }
         });
+
         resolve(classActivities);
       }, reject);
     });

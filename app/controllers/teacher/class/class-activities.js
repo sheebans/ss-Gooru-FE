@@ -53,6 +53,34 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
     },
 
     /**
+     * Action will trigger to open teacher dca content report.
+     * @param  {Object} collection
+     */
+    openDcaContentReport(selectedClassActivity) {
+      let controller = this;
+      let collection = selectedClassActivity.get('collection');
+      let activityDate = selectedClassActivity.get('added_date');
+      let dateWiseClassActivity = controller
+        .get('classActivities')
+        .findBy('added_date', activityDate);
+      let dateWiseClassActivities = dateWiseClassActivity.get(
+        'classActivities'
+      );
+      let collections = dateWiseClassActivities.map(classActivity => {
+        return classActivity.get('collection');
+      });
+      let params = {
+        classId: controller.get('classId'),
+        collection: collection,
+        collections: collections,
+        activityDate: activityDate,
+        classMembers: controller.get('members')
+      };
+      controller.set('showDcaCollectionReportPullUp', true);
+      controller.set('dcaCollectionReportData', params);
+    },
+
+    /**
      * Update the  content data to  class activities
      * @param  {Object} content
      * @param  {Date} addedDate
@@ -157,7 +185,16 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
      * Triggered when a close welcome panel button is selected.
      */
     toggleHeader: function() {
-      this.set('showWelcome', false);
+      let controller = this;
+      Ember.$('.controller.teacher.class.class-activities .welcome').slideUp(
+        400,
+        function() {
+          Ember.$(
+            '.controller.teacher.class.class-activities .dca-content-list-container'
+          ).css('height', 'calc(100vh - 180px)');
+          controller.handleShowActionBar();
+        }
+      );
     },
 
     /**
@@ -181,6 +218,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
    * @type {Boolean}
    */
   showSearchContentPullup: false,
+
+  /**
+   * Maintains the state of show dca collection report pull up
+   * @type {Boolean}
+   */
+  showDcaCollectionReportPullUp: false,
 
   /**
    * Contains classActivity objects

@@ -1,0 +1,315 @@
+.reports.pull-up-dca-student-collection-report {
+  position: fixed;
+  top: 0;
+  height: 90vh;
+  top: 100%;
+  z-index: 99999;
+  background: #fff;
+  width: 768px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+
+  .backdrop {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    cursor: pointer;
+    opacity: 0.8;
+    background-color: #000;
+  }
+
+  .loading-spinner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+  }
+
+  .backdrop-pull-ups {
+    .backdrop {
+      background: none !important;
+    }
+  }
+
+  .close {
+    display: none !important;
+  }
+
+  .pullup-close {
+    position: absolute;
+    right: 2%;
+    top: 5%;
+    background: #fff;
+    width: 63px;
+    text-align: center;
+    cursor: pointer;
+    height: 56px;
+
+    i {
+      font-size: 35px;
+      margin-left: -105px;
+    }
+
+    div {
+      line-height: 1px;
+    }
+  }
+
+  .user-course-info {
+    width: 100%;
+    display: inline-block;
+    height: 130px;
+    border-bottom: 1px solid #dfe3e6;
+    background: #ffffff;
+
+    .user-profile-info {
+      margin: 0 auto;
+
+      .profile {
+        padding: 8px;
+
+        .img-container {
+          width: 110px;
+          height: 110px;
+          overflow: hidden;
+          border-radius: 50px;
+          margin-left: 15px;
+          margin-right: 15px;
+        }
+      }
+    }
+
+    .assessment-name {
+      font-size: 16px;
+    }
+
+    .information {
+      margin: 0;
+      height: 30px;
+      font-size: $font-size-h6;
+      display: table;
+
+      i {
+        vertical-align: middle;
+        margin: 0 5px 0 0;
+      }
+
+      span {
+        font-size: 13px;
+      }
+
+      .attempt {
+        margin: 0 3px 0 0;
+
+        .attempt-selector {
+          display: inline-block;
+
+          .current-attempt {
+            display: inline-block;
+
+            button {
+              line-height: 1;
+
+              .caret {
+                margin-left: 10px;
+              }
+              color: $gray;
+            }
+          }
+        }
+      }
+
+      .date {
+        margin: 0 2px 0 0;
+      }
+
+      .time {
+        margin: 0 5px 0 0;
+      }
+
+      .attempt,
+      .date,
+      .reaction,
+      .time {
+        @media (max-width: $screen-xs) {
+          display: block;
+          margin: 0 0 10px;
+        }
+        @media (max-width: $screen-md) {
+          margin: 0 10px 0 0;
+        }
+      }
+    }
+
+    .class-performance {
+      width: 85%;
+
+      .trophy {
+        text-transform: capitalize;
+        font-size: 16px;
+        display: inherit;
+        font-weight: 400;
+      }
+
+      .student-name {
+        text-transform: capitalize;
+        font-size: 14px;
+        display: inherit;
+        font-weight: 600;
+      }
+    }
+
+    .close {
+      display: grid;
+      width: 10%;
+
+      .clear-button {
+        font-size: 30px;
+        color: #cbd2d7;
+        margin-left: 27px;
+      }
+
+      .text {
+        text-transform: uppercase;
+        font-size: 13px;
+        font-weight: 500;
+        text-align: center;
+      }
+    }
+
+    .course {
+      margin-top: -50px;
+    }
+
+    .report {
+      margin-top: -85px;
+    }
+
+    .performance {
+      width: 65%;
+      display: inherit;
+
+      .progress {
+        height: 12px;
+
+        .progress-bar:last-child:before {
+          height: auto;
+        }
+      }
+
+      .student {
+        width: 100%;
+
+        .student-performance {
+          width: 92%;
+          float: left;
+
+          .progress {
+            background-color: transparent;
+            position: initial;
+            margin-bottom: 6px;
+
+            .progress-bar {
+              border-bottom-right-radius: 5px;
+              border-top-right-radius: 5px;
+            }
+          }
+        }
+
+        .score-text {
+          margin-left: 3px;
+          width: 55px;
+          position: absolute;
+          display: inline-block;
+          line-height: 1;
+        }
+      }
+
+      .class {
+        width: 100%;
+        display: flex;
+        height: 10px;
+
+        .class-performance {
+          width: 92%;
+          float: left;
+
+          .progress {
+            background-color: transparent;
+            position: initial;
+            margin-bottom: 0;
+
+            .progress-bar {
+              border-bottom-right-radius: 5px;
+              border-top-right-radius: 5px;
+            }
+          }
+        }
+
+        .score-text {
+          margin-left: 3px;
+          width: 55px;
+          position: absolute;
+          display: inline-block;
+          line-height: 1;
+        }
+      }
+
+      .class-average {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: capitalize;
+      }
+    }
+
+    .rescope-toggle {
+      .action {
+        display: flex;
+
+        span {
+          font-size: 15px;
+          color: $gray-base;
+        }
+
+        .gru-toggle-button {
+          margin-top: 7px;
+        }
+      }
+
+      .info {
+        color: $bluish-gray;
+        font-style: italic;
+      }
+    }
+  }
+
+  .reports.gru-assessment-report {
+    max-height: calc(90vh - 130px);
+    height: calc(90vh - 130px);
+    overflow-y: auto;
+
+    .desc-align {
+      position: relative !important;
+    }
+  }
+
+  .dca-report-panel-container {
+    background: #ffffff !important;
+    width: 768px;
+    max-height: 90vh;
+    height: 90vh;
+
+    .reports.assessment.gru-questions
+      .summary-report-questions
+      .questions-header {
+      margin-right: 25px;
+    }
+  }
+}

@@ -2,7 +2,7 @@
   <div class="dca-title">
     <p>{{t 'teacher-landing.class.class-activities'}}</p>
   </div>
-  <div class="panel panel-default panel-primary welcome {{if showWelcome 'visible' 'hidden'}}">
+  <div class="panel panel-default panel-primary welcome">
     <div class="panel-body">
       <div class="description">{{t "teacher-landing.class.class-activities-tab.welcome-dca"}}</div>
       <div class="close">
@@ -101,6 +101,7 @@
               showDcaAddButton=false
               onChangeVisibility='changeVisibility'
               onRemoveClassActivity='removeClassActivity'
+              openDcaContentReport='openDcaContentReport'
             }}
             {{/each}}
           </div>
@@ -130,6 +131,7 @@
               onChangeVisibility='changeVisibility'
               onRemoveClassActivity='removeClassActivity'
               addedContentToDCA='addedContentToDCA'
+              openDcaContentReport='openDcaContentReport'
             }}
             {{/each}}
           </div>
@@ -173,4 +175,8 @@
   addedContentToDCA="addedContentToDCA"
   context=courseMapContextParams
   }}
+{{/if}}
+
+{{#if showDcaCollectionReportPullUp}}
+  {{reports.pull-up.dca-collection-report context=dcaCollectionReportData showPullUp=showDcaCollectionReportPullUp}}
 {{/if}}

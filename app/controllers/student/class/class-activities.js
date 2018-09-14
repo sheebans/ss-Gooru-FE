@@ -2,8 +2,6 @@ import Ember from 'ember';
 import { formatDate } from 'gooru-web/utils/utils';
 import ModalMixin from 'gooru-web/mixins/modal';
 import SessionMixin from 'gooru-web/mixins/session';
-import AssessmentResult from 'gooru-web/models/result/assessment';
-import { ASSESSMENT_SHOW_VALUES } from 'gooru-web/config/config';
 
 /**
  * Class activities controller
@@ -15,12 +13,11 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   // -------------------------------------------------------------------------
   // Dependencies
 
-  classController: Ember.inject.controller('student.class'),
   /**
-   * Class id
-   * @property {String}
+   * Read the class data from the parent student class controller
+   * @property {Object}
    */
-  members: Ember.computed.alias('classController.class.members'),
+  classController: Ember.inject.controller('student.class'),
 
   /**
    * @requires service:api-sdk/class-activity
@@ -33,70 +30,22 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
   // -------------------------------------------------------------------------
   // Actions
   actions: {
-    /**
-     * @function actions:selectRowHeader
-     * @param {string} headerId
-     */
-    selectRowHeader: function(studentId, userObj, reportData, assessment) {
-      Ember.Logger.debug(
-        `Class assessment rioieport: student with ID ${studentId} was selected`
-      );
-      let resourceResults = reportData.getResultsByStudent(studentId);
-      Ember.Logger.info('resourceResults--', resourceResults);
-      resourceResults.forEach(function(resourceResult) {
-        let resource = Ember.get(assessment, 'children').findBy(
-          'id',
-          Ember.get(resourceResult, 'resourceId')
-        );
-        Ember.set(resourceResult, 'resource', resource);
-      });
-
-      let assessmentResult = AssessmentResult.create({
-        totalAttempts: 1,
-        selectedAttempt: 1,
-        resourceResults: resourceResults,
-        collection: assessment,
-        isRealTime: this.get('isRealTime'),
-        showAttempts: this.get('showAttempts'),
-        isTeacher: false
-      });
-      assessmentResult.reopen({
-        areAnswersHidden: Ember.computed(
-          'collection.isAssessment',
-          'collection.showFeedback',
-          function() {
-            return (
-              this.get('collection.isAssessment') &&
-              this.get('collection.showFeedback') ===
-                ASSESSMENT_SHOW_VALUES.NEVER
-            );
-          }
-        ),
-
-        isAnswerKeyHidden: Ember.computed(
-          'collection.isAssessment',
-          'collection.showKey',
-          function() {
-            return (
-              this.get('collection.isAssessment') &&
-              !this.get('collection.showKey')
-            );
-          }
-        )
-      });
-
-      let modalModel = {
-        assessmentResult: assessmentResult,
-        profile: userObj
+    studentDcaReport(collection, studentPerformance) {
+      let component = this;
+      let userId = component.get('session.userId');
+      let activityDate = moment().format('YYYY-MM-DD');
+      let params = {
+        userId: userId,
+        classId: component.get('class.id'),
+        collectionId: collection.get('id'),
+        type: collection.get('format'),
+        isStudent: true,
+        collection,
+        activityDate,
+        studentPerformance
       };
-      this.actions.showModal.call(
-        this,
-        'reports.gru-assessment-report',
-        modalModel,
-        null,
-        'gru-assessment-report-modal',
-        true
-      );
+      component.set('showStudentDcaReport', true);
+      component.set('studentReportContextData', params);
     }
   },
 
@@ -105,6 +54,12 @@ export default Ember.Controller.extend(SessionMixin, ModalMixin, {
 
   // -------------------------------------------------------------------------
   // Properties
+
+  /**
+   * It maintains the list of class members details
+   * @type {Array}
+   */
+  members: Ember.computed.alias('classController.class.members'),
 
   /**
    * Contains classActivity objects
