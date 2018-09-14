@@ -1,0 +1,24 @@
+<div class="class-grade-container">
+  <div class="info">
+    You are in...
+  </div>
+  <div class="grades-container">
+    {{#each gradeLevels as |grade|}}
+      <div class="grade-container level-{{grade}} {{if (eq grade gradeLevel) 'class-grade'}}">
+        <div class="grade-info">
+          <div class="title">
+            Grade
+          </div>
+          <div class="level">
+            {{grade}}
+          </div>
+        </div>
+        {{#if (eq grade gradeLevel)}}
+          <div class="next" {{action "onMoveNext" 'grade'}}>
+            Next
+          </div>
+        {{/if}}
+      </div>
+    {{/each}}
+  </div>
+</div>

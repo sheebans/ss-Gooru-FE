@@ -1,0 +1,18 @@
+<div class="chart-container">
+  <div class="scrollable-chart">
+    <div id="student-inspect-competency-chart"></div>
+  </div>
+  <div class="domain-sequence" style="width:{{width}}px">
+    {{#each taxonomyDomains as |taxonomyDomain index |}}
+      <li class="domain-counts" title="{{taxonomyDomain.domainName}}" data-toggle="tooltip">
+        {{taxonomyDomain.domainSeq}}
+      </li>
+    {{/each}}
+  </div>
+</div>
+
+{{#if isLoading}}
+  <div class="loading-spinner">
+    {{three-bounce-spinner}}
+  </div>
+{{/if}}

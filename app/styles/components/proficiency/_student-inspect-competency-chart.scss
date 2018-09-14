@@ -1,0 +1,87 @@
+.student-inspect-competency-chart {
+  margin: 0 auto;
+  .three-bounce-spinner {
+    position: absolute;
+    left: 33%;
+    z-index: 9;
+  }
+
+  .clear {
+    clear: both;
+  }
+
+  .chart-container {
+
+    .scrollable-chart {
+      height: 80vh;
+      overflow-y: auto;
+      width: max-content;
+
+      &::-webkit-scrollbar {
+        height: 6px;
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $gray-light;
+        border: 1px solid $gray-light;
+        border-radius: 5px;
+      }
+
+      #student-inspect-competency-chart {
+        margin-bottom: 20px;
+        position: relative;
+        transform: rotateX(180deg);
+        -webkit-transition: -webkit-transform 0.6s ease-in;
+        transition: transform 0.6s ease-in;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+
+        .competency {
+          stroke: $snow-gray;
+          stroke-width: 1;
+          shape-rendering: crispedges;
+          stroke-opacity: 0.4;
+          cursor: pointer;
+        }
+
+        #skyline-container {
+          line {
+            stroke: $white;
+            stroke-width: 6px;
+          }
+        }
+
+        #baseline-container {
+          line {
+            stroke: $dark-400;
+            stroke-width: 2px;
+          }
+        }
+
+        .skyline {
+          transition-property: visibility, opacity;
+          transition-duration: 0s, 1s;
+        }
+
+        .course-covered-line {
+          stroke: #010518;
+          stroke-width: 2px;
+        }
+      }
+    }
+
+    .domain-sequence {
+      display: inline-block;
+
+      .domain-counts {
+        float: left;
+        display: inline-block;
+        width: 30px;
+        text-align: center;
+        margin-top: 0;
+        cursor: pointer;
+      }
+    }
+  }
+}

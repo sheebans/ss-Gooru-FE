@@ -16,6 +16,8 @@ export default Ember.Controller.extend({
    */
   competencyService: Ember.inject.service('api-sdk/competency'),
 
+  studentClassController: Ember.inject.controller('student.class'),
+
   // -------------------------------------------------------------------------
   // Actions
   actions: {
@@ -178,5 +180,10 @@ export default Ember.Controller.extend({
    * @property {Boolean}
    * Property to show/hide competency content report
    */
-  isShowCompetencyContentReport: false
+  isShowCompetencyContentReport: false,
+
+  /**
+   * @property {Boolean} isShowNavigatorLanding
+   */
+  isShowNavigatorLanding: Ember.computed.alias('studentClassController.isShowNavigatorLanding')
 });
