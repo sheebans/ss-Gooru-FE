@@ -229,9 +229,15 @@ export default Ember.Component.extend({
   validateFractionScore(score, maxScore) {
     let isValidFractionScore = false;
     if (!(isNaN(score)) && !(isNaN(maxScore))) {
+      let isIntegerTypeScore = score.indexOf('.');
+      let isIntegerTypeMaxScore = maxScore.indexOf('.');
       score = parseFloat(score);
       maxScore = parseFloat(maxScore);
-      if (maxScore > 0 && score < maxScore) {
+      let isPositiveScore = score >= 0;
+      let isNotExceedsLimit = maxScore >= 1 && maxScore <= 100;
+      let isValidScore = score <= maxScore;
+      let isIntegerNumber = isIntegerTypeScore === -1 && isIntegerTypeMaxScore === -1;
+      if (isValidScore && isNotExceedsLimit && isPositiveScore && isIntegerNumber) {
         isValidFractionScore = true;
       }
     }
