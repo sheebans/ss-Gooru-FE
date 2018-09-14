@@ -63,10 +63,10 @@ export default Ember.Object.extend({
         var lessons = [];
         if (payload.lesson_summary) {
           lessons = payload.lesson_summary.map(function(lessonData) {
+            let assessmentCount = lessonData.assessment_count ? lessonData.assessment_count : 0;
+            let externalAssessmentCount = lessonData.external_assessment_count ? lessonData.external_assessment_count : 0;
             return Lesson.create(Ember.getOwner(serializer).ownerInjection(), {
-              assessmentCount: lessonData.assessment_count
-                ? lessonData.assessment_count
-                : 0,
+              assessmentCount: assessmentCount + externalAssessmentCount,
               collectionCount: lessonData.collection_count
                 ? lessonData.collection_count
                 : 0,
