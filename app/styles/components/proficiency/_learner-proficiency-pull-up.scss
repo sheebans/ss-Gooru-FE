@@ -110,8 +110,6 @@
       }
 
       .proficiency-tags {
-        float: right;
-
         .last-updated {
           text-align: right;
           margin-top: 15px;
@@ -120,7 +118,8 @@
         }
 
         .proficiency-legends {
-          margin-top: 15px;
+          margin: 15px auto auto;
+          width: max-content;
           display: flex;
 
           .legend {

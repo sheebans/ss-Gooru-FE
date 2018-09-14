@@ -100,18 +100,16 @@
   }
 
   .proficiency-tags {
-    float: right;
-
     .last-updated {
-      text-align: right;
+      text-align: center;
       margin-top: 15px;
-      margin-right: 30px;
       font-size: 12px;
     }
 
     .proficiency-legends {
-      margin-top: 15px;
+      margin: 15px auto auto;
       display: flex;
+      width: max-content;
 
       .legend {
         display: flex;
