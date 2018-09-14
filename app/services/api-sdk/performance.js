@@ -765,8 +765,7 @@ export default Ember.Service.extend({
     activityIds,
     activityType,
     startDate = new Date(),
-    endDate = new Date(),
-    aggregate = true
+    endDate = new Date()
   ) {
     const service = this;
     return service
@@ -783,11 +782,7 @@ export default Ember.Service.extend({
         const activities = service
           .get('activityPerformanceSummarySerializer')
           .normalizeAllActivityPerformanceSummary(data);
-        if (aggregate) {
-          return aggregateClassActivityPerformanceSummaryItems(activities);
-        } else {
-          return activities;
-        }
+        return aggregateClassActivityPerformanceSummaryItems(activities);
       });
   },
 
