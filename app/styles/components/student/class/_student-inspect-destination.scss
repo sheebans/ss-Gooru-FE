@@ -1,0 +1,169 @@
+.student-inspect-destination {
+  .inspect-destination-container {
+    display: grid;
+    grid-template-columns: auto 650px;
+    height: calc(100vh - 63px);
+    justify-content: center;
+    overflow-x: auto;
+    .destination-chart-container {
+      margin-right: 30px;
+    }
+    .course-container {
+      width: 99%;
+      display: grid;
+      margin-top: 30px;
+      .course-info {
+        height: 84px;
+        background-color: $white;
+        box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.3);
+        display: grid;
+        grid-template-columns: 82px auto;
+        .course-thumbnail {
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        .course-title {
+          font-size: 16px;
+          font-weight: bold;
+          color: #4990e2;
+          margin-left: 30px;
+          position: relative;
+          .direction-icon {
+            width: 58px;
+            height: 57px;
+            position: absolute;
+            top: -26px;
+            right: 50px;
+            background-color: #4a8cdb;
+            color: $white;
+            border-radius: 50%;
+            text-align: center;
+            border: none;
+            box-shadow: 0px 1px 6px 3px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            i {
+              line-height: 57px;
+            }
+          }
+          .content-count {
+            .unit-count {
+              display: grid;
+              grid-template-columns: auto auto;
+              width: 30px;
+              align-items: center;
+              position: absolute;
+              bottom: 10px;
+              right: 60px;
+
+              i {
+                background-image: url("gooru/images/unit.svg");
+                width: 15px;
+                height: 15px;
+                background-size: 15px;
+                background-repeat: no-repeat;
+                display: block;
+              }
+              .count {
+                font-size: 13px;
+                color: #4a4a4a;
+              }
+            }
+          }
+        }
+      }
+      .course-description {
+        background-color: $white;
+        font-size: 15px;
+        color: #525659;
+        line-height: 23px;
+        div {
+          width: 90%;
+          margin: auto;
+        }
+      }
+      .route0-container {
+        background-color: $white;
+        margin-bottom: 30px;
+        margin-top: 3px;
+        box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.3);
+        .route0-comment {
+          display: grid;
+          grid-template-columns: 85px auto;
+          align-items: center;
+          padding-bottom: 8px;
+          padding-top: 8px;
+          cursor: pointer;
+          .suggestion-icon {
+            align-items: center;
+            border-right: 1px solid #d7d7d7;
+            i {
+              font-size: 50px;
+              margin-left: 15px;
+            }
+            color: $orange-400;
+          }
+          .suggestion-note {
+            margin: 0 15px;
+            font-size: 16px;
+            color: #37424b;
+            line-height: 19px;
+          }
+        }
+        .route0-accordion-container {
+          border-top: 1px solid #d7d7d7;
+          .gru-accordion-course {
+            padding-top: 0;
+            border-bottom: 1px solid #d7d7d7;
+            .gru-accordion-unit {
+              .unit {
+                padding-left: 7px !important;
+              }
+            }
+          }
+        }
+        .route0-action {
+          height: 65px;
+          display: grid;
+          grid-template-columns: auto auto;
+          align-items: center;
+          padding-bottom: 8px;
+          padding-top: 8px;
+          justify-content: end;
+          .accept {
+            background-color: $orange-400;
+            width: 100px;
+            height: 30px;
+            border-radius: 3px;
+            background-color: #ef8f2f;
+            box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+            color: $white;
+            line-height: 30px;
+            text-align: center;
+            margin: 0 10px;
+            cursor: pointer;
+            i  {
+              font-size: 15px;
+            }
+          }
+          .ignore {
+            width: 86px;
+            height: 30px;
+            border-radius: 3px;
+            background-color: #b8bfc4;
+            box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+            color: $white;
+            line-height: 30px;
+            text-align: center;
+            margin-right: 30px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+  .loading-spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+  }
+}

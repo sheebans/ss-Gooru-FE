@@ -1,78 +1,82 @@
-{{#if class.courseId}}
-
-  <div class="controller student course-map">
-    <div class="actions">
-      <span class="min-score {{unless class.minScore 'hidden'}}">
-        <i></i> > {{class.minScore}} %</span>
-      <button {{action "locateMe" userLocation}} title="{{t 'class.overview.locate'}}" class="btn btn-info locate" data-toggle="tooltip"
-        data-placement="auto">
-        <span>{{gru-icon name='near_me'}}</span>
-      </button>
-    </div>
-    {{#if hasRouteSuggestion}}
-    <h5>Pre-study for your course</h5>
-    {{!-- ToDo: Move css out of HBS --}}
-      {{class.overview.routesuggestion-preview route0=route0 routeSuggestAction=(action 'courseRouteSuggestAction' ) class=currentClass course=course }}
-    {{/if}}
-    {{#if showRoute0Suggestion}}
-    <h5>Pre-study for your course</h5>
-      {{class.overview.routesuggestion-coursemap route0=route0  
-       onLocationUpdate=(action 'updateUserLocation')
-      userLocation=userLocation 
-      location=openingLocation 
-
-      class=class 
-      course=course 
-      routeSuggestAction=(action 'courseRouteSuggestAction') 
-      onStudyNow=(action 'studyCoursePlayer' ) }}
-    {{/if}}
-
-    <h5>Your assigned course</h5>
-
-    <div class="rescope-section">
-      {{#if isPremiumClass}}
-        <div class="rescope-toggle" style="display:flex">
-          <div class="info" style="/*line-height: 67px*/;align-self: flex-start;width: 73%;">
-            <span>{{t 'class.overview.course-map.rescope-info'}}</span>
-          </div>
-          <div class="action" style=" /*border: .2px solid red;*/ text-align: center; ">
-            <span>{{t 'class.overview.course-map.rescope-toggle'}}</span>
-            {{gru-toggle-button isChecked=isChecked onToggleButton="onToggleRescope" }}
-          </div>
-        </div>
-        {{#if (not isContentAvailable)}}
-          <div class="custom-msg">
-            <span>
-              {{t 'class.overview.course-map.custom-msg'}}
-            </span>
-            <span {{action "onClearCustomizeMsg"}}>
-              {{gru-icon name="clear"}}
-            </span>
-          </div>
-        {{/if}}
-      {{/if}}
-    </div>
-
-
-
-    {{class.overview.gru-accordion-course
-    currentClass=class
-    classMembers=classMembers
-    onSelectResource="playResource"
-    onStudyNow="studyPlayer"
-    onLocationUpdate=(action 'updateLocation')
-    userLocation=userLocation
-    location=openingLocation
-    units=units
-    contentVisibility=contentVisibility
-    showLocation=showLocation
-    isTeacher=false
-    isStudent=true
-    toggleLocation=toggleLocation
-    onSelectItem="onSelectItem"}}
-  </div>
+{{#if isShowNavigatorLanding}}
+  {{student.class.student-class-landing classData=class courseData=course}}
 {{else}}
-  <div class="no-content">{{t 'student-landing.no-content-classrooms'}}</div>
+    {{#if class.courseId}}
+
+      <div class="controller student course-map">
+        <div class="actions">
+          <span class="min-score {{unless class.minScore 'hidden'}}">
+            <i></i> > {{class.minScore}} %</span>
+          <button {{action "locateMe" userLocation}} title="{{t 'class.overview.locate'}}" class="btn btn-info locate" data-toggle="tooltip"
+            data-placement="auto">
+            <span>{{gru-icon name='near_me'}}</span>
+          </button>
+        </div>
+        {{#if hasRouteSuggestion}}
+        <h5>Pre-study for your course</h5>
+        {{!-- ToDo: Move css out of HBS --}}
+          {{class.overview.routesuggestion-preview route0=route0 routeSuggestAction=(action 'courseRouteSuggestAction' ) class=currentClass course=course }}
+        {{/if}}
+        {{#if showRoute0Suggestion}}
+        <h5>Pre-study for your course</h5>
+          {{class.overview.routesuggestion-coursemap route0=route0
+           onLocationUpdate=(action 'updateUserLocation')
+          userLocation=userLocation
+          location=openingLocation
+
+          class=class
+          course=course
+          routeSuggestAction=(action 'courseRouteSuggestAction')
+          onStudyNow=(action 'studyCoursePlayer' ) }}
+        {{/if}}
+
+        <h5>Your assigned course</h5>
+
+        <div class="rescope-section">
+          {{#if isPremiumClass}}
+            <div class="rescope-toggle" style="display:flex">
+              <div class="info" style="/*line-height: 67px*/;align-self: flex-start;width: 73%;">
+                <span>{{t 'class.overview.course-map.rescope-info'}}</span>
+              </div>
+              <div class="action" style=" /*border: .2px solid red;*/ text-align: center; ">
+                <span>{{t 'class.overview.course-map.rescope-toggle'}}</span>
+                {{gru-toggle-button isChecked=isChecked onToggleButton="onToggleRescope" }}
+              </div>
+            </div>
+            {{#if (not isContentAvailable)}}
+              <div class="custom-msg">
+                <span>
+                  {{t 'class.overview.course-map.custom-msg'}}
+                </span>
+                <span {{action "onClearCustomizeMsg"}}>
+                  {{gru-icon name="clear"}}
+                </span>
+              </div>
+            {{/if}}
+          {{/if}}
+        </div>
+
+
+
+        {{class.overview.gru-accordion-course
+        currentClass=class
+        classMembers=classMembers
+        onSelectResource="playResource"
+        onStudyNow="studyPlayer"
+        onLocationUpdate=(action 'updateLocation')
+        userLocation=userLocation
+        location=openingLocation
+        units=units
+        contentVisibility=contentVisibility
+        showLocation=showLocation
+        isTeacher=false
+        isStudent=true
+        toggleLocation=toggleLocation
+        onSelectItem="onSelectItem"}}
+      </div>
+    {{else}}
+      <div class="no-content">{{t 'student-landing.no-content-classrooms'}}</div>
+    {{/if}}
 {{/if}}
 
 {{#if showCourseReport}}

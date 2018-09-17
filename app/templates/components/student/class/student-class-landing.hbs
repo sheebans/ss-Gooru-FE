@@ -1,0 +1,7 @@
+{{#if isShowGradeLevel}}
+  {{student.class.gru-class-grade gradeLevel=classGrade onMoveNext="onMoveNext"}}
+{{else if isShowInspectDestination}}
+  {{student.class.student-inspect-destination classId=classId courseId=courseId courseData=courseData onMoveNext="onMoveNext"}}
+{{else if isShowRoute0Destination}}
+  {{student.class.student-inspect-destination isRoute0=true classId=classId courseId=courseId courseData=courseData onMoveNext="onMoveNext"}}
+{{/if}}

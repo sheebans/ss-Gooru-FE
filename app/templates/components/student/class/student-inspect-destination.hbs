@@ -1,0 +1,54 @@
+<div class="inspect-destination-container">
+  <div class="destination-chart-container">
+    {{proficiency.student-inspect-competency-chart route0Contents=route0Contents isRoute0Chart=isRoute0 classId=classId courseId=courseId}}
+  </div>
+  <div class="course-container">
+    <div class="course-info">
+      <div class="course-thumbnail" style="background-image: url({{courseData.thumbnailUrl}})">
+      </div>
+      <div class="course-title">
+        {{courseData.title}}
+        <div class="direction-icon" {{action "onMoveNext" (if isRoute0 'playNext' 'inspect-destination')}}>
+          {{gru-icon name=(if isRoute0 'near_me' 'directions')}}
+        </div>
+        <div class="content-count">
+          <span class="unit-count" title="Unit"><i class="icon"></i> <span class="count">{{courseData.unitCount}}</span></span>
+        </div>
+      </div>
+    </div>
+    {{#if (and isRoute0Pending isRoute0)}}
+      <div class="route0-container">
+        <div class="route0-comment" {{action "onToggleRoute0View"}}>
+          <div class="suggestion-icon">{{gru-icon name="explore_outline"}}</div>
+          <div class="suggestion-note">As per your competency profile, there are some competencies that you need to master so that you can do well in this course. We have a route that we recommend you take to master these competencies. Click here to see the details.</div>
+        </div>
+        <div class="route0-body" style="display: none;">
+          <div class="route0-accordion-container">
+            {{class.overview.course-suggestions model=route0Contents index=index class=classData course=courseData}}
+          </div>
+          <div class="route0-action">
+            <div class="accept" {{action "onRoute0Reject"}}>
+              Accept All {{gru-icon name="done"}}
+            </div>
+            <div class="ignore" {{action "onRoute0Accept"}}>
+              No, Thanks
+            </div>
+          </div>
+        </div>
+      </div>
+    {{else}}
+      <div class="course-description">
+        <div>{{courseData.description}}</div>
+      </div>
+    {{/if}}
+
+    <div class="course-map-accordion-container">
+      {{student.class.destination.student-destination-course-accordion
+        courseData=courseData
+        classId=classId
+        courseId=courseId
+        isRoute0=isRoute0
+      }}
+    </div>
+  </div>
+</div>

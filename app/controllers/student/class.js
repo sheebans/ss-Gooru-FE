@@ -115,6 +115,17 @@ export default Ember.Controller.extend({
     return scorePercentage !== null && scorePercentage >= 0;
   }),
 
+  isShowNavigatorLanding: Ember.computed('class.currentLocation', function() {
+    let controller = this;
+    let classData = controller.get('class');
+    let currentLocation = classData.get('currentLocation') || null;
+    let setting = classData.get('setting');
+    let isPremiumCourse = setting
+      ? setting['course.premium'] && setting['course.premium'] === true
+      : false;
+    return isPremiumCourse && !currentLocation;
+  }),
+
   // -------------------------------------------------------------------------
   // Methods
 

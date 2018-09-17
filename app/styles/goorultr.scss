@@ -406,3 +406,11 @@ $box-shadow: 1px -1px;
 @import "components/reports/pull-up/domain-competency-report";
 @import "components/reports/pull-up/competency-content-report";
 @import "components/reports/pull-up/accordion/collection-accordion";
+
+
+//Student Nav Math class join landing
+@import "components/student/class/student-class-landing";
+@import "components/student/class/gru-class-grade";
+@import "components/student/class/student-inspect-destination";
+@import "components/proficiency/student-inspect-competency-chart";
+@import "components/student/class/destination/student-destination-course-accordion";
