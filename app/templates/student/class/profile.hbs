@@ -57,6 +57,11 @@
             </div>
           {{/if}}
         </div>
+        {{#if isShowTimeSeries}}
+          <div class="time-series">
+            {{charts.monthly-time-series-chart onSelectMonth="onSelectMonth" startDate=timeSeriesStartDate}}
+          </div>
+        {{/if}}
       </div>
   {{else}}
     <div> {{t 'profile.proficiency.not-tagged'}}
