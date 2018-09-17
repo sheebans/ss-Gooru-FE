@@ -494,7 +494,9 @@ export default Ember.Component.extend({
         contents,
         userPerformance
       );
-      user.set('sessionId', userPerformance.get('sessionId'));
+      if (userPerformance) {
+        user.set('sessionId', userPerformance.get('sessionId'));
+      }
       user.set('userPerformanceData', resultSet.userPerformanceData);
       user.set('hasStarted', resultSet.hasStarted);
       user.set('totalTimeSpent', resultSet.totalTimeSpent);

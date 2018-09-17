@@ -10,13 +10,13 @@
                   <svg width="10" height="100">
                     {{#if chartData.hasStarted}}
                     <rect width="10" height="100" style="fill:#5D666F;" />
-                    {{else}}
-                    <rect width="10" height="100" style="fill:#CCCCCC" />
-                    {{/if}}
                     {{#if useTimeSpentScore}}
                     <rect width="10" height="{{chartData.timeSpentScore}}" y="{{chartData.timeSpentDifference}}" style={{safe-html (concat "fill:" (grade-color chartData.timeSpentScore))}} />
                     {{else}}
                     <rect width="10" height="{{chartData.score}}" y="{{chartData.difference}}" style={{safe-html (concat "fill:" (grade-color chartData.score))}} />
+                    {{/if}}
+                    {{else}}
+                    <rect width="10" height="100" style="fill:#CCCCCC" />
                     {{/if}}
                   </svg>
                 </div>
