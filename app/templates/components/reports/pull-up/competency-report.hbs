@@ -1,5 +1,5 @@
 {{#if showPullUp}}
-<div class="overlay" {{action 'onClosePullUp' true}}></div>
+  <div class="overlay" {{action 'onClosePullUp' true}}></div>
 {{/if}}
 <div class="competency-report">
   <div class="header">
@@ -8,9 +8,11 @@
         <div class="type">
           {{type}}
         </div>
-        <div class="title">
-          {{title}}
-        </div>
+        {{#unless competency}}
+          <div class="title">
+            {{title}}
+          </div>
+        {{/unless}}
       </div>
       {{#if competency}}
         <div class="competency-status">
@@ -20,7 +22,6 @@
             </div>
           {{/if}}
         </div>
-
       {{/if}}
     </div>
     <div class="close-pullup" {{action "onClosePullUp"}}>

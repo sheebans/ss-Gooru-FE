@@ -1,5 +1,6 @@
 .domain-competency-report {
   overflow: hidden;
+
   .individual-domain-competency-report {
     .student-competencies {
       display: flex;
@@ -12,18 +13,23 @@
         &.competency-slider-visible {
           margin-top: 143px;
         }
+
         .name-filter {
           display: flex;
           height: 37px;
-          .last-header, .first-header {
+
+          .first-header,
+          .last-header {
             display: flex;
             width: 50%;
             cursor: pointer;
+
             &.active {
               cursor: default;
             }
           }
         }
+
         .student-info {
           width: 260px;
           min-width: 260px;
@@ -32,6 +38,7 @@
           display: flex;
           height: 39px;
           border-bottom: 1px solid rgba(151, 151, 151, 0.2);
+
           .thumbnail {
             width: 30px;
             height: 30px;
@@ -39,6 +46,7 @@
             background-size: cover;
             margin-bottom: 0;
           }
+
           .name {
             $font-size: 10px;
             $line-height: 1.2;
@@ -46,7 +54,11 @@
             color: #37424b;
             text-transform: capitalize;
             margin: 0 5px;
-            @include ellipsis($font-size: $font-size, $line-height: $line-height, $lines-to-show: $lines-to-show);
+            @include ellipsis(
+              $font-size: $font-size,
+              $line-height: $line-height,
+              $lines-to-show: $lines-to-show
+            );
             line-height: 3.2;
           }
         }
@@ -59,46 +71,49 @@
         .competencies-list {
           max-width: 455px;
           overflow-x: auto;
-          padding-top: 100px;
-
-          &.competency-slider-visible {
-            padding-top: 135px;
-          }
 
           .competency-codes {
+            margin-left: 10px;
             display: flex;
+
             .rotate-vertical {
-              text-align: center;
-              white-space: nowrap;
-              vertical-align: middle;
-              width: 46px;
-              height: 45px;
+              line-height: 1;
+              writing-mode: vertical-rl;
+              height: 180px;
+              min-width: 30px;
+              display: grid;
               font-weight: bold;
-              transform: rotate(-90.0deg);  /* Saf3.1+, Chrome */
-              -moz-transform: rotate(-90.0deg);  /* FF3.5+ */
-              -o-transform: rotate(-90.0deg);  /* Opera 10.5 */
-              -webkit-transform: rotate(-90.0deg);  /* Saf3.1+, Chrome */
-              filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);  /* IE6,IE7 */
-              -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
+              transform: rotate(180deg); /* Saf3.1+, Chrome */
+              -moz-transform: rotate(180deg); /* FF3.5+ */
+              -o-transform: rotate(180deg); /* Opera 10.5 */
+              -webkit-transform: rotate(180deg);
+
+              &:not(:first-child) {
+                margin-left: 16px;
+              }
 
               .code {
                 margin-top: 4px;
               }
+
               .desc {
-                background-color: transparent;
-                margin-top: -10px;
-                font-weight: normal;
-                opacity: 0.7;
+                cursor: default;
+                margin: 4px auto auto;
+                word-spacing: 2px;
+                line-height: 1.2em;
               }
             }
           }
+
           .competencies {
             display: flex;
+
             .competency {
               padding: 0 8px;
               height: 37px;
               margin-top: 6px;
               border-bottom: 1px solid rgba(151, 151, 151, 0.2);
+
               rect {
                 cursor: pointer;
               }
@@ -107,29 +122,34 @@
 
           &::-webkit-scrollbar {
             background: transparent;
-            width: 0px;
+            width: 0;
           }
         }
-        .previous, .next {
+
+        .next,
+        .previous {
           position: absolute;
-          top: 0px;
+          top: 0;
           cursor: pointer;
+
           i {
             font-size: 30px;
           }
+
           &.disabled {
             cursor: default;
             opacity: 0.5;
           }
         }
+
         .previous {
-          left: 0px;
+          left: 0;
         }
+
         .next {
-          right: 0px;
+          right: 0;
         }
       }
-
     }
   }
 }

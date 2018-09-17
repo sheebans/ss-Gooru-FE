@@ -150,7 +150,7 @@
 {{/if}}
 
 {{#if isShowCompetencyContentReport}}
-  {{#reports.pull-up.competency-report type=selectedCompetency.competencyCode title=selectedCompetency.competencyStudentDesc showPullUp=isShowCompetencyContentReport onClosePullUp="onCloseCompetencyReportPullUp" competency=selectedCompetency}}
+  {{#reports.pull-up.competency-report type=selectedCompetency.competencyStudentDesc title=selectedCompetency.competencyStudentDesc showPullUp=isShowCompetencyContentReport onClosePullUp="onCloseCompetencyReportPullUp" competency=selectedCompetency}}
     {{reports.pull-up.competency-content-report competency=selectedCompetency userId=selectedStudentUserId}}
   {{/reports.pull-up.competency-report}}
 {{/if}}

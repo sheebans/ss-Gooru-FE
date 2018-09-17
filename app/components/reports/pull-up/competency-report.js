@@ -73,17 +73,23 @@ export default Ember.Component.extend({
     let component = this;
     component.$().animate(
       {
-        top: '100%'
+        top: '10%'
       },
       400
     );
+  },
+
+  init() {
+    let component = this;
+    component._super(...arguments);
+    this.title = this.title.replace(/\./g, ' | ');
   },
 
   closePullUp(closeAll) {
     let component = this;
     component.$().animate(
       {
-        top: '200%'
+        top: '100%'
       },
       400,
       function() {
